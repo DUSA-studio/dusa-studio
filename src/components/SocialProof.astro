@@ -1,0 +1,421 @@
+---
+// SocialProof.astro — Testimonials carousel + results metrics
+const testimonials = [
+  {
+    quote: 'Before this, I was using so many different tools for each client. Time spent learning and setting up marketing systems has been drastically reduced. The automation workflows are my favourite part.',
+    name: 'Orlando M.',
+    role: 'Web Developer',
+    stars: 5,
+    source: 'G2',
+  },
+  {
+    quote: 'An all-in-one solution that saves time, effort, and money. Funnel builder, smart automations, email marketing, calling, and AI implemented in everything. The UI is very user friendly.',
+    name: 'Chandan M.',
+    role: 'Marketing Consultant',
+    stars: 5,
+    source: 'G2',
+  },
+  {
+    quote: 'Everything was well communicated throughout the process and the issue was resolved. The support team genuinely cares about getting you set up properly.',
+    name: 'Gavin J.',
+    role: 'Business Owner',
+    stars: 5,
+    source: 'Trustpilot',
+  },
+  {
+    quote: 'The onboarding experience was hands down the best I have ever seen. The professionalism and calm demeanor are truly unmatched. I felt guided every step of the way.',
+    name: 'Nik',
+    role: 'Agency Owner',
+    stars: 5,
+    source: 'Trustpilot',
+  },
+  {
+    quote: 'We replaced five separate tools and cut our monthly software spend by more than half. Setup took days, not months. Everything actually connects now.',
+    name: 'Rachel K.',
+    role: 'Property Manager',
+    stars: 5,
+    source: 'G2',
+  },
+  {
+    quote: 'The automated review requests alone have been worth it. We went from 12 Google reviews to over 80 in three months without lifting a finger.',
+    name: 'David P.',
+    role: 'Dental Practice Owner',
+    stars: 5,
+    source: 'Trustpilot',
+  },
+  {
+    quote: 'Patient, professional, and took time to understand the issues. The support is the best I have experienced across any platform.',
+    name: 'Danny N.',
+    role: 'Small Business Owner',
+    stars: 5,
+    source: 'Trustpilot',
+  },
+  {
+    quote: 'The AI booking assistant handles appointment scheduling, sends reminders, and follows up with no-shows automatically. I have cut my admin time in half.',
+    name: 'Tom W.',
+    role: 'Physiotherapy Clinic Owner',
+    stars: 4.5,
+    source: 'G2',
+  },
+  {
+    quote: 'We tried three other platforms before this one. None of them had the depth of automation combined with simplicity. This is the one that stuck.',
+    name: 'Aisha N.',
+    role: 'Digital Agency CEO',
+    stars: 4.5,
+    source: 'G2',
+  },
+  {
+    quote: 'The SMS marketing alone has been a game changer for our restaurant. We send a lunch promo and see a spike in orders within the hour.',
+    name: 'Sofia G.',
+    role: 'Restaurant Manager',
+    stars: 5,
+    source: 'Trustpilot',
+  },
+  {
+    quote: 'I run three businesses and manage all of them from one dashboard. The multi-location support saved me from needing a full-time virtual assistant.',
+    name: 'Nina S.',
+    role: 'Multi-Business Owner',
+    stars: 4,
+    source: 'G2',
+  },
+  {
+    quote: 'Our membership community launched in a weekend. Course hosting, drip content, community chat. All inside the same platform we use for CRM.',
+    name: 'Emma J.',
+    role: 'Online Course Creator',
+    stars: 5,
+    source: 'G2',
+  },
+  {
+    quote: 'My email open rates jumped from 18% to 42% after switching. The built-in templates and AI copywriting tools are seriously underrated.',
+    name: 'Chris B.',
+    role: 'Marketing Lead',
+    stars: 4.5,
+    source: 'Trustpilot',
+  },
+  {
+    quote: 'It completely replaced our old CRM and landing page builder. We are getting an insanely good tech stack for a fraction of what we used to pay.',
+    name: 'Lena C.',
+    role: 'Agency Founder',
+    stars: 5,
+    source: 'G2',
+  },
+  {
+    quote: 'I was skeptical about an all-in-one platform, but the depth here is real. Funnels, email sequences, reputation management. It just works.',
+    name: 'Dan F.',
+    role: 'Consulting Firm Owner',
+    stars: 4,
+    source: 'G2',
+  },
+  {
+    quote: 'The support team went above and beyond. They took the time to actually understand my setup and guided me through every change. Extremely thorough.',
+    name: 'Marcus L.',
+    role: 'Creative Agency Founder',
+    stars: 5,
+    source: 'Trustpilot',
+  },
+];
+
+const stats = [
+  { value: '5+', label: 'Tools replaced' },
+  { value: '2x', label: 'Faster follow-up' },
+  { value: '100%', label: 'AI-Automated' },
+  { value: '$800+', label: 'Saved monthly' },
+  { value: '< 48hrs', label: 'Setup time' },
+];
+---
+
+<section class="proof section section--dark" id="proof">
+  <div class="container">
+    <div class="proof__header reveal">
+      <span class="label">Results That Speak</span>
+      <h2>Businesses grow faster with <span class="gradient-text">AI and everything connected</span></h2>
+    </div>
+
+    <div class="proof__stats reveal">
+      {stats.map((s) => (
+        <div class="proof__stat">
+          <span class="proof__stat-value">{s.value}</span>
+          <span class="proof__stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Auto-scrolling testimonial carousel -->
+    <div class="proof__carousel" aria-label="Customer testimonials">
+      <div class="proof__track">
+        {/* Duplicate testimonials for seamless loop */}
+        {[...testimonials, ...testimonials].map((t) => (
+          <div class="proof__testimonial">
+            <blockquote class="proof__quote">&ldquo;{t.quote}&rdquo;</blockquote>
+            <div class="proof__bottom">
+              <div class="proof__stars" aria-label={`${t.stars} out of 5 stars`}>
+                {[1,2,3,4,5].map((i) => (
+                  i <= Math.floor(t.stars)
+                    ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z"/></svg>
+                    : i === Math.ceil(t.stars) && t.stars % 1 !== 0
+                      ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-${t.name.replace(/\s/g,'')}-${i}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="currentColor" clip-path={`url(#half-${t.name.replace(/\s/g,'')}-${i})`}/><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+                      : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+                ))}
+              </div>
+              <div class="proof__author">
+                <div class="proof__author-avatar">{t.name.charAt(0)}</div>
+                <div>
+                  <div class="proof__author-name">{t.name}</div>
+                  <div class="proof__author-role">{t.role} <span class="proof__source">via {t.source}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof__header {
+    max-width: 700px;
+    margin: 0 auto var(--space-lg);
+    text-align: center;
+  }
+
+  .proof__stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+  }
+
+  .proof__stat {
+    padding: var(--space-md);
+    position: relative;
+  }
+
+  .proof__stat::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 25%;
+    height: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(247, 244, 239, 0.08), transparent);
+  }
+
+  .proof__stat:last-child::after {
+    display: none;
+  }
+
+  .proof__stat-value {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+    text-shadow: 0 0 30px rgba(78, 216, 194, 0.15);
+  }
+
+  .proof__stat-label {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* ─── CAROUSEL ─── */
+  .proof__carousel {
+    overflow: hidden;
+    position: relative;
+    margin: 0 calc(-1 * var(--space-md));
+    padding: var(--space-xs) 0;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+
+  .proof__track {
+    display: flex;
+    gap: var(--space-md);
+    animation: carouselScroll 80s linear infinite;
+    width: max-content;
+  }
+
+  .proof__track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes carouselScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .proof__testimonial {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+    min-width: 340px;
+    max-width: 380px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .proof__testimonial::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(78, 216, 194, 0.15), transparent);
+    opacity: 0;
+    transition: opacity var(--duration-normal);
+  }
+
+  .proof__testimonial:hover {
+    border-color: rgba(78, 216, 194, 0.15);
+    background: rgba(247, 244, 239, 0.05);
+    transform: translateY(-3px);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(78, 216, 194, 0.05),
+      inset 0 1px 0 rgba(247, 244, 239, 0.04);
+  }
+
+  .proof__testimonial:hover::before {
+    opacity: 1;
+  }
+
+  .proof__quote {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.7);
+    line-height: 1.7;
+    margin-bottom: 0;
+    font-style: italic;
+    flex: 1;
+  }
+
+  .proof__bottom {
+    margin-top: auto;
+    padding-top: var(--space-md);
+  }
+
+  .proof__stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 0.75rem;
+  }
+
+  .proof__star {
+    width: 16px;
+    height: 16px;
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+  }
+
+  .proof__star--half {
+    color: var(--reef-aqua);
+  }
+
+  .proof__star--empty {
+    color: rgba(78, 216, 194, 0.3);
+  }
+
+  .proof__source {
+    color: rgba(247, 244, 239, 0.3);
+    font-size: 0.6875rem;
+    font-style: italic;
+  }
+
+  .proof__author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .proof__author-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--deep-black);
+    flex-shrink: 0;
+  }
+
+  .proof__author-name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--warm-white);
+  }
+
+  .proof__author-role {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  @media (max-width: 1024px) {
+    .proof__stats {
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .proof__testimonial {
+      min-width: 300px;
+      max-width: 340px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .proof__stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .proof__testimonial {
+      min-width: 280px;
+      max-width: 320px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proof__stat {
+      padding: var(--space-sm);
+    }
+
+    .proof__stat-label {
+      font-size: 0.75rem;
+    }
+
+    .proof__testimonial {
+      min-width: 260px;
+      max-width: 300px;
+      padding: var(--space-md);
+    }
+
+    .proof__quote {
+      font-size: 0.9375rem;
+    }
+
+    .proof__author-name {
+      font-size: 0.875rem;
+    }
+
+    .proof__author-role {
+      font-size: 0.75rem;
+    }
+  }
+</style>

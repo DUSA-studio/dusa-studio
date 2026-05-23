@@ -1,0 +1,222 @@
+---
+// Features.astro — Platform features grid with branded SVG icons + AI layer
+const features = [
+  {
+    id: 'crm',
+    title: 'CRM & Contacts',
+    desc: 'Track every lead, customer, and conversation in one place. AI scores your leads and highlights who to follow up with first.',
+    color: 'var(--cat-communication)',
+    colorDark: 'var(--info-dark)',
+  },
+  {
+    id: 'automations',
+    title: 'AI Automations',
+    desc: 'Set up intelligent workflows once and let AI run them. Follow-ups, reminders, and nurture sequences that learn and adapt.',
+    color: 'var(--cat-system)',
+    colorDark: 'var(--success-dark)',
+  },
+  {
+    id: 'email',
+    title: 'Email & SMS',
+    desc: 'Send campaigns, drip sequences, and one-off messages. AI writes subject lines, personalises content, and optimises send times.',
+    color: 'var(--cat-communication)',
+    colorDark: 'var(--info-dark)',
+  },
+  {
+    id: 'funnels',
+    title: 'Funnels & Landing Pages',
+    desc: 'Build high-converting pages without a developer. AI analyses performance and suggests copy improvements that convert.',
+    color: 'var(--cat-capture)',
+    colorDark: 'var(--warning-dark)',
+  },
+  {
+    id: 'scheduling',
+    title: 'Scheduling',
+    desc: 'Let clients book directly into your calendar. AI sends smart reminders and handles rescheduling automatically.',
+    color: 'var(--cat-system)',
+    colorDark: 'var(--success-dark)',
+  },
+  {
+    id: 'payments',
+    title: 'Payments & Invoicing',
+    desc: 'Accept payments, send invoices, and track revenue. AI chases overdue invoices and flags revenue trends you should know about.',
+    color: 'var(--cat-financial)',
+    colorDark: 'var(--analytics-dark)',
+  },
+];
+
+const icons: Record<string, string> = {
+  crm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  automations: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>`,
+  email: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+  funnels: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18l-7 8v6l-4 2V11L3 3z"/></svg>`,
+  scheduling: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M12 14v3l2 1"/></svg>`,
+  payments: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/><path d="M6 16h4"/><path d="M14 16h4"/></svg>`,
+};
+---
+
+<section class="features section section--dark" id="features">
+  <div class="container">
+    <div class="features__header reveal">
+      <span class="label">Everything You Need</span>
+      <h2>Six core systems.<br/><span class="gradient-text">All powered by AI.</span></h2>
+      <p class="features__sub">Stop paying for tools that don't talk to each other. DUSA replaces your entire stack with one intelligent platform, and AI is woven into every layer. Smarter workflows, faster growth.</p>
+    </div>
+
+    <div class="features__ai-badge reveal">
+      <span class="features__ai-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M9 12h6l2 10H7l2-10z"/><circle cx="12" cy="5" r="1" fill="currentColor"/></svg>
+      </span>
+      <span>AI is built into every system below</span>
+    </div>
+
+    <div class="features__grid">
+      {features.map((f) => (
+        <div class="features__card reveal" style={`--card-accent: ${f.color}; --card-dark: ${f.colorDark};`}>
+          <div class="features__card-icon" set:html={icons[f.id]} />
+          <h4 class="features__card-title">{f.title}</h4>
+          <p class="features__card-desc">{f.desc}</p>
+          <div class="features__card-accent"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features__header {
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .features__sub {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.5);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .features__card {
+    position: relative;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg) var(--space-md);
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-out);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .features__card:hover {
+    border-color: rgba(78, 216, 194, 0.2);
+    background: rgba(247, 244, 239, 0.06);
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(78, 216, 194, 0.06),
+      inset 0 1px 0 rgba(247, 244, 239, 0.06);
+  }
+
+  .features__ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-full);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--reef-aqua);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .features__ai-icon {
+    display: flex;
+    align-items: center;
+    color: var(--reef-aqua);
+  }
+
+  .features__card-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: var(--space-sm);
+    color: var(--card-accent);
+  }
+
+  .features__card-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .features__card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--warm-white);
+  }
+
+  .features__card-desc {
+    font-size: 1.0625rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+  }
+
+  .features__card-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
+    opacity: 0;
+    transition: opacity var(--duration-normal);
+  }
+
+  .features__card:hover .features__card-accent {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--card-accent);
+  }
+
+  @media (max-width: 1024px) {
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .features__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .features__card {
+      padding: var(--space-md);
+    }
+
+    .features__card-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .features__card-title {
+      font-size: 1.125rem;
+    }
+
+    .features__card-desc {
+      font-size: 1rem;
+    }
+
+    .features__sub {
+      font-size: 1rem;
+    }
+  }
+</style>

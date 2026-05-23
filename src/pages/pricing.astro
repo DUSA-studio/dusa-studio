@@ -1,0 +1,2111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const tiers = [
+  {
+    id: 'launchpad',
+    name: 'Launchpad',
+    price: '47',
+    period: '/mo',
+    tagline: 'Start with one. Scale when ready.',
+    description: 'Pick any single core system and get started today. The easiest way to see what DUSA can do for your business.',
+    highlights: [
+      '1 core system of your choice',
+      'Full dashboard access',
+      'Basic analytics',
+      'AI chat support',
+      'Community access',
+    ],
+    cta: 'Start for $47',
+    ctaLink: '#contact',
+    highlight: false,
+    badge: 'Entry Offer',
+    style: 'entry',
+  },
+  {
+    id: 'starter',
+    name: 'Starter',
+    price: '149',
+    period: '/mo',
+    tagline: 'Everything connected.',
+    description: 'All 6 core systems working together. The full DUSA platform at a fraction of buying tools separately.',
+    highlights: [
+      'All 6 core systems included',
+      'CRM + pipeline management',
+      'Email & SMS marketing',
+      'Funnel & website builder',
+      'Booking & calendar system',
+      'Reputation management',
+      'Standard automations',
+      'AI chat support',
+    ],
+    cta: 'Get Started',
+    ctaLink: '#contact',
+    highlight: false,
+    badge: null,
+    style: 'default',
+  },
+  {
+    id: 'growth',
+    name: 'Growth',
+    price: '297',
+    period: '/mo',
+    tagline: 'Built for momentum.',
+    description: 'Unlimited everything plus advanced automations, AI tools, and priority support to accelerate your growth.',
+    highlights: [
+      'Everything in Starter',
+      'Unlimited contacts & workflows',
+      'Advanced automation builder',
+      'AI-powered responses',
+      'Custom reporting dashboards',
+      'Priority support',
+      'Onboarding strategy session',
+      'Dedicated community channel',
+    ],
+    cta: 'Scale Faster',
+    ctaLink: '#contact',
+    highlight: true,
+    badge: 'Best Value',
+    style: 'pop',
+  },
+  {
+    id: 'bespoke',
+    name: 'Bespoke',
+    price: null,
+    period: null,
+    tagline: 'Custom solutions for growing teams.',
+    description: 'Multi-location, team access, custom integrations, and dedicated account management. Built around your business.',
+    highlights: [
+      'Everything in Growth',
+      'Multi-location support',
+      'Team user accounts',
+      'Custom integrations',
+      'Dedicated account manager',
+      'Monthly strategy reviews',
+      'Custom automation builds',
+      'Phone support line',
+    ],
+    cta: "Let's Talk",
+    ctaLink: '#contact',
+    highlight: false,
+    badge: 'Custom',
+    style: 'premium',
+  },
+];
+
+/* ─── Tool Replacement Comparison (AUD pricing at ~1.40 USD/AUD) ─── */
+const replacements = [
+  { feature: 'CRM & pipeline management', tools: [
+    { name: 'HubSpot', cost: 40 },
+    { name: 'Salesforce', cost: 75 },
+    { name: 'Zoho CRM', cost: 35 },
+    { name: 'Pipedrive', cost: 28 },
+  ]},
+  { feature: 'Email marketing', tools: [
+    { name: 'Mailchimp', cost: 85 },
+    { name: 'ActiveCampaign', cost: 49 },
+    { name: 'Klaviyo', cost: 60 },
+    { name: 'ConvertKit', cost: 41 },
+  ]},
+  { feature: 'SMS marketing', tools: [
+    { name: 'SimpleTexting', cost: 55 },
+    { name: 'Twilio', cost: 45 },
+    { name: 'SlickText', cost: 49 },
+  ]},
+  { feature: 'Funnel & landing pages', tools: [
+    { name: 'ClickFunnels', cost: 135 },
+    { name: 'Leadpages', cost: 79 },
+    { name: 'Unbounce', cost: 99 },
+    { name: 'Instapage', cost: 119 },
+  ]},
+  { feature: 'Website builder', tools: [
+    { name: 'Squarespace', cost: 45 },
+    { name: 'Wix', cost: 32 },
+    { name: 'WordPress', cost: 25 },
+    { name: 'Webflow', cost: 39 },
+  ]},
+  { feature: 'Booking & calendar', tools: [
+    { name: 'Calendly', cost: 24 },
+    { name: 'Acuity', cost: 33 },
+    { name: 'Cal.com', cost: 15 },
+  ]},
+  { feature: 'Forms & surveys', tools: [
+    { name: 'Typeform', cost: 35 },
+    { name: 'JotForm', cost: 39 },
+    { name: 'Google Forms', cost: 0 },
+  ]},
+  { feature: 'Workflow automations', tools: [
+    { name: 'Zapier', cost: 42 },
+    { name: 'Make', cost: 29 },
+    { name: 'Pabbly', cost: 25 },
+  ]},
+  { feature: 'Reputation management', tools: [
+    { name: 'Birdeye', cost: 349 },
+    { name: 'Podium', cost: 289 },
+    { name: 'Trustpilot', cost: 199 },
+  ]},
+  { feature: 'Analytics & reporting', tools: [
+    { name: 'Databox', cost: 55 },
+    { name: 'Whatagraph', cost: 99 },
+    { name: 'DashThis', cost: 42 },
+  ]},
+  { feature: 'Community platform', tools: [
+    { name: 'Skool', cost: 139 },
+    { name: 'Circle', cost: 89 },
+    { name: 'Mighty Networks', cost: 99 },
+  ]},
+  { feature: 'Call tracking', tools: [
+    { name: 'CallRail', cost: 70 },
+    { name: 'CallTrackingMetrics', cost: 65 },
+    { name: 'WhatConverts', cost: 55 },
+  ]},
+];
+
+/* Compute median cost for each row (used by "Other" option) */
+function median(arr: number[]) {
+  const s = [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 !== 0 ? s[mid] : Math.round((s[mid - 1] + s[mid]) / 2);
+}
+const medianCosts = replacements.map(r => median(r.tools.map(t => t.cost)));
+
+/* Default selection: first tool in each row */
+const defaultTotal = replacements.reduce((sum, r) => sum + r.tools[0].cost, 0);
+
+/* ─── Feature Comparison Categories ─── */
+const featureCategories = [
+  {
+    name: 'Core platform',
+    features: [
+      { label: 'CRM & contact management', desc: 'Store every lead, customer, and conversation in one place. Track interactions, set follow-up reminders, and never let a deal slip through the cracks.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Pipeline & deal tracking', desc: 'Visual drag-and-drop pipelines to manage your sales process. See every deal stage at a glance, forecast revenue, and identify bottlenecks instantly.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Email marketing', desc: 'Send beautiful branded emails, build automated nurture sequences, and track opens, clicks, and conversions. No per-send fees on any plan.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'SMS marketing', desc: 'Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Usage billed at cost as a small pass-through.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Funnel & landing page builder', desc: 'Build high-converting landing pages, opt-in funnels, and sales pages with a drag-and-drop builder. No coding required, mobile-responsive by default.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Website builder', desc: 'Create a full business website with custom pages, blog, and SEO tools. Host it on your own domain with SSL included.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Booking & calendar system', desc: 'Let clients book appointments directly from your website or links. Syncs with Google Calendar, sends automatic reminders, and reduces no-shows.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Reputation management', desc: 'Automatically request reviews from happy customers, monitor your online reputation, and respond to reviews from one dashboard.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Social media planner', desc: 'Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'Invoicing & payments', desc: 'Send professional invoices, accept payments online, and track who has paid. Integrates with Stripe for seamless transactions.', launchpad: false, starter: true, growth: true, bespoke: true },
+    ],
+  },
+  {
+    name: 'Automation & AI',
+    features: [
+      { label: 'Basic workflow automations', desc: 'Set up simple if-this-then-that automations like sending a welcome email when someone fills out a form, or tagging contacts based on actions.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Multi-step automation builder', desc: 'Build complex multi-step workflows with delays, conditions, and multiple actions. Automate your entire follow-up process from first touch to conversion.', launchpad: false, starter: '5 workflows', growth: 'Unlimited', bespoke: 'Unlimited' },
+      { label: 'Trigger-based sequences', desc: 'Automatically start sequences when contacts take specific actions like visiting a page, opening an email, or booking an appointment.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'AI-powered auto-responses', desc: 'Let AI handle initial enquiries, qualify leads, and respond to common questions instantly via chat, SMS, or email while you focus on your business.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'AI content assistant', desc: 'Generate email copy, social posts, and marketing content using AI trained on your brand voice. Save hours on content creation.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Conditional logic & branching', desc: 'Create intelligent workflows that branch based on contact behaviour, deal value, or custom field values. Different paths for different scenarios.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Custom automation builds', desc: 'Our team builds bespoke automations tailored to your exact business processes. Complex integrations and custom logic built for you.', launchpad: false, starter: false, growth: false, bespoke: true },
+    ],
+  },
+  {
+    name: 'Contacts & data',
+    features: [
+      { label: 'Contact records', desc: 'Store and manage your leads and customers with detailed profiles, activity history, notes, and custom data fields.', launchpad: '500', starter: '2,500', growth: 'Unlimited', bespoke: 'Unlimited' },
+      { label: 'Custom fields', desc: 'Add your own data fields to contacts, deals, and records. Track the specific information that matters to your business.', launchpad: '10', starter: '50', growth: 'Unlimited', bespoke: 'Unlimited' },
+      { label: 'Tags & segments', desc: 'Organise contacts with tags and create dynamic segments based on behaviour, demographics, or custom criteria for targeted campaigns.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Import / export contacts', desc: 'Easily bring in your existing contacts via CSV upload or export your data anytime. Your data is always yours.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Lead scoring', desc: 'Automatically score leads based on engagement, behaviour, and fit. Focus your time on the contacts most likely to convert.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Smart lists & filters', desc: 'Create dynamic lists that auto-update based on contact activity, tags, or field values. Always have the right audience ready.', launchpad: false, starter: true, growth: true, bespoke: true },
+    ],
+  },
+  {
+    name: 'Reporting & analytics',
+    features: [
+      { label: 'Basic dashboard', desc: 'See your key metrics at a glance including new leads, active deals, appointments, and revenue in a clean overview dashboard.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Campaign performance reports', desc: 'Track email open rates, click rates, SMS delivery, and conversion rates across all your marketing campaigns.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'Pipeline & revenue reporting', desc: 'Visualise your sales pipeline value, conversion rates by stage, and revenue forecasts to make data-driven decisions.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'Custom reporting dashboards', desc: 'Build your own dashboards with the exact metrics and visualisations you need. Drag and drop widgets to create your perfect view.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Attribution tracking', desc: 'See exactly which channels and campaigns are driving leads and revenue. Know where to invest your marketing budget.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Scheduled report emails', desc: 'Automatically receive your key reports by email on a daily, weekly, or monthly schedule. Stay informed without logging in.', launchpad: false, starter: false, growth: true, bespoke: true },
+    ],
+  },
+  {
+    name: 'Support & community',
+    features: [
+      { label: 'Knowledge base & guides', desc: 'Access step-by-step guides, video tutorials, and best-practice documentation to get the most out of every DUSA feature.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'AI assistant (24/7)', desc: 'Call or chat with your AI assistant anytime. It walks you through anything DUSA-related, from setup to strategy. If you hit a blocker, we book you in with a growth specialist.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'DUSA community access', desc: 'Join a private community of business owners using DUSA. Share strategies, ask questions, and learn from real results.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Email support', desc: 'Reach our support team by email for technical questions, troubleshooting, and account help during business hours.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Priority support queue', desc: 'Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Onboarding strategy session', desc: 'A one-on-one session with a growth consultant to map out your DUSA setup, migrate your data, and build your first automations.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Dedicated account manager', desc: 'A named account manager who knows your business inside and out. Your single point of contact for everything DUSA.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Phone support', desc: 'Direct phone access to our support team for urgent issues or complex questions that need a real conversation.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Monthly strategy reviews', desc: 'Regular check-ins with your account manager to review performance, optimise your setup, and plan your next growth moves.', launchpad: false, starter: false, growth: false, bespoke: true },
+    ],
+  },
+  {
+    name: 'Platform & integrations',
+    features: [
+      { label: 'Members portal access', desc: 'Your private portal for managing your account, accessing training, and submitting support requests all in one place.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Mobile app', desc: 'Manage leads, respond to messages, check your pipeline, and track activity from your phone with the DUSA mobile app.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Zapier integration', desc: 'Connect DUSA to thousands of other apps through Zapier. Sync data, trigger actions, and build custom workflows across your tools.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'API access', desc: 'Full REST API access for custom integrations, data syncing, and building on top of the DUSA platform.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Custom domain', desc: 'Host your DUSA-built website, funnels, and portals on your own branded domain with SSL included.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'White-label client portal', desc: 'Remove DUSA branding and present the platform as your own to clients. Perfect for agencies and consultants.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Multi-location management', desc: 'Manage multiple business locations from a single account with separate pipelines, contacts, and reporting per location.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Team user accounts', desc: 'Add team members with role-based permissions. Control who can see, edit, and manage different parts of your account.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Custom integrations', desc: 'Our team builds bespoke integrations to connect DUSA with your existing tools, databases, and internal systems.', launchpad: false, starter: false, growth: false, bespoke: true },
+    ],
+  },
+];
+
+/* ─── FAQs (SEO-optimised) ─── */
+const faqs = [
+  {
+    q: 'What is DUSA and how does it help small businesses?',
+    a: 'DUSA is an all-in-one growth platform that replaces the scattered tools small businesses use for CRM, email marketing, SMS, funnels, booking, and reputation management. Instead of paying for five or six separate subscriptions, everything lives in one connected system.',
+  },
+  {
+    q: 'How much does the DUSA platform cost per month?',
+    a: 'Plans start from $47 AUD per month for a single core tool on our Launchpad plan. Our Starter plan includes all 6 core systems for $149/mo, and Growth unlocks unlimited contacts, advanced automations, and priority support for $297/mo. All prices are in Australian Dollars with no hidden fees.',
+  },
+  {
+    q: 'What is included in the Launchpad plan?',
+    a: 'Launchpad gives you access to one core system of your choice, such as CRM, email marketing, funnels, booking, SMS, or reputation management. It includes full dashboard access, basic analytics, AI chat support, and community access. It is designed for sole operators who want to start small and scale up.',
+  },
+  {
+    q: 'Can I upgrade my plan at any time?',
+    a: 'Yes. You can upgrade or change your plan at any time. Changes take effect on your next billing cycle. There are no lock-in contracts, and you can move between plans as your business needs change.',
+  },
+  {
+    q: 'Are there any setup fees or hidden costs?',
+    a: 'There are no setup fees on any plan. SMS, calling, and email sending usage is billed at cost as a small pass-through. Most clients see around $15-25 AUD per month in usage depending on volume. There are no other hidden fees.',
+  },
+  {
+    q: 'What kind of support does DUSA offer?',
+    a: 'Every plan includes unlimited AI chat support available 24/7 through your members portal, plus access to the DUSA community. Starter and above includes email support. Growth plans get priority support and an onboarding strategy session. Bespoke clients receive a dedicated account manager, phone support, and monthly strategy reviews.',
+  },
+  {
+    q: 'Is DUSA suitable for sole operators and freelancers?',
+    a: 'Absolutely. The DUSA platform was built for sole operators, freelancers, and small business owners who need professional tools without enterprise complexity. The Launchpad plan at $47/mo is specifically designed as a low-commitment entry point so you can try one tool and expand as you grow.',
+  },
+  {
+    q: 'What is the DUSA community?',
+    a: 'The DUSA community is a members-only space where business owners share strategies, ask questions, and get support from other DUSA users and the DUSA team. It is included with every plan and is a great resource for learning how to get the most out of the platform.',
+  },
+  {
+    q: 'Does DUSA replace tools like Mailchimp, Calendly, and HubSpot?',
+    a: 'Yes. DUSA includes email marketing (replacing Mailchimp), booking and scheduling (replacing Calendly), CRM and pipeline management (replacing HubSpot), plus SMS marketing, funnel building, and reputation management. All in one platform for a fraction of the combined cost.',
+  },
+  {
+    q: 'How long does it take to set up DUSA?',
+    a: 'Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding strategy session where we help you configure everything for your specific business.',
+  },
+  {
+    q: 'All prices are in AUD?',
+    a: 'Yes. All DUSA pricing is in Australian Dollars. There are no currency conversions or surprises on your invoice.',
+  },
+];
+---
+
+<BaseLayout title="Pricing | DUSA . studio — Plans from $47/mo AUD" description="Simple, transparent pricing for every stage of growth. Start from $47/mo AUD. CRM, email, SMS, funnels, booking & reputation management in one platform.">
+
+  <!-- Hero -->
+  <section class="pricing-hero section section--dark">
+    <div class="container">
+      <div class="pricing-hero__content">
+        <span class="label">Pricing</span>
+        <h1>One platform.<br/><span class="gradient-text">Your price.</span></h1>
+        <p class="pricing-hero__sub">Start with what you need. Scale when you're ready. No lock-ins, no hidden fees.</p>
+        <p class="pricing-hero__currency">All prices in AUD</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="pricing-cards section section--dark" style="padding-top:0;">
+    <div class="container">
+      <div class="pricing-grid">
+        {tiers.map((tier) => (
+          <div class={`pricing-card pricing-card--${tier.style}`}>
+            {tier.badge && (
+              <span class={`pricing-card__badge pricing-card__badge--${tier.style}`}>
+                {tier.badge}
+              </span>
+            )}
+            <div class="pricing-card__head">
+              <h3 class="pricing-card__name">{tier.name}</h3>
+              <p class="pricing-card__tagline">{tier.tagline}</p>
+            </div>
+            <div class="pricing-card__price-row">
+              {tier.price ? (
+                <>
+                  <span class="pricing-card__dollar">$</span>
+                  <span class="pricing-card__amount">{tier.price}</span>
+                  <span class="pricing-card__period">{tier.period}</span>
+                </>
+              ) : (
+                <span class="pricing-card__custom">Custom</span>
+              )}
+            </div>
+            <p class="pricing-card__desc">{tier.description}</p>
+            <ul class="pricing-card__features">
+              {tier.highlights.map((f) => (
+                <li class="pricing-card__feature">
+                  <svg class="pricing-card__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href={tier.ctaLink} class={`btn ${tier.highlight ? 'btn--primary' : 'btn--outline'} pricing-card__cta`}>
+              {tier.cta}
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool Replacement Comparison -->
+  <section class="replace section section--dark">
+    <div class="container">
+      <!-- Centered header -->
+      <div class="replace__header">
+        <span class="label">Stop paying for all of this</span>
+        <h2>One platform replaces<br/><span class="gradient-text">your entire stack</span></h2>
+        <p class="replace__sub">These are real prices you're paying right now for separate tools. DUSA brings them all together, starting from $47/mo.</p>
+      </div>
+
+      <!-- Unified rack + selector -->
+      <div class="replace__stack">
+        <div class="rack-outer" id="rackOuter">
+          <div class="rack-center" id="rackCenter">
+            <div class="rack-frame" id="rackFrame">
+              <div id="rackDiscs">
+                {replacements.map((r, i) => (
+                  <div class="rack-row rack-row--hot" data-row={i}>
+                    <div class="rack-row__led"></div>
+                    <div class="rack-row__info">
+                      <span class="rack-row__feature">{r.feature}</span>
+                      <div class="rack-row__selector">
+                        <button
+                          class="replace__tool-btn replace__tool-btn--na"
+                          data-row={i}
+                          data-tool="na"
+                          data-cost="0"
+                          data-name="N/A"
+                        >
+                          N/A
+                        </button>
+                        {r.tools.map((t, j) => (
+                          <button
+                            class={`replace__tool-btn ${j === 0 ? 'replace__tool-btn--active' : ''}`}
+                            data-row={i}
+                            data-tool={j}
+                            data-cost={t.cost}
+                            data-name={t.name}
+                          >
+                            {t.name}
+                          </button>
+                        ))}
+                        <button
+                          class="replace__tool-btn replace__tool-btn--other"
+                          data-row={i}
+                          data-tool="other"
+                          data-cost={medianCosts[i]}
+                          data-name="Other"
+                        >
+                          Other
+                        </button>
+                      </div>
+                    </div>
+                    <span class="rack-row__cost" data-row-cost={i}>${r.tools[0].cost}</span>
+                    <div class="rack-row__handle"></div>
+                  </div>
+                ))}
+              </div>
+              <div class="dusa-base" id="dusaBase">
+                <div class="dusa-base__led"></div>
+                <div>
+                  <div class="dusa-base__label">DUSA</div>
+                  <div class="dusa-base__sub">Digital Utility for Sales &amp; Automation</div>
+                </div>
+                <div class="dusa-base__battery" id="batteryWrap"></div>
+              </div>
+            </div>
+            <svg class="rack-cable-svg" id="cableSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+        </div>
+        <div class="rack-status" id="rackStatus"></div>
+        <div class="rack-actions">
+          <button class="rack-activate" id="rackActivate">Activate DUSA</button>
+        </div>
+        <p class="replace__savings-callout" id="replaceSave">
+          Save <strong>$${defaultTotal - 149}/mo</strong> with DUSA Starter at <strong>$149/mo</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Layer -->
+  <section class="support section section--dark">
+    <div class="container">
+      <div class="support__header">
+        <span class="label">Support on every plan</span>
+        <h2>You're never<br/><span class="gradient-text">on your own</span></h2>
+      </div>
+      <div class="support__grid">
+        <div class="support__card">
+          <div class="support__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+              <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+              <path d="M10 21h4"/>
+            </svg>
+          </div>
+          <h4 class="support__card-title">AI assistant, phone & chat</h4>
+          <p class="support__card-desc">Call or chat with your AI assistant anytime. It will walk you through anything DUSA-related, from setup to strategy. If you hit a blocker, we book you in with a growth specialist. Growth plans and above get priority access to consultants.</p>
+          <span class="support__card-plans">All plans</span>
+        </div>
+        <div class="support__card">
+          <div class="support__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h4 class="support__card-title">DUSA community</h4>
+          <p class="support__card-desc">Connect with other business owners, share strategies, and learn from people growing their businesses with DUSA. Real conversations, not just help tickets.</p>
+          <span class="support__card-plans">All plans</span>
+        </div>
+        <div class="support__card">
+          <div class="support__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <path d="M8 21h8"/>
+              <path d="M12 17v4"/>
+            </svg>
+          </div>
+          <h4 class="support__card-title">Members portal</h4>
+          <p class="support__card-desc">Your private hub for guides, tutorials, templates, and support. Everything you need to get the most out of your DUSA platform, all in one place.</p>
+          <span class="support__card-plans">All plans</span>
+        </div>
+        <div class="support__card">
+          <div class="support__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <h4 class="support__card-title">Priority & dedicated</h4>
+          <p class="support__card-desc">Growth plans jump the queue with priority support. Bespoke clients get a dedicated account manager, phone line, and monthly strategy reviews.</p>
+          <span class="support__card-plans">Growth & Bespoke</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Comparison -->
+  <section class="compare section section--dark" id="compare">
+    <div class="container">
+      <div class="compare__header">
+        <span class="label">Full comparison</span>
+        <h2>Everything included,<br/><span class="gradient-text">nothing hidden</span></h2>
+        <p class="compare__sub">See exactly what you get on every plan. No asterisks, no surprises.</p>
+      </div>
+
+      <div class="compare__table-wrap">
+        <table class="compare__table">
+          <thead>
+            <tr>
+              <th class="compare__feature-col"></th>
+              <th class="compare__plan-col">Launchpad</th>
+              <th class="compare__plan-col">Starter</th>
+              <th class="compare__plan-col compare__plan-col--highlight">Growth</th>
+              <th class="compare__plan-col">Bespoke</th>
+            </tr>
+            <tr class="compare__price-row">
+              <td></td>
+              <td class="compare__plan-price">$47/mo</td>
+              <td class="compare__plan-price">$149/mo</td>
+              <td class="compare__plan-price compare__plan-price--highlight">$297/mo</td>
+              <td class="compare__plan-price">Custom</td>
+            </tr>
+          </thead>
+          <tbody>
+            {featureCategories.map((cat) => (
+              <>
+                <tr class="compare__category-row">
+                  <td colspan="5">{cat.name}</td>
+                </tr>
+                {cat.features.map((f) => (
+                  <>
+                    <tr class="compare__feature-row">
+                      <td class="compare__feature-name">
+                        {f.label}
+                        <svg class="compare__expand-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </td>
+                      {['launchpad', 'starter', 'growth', 'bespoke'].map((plan) => (
+                        <td class={`compare__cell ${plan === 'growth' ? 'compare__cell--highlight' : ''}`}>
+                          {f[plan] === true ? (
+                            <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          ) : f[plan] === false ? (
+                            <span class="compare__dash">—</span>
+                          ) : (
+                            <span class="compare__text">{f[plan]}</span>
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                    {f.desc && (
+                      <tr class="compare__desc-row">
+                        <td class="compare__desc-cell" colspan="5">
+                          <p class="compare__desc-text">{f.desc}</p>
+                        </td>
+                      </tr>
+                    )}
+                  </>
+                ))}
+              </>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- CTA row aligned to table columns -->
+      <div class="compare__cta-row">
+        <div class="compare__cta-label"></div>
+        <div class="compare__cta-cell"><a href="#contact" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">Start for $47</a></div>
+        <div class="compare__cta-cell"><a href="#contact" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">Get Starter</a></div>
+        <div class="compare__cta-cell"><a href="#contact" class="btn btn--primary" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">Scale Faster</a></div>
+        <div class="compare__cta-cell"><a href="#contact" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">Let's Talk</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq section section--sand" id="faq">
+    <div class="container">
+      <div class="faq__header">
+        <span class="label" style="color: var(--deep-ocean);">FAQ</span>
+        <h2 style="color: var(--deep-black);">Common questions,<br/><span style="color: var(--deep-ocean);">straight answers</span></h2>
+      </div>
+
+      <div class="faq__list">
+        {faqs.map((faq, i) => (
+          <details class="faq__item" id={`faq-${i}`}>
+            <summary class="faq__question">{faq.q}</summary>
+            <p class="faq__answer">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="cta section section--dark" id="contact">
+    <div class="container">
+      <div class="pricing-cta__content">
+        <span class="label">Ready to grow?</span>
+        <h2>Start with Launchpad.<br/><span class="gradient-text">Scale from there.</span></h2>
+        <p class="pricing-cta__desc">
+          Book a free demo and we'll map out which plan fits your business. No pressure, just a real conversation.
+        </p>
+        <div class="pricing-cta__actions">
+          <a href="https://dusa.studio/booking" class="btn btn--primary">Book Your Free Demo</a>
+          <a href="mailto:contact@dusa.studio" class="btn btn--outline">Email Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Schema for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.a
+      }
+    }))
+  })} />
+
+</BaseLayout>
+
+<style is:global>
+  /* ─── PRICING HERO ─── */
+  .pricing-hero {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+    text-align: center;
+  }
+
+  .pricing-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .pricing-hero__sub {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pricing-hero__currency {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--reef-aqua);
+    margin-top: var(--space-md);
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.8;
+    text-align: center;
+    width: fit-content;
+  }
+
+  /* ─── PRICING GRID ─── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    align-items: stretch;
+  }
+
+  /* ─── PRICING CARD ─── */
+  .pricing-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.35s ease,
+                background 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .pricing-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    background: rgba(247, 244, 239, 0.06);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(78, 216, 194, 0.08),
+      0 0 0 1px rgba(78, 216, 194, 0.1),
+      inset 0 1px 0 rgba(247, 244, 239, 0.06);
+  }
+
+  .pricing-card--pop {
+    border-color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.06);
+    box-shadow: 0 0 60px rgba(78, 216, 194, 0.08);
+  }
+
+  .pricing-card--pop:hover {
+    border-color: var(--reef-aqua);
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.3),
+      0 0 50px rgba(78, 216, 194, 0.15),
+      0 0 100px rgba(78, 216, 194, 0.08);
+  }
+
+  .pricing-card--default {
+    border-color: rgba(106, 170, 207, 0.2);
+    background: rgba(106, 170, 207, 0.04);
+  }
+
+  .pricing-card--default:hover {
+    border-color: rgba(106, 170, 207, 0.35);
+    background: rgba(106, 170, 207, 0.08);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 25px rgba(106, 170, 207, 0.08);
+  }
+
+  .pricing-card--entry {
+    border-style: dashed;
+    border-color: rgba(247, 244, 239, 0.2);
+    background: rgba(247, 244, 239, 0.04);
+  }
+
+  .pricing-card--entry:hover {
+    border-style: solid;
+    border-color: rgba(247, 244, 239, 0.35);
+    background: rgba(247, 244, 239, 0.07);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 25px rgba(247, 244, 239, 0.06);
+  }
+
+  .pricing-card--premium {
+    border-color: rgba(26, 58, 92, 0.5);
+    background: rgba(26, 58, 92, 0.12);
+  }
+
+  .pricing-card--premium:hover {
+    border-color: rgba(26, 58, 92, 0.7);
+    background: rgba(26, 58, 92, 0.18);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(26, 58, 92, 0.15),
+      0 0 60px rgba(26, 58, 92, 0.1);
+  }
+
+  /* Badge */
+  .pricing-card__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.875rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  .pricing-card__badge--entry {
+    background: #1f1e1c;
+    color: var(--warm-white);
+    border: 1px solid rgba(247, 244, 239, 0.3);
+  }
+
+  .pricing-card__badge--default {
+    background: rgba(247, 244, 239, 0.08);
+    color: rgba(247, 244, 239, 0.6);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+  }
+
+  .pricing-card__badge--pop {
+    background: var(--reef-aqua);
+    color: var(--deep-black);
+    border: 1px solid var(--reef-aqua);
+    font-weight: 700;
+  }
+
+  .pricing-card__badge--premium {
+    background: #111a27;
+    color: var(--warm-white);
+    border: 1px solid rgba(26, 58, 92, 0.6);
+  }
+
+  /* Card Head */
+  .pricing-card__head {
+    margin-bottom: var(--space-md);
+    padding-top: 0.5rem;
+  }
+
+  .pricing-card__name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: 0.25rem;
+  }
+
+  .pricing-card__tagline {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.4);
+    font-style: italic;
+  }
+
+  /* Price */
+  .pricing-card__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.125rem;
+    margin-bottom: var(--space-sm);
+    min-height: 3.5rem;
+  }
+
+  .pricing-card__dollar {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--reef-aqua);
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+
+  .pricing-card__amount {
+    font-family: var(--font-headline);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .pricing-card__period {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: 0.25rem;
+  }
+
+  .pricing-card__custom {
+    font-family: var(--font-headline);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    padding-top: 0.5rem;
+  }
+
+  .pricing-card__desc {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    max-width: none;
+  }
+
+  /* Features List */
+  .pricing-card__features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin-bottom: var(--space-lg);
+    flex-grow: 1;
+  }
+
+  .pricing-card__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.7);
+    line-height: 1.5;
+  }
+
+  .pricing-card__check {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--reef-aqua);
+    margin-top: 0.05rem;
+  }
+
+  .pricing-card__cta {
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  /* ─── TOOL REPLACEMENT ─── */
+  .replace {
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .replace__header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .replace__sub {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+  }
+
+  .replace__stack {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ─── Server Rack ─── */
+  .rack-outer { position: relative; }
+  .rack-center { position: relative; margin: 0 28px; }
+
+  .rack-frame {
+    position: relative;
+    background: linear-gradient(180deg, #1a1d24, #14161c);
+    border: 1.5px solid #2a2d35;
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 280px;
+  }
+  .rack-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 18px; right: 18px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(247,244,239,0.06), transparent);
+  }
+  .rack-frame--stressed {
+    animation: rackStress 3s ease-in-out infinite;
+  }
+  .rack-frame--calm {
+    border-width: 2.5px;
+    border-color: rgba(78,216,194,0.6);
+    animation: rackElectrify 2.5s ease-in-out infinite;
+    transition: border-width 0.8s, border-color 0.8s;
+  }
+  @keyframes rackElectrify {
+    0%,100% {
+      box-shadow:
+        0 0 8px rgba(78,216,194,0.15),
+        0 0 24px rgba(78,216,194,0.08),
+        inset 0 0 12px rgba(78,216,194,0.03);
+      border-color: rgba(78,216,194,0.5);
+    }
+    30% {
+      box-shadow:
+        0 0 14px rgba(78,216,194,0.3),
+        0 0 40px rgba(78,216,194,0.12),
+        inset 0 0 20px rgba(78,216,194,0.06);
+      border-color: rgba(78,216,194,0.75);
+    }
+    50% {
+      box-shadow:
+        0 0 6px rgba(78,216,194,0.1),
+        0 0 18px rgba(78,216,194,0.06),
+        inset 0 0 8px rgba(78,216,194,0.02);
+      border-color: rgba(78,216,194,0.4);
+    }
+    75% {
+      box-shadow:
+        0 0 18px rgba(78,216,194,0.35),
+        0 0 50px rgba(78,216,194,0.15),
+        inset 0 0 24px rgba(78,216,194,0.07);
+      border-color: rgba(78,216,194,0.8);
+    }
+  }
+  @keyframes rackStress {
+    0%,100% { box-shadow: 0 0 15px rgba(232,82,78,0.05), inset 0 0 30px rgba(232,82,78,0.02); border-color: #2a2d35; }
+    50% { box-shadow: 0 0 30px rgba(232,82,78,0.12), inset 0 0 50px rgba(232,82,78,0.04); border-color: rgba(232,82,78,0.2); }
+  }
+
+  /* ─── Unified rack rows (each row = a disc) ─── */
+  .rack-row {
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid rgba(232,82,78,0.25);
+    background: rgba(232,82,78,0.04);
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 10px;
+    overflow: visible;
+    transition: all 0.6s ease;
+    margin-bottom: 5px;
+  }
+  .rack-row:last-child { margin-bottom: 0; }
+  .rack-row--hot {
+    animation: rackOverheat 2s ease-in-out infinite;
+  }
+  .rack-row--off {
+    border-color: rgba(78,216,194,0.08);
+    background: rgba(78,216,194,0.015);
+    animation: none;
+    box-shadow: none;
+  }
+  .rack-row--cool {
+    border-color: rgba(78,216,194,0.4);
+    background: rgba(78,216,194,0.08);
+    animation: none;
+    box-shadow: none;
+  }
+  .rack-row--merged {
+    border-radius: 0;
+    border-color: rgba(78,216,194,0.15);
+    margin-bottom: 0;
+  }
+  @keyframes rackOverheat {
+    0%,100% { box-shadow: 0 0 6px rgba(232,82,78,0.06), inset 0 0 10px rgba(232,82,78,0.02); border-color: rgba(232,82,78,0.2); }
+    50% { box-shadow: 0 0 18px rgba(232,82,78,0.2), inset 0 0 20px rgba(232,82,78,0.06); border-color: rgba(232,82,78,0.45); }
+  }
+
+  .rack-row__led {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    background: var(--error); box-shadow: 0 0 5px rgba(232,82,78,0.5);
+    animation: rackLedBlink 2s ease-in-out infinite;
+    transition: all 0.6s;
+  }
+  .rack-row--off .rack-row__led {
+    background: rgba(78,216,194,0.25); box-shadow: 0 0 3px rgba(78,216,194,0.15); animation: none;
+  }
+  .rack-row--cool .rack-row__led {
+    background: var(--reef-aqua); box-shadow: 0 0 6px rgba(78,216,194,0.5); animation: none;
+  }
+  @keyframes rackLedBlink { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .rack-row__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .rack-row__feature {
+    font-family: var(--font-headline); font-size: 0.8rem; font-weight: 600;
+    color: rgba(247,244,239,0.5); transition: color 0.6s;
+    white-space: nowrap;
+  }
+  .rack-row--off .rack-row__feature { color: rgba(78,216,194,0.3); }
+  .rack-row--cool .rack-row__feature { color: rgba(78,216,194,0.85); }
+
+  .rack-row__selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .rack-row__cost {
+    font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
+    color: var(--error); transition: all 0.6s; white-space: nowrap;
+    text-align: right;
+  }
+  .rack-row--off .rack-row__cost { color: rgba(78,216,194,0.2); }
+  .rack-row--cool .rack-row__cost { color: rgba(78,216,194,0.5); }
+
+  .rack-row__handle {
+    width: 3px; height: 18px; border-radius: 2px;
+    background: rgba(247,244,239,0.05); border: 0.5px solid rgba(247,244,239,0.08);
+    transition: opacity 0.8s;
+  }
+  .rack-row--off .rack-row__handle { opacity: 0.4; background: rgba(78,216,194,0.08); border-color: rgba(78,216,194,0.12); }
+
+  .rack-actions {
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* SVG cables */
+  .rack-cable-svg {
+    position: absolute; top:0; left:0; width:100%; height:100%;
+    pointer-events: none; z-index: 4; overflow: visible !important;
+  }
+  .rack-cable-path { fill:none; stroke:var(--reef-aqua); stroke-width:2; stroke-linecap:round; }
+  .rack-cable-glow { fill:none; stroke:rgba(78,216,194,0.15); stroke-width:6; stroke-linecap:round; opacity:0; transition:opacity 0.4s; }
+  .rack-cable-glow--show { opacity:1; }
+  @keyframes cableDissolve {
+    0% { opacity:1; stroke-width:2; filter:none; }
+    40% { opacity:0.8; stroke-width:3; filter:drop-shadow(0 0 4px rgba(78,216,194,0.4)); }
+    100% { opacity:0; stroke-width:0; }
+  }
+  @keyframes glowDissolve {
+    0% { opacity:1; stroke-width:6; }
+    30% { opacity:0.6; stroke-width:10; }
+    100% { opacity:0; stroke-width:0; }
+  }
+
+  /* DUSA base */
+  .dusa-base {
+    position: relative; height: 52px; border-radius: 6px;
+    border: 1.5px solid rgba(78,216,194,0.15); background: rgba(78,216,194,0.01);
+    display: flex; align-items: center; padding: 0 14px 10px; gap: 8px;
+    transition: all 1s ease; overflow: visible;
+  }
+  .dusa-base--active { border-color: rgba(78,216,194,0.5); background: rgba(78,216,194,0.06); }
+  .dusa-base--merged { border-radius: 0 0 6px 6px; border-top-color: rgba(78,216,194,0.1); }
+  .dusa-base__led {
+    width:7px; height:7px; border-radius:50%; flex-shrink:0;
+    background:rgba(78,216,194,0.15); box-shadow:none; transition:all 0.8s; margin-right:10px;
+  }
+  .dusa-base--active .dusa-base__led { background:var(--reef-aqua); box-shadow:0 0 8px rgba(78,216,194,0.5); }
+  .dusa-base__label { font-family:var(--font-headline); font-size:0.75rem; font-weight:700; color:rgba(78,216,194,0.25); transition:color 0.8s; }
+  .dusa-base--active .dusa-base__label { color:var(--reef-aqua); }
+  .dusa-base__sub { font-family:var(--font-body); font-size:0.5rem; color:rgba(78,216,194,0.15); transition:color 0.8s; }
+  .dusa-base--active .dusa-base__sub { color:rgba(78,216,194,0.4); }
+  .dusa-base__battery { position:absolute; bottom:4px; left:12px; right:12px; height:6px; display:flex; gap:2px; }
+  .rack-bbar {
+    flex:1; height:100%; border-radius:1px;
+    background:rgba(78,216,194,0.05); border:0.5px solid rgba(78,216,194,0.08); transition:all 0.15s;
+  }
+  .rack-bbar--lit { background:rgba(78,216,194,0.25); border-color:rgba(78,216,194,0.4); box-shadow:0 0 4px rgba(78,216,194,0.15); }
+  .rack-bbar--flicker { animation:fluorFlicker 0.1s steps(2) infinite; }
+  @keyframes fluorFlicker {
+    0% { opacity:1; background:rgba(78,216,194,0.35); }
+    50% { opacity:0.1; background:rgba(78,216,194,0.02); }
+    100% { opacity:0.8; background:rgba(78,216,194,0.2); }
+  }
+
+  .rack-status {
+    margin-top: 16px; text-align:center;
+    font-family:var(--font-mono); font-size:0.625rem;
+    color:rgba(247,244,239,0.3); min-height:18px; transition:all 0.8s;
+  }
+  .rack-status--active { color:rgba(78,216,194,0.6); }
+  .rack-status--done { color:var(--reef-aqua); font-weight:700; font-size:0.75rem; font-family:var(--font-headline); }
+
+  .rack-activate {
+    padding:10px 28px;
+    border:1.5px solid rgba(78,216,194,0.35); background:rgba(78,216,194,0.06);
+    border-radius:6px; color:var(--reef-aqua);
+    font-family:var(--font-headline); font-size:0.75rem; font-weight:600;
+    cursor:pointer; transition:all 0.3s; letter-spacing:0.02em;
+  }
+  .rack-activate:hover { background:rgba(78,216,194,0.12); border-color:rgba(78,216,194,0.5); }
+  .rack-activate--hide { opacity:0; pointer-events:none; height:0; margin:0; padding:0; overflow:hidden; }
+
+  .rack-row__cost--neutral {
+    color: rgba(247, 244, 239, 0.15) !important;
+  }
+
+  .replace__savings-callout {
+    margin-top: 20px;
+    padding: 14px 28px;
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(237,233,227,0.7);
+    text-align: center;
+    letter-spacing: 0.01em;
+    background: rgba(237,233,227,0.04);
+    border: 1.5px solid rgba(237,233,227,0.1);
+    border-radius: 8px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: savingsPulse 3s ease-in-out infinite;
+  }
+  @keyframes savingsPulse {
+    0%,100% {
+      box-shadow:
+        0 0 8px rgba(237,233,227,0.04),
+        0 0 20px rgba(237,233,227,0.02);
+      border-color: rgba(237,233,227,0.1);
+    }
+    50% {
+      box-shadow:
+        0 0 12px rgba(237,233,227,0.1),
+        0 0 30px rgba(237,233,227,0.04);
+      border-color: rgba(237,233,227,0.25);
+    }
+  }
+
+  .replace__savings-callout strong {
+    color: var(--sandstone);
+    font-weight: 700;
+  }
+
+  /* ─── SUPPORT LAYER ─── */
+  .support {
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .support__header {
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .support__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  .support__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .support__card:hover {
+    border-color: rgba(78, 216, 194, 0.15);
+    background: rgba(247, 244, 239, 0.05);
+    transform: translateY(-3px);
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(78, 216, 194, 0.04),
+      inset 0 1px 0 rgba(247, 244, 239, 0.04);
+  }
+
+  .support__icon {
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-sm);
+  }
+
+  .support__card-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.5rem;
+  }
+
+  .support__card-desc {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  .support__card-plans {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    opacity: 0.8;
+    margin-top: auto;
+  }
+
+  /* ─── FEATURE COMPARISON ─── */
+  .compare {
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .compare__header {
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .compare__sub {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+  }
+
+  .compare__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--space-lg);
+  }
+
+  .compare__table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .compare__feature-col {
+    width: 35%;
+  }
+
+  .compare__plan-col {
+    width: 16.25%;
+    text-align: center;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--warm-white);
+    padding: var(--space-sm) 0.5rem;
+  }
+
+  .compare__plan-col--highlight {
+    color: var(--reef-aqua);
+  }
+
+  .compare__plan-price {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.4);
+    padding-bottom: var(--space-md);
+    letter-spacing: 0.05em;
+  }
+
+  .compare__plan-price--highlight {
+    color: var(--reef-aqua);
+  }
+
+  .compare__category-row td {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    padding: var(--space-md) 0 var(--space-xs);
+    border-bottom: 1px solid rgba(78, 216, 194, 0.15);
+    font-weight: 400;
+  }
+
+  .compare__feature-row td {
+    padding: 0.625rem 0.5rem;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.04);
+  }
+
+  .compare__feature-name {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  .compare__cell {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .compare__cell--highlight {
+    background: rgba(78, 216, 194, 0.03);
+  }
+
+  .compare__check {
+    width: 18px;
+    height: 18px;
+    color: var(--reef-aqua);
+    display: inline-block;
+  }
+
+  .compare__dash {
+    color: rgba(247, 244, 239, 0.15);
+    font-size: 1rem;
+  }
+
+  .compare__text {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .compare__cta-row {
+    display: grid;
+    grid-template-columns: 35% repeat(4, 16.25%);
+    gap: 0;
+    padding-top: var(--space-md);
+  }
+
+  .compare__cta-label {
+    /* empty first column to match feature-col */
+  }
+
+  .compare__cta-cell {
+    display: flex;
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+
+  /* ─── FAQ ─── */
+  .faq__header {
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .faq__list {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid rgba(12, 14, 20, 0.08);
+    overflow: hidden;
+  }
+
+  .faq__question {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--deep-black);
+    padding: var(--space-md) 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    transition: color var(--duration-fast);
+  }
+
+  .faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__question::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--deep-ocean);
+    flex-shrink: 0;
+    margin-left: var(--space-sm);
+  }
+
+  details[open] .faq__question::after {
+    content: '\2212';
+  }
+
+  .faq__question:hover {
+    color: var(--deep-ocean);
+  }
+
+  .faq__answer {
+    font-size: 1.0625rem;
+    color: rgba(12, 14, 20, 0.6);
+    line-height: 1.7;
+    padding-bottom: var(--space-md);
+    max-width: 600px;
+  }
+
+  /* ─── BOTTOM CTA ─── */
+  .pricing-cta__content {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .pricing-cta__desc {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin: var(--space-sm) auto var(--space-lg);
+    max-width: 520px;
+  }
+
+  .pricing-cta__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── TOOL SELECTOR BUTTONS ─── */
+  .replace__tool-btn {
+    font-family: var(--font-headline);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(247, 244, 239, 0.3);
+    background: none;
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-full);
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .replace__tool-btn:hover {
+    color: rgba(247, 244, 239, 0.7);
+    border-color: rgba(247, 244, 239, 0.15);
+    background: rgba(247, 244, 239, 0.04);
+  }
+
+  .replace__tool-btn--active {
+    color: var(--warm-white);
+    border-color: rgba(232, 82, 78, 0.4);
+    background: rgba(232, 82, 78, 0.1);
+    text-decoration: line-through;
+    text-decoration-color: rgba(232, 82, 78, 0.5);
+  }
+
+  .replace__tool-btn--active:hover {
+    border-color: rgba(232, 82, 78, 0.5);
+    background: rgba(232, 82, 78, 0.15);
+  }
+
+  .replace__tool-btn--na {
+    font-style: italic;
+    font-size: 0.6875rem;
+    opacity: 0.5;
+  }
+
+  .replace__tool-btn--na.replace__tool-btn--active {
+    color: rgba(247, 244, 239, 0.5);
+    border-color: rgba(247, 244, 239, 0.15);
+    background: rgba(247, 244, 239, 0.04);
+    text-decoration: none;
+    opacity: 1;
+  }
+
+  /* ─── EXPANDABLE COMPARISON ROWS ─── */
+  .compare__feature-row {
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .compare__feature-row:hover {
+    background: rgba(78, 216, 194, 0.04);
+  }
+
+  .compare__feature-row:hover .compare__feature-name {
+    color: var(--warm-white);
+  }
+
+  .compare__feature-name {
+    transition: color 0.2s ease;
+    position: relative;
+    padding-right: 1.25rem !important;
+  }
+
+  .compare__expand-icon {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 0.5rem;
+    color: rgba(247, 244, 239, 0.25);
+    vertical-align: middle;
+    transition: transform 0.3s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .compare__feature-row:hover .compare__expand-icon {
+    color: var(--reef-aqua);
+  }
+
+  .compare__feature-row--open .compare__expand-icon {
+    transform: rotate(180deg);
+    color: var(--reef-aqua);
+  }
+
+  .compare__desc-row {
+    display: none;
+  }
+
+  .compare__desc-row--open {
+    display: table-row;
+  }
+
+  .compare__desc-cell {
+    padding: 0 0.5rem var(--space-md) 0.5rem !important;
+    border-bottom: 1px solid rgba(78, 216, 194, 0.08) !important;
+  }
+
+  .compare__desc-text {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.45);
+    line-height: 1.6;
+    max-width: 500px;
+    animation: descFadeIn 0.3s ease;
+  }
+
+  @keyframes descFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .pricing-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .support__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .rack-row {
+      grid-template-columns: auto 1fr auto auto;
+      padding: 8px 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .pricing-hero__sub {
+      font-size: 1.0625rem;
+    }
+
+    .support__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .compare__ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .rack-row__feature {
+      font-size: 0.7rem;
+    }
+    .rack-row__cost {
+      font-size: 0.75rem;
+    }
+
+    .pricing-card__amount {
+      font-size: 3rem;
+    }
+
+    .pricing-cta__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pricing-card {
+      padding: var(--space-md);
+    }
+
+    .pricing-card__amount {
+      font-size: 2.5rem;
+    }
+
+    .compare__ctas .btn {
+      width: 100%;
+    }
+  }
+
+  /* GSAP-animated elements hidden until JS runs */
+  .pricing-hero__content,
+  .pricing-card,
+  .replace__header,
+  .rack-row,
+  .replace__savings-callout,
+  .support__card,
+  .compare__table-wrap,
+  .faq__item {
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  function initPricingAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initPricingAnimations, 100);
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Make hidden elements visible for GSAP
+    gsap.set('.pricing-hero__content, .pricing-card, .replace__header, .rack-row, .replace__savings-callout, .support__card, .compare__table-wrap, .faq__item', {
+      visibility: 'visible',
+    });
+
+    /* ── Above-the-fold: subtle slide-up, always visible ── */
+    gsap.fromTo('.pricing-hero__content',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+    );
+
+    gsap.fromTo('.pricing-card',
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out', delay: 0.3 }
+    );
+
+    /* ── Below-the-fold: individual element triggers for reliability ── */
+    const replaceHeader = document.querySelector('.replace__header');
+    if (replaceHeader) {
+      gsap.fromTo(replaceHeader, { y: 30, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: replaceHeader, start: 'top 90%', once: true },
+      });
+    }
+
+    document.querySelectorAll('.rack-row').forEach((el) => {
+      gsap.fromTo(el, { x: 20, opacity: 0 }, {
+        x: 0, opacity: 1, duration: 0.4, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 95%', once: true },
+      });
+    });
+
+    const savingsCallout = document.querySelector('.replace__savings-callout');
+    if (savingsCallout) {
+      gsap.fromTo(savingsCallout, { y: 10, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.5, ease: 'power3.out',
+        scrollTrigger: { trigger: savingsCallout, start: 'top 95%', once: true },
+      });
+    }
+
+    document.querySelectorAll('.support__card').forEach((el) => {
+      gsap.fromTo(el, { y: 30, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.5, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+      });
+    });
+
+    gsap.fromTo('.compare__table-wrap',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '.compare__table-wrap', start: 'top 92%', once: true },
+      }
+    );
+
+    document.querySelectorAll('.faq__item').forEach((el) => {
+      gsap.fromTo(el, { y: 20, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.4, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 95%', once: true },
+      });
+    });
+
+    // Recalculate after fonts/images settle
+    setTimeout(() => ScrollTrigger.refresh(), 500);
+    setTimeout(() => ScrollTrigger.refresh(), 1500);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPricingAnimations);
+  } else {
+    initPricingAnimations();
+  }
+
+  /* Ensure animations play even if page loads in a background tab */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      ScrollTrigger.refresh();
+    }
+  });
+
+  /* ── Interactive Tool Selector + Dynamic Server Rack ── */
+  function initToolSelector() {
+    const rackDiscs = document.getElementById('rackDiscs');
+    const rackFrame = document.getElementById('rackFrame');
+    const dusaBase = document.getElementById('dusaBase');
+    const batteryWrap = document.getElementById('batteryWrap');
+    const cableSvg = document.getElementById('cableSvg');
+    const rackStatus = document.getElementById('rackStatus');
+    const rackActivate = document.getElementById('rackActivate');
+    const rackCenter = document.getElementById('rackCenter');
+    if (!rackDiscs) return;
+    let animating = false;
+
+    /* ── Pricing tiers ── */
+    function getDusaPrice(toolCount) {
+      if (toolCount <= 0) return 0;
+      if (toolCount === 1) return 47;
+      return 149; // 2+ tools
+    }
+    function getDusaTier(toolCount) {
+      if (toolCount <= 0) return '';
+      if (toolCount === 1) return 'Launchpad';
+      return 'Starter';
+    }
+
+    /* ── Gather active (non-N/A) selections ── */
+    function getActiveSelections() {
+      const selections = [];
+      rackDiscs.querySelectorAll('.rack-row').forEach(row => {
+        const activeBtn = row.querySelector('.replace__tool-btn--active');
+        if (activeBtn && activeBtn.dataset.tool !== 'na') {
+          const cost = parseInt(activeBtn.dataset.cost);
+          selections.push({
+            name: activeBtn.dataset.name,
+            cost: cost,
+            feature: row.querySelector('.rack-row__feature')?.textContent || '',
+            rowIdx: activeBtn.dataset.row,
+            rowEl: row,
+          });
+        }
+      });
+      return selections;
+    }
+
+    /* ── Build battery bars ── */
+    function buildBattery(count) {
+      batteryWrap.innerHTML = '';
+      const barCount = Math.max(count, 6);
+      for (let i = 0; i < barCount; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'rack-bbar';
+        batteryWrap.appendChild(bar);
+      }
+    }
+
+    /* ── Update rack row states based on selections ── */
+    function rebuildRack() {
+      if (animating) return;
+      cableSvg.innerHTML = '';
+      rackFrame.classList.remove('rack-frame--calm');
+      dusaBase.classList.remove('dusa-base--active', 'dusa-base--merged');
+      rackStatus.classList.remove('rack-status--active', 'rack-status--done');
+
+      // Update each row's visual state
+      rackDiscs.querySelectorAll('.rack-row').forEach(row => {
+        const activeBtn = row.querySelector('.replace__tool-btn--active');
+        const isActive = activeBtn && activeBtn.dataset.tool !== 'na';
+        row.classList.remove('rack-row--hot', 'rack-row--off', 'rack-row--cool', 'rack-row--merged');
+        row.classList.add(isActive ? 'rack-row--hot' : 'rack-row--off');
+      });
+
+      const selections = getActiveSelections();
+      const toolCount = selections.length;
+      const dusaPrice = getDusaPrice(toolCount);
+
+      rackFrame.classList.toggle('rack-frame--stressed', toolCount > 0);
+      rackActivate.classList.toggle('rack-activate--hide', toolCount === 0);
+
+      buildBattery(Math.max(toolCount + 2, 6));
+
+      if (toolCount === 0) {
+        rackStatus.textContent = 'Select tools to build your stack.';
+      } else {
+        const totalCost = selections.reduce((s, t) => s + t.cost, 0);
+        rackStatus.textContent = toolCount + ' disconnected system' + (toolCount > 1 ? 's' : '') + '. $' + totalCost + '/mo overhead.';
+        updateSavings(totalCost, dusaPrice);
+      }
+
+      if (dusaPrice === 0) {
+        updateSavings(0, 0);
+      }
+    }
+
+    /* ── Update totals and savings ── */
+    function updateTotalsAndRack() {
+      rebuildRack();
+    }
+
+    function updateSavings(total, dusaPrice) {
+      const saveEl = document.getElementById('replaceSave');
+      if (!saveEl) return;
+      const saving = total - dusaPrice;
+      const tier = getDusaTier(getActiveSelections().length);
+      if (dusaPrice === 0) {
+        saveEl.innerHTML = 'Select tools to see your savings.';
+      } else if (saving > 0) {
+        saveEl.innerHTML = 'Save <strong>$' + saving + '/mo</strong> with DUSA ' + tier + ' at <strong>$' + dusaPrice + '/mo</strong>';
+      } else {
+        saveEl.innerHTML = 'Get everything above with DUSA ' + tier + ' at <strong>$' + dusaPrice + '/mo</strong>';
+      }
+    }
+
+    /* ── Click handler on rack rows ── */
+    rackDiscs.addEventListener('click', function(e) {
+      const btn = e.target.closest('.replace__tool-btn');
+      if (!btn || animating) return;
+
+      const rowIdx = btn.dataset.row;
+      const row = rackDiscs.querySelector(`.rack-row[data-row="${rowIdx}"]`);
+      if (!row) return;
+
+      row.querySelectorAll('.replace__tool-btn').forEach(b => b.classList.remove('replace__tool-btn--active'));
+      btn.classList.add('replace__tool-btn--active');
+
+      const costCell = row.querySelector('.rack-row__cost');
+      if (costCell) {
+        const newCost = parseInt(btn.dataset.cost);
+        const isNA = btn.dataset.tool === 'na' || newCost === 0;
+        costCell.textContent = isNA ? 'N/A' : '$' + newCost;
+        costCell.classList.toggle('rack-row__cost--neutral', isNA);
+      }
+
+      updateTotalsAndRack();
+    });
+
+    /* ── Activate DUSA animation ── */
+    rackActivate.addEventListener('click', async function() {
+      if (animating) return;
+      const selections = getActiveSelections();
+      if (selections.length === 0) return;
+      animating = true;
+      rackActivate.classList.add('rack-activate--hide');
+
+      const activeRows = selections.map(s => s.rowEl);
+      const bars = batteryWrap.querySelectorAll('.rack-bbar');
+      const totalCost = selections.reduce((s, t) => s + t.cost, 0);
+      const dusaPrice = getDusaPrice(selections.length);
+
+      /* Phase 1: Battery boot with fluorescent flicker */
+      rackStatus.textContent = 'Initializing DUSA platform...';
+      rackStatus.classList.add('rack-status--active');
+
+      bars.forEach(b => b.classList.add('rack-bbar--flicker'));
+      await sleep(600);
+      for (let i = 0; i < bars.length; i++) {
+        bars[i].classList.remove('rack-bbar--flicker');
+        bars[i].classList.add('rack-bbar--lit');
+        await sleep(80);
+      }
+      await sleep(200);
+      dusaBase.classList.add('dusa-base--active');
+      await sleep(400);
+
+      /* Phase 2: Connect active rows bottom-up */
+      rackStatus.textContent = 'Connecting systems...';
+
+      for (let step = 0; step < activeRows.length; step++) {
+        const rowIdx = activeRows.length - 1 - step;
+        const row = activeRows[rowIdx];
+        const side = step % 2 === 0 ? 'right' : 'left';
+        const fromEl = step === 0 ? dusaBase : activeRows[rowIdx + 1];
+
+        await sleep(150);
+        await drawCable(row, fromEl, side);
+        await sleep(200);
+
+        // Turn row green
+        row.classList.remove('rack-row--hot');
+        row.classList.add('rack-row--cool');
+
+        await sleep(150);
+      }
+
+      await sleep(300);
+
+      /* Phase 3: Dissolve cables, merge into unified platform */
+      rackStatus.textContent = 'Unifying platform...';
+
+      cableSvg.querySelectorAll('path').forEach(p => {
+        p.style.transition = 'opacity 0.8s ease-out';
+        p.style.opacity = '0';
+      });
+
+      await sleep(600);
+
+      activeRows.forEach(row => {
+        row.classList.add('rack-row--merged');
+        const handle = row.querySelector('.rack-row__handle');
+        if (handle) handle.style.opacity = '0';
+      });
+
+      rackFrame.classList.remove('rack-frame--stressed');
+      rackFrame.classList.add('rack-frame--calm');
+      dusaBase.classList.add('dusa-base--merged');
+
+      await sleep(800);
+      cableSvg.innerHTML = '';
+
+      /* Phase 4: Show result */
+      const saving = totalCost - dusaPrice;
+      const yearly = saving * 12;
+      rackStatus.classList.remove('rack-status--active');
+      rackStatus.classList.add('rack-status--done');
+      if (saving > 0) {
+        rackStatus.textContent = 'Unified. You save $' + saving + '/mo ($' + yearly + '/yr)';
+      } else {
+        rackStatus.textContent = 'Unified. One platform. $' + dusaPrice + '/mo.';
+      }
+
+      animating = false;
+      setTimeout(() => { rackActivate.classList.remove('rack-activate--hide'); }, 2000);
+    });
+
+    /* ── Helper: get element center relative to rackOuter ── */
+    function elPos(el) {
+      const outerRect = rackCenter.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return {
+        cx: r.left + r.width / 2 - outerRect.left,
+        cy: r.top + r.height / 2 - outerRect.top,
+        top: r.top - outerRect.top,
+        bottom: r.bottom - outerRect.top,
+        left: r.left - outerRect.left,
+        right: r.right - outerRect.left,
+        w: r.width,
+        h: r.height,
+      };
+    }
+
+    /* ── Draw SVG bezier cable from one element to another ── */
+    async function drawCable(toDisc, fromEl, side) {
+      /* Size the SVG to match rackCenter exactly — cables that extend
+         beyond the edges are visible via overflow:visible on the SVG.
+         Using a viewBox keeps the coordinate system in sync with CSS
+         pixels so positions calculated from getBoundingClientRect map
+         1-to-1 into SVG-space. */
+      const outerRect = rackCenter.getBoundingClientRect();
+      const vw = outerRect.width;
+      const vh = outerRect.height;
+      cableSvg.setAttribute('viewBox', `0 0 ${vw} ${vh}`);
+      cableSvg.removeAttribute('width');
+      cableSvg.removeAttribute('height');
+
+      const to = elPos(toDisc);
+      const from = elPos(fromEl);
+
+      let sx, sy, ex, ey, cpx;
+      sy = from.cy;
+      ey = to.cy;
+
+      if (side === 'right') {
+        sx = from.right + 6;
+        ex = to.right + 6;
+        cpx = Math.max(sx, ex) + 30;
+      } else {
+        sx = from.left - 6;
+        ex = to.left - 6;
+        cpx = Math.min(sx, ex) - 30;
+      }
+
+      const d = `M ${sx} ${sy} C ${cpx} ${sy}, ${cpx} ${ey}, ${ex} ${ey}`;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const glow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#4ED8C2');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-linecap', 'round');
+      glow.setAttribute('d', d);
+      glow.setAttribute('fill', 'none');
+      glow.setAttribute('stroke', 'rgba(78,216,194,0.15)');
+      glow.setAttribute('stroke-width', '6');
+      glow.setAttribute('stroke-linecap', 'round');
+      glow.style.opacity = '0';
+
+      cableSvg.appendChild(glow);
+      cableSvg.appendChild(path);
+
+      // Animate stroke drawing via dashoffset
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = String(len);
+      glow.style.strokeDasharray = len;
+      glow.style.strokeDashoffset = String(len);
+
+      // Force layout, then trigger transition
+      requestAnimationFrame(() => { requestAnimationFrame(() => {
+        path.style.transition = 'stroke-dashoffset 0.5s ease-out';
+        glow.style.transition = 'stroke-dashoffset 0.5s ease-out, opacity 0.4s';
+        path.style.strokeDashoffset = '0';
+        glow.style.strokeDashoffset = '0';
+        glow.style.opacity = '1';
+      }); });
+
+      await sleep(550);
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    /* ── Initial build ── */
+    rebuildRack();
+  }
+
+  /* ── Expandable Comparison Rows ── */
+  function initExpandableRows() {
+    const featureRows = document.querySelectorAll('.compare__feature-row');
+
+    featureRows.forEach(row => {
+      row.addEventListener('click', function() {
+        const descRow = this.nextElementSibling;
+        if (!descRow || !descRow.classList.contains('compare__desc-row')) return;
+
+        const isOpen = descRow.classList.contains('compare__desc-row--open');
+
+        // Close all open rows first
+        document.querySelectorAll('.compare__desc-row--open').forEach(r => r.classList.remove('compare__desc-row--open'));
+        document.querySelectorAll('.compare__feature-row--open').forEach(r => r.classList.remove('compare__feature-row--open'));
+
+        // Toggle this one (if it wasn't already open)
+        if (!isOpen) {
+          descRow.classList.add('compare__desc-row--open');
+          this.classList.add('compare__feature-row--open');
+        }
+      });
+    });
+  }
+
+  /* Init interactive features */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { initToolSelector(); initExpandableRows(); });
+  } else {
+    initToolSelector();
+    initExpandableRows();
+  }
+</script>

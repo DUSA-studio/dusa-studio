@@ -1,0 +1,18 @@
+# Build output
+dist/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+
+# Editor / OS
+.DS_Store
+.vscode/
+*.swp
+*.swo
+
+# Astro
+.astro/

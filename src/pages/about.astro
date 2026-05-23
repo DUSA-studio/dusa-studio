@@ -1,0 +1,638 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const values = [
+  {
+    title: 'Simplicity first',
+    desc: 'Small businesses shouldn\'t need a tech team. Every feature we build passes one test: can a sole operator set it up in an afternoon?',
+    icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+  },
+  {
+    title: 'Connected by default',
+    desc: 'Tools that don\'t talk to each other create more work. DUSA connects your CRM, marketing, sales, and operations in one system from day one.',
+    icon: 'M8 12h8M12 8v8M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Honest pricing',
+    desc: 'No hidden fees, no surprise rate hikes, no charges for features you already paid for. What you see is what you pay. Always in AUD.',
+    icon: 'M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6',
+  },
+  {
+    title: 'Grow at your pace',
+    desc: 'Start with one tool for $47/mo. Add more when you need them. Upgrade when it makes sense. No pressure, no lock-ins, no forced upgrades.',
+    icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+  },
+];
+
+const timeline = [
+  { year: 'The problem', text: 'Small businesses were spending $800-1,000/mo on disconnected tools that didn\'t talk to each other. Leads were falling through cracks. Growth was being throttled by complexity.' },
+  { year: 'The insight', text: 'The tools existed, but the integration didn\'t. What sole operators needed wasn\'t another app. They needed one platform that did everything, set up in days, not months.' },
+  { year: 'DUSA . studio', text: 'Built in Sydney for Australian businesses, DUSA is the all-in-one growth platform designed for sole operators and small teams who want to scale without the overhead.' },
+];
+---
+
+<BaseLayout title="About | DUSA . studio" description="DUSA . studio is the all-in-one growth platform built in Sydney for Australian small businesses. Replace your scattered tools with one connected system.">
+
+  <!-- Hero -->
+  <section class="about-hero section section--dark">
+    <div class="container">
+      <div class="about-hero__content">
+        <span class="label">About</span>
+        <h1>Built for businesses<br/><span class="gradient-text">that do it all</span></h1>
+        <p class="about-hero__sub">DUSA . studio exists because small businesses deserve the same connected tools as enterprise companies, without the enterprise price tag or complexity.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Origin Story -->
+  <section class="origin section section--dark" style="padding-top:0;">
+    <div class="container">
+      <div class="origin__layout">
+        <div class="origin__timeline">
+          {timeline.map((item, i) => (
+            <div class="origin__step">
+              <div class="origin__step-marker">
+                <div class="origin__step-dot"></div>
+                {i < timeline.length - 1 && <div class="origin__step-line"></div>}
+              </div>
+              <div class="origin__step-content">
+                <span class="origin__step-year">{item.year}</span>
+                <p class="origin__step-text">{item.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Convergence visual -->
+        <div class="origin__visual" aria-hidden="true">
+          <svg class="origin__flow" viewBox="0 30 520 490" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="aboutGlow">
+                <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.25" />
+                <stop offset="50%" stop-color="#4ED8C2" stop-opacity="0.06" />
+                <stop offset="100%" stop-color="#4ED8C2" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="aboutGlowSoft">
+                <stop offset="0%" stop-color="#A8C8E8" stop-opacity="0.12" />
+                <stop offset="100%" stop-color="#A8C8E8" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="aboutPathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.5" />
+                <stop offset="100%" stop-color="#4ED8C2" stop-opacity="0.1" />
+              </linearGradient>
+            </defs>
+
+            <!-- Subtle grid dots -->
+            <g class="about__grid-dots" opacity="0.06">
+              {Array.from({ length: 10 }).map((_, row) =>
+                Array.from({ length: 10 }).map((_, col) => (
+                  <circle cx={26 + col * 52} cy={27 + row * 54} r="1.2" fill="#F7F4EF" />
+                ))
+              )}
+            </g>
+
+            <!-- Connection paths: tools → center -->
+            <path class="about__path about__path--1" d="M90 75 C150 140, 190 200, 255 255" stroke="url(#aboutPathGrad)" stroke-width="1.5" stroke-dasharray="8 5" />
+            <path class="about__path about__path--2" d="M440 85 C390 150, 330 200, 275 250" stroke="url(#aboutPathGrad)" stroke-width="1.5" stroke-dasharray="8 5" />
+            <path class="about__path about__path--3" d="M60 290 C120 290, 175 280, 235 270" stroke="url(#aboutPathGrad)" stroke-width="1.5" stroke-dasharray="8 5" />
+            <path class="about__path about__path--4" d="M110 470 C160 420, 210 350, 255 290" stroke="url(#aboutPathGrad)" stroke-width="1.5" stroke-dasharray="8 5" />
+            <path class="about__path about__path--5" d="M430 450 C390 400, 330 330, 280 290" stroke="url(#aboutPathGrad)" stroke-width="1.5" stroke-dasharray="8 5" />
+            <path class="about__path about__path--6" d="M475 270 C420 270, 350 270, 290 270" stroke="url(#aboutPathGrad)" stroke-width="1.5" stroke-dasharray="8 5" />
+
+            <!-- Path glows -->
+            <path class="about__path-glow" d="M90 75 C150 140, 190 200, 255 255" stroke="#4ED8C2" stroke-width="6" stroke-linecap="round" opacity="0.05" />
+            <path class="about__path-glow" d="M440 85 C390 150, 330 200, 275 250" stroke="#4ED8C2" stroke-width="6" stroke-linecap="round" opacity="0.05" />
+            <path class="about__path-glow" d="M110 470 C160 420, 210 350, 255 290" stroke="#4ED8C2" stroke-width="6" stroke-linecap="round" opacity="0.05" />
+            <path class="about__path-glow" d="M430 450 C390 400, 330 330, 280 290" stroke="#4ED8C2" stroke-width="6" stroke-linecap="round" opacity="0.05" />
+
+            <!-- Central glow -->
+            <circle class="about__center-glow" cx="260" cy="270" r="100" fill="url(#aboutGlow)" opacity="0" />
+            <circle cx="260" cy="270" r="70" fill="url(#aboutGlowSoft)" opacity="0.4" />
+
+            <!-- ═══ CENTRAL DUSA NODE ═══ -->
+            <g class="about__center-node">
+              <circle cx="260" cy="270" r="52" stroke="rgba(78,216,194,0.2)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
+              <circle cx="260" cy="270" r="40" stroke="rgba(78,216,194,0.4)" stroke-width="1.5" fill="rgba(78,216,194,0.04)" />
+              <circle cx="260" cy="270" r="28" stroke="#4ED8C2" stroke-width="2" fill="rgba(12,14,20,0.9)" />
+              <!-- DUSA animated logo -->
+              <image href="/dusa-logo-animated.webp" x="236" y="246" width="48" height="48" />
+              <text x="260" y="345" text-anchor="middle" fill="rgba(247,244,239,0.5)" font-size="12" font-family="monospace" letter-spacing="0.12em" font-weight="500">DUSA</text>
+            </g>
+
+            <!-- ═══ SCATTERED TOOL NODES ═══ -->
+            <!-- CRM / Contacts — top left -->
+            <g class="about__tool-node about__tool--1">
+              <circle cx="85" cy="70" r="28" stroke="rgba(78,216,194,0.15)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+              <circle cx="85" cy="70" r="19" stroke="rgba(78,216,194,0.3)" stroke-width="1.5" fill="rgba(12,14,20,0.85)" />
+              <g transform="translate(73, 58)" stroke="#4ED8C2" stroke-width="1.4" stroke-linecap="round" fill="none">
+                <path d="M17 21v-2a4 4 0 00-4-4H5" opacity="0.6" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87" opacity="0.5" />
+              </g>
+              <text x="85" y="112" text-anchor="middle" fill="rgba(247,244,239,0.35)" font-size="9" font-family="monospace" letter-spacing="0.1em">CRM</text>
+            </g>
+
+            <!-- Email — top right -->
+            <g class="about__tool-node about__tool--2">
+              <circle cx="440" cy="80" r="28" stroke="rgba(78,216,194,0.15)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+              <circle cx="440" cy="80" r="19" stroke="rgba(78,216,194,0.3)" stroke-width="1.5" fill="rgba(12,14,20,0.85)" />
+              <g transform="translate(428, 69)" stroke="#4ED8C2" stroke-width="1.4" stroke-linecap="round" fill="none">
+                <rect x="1" y="2" width="22" height="16" rx="2" />
+                <path d="M23 4l-11 7L1 4" />
+              </g>
+              <text x="440" y="122" text-anchor="middle" fill="rgba(247,244,239,0.35)" font-size="9" font-family="monospace" letter-spacing="0.1em">EMAIL</text>
+            </g>
+
+            <!-- Calendar — left -->
+            <g class="about__tool-node about__tool--3">
+              <circle cx="55" cy="290" r="28" stroke="rgba(78,216,194,0.15)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+              <circle cx="55" cy="290" r="19" stroke="rgba(78,216,194,0.3)" stroke-width="1.5" fill="rgba(12,14,20,0.85)" />
+              <g transform="translate(43, 278)" stroke="#4ED8C2" stroke-width="1.4" stroke-linecap="round" fill="none">
+                <rect x="1" y="4" width="22" height="18" rx="2" />
+                <path d="M1 10h22" />
+                <path d="M7 1v5" />
+                <path d="M17 1v5" />
+              </g>
+              <text x="55" y="332" text-anchor="middle" fill="rgba(247,244,239,0.35)" font-size="9" font-family="monospace" letter-spacing="0.1em">CALENDAR</text>
+            </g>
+
+            <!-- Funnels — bottom left -->
+            <g class="about__tool-node about__tool--4">
+              <circle cx="105" cy="470" r="28" stroke="rgba(78,216,194,0.15)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+              <circle cx="105" cy="470" r="19" stroke="rgba(78,216,194,0.3)" stroke-width="1.5" fill="rgba(12,14,20,0.85)" />
+              <g transform="translate(93, 458)" stroke="#4ED8C2" stroke-width="1.4" stroke-linecap="round" fill="none">
+                <path d="M2 3h20l-7 8v6l-6 3V11L2 3z" />
+              </g>
+              <text x="105" y="512" text-anchor="middle" fill="rgba(247,244,239,0.35)" font-size="9" font-family="monospace" letter-spacing="0.1em">FUNNELS</text>
+            </g>
+
+            <!-- Analytics — bottom right -->
+            <g class="about__tool-node about__tool--5">
+              <circle cx="430" cy="450" r="28" stroke="rgba(78,216,194,0.15)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+              <circle cx="430" cy="450" r="19" stroke="rgba(78,216,194,0.3)" stroke-width="1.5" fill="rgba(12,14,20,0.85)" />
+              <g transform="translate(418, 438)" stroke="#4ED8C2" stroke-width="1.4" stroke-linecap="round" fill="none">
+                <path d="M3 20V4" />
+                <path d="M3 20h18" />
+                <path d="M7 14l4-4 3 3 5-7" />
+                <path d="M16 6h4v4" />
+              </g>
+              <text x="430" y="492" text-anchor="middle" fill="rgba(247,244,239,0.35)" font-size="9" font-family="monospace" letter-spacing="0.1em">ANALYTICS</text>
+            </g>
+
+            <!-- Chat — right -->
+            <g class="about__tool-node about__tool--6">
+              <circle cx="475" cy="270" r="28" stroke="rgba(78,216,194,0.15)" stroke-width="1" fill="none" stroke-dasharray="3 3" />
+              <circle cx="475" cy="270" r="19" stroke="rgba(78,216,194,0.3)" stroke-width="1.5" fill="rgba(12,14,20,0.85)" />
+              <g transform="translate(463, 258)" stroke="#4ED8C2" stroke-width="1.4" stroke-linecap="round" fill="none">
+                <path d="M3 17a2 2 0 01-2-2V5a2 2 0 012-2h18a2 2 0 012 2v10a2 2 0 01-2 2h-6l-6 5v-5H3z" />
+                <path d="M7 8h8" opacity="0.5" />
+                <path d="M7 12h5" opacity="0.5" />
+              </g>
+              <text x="475" y="312" text-anchor="middle" fill="rgba(247,244,239,0.35)" font-size="9" font-family="monospace" letter-spacing="0.1em">CHAT</text>
+            </g>
+
+            <!-- Floating particles -->
+            <circle class="about__particle about__particle--1" cx="180" cy="140" r="2.5" fill="#4ED8C2" opacity="0.2" />
+            <circle class="about__particle about__particle--2" cx="360" cy="160" r="3" fill="#A8C8E8" opacity="0.15" />
+            <circle class="about__particle about__particle--3" cx="160" cy="390" r="2.5" fill="#4ED8C2" opacity="0.18" />
+            <circle class="about__particle about__particle--4" cx="380" cy="370" r="3" fill="#A8C8E8" opacity="0.12" />
+            <circle class="about__particle about__particle--5" cx="260" cy="150" r="2" fill="#4ED8C2" opacity="0.15" />
+            <circle class="about__particle about__particle--6" cx="260" cy="400" r="2.5" fill="#A8C8E8" opacity="0.12" />
+            <circle class="about__particle about__particle--7" cx="140" cy="200" r="2" fill="#4ED8C2" opacity="0.1" />
+            <circle class="about__particle about__particle--8" cx="400" cy="200" r="2" fill="#A8C8E8" opacity="0.1" />
+
+            <!-- Decorative crosses -->
+            <g opacity="0.06" stroke="#F7F4EF" stroke-width="1">
+              <line x1="500" y1="30" x2="500" y2="50" /><line x1="490" y1="40" x2="510" y2="40" />
+              <line x1="20" y1="460" x2="20" y2="480" /><line x1="10" y1="470" x2="30" y2="470" />
+              <line x1="490" y1="500" x2="490" y2="515" /><line x1="483" y1="507" x2="497" y2="507" />
+              <line x1="20" y1="140" x2="20" y2="155" /><line x1="13" y1="147" x2="27" y2="147" />
+            </g>
+
+            <!-- Decorative brackets -->
+            <g opacity="0.08" stroke="#F7F4EF" stroke-width="1" fill="none">
+              <path d="M210 215 L198 215 L198 240 L210 240" />
+              <path d="M310 295 L322 295 L322 320 L310 320" />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values section section--sand">
+    <div class="container">
+      <div class="values__header">
+        <span class="label" style="color: var(--deep-ocean);">What we believe</span>
+        <h2 style="color: var(--deep-black);">Principles that<br/><span style="color: var(--deep-ocean);">guide everything</span></h2>
+      </div>
+
+      <div class="values__grid">
+        {values.map((v) => (
+          <div class="values__card">
+            <div class="values__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                <path d={v.icon}/>
+              </svg>
+            </div>
+            <h4 class="values__title">{v.title}</h4>
+            <p class="values__desc">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sydney -->
+  <section class="sydney section section--dark">
+    <div class="container">
+      <div class="sydney__content">
+        <span class="label">Made in Sydney</span>
+        <h2>Local platform,<br/><span class="gradient-text">local support</span></h2>
+        <p class="sydney__desc">
+          DUSA . studio is built and supported from Sydney, Australia. All pricing is in AUD. Our support team works in your timezone. When you call, you get someone who understands the Australian market.
+        </p>
+        <p class="sydney__desc">
+          We work with sole operators, freelancers, trades, wellness practitioners, property managers, and growing teams across the country. If you run a business and want to grow without drowning in software, we built this for you.
+        </p>
+        <div class="sydney__actions">
+          <a href="/pricing" class="btn btn--primary">See Plans</a>
+          <a href="mailto:contact@dusa.studio" class="btn btn--outline">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+  }
+
+  .about-hero__content {
+    max-width: 700px;
+  }
+
+  .about-hero__sub {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+  }
+
+  /* ─── ORIGIN TIMELINE ─── */
+  .origin__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .origin__step {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .origin__step-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .origin__step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--reef-aqua);
+    box-shadow: 0 0 20px rgba(78, 216, 194, 0.3);
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+  }
+
+  .origin__step-line {
+    width: 1px;
+    flex-grow: 1;
+    background: linear-gradient(to bottom, var(--reef-aqua), rgba(247, 244, 239, 0.06));
+    min-height: 40px;
+  }
+
+  .origin__step-content {
+    padding-bottom: var(--space-xl);
+  }
+
+  .origin__step:last-child .origin__step-content {
+    padding-bottom: 0;
+  }
+
+  .origin__step-year {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .origin__step-text {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  /* ─── CONVERGENCE VISUAL ─── */
+  .origin__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .origin__flow {
+    width: 100%;
+    max-width: 540px;
+    height: auto;
+  }
+
+  /* Path dash animation */
+  .about__path {
+    stroke-dashoffset: 0;
+    animation: aboutDash 12s linear infinite;
+  }
+  .about__path--2 { animation-delay: -2s; }
+  .about__path--3 { animation-delay: -4s; }
+  .about__path--4 { animation-delay: -6s; }
+  .about__path--5 { animation-delay: -8s; }
+  .about__path--6 { animation-delay: -10s; }
+
+  @keyframes aboutDash {
+    to { stroke-dashoffset: -220; }
+  }
+
+  /* Path glow pulse */
+  .about__path-glow {
+    animation: aboutPathGlow 4s ease-in-out infinite;
+  }
+  .about__path-glow:nth-of-type(2) { animation-delay: 1s; }
+  .about__path-glow:nth-of-type(3) { animation-delay: 2s; }
+  .about__path-glow:nth-of-type(4) { animation-delay: 3s; }
+
+  @keyframes aboutPathGlow {
+    0%, 100% { opacity: 0.02; }
+    50% { opacity: 0.08; }
+  }
+
+  /* Central node glow */
+  .about__center-glow {
+    animation: aboutCenterGlow 5s ease-in-out infinite;
+  }
+
+  @keyframes aboutCenterGlow {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  /* Outer dashed ring spins */
+  .about__center-node circle:first-child {
+    animation: aboutRingSpin 30s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* Middle ring pulse */
+  .about__center-node circle:nth-child(2) {
+    animation: aboutRingPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes aboutRingSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes aboutRingPulse {
+    0%, 100% { stroke-opacity: 0.4; }
+    50% { stroke-opacity: 0.8; }
+  }
+
+  /* Tool node outer rings spin slowly */
+  .about__tool-node circle:first-child {
+    animation: aboutToolSpin 25s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .about__tool--2 circle:first-child { animation-direction: reverse; }
+  .about__tool--4 circle:first-child { animation-direction: reverse; }
+  .about__tool--6 circle:first-child { animation-direction: reverse; }
+
+  @keyframes aboutToolSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Floating particles */
+  .about__particle {
+    animation: aboutFloat 6s ease-in-out infinite;
+  }
+  .about__particle--2 { animation-delay: -1s; animation-duration: 7s; }
+  .about__particle--3 { animation-delay: -2s; animation-duration: 5.5s; }
+  .about__particle--4 { animation-delay: -3s; animation-duration: 7.5s; }
+  .about__particle--5 { animation-delay: -4s; animation-duration: 6.5s; }
+  .about__particle--6 { animation-delay: -5s; animation-duration: 8s; }
+  .about__particle--7 { animation-delay: -1.5s; animation-duration: 6.5s; }
+  .about__particle--8 { animation-delay: -3.5s; animation-duration: 7s; }
+
+  @keyframes aboutFloat {
+    0%, 100% { transform: translateY(0); opacity: 0.08; }
+    50% { transform: translateY(-12px); opacity: 0.3; }
+  }
+
+  /* ─── VALUES ─── */
+  .values__header {
+    max-width: 600px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .values__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .values__card {
+    padding: var(--space-lg);
+    border: 1px solid rgba(12, 14, 20, 0.06);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-normal) var(--ease-out);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .values__card:hover {
+    border-color: rgba(26, 58, 92, 0.15);
+    background: rgba(255, 255, 255, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(12, 14, 20, 0.06);
+  }
+
+  .values__icon {
+    color: var(--deep-ocean);
+    margin-bottom: var(--space-sm);
+  }
+
+  .values__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--deep-black);
+    margin-bottom: 0.5rem;
+  }
+
+  .values__desc {
+    font-size: 1rem;
+    color: rgba(12, 14, 20, 0.6);
+    line-height: 1.7;
+  }
+
+  /* ─── SYDNEY ─── */
+  .sydney__content {
+    max-width: 650px;
+  }
+
+  .sydney__desc {
+    font-size: 1.0625rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+  }
+
+  .sydney__actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .about-hero__sub {
+      font-size: 1.125rem;
+    }
+
+    .origin__layout {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-lg);
+    }
+
+    .origin__flow {
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .origin__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .origin__visual {
+      display: none;
+    }
+
+    .values__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-hero__sub {
+      font-size: 1.0625rem;
+    }
+
+    .sydney__desc {
+      font-size: 1rem;
+    }
+
+    .sydney__actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .origin__step-content {
+      padding-bottom: var(--space-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sydney__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .values__card {
+      padding: var(--space-md);
+    }
+  }
+
+  /* GSAP-animated elements hidden until JS runs */
+  .about-hero__content,
+  .origin__step,
+  .origin__visual,
+  .values__card,
+  .sydney__content {
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  function initAboutAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initAboutAnimations, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.set('.about-hero__content, .origin__step, .origin__visual, .values__card, .sydney__content', {
+      visibility: 'visible',
+    });
+
+    gsap.from('.about-hero__content', {
+      y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.1,
+    });
+
+    document.querySelectorAll('.origin__step').forEach((el) => {
+      gsap.from(el, {
+        x: -30, opacity: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+      });
+    });
+
+    const originVisual = document.querySelector('.origin__visual');
+    if (originVisual) {
+      gsap.from(originVisual, {
+        scale: 0.9, opacity: 0, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: originVisual, start: 'top 90%', once: true },
+      });
+    }
+
+    document.querySelectorAll('.values__card').forEach((el) => {
+      gsap.from(el, {
+        y: 30, opacity: 0, duration: 0.5, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+      });
+    });
+
+    // Recalculate after fonts/images settle
+    setTimeout(() => ScrollTrigger.refresh(), 500);
+    setTimeout(() => ScrollTrigger.refresh(), 1500);
+
+    gsap.from('.sydney__content', {
+      y: 30, opacity: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '.sydney__content', start: 'top 90%', once: true },
+    });
+  }
+  initAboutAnimations();
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      ScrollTrigger.refresh();
+    }
+  });
+</script>

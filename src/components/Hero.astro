@@ -1,0 +1,1270 @@
+---
+// Hero.astro — Full-viewport editorial hero with notification phone mockup
+---
+
+<section class="hero section--dark" id="hero">
+  <div class="hero__bg">
+    <div class="hero__water" id="hero-water-canvas"></div>
+    <div class="hero__grid-lines"></div>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__layout">
+      <div class="hero__content">
+        <span class="label reveal">The AI-Powered Growth System</span>
+
+        <h1 class="hero__title reveal">
+          Everything you need.<br />
+          <span class="gradient-text">One login.</span>
+        </h1>
+
+        <p class="hero__subtitle reveal">AI-powered marketing, sales, and engagement. All connected. So you can run your business, not your tech stack.</p>
+
+        <div class="hero__ctas reveal">
+          <a href="#features" class="btn btn--primary">Start Growing</a>
+          <a href="#contact" class="btn btn--outline">Book a Demo</a>
+        </div>
+      </div>
+
+      <div class="hero__phone-wrap reveal-right">
+        <div class="hero__phone">
+          <div class="hero__phone-notch"></div>
+          <div class="hero__phone-time" id="hero-phone-clock">9:41</div>
+          <div class="hero__phone-header">
+            <img class="hero__phone-logo" id="hero-phone-lotus" src="/dusa-logo-animated.webp" alt="DUSA" width="22" height="22" />
+            <span class="hero__phone-app">DUSA . studio</span>
+          </div>
+
+          <div class="hero__stats-ticker" id="hero-stats-ticker">
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-leads">8</span> leads</div>
+            <div class="hero__stat-divider"></div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-revenue">$2.4k</span> tracked</div>
+            <div class="hero__stat-divider"></div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-rating">4.8</span>&#9733;</div>
+          </div>
+
+          <div class="hero__notifs" id="hero-notif-feed"></div>
+        </div>
+
+        <div class="hero__platforms">
+          <span class="hero__platforms-label">Available on</span>
+          <div class="hero__platforms-icons">
+            <!-- iOS -->
+            <div class="hero__platform" title="iOS App">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+            </div>
+            <!-- Android -->
+            <div class="hero__platform" title="Android App">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.86-.31-.16-.69-.04-.86.27l-1.87 3.23C14.89 8.35 13.48 8 12 8c-1.48 0-2.89.35-4.44.94L5.69 5.71c-.16-.31-.54-.43-.86-.27-.31.16-.43.55-.27.86l1.84 3.18C3.38 11.2 1.39 13.96 1 17h22c-.39-3.04-2.38-5.8-5.4-7.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/>
+              </svg>
+            </div>
+            <!-- Desktop / Web -->
+            <div class="hero__platform" title="Desktop App">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <!-- Web Browser -->
+            <div class="hero__platform" title="Web Browser">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__capabilities reveal">
+      <div class="hero__cap">
+        <div class="hero__cap-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="hero__cap-text">
+          <span class="hero__cap-title">CRM & Contacts</span>
+          <span class="hero__cap-sub">Track every lead</span>
+        </div>
+      </div>
+      <div class="hero__cap">
+        <div class="hero__cap-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div class="hero__cap-text">
+          <span class="hero__cap-title">Email & SMS</span>
+          <span class="hero__cap-sub">Campaigns on autopilot</span>
+        </div>
+      </div>
+      <div class="hero__cap">
+        <div class="hero__cap-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="hero__cap-text">
+          <span class="hero__cap-title">Funnels & Automations</span>
+          <span class="hero__cap-sub">Convert while you sleep</span>
+        </div>
+      </div>
+      <div class="hero__cap">
+        <div class="hero__cap-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M9 12h6l2 10H7l2-10z"/><circle cx="12" cy="5" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="hero__cap-text">
+          <span class="hero__cap-title">AI Built In</span>
+          <span class="hero__cap-sub">Smarter conversations, faster growth</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll-indicator">
+      <span class="hero__scroll-text">Explore</span>
+      <div class="hero__scroll-line"></div>
+      <svg class="hero__scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: var(--nav-height);
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__water {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__water canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__grid-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image:
+      linear-gradient(rgba(247, 244, 239, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(247, 244, 239, 0.018) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 20%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-3xl) 0 var(--space-xl);
+  }
+
+  .hero__layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero__title {
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    margin-bottom: 0;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .hero__subtitle {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.7;
+    margin-top: var(--space-md);
+    max-width: 480px;
+  }
+
+  .hero__ctas {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  /* --- Phone Mockup --- */
+  .hero__phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .hero__phone {
+    width: 320px;
+    height: 640px;
+    background: linear-gradient(165deg, rgba(247, 244, 239, 0.06) 0%, rgba(247, 244, 239, 0.02) 100%);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: 36px;
+    padding: 16px 16px 12px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(247, 244, 239, 0.04),
+      0 25px 80px rgba(0, 0, 0, 0.5),
+      0 0 120px rgba(78, 216, 194, 0.08),
+      inset 0 1px 0 rgba(247, 244, 239, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .hero__phone::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 37px;
+    background: linear-gradient(165deg, rgba(247, 244, 239, 0.12) 0%, transparent 40%, rgba(78, 216, 194, 0.06) 100%);
+    z-index: -1;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    padding: 1px;
+  }
+
+  .hero__phone-notch {
+    width: 100px;
+    height: 6px;
+    background: rgba(247, 244, 239, 0.08);
+    border-radius: 10px;
+    margin: 0 auto 12px;
+  }
+
+  .hero__phone-time {
+    font-family: var(--font-headline);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(247, 244, 239, 0.4);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .hero__phone-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 4px 12px;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+    margin-bottom: 12px;
+  }
+
+  .hero__phone-logo {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .hero__phone-app {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* --- Notifications --- */
+  .hero__notifs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 2%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 2%, black 92%, transparent 100%);
+    padding: 4px 0;
+  }
+
+  .hero__notifs::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .hero__notifs::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .hero__notifs::-webkit-scrollbar-thumb {
+    background: rgba(78, 216, 194, 0.2);
+    border-radius: 3px;
+  }
+
+  .hero__notifs::-webkit-scrollbar-thumb:hover {
+    background: rgba(78, 216, 194, 0.4);
+  }
+
+  .hero__notif {
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-sm);
+    transition: all var(--duration-normal) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Glow effect is applied via JS inline styles for reliability */
+
+  /* ─── STATS TICKER ─── */
+  .hero__stats-ticker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 6px 12px;
+    background: rgba(78, 216, 194, 0.04);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.04);
+    font-size: 0.625rem;
+    color: rgba(247, 244, 239, 0.4);
+    letter-spacing: 0.03em;
+    font-family: var(--font-mono);
+  }
+
+  .hero__stat-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  .hero__stat-val {
+    color: var(--reef-aqua);
+    font-weight: 600;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .hero__stat-val--bump {
+    transform: scale(1.25);
+    color: #fff;
+  }
+
+  .hero__stat-divider {
+    width: 1px;
+    height: 10px;
+    background: rgba(247, 244, 239, 0.08);
+    margin: 0 10px;
+  }
+
+  /* ─── TYPING INDICATOR ─── */
+  .hero__typing {
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-sm);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .hero__typing-dots {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .hero__typing-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--reef-aqua);
+    opacity: 0.5;
+    animation: typingBounce 1.2s ease-in-out infinite;
+  }
+
+  .hero__typing-dot:nth-child(2) { animation-delay: 0.15s; }
+  .hero__typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  .hero__typing-label {
+    font-size: 0.6875rem;
+    color: rgba(78, 216, 194, 0.6);
+    font-style: italic;
+  }
+
+  /* ─── LOTUS PULSE ─── */
+  .hero__phone-logo--pulse {
+    animation: lotusPulse 0.8s ease-out;
+  }
+
+  @keyframes lotusPulse {
+    0% { filter: drop-shadow(0 0 0 rgba(78, 216, 194, 0)); transform: scale(1); }
+    30% { filter: drop-shadow(0 0 8px rgba(78, 216, 194, 0.6)); transform: scale(1.15); }
+    100% { filter: drop-shadow(0 0 0 rgba(78, 216, 194, 0)); transform: scale(1); }
+  }
+
+  /* ─── QUIET HOURS NOTIFICATION ─── */
+  .hero__notif--quiet {
+    background: rgba(78, 216, 194, 0.06) !important;
+    border-color: rgba(78, 216, 194, 0.2) !important;
+    box-shadow: 0 0 12px 1px rgba(78, 216, 194, 0.12) !important;
+  }
+
+  .hero__notif::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    opacity: 0.6;
+  }
+
+  .hero__notif:hover {
+    background: rgba(247, 244, 239, 0.07);
+    border-color: rgba(247, 244, 239, 0.1);
+  }
+
+  .hero__notif:hover::before {
+    opacity: 1;
+  }
+
+  .hero__notif-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    overflow: hidden;
+  }
+
+  .hero__notif-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+    max-width: 14px;
+    max-height: 14px;
+    flex-shrink: 0;
+  }
+
+  .hero__notif-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hero__notif-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 2px;
+  }
+
+  .hero__notif-title {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--warm-white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .hero__notif-time {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: rgba(247, 244, 239, 0.3);
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hero__notif-text {
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.45);
+    line-height: 1.4;
+  }
+
+  /* --- Platform Availability --- */
+  .hero__platforms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: var(--space-md);
+  }
+
+  .hero__platforms-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(247, 244, 239, 0.3);
+  }
+
+  .hero__platforms-icons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .hero__platform {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    color: rgba(247, 244, 239, 0.4);
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .hero__platform:hover {
+    color: var(--reef-aqua);
+    border-color: rgba(78, 216, 194, 0.2);
+    background: rgba(78, 216, 194, 0.06);
+  }
+
+  /* --- Capabilities Bar --- */
+  .hero__capabilities {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    padding-top: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .hero__cap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-normal) var(--ease-out);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .hero__cap:hover {
+    background: rgba(247, 244, 239, 0.06);
+    border-color: rgba(78, 216, 194, 0.2);
+    transform: translateY(-3px);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(78, 216, 194, 0.08),
+      inset 0 1px 0 rgba(247, 244, 239, 0.06);
+  }
+
+  .hero__cap-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(78, 216, 194, 0.1);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(78, 216, 194, 0.08);
+  }
+
+  .hero__cap-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .hero__cap-title {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--warm-white);
+    white-space: nowrap;
+  }
+
+  .hero__cap-sub {
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.4);
+    white-space: nowrap;
+  }
+
+  /* --- Scroll Indicator --- */
+  .hero__scroll-indicator {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .hero__scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(247, 244, 239, 0.3);
+    transition: color var(--duration-fast);
+  }
+
+  .hero__scroll-indicator:hover .hero__scroll-text {
+    color: var(--reef-aqua);
+  }
+
+  .hero__scroll-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, rgba(78, 216, 194, 0.4), rgba(78, 216, 194, 0));
+    animation: lineGrow 2s ease-in-out infinite;
+  }
+
+  .hero__scroll-chevron {
+    color: rgba(78, 216, 194, 0.5);
+    animation: chevronBounce 2s ease-in-out infinite;
+  }
+
+  .hero__scroll-indicator:hover .hero__scroll-chevron {
+    color: var(--reef-aqua);
+  }
+
+  @keyframes lineGrow {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.6); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  }
+
+  @keyframes chevronBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50% { transform: translateY(4px); opacity: 1; }
+  }
+
+  @media (max-width: 1024px) {
+    .hero__layout {
+      grid-template-columns: 1.3fr 1fr;
+      gap: var(--space-lg);
+    }
+
+    .hero__title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+    }
+
+    .hero__subtitle {
+      font-size: 1.125rem;
+    }
+
+    .hero__phone {
+      width: 280px;
+      height: 560px;
+    }
+
+    .hero__capabilities {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero__scroll-indicator {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero__layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .hero__content {
+      text-align: center;
+    }
+
+    .hero__subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero__ctas {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero__phone-wrap {
+      order: -1;
+    }
+
+    .hero__phone {
+      width: 260px;
+      height: 520px;
+    }
+
+    .hero__platforms {
+      margin-top: var(--space-sm);
+    }
+
+    .hero__platforms-label {
+      font-size: 0.625rem;
+    }
+
+    .hero__platform {
+      width: 30px;
+      height: 30px;
+    }
+
+    .hero__capabilities {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .hero__cap {
+      padding: 0.75rem 1rem;
+    }
+
+    .hero__cap-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+
+    .hero__cap-title {
+      font-size: 0.8125rem;
+    }
+
+    .hero__cap-sub {
+      font-size: 0.6875rem;
+    }
+
+    .hero__scroll-indicator {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__capabilities {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__phone {
+      width: 240px;
+      height: 480px;
+    }
+
+    .hero__notif {
+      padding: 10px;
+      gap: 8px;
+    }
+
+    .hero__notif-title {
+      font-size: 0.75rem;
+    }
+
+    .hero__notif-text {
+      font-size: 0.6875rem;
+    }
+  }
+</style>
+
+<script src="/js/water-ripple.js" defer></script>
+
+<script>
+  // Live clock for phone mockup
+  function updatePhoneClock() {
+    const el = document.getElementById('hero-phone-clock');
+    if (!el) return;
+    const now = new Date();
+    const h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2, '0');
+    const hour12 = h % 12 || 12;
+    el.textContent = `${hour12}:${m}`;
+  }
+  updatePhoneClock();
+  setInterval(updatePhoneClock, 10000);
+
+  // ─── DYNAMIC NOTIFICATION FEED ───
+  (function initNotifFeed() {
+    const feed = document.getElementById('hero-notif-feed');
+    if (!feed) return;
+
+    // Platform icon SVGs (inline for performance)
+    const icons = {
+      instagram: `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>`,
+      whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
+      facebook: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+      google: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`,
+      sms: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`,
+      calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+      stripe: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.918 3.757 7.038c0 4.155 2.544 5.962 6.687 7.352 2.627.893 3.536 1.55 3.536 2.601 0 .943-.783 1.513-2.218 1.513-1.929 0-4.819-.893-6.908-2.121l-.89 5.566C5.552 22.899 8.453 24 11.762 24c2.627 0 4.751-.653 6.211-1.884 1.604-1.334 2.428-3.2 2.428-5.552 0-4.237-2.593-6.052-6.425-7.414z"/></svg>`,
+      email: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+      review: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
+      form: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+      automation: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+      phone: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>`,
+      website: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>`,
+      crm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>`,
+      tiktok: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46v-7.15a8.16 8.16 0 005.58 2.18v-3.45a4.85 4.85 0 01-1.99-2.55 4.86 4.86 0 01.99-2z"/></svg>`,
+      linkedin: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+      invoice: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15h6"/></svg>`,
+      funnel: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`,
+      ai: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 014 4v2a4 4 0 01-8 0V6a4 4 0 014-4z"/><path d="M9 12h6l2 10H7l2-10z"/><circle cx="12" cy="5" r="1" fill="currentColor"/></svg>`,
+    };
+
+    // Icon color per platform
+    const iconColors = {
+      instagram: '#E1306C',
+      whatsapp: '#25D366',
+      facebook: '#1877F2',
+      google: '#4285F4',
+      sms: '#4ED8C2',
+      calendar: '#4ED8C2',
+      stripe: '#635BFF',
+      email: '#6AAACF',
+      review: '#F0B24A',
+      form: '#6AAACF',
+      automation: '#4ED8C2',
+      phone: '#4ED8C2',
+      website: '#6AAACF',
+      crm: '#9B6BDB',
+      tiktok: '#ff0050',
+      linkedin: '#0A66C2',
+      invoice: '#D4956B',
+      funnel: '#9B6BDB',
+      ai: '#4ED8C2',
+    };
+
+    // Bar color per platform
+    const barColors = {
+      instagram: '#E1306C',
+      whatsapp: '#25D366',
+      facebook: '#1877F2',
+      google: '#4285F4',
+      sms: '#4ED8C2',
+      calendar: '#4ED8C2',
+      stripe: '#635BFF',
+      email: '#6AAACF',
+      review: '#F0B24A',
+      form: '#6AAACF',
+      automation: '#4ED8C2',
+      phone: '#4ED8C2',
+      website: '#6AAACF',
+      crm: '#9B6BDB',
+      tiktok: '#ff0050',
+      linkedin: '#0A66C2',
+      invoice: '#D4956B',
+      funnel: '#9B6BDB',
+      ai: '#4ED8C2',
+    };
+
+    // 50 notifications — each has a delta (minutes since previous notification)
+    const notifications = [
+      { icon: 'instagram', title: 'Instagram DM', text: 'Jessica R: "Hi! I saw your post, do you have availability this week?"', delta: 2 },
+      { icon: 'stripe', title: 'Invoice Viewed', text: 'Invoice #1047 ($850) viewed by Jessica R.', delta: 3 },
+      { icon: 'stripe', title: 'Invoice Paid', text: '$850 received from Jessica R. Invoice #1047 paid in full.', delta: 4 },
+      { icon: 'whatsapp', title: 'WhatsApp Message', text: 'Tom K: "Thanks for the quote! Can we go ahead and book?"', delta: 1 },
+      { icon: 'calendar', title: 'Appointment Booked', text: 'Marcus L. booked a consultation for tomorrow at 2pm.', delta: 5 },
+      { icon: 'google', title: 'New Google Review', text: 'Sarah M. left a 5-star review: "Best service in Sydney!"', delta: 3 },
+      { icon: 'ai', title: 'AI Follow-Up Sent', text: 'AI composed and sent personalised follow-ups to 3 new leads.', delta: 2 },
+      { icon: 'sms', title: 'SMS Reply Received', text: 'David P: "Yes, the 3pm slot works perfectly for me."', delta: 6 },
+      { icon: 'facebook', title: 'Facebook Lead', text: 'New lead from Facebook ad: Emma T. requested a free quote.', delta: 2 },
+      { icon: 'email', title: 'Email Opened', text: '"Your exclusive offer" opened by 247 contacts. 38% open rate.', delta: 4 },
+      { icon: 'stripe', title: 'Payment Received', text: '$1,200 received from Cooper & Co. Recurring subscription renewed.', delta: 7 },
+      { icon: 'instagram', title: 'Instagram Comment', text: 'New comment on your post: "This looks amazing! DMing you now."', delta: 3 },
+      { icon: 'phone', title: 'Missed Call Logged', text: 'Missed call from +61 412 xxx xxx. Auto-SMS sent with callback link.', delta: 5 },
+      { icon: 'form', title: 'Form Submitted', text: 'Contact form submitted by Alex N. — "Interested in the Growth plan."', delta: 4 },
+      { icon: 'calendar', title: 'Appointment Reminder', text: 'Reminder sent to 4 clients for tomorrow\'s appointments.', delta: 8 },
+      { icon: 'whatsapp', title: 'WhatsApp Message', text: 'Lisa M: "Just wanted to say the results have been incredible!"', delta: 2 },
+      { icon: 'crm', title: 'Pipeline Updated', text: 'Deal "Cafe Fit-out" moved to "Proposal Sent" -- $4,200 value.', delta: 5 },
+      { icon: 'review', title: 'Review Request Sent', text: 'Auto-review request sent to 12 recent clients via SMS.', delta: 3 },
+      { icon: 'funnel', title: 'Funnel Conversion', text: 'Landing page "Free Consultation" converted at 23% this week.', delta: 6 },
+      { icon: 'tiktok', title: 'TikTok Lead', text: 'New lead from TikTok bio link: Jake S. signed up for your webinar.', delta: 4 },
+      { icon: 'email', title: 'Email Replied', text: 'Nathan B. replied: "Count me in for the workshop next Friday."', delta: 3 },
+      { icon: 'stripe', title: 'Subscription Started', text: 'New subscription: Liam H. signed up for the $149/mo plan.', delta: 7 },
+      { icon: 'sms', title: 'Bulk SMS Delivered', text: '89 of 90 promotional SMS messages delivered successfully.', delta: 2 },
+      { icon: 'google', title: 'Google Ad Lead', text: 'New lead from Google Ads: Sophie L. clicked "Get a Free Quote."', delta: 5 },
+      { icon: 'ai', title: 'AI Content Generated', text: 'AI drafted 3 social media posts for this week. Ready for review.', delta: 4 },
+      { icon: 'instagram', title: 'Story Mention', text: '@fit_sydney_studio mentioned you in their story. 2.4k views.', delta: 6 },
+      { icon: 'invoice', title: 'Invoice Overdue', text: 'Invoice #1031 ($640) is 3 days overdue. Auto-reminder sent to Client.', delta: 8 },
+      { icon: 'calendar', title: 'No-Show Detected', text: 'Ryan P. missed their 11am appointment. Rebooking SMS sent.', delta: 3 },
+      { icon: 'website', title: 'Website Visitor', text: 'Returning visitor viewed your pricing page 3 times today.', delta: 5 },
+      { icon: 'whatsapp', title: 'WhatsApp Broadcast', text: 'Broadcast "Weekend Special" delivered to 156 opted-in contacts.', delta: 10 },
+      { icon: 'facebook', title: 'Facebook Comment', text: 'New comment on your ad: "How much for a full package?"', delta: 2 },
+      { icon: 'crm', title: 'Contact Tag Added', text: '"VIP Client" tag auto-added to 8 contacts with $2k+ lifetime value.', delta: 7 },
+      { icon: 'stripe', title: 'Refund Processed', text: '$75 refund issued to Amy R. Reason: duplicate charge.', delta: 12 },
+      { icon: 'email', title: 'Campaign Performing', text: '"Spring Sale" email hit 42% open rate across 1,200 contacts.', delta: 5 },
+      { icon: 'phone', title: 'Voicemail Received', text: 'New voicemail from +61 402 xxx xxx. Transcription: "Hi, calling about..."', delta: 8 },
+      { icon: 'linkedin', title: 'LinkedIn Message', text: 'Chris T. (CEO, Bondi Digital): "Let\'s discuss a partnership."', delta: 4 },
+      { icon: 'form', title: 'Survey Completed', text: 'Client satisfaction survey completed. Average score: 4.8/5.', delta: 6 },
+      { icon: 'ai', title: 'AI Chat Handled', text: 'AI chatbot answered 14 website enquiries overnight. 3 booked demos.', delta: 15 },
+      { icon: 'google', title: 'Google Business Update', text: 'Your Google Business Profile was viewed 340 times this week.', delta: 10 },
+      { icon: 'sms', title: 'Two-Way SMS', text: 'Megan F: "Can I reschedule to Thursday instead? Thanks!"', delta: 3 },
+      { icon: 'stripe', title: 'Quote Accepted', text: 'Quote #892 ($2,100) accepted by Harbour Dental. Invoice generated.', delta: 7 },
+      { icon: 'tiktok', title: 'TikTok Comment', text: 'Viral comment on your video: "This is exactly what I needed!" (2.1k likes)', delta: 5 },
+      { icon: 'calendar', title: 'Slots Filling Up', text: 'Only 2 appointment slots remaining for this Friday.', delta: 12 },
+      { icon: 'instagram', title: 'New Follower Lead', text: '@jennifer_wellness started following you and clicked your link in bio.', delta: 4 },
+      { icon: 'ai', title: 'AI Chat Response', text: 'AI answered: "Do you offer payment plans?" with personalised pricing.', delta: 6 },
+      { icon: 'crm', title: 'Lead Score Updated', text: 'Emily K. lead score increased to 92/100. Ready for outreach.', delta: 8 },
+      { icon: 'email', title: 'Unsubscribe Alert', text: '2 contacts unsubscribed this week. List health: 98.4%.', delta: 10 },
+      { icon: 'funnel', title: 'A/B Test Results', text: 'Variant B headline winning -- 31% higher conversion rate.', delta: 15 },
+      { icon: 'ai', title: 'AI Win-Back Campaign', text: 'AI crafted personalised win-back messages for 42 inactive contacts.', delta: 5 },
+      { icon: 'stripe', title: 'Monthly Revenue', text: 'October revenue: $14,850. Up 18% from last month.', delta: 10 },
+    ];
+
+    let currentIndex = 0;
+    let feedStarted = false;
+    let cycleInterval = null;
+    let userScrolling = false;
+    let scrollTimeout = null;
+    let notifCounter = 0; // counts notifications since last quiet hours
+    const INITIAL_COUNT = 5;
+    const INITIAL_DELAY = 3000;
+    const CYCLE_SPEED = 2500;
+    const MAX_VISIBLE = 20;
+    const QUIET_HOURS_INTERVAL = 8; // show quiet hours every N notifications
+
+    // Stats ticker state
+    let statLeads = 8;
+    let statRevenue = 2400;
+    let statRating = 4.8;
+    const statLeadsEl = document.getElementById('stat-leads');
+    const statRevenueEl = document.getElementById('stat-revenue');
+    const statRatingEl = document.getElementById('stat-rating');
+    const lotusEl = document.getElementById('hero-phone-lotus');
+
+    // High-value notification types that trigger lotus pulse
+    const highValueIcons = ['stripe', 'calendar', 'google', 'crm'];
+
+    // AI notification types that get typing indicator
+    const aiIcons = ['ai'];
+
+    // Quiet hours messages
+    const quietMessages = [
+      { leads: 3, booked: 2, text: 'While you slept: 3 leads captured, 2 appointments booked' },
+      { leads: 5, booked: 1, text: 'Overnight: 5 new enquiries handled, 1 demo booked by AI' },
+      { leads: 2, booked: 3, text: 'After hours: 2 leads nurtured, 3 follow-ups sent automatically' },
+      { leads: 4, booked: 2, text: 'While you were away: 4 leads qualified, 2 invoices paid' },
+      { leads: 6, booked: 1, text: 'Overnight: 6 chats handled by AI, 1 new client signed up' },
+    ];
+    let quietIndex = 0;
+
+    function formatRevenue(val) {
+      if (val >= 10000) return '$' + (val / 1000).toFixed(1) + 'k';
+      if (val >= 1000) return '$' + (val / 1000).toFixed(1) + 'k';
+      return '$' + val;
+    }
+
+    function bumpStat(el) {
+      el.classList.add('hero__stat-val--bump');
+      setTimeout(() => el.classList.remove('hero__stat-val--bump'), 400);
+    }
+
+    function updateStats(notif) {
+      // Bump leads for lead-related notifications
+      if (['facebook', 'form', 'instagram', 'linkedin', 'crm', 'funnel'].includes(notif.icon)) {
+        statLeads++;
+        statLeadsEl.textContent = statLeads;
+        bumpStat(statLeadsEl);
+      }
+      // Bump revenue for payment/stripe notifications
+      if (['stripe'].includes(notif.icon)) {
+        const amounts = [150, 250, 400, 850, 1200, 350];
+        statRevenue += amounts[Math.floor(Math.random() * amounts.length)];
+        statRevenueEl.textContent = formatRevenue(statRevenue);
+        bumpStat(statRevenueEl);
+      }
+      // Bump rating for review notifications
+      if (['google'].includes(notif.icon)) {
+        statRating = Math.min(5.0, statRating + 0.01);
+        statRatingEl.textContent = statRating.toFixed(1);
+        bumpStat(statRatingEl);
+      }
+    }
+
+    function pulseLotus() {
+      if (!lotusEl) return;
+      lotusEl.classList.remove('hero__phone-logo--pulse');
+      // Force reflow to restart animation
+      void lotusEl.offsetWidth;
+      lotusEl.classList.add('hero__phone-logo--pulse');
+      lotusEl.addEventListener('animationend', () => {
+        lotusEl.classList.remove('hero__phone-logo--pulse');
+      }, { once: true });
+    }
+
+    // Track displayed minutes for each visible notification element
+    // Each entry: { el, mins }
+    const visibleNotifs = [];
+
+    function formatTime(mins) {
+      if (mins <= 0) return 'Now';
+      if (mins < 60) return `${mins}m ago`;
+      const h = Math.floor(mins / 60);
+      return `${h}h ago`;
+    }
+
+    function updateAllTimes(deltaMins) {
+      visibleNotifs.forEach(entry => {
+        entry.mins += deltaMins;
+        const timeEl = entry.el.querySelector('.hero__notif-time');
+        if (timeEl) timeEl.textContent = formatTime(entry.mins);
+      });
+    }
+
+    function createNotifEl(notif, animate, displayTime) {
+      const el = document.createElement('div');
+      el.className = 'hero__notif';
+      const color = barColors[notif.icon] || '#4ED8C2';
+      const iconSvg = icons[notif.icon] || icons.automation;
+      const iconColor = iconColors[notif.icon] || '#4ED8C2';
+
+      el.innerHTML = `
+        <div class="hero__notif-icon" style="background:${iconColor}22;color:${iconColor};width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          ${iconSvg}
+        </div>
+        <div class="hero__notif-body" style="flex:1;min-width:0;">
+          <div class="hero__notif-row" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;">
+            <span class="hero__notif-title" style="font-weight:600;font-size:0.8125rem;color:#F7F4EF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${notif.title}</span>
+            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(247,244,239,0.3);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">${displayTime}</span>
+          </div>
+          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(247,244,239,0.45);line-height:1.4;margin:0;">${notif.text}</p>
+        </div>
+      `;
+      // Force SVG sizing (scoped styles don't apply to dynamic elements)
+      const svg = el.querySelector('svg');
+      if (svg) {
+        svg.style.width = '14px';
+        svg.style.height = '14px';
+        svg.style.minWidth = '14px';
+        svg.style.minHeight = '14px';
+        svg.style.flexShrink = '0';
+      }
+      // Set the left bar color via inline
+      const bar = document.createElement('span');
+      bar.style.cssText = `position:absolute;top:0;left:0;width:2px;height:100%;background:${color};opacity:0.6;`;
+      el.appendChild(bar);
+
+      if (animate) {
+        // Apply glow immediately via inline styles
+        el.style.borderColor = 'rgba(78, 216, 194, 0.6)';
+        el.style.boxShadow = '0 0 16px 3px rgba(78, 216, 194, 0.35), inset 0 0 8px rgba(78, 216, 194, 0.1)';
+        el.style.background = 'rgba(78, 216, 194, 0.1)';
+        el.style.transition = 'none'; // prevent instant transition away
+
+        // After a brief moment, switch to long transition and remove glow
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.style.transition = 'border-color 1.6s ease-out, box-shadow 1.6s ease-out, background 1.6s ease-out';
+            el.style.borderColor = '';
+            el.style.boxShadow = '';
+            el.style.background = '';
+            // Clean up inline styles after transition
+            setTimeout(() => {
+              el.style.transition = '';
+            }, 1700);
+          });
+        });
+      }
+      return el;
+    }
+
+    function insertNotif(el) {
+      visibleNotifs.unshift({ el, mins: 0 });
+      feed.insertBefore(el, feed.firstChild);
+      if (!userScrolling) feed.scrollTop = 0;
+      while (feed.children.length > MAX_VISIBLE) {
+        feed.removeChild(feed.lastChild);
+        visibleNotifs.pop();
+      }
+    }
+
+    function createTypingIndicator() {
+      const el = document.createElement('div');
+      el.className = 'hero__typing';
+      el.innerHTML = `
+        <div class="hero__notif-icon" style="background:rgba(78,216,194,0.12);color:#4ED8C2;width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-2 3-2 5h-4c0-2-2-3.05-2-5a4 4 0 0 1 4-4z"/><line x1="10" y1="17" x2="14" y2="17"/><line x1="10" y1="20" x2="14" y2="20"/></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="hero__typing-dots">
+            <div class="hero__typing-dot"></div>
+            <div class="hero__typing-dot"></div>
+            <div class="hero__typing-dot"></div>
+          </div>
+          <span class="hero__typing-label">AI is composing...</span>
+        </div>
+      `;
+      return el;
+    }
+
+    function createQuietHoursNotif() {
+      const msg = quietMessages[quietIndex % quietMessages.length];
+      quietIndex++;
+      const el = document.createElement('div');
+      el.className = 'hero__notif hero__notif--quiet';
+      el.innerHTML = `
+        <div class="hero__notif-icon" style="background:rgba(78,216,194,0.12);color:#4ED8C2;width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </div>
+        <div class="hero__notif-body" style="flex:1;min-width:0;">
+          <div class="hero__notif-row" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;">
+            <span class="hero__notif-title" style="font-weight:600;font-size:0.8125rem;color:var(--reef-aqua);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Quiet Hours Summary</span>
+            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(78,216,194,0.4);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">6am</span>
+          </div>
+          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(78,216,194,0.55);line-height:1.4;margin:0;">${msg.text}</p>
+        </div>
+      `;
+      // Mint left bar
+      const bar = document.createElement('span');
+      bar.style.cssText = 'position:absolute;top:0;left:0;width:2px;height:100%;background:#4ED8C2;opacity:0.4;';
+      el.appendChild(bar);
+      return el;
+    }
+
+    function addNotification() {
+      if (currentIndex >= notifications.length) {
+        currentIndex = 0; // Loop
+      }
+      const notif = notifications[currentIndex++];
+      notifCounter++;
+
+      // Check if it's time for quiet hours summary
+      if (notifCounter > 0 && notifCounter % QUIET_HOURS_INTERVAL === 0) {
+        updateAllTimes(360); // 6 hours passed overnight
+        const quietEl = createQuietHoursNotif();
+        insertNotif(quietEl);
+        // Bump stats for the quiet hours
+        statLeads += 3;
+        statLeadsEl.textContent = statLeads;
+        bumpStat(statLeadsEl);
+        pulseLotus();
+        return;
+      }
+
+      // Check if this is an AI notification — show typing indicator first
+      if (aiIcons.includes(notif.icon)) {
+        const typingEl = createTypingIndicator();
+        feed.insertBefore(typingEl, feed.firstChild);
+        if (!userScrolling) feed.scrollTop = 0;
+
+        // After a delay, remove typing and show actual notification
+        setTimeout(() => {
+          if (typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+          updateAllTimes(notif.delta);
+          const el = createNotifEl(notif, true, 'Now');
+          insertNotif(el);
+          updateStats(notif);
+          pulseLotus();
+        }, 1200);
+        return;
+      }
+
+      // Regular notification flow
+      updateAllTimes(notif.delta);
+      const el = createNotifEl(notif, true, 'Now');
+      insertNotif(el);
+      updateStats(notif);
+
+      // Pulse lotus on high-value notifications
+      if (highValueIcons.includes(notif.icon)) {
+        pulseLotus();
+      }
+    }
+
+    function startCycling() {
+      if (cycleInterval) return;
+      feedStarted = true;
+      cycleInterval = setInterval(addNotification, CYCLE_SPEED);
+    }
+
+    // Seed initial notifications (no animation) with cumulative times
+    let cumulativeTime = 0;
+    for (let i = 0; i < INITIAL_COUNT && i < notifications.length; i++) {
+      // First notification shows "Now", rest accumulate deltas
+      if (i === 0) {
+        cumulativeTime = 0;
+      } else {
+        cumulativeTime += notifications[i].delta;
+      }
+      const el = createNotifEl(notifications[i], false, formatTime(cumulativeTime));
+      feed.appendChild(el);
+      visibleNotifs.push({ el, mins: cumulativeTime });
+      currentIndex++;
+    }
+
+    // Start auto-cycle after initial delay
+    setTimeout(startCycling, INITIAL_DELAY);
+
+    // Also start on first scroll
+    function onFirstScroll() {
+      if (!feedStarted) {
+        startCycling();
+      }
+      window.removeEventListener('scroll', onFirstScroll);
+    }
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+    // Track user scrolling within the feed
+    feed.addEventListener('scroll', () => {
+      // If user scrolled away from top, pause auto-scroll-to-top
+      userScrolling = feed.scrollTop > 10;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        userScrolling = false;
+      }, 3000);
+    }, { passive: true });
+
+    // Pause cycling when phone is not visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting && cycleInterval) {
+          clearInterval(cycleInterval);
+          cycleInterval = null;
+        } else if (entry.isIntersecting && feedStarted && !cycleInterval) {
+          cycleInterval = setInterval(addNotification, CYCLE_SPEED);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(feed);
+  })();
+</script>

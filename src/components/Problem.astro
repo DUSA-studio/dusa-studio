@@ -1,0 +1,474 @@
+---
+// Problem.astro — Problem section: visualise the chaos of tool overload
+---
+
+<section class="problem section section--sand" id="platform">
+  <div class="container">
+    <div class="problem__grid">
+      <div class="problem__left reveal">
+        <span class="label" style="color: var(--deep-ocean);">The Problem</span>
+        <h2>Small businesses<br/>shouldn't need<br/><span class="problem__count-wrap" style="color: var(--deep-ocean);"><span class="problem__count" id="problem-count">10</span> different tools</span></h2>
+        <p class="problem__subtitle">You're paying for a dozen apps that don't talk to each other. Every new tool means another login, another invoice, another thing to learn.</p>
+      </div>
+
+      <div class="problem__right reveal-right">
+        <!-- Scattered tool chaos -->
+        <div class="problem__chaos" id="problem-chaos">
+          <div class="problem__tool problem__tool--1" data-name="Email Tool" data-price="$49/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--2" data-name="CRM" data-price="$79/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--3" data-name="Scheduler" data-price="$15/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--4" data-name="Payments" data-price="$25/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--5" data-name="Funnels" data-price="$99/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--6" data-name="Social" data-price="$39/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--7" data-name="Reviews" data-price="$29/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--8" data-name="Chat" data-price="$35/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--9" data-name="Analytics" data-price="$59/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div class="problem__tool problem__tool--10" data-name="Automations" data-price="$67/mo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+
+          <!-- Broken connection lines -->
+          <svg class="problem__lines" viewBox="0 0 400 350" fill="none">
+            <line x1="80" y1="70" x2="200" y2="120" stroke="rgba(232,82,78,0.15)" stroke-width="1" stroke-dasharray="4 6"/>
+            <line x1="320" y1="60" x2="200" y2="120" stroke="rgba(232,82,78,0.15)" stroke-width="1" stroke-dasharray="4 6"/>
+            <line x1="60" y1="200" x2="180" y2="180" stroke="rgba(232,82,78,0.12)" stroke-width="1" stroke-dasharray="4 6"/>
+            <line x1="340" y1="220" x2="220" y2="180" stroke="rgba(232,82,78,0.12)" stroke-width="1" stroke-dasharray="4 6"/>
+            <line x1="150" y1="300" x2="200" y2="230" stroke="rgba(232,82,78,0.1)" stroke-width="1" stroke-dasharray="4 6"/>
+            <line x1="280" y1="310" x2="220" y2="230" stroke="rgba(232,82,78,0.1)" stroke-width="1" stroke-dasharray="4 6"/>
+            <!-- X marks where connections break -->
+            <text x="190" y="155" fill="rgba(232,82,78,0.25)" font-size="18" font-weight="700" text-anchor="middle">✕</text>
+            <text x="210" y="210" fill="rgba(232,82,78,0.2)" font-size="14" font-weight="700" text-anchor="middle">✕</text>
+          </svg>
+
+          <!-- Total cost callout -->
+          <div class="problem__total">
+            <span class="problem__total-label">Total monthly cost</span>
+            <span class="problem__total-value">~$496<span class="problem__total-mo">/mo</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pain point cards below -->
+    <div class="problem__pains">
+      <div class="problem__pain reveal">
+        <div class="problem__pain-x">✕</div>
+        <div>
+          <h4>Nothing connects</h4>
+          <p>Your email tool can't see your CRM. Your scheduler doesn't know who paid. Data lives in silos.</p>
+        </div>
+      </div>
+      <div class="problem__pain reveal">
+        <div class="problem__pain-x">✕</div>
+        <div>
+          <h4>Enterprise pricing</h4>
+          <p>The platforms that work charge enterprise prices. You're left duct-taping free tiers together.</p>
+        </div>
+      </div>
+      <div class="problem__pain reveal">
+        <div class="problem__pain-x">✕</div>
+        <div>
+          <h4>No time to figure it out</h4>
+          <p>You run a business, not a marketing agency. Setting up automations shouldn't require a developer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="problem__solution reveal">
+      <div class="problem__solution-inner">
+        <div class="problem__solution-badge">
+          <span class="problem__solution-label">The Solution</span>
+        </div>
+        <h3 class="problem__solution-title">DUSA brings it all together.<br/><span class="gradient-text">AI-powered. One platform. One price.</span></h3>
+        <p class="problem__solution-desc">Everything you need to attract, convert, and keep customers. AI handles the heavy lifting. No more app juggling. No more guesswork. Just growth.</p>
+        <a href="#features" class="btn btn--primary" style="margin-top: var(--space-md);">See the Platform</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .problem__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    align-items: center;
+  }
+
+  .problem__left h2 {
+    color: var(--deep-black);
+  }
+
+  .problem__subtitle {
+    font-size: 1.125rem;
+    color: rgba(12, 14, 20, 0.5);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 420px;
+  }
+
+  /* ─── COUNTING ANIMATION ─── */
+  .problem__count {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ─── TOOL CHAOS CLUSTER ─── */
+  .problem__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .problem__chaos {
+    position: relative;
+    width: 420px;
+    height: 380px;
+  }
+
+  .problem__tool {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    background: var(--warm-white);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(12, 14, 20, 0.45);
+    box-shadow: 0 4px 16px rgba(12, 14, 20, 0.06);
+    transition: all 0.4s var(--ease-out);
+    z-index: 2;
+  }
+
+  .problem__tool svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .problem__tool::after {
+    content: attr(data-price);
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--error);
+    white-space: nowrap;
+    opacity: 0.7;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .problem__tool::before {
+    content: attr(data-name);
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5625rem;
+    color: rgba(12, 14, 20, 0.35);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .problem__tool:hover {
+    transform: rotate(0deg) scale(1.1) !important;
+    border-color: rgba(232, 82, 78, 0.3);
+    box-shadow: 0 8px 24px rgba(232, 82, 78, 0.1);
+    color: var(--error);
+    z-index: 10;
+  }
+
+  /* Scatter positions + slight rotations */
+  .problem__tool--1  { top: 20px;  left: 30px;  transform: rotate(-5deg); }
+  .problem__tool--2  { top: 10px;  left: 170px; transform: rotate(3deg); }
+  .problem__tool--3  { top: 30px;  right: 40px; transform: rotate(-7deg); }
+  .problem__tool--4  { top: 130px; left: 10px;  transform: rotate(4deg); }
+  .problem__tool--5  { top: 120px; left: 155px; transform: rotate(-3deg); }
+  .problem__tool--6  { top: 140px; right: 20px; transform: rotate(6deg); }
+  .problem__tool--7  { top: 240px; left: 50px;  transform: rotate(-4deg); }
+  .problem__tool--8  { top: 250px; left: 185px; transform: rotate(5deg); }
+  .problem__tool--9  { top: 230px; right: 50px; transform: rotate(-6deg); }
+  .problem__tool--10 { top: 310px; left: 130px; transform: rotate(3deg); }
+
+  /* Broken connection lines SVG */
+  .problem__lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Total cost callout */
+  .problem__total {
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+    background: rgba(232, 82, 78, 0.06);
+    border: 1px solid rgba(232, 82, 78, 0.15);
+    border-radius: 10px;
+    padding: 8px 14px;
+    text-align: center;
+    z-index: 3;
+  }
+
+  .problem__total-label {
+    display: block;
+    font-size: 0.625rem;
+    color: rgba(12, 14, 20, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .problem__total-value {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--error);
+  }
+
+  .problem__total-mo {
+    font-size: 0.75rem;
+    font-weight: 400;
+    opacity: 0.6;
+  }
+
+  /* ─── PAIN POINTS (horizontal) ─── */
+  .problem__pains {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .problem__pain {
+    display: flex;
+    gap: 12px;
+    padding: var(--space-md);
+    background: var(--warm-white);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(12, 14, 20, 0.06);
+    transition: all var(--duration-normal) var(--ease-out);
+    align-items: flex-start;
+  }
+
+  .problem__pain:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(12, 14, 20, 0.08);
+    border-color: rgba(232, 82, 78, 0.12);
+  }
+
+  .problem__pain-x {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--error);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: rgba(232, 82, 78, 0.08);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .problem__pain h4 {
+    margin-bottom: 4px;
+    font-size: 1rem;
+    color: var(--deep-black);
+  }
+
+  .problem__pain p {
+    font-size: 0.9375rem;
+    color: rgba(12, 14, 20, 0.5);
+    line-height: 1.55;
+  }
+
+  /* ─── SOLUTION CARD ─── */
+  .problem__solution {
+    position: relative;
+    margin-top: var(--space-xl);
+  }
+
+  .problem__solution-inner {
+    background: var(--deep-black);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(78, 216, 194, 0.08);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(78, 216, 194, 0.04),
+      inset 0 1px 0 rgba(247, 244, 239, 0.03);
+  }
+
+  .problem__solution-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--reef-aqua), transparent);
+  }
+
+  .problem__solution-inner::after {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(78, 216, 194, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .problem__solution-badge {
+    margin-bottom: var(--space-sm);
+  }
+
+  .problem__solution-label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+  }
+
+  .problem__solution-title {
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .problem__solution-desc {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.55);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .problem__chaos {
+      width: 360px;
+      height: 340px;
+    }
+
+    .problem__tool { width: 48px; height: 48px; }
+    .problem__tool svg { width: 20px; height: 20px; }
+
+    .problem__solution-inner {
+      padding: var(--space-lg) var(--space-lg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .problem__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .problem__chaos {
+      width: 100%;
+      max-width: 380px;
+      height: 320px;
+      margin: 0 auto;
+    }
+
+    .problem__pains {
+      grid-template-columns: 1fr;
+    }
+
+    .problem__solution-inner {
+      padding: var(--space-lg) var(--space-md);
+    }
+
+    .problem__solution-title {
+      font-size: clamp(1.25rem, 4vw, 1.75rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .problem__chaos {
+      height: 300px;
+    }
+
+    .problem__tool { width: 42px; height: 42px; border-radius: 10px; }
+    .problem__tool svg { width: 18px; height: 18px; }
+    .problem__tool::after { font-size: 0.5rem; }
+    .problem__tool::before { font-size: 0.5rem; }
+
+    .problem__pain {
+      padding: var(--space-sm);
+    }
+
+    .problem__solution-inner {
+      padding: var(--space-md);
+    }
+
+    .problem__solution-desc {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Animated counter: count from 1 to 10 when section enters view
+  (function() {
+    const countEl = document.getElementById('problem-count');
+    if (!countEl) return;
+    let hasAnimated = false;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasAnimated) {
+          hasAnimated = true;
+          let current = 1;
+          countEl.textContent = '1';
+          const interval = setInterval(() => {
+            current++;
+            countEl.textContent = current.toString();
+            if (current >= 10) clearInterval(interval);
+          }, 120);
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(countEl);
+  })();
+</script>

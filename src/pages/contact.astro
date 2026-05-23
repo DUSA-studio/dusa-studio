@@ -1,0 +1,325 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact | DUSA . studio" description="Get in touch with DUSA . studio. Book a free demo, ask a question, or start your growth journey today.">
+
+  <section class="contact-hero section section--dark">
+    <div class="container">
+      <div class="contact-hero__content">
+        <span class="label">Contact</span>
+        <h1>Let's talk<br/><span class="gradient-text">growth</span></h1>
+        <p class="contact-hero__sub">Whether you're ready to start or just exploring, we'd love to hear from you. No sales scripts, just a real conversation about your business.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact section section--dark" style="padding-top:0;" id="contact">
+    <div class="container">
+      <div class="contact__layout">
+        <!-- Form -->
+        <div class="contact__form-wrap">
+          <form class="contact__form" action="https://dusa.studio/form-handler" method="POST">
+            <div class="contact__field">
+              <label class="contact__label" for="name">Name</label>
+              <input class="contact__input" type="text" id="name" name="name" required placeholder="Your name" />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="email">Email</label>
+              <input class="contact__input" type="email" id="email" name="email" required placeholder="you@business.com" />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="phone">Phone (optional)</label>
+              <input class="contact__input" type="tel" id="phone" name="phone" placeholder="+61 4XX XXX XXX" />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="business">Business name</label>
+              <input class="contact__input" type="text" id="business" name="business" placeholder="Your business" />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="interest">What are you interested in?</label>
+              <select class="contact__input contact__select" id="interest" name="interest">
+                <option value="" disabled selected>Select an option</option>
+                <option value="demo">Book a free demo</option>
+                <option value="launchpad">Launchpad plan ($47/mo)</option>
+                <option value="starter">Starter plan ($149/mo)</option>
+                <option value="growth">Growth plan ($297/mo)</option>
+                <option value="enterprise">Enterprise / custom</option>
+                <option value="question">Just have a question</option>
+              </select>
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="message">Message</label>
+              <textarea class="contact__input contact__textarea" id="message" name="message" rows="4" placeholder="Tell us about your business and what you're looking for..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary contact__submit">Send Message</button>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="contact__info">
+          <div class="contact__info-card">
+            <div class="contact__info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <h4 class="contact__info-title">Email</h4>
+            <a href="mailto:contact@dusa.studio" class="contact__info-link">contact@dusa.studio</a>
+          </div>
+
+          <div class="contact__info-card">
+            <div class="contact__info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <h4 class="contact__info-title">Phone</h4>
+            <a href="tel:+61488825686" class="contact__info-link">+61 488 825 686</a>
+          </div>
+
+          <div class="contact__info-card">
+            <div class="contact__info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <h4 class="contact__info-title">Location</h4>
+            <p class="contact__info-text">Sydney, Australia</p>
+          </div>
+
+          <div class="contact__info-card contact__info-card--cta">
+            <h4 class="contact__info-title" style="color: var(--reef-aqua);">Prefer a live walkthrough?</h4>
+            <p class="contact__info-text">Book a free demo and we'll show you the DUSA platform using your actual business as the example.</p>
+            <a href="https://dusa.studio/booking" class="btn btn--primary" style="margin-top: var(--space-sm); width: 100%;">Book a Free Demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .contact-hero {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+  }
+
+  .contact-hero__content {
+    max-width: 600px;
+  }
+
+  .contact-hero__sub {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+  }
+
+  .contact__layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  /* ─── FORM ─── */
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .contact__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .contact__label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  .contact__input {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--warm-white);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    transition: all var(--duration-fast);
+    width: 100%;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .contact__input::placeholder {
+    color: rgba(247, 244, 239, 0.2);
+  }
+
+  .contact__input:focus {
+    outline: none;
+    border-color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.04);
+    box-shadow: 0 0 0 3px rgba(78, 216, 194, 0.1);
+  }
+
+  .contact__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23F7F4EF' fill-opacity='0.4' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .contact__select option {
+    background: var(--deep-black);
+    color: var(--warm-white);
+  }
+
+  .contact__textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .contact__submit {
+    align-self: flex-start;
+    margin-top: var(--space-xs);
+  }
+
+  /* ─── INFO CARDS ─── */
+  .contact__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .contact__info-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    transition: all var(--duration-normal) var(--ease-out);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .contact__info-card:hover {
+    border-color: rgba(78, 216, 194, 0.15);
+    background: rgba(247, 244, 239, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .contact__info-card--cta {
+    border-color: rgba(78, 216, 194, 0.2);
+    background: rgba(78, 216, 194, 0.04);
+    margin-top: var(--space-sm);
+  }
+
+  .contact__info-icon {
+    color: var(--reef-aqua);
+    margin-bottom: 0.5rem;
+  }
+
+  .contact__info-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact__info-link {
+    font-size: 1rem;
+    color: var(--reef-aqua);
+    transition: opacity var(--duration-fast);
+  }
+
+  .contact__info-link:hover {
+    opacity: 0.8;
+  }
+
+  .contact__info-text {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .contact__layout {
+      gap: var(--space-xl);
+    }
+
+    .contact-hero__sub {
+      font-size: 1.125rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact__layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .contact-hero__sub {
+      font-size: 1.0625rem;
+    }
+
+    .contact__submit {
+      align-self: stretch;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact__info-card {
+      padding: var(--space-sm);
+    }
+  }
+
+  /* GSAP-animated elements hidden until JS runs */
+  .contact-hero__content,
+  .contact__form-wrap,
+  .contact__info-card {
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  function initContactAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initContactAnimations, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.set('.contact-hero__content, .contact__form-wrap, .contact__info-card', {
+      visibility: 'visible',
+    });
+    gsap.from('.contact-hero__content', {
+      y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.1,
+    });
+    gsap.from('.contact__form-wrap', {
+      y: 25, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.25,
+    });
+    gsap.from('.contact__info-card', {
+      y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 0.35,
+    });
+  }
+  initContactAnimations();
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }
+  });
+</script>

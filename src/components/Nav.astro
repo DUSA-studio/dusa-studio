@@ -1,0 +1,277 @@
+---
+// Nav.astro — Sticky navigation with logo + CTA
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<nav class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="/" class="nav__logo">
+      <img class="nav__lotus" src="/dusa-logo-animated.webp" alt="DUSA logo" width="52" height="52" />
+      <span class="nav__logo-text">DUSA <span class="nav__logo-dot">.</span> studio</span>
+    </a>
+
+    <div class="nav__links">
+      <a href="/pricing" class={`nav__link ${currentPath === '/pricing' ? 'nav__link--active' : ''}`}>Pricing</a>
+      <a href="/about" class={`nav__link ${currentPath === '/about' ? 'nav__link--active' : ''}`}>About</a>
+      <a href="/blog" class={`nav__link ${currentPath.startsWith('/blog') ? 'nav__link--active' : ''}`}>Blog</a>
+      <a href="/contact" class={`nav__link ${currentPath === '/contact' ? 'nav__link--active' : ''}`}>Contact</a>
+    </div>
+
+    <div class="nav__right">
+      <a href="https://app.dusa.studio" class="nav__login" target="_blank" rel="noopener">Log in</a>
+      <a href="/contact" class="btn btn--primary nav__cta">Book a Demo</a>
+    </div>
+
+    <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="nav__mobile" id="nav-mobile">
+    <a href="/pricing" class={`nav__mobile-link ${currentPath === '/pricing' ? 'nav__mobile-link--active' : ''}`}>Pricing</a>
+    <a href="/about" class={`nav__mobile-link ${currentPath === '/about' ? 'nav__mobile-link--active' : ''}`}>About</a>
+    <a href="/blog" class={`nav__mobile-link ${currentPath.startsWith('/blog') ? 'nav__mobile-link--active' : ''}`}>Blog</a>
+    <a href="/contact" class={`nav__mobile-link ${currentPath === '/contact' ? 'nav__mobile-link--active' : ''}`}>Contact</a>
+    <a href="https://app.dusa.studio" class="nav__mobile-link" target="_blank" rel="noopener">Log in</a>
+    <a href="/contact" class="btn btn--primary" style="width:100%;margin-top:1rem;">Book a Demo</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: transparent;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    border-bottom: 1px solid transparent;
+    height: var(--nav-height);
+    transition: all 0.6s var(--ease-out);
+  }
+
+  .nav--scrolled {
+    background: rgba(12, 14, 20, 0.8);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+    box-shadow:
+      0 4px 30px rgba(0, 0, 0, 0.3),
+      0 1px 0 rgba(78, 216, 194, 0.05);
+  }
+
+  .nav__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    position: relative;
+  }
+
+  .nav__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--warm-white);
+    transition: opacity var(--duration-fast);
+  }
+
+  .nav__logo:hover {
+    opacity: 0.8;
+  }
+
+  .nav__lotus {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    transition: transform var(--duration-normal);
+  }
+
+  .nav__logo:hover .nav__lotus {
+    transform: scale(1.05);
+  }
+
+  .nav__logo-dot {
+    color: var(--reef-aqua);
+  }
+
+  .nav__links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav__link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.7);
+    transition: color var(--duration-fast);
+    position: relative;
+  }
+
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--reef-aqua);
+    transition: width var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__link:hover {
+    color: var(--warm-white);
+  }
+
+  .nav__link:hover::after {
+    width: 100%;
+  }
+
+  .nav__link--active {
+    color: var(--warm-white);
+  }
+
+  .nav__link--active::after {
+    width: 100%;
+  }
+
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .nav__login {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.6);
+    transition: color var(--duration-fast);
+    white-space: nowrap;
+  }
+
+  .nav__login:hover {
+    color: var(--reef-aqua);
+  }
+
+  .nav__cta {
+    font-size: 1rem;
+    padding: 0.75rem 1.75rem;
+  }
+
+  .nav__mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+
+  .nav__mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--warm-white);
+    transition: all var(--duration-fast);
+    border-radius: 2px;
+  }
+
+  .nav__mobile {
+    display: none;
+    flex-direction: column;
+    padding: var(--space-md);
+    background: rgba(12, 14, 20, 0.98);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .nav__mobile.active {
+    display: flex;
+  }
+
+  .nav__mobile-link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.7);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+    transition: color var(--duration-fast);
+  }
+
+  .nav__mobile-link:hover {
+    color: var(--reef-aqua);
+  }
+
+  .nav__mobile-link--active {
+    color: var(--reef-aqua);
+  }
+
+  @media (max-width: 1024px) {
+    .nav__links {
+      gap: 1.25rem;
+    }
+
+    .nav__link {
+      font-size: 0.9375rem;
+    }
+
+    .nav__cta {
+      font-size: 0.9375rem;
+      padding: 0.625rem 1.25rem;
+    }
+
+    .nav__lotus {
+      width: 44px;
+      height: 44px;
+    }
+
+    .nav__logo {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav__links,
+    .nav__right {
+      display: none;
+    }
+
+    .nav__mobile-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // Scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav?.classList.toggle('nav--scrolled', window.scrollY > 50);
+  });
+
+  // Mobile toggle
+  const toggle = document.getElementById('nav-toggle');
+  const mobile = document.getElementById('nav-mobile');
+  toggle?.addEventListener('click', () => {
+    mobile?.classList.toggle('active');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.nav__mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobile?.classList.remove('active');
+    });
+  });
+</script>

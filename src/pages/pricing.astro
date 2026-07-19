@@ -11,13 +11,14 @@ const tiers = [
     description: 'Pick any single core system and get started today. The easiest way to see what DUSA can do for your business.',
     highlights: [
       '1 core system of your choice',
+      '9 systems to choose from',
       'Full dashboard access',
       'Basic analytics',
       'AI chat support',
       'Community access',
     ],
-    cta: 'Start for $47',
-    ctaLink: '#contact',
+    cta: 'Get Started',
+    ctaLink: '/start',
     highlight: false,
     badge: 'Entry Offer',
     style: 'entry',
@@ -28,19 +29,19 @@ const tiers = [
     price: '149',
     period: '/mo',
     tagline: 'Everything connected.',
-    description: 'All 6 core systems working together. The full DUSA platform at a fraction of buying tools separately.',
+    description: 'All 9 core systems working together. The full DUSA platform at a fraction of buying tools separately.',
     highlights: [
-      'All 6 core systems included',
+      'All 9 core systems included',
       'CRM + pipeline management',
       'Email & SMS marketing',
       'Funnel & website builder',
-      'Booking & calendar system',
-      'Reputation management',
-      'Standard automations',
+      'Booking, social & reputation',
+      'Invoicing, forms & surveys',
+      'Workflow automations',
       'AI chat support',
     ],
     cta: 'Get Started',
-    ctaLink: '#contact',
+    ctaLink: '/start',
     highlight: false,
     badge: null,
     style: 'default',
@@ -62,8 +63,8 @@ const tiers = [
       'Onboarding strategy session',
       'Dedicated community channel',
     ],
-    cta: 'Scale Faster',
-    ctaLink: '#contact',
+    cta: 'Get Started',
+    ctaLink: '/start',
     highlight: true,
     badge: 'Best Value',
     style: 'pop',
@@ -86,7 +87,7 @@ const tiers = [
       'Phone support line',
     ],
     cta: "Let's Talk",
-    ctaLink: '#contact',
+    ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo',
     highlight: false,
     badge: 'Custom',
     style: 'premium',
@@ -112,27 +113,16 @@ const replacements = [
     { name: 'Twilio', cost: 45 },
     { name: 'SlickText', cost: 49 },
   ]},
-  { feature: 'Funnel & landing pages', tools: [
+  { feature: 'Funnel & website builder', tools: [
     { name: 'ClickFunnels', cost: 135 },
-    { name: 'Leadpages', cost: 79 },
-    { name: 'Unbounce', cost: 99 },
-    { name: 'Instapage', cost: 119 },
-  ]},
-  { feature: 'Website builder', tools: [
     { name: 'Squarespace', cost: 45 },
-    { name: 'Wix', cost: 32 },
-    { name: 'WordPress', cost: 25 },
     { name: 'Webflow', cost: 39 },
+    { name: 'Wix', cost: 32 },
   ]},
   { feature: 'Booking & calendar', tools: [
     { name: 'Calendly', cost: 24 },
     { name: 'Acuity', cost: 33 },
     { name: 'Cal.com', cost: 15 },
-  ]},
-  { feature: 'Forms & surveys', tools: [
-    { name: 'Typeform', cost: 35 },
-    { name: 'JotForm', cost: 39 },
-    { name: 'Google Forms', cost: 0 },
   ]},
   { feature: 'Workflow automations', tools: [
     { name: 'Zapier', cost: 42 },
@@ -148,6 +138,22 @@ const replacements = [
     { name: 'Databox', cost: 55 },
     { name: 'Whatagraph', cost: 99 },
     { name: 'DashThis', cost: 42 },
+  ]},
+  { feature: 'Social media planner', tools: [
+    { name: 'Hootsuite', cost: 99 },
+    { name: 'Buffer', cost: 36 },
+    { name: 'Later', cost: 40 },
+    { name: 'Sprout Social', cost: 249 },
+  ]},
+  { feature: 'Invoicing & payments', tools: [
+    { name: 'FreshBooks', cost: 55 },
+    { name: 'Square', cost: 29 },
+    { name: 'Xero', cost: 49 },
+  ]},
+  { feature: 'Forms & surveys', tools: [
+    { name: 'Typeform', cost: 35 },
+    { name: 'JotForm', cost: 39 },
+    { name: 'SurveyMonkey', cost: 32 },
   ]},
   { feature: 'Community platform', tools: [
     { name: 'Skool', cost: 139 },
@@ -177,22 +183,21 @@ const featureCategories = [
   {
     name: 'Core platform',
     features: [
-      { label: 'CRM & contact management', desc: 'Store every lead, customer, and conversation in one place. Track interactions, set follow-up reminders, and never let a deal slip through the cracks.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
-      { label: 'Pipeline & deal tracking', desc: 'Visual drag-and-drop pipelines to manage your sales process. See every deal stage at a glance, forecast revenue, and identify bottlenecks instantly.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'CRM & pipeline management', desc: 'Store every lead, customer, and conversation in one place. Visual drag-and-drop pipelines to track deals, forecast revenue, and never let an opportunity slip.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Funnel & website builder', desc: 'Build high-converting landing pages, opt-in funnels, and a full business website with drag-and-drop. Custom domain, SEO tools, and SSL included.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Email marketing', desc: 'Send beautiful branded emails, build automated nurture sequences, and track opens, clicks, and conversions. No per-send fees on any plan.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'SMS marketing', desc: 'Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Usage billed at cost as a small pass-through.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
-      { label: 'Funnel & landing page builder', desc: 'Build high-converting landing pages, opt-in funnels, and sales pages with a drag-and-drop builder. No coding required, mobile-responsive by default.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
-      { label: 'Website builder', desc: 'Create a full business website with custom pages, blog, and SEO tools. Host it on your own domain with SSL included.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Booking & calendar system', desc: 'Let clients book appointments directly from your website or links. Syncs with Google Calendar, sends automatic reminders, and reduces no-shows.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Social media planner', desc: 'Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Reputation management', desc: 'Automatically request reviews from happy customers, monitor your online reputation, and respond to reviews from one dashboard.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
-      { label: 'Social media planner', desc: 'Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'Invoicing & payments', desc: 'Send professional invoices, accept payments online, and track who has paid. Integrates with Stripe for seamless transactions.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'Invoicing & payments', desc: 'Send professional invoices, accept payments online, and track who has paid. Integrates with Stripe for seamless transactions.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'Forms & surveys', desc: 'Capture leads with custom forms and gather feedback with surveys. Embed anywhere and trigger automations from submissions.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
     ],
   },
   {
     name: 'Automation & AI',
     features: [
-      { label: 'Basic workflow automations', desc: 'Set up simple if-this-then-that automations like sending a welcome email when someone fills out a form, or tagging contacts based on actions.', launchpad: true, starter: true, growth: true, bespoke: true },
+      { label: 'Basic workflow automations', desc: 'Set up simple if-this-then-that automations like sending a welcome email when someone fills out a form, or tagging contacts based on actions.', launchpad: false, starter: true, growth: true, bespoke: true },
       { label: 'Multi-step automation builder', desc: 'Build complex multi-step workflows with delays, conditions, and multiple actions. Automate your entire follow-up process from first touch to conversion.', launchpad: false, starter: '5 workflows', growth: 'Unlimited', bespoke: 'Unlimited' },
       { label: 'Trigger-based sequences', desc: 'Automatically start sequences when contacts take specific actions like visiting a page, opening an email, or booking an appointment.', launchpad: false, starter: true, growth: true, bespoke: true },
       { label: 'AI-powered auto-responses', desc: 'Let AI handle initial enquiries, qualify leads, and respond to common questions instantly via chat, SMS, or email while you focus on your business.', launchpad: false, starter: false, growth: true, bespoke: true },
@@ -261,11 +266,11 @@ const faqs = [
   },
   {
     q: 'How much does the DUSA platform cost per month?',
-    a: 'Plans start from $47 AUD per month for a single core tool on our Launchpad plan. Our Starter plan includes all 6 core systems for $149/mo, and Growth unlocks unlimited contacts, advanced automations, and priority support for $297/mo. All prices are in Australian Dollars with no hidden fees.',
+    a: 'Plans start from $47 AUD per month for a single core tool on our Launchpad plan. Our Starter plan includes all 9 core systems for $149/mo, and Growth unlocks unlimited contacts, advanced automations, and priority support for $297/mo. All prices are in Australian Dollars with no hidden fees.',
   },
   {
     q: 'What is included in the Launchpad plan?',
-    a: 'Launchpad gives you access to one core system of your choice, such as CRM, email marketing, funnels, booking, SMS, or reputation management. It includes full dashboard access, basic analytics, AI chat support, and community access. It is designed for sole operators who want to start small and scale up.',
+    a: 'Launchpad gives you access to one core system of your choice from nine options: CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, or forms and surveys. It includes full dashboard access, basic analytics, AI chat support, and community access. It is designed for sole operators who want to start small and scale up.',
   },
   {
     q: 'Can I upgrade my plan at any time?',
@@ -289,7 +294,7 @@ const faqs = [
   },
   {
     q: 'Does DUSA replace tools like Mailchimp, Calendly, and HubSpot?',
-    a: 'Yes. DUSA includes email marketing (replacing Mailchimp), booking and scheduling (replacing Calendly), CRM and pipeline management (replacing HubSpot), plus SMS marketing, funnel building, and reputation management. All in one platform for a fraction of the combined cost.',
+    a: 'Yes. DUSA includes email marketing (replacing Mailchimp), booking and scheduling (replacing Calendly), CRM and pipeline management (replacing HubSpot), plus SMS marketing, funnel and website building, social media planning, reputation management, invoicing, and forms. All in one platform for a fraction of the combined cost.',
   },
   {
     q: 'How long does it take to set up DUSA?',
@@ -302,7 +307,7 @@ const faqs = [
 ];
 ---
 
-<BaseLayout title="Pricing | DUSA . studio — Plans from $47/mo AUD" description="Simple, transparent pricing for every stage of growth. Start from $47/mo AUD. CRM, email, SMS, funnels, booking & reputation management in one platform.">
+<BaseLayout title="Pricing | DUSA . studio - Plans from $47/mo AUD" description="Simple, transparent pricing for every stage of growth. Start from $47/mo AUD. CRM, email, SMS, funnels, booking & reputation management in one platform.">
 
   <!-- Hero -->
   <section class="pricing-hero section section--dark">
@@ -353,7 +358,7 @@ const faqs = [
                 </li>
               ))}
             </ul>
-            <a href={tier.ctaLink} class={`btn ${tier.highlight ? 'btn--primary' : 'btn--outline'} pricing-card__cta`}>
+            <a href={tier.ctaLink.startsWith('http') ? tier.ctaLink : `${tier.ctaLink}?plan=${tier.id}`} class={`btn ${tier.highlight ? 'btn--primary' : 'btn--outline'} pricing-card__cta`} {...(tier.ctaLink.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
               {tier.cta}
             </a>
           </div>
@@ -367,9 +372,9 @@ const faqs = [
     <div class="container">
       <!-- Centered header -->
       <div class="replace__header">
-        <span class="label">Stop paying for all of this</span>
-        <h2>One platform replaces<br/><span class="gradient-text">your entire stack</span></h2>
-        <p class="replace__sub">These are real prices you're paying right now for separate tools. DUSA brings them all together, starting from $47/mo.</p>
+        <span class="label">What are you paying for?</span>
+        <h2>Select your current tools.<br/><span class="gradient-text">See what you save.</span></h2>
+        <p class="replace__sub">Tap the tools you're actually using right now. We'll show you the real cost of your stack, and exactly how much DUSA saves you. When you book a demo, we'll come prepared with a migration plan tailored to your setup.</p>
       </div>
 
       <!-- Unified rack + selector -->
@@ -416,7 +421,14 @@ const faqs = [
                       </div>
                     </div>
                     <span class="rack-row__cost" data-row-cost={i}>${r.tools[0].cost}</span>
-                    <div class="rack-row__handle"></div>
+                    <label class="dusa-toggle" data-row={i} title="Toggle DUSA for this feature">
+                      <input type="checkbox" class="dusa-toggle__input" data-feature={r.feature} />
+                      <span class="dusa-toggle__track">
+                        <span class="dusa-toggle__thumb"></span>
+                        <span class="dusa-toggle__label-off">DUSA</span>
+                        <span class="dusa-toggle__label-on">DUSA</span>
+                      </span>
+                    </label>
                   </div>
                 ))}
               </div>
@@ -515,17 +527,17 @@ const faqs = [
           <thead>
             <tr>
               <th class="compare__feature-col"></th>
-              <th class="compare__plan-col">Launchpad</th>
-              <th class="compare__plan-col">Starter</th>
-              <th class="compare__plan-col compare__plan-col--highlight">Growth</th>
-              <th class="compare__plan-col">Bespoke</th>
+              <th class="compare__plan-col compare__plan-col--launchpad">Launchpad</th>
+              <th class="compare__plan-col compare__plan-col--starter">Starter</th>
+              <th class="compare__plan-col compare__plan-col--growth">Growth</th>
+              <th class="compare__plan-col compare__plan-col--bespoke">Bespoke</th>
             </tr>
             <tr class="compare__price-row">
               <td></td>
-              <td class="compare__plan-price">$47/mo</td>
-              <td class="compare__plan-price">$149/mo</td>
-              <td class="compare__plan-price compare__plan-price--highlight">$297/mo</td>
-              <td class="compare__plan-price">Custom</td>
+              <td class="compare__plan-price compare__cell--launchpad">$47/mo</td>
+              <td class="compare__plan-price compare__cell--starter">$149/mo</td>
+              <td class="compare__plan-price compare__cell--growth">$297/mo</td>
+              <td class="compare__plan-price compare__cell--bespoke">Custom</td>
             </tr>
           </thead>
           <tbody>
@@ -544,7 +556,7 @@ const faqs = [
                         </svg>
                       </td>
                       {['launchpad', 'starter', 'growth', 'bespoke'].map((plan) => (
-                        <td class={`compare__cell ${plan === 'growth' ? 'compare__cell--highlight' : ''}`}>
+                        <td class={`compare__cell compare__cell--${plan}`}>
                           {f[plan] === true ? (
                             <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -580,6 +592,24 @@ const faqs = [
         <div class="compare__cta-cell"><a href="#contact" class="btn btn--primary" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">Scale Faster</a></div>
         <div class="compare__cta-cell"><a href="#contact" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">Let's Talk</a></div>
       </div>
+
+      <!-- ═══ MOBILE PLAN SELECTOR (replaces table at ≤768px) ═══ -->
+      <div class="mps" id="mobile-plan-selector">
+        <div class="mps__tabs" id="mps-tabs">
+          <button class="mps__tab mps__tab--active" data-plan="0">Launchpad</button>
+          <button class="mps__tab" data-plan="1">Starter</button>
+          <button class="mps__tab" data-plan="2">Growth</button>
+          <button class="mps__tab" data-plan="3">Bespoke</button>
+        </div>
+        <div class="mps__price" id="mps-price">
+          <span class="mps__price-amount">$47</span><span class="mps__price-period">/mo AUD</span>
+        </div>
+        <div class="mps__features" id="mps-features"></div>
+        <div class="mps__cta">
+          <a href="/start" class="btn btn--primary mps__cta-btn" id="mps-cta">Start for $47</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -609,11 +639,11 @@ const faqs = [
         <span class="label">Ready to grow?</span>
         <h2>Start with Launchpad.<br/><span class="gradient-text">Scale from there.</span></h2>
         <p class="pricing-cta__desc">
-          Book a free demo and we'll map out which plan fits your business. No pressure, just a real conversation.
+          Try the full platform free for 14 days. No credit card, no commitment. Or book a demo and we'll walk you through it.
         </p>
         <div class="pricing-cta__actions">
-          <a href="https://dusa.studio/booking" class="btn btn--primary">Book Your Free Demo</a>
-          <a href="mailto:contact@dusa.studio" class="btn btn--outline">Email Us</a>
+          <a href="/start" class="btn btn--primary">Get Started</a>
+          <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Book a Demo</a>
         </div>
       </div>
     </div>
@@ -638,8 +668,8 @@ const faqs = [
 <style is:global>
   /* ─── PRICING HERO ─── */
   .pricing-hero {
-    padding-top: calc(var(--nav-height) + var(--space-2xl));
-    padding-bottom: var(--space-xl);
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
     text-align: center;
   }
 
@@ -649,7 +679,7 @@ const faqs = [
   }
 
   .pricing-hero__sub {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
     color: rgba(247, 244, 239, 0.6);
     line-height: 1.7;
     margin-top: var(--space-sm);
@@ -804,6 +834,43 @@ const faqs = [
     background: #111a27;
     color: var(--warm-white);
     border: 1px solid rgba(26, 58, 92, 0.6);
+  }
+
+  /* Badge hover glow (dark mode) */
+  .pricing-card__badge--entry,
+  .pricing-card__badge--default,
+  .pricing-card__badge--pop,
+  .pricing-card__badge--premium {
+    transition: all 0.45s var(--ease-out);
+    cursor: default;
+  }
+  .pricing-card__badge--entry:hover {
+    background: var(--reef-aqua);
+    color: var(--deep-black);
+    border-color: var(--reef-aqua);
+    box-shadow: 0 0 24px rgba(78, 216, 194, 0.5), 0 0 60px rgba(78, 216, 194, 0.2);
+    transform: translateY(-2px) scale(1.05);
+  }
+  .pricing-card__badge--default:hover {
+    background: var(--mist-blue);
+    color: var(--warm-white);
+    border-color: var(--mist-blue);
+    box-shadow: 0 0 24px rgba(106, 170, 207, 0.55), 0 0 60px rgba(106, 170, 207, 0.2);
+    transform: translateY(-2px) scale(1.05);
+  }
+  .pricing-card__badge--pop:hover {
+    background: var(--reef-aqua);
+    color: var(--deep-black);
+    border-color: var(--reef-aqua);
+    box-shadow: 0 0 30px rgba(78, 216, 194, 0.6), 0 0 80px rgba(78, 216, 194, 0.25), 0 0 120px rgba(78, 216, 194, 0.1);
+    transform: translateY(-2px) scale(1.08);
+  }
+  .pricing-card__badge--premium:hover {
+    background: var(--deep-ocean);
+    color: var(--warm-white);
+    border-color: var(--deep-ocean);
+    box-shadow: 0 0 24px rgba(26, 58, 92, 0.6), 0 0 60px rgba(26, 58, 92, 0.25);
+    transform: translateY(-2px) scale(1.05);
   }
 
   /* Card Head */
@@ -1014,6 +1081,132 @@ const faqs = [
     transition: all 0.6s ease;
     margin-bottom: 5px;
   }
+
+  /* ─── DUSA TOGGLE SWITCH ─── */
+  .dusa-toggle {
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .dusa-toggle__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .dusa-toggle__track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 26px;
+    border-radius: 13px;
+    background: rgba(247,244,239,0.06);
+    border: 1.5px solid rgba(247,244,239,0.1);
+    position: relative;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  .dusa-toggle__thumb {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(247,244,239,0.25);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .dusa-toggle__label-off,
+  .dusa-toggle__label-on {
+    position: absolute;
+    font-family: var(--font-headline);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .dusa-toggle__label-off {
+    right: 7px;
+    color: rgba(247,244,239,0.25);
+    opacity: 1;
+  }
+  .dusa-toggle__label-on {
+    left: 7px;
+    color: var(--deep-black);
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  /* Toggle ON state */
+  .dusa-toggle__input:checked + .dusa-toggle__track {
+    background: var(--reef-aqua);
+    border-color: var(--reef-aqua);
+    box-shadow: 0 0 12px rgba(78,216,194,0.4), 0 0 24px rgba(78,216,194,0.15);
+  }
+  .dusa-toggle__input:checked + .dusa-toggle__track .dusa-toggle__thumb {
+    left: calc(100% - 22px);
+    background: var(--warm-white);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .dusa-toggle__input:checked + .dusa-toggle__track .dusa-toggle__label-off {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  .dusa-toggle__input:checked + .dusa-toggle__track .dusa-toggle__label-on {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Hover state */
+  .dusa-toggle:hover .dusa-toggle__track {
+    border-color: rgba(78,216,194,0.3);
+    background: rgba(78,216,194,0.08);
+  }
+  .dusa-toggle:hover .dusa-toggle__thumb {
+    background: rgba(78,216,194,0.4);
+  }
+  .dusa-toggle__input:checked + .dusa-toggle__track:hover {
+    box-shadow: 0 0 16px rgba(78,216,194,0.5), 0 0 32px rgba(78,216,194,0.2);
+  }
+
+  /* Row state when DUSA is toggled ON */
+  .rack-row--dusa {
+    border-color: rgba(78,216,194,0.35) !important;
+    background: rgba(78,216,194,0.06) !important;
+    animation: none !important;
+    box-shadow: 0 0 8px rgba(78,216,194,0.08);
+  }
+  .rack-row--dusa .rack-row__led {
+    background: var(--reef-aqua) !important;
+    box-shadow: 0 0 6px rgba(78,216,194,0.5) !important;
+    animation: none !important;
+  }
+  .rack-row--dusa .rack-row__feature {
+    color: rgba(78,216,194,0.85) !important;
+  }
+  .rack-row--dusa .rack-row__selector {
+    opacity: 0.25;
+    pointer-events: none;
+    filter: grayscale(1);
+    transition: opacity 0.3s, filter 0.3s;
+  }
+  .rack-row--dusa .rack-row__cost {
+    font-size: 0.7rem !important;
+    color: var(--reef-aqua) !important;
+    font-family: var(--font-headline) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em;
+  }
+  .rack-row--dusa .rack-row__handle {
+    opacity: 0;
+  }
   .rack-row:last-child { margin-bottom: 0; }
   .rack-row--hot {
     animation: rackOverheat 2s ease-in-out infinite;
@@ -1168,40 +1361,44 @@ const faqs = [
   }
 
   .replace__savings-callout {
-    margin-top: 20px;
-    padding: 14px 28px;
+    margin-top: var(--space-lg);
+    padding: 1.5rem 2rem;
     font-family: var(--font-headline);
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 500;
-    color: rgba(237,233,227,0.7);
+    color: var(--warm-white);
     text-align: center;
     letter-spacing: 0.01em;
-    background: rgba(237,233,227,0.04);
-    border: 1.5px solid rgba(237,233,227,0.1);
-    border-radius: 8px;
-    max-width: 440px;
+    background: linear-gradient(145deg, rgba(78, 216, 194, 0.08), rgba(26, 58, 92, 0.12));
+    border: 2px solid rgba(78, 216, 194, 0.25);
+    border-radius: var(--radius-md);
+    max-width: 520px;
     margin-left: auto;
     margin-right: auto;
-    animation: savingsPulse 3s ease-in-out infinite;
+    position: relative;
+    animation: savingsGlow 3s ease-in-out infinite;
   }
-  @keyframes savingsPulse {
+  @keyframes savingsGlow {
     0%,100% {
       box-shadow:
-        0 0 8px rgba(237,233,227,0.04),
-        0 0 20px rgba(237,233,227,0.02);
-      border-color: rgba(237,233,227,0.1);
+        0 0 15px rgba(78, 216, 194, 0.1),
+        0 0 40px rgba(78, 216, 194, 0.05),
+        inset 0 0 20px rgba(78, 216, 194, 0.03);
+      border-color: rgba(78, 216, 194, 0.25);
     }
     50% {
       box-shadow:
-        0 0 12px rgba(237,233,227,0.1),
-        0 0 30px rgba(237,233,227,0.04);
-      border-color: rgba(237,233,227,0.25);
+        0 0 25px rgba(78, 216, 194, 0.2),
+        0 0 60px rgba(78, 216, 194, 0.1),
+        inset 0 0 30px rgba(78, 216, 194, 0.06);
+      border-color: rgba(78, 216, 194, 0.45);
     }
   }
 
   .replace__savings-callout strong {
-    color: var(--sandstone);
+    color: var(--reef-aqua);
     font-weight: 700;
+    font-size: 1.5rem;
   }
 
   /* ─── SUPPORT LAYER ─── */
@@ -1212,6 +1409,9 @@ const faqs = [
   .support__header {
     max-width: 600px;
     margin-bottom: var(--space-xl);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .support__grid {
@@ -1279,6 +1479,9 @@ const faqs = [
   .compare__header {
     max-width: 600px;
     margin-bottom: var(--space-xl);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .compare__sub {
@@ -1315,10 +1518,6 @@ const faqs = [
     padding: var(--space-sm) 0.5rem;
   }
 
-  .compare__plan-col--highlight {
-    color: var(--reef-aqua);
-  }
-
   .compare__plan-price {
     text-align: center;
     font-family: var(--font-mono);
@@ -1326,10 +1525,6 @@ const faqs = [
     color: rgba(247, 244, 239, 0.4);
     padding-bottom: var(--space-md);
     letter-spacing: 0.05em;
-  }
-
-  .compare__plan-price--highlight {
-    color: var(--reef-aqua);
   }
 
   .compare__category-row td {
@@ -1358,8 +1553,38 @@ const faqs = [
     vertical-align: middle;
   }
 
-  .compare__cell--highlight {
-    background: rgba(78, 216, 194, 0.03);
+  /* ── Per-column tinting (dark mode) ── */
+  .compare__cell--launchpad {
+    background: rgba(247, 244, 239, 0.015);
+  }
+  .compare__cell--starter {
+    background: rgba(106, 170, 207, 0.04);
+  }
+  .compare__cell--growth {
+    background: rgba(78, 216, 194, 0.06);
+    position: relative;
+  }
+  .compare__cell--bespoke {
+    background: rgba(106, 170, 207, 0.025);
+  }
+
+  /* Column header tints match body columns */
+  .compare__plan-col--launchpad {
+    background: rgba(247, 244, 239, 0.015);
+  }
+  .compare__plan-col--starter {
+    background: rgba(106, 170, 207, 0.04);
+  }
+  .compare__plan-col--growth {
+    color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.06);
+    border-top: 2px solid var(--reef-aqua);
+  }
+  .compare__plan-col--bespoke {
+    background: rgba(106, 170, 207, 0.025);
+  }
+  .compare__plan-price.compare__cell--growth {
+    color: var(--reef-aqua);
   }
 
   .compare__check {
@@ -1377,8 +1602,9 @@ const faqs = [
   .compare__text {
     font-family: var(--font-mono);
     font-size: 0.8125rem;
-    color: rgba(247, 244, 239, 0.5);
+    color: var(--reef-aqua);
     letter-spacing: 0.02em;
+    opacity: 0.85;
   }
 
   .compare__cta-row {
@@ -1401,11 +1627,13 @@ const faqs = [
   /* ─── FAQ ─── */
   .faq__header {
     max-width: 600px;
-    margin-bottom: var(--space-xl);
+    margin: 0 auto var(--space-xl);
+    text-align: center;
   }
 
   .faq__list {
     max-width: 700px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 0;
@@ -1414,6 +1642,19 @@ const faqs = [
   .faq__item {
     border-bottom: 1px solid rgba(12, 14, 20, 0.08);
     overflow: hidden;
+    border-left: 3px solid transparent;
+    padding-left: var(--space-md);
+    transition: border-color var(--duration-fast), background var(--duration-fast);
+  }
+
+  .faq__item:hover {
+    border-left-color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.03);
+  }
+
+  .faq__item[open] {
+    border-left-color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.03);
   }
 
   .faq__question {
@@ -1441,14 +1682,28 @@ const faqs = [
     color: var(--deep-ocean);
     flex-shrink: 0;
     margin-left: var(--space-sm);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(26, 58, 92, 0.06);
+    transition: background var(--duration-fast), transform var(--duration-fast);
   }
 
   details[open] .faq__question::after {
     content: '\2212';
+    background: rgba(78, 216, 194, 0.12);
+    color: var(--reef-aqua);
   }
 
   .faq__question:hover {
     color: var(--deep-ocean);
+  }
+
+  .faq__question:hover::after {
+    background: rgba(78, 216, 194, 0.1);
   }
 
   .faq__answer {
@@ -1595,6 +1850,204 @@ const faqs = [
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* ═══ MOBILE PLAN SELECTOR ═══ */
+  .mps {
+    display: none;
+  }
+
+  .mps__tabs {
+    display: flex;
+    gap: 4px;
+    background: rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-full);
+    padding: 4px;
+    position: sticky;
+    top: calc(var(--nav-height) + 12px);
+    z-index: 20;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+  }
+
+  .mps__tab {
+    flex: 1;
+    padding: 0.625rem 0.25rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-out);
+    background: transparent;
+    color: rgba(247, 244, 239, 0.45);
+    white-space: nowrap;
+  }
+
+  .mps__tab--active {
+    background: var(--reef-aqua);
+    color: var(--deep-black);
+    box-shadow: 0 2px 12px rgba(78, 216, 194, 0.3);
+  }
+
+  .mps__tab:not(.mps__tab--active):hover {
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  .mps__price {
+    text-align: center;
+    padding: var(--space-md) 0 var(--space-sm);
+  }
+
+  .mps__price-amount {
+    font-family: var(--font-headline);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--warm-white);
+  }
+
+  .mps__price-period {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.45);
+    margin-left: 0.25rem;
+  }
+
+  .mps__cat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    font-weight: 500;
+    padding: var(--space-sm) 0 0.5rem;
+    border-bottom: 1px solid rgba(78, 216, 194, 0.15);
+    margin-top: var(--space-md);
+  }
+
+  .mps__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+    transition: opacity 0.25s var(--ease-out);
+  }
+
+  .mps__row--off {
+    opacity: 0.3;
+  }
+
+  .mps__row-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mps__row-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .mps__row-icon--check {
+    color: var(--reef-aqua);
+  }
+
+  .mps__row-icon--dash {
+    color: rgba(247, 244, 239, 0.2);
+  }
+
+  .mps__row-label {
+    font-size: 0.9375rem;
+    color: var(--warm-white);
+  }
+
+  .mps__row--off .mps__row-label {
+    color: rgba(247, 244, 239, 0.35);
+  }
+
+  .mps__row-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.12);
+    border: 1px solid rgba(78, 216, 194, 0.3);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  .mps__cta {
+    padding: var(--space-lg) 0 var(--space-sm);
+  }
+
+  .mps__cta-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 1.0625rem;
+    padding: 1rem 2rem;
+  }
+
+  /* ─── LIGHT MODE ─── */
+  html[data-theme="light"] .mps__tabs {
+    background: rgba(12, 14, 20, 0.04);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  html[data-theme="light"] .mps__tab {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  html[data-theme="light"] .mps__tab--active {
+    background: var(--deep-ocean);
+    color: var(--warm-white);
+    box-shadow: 0 2px 12px rgba(26, 58, 92, 0.25);
+  }
+
+  html[data-theme="light"] .mps__tab:not(.mps__tab--active):hover {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  html[data-theme="light"] .mps__price-amount {
+    color: var(--deep-black);
+  }
+
+  html[data-theme="light"] .mps__price-period {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  html[data-theme="light"] .mps__cat-label {
+    color: var(--deep-ocean);
+    border-bottom-color: rgba(26, 58, 92, 0.15);
+  }
+
+  html[data-theme="light"] .mps__row {
+    border-bottom-color: rgba(12, 14, 20, 0.06);
+  }
+
+  html[data-theme="light"] .mps__row-icon--check {
+    color: var(--deep-ocean);
+  }
+
+  html[data-theme="light"] .mps__row-icon--dash {
+    color: rgba(12, 14, 20, 0.15);
+  }
+
+  html[data-theme="light"] .mps__row-label {
+    color: var(--deep-black);
+  }
+
+  html[data-theme="light"] .mps__row--off .mps__row-label {
+    color: rgba(12, 14, 20, 0.3);
+  }
+
+  html[data-theme="light"] .mps__row-badge {
+    color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.2);
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
     .pricing-grid {
@@ -1606,6 +2059,21 @@ const faqs = [
     .rack-row {
       grid-template-columns: auto 1fr auto auto;
       padding: 8px 12px;
+    }
+    .dusa-toggle__track {
+      width: 52px;
+      height: 24px;
+    }
+    .dusa-toggle__thumb {
+      width: 18px;
+      height: 18px;
+    }
+    .dusa-toggle__input:checked + .dusa-toggle__track .dusa-toggle__thumb {
+      left: calc(100% - 20px);
+    }
+    .dusa-toggle__label-off,
+    .dusa-toggle__label-on {
+      font-size: 0.5rem;
     }
   }
 
@@ -1629,6 +2097,16 @@ const faqs = [
       align-items: center;
     }
 
+    /* Hide desktop table, show mobile plan selector */
+    .compare__table-wrap,
+    .compare__cta-row {
+      display: none !important;
+    }
+
+    .mps {
+      display: block;
+    }
+
     .rack-row__feature {
       font-size: 0.7rem;
     }
@@ -1647,6 +2125,11 @@ const faqs = [
   }
 
   @media (max-width: 480px) {
+    .pricing-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+
     .pricing-card {
       padding: var(--space-md);
     }
@@ -1658,6 +2141,44 @@ const faqs = [
     .compare__ctas .btn {
       width: 100%;
     }
+
+    .rack-row {
+      grid-template-columns: auto 1fr auto;
+      padding: 8px 10px;
+      gap: 6px;
+    }
+
+    .dusa-toggle {
+      grid-column: 1 / -1;
+      justify-self: end;
+    }
+
+    .rack-row__feature {
+      font-size: 0.65rem;
+    }
+
+    .rack-row__selector {
+      gap: 3px;
+    }
+
+    .replace__tool-btn {
+      font-size: 0.625rem;
+      padding: 0.15rem 0.375rem;
+    }
+
+    .replace__savings-callout {
+      padding: 1rem 1.25rem;
+      font-size: 1.0625rem;
+    }
+
+    .replace__savings-callout strong {
+      font-size: 1.25rem;
+    }
+
+    .pricing-cta__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   /* GSAP-animated elements hidden until JS runs */
@@ -1668,8 +2189,544 @@ const faqs = [
   .replace__savings-callout,
   .support__card,
   .compare__table-wrap,
+  .mps,
   .faq__item {
     visibility: hidden;
+  }
+
+  /* ═══════════════════════════════════════════
+     LIGHT MODE OVERRIDES
+     ═══════════════════════════════════════════ */
+
+  /* ─── HERO ─── */
+  html[data-theme="light"] .pricing-hero__sub {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* ─── PRICING CARDS ─── */
+  html[data-theme="light"] .pricing-card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.1);
+    box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04);
+  }
+  html[data-theme="light"] .pricing-card:hover {
+    border-color: rgba(26, 58, 92, 0.3);
+    background: rgba(12, 14, 20, 0.03);
+    box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08), 0 0 0 1px rgba(26, 58, 92, 0.15);
+  }
+
+  html[data-theme="light"] .pricing-card--pop {
+    border-color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.06);
+    box-shadow: 0 4px 20px rgba(26, 58, 92, 0.1);
+  }
+  html[data-theme="light"] .pricing-card--pop:hover {
+    border-color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.1);
+    box-shadow: 0 12px 40px rgba(26, 58, 92, 0.2), 0 0 60px rgba(26, 58, 92, 0.1), 0 0 0 1px var(--deep-ocean);
+  }
+
+  html[data-theme="light"] .pricing-card--default {
+    border-color: rgba(106, 170, 207, 0.3);
+    background: rgba(106, 170, 207, 0.05);
+  }
+  html[data-theme="light"] .pricing-card--default:hover {
+    border-color: rgba(106, 170, 207, 0.5);
+    background: rgba(106, 170, 207, 0.08);
+    box-shadow: 0 12px 40px rgba(12, 14, 20, 0.06);
+  }
+
+  html[data-theme="light"] .pricing-card--entry {
+    border-color: rgba(12, 14, 20, 0.15);
+    background: rgba(12, 14, 20, 0.015);
+  }
+  html[data-theme="light"] .pricing-card--entry:hover {
+    border-color: rgba(12, 14, 20, 0.25);
+    background: rgba(12, 14, 20, 0.03);
+    box-shadow: 0 12px 40px rgba(12, 14, 20, 0.06);
+  }
+
+  html[data-theme="light"] .pricing-card--premium {
+    border-color: rgba(26, 58, 92, 0.4);
+    background: rgba(26, 58, 92, 0.05);
+  }
+  html[data-theme="light"] .pricing-card--premium:hover {
+    border-color: rgba(26, 58, 92, 0.6);
+    background: rgba(26, 58, 92, 0.08);
+    box-shadow: 0 12px 40px rgba(26, 58, 92, 0.1);
+  }
+
+  /* Card text */
+  html[data-theme="light"] .pricing-card__name {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .pricing-card__tagline {
+    color: rgba(12, 14, 20, 0.45);
+  }
+  html[data-theme="light"] .pricing-card__amount {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .pricing-card__period {
+    color: rgba(12, 14, 20, 0.45);
+  }
+  html[data-theme="light"] .pricing-card__custom {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .pricing-card__desc {
+    color: rgba(12, 14, 20, 0.55);
+  }
+  html[data-theme="light"] .pricing-card__feature {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  /* Badges — opaque backgrounds so card border doesn't show through */
+  html[data-theme="light"] .pricing-card__badge--entry {
+    background: #ebe7e1;
+    color: var(--deep-black);
+    border-color: rgba(12, 14, 20, 0.15);
+  }
+  html[data-theme="light"] .pricing-card__badge--entry:hover {
+    background: var(--deep-ocean);
+    color: var(--warm-white);
+    border-color: var(--deep-ocean);
+    box-shadow: 0 0 24px rgba(26, 58, 92, 0.5), 0 0 60px rgba(26, 58, 92, 0.15);
+    transform: translateY(-2px) scale(1.05);
+  }
+  html[data-theme="light"] .pricing-card__badge--default {
+    background: #deeaf3;
+    color: var(--deep-ocean);
+    border-color: rgba(106, 170, 207, 0.3);
+  }
+  html[data-theme="light"] .pricing-card__badge--default:hover {
+    background: var(--mist-blue);
+    color: var(--warm-white);
+    border-color: var(--mist-blue);
+    box-shadow: 0 0 24px rgba(106, 170, 207, 0.55), 0 0 60px rgba(106, 170, 207, 0.2);
+    transform: translateY(-2px) scale(1.05);
+  }
+  html[data-theme="light"] .pricing-card__badge--pop:hover {
+    background: var(--deep-ocean);
+    color: var(--warm-white);
+    border-color: var(--deep-ocean);
+    box-shadow: 0 0 30px rgba(26, 58, 92, 0.5), 0 0 80px rgba(26, 58, 92, 0.2), 0 0 120px rgba(26, 58, 92, 0.08);
+    transform: translateY(-2px) scale(1.08);
+  }
+  html[data-theme="light"] .pricing-card__badge--premium {
+    background: #d5dee8;
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.3);
+  }
+  html[data-theme="light"] .pricing-card__badge--premium:hover {
+    background: var(--deep-ocean);
+    color: var(--warm-white);
+    border-color: var(--deep-ocean);
+    box-shadow: 0 0 24px rgba(26, 58, 92, 0.5), 0 0 60px rgba(26, 58, 92, 0.2);
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  /* ─── SECTION BORDERS ─── */
+  html[data-theme="light"] .replace {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+  html[data-theme="light"] .support {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+  html[data-theme="light"] .compare {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  /* ─── TOOL REPLACEMENT ─── */
+  html[data-theme="light"] .replace__sub {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* Tool selector buttons */
+  html[data-theme="light"] .replace__tool-btn {
+    color: rgba(12, 14, 20, 0.4);
+    border-color: rgba(12, 14, 20, 0.1);
+  }
+  html[data-theme="light"] .replace__tool-btn:hover {
+    color: rgba(12, 14, 20, 0.7);
+    border-color: rgba(12, 14, 20, 0.2);
+    background: rgba(12, 14, 20, 0.03);
+  }
+  html[data-theme="light"] .replace__tool-btn--active {
+    color: rgba(12, 14, 20, 0.75);
+    border-color: rgba(232, 82, 78, 0.35);
+    background: rgba(232, 82, 78, 0.06);
+  }
+  html[data-theme="light"] .replace__tool-btn--active:hover {
+    border-color: rgba(232, 82, 78, 0.5);
+    background: rgba(232, 82, 78, 0.1);
+  }
+  html[data-theme="light"] .replace__tool-btn--na.replace__tool-btn--active {
+    color: rgba(12, 14, 20, 0.45);
+    border-color: rgba(12, 14, 20, 0.12);
+    background: rgba(12, 14, 20, 0.03);
+  }
+
+  /* ─── RACK LIGHT MODE ─── */
+  html[data-theme="light"] .rack-frame {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  html[data-theme="light"] .rack-frame::before {
+    display: none;
+  }
+  html[data-theme="light"] .rack-frame--calm {
+    border: none;
+    box-shadow: none;
+  }
+  html[data-theme="light"] .rack-frame--stressed {
+    border: none;
+  }
+
+  /* Rack rows — hot (red/warning) */
+  html[data-theme="light"] .rack-row {
+    border-color: rgba(232, 82, 78, 0.25);
+    background: rgba(232, 82, 78, 0.05);
+    box-shadow: 0 0 12px rgba(232, 82, 78, 0.08), inset 0 0 8px rgba(232, 82, 78, 0.03);
+  }
+  html[data-theme="light"] .rack-row--hot {
+    animation: rackOverheatLight 2s ease-in-out infinite;
+  }
+  @keyframes rackOverheatLight {
+    0%,100% { box-shadow: 0 0 10px rgba(232, 82, 78, 0.1), inset 0 0 8px rgba(232, 82, 78, 0.03); border-color: rgba(232, 82, 78, 0.2); }
+    50% { box-shadow: 0 0 22px rgba(232, 82, 78, 0.25), 0 0 40px rgba(232, 82, 78, 0.1), inset 0 0 15px rgba(232, 82, 78, 0.06); border-color: rgba(232, 82, 78, 0.35); }
+  }
+  html[data-theme="light"] .rack-row--off {
+    border-color: rgba(26, 58, 92, 0.12);
+    background: rgba(26, 58, 92, 0.03);
+  }
+  html[data-theme="light"] .rack-row--cool {
+    border-color: rgba(26, 58, 92, 0.35);
+    background: rgba(26, 58, 92, 0.06);
+  }
+  html[data-theme="light"] .rack-row--merged {
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  /* Rack row elements */
+  html[data-theme="light"] .rack-row__led {
+    background: #e8524e;
+    box-shadow: 0 0 8px rgba(232, 82, 78, 0.5), 0 0 16px rgba(232, 82, 78, 0.2);
+  }
+  html[data-theme="light"] .rack-row--off .rack-row__led {
+    background: rgba(26, 58, 92, 0.2);
+    box-shadow: none;
+  }
+  html[data-theme="light"] .rack-row--cool .rack-row__led {
+    background: var(--deep-ocean);
+    box-shadow: 0 0 6px rgba(26, 58, 92, 0.4);
+  }
+  html[data-theme="light"] .rack-row__feature {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .rack-row--off .rack-row__feature {
+    color: rgba(26, 58, 92, 0.4);
+  }
+  html[data-theme="light"] .rack-row--cool .rack-row__feature {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .rack-row__cost {
+    color: rgba(232, 82, 78, 0.85);
+  }
+  html[data-theme="light"] .rack-row--off .rack-row__cost {
+    color: rgba(26, 58, 92, 0.25);
+  }
+  html[data-theme="light"] .rack-row--cool .rack-row__cost {
+    color: rgba(26, 58, 92, 0.6);
+  }
+  html[data-theme="light"] .rack-row__cost--neutral {
+    color: rgba(12, 14, 20, 0.15) !important;
+  }
+  html[data-theme="light"] .rack-row__handle {
+    background: rgba(12, 14, 20, 0.06);
+    border-color: rgba(12, 14, 20, 0.1);
+  }
+  html[data-theme="light"] .rack-row--off .rack-row__handle {
+    opacity: 0.4;
+    background: rgba(26, 58, 92, 0.06);
+    border-color: rgba(26, 58, 92, 0.1);
+  }
+
+  /* DUSA base row */
+  html[data-theme="light"] .dusa-base {
+    background: rgba(26, 58, 92, 0.04);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+  html[data-theme="light"] .dusa-base--active {
+    border-color: rgba(26, 58, 92, 0.45);
+    background: rgba(26, 58, 92, 0.06);
+  }
+  html[data-theme="light"] .dusa-base__label {
+    color: rgba(26, 58, 92, 0.35);
+  }
+  html[data-theme="light"] .dusa-base--active .dusa-base__label {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .dusa-base__sub {
+    color: rgba(26, 58, 92, 0.25);
+  }
+  html[data-theme="light"] .dusa-base--active .dusa-base__sub {
+    color: rgba(26, 58, 92, 0.5);
+  }
+  html[data-theme="light"] .dusa-base__led {
+    background: rgba(26, 58, 92, 0.15);
+  }
+  html[data-theme="light"] .dusa-base--active .dusa-base__led {
+    background: var(--deep-ocean);
+    box-shadow: 0 0 8px rgba(26, 58, 92, 0.4);
+  }
+
+  /* DUSA toggle */
+  html[data-theme="light"] .dusa-toggle__track {
+    background: rgba(12,14,20,0.04);
+    border-color: rgba(12,14,20,0.12);
+  }
+  html[data-theme="light"] .dusa-toggle__thumb {
+    background: rgba(12,14,20,0.15);
+  }
+  html[data-theme="light"] .dusa-toggle__label-off {
+    color: rgba(12,14,20,0.25);
+  }
+  html[data-theme="light"] .dusa-toggle:hover .dusa-toggle__track {
+    border-color: rgba(26,58,92,0.3);
+    background: rgba(26,58,92,0.06);
+  }
+  html[data-theme="light"] .dusa-toggle:hover .dusa-toggle__thumb {
+    background: rgba(26,58,92,0.3);
+  }
+  html[data-theme="light"] .dusa-toggle__input:checked + .dusa-toggle__track {
+    background: var(--deep-ocean);
+    border-color: var(--deep-ocean);
+    box-shadow: 0 0 12px rgba(26,58,92,0.3);
+  }
+  html[data-theme="light"] .dusa-toggle__input:checked + .dusa-toggle__track .dusa-toggle__label-on {
+    color: var(--warm-white);
+  }
+  html[data-theme="light"] .rack-row--dusa {
+    border-color: rgba(26,58,92,0.3) !important;
+    background: rgba(26,58,92,0.05) !important;
+  }
+  html[data-theme="light"] .rack-row--dusa .rack-row__led {
+    background: var(--deep-ocean) !important;
+    box-shadow: 0 0 6px rgba(26,58,92,0.4) !important;
+  }
+  html[data-theme="light"] .rack-row--dusa .rack-row__feature {
+    color: var(--deep-ocean) !important;
+  }
+  html[data-theme="light"] .rack-row--dusa .rack-row__cost {
+    color: var(--deep-ocean) !important;
+  }
+
+  /* Activate button */
+  html[data-theme="light"] .rack-activate {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.3);
+  }
+  html[data-theme="light"] .rack-activate:hover {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.5);
+  }
+
+  /* Cable SVG */
+  html[data-theme="light"] .rack-cable-svg path {
+    stroke: rgba(26, 58, 92, 0.25) !important;
+  }
+
+  /* Battery bars */
+  html[data-theme="light"] .rack-bbar {
+    background: rgba(26, 58, 92, 0.06);
+    border-color: rgba(26, 58, 92, 0.1);
+  }
+  html[data-theme="light"] .rack-bbar--lit {
+    background: rgba(26, 58, 92, 0.25);
+    border-color: rgba(26, 58, 92, 0.4);
+    box-shadow: 0 0 4px rgba(26, 58, 92, 0.2);
+  }
+
+  /* Tool selector buttons inside rack */
+  html[data-theme="light"] .rack-row__selector .replace__tool-btn {
+    color: rgba(12, 14, 20, 0.4);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  html[data-theme="light"] .rack-row__selector .replace__tool-btn--active {
+    color: rgba(12, 14, 20, 0.75);
+    border-color: rgba(232, 82, 78, 0.3);
+    background: rgba(232, 82, 78, 0.06);
+  }
+
+  /* Savings callout */
+  html[data-theme="light"] .replace__savings-callout {
+    color: var(--deep-black);
+    background: linear-gradient(145deg, rgba(26, 58, 92, 0.06), rgba(78, 216, 194, 0.06));
+    border-color: rgba(26, 58, 92, 0.2);
+    animation-name: savingsGlowLight;
+  }
+  @keyframes savingsGlowLight {
+    0%,100% {
+      box-shadow:
+        0 0 15px rgba(26, 58, 92, 0.06),
+        0 0 40px rgba(26, 58, 92, 0.03);
+      border-color: rgba(26, 58, 92, 0.2);
+    }
+    50% {
+      box-shadow:
+        0 0 25px rgba(26, 58, 92, 0.12),
+        0 0 60px rgba(26, 58, 92, 0.06);
+      border-color: rgba(26, 58, 92, 0.35);
+    }
+  }
+  html[data-theme="light"] .replace__savings-callout strong {
+    color: var(--deep-ocean);
+    font-size: 1.5rem;
+  }
+
+  /* Rack status text below the rack */
+  html[data-theme="light"] .rack-status {
+    color: rgba(12, 14, 20, 0.35);
+  }
+  html[data-theme="light"] .rack-status--active {
+    color: rgba(26, 58, 92, 0.7);
+  }
+  html[data-theme="light"] .rack-status--done {
+    color: var(--deep-ocean);
+  }
+
+  /* ─── SUPPORT CARDS ─── */
+  html[data-theme="light"] .support__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  html[data-theme="light"] .support__card:hover {
+    border-color: rgba(26, 58, 92, 0.25);
+    background: rgba(12, 14, 20, 0.03);
+    box-shadow: 0 8px 30px rgba(12, 14, 20, 0.06);
+  }
+  html[data-theme="light"] .support__card-title {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .support__card-desc {
+    color: rgba(12, 14, 20, 0.55);
+  }
+  html[data-theme="light"] .support__card-plans {
+    color: var(--deep-ocean);
+    opacity: 0.7;
+  }
+
+  /* ─── COMPARISON TABLE ─── */
+  html[data-theme="light"] .compare__sub {
+    color: rgba(12, 14, 20, 0.55);
+  }
+  html[data-theme="light"] .compare__plan-col {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .compare__plan-col--growth {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .compare__plan-price.compare__cell--growth {
+    color: var(--deep-ocean);
+  }
+  /* Light mode column header tints */
+  html[data-theme="light"] .compare__plan-col--launchpad {
+    background: rgba(237, 233, 227, 0.5);
+  }
+  html[data-theme="light"] .compare__plan-col--starter {
+    background: rgba(106, 170, 207, 0.08);
+  }
+  html[data-theme="light"] .compare__plan-col--growth {
+    background: rgba(78, 216, 194, 0.09);
+  }
+  html[data-theme="light"] .compare__plan-col--bespoke {
+    background: rgba(26, 58, 92, 0.05);
+  }
+  html[data-theme="light"] .compare__plan-price {
+    color: rgba(12, 14, 20, 0.45);
+  }
+  html[data-theme="light"] .compare__feature-name {
+    color: rgba(12, 14, 20, 0.7);
+  }
+  html[data-theme="light"] .compare__feature-row td {
+    border-bottom-color: rgba(12, 14, 20, 0.06);
+  }
+  html[data-theme="light"] .compare__feature-row:hover {
+    background: rgba(26, 58, 92, 0.04);
+  }
+  html[data-theme="light"] .compare__feature-row:hover .compare__feature-name {
+    color: var(--deep-black);
+  }
+  html[data-theme="light"] .compare__dash {
+    color: rgba(12, 14, 20, 0.2);
+  }
+  html[data-theme="light"] .compare__text {
+    color: var(--deep-ocean);
+    opacity: 0.85;
+  }
+  html[data-theme="light"] .compare__expand-icon {
+    color: rgba(12, 14, 20, 0.3);
+  }
+  /* Per-column tinting (light mode) */
+  html[data-theme="light"] .compare__cell--launchpad {
+    background: rgba(237, 233, 227, 0.4);
+  }
+  html[data-theme="light"] .compare__cell--starter {
+    background: rgba(106, 170, 207, 0.06);
+  }
+  html[data-theme="light"] .compare__cell--growth {
+    background: rgba(78, 216, 194, 0.07);
+  }
+  html[data-theme="light"] .compare__cell--bespoke {
+    background: rgba(26, 58, 92, 0.04);
+  }
+  html[data-theme="light"] .faq__item:hover {
+    background: rgba(26, 58, 92, 0.04);
+  }
+  html[data-theme="light"] .faq__item[open] {
+    background: rgba(26, 58, 92, 0.04);
+  }
+  html[data-theme="light"] .compare__desc-cell {
+    border-bottom-color: rgba(26, 58, 92, 0.12) !important;
+  }
+  html[data-theme="light"] .compare__desc-text {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  /* ─── BOTTOM CTA ─── */
+  html[data-theme="light"] .pricing-cta__desc {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* ─── Light Mode Accent Fix — reef-aqua to deep-ocean ─── */
+  html[data-theme="light"] .pricing-hero__currency {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .pricing-card__dollar {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .pricing-card__check {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .compare__check {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .compare__category-row td {
+    color: var(--deep-ocean);
+    border-bottom-color: rgba(26, 58, 92, 0.15);
+  }
+  html[data-theme="light"] .support__icon {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] details[open] .faq__question::after {
+    color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.1);
+  }
+  html[data-theme="light"] .compare__feature-row:hover .compare__expand-icon {
+    color: var(--deep-ocean);
+  }
+  html[data-theme="light"] .compare__feature-row--open .compare__expand-icon {
+    color: var(--deep-ocean);
   }
 </style>
 
@@ -1681,9 +2738,10 @@ const faqs = [
     }
 
     gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
 
     // Make hidden elements visible for GSAP
-    gsap.set('.pricing-hero__content, .pricing-card, .replace__header, .rack-row, .replace__savings-callout, .support__card, .compare__table-wrap, .faq__item', {
+    gsap.set('.pricing-hero__content, .pricing-card, .replace__header, .rack-row, .replace__savings-callout, .support__card, .compare__table-wrap, .mps, .faq__item', {
       visibility: 'visible',
     });
 
@@ -1735,6 +2793,16 @@ const faqs = [
         scrollTrigger: { trigger: '.compare__table-wrap', start: 'top 92%', once: true },
       }
     );
+
+    var mpsEl = document.querySelector('.mps');
+    if (mpsEl) {
+      gsap.fromTo(mpsEl,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: mpsEl, start: 'top 92%', once: true },
+        }
+      );
+    }
 
     document.querySelectorAll('.faq__item').forEach((el) => {
       gsap.fromTo(el, { y: 20, opacity: 0 }, {
@@ -1791,19 +2859,44 @@ const faqs = [
     function getActiveSelections() {
       const selections = [];
       rackDiscs.querySelectorAll('.rack-row').forEach(row => {
+        const dusaInput = row.querySelector('.dusa-toggle__input');
+        const isDusa = dusaInput && dusaInput.checked;
         const activeBtn = row.querySelector('.replace__tool-btn--active');
         if (activeBtn && activeBtn.dataset.tool !== 'na') {
           const cost = parseInt(activeBtn.dataset.cost);
           selections.push({
             name: activeBtn.dataset.name,
-            cost: cost,
+            cost: isDusa ? 0 : cost,
+            originalCost: cost,
             feature: row.querySelector('.rack-row__feature')?.textContent || '',
             rowIdx: activeBtn.dataset.row,
             rowEl: row,
+            dusa: isDusa,
+          });
+        }
+        // Also count DUSA-toggled rows even if tool is N/A
+        if (isDusa && (!activeBtn || activeBtn.dataset.tool === 'na')) {
+          selections.push({
+            name: 'N/A',
+            cost: 0,
+            originalCost: 0,
+            feature: row.querySelector('.rack-row__feature')?.textContent || '',
+            rowIdx: row.dataset.row,
+            rowEl: row,
+            dusa: true,
           });
         }
       });
       return selections;
+    }
+
+    /* ── Get features toggled to DUSA (for data capture) ── */
+    function getDusaInterests() {
+      const interests = [];
+      rackDiscs.querySelectorAll('.dusa-toggle__input:checked').forEach(input => {
+        interests.push(input.dataset.feature);
+      });
+      return interests;
     }
 
     /* ── Build battery bars ── */
@@ -1827,30 +2920,68 @@ const faqs = [
 
       // Update each row's visual state
       rackDiscs.querySelectorAll('.rack-row').forEach(row => {
+        const dusaInput = row.querySelector('.dusa-toggle__input');
+        const isDusa = dusaInput && dusaInput.checked;
+        if (isDusa) {
+          row.classList.remove('rack-row--hot', 'rack-row--off', 'rack-row--cool', 'rack-row--merged');
+          row.classList.add('rack-row--dusa');
+          return;
+        }
         const activeBtn = row.querySelector('.replace__tool-btn--active');
         const isActive = activeBtn && activeBtn.dataset.tool !== 'na';
-        row.classList.remove('rack-row--hot', 'rack-row--off', 'rack-row--cool', 'rack-row--merged');
+        row.classList.remove('rack-row--hot', 'rack-row--off', 'rack-row--cool', 'rack-row--merged', 'rack-row--dusa');
         row.classList.add(isActive ? 'rack-row--hot' : 'rack-row--off');
       });
 
       const selections = getActiveSelections();
+      const dusaCount = selections.filter(s => s.dusa).length;
+      const nonDusaCount = selections.filter(s => !s.dusa).length;
       const toolCount = selections.length;
-      const dusaPrice = getDusaPrice(toolCount);
+      const dusaPrice = getDusaPrice(dusaCount > 0 ? Math.max(dusaCount, toolCount) : toolCount);
 
-      rackFrame.classList.toggle('rack-frame--stressed', toolCount > 0);
-      rackActivate.classList.toggle('rack-activate--hide', toolCount === 0);
+      const hasNonDusa = nonDusaCount > 0;
+      rackFrame.classList.toggle('rack-frame--stressed', hasNonDusa);
+      rackFrame.classList.toggle('rack-frame--calm', dusaCount > 0 && !hasNonDusa);
+      rackActivate.classList.toggle('rack-activate--hide', nonDusaCount === 0);
 
       buildBattery(Math.max(toolCount + 2, 6));
 
-      if (toolCount === 0) {
-        rackStatus.textContent = 'Select tools to build your stack.';
+      // Light up battery bars for DUSA-covered tools
+      if (dusaCount > 0) {
+        dusaBase.classList.add('dusa-base--active');
+        const bars = batteryWrap.querySelectorAll('.rack-bbar');
+        bars.forEach((b, i) => {
+          b.classList.toggle('rack-bbar--lit', i < dusaCount);
+        });
       } else {
+        dusaBase.classList.remove('dusa-base--active');
+      }
+
+      if (toolCount === 0) {
+        rackStatus.textContent = 'Select tools or toggle DUSA to build your stack.';
+      } else if (dusaCount > 0 && nonDusaCount === 0) {
+        rackStatus.classList.add('rack-status--done');
+        rackStatus.textContent = dusaCount + ' system' + (dusaCount > 1 ? 's' : '') + ' covered by DUSA.';
+      } else {
+        const competitorCost = selections.filter(s => !s.dusa).reduce((s, t) => s + t.cost, 0);
+        const msg = nonDusaCount + ' disconnected system' + (nonDusaCount > 1 ? 's' : '') + '. $' + competitorCost + '/mo overhead.';
+        if (dusaCount > 0) {
+          rackStatus.textContent = msg + ' ' + dusaCount + ' covered by DUSA.';
+        } else {
+          rackStatus.textContent = msg;
+        }
+      }
+
+      // Calculate savings: competitor cost of ALL tools vs DUSA price
+      const totalOriginalCost = selections.reduce((s, t) => s + (t.originalCost || t.cost), 0);
+      if (dusaCount > 0) {
+        updateSavings(totalOriginalCost, getDusaPrice(toolCount));
+      } else if (toolCount > 0) {
         const totalCost = selections.reduce((s, t) => s + t.cost, 0);
-        rackStatus.textContent = toolCount + ' disconnected system' + (toolCount > 1 ? 's' : '') + '. $' + totalCost + '/mo overhead.';
         updateSavings(totalCost, dusaPrice);
       }
 
-      if (dusaPrice === 0) {
+      if (toolCount === 0) {
         updateSavings(0, 0);
       }
     }
@@ -1874,6 +3005,43 @@ const faqs = [
       }
     }
 
+    /* ── DUSA toggle handler ── */
+    rackDiscs.addEventListener('change', function(e) {
+      const input = e.target.closest('.dusa-toggle__input');
+      if (!input || animating) return;
+
+      const toggle = input.closest('.dusa-toggle');
+      const rowIdx = toggle.dataset.row;
+      const row = rackDiscs.querySelector(`.rack-row[data-row="${rowIdx}"]`);
+      if (!row) return;
+
+      const costCell = row.querySelector('.rack-row__cost');
+      const isOn = input.checked;
+
+      if (isOn) {
+        row.classList.remove('rack-row--hot', 'rack-row--off');
+        row.classList.add('rack-row--dusa');
+        if (costCell) {
+          costCell.textContent = 'Included';
+          costCell.classList.remove('rack-row__cost--neutral');
+        }
+      } else {
+        row.classList.remove('rack-row--dusa');
+        // Restore based on current tool selection
+        const activeBtn = row.querySelector('.replace__tool-btn--active');
+        const isActive = activeBtn && activeBtn.dataset.tool !== 'na';
+        row.classList.add(isActive ? 'rack-row--hot' : 'rack-row--off');
+        if (costCell && activeBtn) {
+          const cost = parseInt(activeBtn.dataset.cost);
+          const isNA = activeBtn.dataset.tool === 'na' || cost === 0;
+          costCell.textContent = isNA ? 'N/A' : '$' + cost;
+          costCell.classList.toggle('rack-row__cost--neutral', isNA);
+        }
+      }
+
+      updateTotalsAndRack();
+    });
+
     /* ── Click handler on rack rows ── */
     rackDiscs.addEventListener('click', function(e) {
       const btn = e.target.closest('.replace__tool-btn');
@@ -1882,6 +3050,13 @@ const faqs = [
       const rowIdx = btn.dataset.row;
       const row = rackDiscs.querySelector(`.rack-row[data-row="${rowIdx}"]`);
       if (!row) return;
+
+      // If DUSA toggle is on for this row, uncheck it first
+      const dusaInput = row.querySelector('.dusa-toggle__input');
+      if (dusaInput && dusaInput.checked) {
+        dusaInput.checked = false;
+        row.classList.remove('rack-row--dusa');
+      }
 
       row.querySelectorAll('.replace__tool-btn').forEach(b => b.classList.remove('replace__tool-btn--active'));
       btn.classList.add('replace__tool-btn--active');
@@ -2101,11 +3276,263 @@ const faqs = [
     });
   }
 
+  /* ── Collect current tool stack selections ── */
+  function getToolStack() {
+    const tools = [];
+    const rows = document.querySelectorAll('.rack-row');
+    rows.forEach(row => {
+      const activeBtn = row.querySelector('.replace__tool-btn--active');
+      if (!activeBtn) return;
+      const name = activeBtn.dataset.name;
+      const cost = activeBtn.dataset.cost;
+      const feature = row.querySelector('.rack-row__feature');
+      const category = feature ? feature.textContent.trim() : '';
+      if (name && name !== 'N/A') {
+        tools.push({ tool: name, category: category, cost: cost });
+      }
+    });
+    return tools;
+  }
+
+  /* ── Persist tool stack to sessionStorage ── */
+  function saveToolStack() {
+    try {
+      const stack = getToolStack();
+      sessionStorage.setItem('dusa_tool_stack', JSON.stringify(stack));
+      // Also save as simple tag-ready list: "HubSpot, Mailchimp, ClickFunnels"
+      const tagList = stack.map(t => t.tool).join(', ');
+      sessionStorage.setItem('dusa_tool_tags', tagList);
+      // Save total current spend
+      const totalSpend = stack.reduce((sum, t) => sum + Number(t.cost || 0), 0);
+      sessionStorage.setItem('dusa_current_spend', String(totalSpend));
+    } catch(err) { /* silent */ }
+  }
+
+  // Save tool stack whenever a tool button is clicked
+  document.querySelectorAll('.replace__tool-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      setTimeout(saveToolStack, 50); // slight delay so active class updates first
+    });
+  });
+
+  /* ── CTA Data Capture: append tool stack + DUSA interests to booking/contact links ── */
+  function initCtaCapture() {
+    const ctaLinks = document.querySelectorAll('a[href*="bookings/dusa-demo"], a[href*="#contact"], a[href*="mailto:"], a[href*="/start"]');
+    ctaLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // Always save tool stack before navigating
+        saveToolStack();
+
+        const toggles = document.querySelectorAll('.dusa-toggle__input:checked');
+        const interests = [];
+        toggles.forEach(input => { interests.push(input.dataset.feature); });
+        const interestStr = interests.join(', ');
+
+        // Collect tool stack
+        const stack = getToolStack();
+        const toolTags = stack.map(t => t.tool).join(', ');
+        const totalSpend = stack.reduce((sum, t) => sum + Number(t.cost || 0), 0);
+
+        // For booking links, append as URL parameters
+        if (this.href && this.href.includes('bookings/dusa-demo')) {
+          e.preventDefault();
+          const url = new URL(this.href);
+          if (interestStr) {
+            url.searchParams.set('dusa_interests', interestStr);
+            url.searchParams.set('dusa_count', String(interests.length));
+          }
+          if (toolTags) {
+            url.searchParams.set('current_tools', toolTags);
+            url.searchParams.set('current_spend', String(totalSpend));
+          }
+          window.open(url.toString(), '_blank');
+          return;
+        }
+
+        // For mailto links, add tool info to subject
+        if (this.href && this.href.startsWith('mailto:')) {
+          e.preventDefault();
+          const parts = [];
+          if (interestStr) parts.push('Interested in: ' + interestStr);
+          if (toolTags) parts.push('Current tools: ' + toolTags);
+          const subject = encodeURIComponent('DUSA Enquiry - ' + parts.join(' | '));
+          window.location.href = this.href + '?subject=' + subject;
+          return;
+        }
+
+        // For /start links, data is already in sessionStorage
+        // For #contact anchor clicks, also store interests
+        if (interests.length > 0) {
+          try { sessionStorage.setItem('dusa_interests', JSON.stringify(interests)); } catch(err) {}
+        }
+      });
+    });
+  }
+
+  /* ── Mobile Plan Selector ── */
+  function initMobilePlanSelector() {
+    var mps = document.getElementById('mobile-plan-selector');
+    if (!mps) return;
+
+    var plans = [
+      { name: 'Launchpad', price: '$47', period: '/mo AUD', cta: 'Start for $47', ctaLink: '/start' },
+      { name: 'Starter', price: '$149', period: '/mo AUD', cta: 'Get Starter', ctaLink: '/start' },
+      { name: 'Growth', price: '$297', period: '/mo AUD', cta: 'Scale Faster', ctaLink: '/start' },
+      { name: 'Bespoke', price: 'Custom', period: '', cta: "Let's Talk", ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
+    ];
+
+    var categories = [
+      { name: 'Core platform', features: [
+        { label: 'CRM & pipeline management', vals: ['Pick 1', true, true, true] },
+        { label: 'Funnel & website builder', vals: ['Pick 1', true, true, true] },
+        { label: 'Email marketing', vals: ['Pick 1', true, true, true] },
+        { label: 'SMS marketing', vals: ['Pick 1', true, true, true] },
+        { label: 'Booking & calendar', vals: ['Pick 1', true, true, true] },
+        { label: 'Social media planner', vals: ['Pick 1', true, true, true] },
+        { label: 'Reputation management', vals: ['Pick 1', true, true, true] },
+        { label: 'Invoicing & payments', vals: ['Pick 1', true, true, true] },
+        { label: 'Forms & surveys', vals: ['Pick 1', true, true, true] },
+      ]},
+      { name: 'Automation & AI', features: [
+        { label: 'Basic workflow automations', vals: [false, true, true, true] },
+        { label: 'Multi-step automation builder', vals: [false, '5 workflows', 'Unlimited', 'Unlimited'] },
+        { label: 'Trigger-based sequences', vals: [false, true, true, true] },
+        { label: 'AI-powered auto-responses', vals: [false, false, true, true] },
+        { label: 'AI content assistant', vals: [false, false, true, true] },
+        { label: 'Conditional logic & branching', vals: [false, false, true, true] },
+        { label: 'Custom automation builds', vals: [false, false, false, true] },
+      ]},
+      { name: 'Contacts & data', features: [
+        { label: 'Contact records', vals: ['500', '2,500', 'Unlimited', 'Unlimited'] },
+        { label: 'Custom fields', vals: ['10', '50', 'Unlimited', 'Unlimited'] },
+        { label: 'Tags & segments', vals: [true, true, true, true] },
+        { label: 'Import / export contacts', vals: [true, true, true, true] },
+        { label: 'Lead scoring', vals: [false, false, true, true] },
+        { label: 'Smart lists & filters', vals: [false, true, true, true] },
+      ]},
+      { name: 'Reporting & analytics', features: [
+        { label: 'Basic dashboard', vals: [true, true, true, true] },
+        { label: 'Campaign performance', vals: [false, true, true, true] },
+        { label: 'Pipeline & revenue reporting', vals: [false, true, true, true] },
+        { label: 'Custom dashboards', vals: [false, false, true, true] },
+        { label: 'Attribution tracking', vals: [false, false, true, true] },
+        { label: 'Scheduled report emails', vals: [false, false, true, true] },
+      ]},
+      { name: 'Support & community', features: [
+        { label: 'Knowledge base & guides', vals: [true, true, true, true] },
+        { label: 'AI assistant (24/7)', vals: [true, true, true, true] },
+        { label: 'Community access', vals: [true, true, true, true] },
+        { label: 'Email support', vals: [true, true, true, true] },
+        { label: 'Priority support queue', vals: [false, false, true, true] },
+        { label: 'Onboarding strategy session', vals: [false, false, true, true] },
+        { label: 'Dedicated account manager', vals: [false, false, false, true] },
+        { label: 'Phone support', vals: [false, false, false, true] },
+        { label: 'Monthly strategy reviews', vals: [false, false, false, true] },
+      ]},
+      { name: 'Platform & integrations', features: [
+        { label: 'Members portal access', vals: [true, true, true, true] },
+        { label: 'Mobile app', vals: [true, true, true, true] },
+        { label: 'Zapier integration', vals: [false, true, true, true] },
+        { label: 'API access', vals: [false, false, true, true] },
+        { label: 'Custom domain', vals: [false, true, true, true] },
+        { label: 'White-label client portal', vals: [false, false, false, true] },
+        { label: 'Multi-location management', vals: [false, false, false, true] },
+        { label: 'Team user accounts', vals: [false, false, false, true] },
+        { label: 'Custom integrations', vals: [false, false, false, true] },
+      ]}
+    ];
+
+    var currentPlan = 0;
+    var tabs = mps.querySelectorAll('.mps__tab');
+    var priceEl = document.getElementById('mps-price');
+    var featuresEl = document.getElementById('mps-features');
+    var ctaEl = document.getElementById('mps-cta');
+
+    var checkSvg = '<svg class="mps__row-icon mps__row-icon--check" viewBox="0 0 20 20" fill="none" width="20" height="20"><path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var dashSvg = '<svg class="mps__row-icon mps__row-icon--dash" viewBox="0 0 20 20" fill="none" width="20" height="20"><line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+    function renderFeatures(idx) {
+      var html = '';
+      categories.forEach(function(cat) {
+        html += '<p class="mps__cat-label">' + cat.name + '</p>';
+        cat.features.forEach(function(f) {
+          var v = f.vals[idx];
+          var isOff = v === false;
+          var icon = isOff ? dashSvg : checkSvg;
+          var badge = '';
+          if (typeof v === 'string') {
+            badge = '<span class="mps__row-badge">' + v + '</span>';
+          }
+          html += '<div class="mps__row' + (isOff ? ' mps__row--off' : '') + '">';
+          html += '<div class="mps__row-left">' + icon + '<span class="mps__row-label">' + f.label + '</span></div>';
+          if (badge) html += badge;
+          html += '</div>';
+        });
+      });
+      featuresEl.innerHTML = html;
+    }
+
+    function selectPlan(idx) {
+      currentPlan = idx;
+      tabs.forEach(function(tab, i) {
+        if (i === idx) {
+          tab.classList.add('mps__tab--active');
+        } else {
+          tab.classList.remove('mps__tab--active');
+        }
+      });
+
+      var p = plans[idx];
+      if (p.price === 'Custom') {
+        priceEl.innerHTML = '<span class="mps__price-amount">Custom</span>';
+      } else {
+        priceEl.innerHTML = '<span class="mps__price-amount">' + p.price + '</span><span class="mps__price-period">' + p.period + '</span>';
+      }
+
+      ctaEl.textContent = p.cta;
+      ctaEl.href = p.ctaLink;
+      if (p.ctaLink.startsWith('http')) {
+        ctaEl.target = '_blank';
+        ctaEl.rel = 'noopener';
+      } else {
+        ctaEl.removeAttribute('target');
+        ctaEl.removeAttribute('rel');
+      }
+
+      renderFeatures(idx);
+    }
+
+    tabs.forEach(function(tab, i) {
+      tab.addEventListener('click', function() { selectPlan(i); });
+    });
+
+    /* Touch swipe support */
+    var touchStartX = 0;
+    var touchStartY = 0;
+    mps.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    mps.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        if (dx < 0 && currentPlan < 3) selectPlan(currentPlan + 1);
+        else if (dx > 0 && currentPlan > 0) selectPlan(currentPlan - 1);
+      }
+    }, { passive: true });
+
+    selectPlan(0);
+  }
+
   /* Init interactive features */
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { initToolSelector(); initExpandableRows(); });
+    document.addEventListener('DOMContentLoaded', () => { initToolSelector(); initExpandableRows(); initCtaCapture(); initMobilePlanSelector(); });
   } else {
     initToolSelector();
     initExpandableRows();
+    initCtaCapture();
+    initMobilePlanSelector();
   }
 </script>

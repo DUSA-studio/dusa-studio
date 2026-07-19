@@ -1,0 +1,552 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/es.json';
+
+const lang = 'es';
+const region = 'es';
+---
+
+<BaseLayout t={tData} title="CRM para Contadores y Tenedores de Libros | DUSA . studio" description="Automatiza la recopilacion de documentos, los recordatorios de plazos y la comunicacion con clientes entre temporadas fiscales. DUSA ofrece a los contadores un sistema de crecimiento que funciona todo el ano.">
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://dusa.studio/es/" },
+      { "@type": "ListItem", "position": 2, "name": "Industrias", "item": "https://dusa.studio/es/industries/" },
+      { "@type": "ListItem", "position": 3, "name": "Contadores", "item": "https://dusa.studio/es/industries/accountants/" }
+    ]
+  })} />
+
+  <!-- Hero -->
+  <section class="industry-hero section section--dark">
+    <div class="container">
+      <div class="industry-hero__content">
+        <span class="label">Contadores y Tenedores de Libros</span>
+        <h1>Termina con el ciclo de altibajos<br/><span class="gradient-text">con clientes comprometidos todo el ano</span></h1>
+        <p class="industry-hero__sub">DUSA automatiza la recopilacion de documentos, el seguimiento de plazos y la comunicacion con clientes para que puedas concentrarte en los numeros, no en la administracion.</p>
+        <div class="industry-hero__actions">
+          <a href="/es/start" class="btn btn--primary">Comenzar</a>
+          <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Agendar una demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pain-points section section--dark">
+    <div class="container">
+      <span class="label">El Problema</span>
+      <h2>Te suena familiar?</h2>
+      <div class="pain-points__grid">
+        <div class="pain-card">
+          <div class="pain-card__icon">📈</div>
+          <h3>Flujo de trabajo estacional con altibajos</h3>
+          <p>La temporada fiscal te entierra. La temporada baja te deja preguntandote de donde vendra el proximo cliente. Los cambios de carga de trabajo son agotadores.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-card__icon">📄</div>
+          <h3>Persiguiendo documentos de clientes</h3>
+          <p>Envias una solicitud. Luego un seguimiento. Luego otro mas. Lograr que los clientes entreguen sus documentos a tiempo se siente como un segundo trabajo.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-card__icon">📅</div>
+          <h3>Seguimiento manual de plazos</h3>
+          <p>Declaraciones, pagos provisionales, impuestos anuales, contribuciones. Manejar docenas de plazos de clientes en hojas de calculo es la receta para perder fechas importantes.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-card__icon">🤷</div>
+          <h3>Sin contacto entre temporadas fiscales</h3>
+          <p>Los clientes solo saben de ti cuando algo vence. Sin puntos de contacto durante el ano, se olvidan de ti hasta el ultimo momento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution section section--dark">
+    <div class="container">
+      <span class="label">La Solucion</span>
+      <h2>Como funciona DUSA para <span class="gradient-text">contadores y tenedores de libros</span></h2>
+      <p class="solution__intro">Una sola plataforma gestiona la recopilacion de documentos, la administracion de plazos, la comunicacion con clientes y el seguimiento de referidos.</p>
+      <div class="solution__grid">
+        <div class="solution-card">
+          <h3>Recopilacion automatica de documentos</h3>
+          <p>Envia solicitudes automatizadas con enlaces seguros de carga. Haz seguimiento automatico hasta que los documentos lleguen.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Secuencias de recordatorio de plazos</h3>
+          <p>Recordatorios automaticos para declaraciones, pagos provisionales, impuestos anuales y contribuciones. Tus clientes y tu equipo siempre estan al dia.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Portal de clientes</h3>
+          <p>Ofrece a tus clientes un solo lugar para subir documentos, consultar el estado de sus tramites y comunicarse con tu equipo.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Campanas de contacto durante todo el ano</h3>
+          <p>Consejos fiscales, recordatorios de deducciones y recomendaciones de planificacion financiera te mantienen presente entre temporadas de declaracion.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Seguimiento de referidos</h3>
+          <p>Conoce exactamente cuales clientes refieren nuevos negocios y automatiza mensajes de agradecimiento cuando lo hacen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="pipeline section section--dark">
+    <div class="container">
+      <span class="label">Tu Pipeline</span>
+      <h2>Cada cliente, cada plazo, <span class="gradient-text">rastreado automaticamente</span></h2>
+      <div class="pipeline__track">
+        <div class="pipeline__stage">
+          <div class="pipeline__number">1</div>
+          <h3>Nuevo Cliente</h3>
+          <p>El formulario de ingreso recopila datos fiscales, detalles de la entidad e informacion del contador anterior.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">2</div>
+          <h3>Documentos Solicitados</h3>
+          <p>Solicitud automatica enviada con enlace seguro de carga y lista de verificacion.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">3</div>
+          <h3>Documentos Recibidos</h3>
+          <p>Todos los documentos en orden. Tu equipo recibe la notificacion y el trabajo puede comenzar.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">4</div>
+          <h3>En Proceso</h3>
+          <p>Declaracion o estado financiero en preparacion. El cliente ve actualizaciones de estado.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">5</div>
+          <h3>Presentado</h3>
+          <p>Declaracion presentada ante la autoridad fiscal. El cliente recibe confirmacion y proximos pasos.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">6</div>
+          <h3>Revision</h3>
+          <p>Revision posterior a la presentacion y planificacion para el proximo periodo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats section section--dark">
+    <div class="container">
+      <span class="label">Resultados</span>
+      <h2>Disenado para firmas que quieren <span class="gradient-text">crecer</span></h2>
+      <div class="stats__grid">
+        <div class="stat-card">
+          <div class="stat-card__number">70%</div>
+          <p>de reduccion en el tiempo dedicado a perseguir documentos con seguimientos automaticos</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">2x</div>
+          <p>mas referidos de clientes existentes con campanas de contacto continuo</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">0</div>
+          <p>plazos perdidos cuando los recordatorios funcionan en piloto automatico</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="final-cta section section--dark">
+    <div class="container">
+      <div class="final-cta__content">
+        <h2>Listo para dejar de perseguir documentos?</h2>
+        <p>Pon tu firma contable a funcionar con DUSA en menos de una semana.</p>
+        <div class="final-cta__actions">
+          <a href="/es/start" class="btn btn--primary">Comenzar</a>
+          <a href="/blog/crm-for-accountants" class="btn btn--outline">Leer la guia</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .industry-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+    text-align: center;
+  }
+
+  .industry-hero__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .industry-hero h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+    color: var(--warm-white);
+  }
+
+  .industry-hero__sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    max-width: 600px;
+    margin: 0 auto var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .industry-hero__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .pain-points {
+    padding: var(--space-2xl) 0;
+  }
+
+  .pain-points h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-xl);
+  }
+
+  .pain-points__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .pain-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .pain-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .pain-card__icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .pain-card h3 {
+    font-family: var(--font-headline);
+    font-size: 1.15rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pain-card p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Solution */
+  .solution {
+    padding: var(--space-2xl) 0;
+  }
+
+  .solution h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+  }
+
+  .solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .solution-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .solution-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .solution-card h3 {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+
+  .solution-card p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Pipeline */
+  .pipeline {
+    padding: var(--space-2xl) 0;
+  }
+
+  .pipeline h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-xl);
+  }
+
+  .pipeline__track {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .pipeline__stage {
+    flex: 1;
+    text-align: center;
+    padding: 0 var(--space-sm);
+  }
+
+  .pipeline__number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    border: 1px solid rgba(78, 216, 194, 0.4);
+    color: var(--reef-aqua);
+    font-family: var(--font-headline);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-sm);
+  }
+
+  .pipeline__stage h3 {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pipeline__stage p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .pipeline__connector {
+    width: 40px;
+    min-width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(78, 216, 194, 0.4), rgba(78, 216, 194, 0.1));
+    margin-top: 20px;
+    flex-shrink: 0;
+  }
+
+  /* Stats */
+  .stats {
+    padding: var(--space-2xl) 0;
+  }
+
+  .stats h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-md);
+  }
+
+  .stat-card__number {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-card p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+    text-align: center;
+  }
+
+  .final-cta__content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .final-cta h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .final-cta p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .final-cta__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .industry-hero h1,
+  :global(html[data-theme="light"]) .pain-points h2,
+  :global(html[data-theme="light"]) .solution h2,
+  :global(html[data-theme="light"]) .pipeline h2,
+  :global(html[data-theme="light"]) .stats h2,
+  :global(html[data-theme="light"]) .final-cta h2,
+  :global(html[data-theme="light"]) .pain-card h3,
+  :global(html[data-theme="light"]) .pipeline__stage h3 {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .industry-hero__sub,
+  :global(html[data-theme="light"]) .pain-card p,
+  :global(html[data-theme="light"]) .solution__intro,
+  :global(html[data-theme="light"]) .solution-card p,
+  :global(html[data-theme="light"]) .pipeline__stage p,
+  :global(html[data-theme="light"]) .stat-card p,
+  :global(html[data-theme="light"]) .final-cta p {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .pain-card,
+  :global(html[data-theme="light"]) .solution-card,
+  :global(html[data-theme="light"]) .stat-card {
+    background: rgba(12, 14, 20, 0.03);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .pain-card:hover,
+  :global(html[data-theme="light"]) .solution-card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .pipeline__connector {
+    background: linear-gradient(90deg, rgba(78, 216, 194, 0.6), rgba(78, 216, 194, 0.2));
+  }
+
+  :global(html[data-theme="light"]) .pipeline__number {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.5);
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .stat-card__number {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .solution-card h3 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .btn--outline {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pain-points__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .solution__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pipeline__track {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pipeline__connector {
+      width: 2px;
+      height: 30px;
+      min-width: unset;
+      background: linear-gradient(180deg, rgba(78, 216, 194, 0.4), rgba(78, 216, 194, 0.1));
+      margin-top: 0;
+    }
+
+    .pipeline__stage {
+      padding: var(--space-sm) 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .industry-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+
+    .pain-points,
+    .solution,
+    .pipeline,
+    .stats,
+    .final-cta {
+      padding: var(--space-xl) 0;
+    }
+
+    .final-cta {
+      padding-bottom: var(--space-2xl);
+    }
+  }
+</style>

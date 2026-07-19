@@ -1,0 +1,245 @@
+---
+// BrandCarousel.astro — Auto-scrolling client logo strip
+const brands = [
+  { name: "PHMG", file: "PHMG.png" },
+  { name: "The Royal", file: "The-Royal.png" },
+  { name: "The Montague", file: "The-Montague.png" },
+  { name: "Harriets", file: "Harriets.png" },
+  { name: "The Toxteth", file: "The-Toxteth.png" },
+  { name: "Minskys", file: "Minskys.png" },
+  { name: "Papandrea", file: "Papandrea.png" },
+  { name: "Little Lane Library", file: "Little-Lane-Library.png" },
+  { name: "Headline Solutions", file: "Headline-Solutions.png" },
+  { name: "Marle Marle", file: "Marle-Marle.png" },
+  { name: "Styllar", file: "Styllar.png" },
+  { name: "SEN", file: "SEN.png" },
+  { name: "Tommy's Italian", file: "Tommys-Italian.png" },
+  { name: "Baskk", file: "Baskk.png" },
+  { name: "EziCleen", file: "EziCleen.png" },
+  { name: "Regatta", file: "Regatta.png" },
+  { name: "RayWhite", file: "RayWhite.png" },
+  { name: "Ottimo", file: "Ottimo.png" },
+];
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const s = t?.brandCarousel || {};
+const bcLabel = s.label || 'Powering Growth For';
+const bcHeading = s.heading || 'Brands that';
+const bcHeadingAccent = s.headingAccent || 'bloom';
+---
+
+<section class="brands section section--dark" id="brands">
+  <div class="container">
+    <div class="brands__header">
+      <span class="label">{bcLabel}</span>
+      <h2>{bcHeading} <span class="gradient-text">{bcHeadingAccent}</span></h2>
+    </div>
+  </div>
+
+  <div class="brands__carousel" aria-label="Brands we work with">
+    <div class="brands__track">
+      {/* Triple for seamless infinite loop */}
+      {[...brands, ...brands, ...brands].map((b) => (
+        <div class="brands__logo-wrap">
+          <img
+            class="brands__logo"
+            src={`/images/brands/${b.file}`}
+            alt={b.name}
+            loading="lazy"
+            width="220"
+            height="100"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .brands {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    overflow: hidden;
+  }
+
+  .brands__header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .brands__header h2 {
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-top: var(--space-xs);
+  }
+
+  .brands__carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  .brands__track {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: center;
+    width: max-content;
+    animation: brandScroll 45s linear infinite;
+  }
+
+  .brands__track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes brandScroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% / 3));
+    }
+  }
+
+  .brands__logo-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    min-width: 220px;
+    padding: 0 var(--space-sm);
+  }
+
+  .brands__logo {
+    max-height: 90px;
+    max-width: 220px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.45;
+    transition: opacity var(--duration-normal) var(--ease-out),
+                filter var(--duration-normal) var(--ease-out);
+  }
+
+  .brands__logo:hover {
+    opacity: 0.85;
+  }
+
+  /* Reserve for logos with opaque backgrounds if needed later */
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .brands {
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-lg);
+    }
+
+    .brands__track {
+      gap: var(--space-lg);
+      animation-duration: 35s;
+    }
+
+    .brands__logo-wrap {
+      min-width: 180px;
+      height: 80px;
+    }
+
+    .brands__logo {
+      max-height: 70px;
+      max-width: 180px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brands {
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-md);
+    }
+
+    .brands__header {
+      margin-bottom: var(--space-sm);
+    }
+
+    .brands__track {
+      gap: var(--space-md);
+      animation-duration: 30s;
+    }
+
+    .brands__logo-wrap {
+      min-width: 150px;
+      height: 70px;
+      padding: 0 0.25rem;
+    }
+
+    .brands__logo {
+      max-height: 60px;
+      max-width: 150px;
+    }
+  }
+
+  /* GSAP reveal */
+  .brands__header {
+    visibility: hidden;
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .brands__header h2 {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .brands__logo {
+    filter: brightness(0) invert(12%) sepia(40%) saturate(1200%) hue-rotate(180deg) brightness(80%);
+    opacity: 0.55;
+  }
+
+  :global(html[data-theme="light"]) .brands__logo:hover {
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  function initBrandAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initBrandAnimations, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+
+    gsap.set('.brands__header', { visibility: 'visible' });
+
+    gsap.fromTo('.brands__header',
+      { y: 20, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.brands',
+          start: 'top 85%',
+        },
+      }
+    );
+  }
+  initBrandAnimations();
+</script>

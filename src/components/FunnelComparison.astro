@@ -1,18 +1,39 @@
 ---
 // FunnelComparison.astro — Animated cost comparison: scattered tools vs DUSA
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const s = t?.funnelComparison || {};
+const fcLabel = s.label || 'The real cost of scattered tools';
+const fcHeading = s.heading || 'Where does your';
+const fcHeadingAccent = s.headingAccent || 'money actually go?';
+const fcWithoutDusa = s.withoutDusa || 'Without DUSA';
+const fcWithDusa = s.withDusa || 'With DUSA';
+const fcScatteredSpend = s.scatteredSpend || 'Scattered spend';
+const fcScatteredSub = s.scatteredSub || '8 logins, 8 bills, no unified view';
+const fcAllInOneLabel = s.allInOneLabel || 'All-in-one growth stack';
+const fcPlatformSub = s.platformSub || 'CRM, funnels, email, SMS, AI, reviews, scheduling, courses';
+const fcUnifiedGrowth = s.unifiedGrowth || 'AI-powered growth';
+const fcUnifiedSub = s.unifiedSub || 'Leads, bookings, revenue. AI does the rest.';
+const fcGoingIn = s.goingIn || 'GOING IN';
+const fcAiPowered = s.aiPowered || 'AI-POWERED';
+const fcVs = s.vs || 'VS';
 ---
 
 <section class="funnel section section--dark" id="funnel">
   <div class="container">
     <div class="funnel__header reveal">
-      <span class="label">The real cost of scattered tools</span>
-      <h2>Where does your<br/><span class="gradient-text">money actually go?</span></h2>
+      <span class="label">{fcLabel}</span>
+      <h2>{fcHeading}<br/><span class="gradient-text">{fcHeadingAccent}</span></h2>
     </div>
 
     <div class="funnel__layout">
       <!-- ── COMPETITORS SIDE ── -->
       <div class="funnel__side funnel__side--left">
-        <h4 class="funnel__tag funnel__tag--red">Without DUSA</h4>
+        <h3 class="funnel__tag funnel__tag--red">{fcWithoutDusa}</h3>
 
         <div class="funnel__pills">
           <span class="funnel__pill fpill" style="--i:0">HubSpot <b>$40</b></span>
@@ -51,9 +72,9 @@
             <path d="M10,10 Q10,0 20,0 L300,0 Q310,0 310,10 L230,170 Q225,185 210,185 L110,185 Q95,185 90,170 Z"
                   fill="url(#funnelRedGrad)" stroke="rgba(232,82,78,0.25)" stroke-width="1"/>
             <text x="160" y="78" text-anchor="middle" fill="rgba(232,82,78,0.95)"
-                  font-family="'Space Mono', monospace" font-size="18" font-weight="700" letter-spacing="0.05em">$1,074/MO</text>
+                  font-family="Space Mono, monospace" font-size="18" font-weight="700" letter-spacing="0.05em">$1,074/MO</text>
             <text x="160" y="106" text-anchor="middle" fill="rgba(232,82,78,0.7)"
-                  font-family="'Space Mono', monospace" font-size="11" letter-spacing="0.15em">GOING IN</text>
+                  font-family="Space Mono, monospace" font-size="11" letter-spacing="0.15em">{fcGoingIn}</text>
           </svg>
         </div>
 
@@ -65,31 +86,31 @@
             <span class="funnel__out-drop funnel__out-drop--sad" style="--od:2.5s">$</span>
           </div>
           <div class="funnel__glow funnel__glow--red"></div>
-          <span class="funnel__result funnel__result--red">Scattered spend</span>
-          <span class="funnel__result-sub">8 logins, 8 bills, no unified view</span>
+          <span class="funnel__result funnel__result--red">{fcScatteredSpend}</span>
+          <span class="funnel__result-sub">{fcScatteredSub}</span>
         </div>
       </div>
 
       <!-- ── VS BADGE ── -->
       <div class="funnel__vs">
         <div class="funnel__vs-line"></div>
-        <span class="funnel__vs-badge">VS</span>
+        <span class="funnel__vs-badge">{fcVs}</span>
         <div class="funnel__vs-line"></div>
       </div>
 
       <!-- ── DUSA SIDE ── -->
       <div class="funnel__side funnel__side--right">
-        <h4 class="funnel__tag funnel__tag--aqua">With DUSA</h4>
+        <h3 class="funnel__tag funnel__tag--aqua">{fcWithDusa}</h3>
 
         <div class="funnel__platform fpill" style="--i:0">
-          <span class="funnel__platform-label">All-in-one growth stack</span>
+          <span class="funnel__platform-label">{fcAllInOneLabel}</span>
           <span class="funnel__platform-name">
             <svg class="funnel__pill-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="16" height="16">
               <path d="M215.4,395.1c-5.2,0-9.5-3-11.5-8c-7.2-17.8-14.5-35.7-21.7-53.5c-10-24.6-27.3-41.9-51.9-51.9c-17.9-7.3-35.9-14.6-53.8-21.9c-8.7-3.5-10.5-14.9-3.3-20.7c1.1-0.9,2.5-1.6,3.9-2.2c18.1-7.4,36.3-14.6,54.4-22.1c24-10,40.8-27.2,50.7-51.3c7.3-17.8,14.5-35.7,21.7-53.5c2.1-5.2,6.3-8.2,11.6-8.2c5.2,0,9.4,3,11.4,8.2c7.5,18.4,14.7,37,22.5,55.3c10,23.7,27.3,40.3,51.1,50c17.8,7.3,35.7,14.5,53.5,21.7c5,2,8,6.3,8,11.4c0,5.2-2.9,9.5-8,11.5c-17.9,7.3-35.8,14.5-53.7,21.8c-25.2,10.3-42.5,28.2-52.5,53.5c-6.8,17.3-14,34.5-21,51.7C224.7,392.1,220.5,395.1,215.4,395.1z" fill="currentColor"/>
             </svg>
             DUSA <b>$149/mo</b>
           </span>
-          <span class="funnel__platform-sub">CRM, funnels, email, SMS, AI, reviews, scheduling, courses</span>
+          <span class="funnel__platform-sub">{fcPlatformSub}</span>
         </div>
 
         <!-- Single gentle dollar flowing in -->
@@ -109,9 +130,9 @@
             <path d="M10,10 Q10,0 20,0 L300,0 Q310,0 310,10 L230,170 Q225,185 210,185 L110,185 Q95,185 90,170 Z"
                   fill="url(#funnelAquaGrad)" stroke="rgba(78,216,194,0.35)" stroke-width="1"/>
             <text x="160" y="78" text-anchor="middle" fill="rgba(78,216,194,0.95)"
-                  font-family="'Space Mono', monospace" font-size="18" font-weight="700" letter-spacing="0.05em">$149/MO</text>
+                  font-family="Space Mono, monospace" font-size="18" font-weight="700" letter-spacing="0.05em">$149/MO</text>
             <text x="160" y="106" text-anchor="middle" fill="rgba(78,216,194,0.75)"
-                  font-family="'Space Mono', monospace" font-size="11" letter-spacing="0.15em">AI-POWERED</text>
+                  font-family="Space Mono, monospace" font-size="11" letter-spacing="0.15em">{fcAiPowered}</text>
           </svg>
         </div>
 
@@ -132,8 +153,8 @@
             <span class="funnel__out-drop funnel__out-drop--strong" style="--od:1.32s;--ox:-1px">$</span>
           </div>
           <div class="funnel__glow"></div>
-          <span class="funnel__result funnel__result--aqua">AI-powered growth</span>
-          <span class="funnel__result-sub">Leads, bookings, revenue. AI does the rest.</span>
+          <span class="funnel__result funnel__result--aqua">{fcUnifiedGrowth}</span>
+          <span class="funnel__result-sub">{fcUnifiedSub}</span>
         </div>
       </div>
     </div>
@@ -283,6 +304,10 @@
   }
 
   .funnel__rain--light {
+    max-width: 320px;
+  }
+
+  .funnel__rain--heavy {
     max-width: 320px;
   }
 
@@ -504,9 +529,14 @@
   }
 
   @media (max-width: 768px) {
+    .funnel {
+      padding-top: var(--space-xl);
+      padding-bottom: var(--space-xl);
+    }
+
     .funnel__layout {
       grid-template-columns: 1fr;
-      gap: var(--space-xl);
+      gap: var(--space-md);
     }
 
     .funnel__vs {
@@ -552,5 +582,116 @@
     .funnel__result-sub {
       font-size: 0.75rem;
     }
+  }
+
+  /* ─── LIGHT MODE ─── */
+
+  /* Tag labels */
+  :global(html[data-theme="light"]) .funnel__tag--red {
+    color: rgba(200, 50, 46, 0.95);
+  }
+  :global(html[data-theme="light"]) .funnel__tag--aqua {
+    color: #0e9a82;
+  }
+
+  /* Pills — competitor side */
+  :global(html[data-theme="light"]) .funnel__pill {
+    color: rgba(12, 14, 20, 0.75);
+    background: rgba(232, 82, 78, 0.06);
+    border-color: rgba(200, 50, 46, 0.25);
+  }
+  :global(html[data-theme="light"]) .funnel__pill b {
+    color: rgba(200, 50, 46, 0.95);
+  }
+
+  /* DUSA platform card — deep-ocean blue tones */
+  :global(html[data-theme="light"]) .funnel__platform {
+    background: rgba(26, 58, 92, 0.06);
+    border-color: rgba(26, 58, 92, 0.25);
+  }
+  :global(html[data-theme="light"]) .funnel__platform-label {
+    color: rgba(26, 58, 92, 0.75);
+  }
+  :global(html[data-theme="light"]) .funnel__platform-name {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .funnel__platform-name b {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .funnel__platform-sub {
+    color: rgba(26, 58, 92, 0.6);
+  }
+
+  /* SVG funnel shapes — stronger fills and strokes */
+  :global(html[data-theme="light"]) .funnel__svg path {
+    stroke-width: 1.5;
+  }
+  :global(html[data-theme="light"]) .funnel__side--left .funnel__svg path {
+    fill: rgba(200, 50, 46, 0.1);
+    stroke: rgba(200, 50, 46, 0.35);
+  }
+  :global(html[data-theme="light"]) .funnel__side--right .funnel__svg path {
+    fill: rgba(26, 58, 92, 0.08);
+    stroke: rgba(26, 58, 92, 0.3);
+  }
+
+  /* SVG text — full opacity */
+  :global(html[data-theme="light"]) .funnel__side--left .funnel__svg text {
+    fill: rgba(200, 50, 46, 0.95);
+  }
+  :global(html[data-theme="light"]) .funnel__side--right .funnel__svg text {
+    fill: var(--deep-ocean);
+  }
+
+  /* VS badge */
+  :global(html[data-theme="light"]) .funnel__vs-badge {
+    color: rgba(12, 14, 20, 0.65);
+    border-color: rgba(12, 14, 20, 0.18);
+    background: rgba(12, 14, 20, 0.04);
+    box-shadow: 0 0 20px rgba(12, 14, 20, 0.06);
+  }
+  :global(html[data-theme="light"]) .funnel__vs-line {
+    background: linear-gradient(to bottom, transparent, rgba(12, 14, 20, 0.15), transparent);
+  }
+
+  /* Result labels */
+  :global(html[data-theme="light"]) .funnel__result--red {
+    color: rgba(200, 50, 46, 0.9);
+  }
+  :global(html[data-theme="light"]) .funnel__result--aqua {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .funnel__result-sub {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* Dollar rain drops */
+  :global(html[data-theme="light"]) .funnel__drop {
+    color: rgba(200, 50, 46, 0.8);
+  }
+  :global(html[data-theme="light"]) .funnel__drop--aqua {
+    color: rgba(26, 58, 92, 0.6);
+  }
+
+  /* Output drops */
+  :global(html[data-theme="light"]) .funnel__out-drop--sad {
+    color: rgba(200, 50, 46, 0.7);
+  }
+  :global(html[data-theme="light"]) .funnel__out-drop--strong {
+    color: rgba(26, 58, 92, 0.85);
+    text-shadow: 0 0 8px rgba(26, 58, 92, 0.15);
+  }
+
+  /* Glow pools */
+  :global(html[data-theme="light"]) .funnel__glow {
+    background: radial-gradient(ellipse, rgba(26, 58, 92, 0.12) 0%, transparent 70%);
+  }
+  :global(html[data-theme="light"]) .funnel__glow--red {
+    background: radial-gradient(ellipse, rgba(200, 50, 46, 0.12) 0%, transparent 70%);
+  }
+
+  /* SVG drop shadow */
+  :global(html[data-theme="light"]) .funnel__svg {
+    filter: drop-shadow(0 4px 16px rgba(12, 14, 20, 0.08));
   }
 </style>

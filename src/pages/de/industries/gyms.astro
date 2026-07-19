@@ -1,0 +1,634 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/de.json';
+const lang = 'de';
+const region = 'de';
+---
+
+<BaseLayout
+  t={tData}
+  title="Marketing-Automatisierung für Fitnessstudios | DUSA.studio"
+  description="Reduzieren Sie die Mitgliederabwanderung, automatisieren Sie Kurserinnerungen und wachsen Sie mit Empfehlungstracking und Rückgewinnungskampagnen. DUSA ist die All-in-One-Wachstumsplattform für Fitnessunternehmen."
+>
+  <!-- ═══ Hero ═══ -->
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">Fitnessstudios</span>
+        <h1>Kurse füllen.<br/>Mitglieder <span class="gradient-text">halten</span>.</h1>
+        <p class="ind-hero__sub">
+          Fitnessstudios verlieren Mitglieder, wenn die Kommunikation nachlässt und Nachfassaktionen untergehen. DUSA automatisiert jeden Kontaktpunkt, der Mitglieder engagiert, motiviert und aktiv hält.
+        </p>
+        <a href="/de/start" class="btn btn--primary">Kostenlos starten</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pain Points ═══ -->
+  <section class="ind-pain section--dark">
+    <div class="container">
+      <h2><span class="gradient-text">Kommt Ihnen das bekannt vor?</span></h2>
+      <div class="ind-pain__cards">
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <path d="M20 8v6" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Mitgliederabwanderung</h3>
+          <p class="ind-pain__card-desc">Mitglieder kündigen, weil sie sich unsichtbar fühlen. Keine Check-ins, keine Meilensteine, kein Grund zu bleiben.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <line x1="18" y1="9" x2="18" y2="15" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">No-Shows und leere Kurse</h3>
+          <p class="ind-pain__card-desc">Mitglieder buchen und vergessen es. Leere Plätze kosten Sie Geld und beeinträchtigen die Kursstimmung.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <path d="M22 6l-10 7L2 6" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Manuelle Kurskommunikation</h3>
+          <p class="ind-pain__card-desc">Erinnerungen, Planänderungen und Updates manuell zu versenden, verschwendet jede Woche Stunden.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Kein Empfehlungssystem</h3>
+          <p class="ind-pain__card-desc">Ihr bester Marketingkanal sind zufriedene Mitglieder, aber Sie haben keine Möglichkeit, Empfehlungen zu verfolgen oder zu belohnen.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Solution ═══ -->
+  <section class="ind-solution section--dark">
+    <div class="container">
+      <h2>So funktioniert DUSA für <span class="gradient-text">Fitnessunternehmen</span></h2>
+      <p class="ind-solution__sub">Automatisieren Sie jede Phase der Mitgliederreise, von der Anmeldung bis zur Vertragsverlängerung und darüber hinaus.</p>
+      <div class="ind-solution__grid">
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10a8 8 0 0 0-16 0c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Mitglieder-Onboarding-Sequenzen</h3>
+          <p class="ind-solution__card-desc">Neue Mitglieder erhalten eine Willkommensserie mit Kursempfehlungen, Trainer-Vorstellungen und Zielsetzungs-Impulsen. Ein erster Eindruck, der bleibt.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Kurserinnerung per SMS</h3>
+          <p class="ind-solution__card-desc">Automatische SMS-Erinnerungen vor jedem gebuchten Kurs. Reduzieren Sie No-Shows und halten Sie die Teilnahme hoch, ohne einen Finger zu rühren.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 4v6h6" />
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Rückgewinnungskampagnen</h3>
+          <p class="ind-solution__card-desc">Wenn ein Mitglied nicht mehr erscheint, startet DUSA eine Reaktivierungssequenz mit Angeboten, Check-ins und Kursvorschlägen, um es zurückzugewinnen.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Empfehlungstracking</h3>
+          <p class="ind-solution__card-desc">Geben Sie Mitgliedern einen individuellen Empfehlungslink. Verfolgen Sie, wen sie senden, belohnen Sie sie automatisch und beobachten Sie, wie Ihre Community wächst.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Bewertungsautomatisierung</h3>
+          <p class="ind-solution__card-desc">Nach einem Mitglieder-Meilenstein oder einer Kursserie bittet DUSA um eine Google-Bewertung. Bauen Sie Ihren Ruf auf Autopilot auf.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pipeline ═══ -->
+  <section class="ind-pipeline section--dark">
+    <div class="container">
+      <h2>Der Mitglieder-<span class="gradient-text">Lebenszyklus</span></h2>
+      <div class="ind-pipeline__track">
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">01</div>
+          <h3 class="ind-pipeline__step-title">Probetraining</h3>
+          <p class="ind-pipeline__step-desc">Ein neuer Interessent meldet sich für ein Probetraining an. DUSA sendet die Willkommenssequenz und bucht den ersten Kurs.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">02</div>
+          <h3 class="ind-pipeline__step-title">Aktives Mitglied</h3>
+          <p class="ind-pipeline__step-desc">Das Mitglied trainiert regelmäßig. Check-in-Automatisierungen und Kurserinnerungen halten es engagiert.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">03</div>
+          <h3 class="ind-pipeline__step-title">Abwanderungsgefahr</h3>
+          <p class="ind-pipeline__step-desc">Die Teilnahme sinkt. DUSA markiert das Mitglied und startet eine persönliche Check-in-Sequenz.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">04</div>
+          <h3 class="ind-pipeline__step-title">Rückgewinnung</h3>
+          <p class="ind-pipeline__step-desc">Das Mitglied ist inaktiv geworden. Eine gezielte Kampagne mit Angeboten und Motivation bringt es zurück.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">05</div>
+          <h3 class="ind-pipeline__step-title">Verlängert</h3>
+          <p class="ind-pipeline__step-desc">Das Mitglied verlängert seinen Vertrag. Treueprogramme werden aktiviert und der Zyklus geht weiter.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">06</div>
+          <h3 class="ind-pipeline__step-title">Empfehlungs-Champion</h3>
+          <p class="ind-pipeline__step-desc">Treue Mitglieder verdienen Pramien, wenn sie Freunde mitbringen. Empfehlungs-Tracking und Bonus-Kampagnen lassen Ihre Community automatisch wachsen.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Stats ═══ -->
+  <section class="ind-stats section--dark">
+    <div class="container">
+      <div class="ind-stats__grid">
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">67%</span>
+          <span class="ind-stats__label">der Fitnessstudio-Mitglieder kündigen wegen mangelnder Betreuung</span>
+        </div>
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">3x</span>
+          <span class="ind-stats__label">höhere Bindungsrate mit automatisierten Check-ins</span>
+        </div>
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">40%</span>
+          <span class="ind-stats__label">der neuen Mitglieder kommen über Empfehlungen</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="ind-cta section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2>Bereit, Ihr Fitnessstudio zu vergrößern?</h2>
+        <p>Verlieren Sie keine Mitglieder mehr durch fehlende Kommunikation. Lassen Sie DUSA die Nachfassaktionen, Erinnerungen und Reaktivierungen übernehmen, damit Sie sich auf das Coaching konzentrieren können.</p>
+        <div class="ind-cta__actions">
+          <a href="/de/start" class="btn btn--primary">Jetzt starten</a>
+          <a href="/blog/marketing-automation-for-gyms" class="ind-cta__link">Leitfaden lesen →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Structured Data ═══ -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://dusa.studio/de/" },
+      { "@type": "ListItem", "position": 2, "name": "Branchen", "item": "https://dusa.studio/de/industries/" },
+      { "@type": "ListItem", "position": 3, "name": "Fitnessstudios", "item": "https://dusa.studio/de/industries/gyms" }
+    ]
+  })} />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .ind-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Pain Points */
+  .ind-pain {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-pain h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-pain__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ind-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ind-pain__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+  .ind-pain__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+  .ind-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pain__card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* Solution */
+  .ind-solution {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-solution h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xs);
+  }
+  .ind-solution__sub {
+    text-align: center;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-xl);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ind-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ind-solution__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+  .ind-solution__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+  .ind-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-solution__card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* Pipeline */
+  .ind-pipeline {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-pipeline h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-pipeline__track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-pipeline__step {
+    text-align: center;
+  }
+  .ind-pipeline__num {
+    font-family: var(--font-mono, monospace);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
+    opacity: 0.3;
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pipeline__step-title {
+    font-family: var(--font-headline);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pipeline__step-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  /* Stats */
+  .ind-stats {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-stats h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .ind-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ind-stats__number {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-stats__label {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+  .ind-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ind-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-cta__box p {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-cta__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+  .ind-cta__link {
+    font-family: var(--font-headline);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .ind-cta__link:hover {
+    opacity: 0.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .ind-pain__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ind-pain__cards {
+      grid-template-columns: 1fr;
+    }
+    .ind-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .ind-pipeline__track {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+    .ind-stats__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+    .ind-pipeline__track {
+      grid-template-columns: 1fr;
+    }
+    .ind-pain__card,
+    .ind-solution__card,
+    .ind-stats__card {
+      padding: var(--space-md);
+    }
+    .ind-cta__box {
+      padding: var(--space-md);
+    }
+    .ind-cta__actions {
+      flex-direction: column;
+    }
+  }
+
+  /* Light Mode */
+  :global(html[data-theme="light"]) .ind-hero__content h1,
+  :global(html[data-theme="light"]) .ind-pain__card-title,
+  :global(html[data-theme="light"]) .ind-solution__card-title,
+  :global(html[data-theme="light"]) .ind-pipeline__step-title,
+  :global(html[data-theme="light"]) .ind-pain h2,
+  :global(html[data-theme="light"]) .ind-solution h2,
+  :global(html[data-theme="light"]) .ind-pipeline h2,
+  :global(html[data-theme="light"]) .ind-stats h2,
+  :global(html[data-theme="light"]) .ind-cta__box h2 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__sub,
+  :global(html[data-theme="light"]) .ind-pain__card-desc,
+  :global(html[data-theme="light"]) .ind-solution__card-desc,
+  :global(html[data-theme="light"]) .ind-solution__sub,
+  :global(html[data-theme="light"]) .ind-pipeline__step-desc,
+  :global(html[data-theme="light"]) .ind-stats__label,
+  :global(html[data-theme="light"]) .ind-cta__box p {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card,
+  :global(html[data-theme="light"]) .ind-solution__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card:hover,
+  :global(html[data-theme="light"]) .ind-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__card {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain,
+  :global(html[data-theme="light"]) .ind-solution,
+  :global(html[data-theme="light"]) .ind-pipeline,
+  :global(html[data-theme="light"]) .ind-stats {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon-wrap,
+  :global(html[data-theme="light"]) .ind-solution__icon-wrap {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon-wrap svg,
+  :global(html[data-theme="light"]) .ind-solution__icon-wrap svg {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-pipeline__num {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__number {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__link {
+    color: var(--deep-ocean);
+  }
+</style>

@@ -1,0 +1,532 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/fr.json';
+
+const lang = 'fr';
+const region = 'fr';
+
+const title = 'Automatisation marketing pour le e-commerce | DUSA.studio';
+const description = 'Recuperez les paniers abandonnes, automatisez l\'engagement post-achat et creez des programmes de fidelite VIP. DUSA est la plateforme de croissance tout-en-un conçue pour les marques e-commerce.';
+
+const painPoints = [
+  {
+    icon: '🛒',
+    title: 'Paniers abandonnes sans relance',
+    desc: 'Un seul e-mail de relance ne suffit pas. La plupart des plateformes s\'arretent la, laissant des milliers d\'euros de chiffre d\'affaires dans des paniers abandonnes.',
+  },
+  {
+    icon: '📦',
+    title: 'Aucun engagement post-achat',
+    desc: 'La vente a lieu, puis c\'est le silence. Pas de sequence de remerciement, pas de vente croisee, pas de demande d\'avis. Vous laissez du chiffre d\'affaires recurrent sur la table.',
+  },
+  {
+    icon: '👑',
+    title: 'Pas de segmentation VIP',
+    desc: 'Vos meilleurs clients vivent la meme experience que tous les autres. Aucune reconnaissance, aucune offre exclusive, aucune raison de rester fideles.',
+  },
+  {
+    icon: '🔄',
+    title: 'Faible taux de rachat',
+    desc: 'Acquerir un nouveau client coute cinq fois plus cher que fideliser un client existant. Sans parcours de re-engagement, la plupart des acheteurs ne reviennent jamais.',
+  },
+];
+
+const features = [
+  {
+    title: 'Recuperation des paniers abandonnes',
+    desc: 'Sequences de relance en plusieurs etapes par e-mail et SMS. Rappels programmes, remises incitatives et declencheurs d\'urgence pour faire revenir les acheteurs.',
+  },
+  {
+    title: 'Sequences post-achat',
+    desc: 'E-mails de remerciement, mises a jour d\'expedition, conseils d\'utilisation et suivi de satisfaction. Maintenez la conversation apres la vente.',
+  },
+  {
+    title: 'Automatisation des demandes d\'avis',
+    desc: 'Demandez automatiquement des avis au moment ideal, apres la livraison et avant que l\'enthousiasme ne retombe. Construisez votre preuve sociale en pilote automatique.',
+  },
+  {
+    title: 'Parcours de vente croisee et montee en gamme',
+    desc: 'Recommandez des produits complementaires en fonction de l\'historique d\'achat. Declenchez des offres de montee en gamme lorsque les clients atteignent certains seuils de depenses.',
+  },
+  {
+    title: 'Gestion des niveaux VIP',
+    desc: 'Segmentez les clients par valeur vie. Debloquez des avantages exclusifs, un acces anticipe et des offres personnalisees pour vos meilleurs clients.',
+  },
+  {
+    title: 'Recompenses anniversaire',
+    desc: 'Messages d\'anniversaire automatises avec codes de reduction exclusifs. Un petit geste qui favorise la fidelite et les achats recurrents.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Premier achat', desc: 'Le client passe sa premiere commande' },
+  { stage: 'Acheteur recurrent', desc: 'Deuxieme achat dans les 90 jours' },
+  { stage: 'Client fidele', desc: 'Trois commandes ou plus, engage avec les e-mails' },
+  { stage: 'VIP', desc: 'Top 10% en valeur vie, avantages exclusifs debloques' },
+  { stage: 'Ambassadeur', desc: 'Laisse des avis, parraine des proches, partage sur les reseaux sociaux' },
+  { stage: 'Reconquete', desc: 'Un ancien acheteur ne commande plus. DUSA declenche une campagne de reengagement personnalisee avec des recommandations de produits sur mesure.' },
+];
+
+const stats = [
+  { value: '69%', label: 'taux moyen d\'abandon de panier dans le e-commerce' },
+  { value: '5x', label: 'moins cher de fideliser un client existant que d\'en acquerir un nouveau' },
+  { value: '306%', label: 'de valeur vie en plus pour les clients qui rejoignent un programme VIP' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://dusa.studio/fr/' },
+    { '@type': 'ListItem', position: 2, name: 'Industries', item: 'https://dusa.studio/fr/industries' },
+    { '@type': 'ListItem', position: 3, name: 'E-commerce', item: 'https://dusa.studio/fr/industries/ecommerce' },
+  ],
+});
+---
+
+<BaseLayout t={tData} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="ec-hero section section--dark">
+    <div class="container">
+      <div class="ec-hero__content">
+        <span class="label">E-commerce</span>
+        <h1><span class="gradient-text">Automatisation marketing</span> pour les marques e-commerce</h1>
+        <p class="ec-hero__sub">
+          Recuperez les paniers abandonnes, entretenez la relation post-achat et transformez les acheteurs ponctuels en ambassadeurs fideles de votre marque.
+        </p>
+        <div class="ec-hero__actions">
+          <a href="/fr/start" class="btn btn--primary">Commencer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="ec-pain section section--dark">
+    <div class="container">
+      <div class="ec-pain__header">
+        <span class="label">Le probleme</span>
+        <h2>Vous perdez du chiffre d'affaires <span class="gradient-text">apres le clic</span></h2>
+        <p class="ec-pain__intro">La plupart des marques e-commerce se concentrent sur le trafic et ignorent tout ce qui se passe apres la premiere visite. Voici ce que cela vous coute.</p>
+      </div>
+      <div class="ec-pain__grid">
+        {painPoints.map((point) => (
+          <div class="ec-pain__card">
+            <span class="ec-pain__icon">{point.icon}</span>
+            <h3 class="ec-pain__card-title">{point.title}</h3>
+            <p class="ec-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="ec-solution section section--dark">
+    <div class="container">
+      <div class="ec-solution__header">
+        <span class="label">La solution</span>
+        <h2>Comment DUSA fonctionne pour le <span class="gradient-text">e-commerce</span></h2>
+        <p class="ec-solution__intro">Des parcours automatises qui transforment les visiteurs en acheteurs, les acheteurs en clients reguliers, et les clients reguliers en ambassadeurs de votre marque.</p>
+      </div>
+      <div class="ec-solution__grid">
+        {features.map((feature) => (
+          <div class="ec-solution__card">
+            <h3 class="ec-solution__card-title">{feature.title}</h3>
+            <p class="ec-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="ec-pipeline section section--dark">
+    <div class="container">
+      <div class="ec-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>Votre <span class="gradient-text">parcours client</span> en un coup d'oeil</h2>
+      </div>
+      <div class="ec-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="ec-pipeline__stage">
+            <div class="ec-pipeline__number">{i + 1}</div>
+            <h3 class="ec-pipeline__stage-title">{step.stage}</h3>
+            <p class="ec-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="ec-stats section section--dark">
+    <div class="container">
+      <div class="ec-stats__header">
+        <span class="label">Impact</span>
+        <h2>Les chiffres parlent <span class="gradient-text">d'eux-memes</span></h2>
+      </div>
+      <div class="ec-stats__grid">
+        {stats.map((stat) => (
+          <div class="ec-stats__card">
+            <span class="ec-stats__value">{stat.value}</span>
+            <p class="ec-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ec-cta section section--dark">
+    <div class="container">
+      <div class="ec-cta__box">
+        <h2>Pret a developper votre <span class="gradient-text">chiffre d'affaires e-commerce</span> ?</h2>
+        <p class="ec-cta__sub">Mettez en place votre recuperation de paniers, vos parcours post-achat et votre programme VIP sur une seule plateforme.</p>
+        <div class="ec-cta__actions">
+          <a href="/fr/start" class="btn btn--primary">Commencer</a>
+          <a href="/blog/marketing-for-ecommerce" class="btn btn--outline">Lire le guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ec-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .ec-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ec-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ec-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .ec-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .ec-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .ec-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .ec-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ec-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .ec-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ec-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .ec-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .ec-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .ec-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .ec-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ec-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ec-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .ec-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .ec-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .ec-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .ec-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ec-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .ec-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .ec-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ec-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .ec-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .ec-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .ec-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .ec-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .ec-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ec-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .ec-hero__content h1,
+  :global(html[data-theme="light"]) .ec-pain__header h2,
+  :global(html[data-theme="light"]) .ec-solution__header h2,
+  :global(html[data-theme="light"]) .ec-pipeline__header h2,
+  :global(html[data-theme="light"]) .ec-stats__header h2,
+  :global(html[data-theme="light"]) .ec-cta__box h2,
+  :global(html[data-theme="light"]) .ec-pain__card-title,
+  :global(html[data-theme="light"]) .ec-solution__card-title,
+  :global(html[data-theme="light"]) .ec-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .ec-hero__sub,
+  :global(html[data-theme="light"]) .ec-pain__intro,
+  :global(html[data-theme="light"]) .ec-solution__intro,
+  :global(html[data-theme="light"]) .ec-pain__card-desc,
+  :global(html[data-theme="light"]) .ec-solution__card-desc,
+  :global(html[data-theme="light"]) .ec-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .ec-stats__label,
+  :global(html[data-theme="light"]) .ec-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .ec-pain__card,
+  :global(html[data-theme="light"]) .ec-solution__card,
+  :global(html[data-theme="light"]) .ec-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .ec-pain__card:hover,
+  :global(html[data-theme="light"]) .ec-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .ec-stats__card,
+  :global(html[data-theme="light"]) .ec-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .ec-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .ec-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ec-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .ec-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .ec-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .ec-pipeline__stages {
+      flex-direction: column;
+    }
+    .ec-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .ec-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+</style>

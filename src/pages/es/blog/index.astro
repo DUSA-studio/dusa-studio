@@ -1,0 +1,796 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+
+const lang = 'es';
+const region = 'es';
+
+const posts = [
+  {
+    title: 'DUSA vs HubSpot: which is better for small business?',
+    excerpt: 'A fair comparison of DUSA and HubSpot for small business owners. Features, pricing, complexity, and which platform fits your actual needs.',
+    category: 'Comparison',
+    date: '2026-06-22',
+    slug: '/blog/dusa-vs-hubspot',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to build a sales funnel for your small business',
+    excerpt: 'A step-by-step guide to building a sales funnel that turns strangers into customers. Learn the four stages every small business funnel needs and how to automate each one.',
+    category: 'Growth',
+    date: '2026-06-20',
+    slug: '/blog/sales-funnel-small-business',
+    readTime: '7 min',
+  },
+  {
+    title: 'DUSA vs Mailchimp: more than just email marketing',
+    excerpt: 'Mailchimp handles email well, but modern small businesses need more. See how DUSA compares as a full growth platform with CRM, funnels, SMS, and automation built in.',
+    category: 'Comparison',
+    date: '2026-06-18',
+    slug: '/blog/dusa-vs-mailchimp',
+    readTime: '7 min',
+  },
+  {
+    title: 'Email marketing for small business: the complete guide',
+    excerpt: 'Everything you need to know about email marketing as a small business. From building your list to writing campaigns that convert, with practical examples.',
+    category: 'Marketing',
+    date: '2026-06-16',
+    slug: '/blog/email-marketing-small-business',
+    readTime: '9 min',
+  },
+  {
+    title: 'All-in-one platform vs separate tools: the real cost comparison',
+    excerpt: 'The typical small business tool stack costs $300-500 per month before you count the hidden costs. Here is what happens when you consolidate into one platform.',
+    category: 'Strategy',
+    date: '2026-06-14',
+    slug: '/blog/all-in-one-vs-separate-tools',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for small business: why you need one and how to choose',
+    excerpt: 'Still running your business from a spreadsheet? Here is why a CRM changes everything, what to look for, and the common mistakes to avoid when choosing one.',
+    category: 'Technology',
+    date: '2026-06-12',
+    slug: '/blog/crm-small-business',
+    readTime: '6 min',
+  },
+  {
+    title: 'DUSA vs ClickFunnels: the full platform vs the funnel specialist',
+    excerpt: 'ClickFunnels builds great funnels, but modern small businesses need more than funnels. See how DUSA compares as a full growth platform with CRM, email, SMS, booking, and automation built in.',
+    category: 'Comparison',
+    date: '2026-06-10',
+    slug: '/blog/dusa-vs-clickfunnels',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to get more Google reviews for your local business',
+    excerpt: 'Google reviews are the most powerful growth lever for local businesses. Learn when to ask, how to ask, and how to automate the entire process.',
+    category: 'Marketing',
+    date: '2026-06-08',
+    slug: '/blog/get-more-google-reviews',
+    readTime: '6 min',
+  },
+  {
+    title: 'DUSA vs Keap: small business CRM comparison',
+    excerpt: 'Keap offers powerful automation, but its pricing and complexity can overwhelm small teams. See how DUSA compares on features, cost, and ease of use for small business.',
+    category: 'Comparison',
+    date: '2026-06-06',
+    slug: '/blog/dusa-vs-keap',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing automation for small business: where to start',
+    excerpt: 'Marketing automation does not have to be complicated. Here are the three automations every small business should set up first, and how to build them.',
+    category: 'Automation',
+    date: '2026-06-04',
+    slug: '/blog/marketing-automation-getting-started',
+    readTime: '7 min',
+  },
+  {
+    title: 'DUSA vs ActiveCampaign: email automation and beyond',
+    excerpt: 'ActiveCampaign is a leader in email automation, but small businesses need more than email. See how DUSA compares on features, pricing, and the full growth platform picture.',
+    category: 'Comparison',
+    date: '2026-06-02',
+    slug: '/blog/dusa-vs-activecampaign',
+    readTime: '7 min',
+  },
+  {
+    title: 'Landing pages that convert: design tips for small business',
+    excerpt: 'What makes a landing page different from a website, the anatomy of a high-converting page, and the design mistakes costing you leads.',
+    category: 'Growth',
+    date: '2026-05-30',
+    slug: '/blog/landing-pages-that-convert',
+    readTime: '6 min',
+  },
+  {
+    title: 'Best all-in-one platform for small business in 2026',
+    excerpt: 'A fair comparison of the top all-in-one business platforms for small business in 2026. HubSpot, Keap, Zoho CRM, ActiveCampaign, and DUSA reviewed on features, pricing, and fit.',
+    category: 'Growth',
+    date: '2026-05-28',
+    slug: '/blog/best-all-in-one-platform-small-business',
+    readTime: '10 min',
+  },
+  {
+    title: 'SMS marketing for small business: best practices and examples',
+    excerpt: 'SMS has a 98% open rate. Here is how to use it without annoying your customers, with ready-to-use templates for reminders, promos, and review requests.',
+    category: 'Marketing',
+    date: '2026-05-26',
+    slug: '/blog/sms-marketing-small-business',
+    readTime: '6 min',
+  },
+  {
+    title: 'Peace and Party',
+    excerpt: 'The balance of life. Work and play. Good habits each day, to achieve more. This is the philosophy behind the lotus and the blue agave, and the reason we celebrate with pizza.',
+    category: 'Philosophy',
+    date: '2026-05-23',
+    slug: '/blog/peace-and-party',
+    readTime: '6 min',
+  },
+  {
+    title: 'How to reduce no-shows with automated appointment reminders',
+    excerpt: 'No-shows cost service businesses thousands every year. Here is the reminder sequence that cuts them by up to 80%, fully automated.',
+    category: 'Automation',
+    date: '2026-05-20',
+    slug: '/blog/reduce-no-shows',
+    readTime: '5 min',
+  },
+  {
+    title: 'Social media scheduling: how to save hours every week',
+    excerpt: 'Stop posting on the fly. Learn how to batch your content, pick the right platforms, and build a minimum viable posting schedule that actually works.',
+    category: 'Marketing',
+    date: '2026-05-16',
+    slug: '/blog/social-media-scheduling',
+    readTime: '5 min',
+  },
+  {
+    title: 'Lead generation for service businesses: proven strategies that work',
+    excerpt: 'Why most service businesses struggle with leads and the proven stack that fixes it. From landing pages to referral systems to local SEO.',
+    category: 'Growth',
+    date: '2026-05-12',
+    slug: '/blog/lead-generation-service-business',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to create a customer follow-up system that works on autopilot',
+    excerpt: 'Most businesses lose money in the follow-up. Here is how to build an automated system that nurtures leads at every stage without you lifting a finger.',
+    category: 'Automation',
+    date: '2026-05-08',
+    slug: '/blog/customer-follow-up-system',
+    readTime: '6 min',
+  },
+  {
+    title: 'Website vs. sales funnel: which does your small business need?',
+    excerpt: 'Websites and funnels serve different purposes. Here is when you need which, how they work together, and the common mistakes that waste your budget.',
+    category: 'Strategy',
+    date: '2026-05-04',
+    slug: '/blog/website-vs-funnel',
+    readTime: '5 min',
+  },
+  {
+    title: '5 tools every sole operator should replace with one platform',
+    excerpt: 'If you are paying for a CRM, email tool, calendar app, funnel builder, and review manager separately, you are overspending by hundreds per month. Here is how to consolidate.',
+    category: 'Growth',
+    date: '2026-04-20',
+    slug: '/blog/5-tools-to-replace',
+    readTime: '5 min',
+  },
+  {
+    title: 'How to automate your follow-up without sounding like a robot',
+    excerpt: 'Automated sequences do not have to feel cold. Learn how to build nurture workflows that sound like you, respond at the right time, and convert leads while you sleep.',
+    category: 'Automation',
+    date: '2026-04-14',
+    slug: '/blog/automate-follow-up',
+    readTime: '7 min',
+  },
+  {
+    title: 'Reputation management: why your Google reviews matter more than your website',
+    excerpt: 'For local businesses, reviews are the new homepage. We break down how to systematically collect, respond to, and leverage reviews for growth.',
+    category: 'Marketing',
+    date: '2026-04-07',
+    slug: '/blog/reputation-management',
+    readTime: '6 min',
+  },
+  {
+    title: 'The real cost of disconnected tools (and what to do about it)',
+    excerpt: 'We calculated the true cost of running separate CRM, email, scheduling, and funnel tools. Spoiler: it is not just the subscription fees that hurt.',
+    category: 'Strategy',
+    date: '2026-03-28',
+    slug: '/blog/real-cost-of-disconnected-tools',
+    readTime: '4 min',
+  },
+  {
+    title: 'Getting started with DUSA: a step-by-step setup guide',
+    excerpt: 'From signing up to sending your first campaign, here is everything you need to know to get the DUSA platform running for your business in under 48 hours.',
+    category: 'Getting Started',
+    date: '2026-03-20',
+    slug: '/blog/getting-started-with-dusa',
+    readTime: '8 min',
+  },
+  {
+    title: 'Booking systems that convert: how to stop losing leads to scheduling friction',
+    excerpt: 'Every extra step between "I am interested" and "I am booked" costs you money. Learn how to build frictionless booking flows that capture more appointments.',
+    category: 'Growth',
+    date: '2026-03-14',
+    slug: '/blog/booking-systems-that-convert',
+    readTime: '5 min',
+  },
+  {
+    title: 'How to reclaim your evenings: automation for business owners who want their life back',
+    excerpt: 'Working nights, always being on, the guilt of stepping away. Here is how automation gives you freedom and brings balance back to your life.',
+    category: 'Balance',
+    date: '2026-03-07',
+    slug: '/blog/reclaim-your-evenings',
+    readTime: '6 min',
+  },
+  {
+    title: 'AI for small business: what actually works (and what is just hype)',
+    excerpt: 'Cut through the noise. We break down which AI features help small businesses today, and which ones are still more marketing than substance.',
+    category: 'Technology',
+    date: '2026-02-28',
+    slug: '/blog/ai-powered-small-business',
+    readTime: '7 min',
+  },
+];
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+---
+
+<BaseLayout
+  title={t(lang, 'blog.metaTitle')}
+  description={t(lang, 'blog.metaDesc')}
+  lang="es"
+  ogLocale="es_ES"
+  region={region}
+>
+
+  <section class="blog-hero section section--dark">
+    <div class="container">
+      <div class="blog-hero__content">
+        <span class="label">{t(lang, 'blog.hubLabel')}</span>
+        <h1>{t(lang, 'blog.hubTitle')} <span class="gradient-text">{t(lang, 'blog.hubTitleAccent')}</span></h1>
+        <p class="blog-hero__sub">{t(lang, 'blog.hubSub')}</p>
+        <div class="blog-hero__social">
+          <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="blog-hero__social-link" aria-label="Follow on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            @the.dusa.studio
+          </a>
+          <a href="https://www.linkedin.com/company/dusa-studio" target="_blank" rel="noopener noreferrer" class="blog-hero__social-link" aria-label="Follow on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-list section section--dark" style="padding-top:0;">
+    <div class="container">
+      <h2 class="blog-section-title">{t(lang, 'blog.latestLabel')}</h2>
+      <div class="blog-grid">
+        {posts.map((post, i) => (
+          <a href={post.slug} class={`blog-card ${i === 0 ? 'blog-card--featured' : ''}`}>
+            <div class="blog-card__meta">
+              <span class="blog-card__category">{post.category}</span>
+              <span class="blog-card__date">{formatDate(post.date)}</span>
+            </div>
+            <h3 class="blog-card__title">{post.title}</h3>
+            <p class="blog-card__excerpt">{post.excerpt}</p>
+            <span class="blog-card__read">{post.readTime} {t(lang, 'blog.minRead')}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-social section section--dark">
+    <div class="container">
+      <h2 class="blog-section-title">Instagram</h2>
+      <p class="blog-social__desc">Actualizaciones, estrategias y contenido entre bastidores. Seguinos en <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer">@the.dusa.studio</a>.</p>
+      <div class="ig-carousel">
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="ig-carousel__card">
+          <div class="ig-carousel__img ig-carousel__img--1">
+            <div class="ig-carousel__overlay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </div>
+          <div class="ig-carousel__meta">
+            <span class="ig-carousel__type">Tips</span>
+            <span class="ig-carousel__caption">Growth strategies for small businesses</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="ig-carousel__card">
+          <div class="ig-carousel__img ig-carousel__img--2">
+            <div class="ig-carousel__overlay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </div>
+          <div class="ig-carousel__meta">
+            <span class="ig-carousel__type">Behind the Scenes</span>
+            <span class="ig-carousel__caption">Building the platform, one feature at a time</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="ig-carousel__card">
+          <div class="ig-carousel__img ig-carousel__img--3">
+            <div class="ig-carousel__overlay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </div>
+          <div class="ig-carousel__meta">
+            <span class="ig-carousel__type">Product Updates</span>
+            <span class="ig-carousel__caption">New features, automations, and more</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ig-carousel__cta">
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Follow @the.dusa.studio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-podcast section section--dark">
+    <div class="container">
+      <h2 class="blog-section-title">Podcast</h2>
+      <div class="blog-podcast__coming">
+        <div class="blog-podcast__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <h3>Proximamente.</h3>
+        <p>Estamos preparando algo para emprendedores que quieren conversaciones reales sobre el crecimiento de un negocio con las herramientas correctas.</p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .blog-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .blog-hero__sub {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .blog-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card:hover {
+    border-color: rgba(78, 216, 194, 0.2);
+    background: rgba(247, 244, 239, 0.05);
+    transform: translateY(-3px);
+  }
+
+  .blog-card--featured {
+    grid-column: 1 / -1;
+    padding: var(--space-xl);
+  }
+
+  .blog-card--featured .blog-card__title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .blog-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-card__category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    padding: 0.25rem 0.625rem;
+    border: 1px solid rgba(78, 216, 194, 0.2);
+    border-radius: var(--radius-full);
+  }
+
+  .blog-card__date {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.3);
+  }
+
+  .blog-card__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .blog-card__excerpt {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.7;
+    flex-grow: 1;
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-card__read {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-card--featured {
+      padding: var(--space-lg);
+    }
+
+    .blog-hero__sub {
+      font-size: 1.0625rem;
+    }
+
+    .blog-card__title {
+      font-size: 1.125rem;
+    }
+  }
+
+  .blog-section-title {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .blog-hero__social {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .blog-hero__social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.45);
+    transition: color var(--duration-fast);
+  }
+
+  .blog-hero__social-link:hover {
+    color: var(--reef-aqua);
+  }
+
+  .blog-hero__social-link svg {
+    flex-shrink: 0;
+  }
+
+  .blog-social {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.04);
+  }
+
+  .blog-social__desc {
+    font-size: 1.0625rem;
+    color: rgba(247, 244, 239, 0.55);
+    margin-bottom: var(--space-lg);
+    margin-top: calc(-1 * var(--space-sm));
+  }
+
+  .blog-social__desc a {
+    color: var(--reef-aqua);
+  }
+
+  /* Instagram Carousel */
+  .ig-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .ig-carousel__card {
+    display: block;
+    border-radius: var(--radius-lg, 16px);
+    overflow: hidden;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    transition: transform var(--duration-fast), border-color var(--duration-fast);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ig-carousel__card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .ig-carousel__img {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .ig-carousel__img--1 {
+    background: linear-gradient(135deg, rgba(78, 216, 194, 0.15) 0%, rgba(26, 58, 92, 0.3) 50%, rgba(106, 170, 207, 0.15) 100%);
+  }
+
+  .ig-carousel__img--2 {
+    background: linear-gradient(135deg, rgba(106, 170, 207, 0.2) 0%, rgba(78, 216, 194, 0.12) 50%, rgba(26, 58, 92, 0.25) 100%);
+  }
+
+  .ig-carousel__img--3 {
+    background: linear-gradient(135deg, rgba(26, 58, 92, 0.25) 0%, rgba(106, 170, 207, 0.15) 50%, rgba(78, 216, 194, 0.2) 100%);
+  }
+
+  .ig-carousel__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(247, 244, 239, 0.25);
+    transition: color var(--duration-fast), background var(--duration-fast);
+  }
+
+  .ig-carousel__card:hover .ig-carousel__overlay {
+    color: var(--reef-aqua);
+    background: rgba(12, 14, 20, 0.3);
+  }
+
+  .ig-carousel__meta {
+    padding: var(--space-sm);
+  }
+
+  .ig-carousel__type {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    opacity: 0.7;
+    margin-bottom: 0.25rem;
+  }
+
+  .ig-carousel__caption {
+    display: block;
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.55);
+    line-height: 1.5;
+  }
+
+  .ig-carousel__cta {
+    text-align: center;
+    margin-top: var(--space-lg);
+  }
+
+  .ig-carousel__cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .ig-carousel {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+
+    .ig-carousel__img {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  .blog-podcast {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.04);
+  }
+
+  .blog-podcast__coming {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(247, 244, 239, 0.02);
+    border: 1px solid rgba(247, 244, 239, 0.05);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .blog-podcast__icon {
+    color: var(--reef-aqua);
+    opacity: 0.5;
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-podcast__coming h3 {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .blog-podcast__coming p {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.45);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 480px) {
+    .blog-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+
+    .blog-card {
+      padding: var(--space-md);
+    }
+  }
+
+  .blog-hero__content,
+  .blog-card {
+    visibility: hidden;
+  }
+
+  :global(html[data-theme="light"]) .blog-hero__sub {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .blog-card {
+    background: rgba(12, 14, 20, 0.02);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-card:hover {
+    border-color: rgba(26, 58, 92, 0.2);
+    background: rgba(12, 14, 20, 0.04);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__excerpt {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__date {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__read {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__category {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .blog-section-title {
+    color: var(--deep-ocean);
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-hero__social-link {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .blog-social__desc {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__card:hover {
+    border-color: rgba(78, 216, 194, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__caption {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__overlay {
+    color: rgba(12, 14, 20, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .blog-social,
+  :global(html[data-theme="light"]) .blog-podcast {
+    border-top-color: rgba(12, 14, 20, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .blog-podcast__coming {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .blog-podcast__coming h3 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .blog-podcast__coming p {
+    color: rgba(12, 14, 20, 0.5);
+  }
+</style>
+
+<script>
+  function initBlogAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initBlogAnimations, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+    gsap.set('.blog-hero__content, .blog-card', {
+      visibility: 'visible',
+    });
+    gsap.fromTo('.blog-hero__content',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+    );
+    gsap.fromTo('.blog-card',
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power3.out', delay: 0.3 }
+    );
+  }
+  initBlogAnimations();
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }
+  });
+</script>

@@ -1,0 +1,532 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/fr.json';
+
+const lang = 'fr';
+const region = 'fr';
+
+const title = 'CRM pour coachs et consultants | DUSA.studio';
+const description = 'Automatisez la generation de leads, l\'onboarding client, la planification de sessions et le renouvellement de forfaits. DUSA est la plateforme de croissance tout-en-un conçue pour les coachs et consultants.';
+
+const painPoints = [
+  {
+    icon: '📋',
+    title: 'Plus d\'administratif que de coaching',
+    desc: 'Vous etes devenu coach pour aider les gens, pas pour passer la moitie de votre semaine sur les factures, la planification et les e-mails de suivi.',
+  },
+  {
+    icon: '📉',
+    title: 'Flux de leads irregulier',
+    desc: 'Certains mois sont charges. D\'autres sont calmes. Sans systeme, votre pipeline depend du bouche-a-oreille et de la chance.',
+  },
+  {
+    icon: '🚪',
+    title: 'Pas de systeme d\'onboarding',
+    desc: 'Chaque nouveau client vit une experience differente. Formulaires d\'inscription, e-mails de bienvenue et preparation de la premiere session se font manuellement a chaque fois.',
+  },
+  {
+    icon: '🗓️',
+    title: 'Planification manuelle des sessions',
+    desc: 'Des allers-retours par e-mail pour trouver un creneau. Des rappels oublies. Des absences. Tout cela represente du chiffre d\'affaires perdu et de l\'energie gaspillee.',
+  },
+];
+
+const features = [
+  {
+    title: 'Tunnel d\'appel decouverte',
+    desc: 'Une page d\'atterrissage, un formulaire de reservation et une sequence de confirmation qui transforment les visiteurs de votre site en appels decouverte reserves.',
+  },
+  {
+    title: 'Sequences d\'onboarding client',
+    desc: 'E-mails de bienvenue automatises, formulaires d\'inscription, signature de contrat et preparation de la premiere session. Chaque client beneficie d\'un demarrage coherent et professionnel.',
+  },
+  {
+    title: 'Planification de sessions et rappels',
+    desc: 'Les clients reservent directement depuis votre agenda. Des rappels automatiques sont envoyes 24 heures et 1 heure avant chaque session.',
+  },
+  {
+    title: 'Suivi de progression',
+    desc: 'Etiquetez les clients par etape de programme, suivez les jalons et declenchez des messages de suivi aux moments cles.',
+  },
+  {
+    title: 'Automatisation du renouvellement de forfait',
+    desc: 'Lorsqu\'un forfait de coaching arrive a terme, la communication automatisee demarre. Les conversations de renouvellement commencent sans que vous ayez a lever le petit doigt.',
+  },
+  {
+    title: 'Collecte de temoignages',
+    desc: 'A la fin d\'un accompagnement, demandez automatiquement des temoignages et des avis. Construisez votre preuve sociale tant que l\'experience est encore fraiche.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Appel decouverte', desc: 'Le prospect reserve et remplit le formulaire d\'inscription' },
+  { stage: 'Onboarding termine', desc: 'Contrat signe, sequence de bienvenue envoyee' },
+  { stage: 'Coaching actif', desc: 'Sessions en cours, progression suivie' },
+  { stage: 'Renouvellement', desc: 'Communication de renouvellement automatisee a 80% d\'avancement' },
+  { stage: 'Ancien client', desc: 'Temoignage collecte, programme de parrainage active' },
+  { stage: 'Parrainage et Upsell', desc: 'Les anciens clients parrainent de nouveaux prospects et explorent des programmes avances. DUSA suit les credits de parrainage et promeut les offres premium.' },
+];
+
+const stats = [
+  { value: '62%', label: 'des coachs disent que le travail administratif est leur plus grande perte de temps' },
+  { value: '4x', label: 'plus d\'appels decouverte reserves avec un tunnel automatise' },
+  { value: '35%', label: 'de taux de renouvellement en plus avec des sequences de re-engagement automatisees' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://dusa.studio/fr/' },
+    { '@type': 'ListItem', position: 2, name: 'Industries', item: 'https://dusa.studio/fr/industries' },
+    { '@type': 'ListItem', position: 3, name: 'Coachs et consultants', item: 'https://dusa.studio/fr/industries/coaches' },
+  ],
+});
+---
+
+<BaseLayout t={tData} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="co-hero section section--dark">
+    <div class="container">
+      <div class="co-hero__content">
+        <span class="label">Coachs et consultants</span>
+        <h1>Le <span class="gradient-text">CRM</span> qui vous permet de vous concentrer sur le coaching</h1>
+        <p class="co-hero__sub">
+          Automatisez votre flux de leads, l'onboarding, la planification et les renouvellements. Consacrez votre temps a vos clients, pas a l'administratif.
+        </p>
+        <div class="co-hero__actions">
+          <a href="/fr/start" class="btn btn--primary">Commencer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="co-pain section section--dark">
+    <div class="container">
+      <div class="co-pain__header">
+        <span class="label">Le probleme</span>
+        <h2>Vous n'etes pas devenu coach pour <span class="gradient-text">faire de l'administratif</span></h2>
+        <p class="co-pain__intro">La plupart des coachs et consultants perdent des heures chaque semaine sur des taches qui devraient etre automatisees. Voici a quoi cela ressemble.</p>
+      </div>
+      <div class="co-pain__grid">
+        {painPoints.map((point) => (
+          <div class="co-pain__card">
+            <span class="co-pain__icon">{point.icon}</span>
+            <h3 class="co-pain__card-title">{point.title}</h3>
+            <p class="co-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="co-solution section section--dark">
+    <div class="container">
+      <div class="co-solution__header">
+        <span class="label">La solution</span>
+        <h2>Comment DUSA fonctionne pour les <span class="gradient-text">coachs et consultants</span></h2>
+        <p class="co-solution__intro">Une seule plateforme pour gerer l'ensemble du parcours client, du premier contact au parrainage par les anciens clients.</p>
+      </div>
+      <div class="co-solution__grid">
+        {features.map((feature) => (
+          <div class="co-solution__card">
+            <h3 class="co-solution__card-title">{feature.title}</h3>
+            <p class="co-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="co-pipeline section section--dark">
+    <div class="container">
+      <div class="co-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>Votre <span class="gradient-text">pipeline client</span> en un coup d'oeil</h2>
+      </div>
+      <div class="co-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="co-pipeline__stage">
+            <div class="co-pipeline__number">{i + 1}</div>
+            <h3 class="co-pipeline__stage-title">{step.stage}</h3>
+            <p class="co-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="co-stats section section--dark">
+    <div class="container">
+      <div class="co-stats__header">
+        <span class="label">Impact</span>
+        <h2>Les chiffres parlent <span class="gradient-text">d'eux-memes</span></h2>
+      </div>
+      <div class="co-stats__grid">
+        {stats.map((stat) => (
+          <div class="co-stats__card">
+            <span class="co-stats__value">{stat.value}</span>
+            <p class="co-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="co-cta section section--dark">
+    <div class="container">
+      <div class="co-cta__box">
+        <h2>Pret a <span class="gradient-text">developper votre activite</span> ?</h2>
+        <p class="co-cta__sub">Mettez en place votre tunnel d'appel decouverte, vos sequences d'onboarding et votre automatisation de renouvellement sur une seule plateforme.</p>
+        <div class="co-cta__actions">
+          <a href="/fr/start" class="btn btn--primary">Commencer</a>
+          <a href="/blog/crm-for-coaches" class="btn btn--outline">Lire le guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .co-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .co-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .co-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .co-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .co-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .co-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .co-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .co-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .co-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .co-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .co-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .co-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .co-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .co-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .co-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .co-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .co-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .co-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .co-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .co-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .co-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .co-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .co-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .co-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .co-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .co-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .co-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .co-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .co-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .co-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .co-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .co-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .co-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .co-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .co-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .co-hero__content h1,
+  :global(html[data-theme="light"]) .co-pain__header h2,
+  :global(html[data-theme="light"]) .co-solution__header h2,
+  :global(html[data-theme="light"]) .co-pipeline__header h2,
+  :global(html[data-theme="light"]) .co-stats__header h2,
+  :global(html[data-theme="light"]) .co-cta__box h2,
+  :global(html[data-theme="light"]) .co-pain__card-title,
+  :global(html[data-theme="light"]) .co-solution__card-title,
+  :global(html[data-theme="light"]) .co-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .co-hero__sub,
+  :global(html[data-theme="light"]) .co-pain__intro,
+  :global(html[data-theme="light"]) .co-solution__intro,
+  :global(html[data-theme="light"]) .co-pain__card-desc,
+  :global(html[data-theme="light"]) .co-solution__card-desc,
+  :global(html[data-theme="light"]) .co-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .co-stats__label,
+  :global(html[data-theme="light"]) .co-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .co-pain__card,
+  :global(html[data-theme="light"]) .co-solution__card,
+  :global(html[data-theme="light"]) .co-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .co-pain__card:hover,
+  :global(html[data-theme="light"]) .co-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .co-stats__card,
+  :global(html[data-theme="light"]) .co-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .co-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .co-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .co-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .co-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .co-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .co-pipeline__stages {
+      flex-direction: column;
+    }
+    .co-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .co-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+</style>

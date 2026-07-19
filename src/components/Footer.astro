@@ -1,46 +1,142 @@
 ---
 // Footer.astro
+
+interface Props {
+  t?: Record<string, any>;
+}
+
+const { t = {} } = Astro.props;
+
+const f = t?.footer || {};
+const tagline = f.tagline || 'Brands that bloom.';
+const desc = f.desc || 'Digital Utility for Sales & Automation. The AI-powered growth platform for small businesses.';
+const platformHeading = f.platformHeading || 'Platform';
+const companyHeading = f.companyHeading || 'Company';
+const getInTouchHeading = f.getInTouchHeading || 'Get in Touch';
+const featuresLabel = f.features || 'Features';
+const howItWorksLabel = f.howItWorks || 'How It Works';
+const onboardingLabel = f.onboarding || 'Onboarding';
+const pricingLabel = f.pricing || 'Pricing';
+const aboutLabel = f.about || 'About';
+const servicesLabel = f.services || 'Services';
+const contactLabel = f.contact || 'Contact';
+const getStartedLabel = f.getStarted || 'Get Started';
+const newsLabel = f.news || 'News';
+const industriesHeading = f.industriesHeading || 'Industries';
+const industriesLabel = f.industries || 'All Industries';
+const realEstateLabel = f.realEstate || 'Real Estate';
+const gymsLabel = f.gyms || 'Gyms & Fitness';
+const restaurantsLabel = f.restaurants || 'Restaurants';
+const salonsLabel = f.salons || 'Salons';
+const tradiesLabel = f.tradies || 'Trades';
+const dentistsLabel = f.dentists || 'Dentists';
+const coachesLabel = f.coaches || 'Coaches';
+const locationLabel = f.location || 'Sydney, Australia';
+const soc2Title = f.soc2Title || 'SOC 2 Type II';
+const soc2Sub = f.soc2Sub || 'Compliant';
+const hipaaTitle = f.hipaaTitle || 'HIPAA';
+const hipaaSubCompliant = f.hipaaSubCompliant || 'Compliant*';
+const hipaaNote = f.hipaaNote || '*HIPAA compliance available as an add-on for healthcare businesses.';
+const copyright = f.copyright || '2026 DUSA . studio. All rights reserved.';
+const privacyPolicyLabel = f.privacyPolicy || 'Privacy Policy';
+const termsLabel = f.termsOfService || 'Terms of Service';
 ---
 
 <footer class="footer section--dark">
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a href="/" class="footer__logo">
-          <img class="footer__lotus" src="/dusa-logo-animated.webp" alt="DUSA logo" width="42" height="42" />
-          <span>DUSA <span style="color:var(--reef-aqua)">.</span> studio</span>
+        <a href="/" data-page="home" class="footer__logo">
+          <span class="footer__logo-text">
+            <span class="footer__logo-shimmer">DUSA</span>
+            <span class="footer__logo-dot" aria-hidden="true">.</span>
+            <span class="footer__logo-shimmer">studio</span>
+          </span>
         </a>
-        <p class="footer__tagline">Brands that bloom.</p>
-        <p class="footer__desc">Digital Utility for Sales & Automation. The AI-powered growth platform for small businesses.</p>
+        <p class="footer__tagline">{tagline}</p>
+        <p class="footer__desc">{desc}</p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Follow DUSA on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/company/dusa-studio" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Follow DUSA on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <div class="footer__col">
-        <h4 class="footer__heading">Platform</h4>
-        <a href="/#features" class="footer__link">Features</a>
-        <a href="/#how-it-works" class="footer__link">How It Works</a>
-        <a href="/pricing" class="footer__link">Pricing</a>
+        <h4 class="footer__heading">{platformHeading}</h4>
+        <a href="/#features" data-page="home" data-hash="#features" class="footer__link">{featuresLabel}</a>
+        <a href="/#how-it-works" data-page="home" data-hash="#how-it-works" class="footer__link">{howItWorksLabel}</a>
+        <a href="/onboarding" data-page="onboarding" class="footer__link">{onboardingLabel}</a>
+        <a href="/pricing" data-page="pricing" class="footer__link">{pricingLabel}</a>
+        <a href="/start" data-page="start" class="footer__link">{getStartedLabel}</a>
       </div>
 
       <div class="footer__col">
-        <h4 class="footer__heading">Company</h4>
-        <a href="/about" class="footer__link">About</a>
-        <a href="/contact" class="footer__link">Contact</a>
-        <a href="/blog" class="footer__link">Blog</a>
+        <h4 class="footer__heading">{industriesHeading}</h4>
+        <a href="/industries" data-page="industries" class="footer__link">{industriesLabel}</a>
+        <a href="/industries/real-estate" data-page="industries/real-estate" class="footer__link">{realEstateLabel}</a>
+        <a href="/industries/gyms" data-page="industries/gyms" class="footer__link">{gymsLabel}</a>
+        <a href="/industries/restaurants" data-page="industries/restaurants" class="footer__link">{restaurantsLabel}</a>
+        <a href="/industries/salons" data-page="industries/salons" class="footer__link">{salonsLabel}</a>
+        <a href="/industries/tradies" data-page="industries/tradies" class="footer__link">{tradiesLabel}</a>
+        <a href="/industries/dentists" data-page="industries/dentists" class="footer__link">{dentistsLabel}</a>
+        <a href="/industries/coaches" data-page="industries/coaches" class="footer__link">{coachesLabel}</a>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">{companyHeading}</h4>
+        <a href="/about" data-page="about" class="footer__link">{aboutLabel}</a>
+        <a href="/services" data-page="services" class="footer__link">{servicesLabel}</a>
+        <a href="/contact" data-page="contact" class="footer__link">{contactLabel}</a>
+        <a href="/blog" data-page="blog" class="footer__link">{newsLabel}</a>
       </div>
 
       <div class="footer__col footer__col--right">
-        <h4 class="footer__heading">Get in Touch</h4>
+        <h4 class="footer__heading">{getInTouchHeading}</h4>
         <a href="mailto:contact@dusa.studio" class="footer__link footer__link--highlight">contact@dusa.studio</a>
         <a href="tel:+61488825686" class="footer__link">+61 488 825 686</a>
-        <p class="footer__link" style="opacity:0.4">Sydney, Australia</p>
+        <p class="footer__link" style="opacity:0.4">{locationLabel}</p>
       </div>
     </div>
 
+    <div class="footer__trust">
+      <div class="footer__badge">
+        <svg class="footer__badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        <div class="footer__badge-text">
+          <span class="footer__badge-title">{soc2Title}</span>
+          <span class="footer__badge-sub">{soc2Sub}</span>
+        </div>
+      </div>
+      <div class="footer__badge">
+        <svg class="footer__badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="footer__badge-text">
+          <span class="footer__badge-title">{hipaaTitle}</span>
+          <span class="footer__badge-sub">{hipaaSubCompliant}</span>
+        </div>
+      </div>
+      <p class="footer__badge-note">{hipaaNote}</p>
+    </div>
+
     <div class="footer__bottom">
-      <p class="footer__copy">&copy; 2026 DUSA . studio. All rights reserved.</p>
+      <p class="footer__copy">&copy; {copyright}</p>
       <div class="footer__legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="/privacy-policy" data-page="privacy-policy">{privacyPolicyLabel}</a>
+        <a href="/terms" data-page="terms">{termsLabel}</a>
       </div>
     </div>
   </div>
@@ -67,7 +163,7 @@
 
   .footer__grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
     gap: var(--space-xl);
     margin-bottom: var(--space-xl);
   }
@@ -75,24 +171,45 @@
   .footer__logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     font-family: var(--font-headline);
-    font-weight: 600;
-    font-size: 1.5rem;
+    font-weight: 700;
+    font-size: 1.75rem;
     color: var(--warm-white);
     margin-bottom: var(--space-sm);
   }
 
-  .footer__lotus {
-    flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-    transition: transform var(--duration-normal);
+  .footer__logo-text {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
-  .footer__logo:hover .footer__lotus {
-    transform: scale(1.05);
+  .footer__logo-dot {
+    color: var(--reef-aqua);
+    font-weight: 700;
+    margin: 0 -0.05rem;
+  }
+
+  /* Shimmer sweep animation */
+  @keyframes shimmerSweep {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .footer__logo-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--mist-blue) 0%,
+      var(--mist-blue) 35%,
+      var(--reef-aqua) 50%,
+      var(--mist-blue) 65%,
+      var(--mist-blue) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerSweep 4s ease-in-out infinite;
   }
 
   .footer__tagline {
@@ -135,6 +252,12 @@
     font-size: 1rem;
     color: rgba(247, 244, 239, 0.6);
     transition: color var(--duration-fast);
+    padding: 0.25rem 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .footer__link:hover {
@@ -143,6 +266,68 @@
 
   .footer__link--highlight {
     color: var(--reef-aqua);
+  }
+
+  /* ─── Trust Badges ─── */
+  .footer__trust {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-md) 0;
+    margin-bottom: var(--space-sm);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+    flex-wrap: wrap;
+  }
+
+  .footer__badge {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(78, 216, 194, 0.2);
+    border-radius: var(--radius-md, 8px);
+    background: rgba(78, 216, 194, 0.04);
+    transition: border-color var(--duration-fast);
+  }
+
+  .footer__badge:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+
+  .footer__badge-icon {
+    width: 22px;
+    height: 22px;
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+  }
+
+  .footer__badge-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .footer__badge-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .footer__badge-sub {
+    font-size: 0.6875rem;
+    color: var(--reef-aqua);
+    letter-spacing: 0.03em;
+  }
+
+  .footer__badge-note {
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.3);
+    font-style: italic;
+    width: 100%;
+    margin-top: 0.25rem;
   }
 
   .footer__bottom {
@@ -167,6 +352,10 @@
     font-size: 0.875rem;
     color: rgba(247, 244, 239, 0.3);
     transition: color var(--duration-fast);
+    padding: 0.5rem 0;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .footer__legal a:hover {
@@ -175,18 +364,14 @@
 
   @media (max-width: 1024px) {
     .footer__grid {
-      grid-template-columns: 1.5fr 1fr 1fr 1.25fr;
-      gap: var(--space-lg);
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1.25fr;
+      gap: var(--space-md);
     }
 
     .footer__logo {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
     }
 
-    .footer__lotus {
-      width: 44px;
-      height: 44px;
-    }
   }
 
   @media (max-width: 768px) {
@@ -197,6 +382,10 @@
 
     .footer__brand {
       grid-column: 1 / -1;
+    }
+
+    .footer__trust {
+      justify-content: center;
     }
 
     .footer__bottom {
@@ -212,9 +401,94 @@
   }
 
   @media (max-width: 480px) {
+    .footer {
+      padding: var(--space-xl) 0 var(--space-md);
+    }
+
     .footer__grid {
       grid-template-columns: 1fr;
       gap: var(--space-md);
     }
+
+    .footer__logo {
+      font-size: 1.125rem;
+    }
+
+    .footer__desc {
+      font-size: 0.9375rem;
+      max-width: none;
+    }
+
+    .footer__col {
+      margin-top: var(--space-md);
+    }
+
+    .footer__link {
+      font-size: 0.9375rem;
+      padding: 0.5rem 0;
+    }
+
+    .footer__trust {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer__badge {
+      max-width: 100%;
+    }
+
+    .footer__badge-note {
+      text-align: center;
+    }
+
+    .footer__copy {
+      text-align: center;
+    }
+
+    .footer__legal {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+    }
+  }
+
+  /* ─── Social Links ─── */
+  .footer__social {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: var(--space-sm);
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    color: rgba(247, 244, 239, 0.5);
+    transition: all var(--duration-fast);
+  }
+
+  .footer__social-link:hover {
+    color: var(--reef-aqua);
+    border-color: rgba(78, 216, 194, 0.4);
+    background: rgba(78, 216, 194, 0.06);
+  }
+
+  .footer__social-link svg {
+    pointer-events: none;
+  }
+
+  /* ─── Light Mode Overrides ─── */
+  /* Footer stays dark in light mode — design anchor.
+     Keep text LIGHT against the dark background. */
+  :global(html[data-theme="light"]) .footer {
+    border-top-color: rgba(247, 244, 239, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .footer::before {
+    background: linear-gradient(90deg, transparent, rgba(78, 216, 194, 0.15), transparent);
   }
 </style>

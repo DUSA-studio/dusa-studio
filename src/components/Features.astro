@@ -1,222 +1,780 @@
 ---
-// Features.astro — Platform features grid with branded SVG icons + AI layer
-const features = [
-  {
-    id: 'crm',
-    title: 'CRM & Contacts',
-    desc: 'Track every lead, customer, and conversation in one place. AI scores your leads and highlights who to follow up with first.',
-    color: 'var(--cat-communication)',
-    colorDark: 'var(--info-dark)',
-  },
-  {
-    id: 'automations',
-    title: 'AI Automations',
-    desc: 'Set up intelligent workflows once and let AI run them. Follow-ups, reminders, and nurture sequences that learn and adapt.',
-    color: 'var(--cat-system)',
-    colorDark: 'var(--success-dark)',
-  },
-  {
-    id: 'email',
-    title: 'Email & SMS',
-    desc: 'Send campaigns, drip sequences, and one-off messages. AI writes subject lines, personalises content, and optimises send times.',
-    color: 'var(--cat-communication)',
-    colorDark: 'var(--info-dark)',
-  },
-  {
-    id: 'funnels',
-    title: 'Funnels & Landing Pages',
-    desc: 'Build high-converting pages without a developer. AI analyses performance and suggests copy improvements that convert.',
-    color: 'var(--cat-capture)',
-    colorDark: 'var(--warning-dark)',
-  },
-  {
-    id: 'scheduling',
-    title: 'Scheduling',
-    desc: 'Let clients book directly into your calendar. AI sends smart reminders and handles rescheduling automatically.',
-    color: 'var(--cat-system)',
-    colorDark: 'var(--success-dark)',
-  },
-  {
-    id: 'payments',
-    title: 'Payments & Invoicing',
-    desc: 'Accept payments, send invoices, and track revenue. AI chases overdue invoices and flags revenue trends you should know about.',
-    color: 'var(--cat-financial)',
-    colorDark: 'var(--analytics-dark)',
-  },
-];
+// Features.astro — Motherboard: DUSA is the CPU, services are peripheral ICs
+// Data pulses IN from each peripheral independently (chaotic)
+// Every 1.5s DUSA pushes unified data OUT to all peripherals simultaneously
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
 
-const icons: Record<string, string> = {
-  crm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-  automations: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>`,
-  email: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
-  funnels: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18l-7 8v6l-4 2V11L3 3z"/></svg>`,
-  scheduling: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M12 14v3l2 1"/></svg>`,
-  payments: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/><path d="M6 16h4"/><path d="M14 16h4"/></svg>`,
-};
+const s = t?.features || {};
+const featLabel = s.label || 'The Platform';
+const featHeading = s.heading || 'Everything';
+const featHeadingAccent = s.headingAccent || 'connects.';
+const featSub = s.sub || 'Six systems. One processor. DUSA connects every part of your business on a single board.';
+const node1Title = s.node1Title || 'CRM & Contacts';
+const node1Desc = s.node1Desc || 'AI scores leads. You close deals.';
+const node2Title = s.node2Title || 'AI Automations';
+const node2Desc = s.node2Desc || 'Set it once. AI handles the rest.';
+const node3Title = s.node3Title || 'Email & SMS';
+const node3Desc = s.node3Desc || 'AI writes, sends, and optimises.';
+const node4Title = s.node4Title || 'Funnels & Pages';
+const node4Desc = s.node4Desc || 'Pages that convert. No dev needed.';
+const node5Title = s.node5Title || 'Scheduling';
+const node5Desc = s.node5Desc || 'Clients book. AI handles the rest.';
+const node6Title = s.node6Title || 'Payments';
+const node6Desc = s.node6Desc || 'Get paid faster. AI chases the rest.';
+const featFooter = s.footerText || 'One platform. No duct tape. No switching tabs. Just growth.';
+const featCta = s.ctaText || 'See it in action';
 ---
 
-<section class="features section section--dark" id="features">
+<section class="mobo section section--dark" id="features">
   <div class="container">
-    <div class="features__header reveal">
-      <span class="label">Everything You Need</span>
-      <h2>Six core systems.<br/><span class="gradient-text">All powered by AI.</span></h2>
-      <p class="features__sub">Stop paying for tools that don't talk to each other. DUSA replaces your entire stack with one intelligent platform, and AI is woven into every layer. Smarter workflows, faster growth.</p>
+    <div class="mobo__header">
+      <span class="label">{featLabel}</span>
+      <h2>{featHeading}<br/><span class="gradient-text">{featHeadingAccent}</span></h2>
+      <p class="mobo__sub">{featSub}</p>
     </div>
 
-    <div class="features__ai-badge reveal">
-      <span class="features__ai-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M9 12h6l2 10H7l2-10z"/><circle cx="12" cy="5" r="1" fill="currentColor"/></svg>
-      </span>
-      <span>AI is built into every system below</span>
-    </div>
+    <div class="mobo__stage">
+      <div class="mobo__board">
 
-    <div class="features__grid">
-      {features.map((f) => (
-        <div class="features__card reveal" style={`--card-accent: ${f.color}; --card-dark: ${f.colorDark};`}>
-          <div class="features__card-icon" set:html={icons[f.id]} />
-          <h4 class="features__card-title">{f.title}</h4>
-          <p class="features__card-desc">{f.desc}</p>
-          <div class="features__card-accent"></div>
+        <!-- ═══ PCB SVG ═══ -->
+        <svg class="mobo__pcb" viewBox="0 0 680 680" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <pattern id="pcbDots" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="10" cy="10" r="0.6" fill="rgba(78,216,194,0.1)"/>
+            </pattern>
+            <filter id="pulseGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="3.5" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- PCB grid -->
+          <rect width="680" height="680" fill="url(#pcbDots)"/>
+
+          <!-- Silkscreen text (subtle, inside board area) -->
+          <text x="340" y="668" fill="rgba(78,216,194,0.12)" font-family="monospace" font-size="7" letter-spacing="0.1em" text-anchor="middle">DUSA-MB REV 1.0</text>
+
+          <!-- ═══ DECORATIVE VIAS ═══ -->
+          <g opacity="0.3">
+            <circle cx="160" cy="140" r="4" stroke="#4ED8C2" stroke-width="0.7" fill="none"/><circle cx="160" cy="140" r="1.5" fill="#4ED8C2"/>
+            <circle cx="520" cy="140" r="4" stroke="#4ED8C2" stroke-width="0.7" fill="none"/><circle cx="520" cy="140" r="1.5" fill="#4ED8C2"/>
+            <circle cx="520" cy="540" r="4" stroke="#4ED8C2" stroke-width="0.7" fill="none"/><circle cx="520" cy="540" r="1.5" fill="#4ED8C2"/>
+            <circle cx="160" cy="540" r="4" stroke="#4ED8C2" stroke-width="0.7" fill="none"/><circle cx="160" cy="540" r="1.5" fill="#4ED8C2"/>
+            <circle cx="280" cy="200" r="3.5" stroke="#4ED8C2" stroke-width="0.6" fill="none"/><circle cx="280" cy="200" r="1.2" fill="#4ED8C2"/>
+            <circle cx="400" cy="200" r="3.5" stroke="#4ED8C2" stroke-width="0.6" fill="none"/><circle cx="400" cy="200" r="1.2" fill="#4ED8C2"/>
+            <circle cx="400" cy="480" r="3.5" stroke="#4ED8C2" stroke-width="0.6" fill="none"/><circle cx="400" cy="480" r="1.2" fill="#4ED8C2"/>
+            <circle cx="280" cy="480" r="3.5" stroke="#4ED8C2" stroke-width="0.6" fill="none"/><circle cx="280" cy="480" r="1.2" fill="#4ED8C2"/>
+            <circle cx="340" cy="180" r="3" stroke="#4ED8C2" stroke-width="0.5" fill="none"/><circle cx="340" cy="180" r="1" fill="#4ED8C2"/>
+            <circle cx="340" cy="500" r="3" stroke="#4ED8C2" stroke-width="0.5" fill="none"/><circle cx="340" cy="500" r="1" fill="#4ED8C2"/>
+            <circle cx="180" cy="340" r="3" stroke="#4ED8C2" stroke-width="0.5" fill="none"/><circle cx="180" cy="340" r="1" fill="#4ED8C2"/>
+            <circle cx="500" cy="340" r="3" stroke="#4ED8C2" stroke-width="0.5" fill="none"/><circle cx="500" cy="340" r="1" fill="#4ED8C2"/>
+          </g>
+
+          <!-- ═══ DECORATIVE COMPONENTS ═══ -->
+          <g opacity="0.2" stroke="#4ED8C2" stroke-width="0.8" fill="none">
+            <rect x="180" y="258" width="8" height="4" rx="1"/><rect x="490" y="258" width="8" height="4" rx="1"/>
+            <rect x="180" y="418" width="8" height="4" rx="1"/><rect x="490" y="418" width="8" height="4" rx="1"/>
+            <rect x="368" y="160" width="4" height="8" rx="1"/><rect x="368" y="512" width="4" height="8" rx="1"/>
+            <rect x="300" y="440" width="8" height="4" rx="1"/><rect x="440" y="248" width="4" height="8" rx="1"/>
+          </g>
+
+          <!-- ═══ DECORATIVE TRACE STUBS ═══ -->
+          <g stroke="rgba(78,216,194,0.22)" stroke-width="1.5" stroke-linecap="round">
+            <path d="M340,150 L380,150 L380,168"/>
+            <path d="M340,530 L300,530 L300,512"/>
+            <path d="M500,195 L500,162 L518,162"/>
+            <path d="M500,505 L500,538 L518,538"/>
+            <path d="M180,195 L180,162 L162,162"/>
+            <path d="M180,505 L180,538 L162,538"/>
+          </g>
+
+          <!-- ═══ MAIN TRACES ═══ -->
+          <!-- Glow layer -->
+          <g stroke="rgba(78,216,194,0.12)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M340,96 L340,272"/>
+            <path d="M551,195 L460,195 L460,320 L385,320"/>
+            <path d="M551,505 L460,505 L460,360 L385,360"/>
+            <path d="M340,584 L340,385"/>
+            <path d="M129,505 L220,505 L220,360 L295,360"/>
+            <path d="M129,195 L220,195 L220,320 L295,320"/>
+          </g>
+          <!-- Trace lines -->
+          <g stroke="rgba(78,216,194,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M340,96 L340,272"/>
+            <path d="M551,195 L460,195 L460,320 L385,320"/>
+            <path d="M551,505 L460,505 L460,360 L385,360"/>
+            <path d="M340,584 L340,385"/>
+            <path d="M129,505 L220,505 L220,360 L295,360"/>
+            <path d="M129,195 L220,195 L220,320 L295,320"/>
+          </g>
+          <!-- Parallel secondary traces (offset 8px) -->
+          <g stroke="rgba(78,216,194,0.18)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M348,96 L348,258 L360,258"/>
+            <path d="M551,203 L468,203 L468,328 L385,328"/>
+            <path d="M551,497 L452,497 L452,352 L385,352"/>
+            <path d="M332,584 L332,420 L320,420"/>
+            <path d="M129,497 L212,497 L212,352 L295,352"/>
+            <path d="M129,203 L228,203 L228,328 L295,328"/>
+          </g>
+          <!-- Turn pads -->
+          <g fill="rgba(78,216,194,0.15)" stroke="rgba(78,216,194,0.35)" stroke-width="1">
+            <circle cx="460" cy="195" r="4.5"/><circle cx="460" cy="320" r="4.5"/>
+            <circle cx="460" cy="505" r="4.5"/><circle cx="460" cy="360" r="4.5"/>
+            <circle cx="220" cy="505" r="4.5"/><circle cx="220" cy="360" r="4.5"/>
+            <circle cx="220" cy="195" r="4.5"/><circle cx="220" cy="320" r="4.5"/>
+          </g>
+
+          <!-- ═══ CPU CHIP ═══ -->
+          <g class="mobo__cpu-g">
+            <!-- Package constant glow -->
+            <rect x="291" y="291" width="98" height="98" rx="5" fill="none" stroke="rgba(78,216,194,0.15)" stroke-width="6" filter="url(#pulseGlow)"/>
+            <!-- Package -->
+            <rect x="295" y="295" width="90" height="90" rx="3" fill="rgba(12,14,20,0.95)" stroke="rgba(78,216,194,0.45)" stroke-width="1.5"/>
+            <!-- Pin 1 notch -->
+            <circle cx="301" cy="301" r="3" fill="none" stroke="rgba(78,216,194,0.3)" stroke-width="0.7"/>
+            <!-- Pin arrays -->
+            <g opacity="0.35" fill="#4ED8C2">
+              <!-- Top pins -->
+              <rect x="312" y="292" width="3" height="7" rx="0.5"/><rect x="322" y="292" width="3" height="7" rx="0.5"/>
+              <rect x="332" y="292" width="3" height="7" rx="0.5"/><rect x="342" y="292" width="3" height="7" rx="0.5"/>
+              <rect x="352" y="292" width="3" height="7" rx="0.5"/><rect x="362" y="292" width="3" height="7" rx="0.5"/>
+              <rect x="372" y="292" width="3" height="7" rx="0.5"/>
+              <!-- Bottom pins -->
+              <rect x="312" y="381" width="3" height="7" rx="0.5"/><rect x="322" y="381" width="3" height="7" rx="0.5"/>
+              <rect x="332" y="381" width="3" height="7" rx="0.5"/><rect x="342" y="381" width="3" height="7" rx="0.5"/>
+              <rect x="352" y="381" width="3" height="7" rx="0.5"/><rect x="362" y="381" width="3" height="7" rx="0.5"/>
+              <rect x="372" y="381" width="3" height="7" rx="0.5"/>
+              <!-- Left pins -->
+              <rect x="292" y="312" width="7" height="3" rx="0.5"/><rect x="292" y="322" width="7" height="3" rx="0.5"/>
+              <rect x="292" y="332" width="7" height="3" rx="0.5"/><rect x="292" y="342" width="7" height="3" rx="0.5"/>
+              <rect x="292" y="352" width="7" height="3" rx="0.5"/><rect x="292" y="362" width="7" height="3" rx="0.5"/>
+              <rect x="292" y="372" width="7" height="3" rx="0.5"/>
+              <!-- Right pins -->
+              <rect x="381" y="312" width="7" height="3" rx="0.5"/><rect x="381" y="322" width="7" height="3" rx="0.5"/>
+              <rect x="381" y="332" width="7" height="3" rx="0.5"/><rect x="381" y="342" width="7" height="3" rx="0.5"/>
+              <rect x="381" y="352" width="7" height="3" rx="0.5"/><rect x="381" y="362" width="7" height="3" rx="0.5"/>
+              <rect x="381" y="372" width="7" height="3" rx="0.5"/>
+            </g>
+            <!-- Inner die -->
+            <rect x="315" y="315" width="50" height="50" rx="2" fill="rgba(78,216,194,0.06)" stroke="rgba(78,216,194,0.4)" stroke-width="1"/>
+            <!-- Die flash (pulses every 1.5s) -->
+            <rect x="315" y="315" width="50" height="50" rx="2" fill="none" stroke="#4ED8C2" stroke-width="2.5" opacity="0">
+              <animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0;0;0.9;0.15;0" keyTimes="0;0.72;0.82;0.94;1"/>
+            </rect>
+            <!-- DUSA logo -->
+            <image href="/dusa-logo-animated.webp" x="314" y="314" width="52" height="52"/>
+            <!-- CPU label tab (extends above package) -->
+            <rect x="312" y="272" width="56" height="23" rx="2" fill="rgba(12,14,20,0.95)" stroke="rgba(78,216,194,0.45)" stroke-width="1.5"/>
+            <text x="340" y="288" text-anchor="middle" fill="#4ED8C2" font-family="var(--font-headline), sans-serif" font-size="12" font-weight="700" letter-spacing="0.2em">DUSA</text>
+          </g>
+
+          <!-- CPU pulse ring (expands every 1.5s, starts from full chip+label area) -->
+          <rect x="295" y="272" width="90" height="113" rx="6" fill="none" stroke="#4ED8C2" stroke-width="1.5" opacity="0">
+            <animate attributeName="x" dur="1.5s" repeatCount="indefinite" values="295;265;265" keyTimes="0;0.5;1"/>
+            <animate attributeName="y" dur="1.5s" repeatCount="indefinite" values="272;252;252" keyTimes="0;0.5;1"/>
+            <animate attributeName="width" dur="1.5s" repeatCount="indefinite" values="90;150;150" keyTimes="0;0.5;1"/>
+            <animate attributeName="height" dur="1.5s" repeatCount="indefinite" values="113;173;173" keyTimes="0;0.5;1"/>
+            <animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.35;0;0" keyTimes="0;0.5;1"/>
+          </rect>
+
+          <!-- ═══ INBOUND PULSES (chaotic, varied timing) ═══ -->
+          <g class="mobo__in">
+            <!-- T1 CRM (2.0s) -->
+            <circle r="2.5" fill="#6AAACF" opacity="0"><animateMotion dur="2.0s" repeatCount="indefinite" path="M340,96 L340,272"/><animate attributeName="opacity" dur="2.0s" repeatCount="indefinite" values="0;0.85;0.85;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <circle r="2" fill="#4ED8C2" opacity="0"><animateMotion dur="2.0s" repeatCount="indefinite" begin="1.0s" path="M340,96 L340,272"/><animate attributeName="opacity" dur="2.0s" repeatCount="indefinite" begin="1.0s" values="0;0.7;0.7;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <!-- T2 AI Auto (2.6s) -->
+            <circle r="2.5" fill="#4ED8C2" opacity="0"><animateMotion dur="2.6s" repeatCount="indefinite" path="M551,195 L460,195 L460,320 L385,320"/><animate attributeName="opacity" dur="2.6s" repeatCount="indefinite" values="0;0.8;0.8;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <circle r="2" fill="#6AAACF" opacity="0"><animateMotion dur="2.6s" repeatCount="indefinite" begin="1.3s" path="M551,195 L460,195 L460,320 L385,320"/><animate attributeName="opacity" dur="2.6s" repeatCount="indefinite" begin="1.3s" values="0;0.65;0.65;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <!-- T3 Email (2.4s) -->
+            <circle r="2.5" fill="#6AAACF" opacity="0"><animateMotion dur="2.4s" repeatCount="indefinite" path="M551,505 L460,505 L460,360 L385,360"/><animate attributeName="opacity" dur="2.4s" repeatCount="indefinite" values="0;0.8;0.8;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <circle r="2" fill="#4ED8C2" opacity="0"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s" path="M551,505 L460,505 L460,360 L385,360"/><animate attributeName="opacity" dur="2.4s" repeatCount="indefinite" begin="1.2s" values="0;0.65;0.65;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <!-- T4 Funnels (2.2s) -->
+            <circle r="2.5" fill="#4ED8C2" opacity="0"><animateMotion dur="2.2s" repeatCount="indefinite" path="M340,584 L340,385"/><animate attributeName="opacity" dur="2.2s" repeatCount="indefinite" values="0;0.85;0.85;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <circle r="2" fill="#6AAACF" opacity="0"><animateMotion dur="2.2s" repeatCount="indefinite" begin="1.1s" path="M340,584 L340,385"/><animate attributeName="opacity" dur="2.2s" repeatCount="indefinite" begin="1.1s" values="0;0.7;0.7;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <!-- T5 Scheduling (2.8s) -->
+            <circle r="2.5" fill="#6AAACF" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" path="M129,505 L220,505 L220,360 L295,360"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0.8;0.8;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <circle r="2" fill="#4ED8C2" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" begin="1.4s" path="M129,505 L220,505 L220,360 L295,360"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" begin="1.4s" values="0;0.65;0.65;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <!-- T6 Payments (3.0s) -->
+            <circle r="2.5" fill="#4ED8C2" opacity="0"><animateMotion dur="3.0s" repeatCount="indefinite" path="M129,195 L220,195 L220,320 L295,320"/><animate attributeName="opacity" dur="3.0s" repeatCount="indefinite" values="0;0.8;0.8;0" keyTimes="0;0.08;0.85;1"/></circle>
+            <circle r="2" fill="#6AAACF" opacity="0"><animateMotion dur="3.0s" repeatCount="indefinite" begin="1.5s" path="M129,195 L220,195 L220,320 L295,320"/><animate attributeName="opacity" dur="3.0s" repeatCount="indefinite" begin="1.5s" values="0;0.65;0.65;0" keyTimes="0;0.08;0.85;1"/></circle>
+          </g>
+
+          <!-- ═══ OUTBOUND PULSES (unified, every 1.5s) ═══ -->
+          <g class="mobo__out" filter="url(#pulseGlow)">
+            <circle r="3" fill="#4ED8C2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M340,272 L340,96"/><animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.9;0.8;0;0" keyTimes="0;0.55;0.75;1"/></circle>
+            <circle r="3" fill="#4ED8C2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M385,320 L460,320 L460,195 L551,195"/><animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.9;0.8;0;0" keyTimes="0;0.55;0.75;1"/></circle>
+            <circle r="3" fill="#4ED8C2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M385,360 L460,360 L460,505 L551,505"/><animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.9;0.8;0;0" keyTimes="0;0.55;0.75;1"/></circle>
+            <circle r="3" fill="#4ED8C2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M340,385 L340,584"/><animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.9;0.8;0;0" keyTimes="0;0.55;0.75;1"/></circle>
+            <circle r="3" fill="#4ED8C2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M295,360 L220,360 L220,505 L129,505"/><animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.9;0.8;0;0" keyTimes="0;0.55;0.75;1"/></circle>
+            <circle r="3" fill="#4ED8C2"><animateMotion dur="1.5s" repeatCount="indefinite" path="M295,320 L220,320 L220,195 L129,195"/><animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0.9;0.8;0;0" keyTimes="0;0.55;0.75;1"/></circle>
+          </g>
+        </svg>
+
+        <!-- ═══ HTML NODES ═══ -->
+        <div class="mobo__node mobo__node--1">
+          <div class="mobo__chip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="mobo__node-title">{node1Title}</h3>
+          <p class="mobo__node-desc">{node1Desc}</p>
         </div>
-      ))}
+
+        <div class="mobo__node mobo__node--2">
+          <div class="mobo__chip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+          </div>
+          <h3 class="mobo__node-title">{node2Title}</h3>
+          <p class="mobo__node-desc">{node2Desc}</p>
+        </div>
+
+        <div class="mobo__node mobo__node--3">
+          <div class="mobo__chip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <h3 class="mobo__node-title">{node3Title}</h3>
+          <p class="mobo__node-desc">{node3Desc}</p>
+        </div>
+
+        <div class="mobo__node mobo__node--4">
+          <div class="mobo__chip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </div>
+          <h3 class="mobo__node-title">{node4Title}</h3>
+          <p class="mobo__node-desc">{node4Desc}</p>
+        </div>
+
+        <div class="mobo__node mobo__node--5">
+          <div class="mobo__chip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <h3 class="mobo__node-title">{node5Title}</h3>
+          <p class="mobo__node-desc">{node5Desc}</p>
+        </div>
+
+        <div class="mobo__node mobo__node--6">
+          <div class="mobo__chip-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/>
+            </svg>
+          </div>
+          <h3 class="mobo__node-title">{node6Title}</h3>
+          <p class="mobo__node-desc">{node6Desc}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mobo__footer">
+      <p class="mobo__footer-text">{featFooter}</p>
+      <a href="#contact" class="btn btn--primary">{featCta}</a>
     </div>
   </div>
 </section>
 
 <style>
-  .features__header {
-    max-width: 600px;
-    margin-bottom: var(--space-xl);
+  /* ═══════════════════════════════════════════
+     MOTHERBOARD: DUSA IS THE CPU
+     ═══════════════════════════════════════════ */
+
+  .mobo {
+    position: relative;
+    overflow: hidden;
   }
 
-  .features__sub {
+  .mobo__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .mobo__header h2 {
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    line-height: 1.05;
+    margin-top: var(--space-sm);
+    letter-spacing: -0.03em;
+  }
+
+  .mobo__sub {
     font-size: 1.125rem;
     color: rgba(247, 244, 239, 0.5);
-    margin-top: var(--space-sm);
     line-height: 1.7;
+    margin-top: var(--space-md);
   }
 
-  .features__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-  }
-
-  .features__card {
-    position: relative;
-    background: rgba(247, 244, 239, 0.03);
-    border: 1px solid rgba(247, 244, 239, 0.06);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg) var(--space-md);
-    overflow: hidden;
-    transition: all var(--duration-normal) var(--ease-out);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .features__card:hover {
-    border-color: rgba(78, 216, 194, 0.2);
-    background: rgba(247, 244, 239, 0.06);
-    transform: translateY(-4px);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.25),
-      0 0 0 1px rgba(78, 216, 194, 0.06),
-      inset 0 1px 0 rgba(247, 244, 239, 0.06);
-  }
-
-  .features__ai-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(78, 216, 194, 0.08);
-    border: 1px solid rgba(78, 216, 194, 0.15);
-    border-radius: var(--radius-full);
-    padding: 0.5rem 1.25rem;
-    font-size: 0.875rem;
-    color: var(--reef-aqua);
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    margin-bottom: var(--space-lg);
-  }
-
-  .features__ai-icon {
+  /* ── Stage ── */
+  .mobo__stage {
     display: flex;
-    align-items: center;
-    color: var(--reef-aqua);
+    justify-content: center;
+    padding: var(--space-md) 0;
   }
 
-  .features__card-icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: var(--space-sm);
-    color: var(--card-accent);
+  .mobo__board {
+    position: relative;
+    width: 680px;
+    height: 680px;
+    flex-shrink: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(78, 216, 194, 0.06) 0%,
+      rgba(26, 58, 92, 0.08) 40%,
+      transparent 75%
+    );
   }
 
-  .features__card-icon :global(svg) {
+  .mobo__pcb {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
   }
 
-  .features__card-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    color: var(--warm-white);
-  }
-
-  .features__card-desc {
-    font-size: 1.0625rem;
-    color: rgba(247, 244, 239, 0.5);
-    line-height: 1.6;
-  }
-
-  .features__card-accent {
+  /* ── System Nodes ── */
+  .mobo__node {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--card-accent), transparent);
-    opacity: 0;
-    transition: opacity var(--duration-normal);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 130px;
+    transition: transform 0.3s var(--ease-out);
+    cursor: default;
   }
 
-  .features__card:hover .features__card-accent {
-    opacity: 1;
-    box-shadow: 0 0 20px var(--card-accent);
+  .mobo__node:hover {
+    transform: scale(1.08);
   }
 
-  @media (max-width: 1024px) {
-    .features__grid {
-      grid-template-columns: repeat(2, 1fr);
+  /* Positions matching SVG trace endpoints */
+  .mobo__node--1 { top: 1%; left: 50%; transform: translateX(-50%); }
+  .mobo__node--2 { top: 20%; right: 2%; }
+  .mobo__node--3 { bottom: 16%; right: 2%; }
+  .mobo__node--4 { bottom: 1%; left: 50%; transform: translateX(-50%); }
+  .mobo__node--5 { bottom: 16%; left: 2%; }
+  .mobo__node--6 { top: 20%; left: 2%; }
+
+  .mobo__node--1:hover,
+  .mobo__node--4:hover {
+    transform: translateX(-50%) scale(1.08);
+  }
+
+  /* IC chip icon package */
+  .mobo__chip-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(12, 14, 20, 0.92);
+    border: 1.5px solid rgba(78, 216, 194, 0.4);
+    border-radius: 4px;
+    color: var(--reef-aqua);
+    margin-bottom: 0.4rem;
+    position: relative;
+    transition: all 0.3s;
+    box-shadow: 0 0 12px rgba(78, 216, 194, 0.08);
+  }
+
+  /* Pin stubs on sides */
+  .mobo__chip-icon::before,
+  .mobo__chip-icon::after {
+    content: '';
+    position: absolute;
+    background: rgba(78, 216, 194, 0.25);
+    border-radius: 1px;
+  }
+  .mobo__chip-icon::before {
+    width: 5px; height: 2px;
+    left: -5px; top: 50%; transform: translateY(-50%);
+  }
+  .mobo__chip-icon::after {
+    width: 5px; height: 2px;
+    right: -5px; top: 50%; transform: translateY(-50%);
+  }
+
+  .mobo__chip-icon svg {
+    filter: drop-shadow(0 0 4px rgba(78, 216, 194, 0.2));
+    transition: filter 0.3s;
+  }
+
+  .mobo__node:hover .mobo__chip-icon {
+    border-color: #4ED8C2;
+    background: rgba(78, 216, 194, 0.12);
+    box-shadow:
+      0 0 16px rgba(78, 216, 194, 0.3),
+      0 0 40px rgba(78, 216, 194, 0.12),
+      inset 0 0 12px rgba(78, 216, 194, 0.06);
+  }
+
+  .mobo__node:hover .mobo__chip-icon::before,
+  .mobo__node:hover .mobo__chip-icon::after {
+    background: rgba(78, 216, 194, 0.5);
+  }
+
+  .mobo__node:hover .mobo__chip-icon svg {
+    filter: drop-shadow(0 0 8px rgba(78, 216, 194, 0.6));
+  }
+
+  .mobo__node-title {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.8);
+    transition: color 0.3s, text-shadow 0.3s;
+    line-height: 1.2;
+  }
+
+  .mobo__node:hover .mobo__node-title {
+    color: #4ED8C2;
+    text-shadow: 0 0 12px rgba(78, 216, 194, 0.4);
+  }
+
+  .mobo__node-desc {
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.3);
+    line-height: 1.4;
+    margin-top: 0.1rem;
+    transition: color 0.3s;
+  }
+
+  .mobo__node:hover .mobo__node-desc {
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  /* ── Footer ── */
+  .mobo__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: var(--space-lg);
+  }
+
+  .mobo__footer-text {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.5);
+    margin-bottom: var(--space-md);
+  }
+
+  /* ═══════════════════════════════════════════
+     LIGHT MODE
+     ═══════════════════════════════════════════ */
+
+  :global(html[data-theme="light"]) .mobo__sub {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .mobo__chip-icon {
+    background: rgba(247, 244, 239, 0.95);
+    border-color: rgba(26, 58, 92, 0.18);
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .mobo__chip-icon::before,
+  :global(html[data-theme="light"]) .mobo__chip-icon::after {
+    background: rgba(26, 58, 92, 0.12);
+  }
+
+  :global(html[data-theme="light"]) .mobo__chip-icon svg {
+    filter: drop-shadow(0 0 3px rgba(26, 58, 92, 0.15));
+  }
+
+  :global(html[data-theme="light"]) .mobo__node:hover .mobo__chip-icon {
+    border-color: var(--deep-ocean);
+    background: rgba(106, 170, 207, 0.12);
+    box-shadow:
+      0 0 16px rgba(26, 58, 92, 0.15),
+      0 0 40px rgba(106, 170, 207, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .mobo__node:hover .mobo__chip-icon svg {
+    filter: drop-shadow(0 0 8px rgba(26, 58, 92, 0.35));
+  }
+
+  :global(html[data-theme="light"]) .mobo__node-title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .mobo__node:hover .mobo__node-title {
+    color: var(--deep-ocean);
+    text-shadow: 0 0 12px rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .mobo__node-desc {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .mobo__node:hover .mobo__node-desc {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .mobo__footer-text {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* Board background — remove dark radial glow, use light subtle one */
+  :global(html[data-theme="light"]) .mobo__board {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(26, 58, 92, 0.04) 0%,
+      rgba(106, 170, 207, 0.06) 40%,
+      transparent 75%
+    );
+  }
+
+  /* SVG overrides — swap aqua to deep-ocean/mist-blue */
+  :global(html[data-theme="light"]) .mobo__pcb {
+    --pcb-accent: var(--deep-ocean);
+    filter: none;
+  }
+  :global(html[data-theme="light"]) .mobo__pcb circle[fill="#4ED8C2"] {
+    fill: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb circle[stroke="#4ED8C2"] {
+    stroke: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="#4ED8C2"] {
+    stroke: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb g[fill="#4ED8C2"] {
+    fill: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb text[fill="#4ED8C2"] {
+    fill: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb rect[stroke="#4ED8C2"] {
+    stroke: var(--deep-ocean);
+  }
+  /* Dot pattern in light mode */
+  :global(html[data-theme="light"]) .mobo__pcb pattern circle {
+    fill: rgba(26, 58, 92, 0.08);
+  }
+  /* ─── CPU CHIP light mode ─── */
+  /* Package body — swap near-black to warm white with subtle border */
+  :global(html[data-theme="light"]) .mobo__cpu-g rect[fill="rgba(12,14,20,0.95)"] {
+    fill: rgba(247, 244, 239, 0.95);
+  }
+  :global(html[data-theme="light"]) .mobo__cpu-g rect[stroke="rgba(78,216,194,0.45)"] {
+    stroke: rgba(26, 58, 92, 0.35);
+  }
+  /* Pin 1 notch */
+  :global(html[data-theme="light"]) .mobo__cpu-g circle[stroke="rgba(78,216,194,0.3)"] {
+    stroke: rgba(26, 58, 92, 0.2);
+  }
+  /* Pin arrays */
+  :global(html[data-theme="light"]) .mobo__cpu-g g[fill="#4ED8C2"] {
+    fill: var(--deep-ocean);
+  }
+  /* Inner die */
+  :global(html[data-theme="light"]) .mobo__cpu-g rect[fill="rgba(78,216,194,0.06)"] {
+    fill: rgba(26, 58, 92, 0.05);
+  }
+  :global(html[data-theme="light"]) .mobo__cpu-g rect[stroke="rgba(78,216,194,0.4)"] {
+    stroke: rgba(26, 58, 92, 0.25);
+  }
+  /* Die flash pulse */
+  :global(html[data-theme="light"]) .mobo__cpu-g rect[stroke="#4ED8C2"] {
+    stroke: var(--deep-ocean);
+  }
+  /* DUSA label text */
+  :global(html[data-theme="light"]) .mobo__cpu-g text[fill="#4ED8C2"] {
+    fill: var(--deep-ocean);
+  }
+  /* Package glow — soften for light mode */
+  :global(html[data-theme="light"]) .mobo__cpu-g rect[stroke="rgba(78,216,194,0.15)"] {
+    stroke: rgba(26, 58, 92, 0.1);
+  }
+  /* ─── Trace lines light mode ─── */
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="rgba(78,216,194,0.12)"] {
+    stroke: rgba(26, 58, 92, 0.08);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="rgba(78,216,194,0.45)"] {
+    stroke: rgba(26, 58, 92, 0.3);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="rgba(78,216,194,0.18)"] {
+    stroke: rgba(26, 58, 92, 0.12);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="rgba(78,216,194,0.22)"] {
+    stroke: rgba(26, 58, 92, 0.15);
+  }
+  /* Turn pads */
+  :global(html[data-theme="light"]) .mobo__pcb g[fill="rgba(78,216,194,0.15)"] {
+    fill: rgba(26, 58, 92, 0.08);
+  }
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="rgba(78,216,194,0.35)"] {
+    stroke: rgba(26, 58, 92, 0.2);
+  }
+  /* PCB dot pattern overlay */
+  :global(html[data-theme="light"]) .mobo__pcb rect[fill="url(#pcbDots)"] {
+    opacity: 0.6;
+  }
+  /* Silkscreen text */
+  :global(html[data-theme="light"]) .mobo__pcb text[fill="rgba(78,216,194,0.12)"] {
+    fill: rgba(26, 58, 92, 0.1);
+  }
+  /* Decorative components */
+  :global(html[data-theme="light"]) .mobo__pcb g[stroke="#4ED8C2"][fill="none"] {
+    stroke: rgba(26, 58, 92, 0.15);
+  }
+  /* Decorative vias */
+  :global(html[data-theme="light"]) .mobo__pcb g[opacity="0.3"] {
+    opacity: 0.2;
+  }
+  /* Data pulse particles — use mist-blue for movement */
+  :global(html[data-theme="light"]) .mobo__pcb .mobo__in circle[fill="#4ED8C2"],
+  :global(html[data-theme="light"]) .mobo__pcb .mobo__out circle[fill="#4ED8C2"] {
+    fill: var(--mist-blue);
+  }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════ */
+
+  @media (max-width: 768px) {
+    .mobo__board {
+      width: 400px;
+      height: 400px;
     }
-  }
 
-  @media (max-width: 640px) {
-    .features__grid {
-      grid-template-columns: 1fr;
+    .mobo__node {
+      width: 100px;
+    }
+
+    .mobo__node-title {
+      font-size: 0.75rem;
+    }
+
+    .mobo__node-desc {
+      display: none;
+    }
+
+    .mobo__chip-icon {
+      width: 34px;
+      height: 34px;
+    }
+
+    .mobo__chip-icon svg {
+      width: 16px;
+      height: 16px;
     }
   }
 
   @media (max-width: 480px) {
-    .features__card {
-      padding: var(--space-md);
+    .mobo__header h2 {
+      font-size: 2.25rem;
     }
 
-    .features__card-icon {
-      width: 32px;
-      height: 32px;
+    .mobo__board {
+      width: min(320px, calc(100vw - 2.5rem));
+      height: auto;
+      aspect-ratio: 1;
+      flex-shrink: 1;
     }
 
-    .features__card-title {
-      font-size: 1.125rem;
+    .mobo__node {
+      width: 80px;
     }
 
-    .features__card-desc {
-      font-size: 1rem;
+    .mobo__chip-icon {
+      width: 28px;
+      height: 28px;
     }
 
-    .features__sub {
-      font-size: 1rem;
+    .mobo__chip-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .mobo__node-title {
+      font-size: 0.6875rem;
+      overflow-wrap: break-word;
     }
   }
 </style>
+
+<script>
+  function initMoboAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initMoboAnimations, 100);
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+
+    gsap.set('.mobo__header, .mobo__board, .mobo__footer', {
+      visibility: 'visible',
+    });
+
+    /* Header */
+    gsap.fromTo('.mobo__header',
+      { y: 40, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '.mobo__header', start: 'top 85%' }
+      }
+    );
+
+    /* Board */
+    gsap.fromTo('.mobo__board',
+      { scale: 0.88, opacity: 0 },
+      {
+        scale: 1, opacity: 1, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.mobo__stage', start: 'top 75%' }
+      }
+    );
+
+    /* CPU chip */
+    gsap.fromTo('.mobo__cpu-g',
+      { scale: 0, opacity: 0, transformOrigin: '340px 340px' },
+      {
+        scale: 1, opacity: 1, duration: 0.6, delay: 0.3, ease: 'back.out(2)',
+        scrollTrigger: { trigger: '.mobo__stage', start: 'top 70%' }
+      }
+    );
+
+    /* Traces fade in */
+    gsap.fromTo('.mobo__pcb .mobo__in, .mobo__pcb .mobo__out',
+      { opacity: 0 },
+      {
+        opacity: 1, duration: 1.5, delay: 0.5, ease: 'power2.out',
+        scrollTrigger: { trigger: '.mobo__stage', start: 'top 70%' }
+      }
+    );
+
+    /* Nodes stagger */
+    gsap.fromTo('.mobo__node',
+      { opacity: 0, scale: 0.6 },
+      {
+        opacity: 1, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(1.6)',
+        scrollTrigger: { trigger: '.mobo__stage', start: 'top 65%' }
+      }
+    );
+
+    /* Footer */
+    gsap.fromTo('.mobo__footer',
+      { y: 20, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: '.mobo__footer', start: 'top 90%' }
+      }
+    );
+  }
+
+  document.addEventListener('DOMContentLoaded', initMoboAnimations);
+  document.addEventListener('astro:page-load', initMoboAnimations);
+</script>

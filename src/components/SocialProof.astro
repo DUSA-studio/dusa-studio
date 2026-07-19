@@ -115,20 +115,30 @@ const testimonials = [
   },
 ];
 
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const sp = t?.socialProof || {};
+const spLabel = sp.resultsLabel || 'Results That Speak';
+const spHeading = sp.heading || 'Businesses grow faster with';
+const spHeadingAccent = sp.headingAccent || 'AI and everything connected';
+
 const stats = [
-  { value: '5+', label: 'Tools replaced' },
-  { value: '2x', label: 'Faster follow-up' },
-  { value: '100%', label: 'AI-Automated' },
-  { value: '$800+', label: 'Saved monthly' },
-  { value: '< 48hrs', label: 'Setup time' },
+  { value: sp.stat1Value || '5+', label: sp.stat1Label || 'Tools replaced' },
+  { value: sp.stat2Value || '2x', label: sp.stat2Label || 'Faster follow-up' },
+  { value: sp.stat3Value || '100%', label: sp.stat3Label || 'AI-Automated' },
+  { value: sp.stat4Value || '$800+', label: sp.stat4Label || 'Saved monthly' },
+  { value: sp.stat5Value || '< 48hrs', label: sp.stat5Label || 'Setup time' },
 ];
 ---
 
 <section class="proof section section--dark" id="proof">
   <div class="container">
     <div class="proof__header reveal">
-      <span class="label">Results That Speak</span>
-      <h2>Businesses grow faster with <span class="gradient-text">AI and everything connected</span></h2>
+      <span class="label">{spLabel}</span>
+      <h2>{spHeading} <span class="gradient-text">{spHeadingAccent}</span></h2>
     </div>
 
     <div class="proof__stats reveal">
@@ -190,6 +200,7 @@ const stats = [
   .proof__stat {
     padding: var(--space-md);
     position: relative;
+    min-width: 0;
   }
 
   .proof__stat::after {
@@ -223,7 +234,6 @@ const stats = [
     color: rgba(247, 244, 239, 0.5);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    white-space: nowrap;
   }
 
   /* ─── CAROUSEL ─── */
@@ -302,6 +312,7 @@ const stats = [
     margin-bottom: 0;
     font-style: italic;
     flex: 1;
+    overflow-wrap: break-word;
   }
 
   .proof__bottom {
@@ -392,8 +403,22 @@ const stats = [
   }
 
   @media (max-width: 480px) {
+    .proof__stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xs);
+    }
+
     .proof__stat {
       padding: var(--space-sm);
+    }
+
+    /* Hide dividers on right-column items in 2-col layout */
+    .proof__stat:nth-child(even)::after {
+      display: none;
+    }
+
+    .proof__stat:last-child {
+      grid-column: 1 / -1;
     }
 
     .proof__stat-label {
@@ -417,5 +442,68 @@ const stats = [
     .proof__author-role {
       font-size: 0.75rem;
     }
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .proof__stat-value {
+    color: var(--deep-ocean);
+    text-shadow: none;
+  }
+
+  :global(html[data-theme="light"]) .proof__stat-label {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .proof__stat::after {
+    background: linear-gradient(to bottom, transparent, rgba(12, 14, 20, 0.08), transparent);
+  }
+
+  :global(html[data-theme="light"]) .proof__testimonial {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+    box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04);
+  }
+
+  :global(html[data-theme="light"]) .proof__testimonial:hover {
+    border-color: rgba(26, 58, 92, 0.15);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .proof__testimonial::before {
+    background: linear-gradient(90deg, transparent, rgba(26, 58, 92, 0.15), transparent);
+  }
+
+  :global(html[data-theme="light"]) .proof__quote {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .proof__star {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .proof__star--half {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .proof__star--empty {
+    color: rgba(26, 58, 92, 0.25);
+  }
+
+  :global(html[data-theme="light"]) .proof__author-avatar {
+    background: linear-gradient(135deg, var(--deep-ocean), var(--mist-blue));
+    color: var(--warm-white);
+  }
+
+  :global(html[data-theme="light"]) .proof__author-name {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .proof__author-role {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .proof__source {
+    color: rgba(12, 14, 20, 0.3);
   }
 </style>

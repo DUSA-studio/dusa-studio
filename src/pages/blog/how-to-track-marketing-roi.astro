@@ -1,0 +1,286 @@
+---
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+---
+
+<BlogPostLayout
+  title="How to track ROI on your marketing (without a data science degree)"
+  description="Learn how to track marketing ROI with simple formulas, UTM parameters, call tracking, and dashboards. A practical guide for small business owners who want real answers."
+  publishDate="2026-06-29"
+  author="Eliah Lade"
+  category="Tutorial"
+  readTime="7 min"
+  slug="how-to-track-marketing-roi"
+>
+
+<p>You are spending money on marketing. Google Ads, social media, email campaigns, maybe a bit of SEO. But when someone asks, "Is it working?" you hesitate. You feel like it is working. You think you are getting more enquiries than last quarter. But you do not actually know, because you have never tracked it properly.</p>
+
+<p>You are not alone. Most small business owners spend money on marketing with no reliable way to measure what comes back. They track likes and impressions, celebrate a bump in website traffic, and call it a win. But none of those things pay rent.</p>
+
+<p>The good news is that tracking your marketing ROI does not require a data science degree, a six-figure analytics budget, or a wall of screens in a war room. It requires a handful of simple tools, a few straightforward calculations, and the discipline to check them regularly.</p>
+
+<p>This guide will walk you through the entire process, from choosing the right metrics to building a simple dashboard you will actually use.</p>
+
+<div class="divider">...</div>
+
+<h2>Why most small businesses have no idea if their marketing works</h2>
+
+<p>The core problem is straightforward: most small businesses do not connect their marketing spend to their revenue. They know how much they spent on Google Ads last month. They know how much revenue came in. But they have no system for linking the two.</p>
+
+<p>There are a few reasons this happens:</p>
+
+<ul>
+  <li><strong>Too many tools, none of them talking to each other.</strong> Your ads run on one platform. Your website analytics sit in another. Your CRM (if you have one) is somewhere else entirely. Stitching the data together feels impossible.</li>
+  <li><strong>Vanity metrics feel good.</strong> A post got 500 likes. The website had 3,000 visitors this month. These numbers look impressive in a report, but they do not tell you whether anyone actually became a customer.</li>
+  <li><strong>Nobody taught you how.</strong> Business school (if you went) covered financial statements and organisational theory. It did not cover UTM parameters and attribution models.</li>
+  <li><strong>It feels complicated.</strong> When you hear terms like "multi-touch attribution" and "customer lifetime value," it sounds like something that belongs in a Fortune 500 boardroom, not your office.</li>
+</ul>
+
+<p>Here is the truth: the fundamentals are simple. You do not need to track everything perfectly. You need to track the right things well enough to make better decisions than you are making today. That bar is lower than you think.</p>
+
+<div class="divider">...</div>
+
+<h2>Metrics that matter vs. vanity metrics</h2>
+
+<p>Before you start tracking anything, you need to know what is worth tracking. Not all numbers are created equal. Some tell you whether your business is growing. Others just make you feel good.</p>
+
+<p><strong>Metrics that actually matter:</strong></p>
+
+<ul>
+  <li><strong>Cost per lead (CPL).</strong> How much you spend to generate one enquiry. If you spent $1,000 on Google Ads and got 20 leads, your cost per lead is $50. This tells you how efficiently your marketing turns money into opportunities.</li>
+  <li><strong>Cost per acquisition (CPA).</strong> How much you spend to win one paying customer. If those 20 leads turned into 5 clients, your cost per acquisition is $200. This is the number that matters most for budgeting.</li>
+  <li><strong>Conversion rate.</strong> The percentage of people who take a desired action. This could be visitors who fill out a form, leads who become clients, or email subscribers who book a call. Every step in your <a href="/blog/sales-funnel-small-business">sales funnel</a> has a conversion rate, and improving any one of them improves everything downstream.</li>
+  <li><strong>Customer lifetime value (CLV).</strong> How much a single customer is worth to your business over time, not just on their first purchase. If a client pays $200 per visit and comes back 12 times a year for 3 years, their lifetime value is $7,200. Knowing this changes how much you are willing to spend to acquire them.</li>
+</ul>
+
+<p><strong>Vanity metrics (track them if you like, but do not mistake them for results):</strong></p>
+
+<ul>
+  <li><strong>Likes and followers.</strong> A large social media following is nice, but it does not pay the bills unless those followers convert.</li>
+  <li><strong>Impressions.</strong> How many people saw your ad or post. Seeing is not acting.</li>
+  <li><strong>Website traffic (alone).</strong> A spike in traffic means nothing if none of those visitors enquire, book, or buy.</li>
+  <li><strong>Open rates (in isolation).</strong> Knowing people opened your <a href="/blog/email-marketing-small-business">email</a> is only useful if you also know what they did next.</li>
+</ul>
+
+<blockquote><p>The question is never "how many people saw it?" The question is "how many people did something because of it?"</p></blockquote>
+
+<h2>UTM parameters: the simplest tracking tool you are probably not using</h2>
+
+<p>UTM parameters are small tags you add to the end of a URL. They tell your analytics platform exactly where a visitor came from, which campaign sent them, and what they clicked on. They are free, simple to set up, and incredibly powerful.</p>
+
+<p>A UTM-tagged URL looks like this:</p>
+
+<p><strong>yourdomain.com/landing-page?utm_source=google&amp;utm_medium=cpc&amp;utm_campaign=winter-sale</strong></p>
+
+<p>There are five UTM parameters, but you only need three most of the time:</p>
+
+<ul>
+  <li><strong>utm_source:</strong> Where the traffic is coming from. Examples: google, facebook, newsletter, linkedin.</li>
+  <li><strong>utm_medium:</strong> The type of traffic. Examples: cpc (cost per click), email, social, organic.</li>
+  <li><strong>utm_campaign:</strong> The name of the specific campaign. Examples: winter-sale, new-client-offer, june-newsletter.</li>
+</ul>
+
+<p>Google has a free Campaign URL Builder that creates these links for you. You enter your URL and fill in the fields. It generates the tagged link. Use that link in your ads, emails, and social posts instead of the plain URL.</p>
+
+<p><strong>Naming conventions matter.</strong> If one campaign uses "facebook" as the source and another uses "Facebook" and a third uses "fb," your analytics will treat them as three separate sources. Pick a format and stick with it. Lowercase, no spaces, hyphens between words. Be consistent and your data will be clean.</p>
+
+<p>When someone clicks a UTM-tagged link, Google Analytics (or whatever analytics tool you use) records the source, medium, and campaign alongside everything else it tracks. Suddenly, you can see exactly which campaigns drive traffic, which drive leads, and which drive revenue.</p>
+
+<h2>Call tracking: because not every lead fills out a form</h2>
+
+<p>If your business gets phone calls (and most service businesses do), you have a blind spot. Someone sees your Google Ad, picks up the phone, and calls you directly. Without call tracking, you have no idea that the call came from the ad. You might attribute it to word of mouth. You might not attribute it at all.</p>
+
+<p>Call tracking solves this by assigning unique phone numbers to different marketing channels. The number on your Google Ad is different from the number on your Facebook page, which is different from the number on your website. All of them forward to your real business number. The customer does not notice any difference. But you know exactly which channel generated the call.</p>
+
+<p>Here is how to set it up:</p>
+
+<ul>
+  <li><strong>Get tracking numbers.</strong> Services like CallRail, WildJar (popular in Australia), or CallTrackingMetrics provide virtual phone numbers that forward to your real line.</li>
+  <li><strong>Assign one number per channel.</strong> One for Google Ads. One for your website. One for your Google Business Profile. One for print materials if you use them.</li>
+  <li><strong>Record and tag calls.</strong> Most call tracking platforms let you record calls (with proper disclosure) and tag them as qualified or unqualified. This feeds into your cost-per-lead calculations.</li>
+  <li><strong>Connect to your CRM.</strong> The best setups log calls directly in your <a href="/blog/marketing-automation-getting-started">CRM or marketing platform</a>, so you can track a lead from first call to closed deal without manual data entry.</li>
+</ul>
+
+<p>Call tracking typically costs between $30 and $100 per month, depending on how many numbers you need. For businesses that rely on phone enquiries, it is one of the highest-value investments you can make in your tracking stack.</p>
+
+<div class="divider">...</div>
+
+<h2>Attribution basics: who gets the credit?</h2>
+
+<p>A potential customer sees your Instagram post on Monday. Clicks a Google Ad on Wednesday. Opens your email on Friday. Calls you on Saturday and books. Which channel gets the credit for winning that customer?</p>
+
+<p>This is the attribution problem, and it has no perfect answer. But understanding the basics helps you make better decisions.</p>
+
+<p><strong>First-touch attribution</strong> gives all the credit to the first interaction. In the example above, Instagram gets the win. This model is useful for understanding which channels bring new people into your world.</p>
+
+<p><strong>Last-touch attribution</strong> gives all the credit to the final interaction before the conversion. Email gets the win. This model is useful for understanding which channels close deals.</p>
+
+<p><strong>Multi-touch attribution</strong> spreads the credit across multiple touchpoints. Each channel that played a role gets a share. This is more accurate but harder to implement.</p>
+
+<p>For most small businesses, here is the practical advice: use last-touch attribution as your default because it is the simplest and most actionable. The channel that directly drove the conversion is usually the most useful thing to know. But keep an eye on first-touch data too, because you need to know what fills the top of your funnel.</p>
+
+<blockquote><p>Perfect attribution is a myth. Good enough attribution that you actually use is far more valuable than a sophisticated model you never check.</p></blockquote>
+
+<h2>Setting up a simple dashboard</h2>
+
+<p>Data that lives in spreadsheets nobody opens is worthless. You need a dashboard: a single screen that shows you the numbers that matter, updated regularly, designed to be glanced at in under two minutes.</p>
+
+<p>Your dashboard should include:</p>
+
+<ul>
+  <li><strong>Total leads this month</strong> (broken down by source if possible).</li>
+  <li><strong>Cost per lead by channel.</strong> Which channel is cheapest? Which is most expensive?</li>
+  <li><strong>Conversion rate from lead to customer.</strong> Are you converting at a healthy rate, or are leads falling through the cracks?</li>
+  <li><strong>Total marketing spend.</strong> What went out the door this month across all channels?</li>
+  <li><strong>Revenue attributed to marketing.</strong> What came back?</li>
+  <li><strong>ROI by campaign.</strong> Which campaigns made money and which burned it?</li>
+</ul>
+
+<p>You can build this in Google Sheets, Google Looker Studio, or the reporting dashboard built into your marketing platform. The tool does not matter nearly as much as the habit. Set a time each week (Friday afternoon works well) to open the dashboard and review it. Monthly is the minimum. Weekly is better. Daily is overkill for most small businesses.</p>
+
+<p>If your <a href="/blog/landing-pages-that-convert">landing pages</a> are tagged with UTM parameters, your calls are tracked, and your CRM logs every lead, most of this data populates itself. The setup takes effort once. The payoff lasts as long as you run the business.</p>
+
+<h2>The cost-per-lead calculation</h2>
+
+<p>This is the single most important number most small businesses never calculate. It is also the simplest.</p>
+
+<p><strong>Cost per lead = Total marketing spend / Number of leads generated</strong></p>
+
+<p>If you spent $2,000 on Facebook Ads last month and generated 40 leads, your cost per lead is $50.</p>
+
+<p>But the number only becomes useful when you compare it across channels and over time. Maybe Facebook gives you leads at $50, but Google gives you leads at $35. Maybe your <a href="/blog/lead-generation-service-business">organic lead generation</a> produces leads at $10 once you factor in the time you invest in content.</p>
+
+<p>It becomes even more useful when you pair it with lead quality. A $50 Facebook lead that converts 10 percent of the time costs you $500 per customer. A $100 Google lead that converts 40 percent of the time costs you $250 per customer. The "expensive" channel is actually cheaper when you follow the maths through.</p>
+
+<p>This is why cost per lead alone is not enough. You also need cost per acquisition.</p>
+
+<h2>The ROI formula and how to use it</h2>
+
+<p>Marketing ROI answers one question: for every dollar you put in, how many dollars did you get back?</p>
+
+<p><strong>ROI = (Revenue from campaign - Cost of campaign) / Cost of campaign</strong></p>
+
+<p>If you spent $1,000 on a campaign and it generated $4,000 in revenue, your ROI is:</p>
+
+<p><strong>($4,000 - $1,000) / $1,000 = 3.0, or 300 percent.</strong></p>
+
+<p>For every dollar you spent, you got three dollars back in profit (before other business costs). That is a campaign worth scaling.</p>
+
+<p>A few things to keep in mind:</p>
+
+<ul>
+  <li><strong>Include all costs.</strong> Ad spend is obvious. But also count the cost of the landing page, the copywriter, the agency fee, and the time you spent managing it. Underestimating costs inflates your ROI and gives you false confidence.</li>
+  <li><strong>Use the right time window.</strong> Some campaigns generate revenue immediately. Others take weeks or months as leads move through your pipeline. A campaign that looks like a failure after two weeks might look like a winner after eight.</li>
+  <li><strong>Factor in lifetime value.</strong> If a client is worth $5,000 over their lifetime but only spends $500 on their first visit, measuring ROI based on the first visit alone dramatically undersells the campaign.</li>
+</ul>
+
+<blockquote><p>A positive ROI means the campaign made money. A negative ROI means it lost money. But the size of the ROI tells you where to invest more and where to cut.</p></blockquote>
+
+<div class="divider">...</div>
+
+<h2>Making decisions from data: when to kill, when to scale</h2>
+
+<p>Tracking is pointless if you do not act on what you find. The whole purpose of measuring ROI is to make better decisions about where to spend your next dollar.</p>
+
+<p><strong>When to kill a campaign:</strong></p>
+
+<ul>
+  <li>It has been running long enough to collect meaningful data (usually at least two to four weeks for paid campaigns) and the cost per acquisition is higher than the revenue per customer.</li>
+  <li>The leads are low quality. High volume at a low cost means nothing if none of them convert to paying clients.</li>
+  <li>You have tested variations (different headlines, audiences, offers) and nothing has improved the numbers.</li>
+</ul>
+
+<p><strong>When to scale a campaign:</strong></p>
+
+<ul>
+  <li>The ROI is positive and has been consistent for at least a month.</li>
+  <li>You have capacity to handle more leads without sacrificing service quality.</li>
+  <li>Increasing the budget by 20 to 30 percent does not dramatically increase your cost per lead. (If doubling your spend doubles your CPL, the channel is saturated.)</li>
+</ul>
+
+<p><strong>When to optimise (not kill, not scale):</strong></p>
+
+<ul>
+  <li>The campaign is close to breaking even. Small improvements in conversion rate or lead quality could tip it into profitability.</li>
+  <li>One part of the funnel is working well, but another is leaking. For example, the ads generate cheap clicks but the landing page does not convert. Fix the landing page before killing the ads.</li>
+</ul>
+
+<p>Review your data weekly and make decisions monthly. Do not react to every daily fluctuation. Marketing data is noisy in the short term. Give campaigns enough time to reveal patterns before you act.</p>
+
+<h2>Putting it all together</h2>
+
+<p>Here is the entire process in a simple checklist:</p>
+
+<ul>
+  <li>Tag every link with UTM parameters so you know where traffic comes from.</li>
+  <li>Set up call tracking so phone enquiries are attributed to the right channel.</li>
+  <li>Use a CRM or marketing platform that logs every lead and ties it back to a source.</li>
+  <li>Calculate cost per lead, cost per acquisition, and ROI for every campaign.</li>
+  <li>Build a simple dashboard and review it weekly.</li>
+  <li>Kill what does not work. Scale what does. Optimise what is close.</li>
+</ul>
+
+<p>None of this requires advanced technical skills. If you can add UTM tags to a link, read a spreadsheet, and do basic division, you have everything you need. The hardest part is not the maths. It is the discipline to track consistently and the willingness to let the numbers tell you things you might not want to hear.</p>
+
+<p>Your marketing should be an investment with a measurable return, not a guessing game. Start tracking today and you will make better decisions tomorrow.</p>
+
+<h2>Related reading</h2>
+
+<ul>
+  <li><a href="/blog/sales-funnel-small-business">Sales funnels for small business: a practical guide</a></li>
+  <li><a href="/blog/landing-pages-that-convert">Landing pages that convert: what actually works</a></li>
+  <li><a href="/blog/marketing-automation-getting-started">Getting started with marketing automation</a></li>
+</ul>
+
+<div class="blog-cta">
+  <h2>Stop guessing. Start measuring.</h2>
+  <p>DUSA gives you built-in analytics, call tracking, UTM attribution, and real-time dashboards in one platform. No stitching together five different tools. No spreadsheets. Just clear answers about what is working and what is not.</p>
+  <p><a href="/pricing">See our plans</a> or <a href="/contact">get in touch</a> to find out how DUSA can help you track every lead, every campaign, and every dollar.</p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to track ROI on your marketing (without a data science degree)",
+  "description": "A step-by-step guide for small business owners to track marketing ROI using UTM parameters, call tracking, attribution, dashboards, and simple formulas.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Identify the metrics that matter",
+      "text": "Focus on cost per lead, cost per acquisition, conversion rate, and customer lifetime value. Ignore vanity metrics like likes and impressions that do not connect to revenue."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Set up UTM parameters on all links",
+      "text": "Add utm_source, utm_medium, and utm_campaign tags to every marketing link using Google's Campaign URL Builder. Use consistent lowercase naming conventions."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Implement call tracking",
+      "text": "Assign unique tracking phone numbers to each marketing channel using a call tracking service. Connect the tracking to your CRM so calls are logged automatically."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Understand attribution models",
+      "text": "Use last-touch attribution as your default model for simplicity. Monitor first-touch data to understand which channels fill the top of your funnel."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Build a simple dashboard",
+      "text": "Create a single-screen dashboard showing total leads, cost per lead by channel, conversion rate, total spend, attributed revenue, and ROI by campaign. Review it weekly."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Calculate cost per lead and ROI",
+      "text": "Divide total marketing spend by leads generated for cost per lead. For ROI, use the formula: (Revenue from campaign minus Cost of campaign) divided by Cost of campaign."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Make data-driven decisions",
+      "text": "Kill campaigns with consistently negative ROI after sufficient testing. Scale campaigns with positive, consistent ROI. Optimise campaigns that are close to breaking even."
+    }
+  ]
+}
+</script>
+
+</BlogPostLayout>

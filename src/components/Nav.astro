@@ -1,42 +1,171 @@
 ---
 // Nav.astro — Sticky navigation with logo + CTA
+
+interface Props {
+  t?: Record<string, any>;
+}
+
+const { t = {} } = Astro.props;
+
+const n = t?.nav || {};
+const pricingLabel = n.pricing || 'Pricing';
+const servicesLabel = n.services || 'Services';
+const contactLabel = n.contact || 'Contact';
+const loginLabel = n.logIn || 'Log in';
+const getStartedLabel = n.getStarted || 'Get Started';
+const industriesLabel = n.industries || 'Industries';
+const regionLabel = n.region || 'Region';
+const themeLabel = n.theme || 'Theme';
+
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const industryLinks = [
+  { label: 'Real Estate', slug: '/industries/real-estate' },
+  { label: 'Gyms & Fitness', slug: '/industries/gyms' },
+  { label: 'Trades', slug: '/industries/tradies' },
+  { label: 'Restaurants', slug: '/industries/restaurants' },
+  { label: 'Salons & Spas', slug: '/industries/salons' },
+  { label: 'Accountants', slug: '/industries/accountants' },
+  { label: 'Dental Practices', slug: '/industries/dentists' },
+  { label: 'Photographers', slug: '/industries/photographers' },
+  { label: 'Construction', slug: '/industries/construction' },
+  { label: 'Personal Trainers', slug: '/industries/personal-trainers' },
+  { label: 'Cleaning Services', slug: '/industries/cleaning-services' },
+  { label: 'Law Firms', slug: '/industries/law-firms' },
+  { label: 'Property Managers', slug: '/industries/property-managers' },
+  { label: 'Auto Repair', slug: '/industries/auto-repair' },
+  { label: 'Coaches', slug: '/industries/coaches' },
+  { label: 'E-commerce', slug: '/industries/ecommerce' },
+];
 ---
 
 <nav class="nav" id="nav">
   <div class="nav__inner container">
     <a href="/" class="nav__logo">
-      <img class="nav__lotus" src="/dusa-logo-animated.webp" alt="DUSA logo" width="52" height="52" />
-      <span class="nav__logo-text">DUSA <span class="nav__logo-dot">.</span> studio</span>
+      <span class="nav__logo-text">
+        <span class="nav__logo-shimmer">DUSA</span>
+        <span class="nav__logo-dot" aria-hidden="true">.</span>
+        <span class="nav__logo-shimmer">studio</span>
+      </span>
     </a>
 
     <div class="nav__links">
-      <a href="/pricing" class={`nav__link ${currentPath === '/pricing' ? 'nav__link--active' : ''}`}>Pricing</a>
-      <a href="/about" class={`nav__link ${currentPath === '/about' ? 'nav__link--active' : ''}`}>About</a>
-      <a href="/blog" class={`nav__link ${currentPath.startsWith('/blog') ? 'nav__link--active' : ''}`}>Blog</a>
-      <a href="/contact" class={`nav__link ${currentPath === '/contact' ? 'nav__link--active' : ''}`}>Contact</a>
+      <a href="/pricing" data-page="pricing" class={`nav__link ${currentPath === '/pricing' ? 'nav__link--active' : ''}`}>{pricingLabel}</a>
+      <a href="/services" data-page="services" class={`nav__link ${currentPath === '/services' ? 'nav__link--active' : ''}`}>{servicesLabel}</a>
+      <div class="nav__dropdown-wrap" id="industries-wrap">
+        <button class={`nav__link nav__link--dropdown ${currentPath.startsWith('/industries') ? 'nav__link--active' : ''}`} id="industries-toggle" aria-expanded="false" aria-haspopup="true">
+          {industriesLabel}
+          <svg class="nav__dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav__dropdown" id="industries-dropdown">
+          <div class="nav__dropdown-grid">
+            {industryLinks.map((ind) => (
+              <a href={ind.slug} data-page={ind.slug.replace(/^\//, '')} class="nav__dropdown-item">{ind.label}</a>
+            ))}
+          </div>
+          <div class="nav__dropdown-footer">
+            <a href="/industries" data-page="industries" class="nav__dropdown-all">View all industries &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <a href="/contact" data-page="contact" class={`nav__link ${currentPath === '/contact' ? 'nav__link--active' : ''}`}>{contactLabel}</a>
     </div>
 
     <div class="nav__right">
-      <a href="https://app.dusa.studio" class="nav__login" target="_blank" rel="noopener">Log in</a>
-      <a href="/contact" class="btn btn--primary nav__cta">Book a Demo</a>
+      <a href="https://app.dusa.studio" class="nav__login" target="_blank" rel="noopener noreferrer">{loginLabel}</a>
+      <div class="nav__region-wrap" id="region-wrap">
+        <button class="nav__region-btn" id="region-toggle" aria-label="Select region and language" title="Region">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </button>
+        <div class="nav__region-dropdown" id="region-dropdown">
+          <div class="nav__region-label">{regionLabel}</div>
+          <button class="nav__region-option" data-region="au"><span class="nav__region-flag">🇦🇺</span> Australia <span class="nav__region-currency">AUD</span></button>
+          <button class="nav__region-option" data-region="us"><span class="nav__region-flag">🇺🇸</span> United States <span class="nav__region-currency">USD</span></button>
+          <button class="nav__region-option" data-region="uk"><span class="nav__region-flag">🇬🇧</span> United Kingdom <span class="nav__region-currency">GBP</span></button>
+          <div class="nav__region-divider"></div>
+          <button class="nav__region-option" data-region="es"><span class="nav__region-flag">🇪🇸</span> España <span class="nav__region-currency">EUR</span></button>
+          <button class="nav__region-option" data-region="mx"><span class="nav__region-flag">🇲🇽</span> México <span class="nav__region-currency">MXN</span></button>
+          <button class="nav__region-option" data-region="br"><span class="nav__region-flag">🇧🇷</span> Brasil <span class="nav__region-currency">BRL</span></button>
+          <button class="nav__region-option" data-region="fr"><span class="nav__region-flag">🇫🇷</span> France <span class="nav__region-currency">EUR</span></button>
+          <button class="nav__region-option" data-region="de"><span class="nav__region-flag">🇩🇪</span> Deutschland <span class="nav__region-currency">EUR</span></button>
+        </div>
+      </div>
+      <a href="/start" class="btn btn--primary nav__cta">{getStartedLabel}</a>
+      <button class="nav__theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
+        <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
     </div>
 
-    <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav__mobile-bar">
+      <a href="https://app.dusa.studio" class="nav__mobile-login" target="_blank" rel="noopener noreferrer">{loginLabel}</a>
+      <button class="nav__theme-toggle nav__theme-toggle--bar" id="bar-theme-toggle" aria-label="Toggle light/dark mode">
+        <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <button class="nav__mobile-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile Menu -->
   <div class="nav__mobile" id="nav-mobile">
-    <a href="/pricing" class={`nav__mobile-link ${currentPath === '/pricing' ? 'nav__mobile-link--active' : ''}`}>Pricing</a>
-    <a href="/about" class={`nav__mobile-link ${currentPath === '/about' ? 'nav__mobile-link--active' : ''}`}>About</a>
-    <a href="/blog" class={`nav__mobile-link ${currentPath.startsWith('/blog') ? 'nav__mobile-link--active' : ''}`}>Blog</a>
-    <a href="/contact" class={`nav__mobile-link ${currentPath === '/contact' ? 'nav__mobile-link--active' : ''}`}>Contact</a>
-    <a href="https://app.dusa.studio" class="nav__mobile-link" target="_blank" rel="noopener">Log in</a>
-    <a href="/contact" class="btn btn--primary" style="width:100%;margin-top:1rem;">Book a Demo</a>
+    <a href="/pricing" data-page="pricing" class={`nav__mobile-link ${currentPath === '/pricing' ? 'nav__mobile-link--active' : ''}`}>{pricingLabel}</a>
+    <a href="/services" data-page="services" class={`nav__mobile-link ${currentPath === '/services' ? 'nav__mobile-link--active' : ''}`}>{servicesLabel}</a>
+    <div class="nav__mobile-accordion" id="mobile-industries">
+      <button class={`nav__mobile-link nav__mobile-link--accordion ${currentPath.startsWith('/industries') ? 'nav__mobile-link--active' : ''}`} id="mobile-industries-toggle">
+        {industriesLabel}
+        <svg class="nav__mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="nav__mobile-sub" id="mobile-industries-sub">
+        {industryLinks.map((ind) => (
+          <a href={ind.slug} data-page={ind.slug.replace(/^\//, '')} class="nav__mobile-sub-link">{ind.label}</a>
+        ))}
+        <a href="/industries" data-page="industries" class="nav__mobile-sub-link nav__mobile-sub-link--all">View all &rarr;</a>
+      </div>
+    </div>
+    <a href="/contact" data-page="contact" class={`nav__mobile-link ${currentPath === '/contact' ? 'nav__mobile-link--active' : ''}`}>{contactLabel}</a>
+    <a href="https://app.dusa.studio" class="nav__mobile-link" target="_blank" rel="noopener noreferrer">{loginLabel}</a>
+    <div class="nav__mobile-region" id="mobile-region">
+      <span class="nav__mobile-theme-label">{regionLabel}</span>
+      <select class="nav__region-select" id="mobile-region-select">
+        <option value="au">🇦🇺 Australia (AUD)</option>
+        <option value="us">🇺🇸 USA (USD)</option>
+        <option value="uk">🇬🇧 UK (GBP)</option>
+        <option value="es">🇪🇸 España (EUR)</option>
+        <option value="mx">🇲🇽 México (MXN)</option>
+        <option value="br">🇧🇷 Brasil (BRL)</option>
+        <option value="fr">🇫🇷 France (EUR)</option>
+        <option value="de">🇩🇪 Deutschland (EUR)</option>
+      </select>
+    </div>
+    <div class="nav__mobile-theme" id="mobile-theme-toggle">
+      <span class="nav__mobile-theme-label">{themeLabel}</span>
+      <button class="nav__theme-toggle nav__theme-toggle--mobile" aria-label="Toggle light/dark mode">
+        <svg class="nav__theme-icon nav__theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="nav__theme-icon nav__theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+    </div>
+    <a href="/start" class="btn btn--primary nav__mobile-cta">{getStartedLabel}</a>
   </div>
 </nav>
 
@@ -76,40 +205,58 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   .nav__logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
     font-family: var(--font-headline);
-    font-weight: 600;
-    font-size: 1.5rem;
+    font-weight: 700;
+    font-size: 1.75rem;
     color: var(--warm-white);
     transition: opacity var(--duration-fast);
   }
 
   .nav__logo:hover {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 
-  .nav__lotus {
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    transition: transform var(--duration-normal);
-  }
-
-  .nav__logo:hover .nav__lotus {
-    transform: scale(1.05);
+  .nav__logo-text {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   .nav__logo-dot {
     color: var(--reef-aqua);
+    font-weight: 700;
+    margin: 0 -0.05rem;
+  }
+
+  /* Shimmer sweep animation */
+  @keyframes shimmerSweep {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .nav__logo-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--mist-blue) 0%,
+      var(--mist-blue) 35%,
+      var(--reef-aqua) 50%,
+      var(--mist-blue) 65%,
+      var(--mist-blue) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmerSweep 4s ease-in-out infinite;
   }
 
   .nav__links {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0.75rem, 1.8vw, 2rem);
+    padding: 0 1rem;
   }
 
   .nav__link {
@@ -119,6 +266,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     color: rgba(247, 244, 239, 0.7);
     transition: color var(--duration-fast);
     position: relative;
+    white-space: nowrap;
   }
 
   .nav__link::after {
@@ -148,10 +296,162 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     width: 100%;
   }
 
+  /* ─── Industries Dropdown ─── */
+  .nav__dropdown-wrap {
+    position: relative;
+  }
+
+  .nav__link--dropdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+  }
+
+  .nav__dropdown-chevron {
+    transition: transform var(--duration-fast);
+    flex-shrink: 0;
+  }
+
+  .nav__dropdown-wrap.is-open .nav__dropdown-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav__dropdown {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    background: rgba(12, 14, 20, 0.88);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    border: 1px solid rgba(78, 216, 194, 0.1);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-md);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--duration-fast), visibility var(--duration-fast), transform var(--duration-fast);
+    transform: translateX(-50%) translateY(8px);
+    z-index: 1001;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(247, 244, 239, 0.03) inset,
+      0 1px 0 rgba(247, 244, 239, 0.04) inset;
+  }
+
+  .nav__dropdown-wrap.is-open .nav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .nav__dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.125rem;
+  }
+
+  .nav__dropdown-item {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.6);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm, 6px);
+    transition: background var(--duration-fast), color var(--duration-fast), transform var(--duration-fast);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav__dropdown-item:hover {
+    background: rgba(78, 216, 194, 0.1);
+    color: var(--reef-aqua);
+    transform: translateX(2px);
+  }
+
+  .nav__dropdown-footer {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid rgba(78, 216, 194, 0.08);
+    text-align: center;
+  }
+
+  .nav__dropdown-all {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    transition: opacity var(--duration-fast);
+  }
+
+  .nav__dropdown-all:hover {
+    opacity: 0.8;
+  }
+
+  /* ─── Mobile Industries Accordion ─── */
+  .nav__mobile-accordion {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav__mobile-link--accordion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav__mobile-chevron {
+    transition: transform var(--duration-fast);
+    flex-shrink: 0;
+  }
+
+  .nav__mobile-accordion.is-open .nav__mobile-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav__mobile-sub {
+    display: none;
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .nav__mobile-accordion.is-open .nav__mobile-sub {
+    display: flex;
+  }
+
+  .nav__mobile-sub-link {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.55);
+    padding: 0.4rem 0;
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .nav__mobile-sub-link:hover {
+    color: var(--warm-white);
+  }
+
+  .nav__mobile-sub-link--all {
+    color: var(--reef-aqua);
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+
   .nav__right {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .nav__login {
@@ -161,6 +461,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     color: rgba(247, 244, 239, 0.6);
     transition: color var(--duration-fast);
     white-space: nowrap;
+    margin-right: 0.25rem;
   }
 
   .nav__login:hover {
@@ -175,8 +476,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   .nav__mobile-toggle {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 5px;
-    padding: 4px;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .nav__mobile-toggle span {
@@ -186,14 +492,34 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     background: var(--warm-white);
     transition: all var(--duration-fast);
     border-radius: 2px;
+    transform-origin: center;
+  }
+
+  /* Animate hamburger to X when menu is open */
+  .nav__mobile-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav__mobile-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav__mobile-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   .nav__mobile {
     display: none;
     flex-direction: column;
     padding: var(--space-md);
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
     background: rgba(12, 14, 20, 0.98);
     border-top: 1px solid rgba(247, 244, 239, 0.06);
+    max-height: calc(100vh - var(--nav-height));
+    max-height: calc(100dvh - var(--nav-height));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .nav__mobile.active {
@@ -206,6 +532,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     font-size: 1.125rem;
     color: rgba(247, 244, 239, 0.7);
     padding: 0.75rem 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(247, 244, 239, 0.06);
     transition: color var(--duration-fast);
   }
@@ -218,28 +547,339 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     color: var(--reef-aqua);
   }
 
-  @media (max-width: 1024px) {
-    .nav__links {
-      gap: 1.25rem;
+  @media (max-width: 1200px) {
+    .nav__right {
+      gap: 0.5rem;
     }
 
     .nav__link {
       font-size: 0.9375rem;
     }
 
-    .nav__cta {
-      font-size: 0.9375rem;
-      padding: 0.625rem 1.25rem;
+    .nav__login {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nav__link {
+      font-size: 0.8125rem;
     }
 
-    .nav__lotus {
-      width: 44px;
-      height: 44px;
+    .nav__cta {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
     }
 
     .nav__logo {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
     }
+
+    .nav__login {
+      font-size: 0.75rem;
+    }
+
+    .nav__right {
+      gap: 0.375rem;
+    }
+  }
+
+  /* ─── REGION SELECTOR ─── */
+  .nav__region-wrap {
+    position: relative;
+  }
+
+  .nav__region-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(247, 244, 239, 0.06);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    color: rgba(247, 244, 239, 0.6);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav__region-btn:hover {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.25);
+    color: var(--reef-aqua);
+    transform: scale(1.08);
+  }
+
+  .nav__region-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 220px;
+    background: rgba(12, 14, 20, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+  }
+
+  .nav__region-dropdown.active {
+    display: block;
+  }
+
+  .nav__region-label {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(247, 244, 239, 0.3);
+    padding: 0.375rem 0.75rem 0.25rem;
+  }
+
+  .nav__region-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.7);
+    transition: all var(--duration-fast);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .nav__region-option:hover {
+    background: rgba(78, 216, 194, 0.08);
+    color: var(--warm-white);
+  }
+
+  .nav__region-option--active {
+    background: rgba(78, 216, 194, 0.12);
+    color: var(--reef-aqua);
+  }
+
+  .nav__region-flag {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .nav__region-currency {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: rgba(247, 244, 239, 0.35);
+    letter-spacing: 0.05em;
+  }
+
+  .nav__region-divider {
+    height: 1px;
+    background: rgba(247, 244, 239, 0.06);
+    margin: 0.25rem 0.75rem;
+  }
+
+  /* Light mode region selector */
+  :global(html[data-theme="light"]) .nav__region-btn {
+    background: rgba(12, 14, 20, 0.06);
+    border-color: rgba(12, 14, 20, 0.12);
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-btn:hover {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.25);
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-dropdown {
+    background: rgba(247, 244, 239, 0.95);
+    border-color: rgba(12, 14, 20, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-label {
+    color: rgba(12, 14, 20, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-option {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-option:hover {
+    background: rgba(26, 58, 92, 0.06);
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-option--active {
+    background: rgba(26, 58, 92, 0.08);
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-currency {
+    color: rgba(12, 14, 20, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-divider {
+    background: rgba(12, 14, 20, 0.08);
+  }
+
+  /* ─── MOBILE REGION ─── */
+  .nav__mobile-region {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .nav__region-select {
+    background: rgba(247, 244, 239, 0.06);
+    border: 1px solid rgba(247, 244, 239, 0.15);
+    border-radius: 8px;
+    color: rgba(247, 244, 239, 0.7);
+    font-size: 0.875rem;
+    padding: 0.375rem 2rem 0.375rem 0.75rem;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(247,244,239,0.5)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    min-height: 44px;
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-region {
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .nav__region-select {
+    background: rgba(12, 14, 20, 0.06);
+    border-color: rgba(12, 14, 20, 0.15);
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  /* ─── THEME TOGGLE ─── */
+  .nav__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(247, 244, 239, 0.06);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    color: rgba(247, 244, 239, 0.6);
+    transition: all var(--duration-fast) var(--ease-out);
+    cursor: pointer;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav__theme-toggle:hover {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.25);
+    color: var(--reef-aqua);
+    transform: scale(1.08);
+  }
+
+  /* Show moon by default (dark mode), hide sun */
+  .nav__theme-icon--sun {
+    display: none;
+  }
+
+  .nav__theme-icon--moon {
+    display: block;
+  }
+
+  /* In light mode: show sun, hide moon */
+  :global(html[data-theme="light"]) .nav__theme-icon--sun {
+    display: block;
+  }
+
+  :global(html[data-theme="light"]) .nav__theme-icon--moon {
+    display: none;
+  }
+
+  /* Light mode toggle styling */
+  :global(html[data-theme="light"]) .nav__theme-toggle {
+    background: rgba(12, 14, 20, 0.06);
+    border-color: rgba(12, 14, 20, 0.12);
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .nav__theme-toggle:hover {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.25);
+    color: var(--deep-ocean);
+  }
+
+  /* ─── MOBILE BAR (Login + Theme + Burger) ─── */
+  .nav__mobile-bar {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav__mobile-login {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.6);
+    transition: color var(--duration-fast);
+    white-space: nowrap;
+    padding: 0.625rem 0.5rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav__mobile-login:hover {
+    color: var(--reef-aqua);
+  }
+
+  .nav__theme-toggle--bar {
+    width: 44px;
+    height: 44px;
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-login {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-login:hover {
+    color: var(--deep-ocean);
+  }
+
+  /* ─── MOBILE THEME ROW ─── */
+  .nav__mobile-theme {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .nav__mobile-theme-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-theme-label {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-theme {
+    border-bottom-color: rgba(12, 14, 20, 0.08);
   }
 
   @media (max-width: 768px) {
@@ -248,9 +888,143 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       display: none;
     }
 
+    .nav__mobile-bar {
+      display: flex;
+    }
+
     .nav__mobile-toggle {
       display: flex;
     }
+
+    .nav__region-wrap {
+      display: none;
+    }
+
+    /* Hide Login + Theme from dropdown — they're in the top bar now */
+    .nav__mobile-link[href="https://app.dusa.studio"] {
+      display: none;
+    }
+
+    .nav__mobile-theme {
+      display: none;
+    }
+  }
+
+  /* ─── LIGHT MODE — SCROLLED NAV & MOBILE MENU ─── */
+  :global(html[data-theme="light"]) .nav--scrolled {
+    background: rgba(247, 244, 239, 0.9);
+    border-bottom: 1px solid rgba(12, 14, 20, 0.06);
+    box-shadow:
+      0 4px 30px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(12, 14, 20, 0.04);
+  }
+
+  :global(html[data-theme="light"]) .nav__link {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .nav__link:hover {
+    color: rgba(12, 14, 20, 0.95);
+  }
+
+  :global(html[data-theme="light"]) .nav__link--active {
+    color: rgba(12, 14, 20, 0.95);
+  }
+
+  :global(html[data-theme="light"]) .nav__dropdown {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    border-color: rgba(12, 14, 20, 0.08);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(12, 14, 20, 0.02) inset;
+  }
+
+  :global(html[data-theme="light"]) .nav__dropdown-item {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .nav__dropdown-item:hover {
+    background: rgba(26, 58, 92, 0.06);
+    color: var(--deep-ocean);
+    transform: translateX(2px);
+  }
+
+  :global(html[data-theme="light"]) .nav__dropdown-footer {
+    border-top-color: rgba(0, 0, 0, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-sub-link {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-sub-link:hover {
+    color: rgba(12, 14, 20, 0.95);
+  }
+
+  :global(html[data-theme="light"]) .nav__login {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .nav__login:hover {
+    color: var(--reef-aqua);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile {
+    background: rgba(247, 244, 239, 0.98);
+    border-top: 1px solid rgba(12, 14, 20, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-link {
+    color: rgba(12, 14, 20, 0.7);
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-link:hover {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-link--active {
+    color: var(--deep-ocean);
+    font-weight: 600;
+  }
+
+  :global(html[data-theme="light"]) .nav__mobile-toggle span {
+    background: var(--deep-black);
+  }
+
+  /* ─── MOBILE CTA ─── */
+  .nav__mobile-cta {
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+  /* ─── REGION DROPDOWN MOBILE POSITIONING ─── */
+  @media (max-width: 768px) {
+    .nav__region-dropdown {
+      position: fixed;
+      top: var(--nav-height);
+      left: var(--space-md);
+      right: var(--space-md);
+      min-width: unset;
+    }
+  }
+
+  /* ─── MOBILE REGION SELECT TOUCH TARGET ─── */
+  .nav__mobile-region {
+    min-height: 44px;
+  }
+
+  .nav__region-select {
+    min-height: 44px;
+  }
+
+  /* ─── REGION OPTION TOUCH TARGETS ─── */
+  .nav__region-option {
+    min-height: 44px;
   }
 </style>
 
@@ -266,12 +1040,231 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   const mobile = document.getElementById('nav-mobile');
   toggle?.addEventListener('click', () => {
     mobile?.classList.toggle('active');
+    toggle?.classList.toggle('active');
   });
 
-  // Close mobile menu on link click
-  document.querySelectorAll('.nav__mobile-link').forEach(link => {
+  // Close mobile menu on link click (but NOT the accordion toggle)
+  document.querySelectorAll('.nav__mobile-link:not(.nav__mobile-link--accordion)').forEach(link => {
     link.addEventListener('click', () => {
       mobile?.classList.remove('active');
+      toggle?.classList.remove('active');
     });
   });
+  // Also close menu when clicking a sub-link inside the accordion
+  document.querySelectorAll('.nav__mobile-sub-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobile?.classList.remove('active');
+      toggle?.classList.remove('active');
+    });
+  });
+
+  // ─── INDUSTRIES DROPDOWN (Desktop) ───
+  const indWrap = document.getElementById('industries-wrap');
+  const indToggle = document.getElementById('industries-toggle');
+  indToggle?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    indWrap?.classList.toggle('is-open');
+    indToggle?.setAttribute('aria-expanded', indWrap?.classList.contains('is-open') ? 'true' : 'false');
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (indWrap && !indWrap.contains(e.target as Node)) {
+      indWrap.classList.remove('is-open');
+      indToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && indWrap?.classList.contains('is-open')) {
+      indWrap.classList.remove('is-open');
+      indToggle?.setAttribute('aria-expanded', 'false');
+      indToggle?.focus();
+    }
+  });
+
+  // ─── INDUSTRIES ACCORDION (Mobile) ───
+  const mobileIndWrap = document.getElementById('mobile-industries');
+  const mobileIndToggle = document.getElementById('mobile-industries-toggle');
+  mobileIndToggle?.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    mobileIndWrap?.classList.toggle('is-open');
+    mobileIndToggle?.setAttribute('aria-expanded', mobileIndWrap?.classList.contains('is-open') ? 'true' : 'false');
+  });
+
+  // ─── REGION SELECTOR ───
+  const regionToggle = document.getElementById('region-toggle');
+  const regionDropdown = document.getElementById('region-dropdown');
+
+  // Known regions and which pages each has
+  const regionPrefixes = ['au','us','uk','es','mx','br','fr','de'];
+  const regionPages = {
+    au: ['pricing','services','about','blog','contact','onboarding','start','privacy-policy','terms','thank-you','industries'],
+    us: ['pricing'],
+    uk: ['pricing'],
+    es: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
+    mx: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
+    br: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
+    fr: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
+    de: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
+  };
+
+  // Detect current region and page path from URL
+  function parseCurrentPath() {
+    const path = window.location.pathname.replace(/\/$/, '') || '';
+    const segments = path.split('/').filter(Boolean);
+    // Check if the first segment is a known region prefix
+    if (segments.length > 0 && regionPrefixes.includes(segments[0]) && segments[0] !== 'au') {
+      const currentRegion = segments[0];
+      const pagePath = segments.slice(1).join('/') || 'index';
+      return { region: currentRegion, page: pagePath };
+    }
+    // Default region (au) — pages are at root
+    const pagePath = segments.join('/') || 'index';
+    return { region: 'au', page: pagePath };
+  }
+
+  // Build new URL for target region, keeping the same page where possible
+  function buildRegionUrl(targetRegion, currentPage) {
+    const targetPages = regionPages[targetRegion] || [];
+    // Determine the base page name (e.g., 'blog/some-post' → check 'blog')
+    const basePage = currentPage.split('/')[0] || 'index';
+    const pageExists = targetPages.includes(basePage);
+    // For blog posts specifically, check if the region has a blog directory
+    const isBlogPost = currentPage.startsWith('blog/');
+
+    let targetPage;
+    if (pageExists || (isBlogPost && targetPages.includes('blog'))) {
+      targetPage = currentPage;
+    } else {
+      // Fallback: go to the same page the region supports, or its root
+      if (targetPages.includes('pricing')) {
+        targetPage = 'pricing';
+      } else {
+        targetPage = 'index';
+      }
+    }
+
+    if (targetRegion === 'au') {
+      // AU pages are at root
+      if (targetPage === 'index') return '/';
+      return '/' + targetPage;
+    }
+    // All other regions are prefixed
+    if (targetPage === 'index') return '/' + targetRegion + '/';
+    return '/' + targetRegion + '/' + targetPage;
+  }
+
+  function switchRegion(targetRegion) {
+    const { region: currentRegion, page: currentPage } = parseCurrentPath();
+    if (targetRegion === currentRegion) return;
+    const newUrl = buildRegionUrl(targetRegion, currentPage);
+    window.location.href = newUrl;
+  }
+
+  regionToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    regionDropdown?.classList.toggle('active');
+  });
+
+  // Desktop region buttons
+  document.querySelectorAll('.nav__region-option').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const region = btn.getAttribute('data-region');
+      if (region) switchRegion(region);
+    });
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('region-wrap')?.contains(e.target)) {
+      regionDropdown?.classList.remove('active');
+    }
+  });
+
+  // Highlight current region and update nav links for the active region
+  (function initRegionState() {
+    const { region } = parseCurrentPath();
+    // Highlight active region in dropdown
+    document.querySelectorAll('.nav__region-option').forEach(btn => {
+      if (btn.getAttribute('data-region') === region) {
+        btn.classList.add('nav__region-option--active');
+      }
+    });
+    const mobileSel = document.getElementById('mobile-region-select');
+    if (mobileSel) mobileSel.value = region;
+
+    // Rewrite nav links to point to the correct regional paths
+    const prefix = (region === 'au') ? '' : '/' + region;
+    const pages = regionPages[region] || [];
+    document.querySelectorAll('[data-page]').forEach(link => {
+      const page = link.getAttribute('data-page');
+      // Special case: "home" links to the region root
+      if (page === 'home') {
+        const hash = link.getAttribute('data-hash') || '';
+        link.href = ((region === 'au') ? '/' : '/' + region + '/') + hash;
+        return;
+      }
+      // For nested paths like "industries/real-estate", check the base segment
+      const basePage = page.split('/')[0] || page;
+      if (pages.includes(basePage) || region === 'au') {
+        link.href = prefix + '/' + page;
+      } else {
+        // Page doesn't exist in this region, link to root AU version
+        link.href = '/' + page;
+      }
+    });
+
+    // Also update the logo link to the region root
+    const logoLink = document.querySelector('.nav__logo');
+    if (logoLink) {
+      logoLink.href = (region === 'au') ? '/' : '/' + region + '/';
+    }
+
+    // Update the Get Started CTA link
+    const ctaLink = document.querySelector('.nav__cta');
+    if (ctaLink && region !== 'au' && pages.includes('start')) {
+      ctaLink.href = prefix + '/start';
+    }
+  })();
+
+  // Mobile region select
+  const mobileRegionSelect = document.getElementById('mobile-region-select');
+  mobileRegionSelect?.addEventListener('change', (e) => {
+    switchRegion(e.target.value);
+  });
+
+  // ─── THEME TOGGLE ───
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isLight = html.getAttribute('data-theme') === 'light';
+    const mc = document.querySelector('meta[name="theme-color"]');
+
+    if (isLight) {
+      html.removeAttribute('data-theme');
+      localStorage.setItem('dusa-theme', 'dark');
+      if (mc) mc.setAttribute('content', '#0C0E14');
+    } else {
+      html.setAttribute('data-theme', 'light');
+      localStorage.setItem('dusa-theme', 'light');
+      if (mc) mc.setAttribute('content', '#F7F4EF');
+    }
+  }
+
+  // Desktop toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle?.addEventListener('click', toggleTheme);
+
+  // Mobile dropdown toggle
+  const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+  const mobileThemeBtn = mobileThemeToggle?.querySelector('.nav__theme-toggle');
+  mobileThemeBtn?.addEventListener('click', toggleTheme);
+
+  // Mobile bar toggle (top nav)
+  const barThemeToggle = document.getElementById('bar-theme-toggle');
+  barThemeToggle?.addEventListener('click', toggleTheme);
 </script>

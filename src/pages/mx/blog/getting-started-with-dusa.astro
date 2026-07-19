@@ -1,0 +1,167 @@
+---
+import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
+---
+
+<BlogPostLayout
+  title="Primeros pasos con DUSA: guía de configuración paso a paso"
+  description="Una guía práctica de incorporación para configurar tu plataforma DUSA. Desde el registro hasta el envío de tu primera campaña, aquí tienes todo lo que necesitas para ponerte en marcha."
+  publishDate="2026-03-20"
+  author="Eliah Lade"
+  category="Getting Started"
+  readTime="8 min"
+  slug="getting-started-with-dusa"
+>
+
+<p>Te registraste. Estás mirando el panel de control. Y ahora te preguntas: ¿por dónde empiezo?</p>
+
+<p>Esa es la pregunta más común que escuchamos de los nuevos usuarios de DUSA, y es una pregunta válida. La plataforma hace mucho. CRM, automatizaciones, páginas de destino, campañas de correo electrónico, gestión de reseñas, calendarios, pipelines. Cuando todo está disponible a la vez, determinar el orden correcto es importante.</p>
+
+<p>Esta guía te lleva por la configuración inicial en una secuencia lógica. Síguelo paso a paso y pasarás de una cuenta en blanco a un sistema funcional que captura prospectos, hace seguimiento automáticamente y comienza a generar reseñas. Todo en una sesión si tienes ambición, o distribuido en algunos días si eso te conviene mejor.</p>
+
+<div class="divider">...</div>
+
+<h2>Paso 1: Configura tu perfil de negocio</h2>
+
+<p>Antes que nada, organiza tu base. Ve a <strong>Configuración</strong> y completa los detalles de tu negocio. Esto incluye el nombre de tu empresa, número de teléfono, dirección, URL del sitio web y zona horaria. Estos detalles fluyen hacia cada plantilla, automatización y página que construyas más adelante, así que hacerlos bien ahora te ahorra tener que corregirlos en todos lados después.</p>
+
+<p>Sube tu logotipo mientras estás aquí. Si tienes colores de marca, anótalos. Los usarás al construir páginas de destino y plantillas de correo electrónico en breve.</p>
+
+<p>Este paso toma cinco minutos. No lo omitas.</p>
+
+<h2>Paso 2: Conecta tus canales de comunicación</h2>
+
+<p>DUSA funciona mejor cuando todas tus conversaciones viven en un solo lugar. Conecta los canales que tus clientes ya usan para contactarte.</p>
+
+<ul>
+  <li><strong>Correo electrónico:</strong> Conecta tu correo empresarial para poder enviar y recibir directamente desde la plataforma. Esto también impulsa tus campañas de correo y secuencias automatizadas.</li>
+  <li><strong>SMS:</strong> Configura tu número de teléfono para mensajes de texto. Muchas pequeñas empresas encuentran que el SMS tiene las tasas de apertura más altas de cualquier canal.</li>
+  <li><strong>Google My Business:</strong> Vincula tu perfil de GMB para que las reseñas y mensajes fluyan hacia tu bandeja de entrada.</li>
+  <li><strong>Facebook e Instagram:</strong> Conecta tus cuentas sociales para gestionar mensajes directos y comentarios sin cambiar de aplicación.</li>
+</ul>
+
+<p>No necesitas conectar todo hoy. Comienza con correo electrónico y SMS. Esos dos solos cubren la mayor parte de la comunicación con clientes para negocios de servicios.</p>
+
+<div class="divider">...</div>
+
+<h2>Paso 3: Importa tus contactos</h2>
+
+<p>Tu CRM solo es tan bueno como los datos que contiene. Si tienes una lista existente de clientes, prospectos o consultas anteriores, ahora es el momento de traerlos.</p>
+
+<p>Ve a <strong>Contactos</strong> y usa la herramienta de importación. Puedes subir un archivo CSV con columnas para nombre, correo electrónico, número de teléfono y cualquier etiqueta que desees aplicar. Si has estado gestionando tu negocio desde una hoja de cálculo (sin juicios, todos hemos estado ahí), aquí es donde esa hoja de cálculo finalmente encuentra un hogar adecuado.</p>
+
+<p>Algunos consejos para una importación limpia:</p>
+
+<ul>
+  <li>Elimina duplicados antes de subir. El sistema puede manejarlos, pero es más limpio empezar desde cero.</li>
+  <li>Agrega etiquetas durante la importación para segmentar tu lista. Por ejemplo: "cliente-anterior", "prospecto-2025", "referido". Las etiquetas hacen que las automatizaciones sean mucho más potentes después.</li>
+  <li>Incluye números de teléfono donde los tengas. Los necesitarás para campañas de SMS y recordatorios de citas.</li>
+</ul>
+
+<p>Si estás empezando con cero contactos, está perfectamente bien. Salta adelante y vuelve a esto una vez que los prospectos comiencen a fluir desde tu página de destino.</p>
+
+<h2>Paso 4: Construye tu primer pipeline</h2>
+
+<p>Un pipeline es cómo rastreas en qué punto del proceso de ventas se encuentra cada prospecto. Piénsalo como un tablero visual donde los contactos se mueven de izquierda a derecha a medida que se acercan a convertirse en clientes.</p>
+
+<p>Un pipeline de inicio simple podría verse así:</p>
+
+<ul>
+  <li><strong>Nuevo Prospecto</strong> - acaba de llegar</li>
+  <li><strong>Contactado</strong> - te has comunicado</li>
+  <li><strong>Cita Reservada</strong> - están en el calendario</li>
+  <li><strong>Propuesta Enviada</strong> - están considerando tu oferta</li>
+  <li><strong>Ganado</strong> - dijeron que sí</li>
+  <li><strong>Perdido</strong> - no esta vez</li>
+</ul>
+
+<p>Puedes personalizar esto para que coincida con tu negocio. Un técnico podría tener "Cotización Enviada" y "Trabajo Programado". Un consultor podría tener "Llamada de Descubrimiento" e "Incorporación". Hazlo tuyo.</p>
+
+<p>El poder del pipeline es que te da una vista única de todo tu negocio. No más preguntarte cuántos prospectos tienes o dónde están estancados. Todo está ahí.</p>
+
+<div class="divider">...</div>
+
+<h2>Paso 5: Crea tu primera automatización</h2>
+
+<p>Aquí es donde las cosas empiezan a sentirse diferentes. La automatización es lo que separa a un propietario de negocio ocupado de uno inteligente.</p>
+
+<p>Empieza simple. Aquí hay una primera automatización que todo negocio debería tener:</p>
+
+<p><strong>Secuencia de Seguimiento de Nuevo Prospecto</strong></p>
+
+<ul>
+  <li><strong>Activador:</strong> Un nuevo contacto se agrega a tu etapa "Nuevo Prospecto" en el pipeline</li>
+  <li><strong>Paso 1:</strong> Envía un correo de bienvenida de inmediato. Preséntate, confirma que recibiste su consulta y establece expectativas sobre los próximos pasos.</li>
+  <li><strong>Paso 2:</strong> Espera 10 minutos. Envía un SMS: "Hola [Nombre], gracias por contactarnos. Me pondré en contacto pronto. ¿Hay algo específico en lo que necesitas ayuda?"</li>
+  <li><strong>Paso 3:</strong> Espera 24 horas. Si no hay respuesta, envía un correo de seguimiento con más detalles sobre tus servicios y un enlace para reservar una llamada.</li>
+  <li><strong>Paso 4:</strong> Espera 3 días. Envía un SMS final de verificación.</li>
+</ul>
+
+<p>Esta automatización funciona las 24 horas del día. Un prospecto que llega a las 11pm de un martes recibe la misma respuesta puntual y profesional que uno que llega a las 9am de un lunes. Esa consistencia es lo que genera confianza.</p>
+
+<blockquote><p>El mejor seguimiento es el que sucede tanto si lo recuerdas como si no.</p></blockquote>
+
+<h2>Paso 6: Construye una página de destino</h2>
+
+<p>Necesitas un lugar al que enviar a las personas. Ya sea desde un anuncio de Google, un enlace en la bio de Instagram o un código QR en tu tarjeta de presentación, una página de destino dedicada convierte mejor que tu sitio web general porque tiene un solo trabajo y una sola llamada a la acción.</p>
+
+<p>Usa el constructor de páginas para crear una página de destino simple con:</p>
+
+<ul>
+  <li>Un titular claro que indique qué haces y a quién ayudas</li>
+  <li>Un formulario corto que recoja nombre, correo electrónico y número de teléfono</li>
+  <li>Algunas líneas de prueba social (testimonios, número de reseñas, años en el negocio)</li>
+  <li>Una llamada a la acción fuerte</li>
+</ul>
+
+<p>Mantenlo enfocado. Una página, una oferta, una acción. Resiste la tentación de contar toda tu historia aquí. El objetivo es capturar al prospecto. Puedes cultivar la relación con tu automatización después.</p>
+
+<p>Cuando alguien llena el formulario, el sistema crea automáticamente un contacto, lo agrega a tu pipeline y activa la secuencia de seguimiento que acabas de construir. Todo conectado. Todo automático.</p>
+
+<div class="divider">...</div>
+
+<h2>Paso 7: Configura solicitudes de reseñas</h2>
+
+<p>Las reseñas son el motor de crecimiento más subutilizado para las pequeñas empresas. La mayoría de los clientes satisfechos dejarían una reseña si se lo pidieras. El problema es que la mayoría de los negocios se olvidan de pedir, o piden demasiado tarde, o el proceso es incómodo.</p>
+
+<p>Configura una solicitud de reseña automatizada que se active después de que se complete un trabajo o se entregue un servicio. El flujo es sencillo:</p>
+
+<ul>
+  <li>Cuando mueves un contacto a tu etapa "Ganado" o "Completado", espera un día</li>
+  <li>Envía un SMS: "Hola [Nombre], gracias por elegir [Negocio]. Si tuviste una gran experiencia, nos encantaría una reseña rápida. Aquí está el enlace: [Enlace de Reseña]"</li>
+  <li>Si no hay reseña después de 3 días, envía un correo de seguimiento amable</li>
+</ul>
+
+<p>Eso es todo. Dos mensajes. Completamente automatizado. Los negocios que implementan esto de forma consistente ven que su número de reseñas de Google aumenta de manera constante mes tras mes. Esas reseñas luego generan más prospectos orgánicos, que se retroalimentan en tu pipeline. Es un ciclo de crecimiento que funciona por sí solo.</p>
+
+<h2>Paso 8: Envía tu primera campaña</h2>
+
+<p>Con tus contactos importados y tus canales conectados, estás listo para enviar tu primera transmisión. Podría ser un boletín mensual, una oferta especial, una promoción de temporada o simplemente un mensaje de reactivación para clientes anteriores.</p>
+
+<p>Ve a <strong>Marketing</strong> y crea una nueva campaña de correo electrónico. Elige una plantilla o construye desde cero. Escribe algo genuino. No necesitas ser redactor. Solo sé claro sobre lo que ofreces y por qué importa a la persona que lo lee.</p>
+
+<p>Algunas notas prácticas:</p>
+
+<ul>
+  <li>Segmenta tu lista usando las etiquetas que configuraste durante la importación. Un mensaje para clientes anteriores debe redactarse de manera diferente que uno para prospectos fríos.</li>
+  <li>Incluye una llamada a la acción clara. Reservar una llamada, visitar tu página, responder a este correo. Dale a las personas una cosa que hacer a continuación.</li>
+  <li>Prueba antes de enviar. Envíate una vista previa. Revisa los enlaces. Léelo en tu teléfono.</li>
+</ul>
+
+<blockquote><p>Tu primera campaña no necesita ser perfecta. Necesita ser enviada.</p></blockquote>
+
+<div class="divider">...</div>
+
+<h2>Ya estás en marcha</h2>
+
+<p>Esa es la configuración completa. Perfil de negocio, canales de comunicación, contactos, pipeline, automatización, página de destino, reseñas y tu primera campaña. Si seguiste el proceso, ahora tienes un sistema que captura prospectos, hace seguimiento automáticamente, rastrea tu proceso de ventas y pide reseñas sin que tengas que mover un dedo.</p>
+
+<p>El objetivo completo es construir esto una vez y dejar que trabaje para ti. No perfectamente. No para siempre sin ajustes. Pero funciona. Y funcionar supera a planificar en cada ocasión.</p>
+
+<p>El siguiente paso es observar qué sucede, revisar tus números después de una semana y ajustar desde ahí. La plataforma te da los datos. Úsalos.</p>
+
+<div class="blog-cta">
+  <p><strong>¿Necesitas ayuda con la configuración?</strong></p>
+  <p>Ayudamos a empresas a ponerse en marcha con DUSA cada semana. Si prefieres que alguien te guíe, <a href="/mx/contact">reserva una llamada de configuración</a> y te ayudaremos a organizarlo todo.</p>
+</div>
+
+</BlogPostLayout>

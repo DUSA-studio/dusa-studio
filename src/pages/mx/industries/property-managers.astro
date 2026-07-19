@@ -1,0 +1,528 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/es.json';
+
+const lang = 'es';
+const region = 'mx';
+
+const title = 'CRM para Administradores de Propiedades | DUSA.studio';
+const description = 'Automatiza la comunicación con inquilinos, solicitudes de mantenimiento, renovaciones de contrato de arrendamiento y cobro de renta. DUSA es la plataforma de crecimiento todo en uno para administradores de propiedades.';
+
+const painPoints = [
+  {
+    icon: '📨',
+    title: 'Comunicación dispersa con inquilinos',
+    desc: 'Los mensajes de los inquilinos están repartidos entre correo electrónico, teléfono, texto y portales. Nada se rastrea en un solo lugar, así que las cosas se pierden.',
+  },
+  {
+    icon: '🔧',
+    title: 'Solicitudes de mantenimiento perdidas en el correo',
+    desc: 'Las solicitudes de reparación llegan de todas partes sin un sistema para priorizar, asignar o dar seguimiento. Los inquilinos se frustran. A ti te echan la culpa.',
+  },
+  {
+    icon: '📅',
+    title: 'Seguimiento manual de renovaciones de contrato',
+    desc: 'Las hojas de cálculo y los recordatorios de calendario no son una estrategia de renovación. Los contratos de arrendamiento vencen, los inquilinos se van y las vacantes te cuestan miles.',
+  },
+  {
+    icon: '💸',
+    title: 'Cobro de renta atrasado',
+    desc: 'Perseguir la renta manualmente cada mes desperdicia tiempo y genera conversaciones incómodas. Los recordatorios automatizados resuelven ambos problemas.',
+  },
+];
+
+const features = [
+  {
+    title: 'Automatización del ciclo de vida del inquilino',
+    desc: 'Desde la consulta hasta la mudanza y la renovación, cada etapa está mapeada y automatizada. Ningún inquilino se pierde en el proceso.',
+  },
+  {
+    title: 'Pipeline de solicitudes de mantenimiento',
+    desc: 'Los inquilinos envían solicitudes a través de un formulario. Tú clasificas, asignas y das seguimiento a la resolución desde un solo panel.',
+  },
+  {
+    title: 'Secuencias de recordatorio de renta',
+    desc: 'Los recordatorios automáticos por SMS y correo electrónico se envían antes de la fecha de pago, el día del vencimiento y si el pago está atrasado.',
+  },
+  {
+    title: 'Campañas de renovación de contrato',
+    desc: 'Activa la comunicación de renovación 90 días antes de que venza el contrato de arrendamiento. Automatiza los seguimientos hasta que el inquilino confirme.',
+  },
+  {
+    title: 'Reportes para propietarios',
+    desc: 'Genera reportes mensuales para propietarios con tasas de ocupación, actualizaciones de mantenimiento y resúmenes de cobro de renta.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Consulta', desc: 'Un nuevo inquilino llena un formulario de interés' },
+  { stage: 'Solicitud', desc: 'Verificaciones de antecedentes y crédito en proceso' },
+  { stage: 'Contrato firmado', desc: 'Contrato de arrendamiento ejecutado, mudanza programada' },
+  { stage: 'Inquilino activo', desc: 'Comunicación continua y mantenimiento' },
+  { stage: 'Renovación pendiente', desc: 'La comunicación automatizada comienza a los 90 días' },
+  { stage: 'Renovado', desc: 'Contrato de arrendamiento extendido, el ciclo continúa' },
+];
+
+const stats = [
+  { value: '73%', label: 'de los inquilinos prefieren la comunicación digital sobre las llamadas telefónicas' },
+  { value: '2.5x', label: 'resolución de mantenimiento más rápida con clasificación automatizada' },
+  { value: '40%', label: 'de reducción en pagos de renta atrasados con recordatorios automáticos' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://dusa.studio/mx/' },
+    { '@type': 'ListItem', position: 2, name: 'Industrias', item: 'https://dusa.studio/mx/industries' },
+    { '@type': 'ListItem', position: 3, name: 'Administradores de Propiedades', item: 'https://dusa.studio/mx/industries/property-managers' },
+  ],
+});
+---
+
+<BaseLayout t={tData} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="pm-hero section section--dark">
+    <div class="container">
+      <div class="pm-hero__content">
+        <span class="label">Administración de Propiedades</span>
+        <h1>La <span class="gradient-text">plataforma de crecimiento</span> para administradores de propiedades</h1>
+        <p class="pm-hero__sub">
+          Automatiza la comunicación con inquilinos, flujos de mantenimiento, renovaciones de contrato de arrendamiento y cobro de renta. Todo desde una sola plataforma.
+        </p>
+        <div class="pm-hero__actions">
+          <a href="/mx/start" class="btn btn--primary">Comenzar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pm-pain section section--dark">
+    <div class="container">
+      <div class="pm-pain__header">
+        <span class="label">El Problema</span>
+        <h2>La administración de propiedades se está <span class="gradient-text">ahogando en trámites</span></h2>
+        <p class="pm-pain__intro">La mayoría de los administradores de propiedades están atrapados haciendo malabares con herramientas desconectadas y procesos manuales. Así es como se ve.</p>
+      </div>
+      <div class="pm-pain__grid">
+        {painPoints.map((point) => (
+          <div class="pm-pain__card">
+            <span class="pm-pain__icon">{point.icon}</span>
+            <h3 class="pm-pain__card-title">{point.title}</h3>
+            <p class="pm-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="pm-solution section section--dark">
+    <div class="container">
+      <div class="pm-solution__header">
+        <span class="label">La Solución</span>
+        <h2>Cómo funciona DUSA para <span class="gradient-text">administradores de propiedades</span></h2>
+        <p class="pm-solution__intro">Una plataforma para gestionar cada interacción con inquilinos, desde la primera consulta hasta la renovación del contrato de arrendamiento.</p>
+      </div>
+      <div class="pm-solution__grid">
+        {features.map((feature) => (
+          <div class="pm-solution__card">
+            <h3 class="pm-solution__card-title">{feature.title}</h3>
+            <p class="pm-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="pm-pipeline section section--dark">
+    <div class="container">
+      <div class="pm-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>Tu <span class="gradient-text">pipeline de inquilinos</span> de un vistazo</h2>
+      </div>
+      <div class="pm-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="pm-pipeline__stage">
+            <div class="pm-pipeline__number">{i + 1}</div>
+            <h3 class="pm-pipeline__stage-title">{step.stage}</h3>
+            <p class="pm-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="pm-stats section section--dark">
+    <div class="container">
+      <div class="pm-stats__header">
+        <span class="label">Impacto</span>
+        <h2>Los números hablan por <span class="gradient-text">sí mismos</span></h2>
+      </div>
+      <div class="pm-stats__grid">
+        {stats.map((stat) => (
+          <div class="pm-stats__card">
+            <span class="pm-stats__value">{stat.value}</span>
+            <p class="pm-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pm-cta section section--dark">
+    <div class="container">
+      <div class="pm-cta__box">
+        <h2>¿Listo para optimizar tu <span class="gradient-text">administración de propiedades</span>?</h2>
+        <p class="pm-cta__sub">Pon en marcha tu pipeline de inquilinos, flujos de mantenimiento y campañas de renovación en una sola plataforma.</p>
+        <div class="pm-cta__actions">
+          <a href="/mx/start" class="btn btn--primary">Comenzar</a>
+          <a href="/blog/crm-for-property-managers" class="btn btn--outline">Leer la guía</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .pm-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .pm-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .pm-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pm-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .pm-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .pm-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .pm-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .pm-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .pm-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .pm-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .pm-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .pm-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .pm-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .pm-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .pm-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .pm-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .pm-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .pm-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .pm-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .pm-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .pm-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .pm-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .pm-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .pm-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .pm-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .pm-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .pm-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .pm-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .pm-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .pm-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pm-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .pm-hero__content h1,
+  :global(html[data-theme="light"]) .pm-pain__header h2,
+  :global(html[data-theme="light"]) .pm-solution__header h2,
+  :global(html[data-theme="light"]) .pm-pipeline__header h2,
+  :global(html[data-theme="light"]) .pm-stats__header h2,
+  :global(html[data-theme="light"]) .pm-cta__box h2,
+  :global(html[data-theme="light"]) .pm-pain__card-title,
+  :global(html[data-theme="light"]) .pm-solution__card-title,
+  :global(html[data-theme="light"]) .pm-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .pm-hero__sub,
+  :global(html[data-theme="light"]) .pm-pain__intro,
+  :global(html[data-theme="light"]) .pm-solution__intro,
+  :global(html[data-theme="light"]) .pm-pain__card-desc,
+  :global(html[data-theme="light"]) .pm-solution__card-desc,
+  :global(html[data-theme="light"]) .pm-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .pm-stats__label,
+  :global(html[data-theme="light"]) .pm-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .pm-pain__card,
+  :global(html[data-theme="light"]) .pm-solution__card,
+  :global(html[data-theme="light"]) .pm-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .pm-pain__card:hover,
+  :global(html[data-theme="light"]) .pm-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .pm-stats__card,
+  :global(html[data-theme="light"]) .pm-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .pm-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .pm-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pm-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .pm-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .pm-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .pm-pipeline__stages {
+      flex-direction: column;
+    }
+    .pm-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .pm-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+</style>

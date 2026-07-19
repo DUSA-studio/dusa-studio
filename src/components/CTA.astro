@@ -1,27 +1,45 @@
 ---
 // CTA.astro — Final call-to-action + hint at expanded services
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const s = t?.cta || {};
+const ctaLabel = s.label || 'Ready?';
+const ctaHeading = s.heading || 'Stop juggling tools.';
+const ctaHeadingAccent = s.headingAccent || 'Start growing.';
+const ctaDesc = s.desc || "Try DUSA's AI-powered platform free for 14 days. Replace your scattered stack with one intelligent system. No credit card required.";
+const ctaGetStarted = s.getStarted || 'Get Started';
+const ctaBookDemo = s.bookDemo || 'Book a Demo';
+const ctaBeyondLabel = s.beyondLabel || 'Beyond the platform';
+const ctaBeyondText = s.beyondText || 'Custom AI solutions, social media management, advanced integrations, and dedicated IT support.';
+const ctaBeyondStrong = s.beyondStrong || "We've got you covered.";
 ---
 
 <section class="cta section section--sand" id="contact">
   <div class="container">
     <div class="cta__content reveal">
-      <a href="#contact" class="label label--cta">Ready?</a>
-      <h2>Stop juggling tools.<br/><span style="color: var(--deep-ocean);">Start growing.</span></h2>
+      <a href="#contact" class="label label--cta">{ctaLabel}</a>
+      <h2>{ctaHeading}<br/> <span class="gradient-text">{ctaHeadingAccent}</span></h2>
       <p class="cta__desc">
-        Book a free demo and see how DUSA's AI-powered platform can replace your scattered stack
-        with one intelligent system. Set up in days, not months.
+        {ctaDesc}
       </p>
       <div class="cta__actions">
-        <a href="https://dusa.studio/booking" class="btn btn--dark">Book Your Free Demo</a>
-        <a href="mailto:contact@dusa.studio" class="btn btn--outline-dark">Email Us</a>
+        <a href="/start" data-page="start" class="btn btn--primary">{ctaGetStarted}</a>
+        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline-dark">{ctaBookDemo}</a>
       </div>
     </div>
 
     <div class="cta__expand reveal">
-      <div class="cta__expand-line"></div>
+      <div class="cta__expand-divider">
+        <div class="cta__expand-line"></div>
+        <div class="cta__expand-dot"></div>
+      </div>
+      <p class="cta__expand-label">{ctaBeyondLabel}</p>
       <p class="cta__expand-text">
-        And when you're ready for more. Custom AI solutions, social media management,
-        advanced integrations, and dedicated IT support. <strong>We've got you covered.</strong>
+        {ctaBeyondText} <strong>{ctaBeyondStrong}</strong>
       </p>
     </div>
   </div>
@@ -33,7 +51,11 @@
     color: var(--warm-white);
     border-color: var(--deep-ocean);
     font-size: 0.9375rem;
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 1.5rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     letter-spacing: 0.08em;
     cursor: pointer;
     transition: all 0.3s var(--ease-out);
@@ -106,18 +128,44 @@
     position: relative;
   }
 
+  .cta__expand-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
   .cta__expand-line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, transparent, var(--reef-aqua) 60%, var(--deep-ocean));
-    margin: 0 auto var(--space-md);
-    opacity: 0.6;
+    width: 1.5px;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--reef-aqua));
+    transform-origin: top center;
+  }
+
+  .cta__expand-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--reef-aqua);
+    box-shadow: 0 0 12px rgba(78, 216, 194, 0.4);
+    margin-top: 2px;
+  }
+
+  .cta__expand-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--deep-ocean);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+    text-align: center;
   }
 
   .cta__expand-text {
-    font-size: 1rem;
-    color: rgba(12, 14, 20, 0.45);
-    max-width: 500px;
+    font-size: 1.0625rem;
+    color: rgba(12, 14, 20, 0.5);
+    max-width: 480px;
     margin: 0 auto;
     line-height: 1.7;
   }
@@ -139,10 +187,62 @@
   }
 
   @media (max-width: 480px) {
+    .cta__content h2 br {
+      display: none;
+    }
+
+    .cta__desc {
+      font-size: 0.9375rem;
+    }
+
     .cta__actions .btn,
     .cta__actions .btn--outline-dark {
       width: 100%;
       text-align: center;
     }
+
+    .cta__expand {
+      margin-top: var(--space-xl);
+    }
+
+    .cta__expand-text {
+      font-size: 1rem;
+    }
+  }
+
+  /* ─── LIGHT MODE ─── */
+  /* CTA is already light (sand section) — just slight tint adjustment */
+  :global(html[data-theme="light"]) .cta__expand-line {
+    background: linear-gradient(to bottom, transparent, var(--deep-ocean));
+  }
+
+  :global(html[data-theme="light"]) .cta__expand-dot {
+    background: var(--deep-ocean);
+    box-shadow: 0 0 12px rgba(26, 58, 92, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .cta__expand-text strong {
+    color: var(--deep-ocean);
+  }
+
+  /* ─── Light Mode Accent Fix ─── */
+  :global(html[data-theme="light"]) .label--cta:hover {
+    background: var(--deep-ocean);
+    border-color: var(--deep-ocean);
+    color: var(--warm-white);
+    box-shadow: 0 0 20px rgba(26, 58, 92, 0.35), 0 0 40px rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .label--cta:hover::before {
+    background: var(--warm-white);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .cta__scan-line {
+    background: linear-gradient(to bottom, transparent, var(--deep-ocean));
+  }
+
+  :global(html[data-theme="light"]) .cta__scan-line::after {
+    background: var(--deep-ocean);
   }
 </style>

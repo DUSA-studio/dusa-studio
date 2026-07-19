@@ -1,0 +1,543 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import t from '../../i18n/translations/en.json';
+---
+
+<BaseLayout t={t} title="Marketing Automation for Dental Practices | DUSA . studio" description="Automate recall reminders, generate more reviews, and follow up on treatment plans. DUSA gives dental practices a complete patient growth system.">
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dusa.studio/" },
+      { "@type": "ListItem", "position": 2, "name": "Industries", "item": "https://dusa.studio/industries/" },
+      { "@type": "ListItem", "position": 3, "name": "Dental Practices", "item": "https://dusa.studio/industries/dentists/" }
+    ]
+  })} />
+
+  <!-- Hero -->
+  <section class="industry-hero section section--dark">
+    <div class="container">
+      <div class="industry-hero__content">
+        <span class="label">Dental Practices</span>
+        <h1>Keep every chair full and<br/><span class="gradient-text">every recall on time</span></h1>
+        <p class="industry-hero__sub">DUSA automates recall reminders, new patient onboarding, treatment follow-ups, and review generation so your team can focus on patient care.</p>
+        <div class="industry-hero__actions">
+          <a href="/start" class="btn btn--primary">Get started</a>
+          <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pain-points section section--dark">
+    <div class="container">
+      <span class="label">The Problem</span>
+      <h2>Sound familiar?</h2>
+      <div class="pain-points__grid">
+        <div class="pain-card">
+          <div class="pain-card__icon">🦷</div>
+          <h3>Patients overdue for recalls</h3>
+          <p>Six-month check-ups slip to twelve months, then eighteen. Without automated nudges, patients fall off the radar and revenue drops.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-card__icon">📉</div>
+          <h3>Low new patient acquisition</h3>
+          <p>You rely on word of mouth but have no system to amplify it. Enquiries come in slowly and competitors with better online presence win.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-card__icon">⭐</div>
+          <h3>Few online reviews</h3>
+          <p>Happy patients leave without reviewing. Meanwhile, the one unhappy patient dominates your Google listing.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-card__icon">📋</div>
+          <h3>Treatment plans not followed up</h3>
+          <p>You present a treatment plan and the patient says they will think about it. Without follow-up, that plan gathers dust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution section section--dark">
+    <div class="container">
+      <span class="label">The Solution</span>
+      <h2>How DUSA works for <span class="gradient-text">dental practices</span></h2>
+      <p class="solution__intro">One platform replaces your recall system, review tools, patient communication, and marketing spreadsheets.</p>
+      <div class="solution__grid">
+        <div class="solution-card">
+          <h3>Recall reminder automation</h3>
+          <p>Automated SMS and email sequences bring patients back for their six-month check-ups without your team chasing them.</p>
+        </div>
+        <div class="solution-card">
+          <h3>New patient welcome sequence</h3>
+          <p>From first enquiry to first appointment, new patients receive a seamless onboarding experience that builds trust.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Review generation</h3>
+          <p>After every visit, happy patients get a simple prompt to leave a Google review. Your rating climbs on autopilot.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Treatment plan follow-ups</h3>
+          <p>Patients who said "let me think about it" receive gentle, timed follow-ups until they book or decline.</p>
+        </div>
+        <div class="solution-card">
+          <h3>Insurance reminders</h3>
+          <p>Remind patients when their insurance benefits are about to reset so they use them before losing them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="pipeline section section--dark">
+    <div class="container">
+      <span class="label">Your Pipeline</span>
+      <h2>Every patient, every stage, <span class="gradient-text">nothing missed</span></h2>
+      <div class="pipeline__track">
+        <div class="pipeline__stage">
+          <div class="pipeline__number">1</div>
+          <h3>New Patient</h3>
+          <p>Enquiry arrives through your website, Google, or referral.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">2</div>
+          <h3>Initial Visit</h3>
+          <p>First appointment completed. Welcome sequence and review request sent.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">3</div>
+          <h3>Treatment Plan</h3>
+          <p>Recommended treatment presented. Automated follow-up begins if not booked immediately.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">4</div>
+          <h3>Ongoing Care</h3>
+          <p>Regular visits tracked. Insurance and benefit reminders sent at the right time.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">5</div>
+          <h3>Recall Due</h3>
+          <p>Six-month recall triggered. Patient receives a sequence until they book their next check-up.</p>
+        </div>
+        <div class="pipeline__connector"></div>
+        <div class="pipeline__stage">
+          <div class="pipeline__number">6</div>
+          <h3>Referral &amp; Review</h3>
+          <p>Happy patients leave reviews and refer family. DUSA sends review requests post-visit and tracks referral sources.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats section section--dark">
+    <div class="container">
+      <span class="label">Results</span>
+      <h2>Built for practices that want to <span class="gradient-text">grow</span></h2>
+      <div class="stats__grid">
+        <div class="stat-card">
+          <div class="stat-card__number">35%</div>
+          <p>increase in recall compliance with automated reminders</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">4x</div>
+          <p>more Google reviews within the first 90 days</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">25%</div>
+          <p>of pending treatment plans converted with follow-up sequences</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="final-cta section section--dark">
+    <div class="container">
+      <div class="final-cta__content">
+        <h2>Ready to fill every chair?</h2>
+        <p>Get your practice running on DUSA in under a week.</p>
+        <div class="final-cta__actions">
+          <a href="/start" class="btn btn--primary">Get started</a>
+          <a href="/blog/dental-practice-marketing" class="btn btn--outline">Read the guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .industry-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+    text-align: center;
+  }
+
+  .industry-hero__content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .industry-hero h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+    color: var(--warm-white);
+  }
+
+  .industry-hero__sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    max-width: 600px;
+    margin: 0 auto var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .industry-hero__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .pain-points {
+    padding: var(--space-2xl) 0;
+  }
+
+  .pain-points h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-xl);
+  }
+
+  .pain-points__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .pain-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .pain-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .pain-card__icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .pain-card h3 {
+    font-family: var(--font-headline);
+    font-size: 1.15rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pain-card p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Solution */
+  .solution {
+    padding: var(--space-2xl) 0;
+  }
+
+  .solution h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+  }
+
+  .solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .solution-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .solution-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .solution-card h3 {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+
+  .solution-card p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Pipeline */
+  .pipeline {
+    padding: var(--space-2xl) 0;
+  }
+
+  .pipeline h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-xl);
+  }
+
+  .pipeline__track {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .pipeline__stage {
+    flex: 1;
+    text-align: center;
+    padding: 0 var(--space-sm);
+  }
+
+  .pipeline__number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    border: 1px solid rgba(78, 216, 194, 0.4);
+    color: var(--reef-aqua);
+    font-family: var(--font-headline);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-sm);
+  }
+
+  .pipeline__stage h3 {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pipeline__stage p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .pipeline__connector {
+    width: 40px;
+    min-width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(78, 216, 194, 0.4), rgba(78, 216, 194, 0.1));
+    margin-top: 20px;
+    flex-shrink: 0;
+  }
+
+  /* Stats */
+  .stats {
+    padding: var(--space-2xl) 0;
+  }
+
+  .stats h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: var(--radius-md);
+  }
+
+  .stat-card__number {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-card p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+    text-align: center;
+  }
+
+  .final-cta__content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .final-cta h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .final-cta p {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .final-cta__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .industry-hero h1,
+  :global(html[data-theme="light"]) .pain-points h2,
+  :global(html[data-theme="light"]) .solution h2,
+  :global(html[data-theme="light"]) .pipeline h2,
+  :global(html[data-theme="light"]) .stats h2,
+  :global(html[data-theme="light"]) .final-cta h2,
+  :global(html[data-theme="light"]) .pain-card h3,
+  :global(html[data-theme="light"]) .pipeline__stage h3 {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .industry-hero__sub,
+  :global(html[data-theme="light"]) .pain-card p,
+  :global(html[data-theme="light"]) .solution__intro,
+  :global(html[data-theme="light"]) .solution-card p,
+  :global(html[data-theme="light"]) .pipeline__stage p,
+  :global(html[data-theme="light"]) .stat-card p,
+  :global(html[data-theme="light"]) .final-cta p {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .pain-card,
+  :global(html[data-theme="light"]) .solution-card,
+  :global(html[data-theme="light"]) .stat-card {
+    background: rgba(12, 14, 20, 0.03);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .pain-card:hover,
+  :global(html[data-theme="light"]) .solution-card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .pipeline__connector {
+    background: linear-gradient(90deg, rgba(78, 216, 194, 0.6), rgba(78, 216, 194, 0.2));
+  }
+
+  :global(html[data-theme="light"]) .pipeline__number {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .solution-card h3 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .stat-card__number {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pain-points__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .solution__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stats__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pipeline__track {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pipeline__connector {
+      width: 2px;
+      height: 30px;
+      min-width: unset;
+      background: linear-gradient(180deg, rgba(78, 216, 194, 0.4), rgba(78, 216, 194, 0.1));
+      margin-top: 0;
+    }
+
+    .pipeline__stage {
+      padding: var(--space-sm) 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .industry-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+
+    .pain-points,
+    .solution,
+    .pipeline,
+    .stats,
+    .final-cta {
+      padding: var(--space-xl) 0;
+    }
+
+    .final-cta {
+      padding-bottom: var(--space-2xl);
+    }
+  }
+</style>

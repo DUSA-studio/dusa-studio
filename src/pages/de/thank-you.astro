@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/t.js';
+import { getRegion } from '../../i18n/regions.js';
+
+const lang = 'de';
+const region = 'de';
+const regionData = getRegion(region);
+---
+
+<BaseLayout
+  title="Willkommen bei DUSA | DUSA . studio"
+  description="Ihr kostenloses Testkonto wird eingerichtet. Prüfen Sie Ihre E-Mail für die Zugangsdaten und starten Sie mit der DUSA-Plattform."
+  lang={regionData.htmlLang}
+  ogLocale={regionData.ogLocale}
+  region={region}
+>
+
+  <section class="thankyou section section--dark">
+    <div class="container">
+      <div class="thankyou__content">
+
+        <!-- Success Icon -->
+        <div class="thankyou__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+
+        <span class="label">Sie sind dabei</span>
+        <h1>Willkommen bei <span class="gradient-text">DUSA</span></h1>
+        <p class="thankyou__sub">Ihr 14-tägiger kostenloser Test wird jetzt eingerichtet. So geht es weiter.</p>
+
+        <!-- Steps -->
+        <div class="thankyou__steps">
+          <div class="thankyou__step">
+            <div class="thankyou__step-num">1</div>
+            <div class="thankyou__step-content">
+              <h3 class="thankyou__step-title">Prüfen Sie Ihre E-Mail</h3>
+              <p class="thankyou__step-text">Wir senden Ihre Zugangsdaten an die E-Mail-Adresse, die Sie gerade angegeben haben. Sie sollten innerhalb weniger Minuten ankommen.</p>
+            </div>
+          </div>
+
+          <div class="thankyou__step">
+            <div class="thankyou__step-num">2</div>
+            <div class="thankyou__step-content">
+              <h3 class="thankyou__step-title">Folgen Sie dem Link zum Einloggen</h3>
+              <p class="thankyou__step-text">Klicken Sie auf den Link in Ihrer E-Mail, um Ihr Passwort festzulegen und auf die Plattform zuzugreifen. Sie können sich auch jederzeit über den Button oben rechts auf dieser Seite anmelden.</p>
+            </div>
+          </div>
+
+          <div class="thankyou__step">
+            <div class="thankyou__step-num">3</div>
+            <div class="thankyou__step-content">
+              <h3 class="thankyou__step-title">Fangen Sie an zu arbeiten</h3>
+              <p class="thankyou__step-text">Folgen Sie dem geführten Onboarding, um Ihren Kalender zu verbinden, Ihren ersten Workflow einzurichten und ab dem ersten Tag Leads zu gewinnen.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="thankyou__actions">
+          <a href="https://app.dusa.studio" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Bei DUSA einloggen</a>
+          <a href="/de/" class="btn btn--outline">Zurück zur Startseite</a>
+        </div>
+
+        <!-- Help note -->
+        <p class="thankyou__help">
+          Keine E-Mail erhalten? Prüfen Sie Ihren Spam-Ordner, oder schreiben Sie an
+          <a href="mailto:contact@dusa.studio">contact@dusa.studio</a> und wir helfen Ihnen weiter.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .thankyou {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .thankyou__content {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .thankyou__icon {
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-md);
+    animation: thankyou-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes thankyou-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.85; }
+  }
+
+  .thankyou__sub {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── STEPS ─── */
+  .thankyou__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin: var(--space-2xl) 0;
+    text-align: left;
+  }
+
+  .thankyou__step {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .thankyou__step:hover {
+    border-color: rgba(78, 216, 194, 0.15);
+    background: rgba(247, 244, 239, 0.05);
+  }
+
+  .thankyou__step-num {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .thankyou__step-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.25rem;
+  }
+
+  .thankyou__step-text {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+  }
+
+  /* ─── ACTIONS ─── */
+  .thankyou__actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .thankyou__help {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.35);
+    line-height: 1.6;
+    margin-top: var(--space-xl);
+  }
+
+  .thankyou__help a {
+    color: var(--reef-aqua);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--duration-fast);
+  }
+
+  .thankyou__help a:hover {
+    color: #5de0cc;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .thankyou__sub {
+      font-size: 1.0625rem;
+    }
+
+    .thankyou__step {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .thankyou__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .thankyou__actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .thankyou {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+    .thankyou__step {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-sm);
+    }
+  }
+
+  /* ─── GSAP HIDDEN UNTIL JS ─── */
+  .thankyou__content {
+    visibility: hidden;
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .thankyou__sub {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__icon {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__step {
+    background: rgba(12, 14, 20, 0.02);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__step:hover {
+    border-color: rgba(26, 58, 92, 0.15);
+    background: rgba(12, 14, 20, 0.04);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__step-num {
+    color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.06);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__step-title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__step-text {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__help {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .thankyou__help a {
+    color: var(--deep-ocean);
+  }
+</style>
+
+<script>
+  function initThankYouAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initThankYouAnimations, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+
+    gsap.set('.thankyou__content', { visibility: 'visible' });
+
+    // Stagger the content in
+    gsap.fromTo('.thankyou__icon',
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.7)', delay: 0.1 }
+    );
+
+    gsap.fromTo('.thankyou__content .label, .thankyou__content h1, .thankyou__sub',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.3 }
+    );
+
+    gsap.fromTo('.thankyou__step',
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: 'power3.out', delay: 0.6 }
+    );
+
+    gsap.fromTo('.thankyou__actions, .thankyou__help',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 1.05 }
+    );
+  }
+  initThankYouAnimations();
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }
+  });
+</script>

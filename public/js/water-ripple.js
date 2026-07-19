@@ -69,7 +69,8 @@
       fragColor = vec4(next, 0.0, 0.0, 1.0);
     }`;
 
-  // Render — 3D dark ocean with moonlight, Fresnel, trough shadows, refraction
+  // Render — 3D ocean with lighting, Fresnel, trough shadows, refraction
+  // Supports dark (night) and light (day) modes via u_theme uniform
   const RENDER_FS = `#version 300 es
     precision highp float;
     in vec2 v_uv;
@@ -78,102 +79,115 @@
     uniform sampler2D u_height;
     uniform vec2 u_texel;
     uniform float u_time;
+    uniform float u_theme;  // 0.0 = dark (night), 1.0 = light (day)
 
-    // Dark ocean palette — DUSA brand: deep-black + deep-ocean + sandstone shimmer
-    const vec3 deepBlack   = vec3(0.035, 0.04, 0.06);    // #0C0E14 base
-    const vec3 deepOcean   = vec3(0.10, 0.22, 0.36);     // #1A3A5C DUSA deep-ocean blue
-    const vec3 troughColor = vec3(0.02, 0.03, 0.06);     // blue-black in wave troughs
-    const vec3 sandstone   = vec3(0.78, 0.70, 0.55);     // DUSA sandstone shimmer (warm, NOT white)
-    const vec3 sandTint    = vec3(0.42, 0.40, 0.35);     // muted sandstone for subtle glow
-    const vec3 oceanReflect = vec3(0.08, 0.14, 0.24);    // deep-ocean night sky reflection
+    // ─── DARK MODE — deep-black + deep-ocean + sandstone shimmer ───
+    const vec3 d_base      = vec3(0.035, 0.04, 0.06);    // #0C0E14
+    const vec3 d_mid       = vec3(0.10, 0.22, 0.36);     // #1A3A5C deep-ocean
+    const vec3 d_trough    = vec3(0.02, 0.03, 0.06);     // blue-black troughs
+    const vec3 d_highlight = vec3(0.78, 0.70, 0.55);     // sandstone shimmer
+    const vec3 d_tint      = vec3(0.42, 0.40, 0.35);     // muted sandstone
+    const vec3 d_reflect   = vec3(0.08, 0.14, 0.24);     // night sky reflection
+
+    // ─── LIGHT MODE — daytime ocean, saturated mist-blue water ───
+    const vec3 l_base      = vec3(0.55, 0.75, 0.84);     // rich mist-blue base
+    const vec3 l_mid       = vec3(0.42, 0.66, 0.78);     // deeper ocean blue mid
+    const vec3 l_trough    = vec3(0.32, 0.56, 0.70);     // deep mist-blue in troughs
+    const vec3 l_highlight = vec3(0.88, 0.95, 1.0);      // sunlight sparkle on crests
+    const vec3 l_tint      = vec3(0.416, 0.667, 0.812);  // #6AAACF mist-blue accent
+    const vec3 l_reflect   = vec3(0.30, 0.52, 0.68);     // sky-ocean reflection
 
     void main() {
-      // Sample height and neighbours
       float h  = texture(u_height, v_uv).r;
       float hL = texture(u_height, v_uv + vec2(-u_texel.x, 0.0)).r;
       float hR = texture(u_height, v_uv + vec2( u_texel.x, 0.0)).r;
       float hT = texture(u_height, v_uv + vec2(0.0,  u_texel.y)).r;
       float hB = texture(u_height, v_uv + vec2(0.0, -u_texel.y)).r;
 
-      // ─── SURFACE NORMALS — strong for 3D depth ───
+      // ─── SURFACE NORMALS ───
       float dx = (hR - hL) * 10.0;
       float dy = (hT - hB) * 10.0;
       vec3 normal = normalize(vec3(-dx, -dy, 1.0));
 
-      // ─── BASE: deep-black blending into deep-ocean blue ───
+      // ─── BLEND PALETTES by theme ───
+      vec3 base      = mix(d_base,      l_base,      u_theme);
+      vec3 mid       = mix(d_mid,       l_mid,       u_theme);
+      vec3 trough    = mix(d_trough,    l_trough,    u_theme);
+      vec3 highlight = mix(d_highlight, l_highlight,  u_theme);
+      vec3 tint      = mix(d_tint,      l_tint,      u_theme);
+      vec3 refl      = mix(d_reflect,   l_reflect,   u_theme);
+
+      // ─── BASE COLOR ───
       float vignette = 1.0 - length(v_uv - 0.5) * 0.5;
-      vec3 baseColor = mix(deepBlack, deepOcean, vignette * 0.35);
+      vec3 baseColor = mix(base, mid, vignette * 0.35);
 
-      // ─── TROUGH DARKENING — waves dipping below surface get darker (3D depth) ───
-      float troughFactor = smoothstep(0.0, -0.08, h);  // negative height = trough
-      baseColor = mix(baseColor, troughColor, troughFactor * 0.6);
+      // ─── TROUGH DARKENING ───
+      float troughFactor = smoothstep(0.0, -0.08, h);
+      baseColor = mix(baseColor, trough, troughFactor * 0.6);
 
-      // ─── CREST BRIGHTENING — waves above surface catch deep-ocean blue light ───
-      float crestFactor = smoothstep(0.0, 0.1, h);     // positive height = crest
-      baseColor += oceanReflect * crestFactor * 0.2;
+      // ─── CREST BRIGHTENING ───
+      float crestFactor = smoothstep(0.0, 0.1, h);
+      baseColor += refl * crestFactor * 0.2;
 
-      // ─── PRIMARY MOONLIGHT — from upper-right, like the moon ───
-      vec3 moonDir = normalize(vec3(0.3, 0.6, 0.7));
+      // ─── PRIMARY LIGHT — moon at night, sun during day ───
+      vec3 lightDir = normalize(vec3(0.3, 0.6, 0.7));
       vec3 viewDir = vec3(0.0, 0.0, 1.0);
 
-      // Diffuse — shows which face of the ripple is lit vs shadowed
-      float diffuse = max(dot(normal, moonDir), 0.0);
-      float shadow  = 1.0 - max(dot(normal, -moonDir), 0.0) * 0.3;  // darken away-facing sides
+      float diffuse = max(dot(normal, lightDir), 0.0);
+      float shadow  = 1.0 - max(dot(normal, -lightDir), 0.0) * 0.3;
 
-      // Specular — moonlight glints on wave crests
-      vec3 reflectDir = reflect(-moonDir, normal);
+      vec3 reflectDir = reflect(-lightDir, normal);
       float specRaw = max(dot(viewDir, reflectDir), 0.0);
-      float specSharp = pow(specRaw, 80.0);   // tight moonlight sparkle
-      float specMid   = pow(specRaw, 20.0);   // shows ripple ring shape
-      float specSoft  = pow(specRaw, 6.0);    // broad ambient glow
+      float specSharp = pow(specRaw, 80.0);
+      float specMid   = pow(specRaw, 20.0);
+      float specSoft  = pow(specRaw, 6.0);
 
-      // ─── SECONDARY LIGHT — faint ambient from opposite side for depth ───
+      // ─── SECONDARY LIGHT ───
       vec3 fillDir = normalize(vec3(-0.4, -0.3, 0.9));
       vec3 fillReflect = reflect(-fillDir, normal);
       float fillSpec = pow(max(dot(viewDir, fillReflect), 0.0), 30.0);
 
-      // ─── FRESNEL EFFECT — edges of ripples reflect more (real water physics) ───
+      // ─── FRESNEL ───
       float fresnel = 1.0 - max(dot(normal, viewDir), 0.0);
-      fresnel = pow(fresnel, 3.0);  // steep Fresnel curve
-      // At glancing angles (steep ripple walls), more reflection = brighter
+      fresnel = pow(fresnel, 3.0);
 
-      // ─── REFRACTION — slight color shift where normals bend the view ───
-      // Simulates looking through the water surface at an angle
+      // ─── REFRACTION ───
       vec2 refractUV = v_uv + normal.xy * 0.008;
       float hRefract = texture(u_height, refractUV).r;
       float refractShift = (hRefract - h) * 0.5;
 
-      // ─── RIPPLE EDGE CAUSTICS ───
+      // ─── EDGE CAUSTICS ───
       float gradient = length(vec2(dx, dy));
       float edgeCaustic = smoothstep(0.0, 0.15, gradient);
 
-      // ─── COMPOSE — layered: deep-ocean blue body + sandstone shimmer on crests ───
+      // ─── COMPOSE ───
       vec3 color = baseColor;
 
-      // Diffuse face shading — deep-ocean blue on lit faces
-      color += mix(oceanReflect, sandTint, 0.3) * (diffuse - 0.45) * 0.12 * shadow;
+      // Diffuse shading
+      color += mix(refl, tint, 0.3) * (diffuse - 0.45) * 0.12 * shadow;
 
-      // Primary sandstone specular — warm shimmer, NOT white
-      color += sandstone * specSharp * 0.45;               // sandstone crest glint (controlled)
-      color += sandTint * specMid * 0.20;                  // ring shape glow
-      color += oceanReflect * specSoft * 0.08;             // deep-ocean ambient displacement
+      // Specular — light mode uses brighter, more visible specular
+      float specBoost = mix(1.0, 1.4, u_theme);
+      color += highlight * specSharp * 0.45 * specBoost;
+      color += tint * specMid * 0.20 * specBoost;
+      color += refl * specSoft * 0.08;
 
-      // Fill light — deep-ocean blue from second angle for depth
-      color += mix(oceanReflect, sandTint, 0.2) * fillSpec * 0.12;
+      // Fill light
+      color += mix(refl, tint, 0.2) * fillSpec * 0.12;
 
-      // Fresnel reflection — deep-ocean blue on steep ripple walls
-      color += oceanReflect * fresnel * 0.25;              // blue reflection on steep walls
-      color += sandTint * fresnel * edgeCaustic * 0.08;    // faint warm edge glow
+      // Fresnel
+      color += refl * fresnel * 0.25;
+      color += tint * fresnel * edgeCaustic * 0.08;
 
-      // Edge caustics — sandstone along ripple ring edges (restrained)
-      color += sandstone * edgeCaustic * 0.05;
+      // Edge caustics
+      color += highlight * edgeCaustic * 0.05;
 
-      // Refraction color shift — deep-ocean blue depth illusion
-      color += deepOcean * abs(refractShift) * 0.35;
+      // Refraction
+      color += mid * abs(refractShift) * 0.35;
 
-      // Very faint height luminance for shadow detail
+      // Height luminance
       float heightGlow = smoothstep(0.0, 0.06, abs(h));
-      color += oceanReflect * heightGlow * 0.05;
+      color += refl * heightGlow * 0.05;
 
       fragColor = vec4(color, 1.0);
     }`;
@@ -273,8 +287,21 @@
       height: gl.getUniformLocation(renderProg, 'u_height'),
       texel: gl.getUniformLocation(renderProg, 'u_texel'),
       time: gl.getUniformLocation(renderProg, 'u_time'),
+      theme: gl.getUniformLocation(renderProg, 'u_theme'),
     };
     const dA = gl.getAttribLocation(renderProg, 'a_pos');
+
+    // Theme detection — 0.0 = dark, 1.0 = light
+    let currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 1.0 : 0.0;
+
+    const themeObserver = new MutationObserver(function(mutations) {
+      for (const m of mutations) {
+        if (m.attributeName === 'data-theme') {
+          currentTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 1.0 : 0.0;
+        }
+      }
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     // Triple-buffer ping-pong
     const res = RIPPLE_RESOLUTION;
@@ -355,14 +382,21 @@
       heroSection.addEventListener('touchend', onMouseLeave);
     }
 
-    // Resize handler
+    // Resize handler — "cover" mode: canvas is always square so the
+    // 512x512 ripple simulation maps 1:1 and drops stay circular.
+    // CSS overflow:hidden on .hero clips the excess.
+    // Always use max(width, height) so the animation fills the hero
+    // without squishing. On portrait screens, the sides are simply cropped.
+    // Cap at 1200px CSS-pixels to keep GPU cost reasonable on tall mobile layouts.
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      canvas.style.width = rect.width + 'px';
-      canvas.style.height = rect.height + 'px';
+      const size = Math.min(Math.max(rect.width, rect.height), 1200);
+
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      canvas.style.width = size + 'px';
+      canvas.style.height = size + 'px';
     }
 
     resize();
@@ -443,6 +477,7 @@
       gl.uniform1i(dU.height, 0);
       gl.uniform2f(dU.texel, texel[0], texel[1]);
       gl.uniform1f(dU.time, t);
+      gl.uniform1f(dU.theme, currentTheme);
 
       drawQuad(dA);
     }

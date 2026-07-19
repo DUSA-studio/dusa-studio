@@ -1,0 +1,167 @@
+---
+import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
+---
+
+<BlogPostLayout
+  title="Comecando com a DUSA: um guia de configuracao passo a passo"
+  description="Um guia pratico de onboarding para configurar sua plataforma DUSA. Desde o cadastro ate o envio da sua primeira campanha, aqui esta tudo que voce precisa para comecar."
+  publishDate="2026-03-20"
+  author="Eliah Lade"
+  category="Primeiros Passos"
+  readTime="8 min"
+  slug="getting-started-with-dusa"
+>
+
+<p>Voce se cadastrou. Esta olhando para o painel. E agora esta se perguntando: por onde eu realmente começo?</p>
+
+<p>Essa e a pergunta mais comum que ouvimos de novos usuarios da DUSA, e e uma pergunta justa. A plataforma faz muita coisa. CRM, automacoes, paginas de destino, campanhas de email, gestao de avaliacoes, calendarios, pipelines. Quando tudo esta disponivel de uma vez, descobrir a ordem certa importa.</p>
+
+<p>Este guia leva voce pela primeira configuracao em uma sequencia logica. Siga passo a passo e voce passara de uma conta em branco para um sistema funcionando que captura leads, faz follow-up automaticamente e comeca a gerar avaliacoes. Tudo em uma sessao se voce estiver se sentindo ambicioso, ou distribuido ao longo de alguns dias se isso for melhor para voce.</p>
+
+<div class="divider">...</div>
+
+<h2>Passo 1: Configure seu perfil de negocio</h2>
+
+<p>Antes de qualquer coisa, organize sua casa. Va ate <strong>Configuracoes</strong> e preencha os detalhes do seu negocio. Isso inclui o nome do negocio, numero de telefone, endereco, URL do site e fuso horario. Esses detalhes aparecem em todos os modelos, automacoes e paginas que voce criar depois, portanto acerta-los agora evita que voce os corrija em todos os lugares depois.</p>
+
+<p>Suba seu logotipo enquanto estiver aqui. Se voce tem cores da marca, anote-as. Voce as usara ao criar paginas de destino e modelos de email em breve.</p>
+
+<p>Essa etapa leva cinco minutos. Nao pule.</p>
+
+<h2>Passo 2: Conecte seus canais de comunicacao</h2>
+
+<p>A DUSA funciona melhor quando todas as suas conversas ficam em um so lugar. Conecte os canais que seus clientes ja usam para entrar em contato com voce.</p>
+
+<ul>
+  <li><strong>Email:</strong> Conecte seu email comercial para poder enviar e receber diretamente da plataforma. Isso tambem alimenta suas campanhas de email e sequencias automatizadas.</li>
+  <li><strong>SMS:</strong> Configure seu numero de telefone para mensagens de texto. Muitas pequenas empresas descobrem que o SMS tem as maiores taxas de abertura de qualquer canal.</li>
+  <li><strong>Google Meu Negocio:</strong> Vincule sua listagem do GMB para que avaliacoes e mensagens entrem na sua caixa de entrada.</li>
+  <li><strong>Facebook e Instagram:</strong> Conecte suas contas sociais para gerenciar DMs e comentarios sem alternar aplicativos.</li>
+</ul>
+
+<p>Voce nao precisa conectar tudo hoje. Comece com email e SMS. Esses dois sozinhos cobrem a maior parte da comunicacao com o cliente para negocios de servicos.</p>
+
+<div class="divider">...</div>
+
+<h2>Passo 3: Importe seus contatos</h2>
+
+<p>Seu CRM e tao bom quanto os dados dentro dele. Se voce tem uma lista existente de clientes, leads ou consultas anteriores, agora e a hora de trazê-los.</p>
+
+<p>Va para <strong>Contatos</strong> e use a ferramenta de importacao. Voce pode fazer upload de um arquivo CSV com colunas para nome, email, numero de telefone e qualquer tag que queira aplicar. Se voce tem gerenciado seu negocio a partir de uma planilha (sem julgamento, todos ja passamos por isso), e aqui que essa planilha finalmente encontra um lar adequado.</p>
+
+<p>Algumas dicas para uma importacao limpa:</p>
+
+<ul>
+  <li>Remova duplicatas antes de fazer o upload. O sistema consegue lidar com elas, mas e mais limpo comecar do zero.</li>
+  <li>Adicione tags durante a importacao para segmentar sua lista. Por exemplo: "cliente-anterior", "lead-2025", "indicacao". Tags tornam as automacoes muito mais poderosas depois.</li>
+  <li>Inclua numeros de telefone onde tiver. Voce vai querer estes para campanhas de SMS e lembretes de consultas.</li>
+</ul>
+
+<p>Se voce esta comecando sem nenhum contato, tudo bem. Pule para a frente e volte aqui quando os leads começarem a chegar pela sua pagina de destino.</p>
+
+<h2>Passo 4: Crie seu primeiro pipeline</h2>
+
+<p>Um pipeline e como voce rastreia onde cada lead esta no seu processo de vendas. Pense nele como um quadro visual onde os contatos se movem da esquerda para a direita a medida que chegam mais perto de se tornar clientes.</p>
+
+<p>Um pipeline inicial simples pode ser assim:</p>
+
+<ul>
+  <li><strong>Novo Lead</strong> - acabou de chegar</li>
+  <li><strong>Contactado</strong> - voce ja entrou em contato</li>
+  <li><strong>Consulta Agendada</strong> - esta no calendario</li>
+  <li><strong>Proposta Enviada</strong> - esta considerando sua oferta</li>
+  <li><strong>Ganho</strong> - disse sim</li>
+  <li><strong>Perdido</strong> - nao desta vez</li>
+</ul>
+
+<p>Voce pode personalizar isso para o seu negocio. Um prestador de servicos pode ter "Orcamento Enviado" e "Servico Agendado". Um consultor pode ter "Ligacao de Descoberta" e "Onboarding". Faca do seu jeito.</p>
+
+<p>O poder do pipeline e que ele da uma visao unica de todo o seu negocio. Nao ha mais duvidas sobre quantos leads voce tem ou onde eles estao travados. Esta tudo ali.</p>
+
+<div class="divider">...</div>
+
+<h2>Passo 5: Crie sua primeira automacao</h2>
+
+<p>E aqui que as coisas comecam a parecer diferentes. A automacao e o que separa um dono de negocio ocupado de um inteligente.</p>
+
+<p>Comece simples. Aqui esta uma primeira automacao que todo negocio deveria ter:</p>
+
+<p><strong>Sequencia de Follow-up para Novos Leads</strong></p>
+
+<ul>
+  <li><strong>Gatilho:</strong> Um novo contato e adicionado ao estagio "Novo Lead" do pipeline</li>
+  <li><strong>Passo 1:</strong> Envie um email de boas-vindas imediatamente. Apresente-se, confirme que recebeu a consulta e estabeleca expectativas para os proximos passos.</li>
+  <li><strong>Passo 2:</strong> Aguarde 10 minutos. Envie um SMS: "Oi [Nome], obrigado por entrar em contato. Vou retornar em breve. Ha algo especifico em que posso te ajudar?"</li>
+  <li><strong>Passo 3:</strong> Aguarde 24 horas. Se nao houver resposta, envie um email de follow-up com mais detalhes sobre seus servicos e um link para agendar uma ligacao.</li>
+  <li><strong>Passo 4:</strong> Aguarde 3 dias. Envie um SMS final de verificacao.</li>
+</ul>
+
+<p>Essa automacao roda 24 horas por dia. Um lead que chega as 23h de uma terca-feira recebe a mesma resposta rapida e profissional que chega as 9h de uma segunda-feira. Essa consistencia e o que constroi confianca.</p>
+
+<blockquote><p>O melhor follow-up e aquele que acontece independentemente de voce se lembrar ou nao.</p></blockquote>
+
+<h2>Passo 6: Crie uma pagina de destino</h2>
+
+<p>Voce precisa de um lugar para onde mandar as pessoas. Seja de um anuncio do Google, do link na bio do Instagram ou de um QR code no seu cartao de visita, uma pagina de destino dedicada converte melhor do que seu site geral porque tem um so trabalho e uma so chamada para acao.</p>
+
+<p>Use o criador de paginas para criar uma pagina de destino simples com:</p>
+
+<ul>
+  <li>Um titulo claro que declare o que voce faz e quem voce ajuda</li>
+  <li>Um formulario curto coletando nome, email e numero de telefone</li>
+  <li>Algumas linhas de prova social (depoimentos, numero de avaliacoes, anos no mercado)</li>
+  <li>Uma chamada para acao forte</li>
+</ul>
+
+<p>Mantenha o foco. Uma pagina, uma oferta, uma acao. Resista ao impulso de contar toda a sua historia aqui. O objetivo e capturar o lead. Voce pode nutri-lo com sua automacao depois disso.</p>
+
+<p>Quando alguem preenche o formulario, o sistema automaticamente cria um contato, o adiciona ao seu pipeline e inicia a sequencia de follow-up que voce acabou de criar. Tudo conectado. Tudo automatico.</p>
+
+<div class="divider">...</div>
+
+<h2>Passo 7: Configure solicitacoes de avaliacao</h2>
+
+<p>Avaliacoes sao a alavanca de crescimento mais subutilizada por pequenas empresas. A maioria dos clientes satisfeitos deixaria uma avaliacao se fosse pedida. O problema e que a maioria das empresas esquece de pedir, ou pede tarde demais, ou o processo e inconveniente.</p>
+
+<p>Configure uma solicitacao de avaliacao automatizada que seja acionada apos um trabalho ser concluido ou um servico entregue. O fluxo e simples:</p>
+
+<ul>
+  <li>Quando voce move um contato para o estagio "Ganho" ou "Concluido", aguarde um dia</li>
+  <li>Envie um SMS: "Oi [Nome], obrigado por escolher [Empresa]. Se voce teve uma otima experiencia, adorariamos uma rapida avaliacao. Aqui esta o link: [Link de Avaliacao]"</li>
+  <li>Se nao houver avaliacao em 3 dias, envie um email gentil de acompanhamento</li>
+</ul>
+
+<p>So isso. Duas mensagens. Totalmente automatizado. Empresas que implementam isso de forma consistente veem sua contagem de avaliacoes no Google crescer constantemente mes a mes. Essas avaliacoes entao geram mais leads organicos, que alimentam de volta o seu pipeline. E um ciclo de crescimento que roda sozinho.</p>
+
+<h2>Passo 8: Envie sua primeira campanha</h2>
+
+<p>Com seus contatos importados e seus canais conectados, voce esta pronto para enviar sua primeira transmissao. Pode ser uma newsletter mensal, uma oferta especial, uma promocao sazonal ou simplesmente uma mensagem de reengajamento para clientes anteriores.</p>
+
+<p>Va para <strong>Marketing</strong> e crie uma nova campanha de email. Escolha um modelo ou crie do zero. Escreva algo genuino. Voce nao precisa ser copywriter. Apenas seja claro sobre o que esta oferecendo e por que importa para a pessoa que esta lendo.</p>
+
+<p>Algumas notas praticas:</p>
+
+<ul>
+  <li>Segmente sua lista usando as tags que configurou durante a importacao. Uma mensagem para clientes anteriores deve ser diferente de uma para leads frios.</li>
+  <li>Inclua uma chamada para acao clara. Agende uma ligacao, visite sua pagina, responda a este email. Dê as pessoas uma coisa para fazer a seguir.</li>
+  <li>Teste antes de enviar. Mande-se uma previa. Verifique os links. Leia no celular.</li>
+</ul>
+
+<blockquote><p>Sua primeira campanha nao precisa ser perfeita. Ela precisa ser enviada.</p></blockquote>
+
+<div class="divider">...</div>
+
+<h2>Voce esta pronto para operar</h2>
+
+<p>Essa e a configuracao completa. Perfil de negocio, canais de comunicacao, contatos, pipeline, automacao, pagina de destino, avaliacoes e sua primeira campanha. Se voce acompanhou, agora tem um sistema que captura leads, faz follow-up automaticamente, rastreia seu processo de vendas e solicita avaliacoes sem voce precisar fazer nada.</p>
+
+<p>O ponto todo e construir isso uma vez e deixar funcionar para voce. Nao perfeitamente. Nao para sempre sem ajuste. Mas ele roda. E rodar supera planejar toda e qualquer vez.</p>
+
+<p>O proximo passo e observar o que acontece, olhar para seus numeros apos uma semana e ajustar a partir dai. A plataforma da os dados. Use-os.</p>
+
+<div class="blog-cta">
+  <p><strong>Precisa de ajuda com a configuracao?</strong></p>
+  <p>Ajudamos empresas a comecar na DUSA toda semana. Se voce prefere que alguem leve voce por isso, <a href="/br/contact">agende uma ligacao de configuracao</a> e resolveremos juntos.</p>
+</div>
+
+</BlogPostLayout>

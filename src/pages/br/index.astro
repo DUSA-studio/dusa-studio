@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import WhatIsDusa from '../../components/WhatIsDusa.astro';
+import UnderwaterDive from '../../components/UnderwaterDive.astro';
+import FunnelComparison from '../../components/FunnelComparison.astro';
+import Features from '../../components/Features.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import Onboarding from '../../components/Onboarding.astro';
+import BrandCarousel from '../../components/BrandCarousel.astro';
+import SocialProof from '../../components/SocialProof.astro';
+import CTA from '../../components/CTA.astro';
+import t from '../../i18n/translations/pt.json';
+---
+
+<BaseLayout
+  title="DUSA . studio | Plataforma de Crescimento para Pequenas Empresas"
+  description="Gerencie seu marketing, vendas e engajamento com clientes em uma so plataforma. DUSA e o sistema de crescimento tudo em um criado para empresas que querem escalar sem a complexidade."
+  lang="pt"
+  ogLocale="pt_BR"
+  region="br"
+  t={t}
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DUSA . studio",
+    "url": "https://dusa.studio/br/",
+    "logo": "https://dusa.studio/favicon.png",
+    "description": "Plataforma de crescimento tudo em um para pequenas empresas. CRM, automacao de marketing, pipelines de vendas e engajamento com clientes em um so acesso.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" },
+    "sameAs": []
+  })} />
+  <Hero t={t} lang="pt" />
+  <WhatIsDusa t={t} />
+  <UnderwaterDive t={t} />
+  <FunnelComparison t={t} />
+  <Features t={t} />
+  <HowItWorks t={t} />
+  <Onboarding t={t} region="br" />
+  <BrandCarousel t={t} />
+  <SocialProof t={t} />
+  <CTA t={t} />
+</BaseLayout>
+
+<script>
+  function initAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') { setTimeout(initAnimations, 100); return; }
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+    gsap.set('.reveal, .reveal-left, .reveal-right, .reveal-scale', { visibility: 'visible' });
+    const heroTl = gsap.timeline({ delay: 0.2 });
+    const heroLabel = document.querySelector('.hero .label');
+    if (heroLabel) heroTl.from(heroLabel, { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' });
+    const heroTitle = document.querySelector('.hero__title');
+    if (heroTitle) heroTl.from(heroTitle, { y: 60, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.3');
+    const heroSub = document.querySelector('.hero__subtitle');
+    if (heroSub) heroTl.from(heroSub, { y: 30, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5');
+    const heroCtas = document.querySelectorAll('.hero__ctas .btn');
+    if (heroCtas.length) heroTl.from(heroCtas, { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, '-=0.3');
+    const heroPhone = document.querySelector('.hero__phone-wrap');
+    if (heroPhone) heroTl.from(heroPhone, { y: 80, opacity: 0, scale: 0.92, duration: 1.2, ease: 'power4.out' }, '-=0.8');
+    const notifFeed = document.querySelector('#hero-notif-feed');
+    if (notifFeed) { gsap.set(notifFeed, { opacity: 0 }); heroTl.to(notifFeed, { opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.6'); }
+    const heroProof = document.querySelector('.hero__proof');
+    if (heroProof) heroTl.from(heroProof, { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
+    const heroOnly = '.hero';
+    gsap.utils.toArray('.reveal').forEach((el: Element) => { if ((el as HTMLElement).closest(heroOnly)) return; gsap.from(el, { y: 50, opacity: 0, duration: 0.8, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }); });
+    gsap.utils.toArray('.reveal-left').forEach((el: Element) => { if ((el as HTMLElement).closest(heroOnly)) return; gsap.from(el, { x: -50, opacity: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }); });
+    gsap.utils.toArray('.reveal-right').forEach((el: Element) => { if ((el as HTMLElement).closest(heroOnly)) return; gsap.from(el, { x: 50, opacity: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }); });
+    gsap.utils.toArray('.reveal-scale').forEach((el: Element) => { if ((el as HTMLElement).closest(heroOnly)) return; gsap.from(el, { scale: 0.9, opacity: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }); });
+    document.querySelectorAll('.hiw__step-num').forEach((el) => { gsap.from(el, { scale: 0.3, opacity: 0, duration: 0.6, ease: 'back.out(2)', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }); });
+    document.querySelectorAll('.proof__stat-value').forEach((el) => { gsap.from(el, { scale: 0.4, opacity: 0, y: 20, duration: 0.7, ease: 'back.out(2)', scrollTrigger: { trigger: el, start: 'top 88%', once: true } }); });
+    document.querySelectorAll('.cta__expand-line').forEach((el) => { gsap.fromTo(el, { scaleY: 0 }, { scaleY: 1, duration: 1, ease: 'power2.out', transformOrigin: 'top center', scrollTrigger: { trigger: el, start: 'top 92%', once: true } }); });
+    const nav = document.querySelector('.nav');
+    if (nav) { ScrollTrigger.create({ start: 'top -80', onUpdate: (self) => { nav.classList.toggle('nav--scrolled', self.progress > 0); } }); }
+    setTimeout(() => ScrollTrigger.refresh(), 500);
+    setTimeout(() => ScrollTrigger.refresh(), 1500);
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initAnimations); } else { initAnimations(); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && typeof gsap !== 'undefined') { gsap.ticker.wake(); if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); } });
+</script>

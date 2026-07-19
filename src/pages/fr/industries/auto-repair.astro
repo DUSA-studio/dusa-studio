@@ -1,0 +1,528 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/fr.json';
+
+const lang = 'fr';
+const region = 'fr';
+
+const title = 'Marketing pour garages automobiles | DUSA.studio';
+const description = 'Automatisez les rappels d\'entretien, les demandes d\'avis et les programmes de fidelite. DUSA est la plateforme de croissance tout-en-un conçue pour les garages automobiles.';
+
+const painPoints = [
+  {
+    icon: '🔩',
+    title: 'Les clients ne viennent que quand ça casse',
+    desc: 'Sans communication proactive, votre activite depend entierement des urgences. Vous passez a cote du chiffre d\'affaires lie a l\'entretien courant chaque mois.',
+  },
+  {
+    icon: '⏰',
+    title: 'Aucun systeme de rappel d\'entretien',
+    desc: 'Vidanges, rotations de pneus, controles techniques. Vos clients oublient, et vous n\'avez aucun moyen de leur envoyer un rappel automatique.',
+  },
+  {
+    icon: '⭐',
+    title: 'Peu d\'avis en ligne',
+    desc: 'Les clients satisfaits repartent sans qu\'on leur demande un avis. Pendant ce temps, le seul client mecontent trouve Google tout seul.',
+  },
+  {
+    icon: '🎁',
+    title: 'Pas de programme de fidelite',
+    desc: 'Les clients reguliers vivent la meme experience que les nouveaux. Aucune recompense pour leur fidelite et aucune raison de vous choisir plutot que le garage d\'a cote.',
+  },
+];
+
+const features = [
+  {
+    title: 'Automatisation des rappels d\'entretien',
+    desc: 'Rappels automatiques par SMS et e-mail pour les vidanges, rotations de pneus, controles techniques et entretiens programmes selon le temps ou le kilometrage.',
+  },
+  {
+    title: 'Campagnes saisonnieres',
+    desc: 'Campagnes preconstruites pour le changement de pneus hiver, les controles de liquide de refroidissement en ete et la preparation aux departs en vacances. Lancez-les en quelques minutes.',
+  },
+  {
+    title: 'Automatisation des demandes d\'avis',
+    desc: 'Envoyez automatiquement des demandes d\'avis apres chaque intervention terminee. Construisez votre reputation Google en pilote automatique.',
+  },
+  {
+    title: 'Recompenses de fidelite',
+    desc: 'Suivez les visites et recompensez les clients reguliers avec des reductions, des services gratuits ou une reservation prioritaire. Faites-les revenir.',
+  },
+  {
+    title: 'Suivi de l\'historique vehicule',
+    desc: 'Chaque intervention, chaque piece, chaque note enregistree pour le vehicule. Sachez exactement ce qui a ete fait et quand, pour chaque client.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Premiere visite', desc: 'Le client se presente ou reserve en ligne' },
+  { stage: 'Entretien prevu', desc: 'Date du prochain entretien calculee automatiquement' },
+  { stage: 'Rappel envoye', desc: 'SMS ou e-mail envoye au bon moment' },
+  { stage: 'Reserve', desc: 'Le client confirme son rendez-vous' },
+  { stage: 'Intervention terminee', desc: 'Travail effectue, demande d\'avis envoyee' },
+  { stage: 'Prochain entretien', desc: 'Le cycle reprend pour la prochaine echeance' },
+];
+
+const stats = [
+  { value: '68%', label: 'des clients oublient l\'entretien courant sans rappel' },
+  { value: '3.2x', label: 'plus de visites recurrentes avec des rappels d\'entretien automatises' },
+  { value: '85%', label: 'des consommateurs font autant confiance aux avis en ligne qu\'aux recommandations personnelles' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://dusa.studio/fr/' },
+    { '@type': 'ListItem', position: 2, name: 'Industries', item: 'https://dusa.studio/fr/industries' },
+    { '@type': 'ListItem', position: 3, name: 'Garages automobiles', item: 'https://dusa.studio/fr/industries/auto-repair' },
+  ],
+});
+---
+
+<BaseLayout t={tData} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="ar-hero section section--dark">
+    <div class="container">
+      <div class="ar-hero__content">
+        <span class="label">Garages automobiles</span>
+        <h1><span class="gradient-text">Automatisation marketing</span> pour les garages automobiles</h1>
+        <p class="ar-hero__sub">
+          Transformez les clients de passage en habitues fideles grace aux rappels d'entretien automatises, aux demandes d'avis et aux recompenses.
+        </p>
+        <div class="ar-hero__actions">
+          <a href="/fr/start" class="btn btn--primary">Commencer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="ar-pain section section--dark">
+    <div class="container">
+      <div class="ar-pain__header">
+        <span class="label">Le probleme</span>
+        <h2>La plupart des garages attendent que le <span class="gradient-text">telephone sonne</span></h2>
+        <p class="ar-pain__intro">Un marketing reactif signifie un chiffre d'affaires imprevisible. Voici ce qui se passe quand vous n'avez aucun systeme pour faire revenir vos clients.</p>
+      </div>
+      <div class="ar-pain__grid">
+        {painPoints.map((point) => (
+          <div class="ar-pain__card">
+            <span class="ar-pain__icon">{point.icon}</span>
+            <h3 class="ar-pain__card-title">{point.title}</h3>
+            <p class="ar-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="ar-solution section section--dark">
+    <div class="container">
+      <div class="ar-solution__header">
+        <span class="label">La solution</span>
+        <h2>Comment DUSA fonctionne pour les <span class="gradient-text">garages automobiles</span></h2>
+        <p class="ar-solution__intro">Un marketing proactif qui fait revenir les clients avant meme qu'ils ne pensent a la concurrence.</p>
+      </div>
+      <div class="ar-solution__grid">
+        {features.map((feature) => (
+          <div class="ar-solution__card">
+            <h3 class="ar-solution__card-title">{feature.title}</h3>
+            <p class="ar-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="ar-pipeline section section--dark">
+    <div class="container">
+      <div class="ar-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>Votre <span class="gradient-text">pipeline d'entretien</span> en un coup d'oeil</h2>
+      </div>
+      <div class="ar-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="ar-pipeline__stage">
+            <div class="ar-pipeline__number">{i + 1}</div>
+            <h3 class="ar-pipeline__stage-title">{step.stage}</h3>
+            <p class="ar-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="ar-stats section section--dark">
+    <div class="container">
+      <div class="ar-stats__header">
+        <span class="label">Impact</span>
+        <h2>Les chiffres parlent <span class="gradient-text">d'eux-memes</span></h2>
+      </div>
+      <div class="ar-stats__grid">
+        {stats.map((stat) => (
+          <div class="ar-stats__card">
+            <span class="ar-stats__value">{stat.value}</span>
+            <p class="ar-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ar-cta section section--dark">
+    <div class="container">
+      <div class="ar-cta__box">
+        <h2>Pret a remplir vos <span class="gradient-text">baies de service</span> ?</h2>
+        <p class="ar-cta__sub">Mettez en place vos rappels d'entretien, votre automatisation des avis et votre programme de fidelite sur une seule plateforme.</p>
+        <div class="ar-cta__actions">
+          <a href="/fr/start" class="btn btn--primary">Commencer</a>
+          <a href="/blog/marketing-for-auto-repair" class="btn btn--outline">Lire le guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ar-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .ar-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ar-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ar-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ar-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .ar-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .ar-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ar-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ar-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .ar-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .ar-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .ar-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ar-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .ar-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ar-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .ar-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .ar-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ar-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ar-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .ar-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .ar-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .ar-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ar-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ar-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .ar-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .ar-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ar-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ar-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .ar-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .ar-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .ar-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ar-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .ar-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .ar-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ar-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ar-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .ar-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ar-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .ar-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .ar-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .ar-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .ar-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .ar-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ar-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .ar-hero__content h1,
+  :global(html[data-theme="light"]) .ar-pain__header h2,
+  :global(html[data-theme="light"]) .ar-solution__header h2,
+  :global(html[data-theme="light"]) .ar-pipeline__header h2,
+  :global(html[data-theme="light"]) .ar-stats__header h2,
+  :global(html[data-theme="light"]) .ar-cta__box h2,
+  :global(html[data-theme="light"]) .ar-pain__card-title,
+  :global(html[data-theme="light"]) .ar-solution__card-title,
+  :global(html[data-theme="light"]) .ar-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .ar-hero__sub,
+  :global(html[data-theme="light"]) .ar-pain__intro,
+  :global(html[data-theme="light"]) .ar-solution__intro,
+  :global(html[data-theme="light"]) .ar-pain__card-desc,
+  :global(html[data-theme="light"]) .ar-solution__card-desc,
+  :global(html[data-theme="light"]) .ar-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .ar-stats__label,
+  :global(html[data-theme="light"]) .ar-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .ar-pain__card,
+  :global(html[data-theme="light"]) .ar-solution__card,
+  :global(html[data-theme="light"]) .ar-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .ar-pain__card:hover,
+  :global(html[data-theme="light"]) .ar-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .ar-stats__card,
+  :global(html[data-theme="light"]) .ar-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .ar-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .ar-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ar-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .ar-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .ar-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .ar-pipeline__stages {
+      flex-direction: column;
+    }
+    .ar-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .ar-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+</style>

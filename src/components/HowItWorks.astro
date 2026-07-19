@@ -1,23 +1,37 @@
 ---
-// HowItWorks.astro — Shift5-inspired numbered steps with flow visual
+// HowItWorks.astro — Shift5-inspired numbered steps with per-row grid alignment
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const s = t?.howItWorks || {};
+const hiwLabel = s.label || 'How It Works';
+const hiwHeading = s.heading || 'Up and running';
+const hiwHeadingAccent = s.headingAccent || 'in three steps.';
+const hiwBookFreeDemo = s.bookFreeDemo || 'Book Your Free Demo';
+
 const steps = [
   {
     num: '01',
     total: '03',
-    title: 'Book a Demo',
-    desc: 'See the platform in action. We\'ll walk you through how DUSA fits your business. No pressure, no jargon.',
+    title: s.step1Title || 'Book a Demo',
+    desc: s.step1Desc || 'See the platform in action. We\'ll walk you through how DUSA fits your business. No pressure, no jargon.',
+    label: s.step1Label || 'DEMO',
   },
   {
     num: '02',
     total: '03',
-    title: 'Get Set Up',
-    desc: 'We handle the migration and setup. Your CRM, AI automations, and funnels, configured and ready to go within days.',
+    title: s.step2Title || 'Get Set Up',
+    desc: s.step2Desc || 'We handle the migration and setup. Your CRM, AI automations, and funnels, configured and ready to go within days.',
+    label: s.step2Label || 'SETUP',
   },
   {
     num: '03',
     total: '03',
-    title: 'Start Growing',
-    desc: 'Launch campaigns, capture leads, and let AI handle your follow-ups from day one. Watch your pipeline fill up.',
+    title: s.step3Title || 'Start Growing',
+    desc: s.step3Desc || 'Launch campaigns, capture leads, and let AI handle your follow-ups from day one. Watch your pipeline fill up.',
+    label: s.step3Label || 'GROWTH',
   },
 ];
 ---
@@ -25,169 +39,81 @@ const steps = [
 <section class="hiw section section--dark" id="how-it-works">
   <div class="container">
     <div class="hiw__header reveal">
-      <span class="label">How It Works</span>
-      <h2>Up and running<br/>in <span class="gradient-text">three steps.</span></h2>
+      <span class="label">{hiwLabel}</span>
+      <h2>{hiwHeading}<br/><span class="gradient-text">{hiwHeadingAccent}</span></h2>
     </div>
 
-    <div class="hiw__layout">
-      <div class="hiw__left">
-        <div class="hiw__steps">
-          {steps.map((step) => (
-            <div class="hiw__step reveal">
-              <div class="hiw__step-counter">
-                <span class="hiw__step-num">{step.num}</span>
-                <span class="hiw__step-divider">/</span>
-                <span class="hiw__step-total">{step.total}</span>
-              </div>
-              <div class="hiw__step-content">
-                <h3>{step.title}</h3>
-                <p>{step.desc}</p>
-              </div>
+    <div class="hiw__grid">
+      {steps.map((step, i) => (
+        <>
+          <div class="hiw__step reveal">
+            <div class="hiw__step-counter">
+              <span class="hiw__step-num">{step.num}</span>
+              <span class="hiw__step-divider">/</span>
+              <span class="hiw__step-total">{step.total}</span>
             </div>
-          ))}
-        </div>
+            <div class="hiw__step-content">
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </div>
+          </div>
 
-        <div class="hiw__cta reveal" style="margin-top: var(--space-xl);">
-          <a href="#contact" class="btn btn--primary">Book Your Free Demo</a>
-        </div>
-      </div>
+          <div class={`hiw__node-cell hiw__node-cell--${i + 1} reveal-scale`} aria-hidden="true">
+            <svg class="hiw__node-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id={`glowGrad_${i}`}>
+                  <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.2" />
+                  <stop offset="60%" stop-color="#4ED8C2" stop-opacity="0.05" />
+                  <stop offset="100%" stop-color="#4ED8C2" stop-opacity="0" />
+                </radialGradient>
+              </defs>
 
-      <!-- Animated flow visual -->
-      <div class="hiw__visual reveal-scale" aria-hidden="true">
-        <svg class="hiw__flow" viewBox="0 15 480 570" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Ambient glow */}
+              <circle class={`hiw__glow hiw__glow--${i + 1}`} cx="100" cy="95" r="98" fill={`url(#glowGrad_${i})`} opacity="0" />
 
-          <!-- Gradient + filter definitions -->
-          <defs>
-            <linearGradient id="pathGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.6" />
-              <stop offset="100%" stop-color="#A8C8E8" stop-opacity="0.15" />
-            </linearGradient>
-            <linearGradient id="pathGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.5" />
-              <stop offset="100%" stop-color="#A8C8E8" stop-opacity="0.1" />
-            </linearGradient>
-            <radialGradient id="glowGrad1">
-              <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.2" />
-              <stop offset="60%" stop-color="#4ED8C2" stop-opacity="0.05" />
-              <stop offset="100%" stop-color="#4ED8C2" stop-opacity="0" />
-            </radialGradient>
-            <radialGradient id="glowGrad2">
-              <stop offset="0%" stop-color="#A8C8E8" stop-opacity="0.15" />
-              <stop offset="100%" stop-color="#A8C8E8" stop-opacity="0" />
-            </radialGradient>
-            <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="8" result="blur" />
-              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
+              {/* Node rings */}
+              <g class={`hiw__node hiw__node--${i + 1}`}>
+                <circle cx="100" cy="95" r="76" stroke="rgba(78,216,194,0.2)" stroke-width="1" fill="none" stroke-dasharray="6 6" />
+                <circle cx="100" cy="95" r="56" stroke="rgba(78,216,194,0.35)" stroke-width="1.5" fill="rgba(78,216,194,0.04)" />
+                <circle cx="100" cy="95" r="40" stroke="#4ED8C2" stroke-width="2" fill="rgba(12,14,20,0.9)" />
 
-          <!-- Shift all content down 25px for breathing room -->
-          <g transform="translate(0, 25)">
+                {/* Icon for each step */}
+                {i === 0 && (
+                  <g class="hiw__icon" transform="translate(76, 71) scale(2)" stroke="#4ED8C2" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                    <rect x="1" y="3" width="22" height="18" rx="2" />
+                    <path d="M1 9h22" />
+                    <path d="M7 1v4" />
+                    <path d="M17 1v4" />
+                    <circle cx="12" cy="15" r="2" fill="#4ED8C2" opacity="0.4" />
+                  </g>
+                )}
+                {i === 1 && (
+                  <g class="hiw__icon" transform="translate(76, 71) scale(2)" stroke="#4ED8C2" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                    <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+                    <circle cx="12" cy="12" r="4" />
+                  </g>
+                )}
+                {i === 2 && (
+                  <g class="hiw__icon" transform="translate(76, 71) scale(2)" stroke="#4ED8C2" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                    <path d="M3 20V4" />
+                    <path d="M3 20h18" />
+                    <path d="M7 14l4-4 3 3 5-7" />
+                    <path d="M15 6h4v4" />
+                  </g>
+                )}
 
-          <!-- Subtle grid dots background -->
-          <g class="hiw__grid-dots" opacity="0.08">
-            {Array.from({ length: 10 }).map((_, row) =>
-              Array.from({ length: 8 }).map((_, col) => (
-                <circle cx={30 + col * 55} cy={20 + row * 58} r="1.2" fill="#F7F4EF" />
-              ))
-            )}
-          </g>
+                <text x="100" y="195" text-anchor="middle" fill="rgba(247,244,239,0.5)" font-size="12" font-family="monospace" letter-spacing="0.12em" font-weight="500">{step.label}</text>
+              </g>
+            </svg>
 
-          <!-- Decorative cross markers -->
-          <g opacity="0.06" stroke="#F7F4EF" stroke-width="1">
-            <line x1="415" y1="45" x2="415" y2="65" /><line x1="405" y1="55" x2="425" y2="55" />
-            <line x1="55" y1="510" x2="55" y2="530" /><line x1="45" y1="520" x2="65" y2="520" />
-            <line x1="380" y1="440" x2="380" y2="455" /><line x1="373" y1="447" x2="387" y2="447" />
-          </g>
+            {/* Dashed connection line to next node */}
+            {i < 2 && <div class="hiw__connector" />}
+          </div>
+        </>
+      ))}
 
-          <!-- Connection path 1: Demo → Setup (wider stroke, glow effect) -->
-          <path class="hiw__path-glow hiw__path-glow--1" d="M130 100 C160 200, 340 150, 350 260" stroke="#4ED8C2" stroke-width="6" stroke-linecap="round" opacity="0.06" />
-          <path class="hiw__path hiw__path--1" d="M130 100 C160 200, 340 150, 350 260" stroke="url(#pathGrad1)" stroke-width="1.5" stroke-dasharray="8 5" />
-
-          <!-- Connection path 2: Setup → Growth (wider stroke, glow effect) -->
-          <path class="hiw__path-glow hiw__path-glow--2" d="M350 260 C320 370, 180 340, 170 440" stroke="#4ED8C2" stroke-width="6" stroke-linecap="round" opacity="0.06" />
-          <path class="hiw__path hiw__path--2" d="M350 260 C320 370, 180 340, 170 440" stroke="url(#pathGrad2)" stroke-width="1.5" stroke-dasharray="8 5" />
-
-          <!-- Large ambient glow behind nodes -->
-          <circle class="hiw__glow hiw__glow--1" cx="130" cy="100" r="70" fill="url(#glowGrad1)" opacity="0" />
-          <circle class="hiw__glow hiw__glow--2" cx="350" cy="260" r="70" fill="url(#glowGrad1)" opacity="0" />
-          <circle class="hiw__glow hiw__glow--3" cx="170" cy="440" r="70" fill="url(#glowGrad1)" opacity="0" />
-
-          <!-- ═══ NODE 1: DEMO ═══ -->
-          <g class="hiw__node hiw__node--1">
-            <!-- Outer ring -->
-            <circle cx="130" cy="100" r="38" stroke="rgba(78,216,194,0.2)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
-            <!-- Middle ring -->
-            <circle cx="130" cy="100" r="28" stroke="rgba(78,216,194,0.35)" stroke-width="1.5" fill="rgba(78,216,194,0.04)" />
-            <!-- Inner circle -->
-            <circle cx="130" cy="100" r="20" stroke="#4ED8C2" stroke-width="2" fill="rgba(12,14,20,0.9)" />
-            <!-- Calendar/demo icon (24x24 viewBox scaled to fit r=20) -->
-            <g transform="translate(118, 88)" stroke="#4ED8C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-              <rect x="1" y="3" width="22" height="18" rx="2" />
-              <path d="M1 9h22" />
-              <path d="M7 1v4" />
-              <path d="M17 1v4" />
-              <circle cx="12" cy="15" r="2" fill="#4ED8C2" opacity="0.4" />
-            </g>
-            <!-- Label -->
-            <text x="130" y="160" text-anchor="middle" fill="rgba(247,244,239,0.5)" font-size="12" font-family="monospace" letter-spacing="0.12em" font-weight="500">DEMO</text>
-          </g>
-
-          <!-- ═══ NODE 2: SETUP ═══ -->
-          <g class="hiw__node hiw__node--2">
-            <circle cx="350" cy="260" r="38" stroke="rgba(78,216,194,0.2)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
-            <circle cx="350" cy="260" r="28" stroke="rgba(78,216,194,0.35)" stroke-width="1.5" fill="rgba(78,216,194,0.04)" />
-            <circle cx="350" cy="260" r="20" stroke="#4ED8C2" stroke-width="2" fill="rgba(12,14,20,0.9)" />
-            <!-- Wrench/cog icon -->
-            <g transform="translate(338, 248)" stroke="#4ED8C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
-              <circle cx="12" cy="12" r="4" />
-            </g>
-            <text x="350" y="320" text-anchor="middle" fill="rgba(247,244,239,0.5)" font-size="12" font-family="monospace" letter-spacing="0.12em" font-weight="500">SETUP</text>
-          </g>
-
-          <!-- ═══ NODE 3: GROWTH ═══ -->
-          <g class="hiw__node hiw__node--3">
-            <circle cx="170" cy="440" r="38" stroke="rgba(78,216,194,0.2)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
-            <circle cx="170" cy="440" r="28" stroke="rgba(78,216,194,0.35)" stroke-width="1.5" fill="rgba(78,216,194,0.04)" />
-            <circle cx="170" cy="440" r="20" stroke="#4ED8C2" stroke-width="2" fill="rgba(12,14,20,0.9)" />
-            <!-- Growth chart icon -->
-            <g transform="translate(158, 428)" stroke="#4ED8C2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-              <path d="M3 20V4" />
-              <path d="M3 20h18" />
-              <path d="M7 14l4-4 3 3 5-7" />
-              <path d="M15 6h4v4" />
-            </g>
-            <text x="170" y="500" text-anchor="middle" fill="rgba(247,244,239,0.5)" font-size="12" font-family="monospace" letter-spacing="0.12em" font-weight="500">GROWTH</text>
-          </g>
-
-          <!-- Horizontal accent lines extending from nodes -->
-          <line class="hiw__accent-line" x1="170" y1="100" x2="280" y2="100" stroke="rgba(78,216,194,0.08)" stroke-width="1" />
-          <line class="hiw__accent-line" x1="210" y1="260" x2="310" y2="260" stroke="rgba(78,216,194,0.08)" stroke-width="1" />
-          <line class="hiw__accent-line" x1="210" y1="440" x2="320" y2="440" stroke="rgba(78,216,194,0.06)" stroke-width="1" />
-
-          <!-- Floating data particles (bigger, more varied) -->
-          <circle class="hiw__particle hiw__particle--1" cx="70" cy="180" r="2.5" fill="#4ED8C2" opacity="0.25" />
-          <circle class="hiw__particle hiw__particle--2" cx="420" cy="150" r="2" fill="#A8C8E8" opacity="0.2" />
-          <circle class="hiw__particle hiw__particle--3" cx="240" cy="350" r="3" fill="#4ED8C2" opacity="0.15" />
-          <circle class="hiw__particle hiw__particle--4" cx="430" cy="400" r="2" fill="#A8C8E8" opacity="0.2" />
-          <circle class="hiw__particle hiw__particle--5" cx="80" cy="500" r="2.5" fill="#4ED8C2" opacity="0.12" />
-          <circle class="hiw__particle hiw__particle--6" cx="300" cy="70" r="2" fill="#A8C8E8" opacity="0.15" />
-          <circle class="hiw__particle hiw__particle--7" cx="450" cy="520" r="1.5" fill="#4ED8C2" opacity="0.18" />
-          <circle class="hiw__particle hiw__particle--8" cx="30" cy="350" r="2" fill="#A8C8E8" opacity="0.12" />
-
-          <!-- Small decorative brackets near nodes -->
-          <g opacity="0.1" stroke="#F7F4EF" stroke-width="1" fill="none">
-            <!-- Bracket near node 1 -->
-            <path d="M200 80 L210 80 L210 120 L200 120" />
-            <!-- Bracket near node 2 -->
-            <path d="M410 240 L420 240 L420 280 L410 280" />
-            <!-- Bracket near node 3 -->
-            <path d="M100 420 L90 420 L90 460 L100 460" />
-          </g>
-
-          </g> <!-- end translate wrapper -->
-        </svg>
+      <div class="hiw__cta reveal" style="margin-top: var(--space-xl);">
+        <a href="#contact" class="btn btn--primary">{hiwBookFreeDemo}</a>
       </div>
     </div>
   </div>
@@ -196,20 +122,21 @@ const steps = [
 <style>
   .hiw__header {
     max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: var(--space-2xl);
+    text-align: center;
   }
 
-  .hiw__layout {
+  /* ─── GRID: each step + node in same row ─── */
+  .hiw__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
-  }
-
-  .hiw__steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    gap: 0 var(--space-xl);
+    align-items: center;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hiw__step {
@@ -238,7 +165,7 @@ const steps = [
     width: 120px;
   }
 
-  .hiw__step:last-child {
+  .hiw__step:last-of-type {
     border-bottom: 1px solid rgba(247, 244, 239, 0.06);
   }
 
@@ -269,6 +196,10 @@ const steps = [
     color: rgba(247, 244, 239, 0.25);
   }
 
+  .hiw__step-content {
+    min-width: 0;
+  }
+
   .hiw__step-content h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
@@ -280,63 +211,54 @@ const steps = [
     color: rgba(247, 244, 239, 0.5);
     line-height: 1.7;
     max-width: 500px;
+    overflow-wrap: break-word;
   }
 
-  .hiw__cta {
-    text-align: left;
-  }
-
-  /* ─── FLOW VISUAL ─── */
-  .hiw__visual {
+  /* ─── NODE CELLS ─── */
+  .hiw__node-cell {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
   }
 
-  .hiw__flow {
-    width: 100%;
-    max-width: 520px;
+  .hiw__node-svg {
+    width: 200px;
     height: auto;
   }
 
-  /* Path dash animation — flowing dashes */
-  .hiw__path {
-    stroke-dashoffset: 0;
-    animation: hiwDash 14s linear infinite;
+  /* ─── CONNECTOR LINES ─── */
+  .hiw__connector {
+    width: 2px;
+    height: 40px;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(78, 216, 194, 0.3) 0px,
+      rgba(78, 216, 194, 0.3) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    margin: -8px auto 0;
+    position: relative;
   }
 
-  .hiw__path--2 {
-    animation-delay: -7s;
+  /* ─── CTA ─── */
+  .hiw__cta {
+    grid-column: 1 / -1;
+    text-align: center;
   }
 
-  @keyframes hiwDash {
-    to { stroke-dashoffset: -260; }
-  }
-
-  /* Path glow pulses */
-  .hiw__path-glow {
-    animation: hiwPathGlow 4s ease-in-out infinite;
-  }
-
-  .hiw__path-glow--2 {
-    animation-delay: 2s;
-  }
-
-  @keyframes hiwPathGlow {
-    0%, 100% { opacity: 0.03; }
-    50% { opacity: 0.1; }
-  }
+  /* ─── NODE ANIMATIONS ─── */
 
   /* Outer dashed ring rotates slowly */
   .hiw__node circle:first-child {
     animation: hiwRingSpin 30s linear infinite;
     transform-origin: center;
+    transform-box: fill-box;
   }
 
-  .hiw__node--1 circle:first-child { transform-box: fill-box; }
-  .hiw__node--2 circle:first-child { transform-box: fill-box; animation-direction: reverse; }
-  .hiw__node--3 circle:first-child { transform-box: fill-box; }
+  .hiw__node--2 circle:first-child { animation-direction: reverse; }
 
   @keyframes hiwRingSpin {
     to { transform: rotate(360deg); }
@@ -355,7 +277,7 @@ const steps = [
     50% { stroke-opacity: 0.7; }
   }
 
-  /* Glow fade — bigger, softer */
+  /* Glow fade */
   .hiw__glow {
     animation: hiwGlow 5s ease-in-out infinite;
   }
@@ -368,60 +290,40 @@ const steps = [
     50% { opacity: 1; }
   }
 
-  /* Floating particles */
-  .hiw__particle {
-    animation: hiwFloat 6s ease-in-out infinite;
-  }
-
-  .hiw__particle--2 { animation-delay: -1s; animation-duration: 7s; }
-  .hiw__particle--3 { animation-delay: -2s; animation-duration: 5s; }
-  .hiw__particle--4 { animation-delay: -3s; animation-duration: 8s; }
-  .hiw__particle--5 { animation-delay: -4s; animation-duration: 6.5s; }
-  .hiw__particle--6 { animation-delay: -0.5s; animation-duration: 7.5s; }
-  .hiw__particle--7 { animation-delay: -5s; animation-duration: 9s; }
-  .hiw__particle--8 { animation-delay: -2.5s; animation-duration: 6s; }
-
-  @keyframes hiwFloat {
-    0%, 100% { transform: translateY(0); opacity: 0.1; }
-    50% { transform: translateY(-15px); opacity: 0.35; }
-  }
-
-  /* Accent lines shimmer */
-  .hiw__accent-line {
-    animation: hiwShimmer 5s ease-in-out infinite;
-  }
-
-  .hiw__accent-line:nth-of-type(2) { animation-delay: 1.7s; }
-  .hiw__accent-line:nth-of-type(3) { animation-delay: 3.4s; }
-
-  @keyframes hiwShimmer {
-    0%, 100% { opacity: 0.04; }
-    50% { opacity: 0.2; }
-  }
-
   /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
-    .hiw__layout {
+    .hiw__grid {
       grid-template-columns: 1.2fr 1fr;
-      gap: var(--space-lg);
+      gap: 0 var(--space-lg);
     }
 
-    .hiw__flow {
-      max-width: 420px;
+    .hiw__node-svg {
+      width: 170px;
+    }
+
+    .hiw__step {
+      grid-template-columns: 80px 1fr;
     }
   }
 
   @media (max-width: 768px) {
-    .hiw__layout {
+    .hiw__header {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hiw__grid {
       grid-template-columns: 1fr;
     }
 
-    .hiw__visual {
+    .hiw__node-cell {
       display: none;
     }
 
     .hiw__step {
-      grid-template-columns: 60px 1fr;
+      grid-template-columns: 80px 1fr;
       gap: var(--space-sm);
     }
 
@@ -440,7 +342,7 @@ const steps = [
 
   @media (max-width: 480px) {
     .hiw__step {
-      grid-template-columns: 48px 1fr;
+      grid-template-columns: 68px 1fr;
       gap: 0.75rem;
       padding: var(--space-md) 0;
     }
@@ -456,5 +358,80 @@ const steps = [
     .hiw__step-content p {
       font-size: 0.9375rem;
     }
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .hiw__step {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hiw__step:last-of-type {
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hiw__step-num {
+    color: var(--deep-ocean);
+    text-shadow: none;
+  }
+
+  :global(html[data-theme="light"]) .hiw__step-divider {
+    color: rgba(12, 14, 20, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .hiw__step-total {
+    color: rgba(12, 14, 20, 0.25);
+  }
+
+  :global(html[data-theme="light"]) .hiw__step-content h3 {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .hiw__step-content p {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* Light mode: Node rings */
+  :global(html[data-theme="light"]) .hiw__node circle:first-child {
+    stroke: rgba(26, 58, 92, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .hiw__node circle:nth-child(2) {
+    stroke: rgba(26, 58, 92, 0.3);
+    fill: rgba(26, 58, 92, 0.04);
+  }
+
+  :global(html[data-theme="light"]) .hiw__node circle:nth-child(3) {
+    stroke: var(--deep-ocean);
+    fill: rgba(237, 233, 227, 0.95);
+  }
+
+  :global(html[data-theme="light"]) .hiw__icon {
+    stroke: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .hiw__icon circle {
+    fill: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .hiw__node text {
+    fill: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .hiw__glow {
+    fill: rgba(106, 170, 207, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hiw__connector {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(26, 58, 92, 0.25) 0px,
+      rgba(26, 58, 92, 0.25) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+
+  :global(html[data-theme="light"]) .hiw__step::before {
+    background: linear-gradient(90deg, var(--deep-ocean), transparent);
   }
 </style>

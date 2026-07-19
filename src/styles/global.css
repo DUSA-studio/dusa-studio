@@ -92,6 +92,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--deep-black);
+  overflow-x: hidden;
+  height: 100%;
 }
 
 body {
@@ -102,6 +104,9 @@ body {
   color: var(--deep-black);
   background-color: var(--deep-black);
   overflow-x: hidden;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 img, video, svg {
@@ -121,6 +126,10 @@ button {
   background: none;
 }
 
+main {
+  flex: 1;
+}
+
 ul, ol {
   list-style: none;
 }
@@ -131,6 +140,13 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+}
+
+/* Global text overflow safety — prevents horizontal scroll from long words/URLs */
+p, li, blockquote, td, th, dd, dt, figcaption, label {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 h1 { font-size: clamp(3rem, 8vw, 6rem); }
@@ -140,6 +156,12 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 
 p {
   max-width: 65ch;
+}
+
+p.cta__expand-label {
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mono {
@@ -230,10 +252,17 @@ p {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--reef-aqua), #3fc4af);
+  background: linear-gradient(135deg, var(--reef-aqua) 0%, #3fc4af 25%, var(--mist-blue) 50%, var(--reef-aqua) 75%, #3fc4af 100%);
+  background-size: 300% 300%;
+  animation: btn-gradient-flow 6s ease infinite;
   color: var(--deep-black);
   box-shadow: 0 0 20px rgba(78, 216, 194, 0.15);
   position: relative;
+}
+
+@keyframes btn-gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .btn--primary::before {
@@ -249,7 +278,9 @@ p {
 }
 
 .btn--primary:hover {
-  background: linear-gradient(135deg, #5de0cc, #3fc4af);
+  background: linear-gradient(135deg, var(--reef-aqua) 0%, #5de0cc 25%, var(--mist-blue) 50%, #5de0cc 75%, var(--reef-aqua) 100%);
+  background-size: 300% 300%;
+  animation: btn-gradient-flow 3s ease infinite;
   transform: translateY(-2px);
   box-shadow: 0 8px 40px rgba(78, 216, 194, 0.4);
 }
@@ -332,9 +363,26 @@ p {
   50% { background-position: 100% 50%; }
 }
 
+html[data-theme="light"] .gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--deep-ocean) 0%,
+    var(--mist-blue) 30%,
+    var(--deep-ocean) 50%,
+    var(--mist-blue) 70%,
+    var(--deep-ocean) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shimmer 6s ease-in-out infinite;
+}
+
 /* --- Ambient Glow — reusable radial background accent --- */
 .glow {
   position: relative;
+  overflow: hidden;
 }
 
 .glow::after {
@@ -386,11 +434,38 @@ p {
 
 /* --- Scroll Reveal — GSAP controls visibility via set() + from() --- */
 /* Visibility: 'hidden' prevents flash; GSAP sets visibility:'visible' + opacity:0 before animating */
+/* CSS fallback: after 1.5s, if GSAP hasn't taken over, fade in gracefully */
 .reveal,
 .reveal-left,
 .reveal-right,
 .reveal-scale {
   visibility: hidden;
+  animation: revealFallback 0.8s ease forwards;
+  animation-delay: 1.5s;
+}
+
+/* GSAP-ready: once gsap has loaded and set visibility, cancel the CSS fallback */
+.gsap-ready .reveal,
+.gsap-ready .reveal-left,
+.gsap-ready .reveal-right,
+.gsap-ready .reveal-scale {
+  animation: none;
+}
+
+@keyframes revealFallback {
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* --- Adjacent dark section spacing — reduce double padding --- */
+.section--dark + .section--dark {
+  padding-top: var(--space-lg);
+}
+/* Also trim bottom padding of a dark section that precedes another dark section */
+.section--dark:has(+ .section--dark) {
+  padding-bottom: var(--space-lg);
 }
 
 /* --- Responsive --- */
@@ -410,7 +485,7 @@ p {
   }
 
   .container {
-    padding: 0 var(--space-sm);
+    padding: 0 var(--space-md);
   }
 
   h1 { font-size: clamp(2.25rem, 8vw, 3.5rem); }
@@ -418,13 +493,254 @@ p {
 }
 
 @media (max-width: 480px) {
+  body {
+    font-size: 16px;
+  }
+
+  .section {
+    padding: var(--space-lg) 0;
+  }
+
   .container {
-    padding: 0 1rem;
+    padding: 0 1.25rem;
   }
 
   .btn {
     font-size: 1rem;
     padding: 0.875rem 1.75rem;
-    width: 100%;
+    white-space: normal;
   }
+}
+
+/* ============================================
+   LIGHT MODE OVERRIDES
+   html[data-theme="light"] = specificity 0-2-1
+   beats Astro scoped .class[data-astro-cid] = 0-2-0
+   ============================================ */
+
+/* --- Base --- */
+html[data-theme="light"] {
+  background-color: var(--warm-white);
+}
+
+html[data-theme="light"] body {
+  background-color: var(--warm-white);
+  color: var(--deep-black);
+}
+
+/* --- Smooth transition on theme change --- */
+html[data-theme="light"],
+html[data-theme="light"] body,
+html[data-theme="light"] .nav,
+html[data-theme="light"] .nav--scrolled,
+html[data-theme="light"] .section--dark,
+html[data-theme="light"] .section--sand,
+html[data-theme="light"] .footer {
+  transition: background-color 0.5s var(--ease-out), color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+/* --- Dark sections become light --- */
+html[data-theme="light"] .section--dark {
+  background-color: var(--warm-white);
+  color: var(--deep-black);
+}
+
+/* Remove film grain on dark sections in light mode */
+html[data-theme="light"] .section--dark::before {
+  opacity: 0;
+}
+
+/* Sand sections stay but lighten */
+html[data-theme="light"] .section--sand {
+  background-color: #f5f1eb;
+}
+
+html[data-theme="light"] .section--sand::before {
+  opacity: 0.15;
+}
+
+/* Tighter section spacing in light mode — no dark/light contrast to justify large gaps */
+html[data-theme="light"] .section {
+  padding: var(--space-2xl) 0;
+}
+
+/* Adjacent dark section spacing keeps working */
+html[data-theme="light"] .section--dark + .section--dark {
+  padding-top: var(--space-lg);
+}
+
+/* Adjacent same-bg sections get tighter padding in light mode */
+html[data-theme="light"] .section--dark:has(+ .section--dark) {
+  padding-bottom: var(--space-lg);
+}
+
+/* Light-mode responsive section padding — matches dark-mode reductions */
+@media (max-width: 768px) {
+  html[data-theme="light"] .section {
+    padding: var(--space-xl) 0;
+  }
+}
+@media (max-width: 480px) {
+  html[data-theme="light"] .section {
+    padding: var(--space-lg) 0;
+  }
+}
+
+/* --- Typography --- */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5 {
+  color: var(--deep-black);
+}
+
+/* --- Navigation --- */
+html[data-theme="light"] .nav {
+  background: transparent;
+}
+
+html[data-theme="light"] .nav--scrolled {
+  background: rgba(247, 244, 239, 0.85);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border-bottom: 1px solid rgba(12, 14, 20, 0.06);
+  box-shadow: 0 2px 20px rgba(12, 14, 20, 0.06);
+}
+
+html[data-theme="light"] .nav__logo {
+  color: var(--deep-black);
+}
+
+html[data-theme="light"] .nav__logo-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--deep-black) 0%,
+    var(--deep-black) 35%,
+    var(--reef-aqua) 50%,
+    var(--deep-black) 65%,
+    var(--deep-black) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerSweep 4s ease-in-out infinite;
+}
+
+html[data-theme="light"] .nav__logo-dot {
+  color: var(--deep-ocean);
+}
+
+@keyframes shimmerSweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+html[data-theme="light"] .nav__link {
+  color: rgba(12, 14, 20, 0.8);
+}
+
+html[data-theme="light"] .nav__link:hover,
+html[data-theme="light"] .nav__link--active {
+  color: var(--deep-black);
+}
+
+html[data-theme="light"] .nav__login {
+  color: rgba(12, 14, 20, 0.8);
+}
+
+html[data-theme="light"] .nav__login:hover {
+  color: var(--deep-ocean);
+}
+
+html[data-theme="light"] .nav__mobile-toggle span {
+  background: var(--deep-black);
+}
+
+html[data-theme="light"] .nav__mobile {
+  background: rgba(247, 244, 239, 0.98);
+  border-top: 1px solid rgba(12, 14, 20, 0.06);
+}
+
+html[data-theme="light"] .nav__mobile-link {
+  color: rgba(12, 14, 20, 0.7);
+  border-bottom: 1px solid rgba(12, 14, 20, 0.06);
+}
+
+html[data-theme="light"] .nav__mobile-link:hover,
+html[data-theme="light"] .nav__mobile-link--active {
+  color: var(--deep-ocean);
+}
+
+/* --- Buttons --- */
+html[data-theme="light"] .btn--outline {
+  background: rgba(12, 14, 20, 0.03);
+  color: var(--deep-black);
+  border: 1.5px solid rgba(12, 14, 20, 0.15);
+}
+
+html[data-theme="light"] .btn--outline:hover {
+  border-color: var(--deep-ocean);
+  color: var(--deep-ocean);
+  background: rgba(26, 58, 92, 0.05);
+}
+
+html[data-theme="light"] .btn--dark {
+  background-color: var(--deep-black);
+  color: var(--warm-white);
+}
+
+/* --- Label Tag --- */
+html[data-theme="light"] .label {
+  color: var(--deep-ocean);
+  border-color: rgba(26, 58, 92, 0.2);
+  background: rgba(26, 58, 92, 0.06);
+}
+
+html[data-theme="light"] .label::before {
+  background: var(--deep-ocean);
+  box-shadow: 0 0 8px rgba(26, 58, 92, 0.4);
+}
+
+/* --- Gradient Text — stays aqua/blue, works on both --- */
+
+/* --- Glass Card --- */
+html[data-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(12, 14, 20, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04);
+}
+
+html[data-theme="light"] .glass-card:hover {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(26, 58, 92, 0.15);
+  box-shadow: 0 8px 32px rgba(12, 14, 20, 0.08);
+}
+
+/* --- Footer stays dark in light mode — design anchor --- */
+html[data-theme="light"] .footer {
+  background-color: var(--deep-black);
+  color: var(--warm-white);
+}
+
+html[data-theme="light"] .footer .footer__logo {
+  color: var(--warm-white);
+}
+
+html[data-theme="light"] .footer h4,
+html[data-theme="light"] .footer h3,
+html[data-theme="light"] .footer h2 {
+  color: rgba(247, 244, 239, 0.4);
+}
+
+/* --- Elements inside dark cards that should STAY light --- */
+html[data-theme="light"] .problem__solution-title {
+  color: var(--warm-white);
+}
+
+html[data-theme="light"] .problem__solution-desc {
+  color: rgba(247, 244, 239, 0.55);
 }

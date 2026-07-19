@@ -6,45 +6,175 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
+  lang?: string;
+  ogLocale?: string;
+  region?: string;
+  t?: Record<string, any>;
 }
 
 const {
   title = 'DUSA . studio | Growth Platform for Small Business',
-  description = 'Run your marketing, sales, and customer engagement from one platform. DUSA is the all-in-one growth system built for businesses that want to scale without the complexity.'
+  description = 'Run your marketing, sales, and customer engagement from one platform. DUSA is the all-in-one growth system built for businesses that want to scale without the complexity.',
+  noindex = false,
+  lang = 'en-AU',
+  ogLocale = 'en_AU',
+  region,
+  t = {},
 } = Astro.props;
+
+/* ─── Canonical + hreflang logic ─── */
+const siteBase = 'https://dusa.studio';
+const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonicalUrl = new URL(rawPath === '/' ? '/' : rawPath, siteBase).href;
+
+// Strip locale prefix to get the base page path
+const localePattern = /^\/(es|mx|br|fr|de|us|uk)(\/|$)/;
+const localeMatch = rawPath.match(localePattern);
+const basePath = localeMatch ? rawPath.replace(localePattern, '/').replace(/^\/$/, '') : rawPath;
+const pagePath = basePath === '/' ? '' : basePath;
+
+// Hreflang definitions — all supported locale/region combos
+// US and UK only have /pricing, so only include their hreflang on pages that exist
+const usUkPages = ['', '/pricing']; // root (homepage) and /pricing only
+const allHreflangs = [
+  { hreflang: 'en-au', prefix: '' },
+  { hreflang: 'en-us', prefix: '/us' },
+  { hreflang: 'en-gb', prefix: '/uk' },
+  { hreflang: 'es-es', prefix: '/es' },
+  { hreflang: 'es-mx', prefix: '/mx' },
+  { hreflang: 'pt-br', prefix: '/br' },
+  { hreflang: 'fr-fr', prefix: '/fr' },
+  { hreflang: 'de-de', prefix: '/de' },
+];
+const hreflangs = allHreflangs.filter(({ hreflang }) => {
+  if (hreflang === 'en-us' || hreflang === 'en-gb') {
+    return usUkPages.includes(pagePath);
+  }
+  return true;
+});
+
+/* ─── Breadcrumb schema (non-homepage only) ─── */
+const isHomepage = rawPath === '/' || rawPath === '';
+const breadcrumbSegments = rawPath.split('/').filter(Boolean);
+let breadcrumbSchema = '';
+if (!isHomepage && breadcrumbSegments.length > 0) {
+  const items = [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteBase + '/' },
+  ];
+  let accumPath = '';
+  for (let i = 0; i < breadcrumbSegments.length; i++) {
+    accumPath += '/' + breadcrumbSegments[i];
+    const segName = breadcrumbSegments[i]
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (c: string) => c.toUpperCase());
+    items.push({
+      '@type': 'ListItem',
+      position: i + 2,
+      name: segName,
+      item: siteBase + accumPath,
+    });
+  }
+  breadcrumbSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items,
+  });
+}
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#0C0E14" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalUrl} />
     <title>{title}</title>
+
+    <!-- Hreflang alternate links for international SEO -->
+    {hreflangs.map(({ hreflang, prefix }) => (
+      <link rel="alternate" hreflang={hreflang} href={`${siteBase}${prefix}${pagePath}`} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${siteBase}${pagePath}`} />
+
+    <!-- Theme detection — runs before paint to prevent flash -->
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem('dusa-theme');
+        if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+          var mc = document.querySelector('meta[name="theme-color"]');
+          if (mc) mc.setAttribute('content', '#F7F4EF');
+        }
+      })();
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://dusa.studio" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content="https://dusa.studio/og-default.jpg" />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://dusa.studio/og-default.jpg" />
+
+    <!-- Breadcrumb structured data -->
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={breadcrumbSchema} />
+    )}
+
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+    <!-- GSAP fallback: if CDN fails or JS is slow, ensure content is still visible -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          if (typeof gsap === 'undefined') {
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(function(el) {
+              el.style.visibility = 'visible';
+              el.style.opacity = '1';
+            });
+          }
+        }, 3000);
+      });
+    </script>
+    <noscript>
+      <style>
+        .reveal, .reveal-left, .reveal-right, .reveal-scale {
+          visibility: visible !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
-    <Nav />
+    <Nav t={t} />
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer t={t} />
 
     <!-- LeadConnector Chat Widget -->
     <script src="https://widgets.leadconnectorhq.com/loader.js"
       data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-      data-widget-id="6880d1b3b785852440a39d69">
+      data-widget-id="6880d1b3b785852440a39d69"
+      defer>
     </script>
   </body>
 </html>

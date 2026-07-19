@@ -1,0 +1,535 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/de.json';
+
+const lang = 'de';
+const region = 'de';
+
+const title = 'CRM für Coaches & Berater | DUSA.studio';
+const description = 'Automatisieren Sie Leadgenerierung, Kunden-Onboarding, Terminplanung und Paketverlängerungen. DUSA ist die All-in-One-Wachstumsplattform für Coaches und Berater.';
+
+const painPoints = [
+  {
+    icon: '📋',
+    title: 'Mehr Verwaltung als Coaching',
+    desc: 'Sie sind Coach geworden, um Menschen zu helfen, nicht um die halbe Woche mit Rechnungen, Terminplanung und Follow-up-E-Mails zu verbringen.',
+  },
+  {
+    icon: '📉',
+    title: 'Unregelmäßiger Leadfluss',
+    desc: 'Manche Monate sind voll. Andere sind ruhig. Ohne ein System hängt Ihre Pipeline von Empfehlungen und Glück ab.',
+  },
+  {
+    icon: '🚪',
+    title: 'Kein Onboarding-System',
+    desc: 'Jeder neue Kunde bekommt eine andere Erfahrung. Aufnahmeformulare, Willkommens-E-Mails und die Vorbereitung der ersten Sitzung passieren jedes Mal manuell.',
+  },
+  {
+    icon: '🗓️',
+    title: 'Manuelle Terminplanung',
+    desc: 'E-Mails hin und her, um einen Termin zu finden. Vergessene Erinnerungen. Nichterscheinen. Das alles summiert sich zu verlorenen Einnahmen und verschwendeter Energie.',
+  },
+];
+
+const features = [
+  {
+    title: 'Erstgespräch-Funnel',
+    desc: 'Eine Landingpage, ein Buchungsformular und eine Bestätigungssequenz, die Website-Besucher in gebuchte Erstgespräche verwandelt.',
+  },
+  {
+    title: 'Kunden-Onboarding-Sequenzen',
+    desc: 'Automatisierte Willkommens-E-Mails, Aufnahmeformulare, Vertragsunterzeichnung und Vorbereitung der ersten Sitzung. Jeder Kunde bekommt einen konsistenten, professionellen Start.',
+  },
+  {
+    title: 'Terminplanung und Erinnerungen',
+    desc: 'Kunden buchen direkt über Ihren Kalender. Automatische Erinnerungen werden 24 Stunden und 1 Stunde vor jeder Sitzung versendet.',
+  },
+  {
+    title: 'Fortschrittsverfolgung',
+    desc: 'Markieren Sie Kunden nach Programmphase, verfolgen Sie Meilensteine und lösen Sie Check-in-Nachrichten zum richtigen Zeitpunkt aus.',
+  },
+  {
+    title: 'Automatische Paketverlängerung',
+    desc: 'Wenn ein Coaching-Paket sich dem Ende nähert, beginnt die automatische Ansprache. Verlängerungsgespräche starten, ohne dass Sie einen Finger rühren müssen.',
+  },
+  {
+    title: 'Testimonial-Sammlung',
+    desc: 'Nach Abschluss eines Coaching-Engagements werden automatisch Testimonials und Bewertungen angefragt. Bauen Sie Social Proof auf, solange die Erfahrung frisch ist.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Erstgespräch', desc: 'Interessent bucht und füllt das Aufnahmeformular aus' },
+  { stage: 'Onboarding', desc: 'Vertrag unterschrieben, Willkommenssequenz zugestellt' },
+  { stage: 'Aktives Coaching', desc: 'Sitzungen laufen, Fortschritt wird verfolgt' },
+  { stage: 'Paketverlängerung', desc: 'Automatische Verlängerungsansprache bei 80% Abschluss' },
+  { stage: 'Alumni', desc: 'Testimonial gesammelt, Empfehlungsprogramm aktiviert' },
+  { stage: 'Empfehlung & Upsell', desc: 'Fruhere Kunden empfehlen neue Interessenten und erkunden fortgeschrittene Programme. DUSA verfolgt Empfehlungsgutschriften und bewirbt Premium-Angebote.' },
+];
+
+const stats = [
+  { value: '62%', label: 'der Coaches sagen, dass Verwaltungsarbeit ihr größter Zeitfresser ist' },
+  { value: '4x', label: 'mehr Erstgespräche gebucht mit einem automatisierten Funnel' },
+  { value: '35%', label: 'höhere Verlängerungsrate mit automatisierten Re-Engagement-Sequenzen' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Startseite', item: 'https://dusa.studio/de/' },
+    { '@type': 'ListItem', position: 2, name: 'Branchen', item: 'https://dusa.studio/de/industries' },
+    { '@type': 'ListItem', position: 3, name: 'Coaches & Berater', item: 'https://dusa.studio/de/industries/coaches' },
+  ],
+});
+---
+
+<BaseLayout t={tData} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="co-hero section section--dark">
+    <div class="container">
+      <div class="co-hero__content">
+        <span class="label">Coaches & Berater</span>
+        <h1>Das <span class="gradient-text">CRM</span>, das Sie sich aufs Coaching konzentrieren lässt</h1>
+        <p class="co-hero__sub">
+          Automatisieren Sie Ihren Leadfluss, Onboarding, Terminplanung und Verlängerungen. Verbringen Sie Ihre Zeit mit Kunden, nicht mit Verwaltung.
+        </p>
+        <div class="co-hero__actions">
+          <a href="/de/start" class="btn btn--primary">Jetzt starten</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="co-pain section section--dark">
+    <div class="container">
+      <div class="co-pain__header">
+        <span class="label">Das Problem</span>
+        <h2>Sie sind nicht Coach geworden, um <span class="gradient-text">Verwaltung zu machen</span></h2>
+        <p class="co-pain__intro">Die meisten Coaches und Berater verlieren jede Woche Stunden an Aufgaben, die automatisiert werden sollten. So sieht das aus.</p>
+      </div>
+      <div class="co-pain__grid">
+        {painPoints.map((point) => (
+          <div class="co-pain__card">
+            <span class="co-pain__icon">{point.icon}</span>
+            <h3 class="co-pain__card-title">{point.title}</h3>
+            <p class="co-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="co-solution section section--dark">
+    <div class="container">
+      <div class="co-solution__header">
+        <span class="label">Die Lösung</span>
+        <h2>So funktioniert DUSA für <span class="gradient-text">Coaches & Berater</span></h2>
+        <p class="co-solution__intro">Eine Plattform, um Ihre gesamte Kundenreise zu verwalten, vom Erstkontakt bis zur Alumni-Empfehlung.</p>
+      </div>
+      <div class="co-solution__grid">
+        {features.map((feature) => (
+          <div class="co-solution__card">
+            <h3 class="co-solution__card-title">{feature.title}</h3>
+            <p class="co-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="co-pipeline section section--dark">
+    <div class="container">
+      <div class="co-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>Ihre <span class="gradient-text">Kunden-Pipeline</span> auf einen Blick</h2>
+      </div>
+      <div class="co-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="co-pipeline__stage">
+            <div class="co-pipeline__number">{i + 1}</div>
+            <h3 class="co-pipeline__stage-title">{step.stage}</h3>
+            <p class="co-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="co-stats section section--dark">
+    <div class="container">
+      <div class="co-stats__header">
+        <span class="label">Wirkung</span>
+        <h2>Die Zahlen sprechen für <span class="gradient-text">sich selbst</span></h2>
+      </div>
+      <div class="co-stats__grid">
+        {stats.map((stat) => (
+          <div class="co-stats__card">
+            <span class="co-stats__value">{stat.value}</span>
+            <p class="co-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="co-cta section section--dark">
+    <div class="container">
+      <div class="co-cta__box">
+        <h2>Bereit, Ihre <span class="gradient-text">Praxis zu vergrößern</span>?</h2>
+        <p class="co-cta__sub">Starten Sie Ihren Erstgespräch-Funnel, Onboarding-Sequenzen und die Verlängerungsautomatisierung auf einer Plattform.</p>
+        <div class="co-cta__actions">
+          <a href="/de/start" class="btn btn--primary">Jetzt starten</a>
+          <a href="/blog/crm-for-coaches" class="btn btn--outline">Leitfaden lesen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .co-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .co-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .co-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .co-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .co-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .co-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .co-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .co-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .co-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .co-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .co-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .co-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .co-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .co-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .co-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .co-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .co-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .co-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .co-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .co-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .co-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .co-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .co-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .co-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .co-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .co-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .co-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .co-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .co-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .co-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .co-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .co-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .co-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .co-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .co-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .co-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .co-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .co-hero__content h1,
+  :global(html[data-theme="light"]) .co-pain__header h2,
+  :global(html[data-theme="light"]) .co-solution__header h2,
+  :global(html[data-theme="light"]) .co-pipeline__header h2,
+  :global(html[data-theme="light"]) .co-stats__header h2,
+  :global(html[data-theme="light"]) .co-cta__box h2,
+  :global(html[data-theme="light"]) .co-pain__card-title,
+  :global(html[data-theme="light"]) .co-solution__card-title,
+  :global(html[data-theme="light"]) .co-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .co-hero__sub,
+  :global(html[data-theme="light"]) .co-pain__intro,
+  :global(html[data-theme="light"]) .co-solution__intro,
+  :global(html[data-theme="light"]) .co-pain__card-desc,
+  :global(html[data-theme="light"]) .co-solution__card-desc,
+  :global(html[data-theme="light"]) .co-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .co-stats__label,
+  :global(html[data-theme="light"]) .co-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .co-pain__card,
+  :global(html[data-theme="light"]) .co-solution__card,
+  :global(html[data-theme="light"]) .co-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .co-pain__card:hover,
+  :global(html[data-theme="light"]) .co-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .co-stats__card,
+  :global(html[data-theme="light"]) .co-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .co-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .co-stats__value {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .co-cta__actions .btn--outline {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .co-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .co-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .co-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .co-pipeline__stages {
+      flex-direction: column;
+    }
+    .co-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .co-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+</style>

@@ -1,0 +1,619 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/es.json';
+
+const lang = 'es';
+const region = 'es';
+---
+
+<BaseLayout t={tData} title="CRM para Profesionales de Oficios | DUSA.studio" description="No pierdas nunca mas una consulta de trabajo. Respuesta automatica por mensaje, pipeline de presupuestos, programacion de trabajos y solicitudes de resenas en Google, creados para profesionales de oficios. Prueba DUSA gratis.">
+
+  <!-- Hero -->
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">Oficios</span>
+        <h1>Gana mas trabajos.<br/>Menos <span class="gradient-text">papeleo</span>.</h1>
+        <p class="ind-hero__sub">
+          Cuando estas con las herramientas, los clientes potenciales se pierden. DUSA captura cada consulta, envia presupuestos y hace el seguimiento para que puedas concentrarte en el trabajo.
+        </p>
+        <a href="/es/start" class="btn btn--primary">Comenzar gratis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="ind-pain section--dark">
+    <div class="container">
+      <h2><span class="gradient-text">Te suena familiar?</span></h2>
+      <div class="ind-pain__cards">
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Llamadas perdidas mientras trabajas</h3>
+          <p class="ind-pain__card-desc">Estas en una escalera o debajo de un lavabo cuando suena el telefono. Para cuando devuelves la llamada, el cliente ya contrato a otro.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Presupuestos perdidos en mensajes</h3>
+          <p class="ind-pain__card-desc">Envias un presupuesto por SMS y desaparece en el vacio. Sin seguimiento, sin recordatorio, sin saber si siquiera lo leyeron.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Sin seguimiento de clientes antiguos</h3>
+          <p class="ind-pain__card-desc">Esa consulta de remodelacion de cocina de hace tres meses? Perdida. No hay un sistema para retomar clientes que no estaban listos en su momento.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Persiguiendo pagos</h3>
+          <p class="ind-pain__card-desc">El trabajo esta terminado pero la factura sigue sin pagar. Pierdes tiempo enviando recordatorios en vez de empezar el proximo trabajo.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="ind-solution section--dark">
+    <div class="container">
+      <h2>Como funciona DUSA para <span class="gradient-text">profesionales de oficios</span></h2>
+      <p class="ind-solution__sub">Creado para la forma en que realmente trabajan los profesionales. En obra, en movimiento, con las herramientas.</p>
+      <div class="ind-solution__grid">
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Respuesta automatica por mensaje</h3>
+          <p class="ind-solution__card-desc">Cuando no puedes contestar, DUSA envia un mensaje instantaneo al que llamo. "Hola, estoy en un trabajo ahora mismo. Te devuelvo la llamada en menos de una hora." Mantiene al cliente interesado.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3h18v18H3zM3 9h18M9 21V9" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Pipeline de presupuestos</h3>
+          <p class="ind-solution__card-desc">Rastrea cada presupuesto desde la consulta hasta la aceptacion. Ve cuales estan pendientes, haz seguimiento en el momento justo y no pierdas nunca mas un cliente potencial.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Programacion de trabajos</h3>
+          <p class="ind-solution__card-desc">Agenda trabajos, asigna fechas y manten tu calendario lleno. Los clientes reciben confirmaciones y recordatorios automaticos para que nadie se olvide.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Recordatorios automaticos de facturas</h3>
+          <p class="ind-solution__card-desc">Envia facturas a traves de DUSA y deja que el sistema se encargue del cobro. Los recordatorios amables se envian segun el calendario hasta que el trabajo este pagado.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Solicitudes de resenas en Google</h3>
+          <p class="ind-solution__card-desc">Despues de cada trabajo completado, DUSA envia una solicitud de resena. Construye tu reputacion una resena de cinco estrellas a la vez.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="ind-pipeline section--dark">
+    <div class="container">
+      <h2>De la consulta al <span class="gradient-text">cobro</span></h2>
+      <div class="ind-pipeline__track">
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">01</div>
+          <h3 class="ind-pipeline__step-title">Consulta</h3>
+          <p class="ind-pipeline__step-desc">Un nuevo cliente llama, envia un mensaje o completa tu formulario. DUSA captura los detalles y envia una respuesta instantanea.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">02</div>
+          <h3 class="ind-pipeline__step-title">Presupuesto enviado</h3>
+          <p class="ind-pipeline__step-desc">Envias un presupuesto a traves de DUSA. El sistema rastrea cuando se abre y te recuerda hacer seguimiento.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">03</div>
+          <h3 class="ind-pipeline__step-title">Presupuesto aceptado</h3>
+          <p class="ind-pipeline__step-desc">El cliente dice que si. DUSA avanza el proceso y confirma la reserva.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">04</div>
+          <h3 class="ind-pipeline__step-title">Trabajo programado</h3>
+          <p class="ind-pipeline__step-desc">El trabajo esta confirmado. Se envian recordatorios automaticos tanto a ti como al cliente.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">05</div>
+          <h3 class="ind-pipeline__step-title">Completado</h3>
+          <p class="ind-pipeline__step-desc">El trabajo esta hecho. DUSA activa tu factura y una solicitud de resena en Google.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">06</div>
+          <h3 class="ind-pipeline__step-title">Pagado</h3>
+          <p class="ind-pipeline__step-desc">Pago recibido. El trabajo se cierra y alimenta tus reportes.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="ind-stats section--dark">
+    <div class="container">
+      <div class="ind-stats__grid">
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">85%</span>
+          <p class="ind-stats__label">de los clientes contratan al primer profesional que responde</p>
+        </div>
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">4x</span>
+          <p class="ind-stats__label">mas presupuestos aceptados con seguimiento oportuno</p>
+        </div>
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">10 hrs</span>
+          <p class="ind-stats__label">ahorradas por semana en administracion y seguimiento</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ind-cta section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2>Listo para gestionar tu oficio de forma mas inteligente?</h2>
+        <p>Configura tu pipeline, automatizaciones y sistema de resenas en menos de una hora. Sin permanencia, sin complicaciones.</p>
+        <div class="ind-cta__actions">
+          <a href="/es/start" class="btn btn--primary">Comenzar</a>
+          <a href="/blog/crm-for-tradies" class="ind-cta__link">Leer la guia &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://dusa.studio/es/" },
+      { "@type": "ListItem", "position": 2, "name": "Industrias", "item": "https://dusa.studio/es/industries/" },
+      { "@type": "ListItem", "position": 3, "name": "Oficios", "item": "https://dusa.studio/es/industries/tradies" }
+    ]
+  })} />
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .ind-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Pain Points */
+  .ind-pain {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-pain h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-pain__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ind-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ind-pain__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+  .ind-pain__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+  .ind-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pain__card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* Solution */
+  .ind-solution {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-solution h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xs);
+  }
+  .ind-solution__sub {
+    text-align: center;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-xl);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ind-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ind-solution__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+  .ind-solution__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+  .ind-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-solution__card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* Pipeline - 6 steps for tradies */
+  .ind-pipeline {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-pipeline h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-pipeline__track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-md);
+  }
+  .ind-pipeline__step {
+    text-align: center;
+  }
+  .ind-pipeline__num {
+    font-family: var(--font-mono, monospace);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
+    opacity: 0.3;
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pipeline__step-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pipeline__step-desc {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  /* Stats */
+  .ind-stats {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .ind-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ind-stats__number {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-stats__label {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+  .ind-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ind-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-cta__box p {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-cta__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+  .ind-cta__link {
+    font-family: var(--font-headline);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .ind-cta__link:hover {
+    opacity: 0.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .ind-pain__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ind-pipeline__track {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ind-pain__cards {
+      grid-template-columns: 1fr;
+    }
+    .ind-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .ind-pipeline__track {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+    .ind-stats__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+    .ind-pipeline__track {
+      grid-template-columns: 1fr;
+    }
+    .ind-pain__card,
+    .ind-solution__card,
+    .ind-stats__card {
+      padding: var(--space-md);
+    }
+    .ind-cta__box {
+      padding: var(--space-md);
+    }
+    .ind-cta__actions {
+      flex-direction: column;
+    }
+  }
+
+  /* Light Mode */
+  :global(html[data-theme="light"]) .ind-hero__content h1,
+  :global(html[data-theme="light"]) .ind-pain__card-title,
+  :global(html[data-theme="light"]) .ind-solution__card-title,
+  :global(html[data-theme="light"]) .ind-pipeline__step-title,
+  :global(html[data-theme="light"]) .ind-pain h2,
+  :global(html[data-theme="light"]) .ind-solution h2,
+  :global(html[data-theme="light"]) .ind-pipeline h2,
+  :global(html[data-theme="light"]) .ind-stats h2,
+  :global(html[data-theme="light"]) .ind-cta__box h2 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__sub,
+  :global(html[data-theme="light"]) .ind-pain__card-desc,
+  :global(html[data-theme="light"]) .ind-solution__card-desc,
+  :global(html[data-theme="light"]) .ind-solution__sub,
+  :global(html[data-theme="light"]) .ind-pipeline__step-desc,
+  :global(html[data-theme="light"]) .ind-stats__label,
+  :global(html[data-theme="light"]) .ind-cta__box p {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card,
+  :global(html[data-theme="light"]) .ind-solution__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card:hover,
+  :global(html[data-theme="light"]) .ind-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__card {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain,
+  :global(html[data-theme="light"]) .ind-solution,
+  :global(html[data-theme="light"]) .ind-pipeline,
+  :global(html[data-theme="light"]) .ind-stats {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon-wrap,
+  :global(html[data-theme="light"]) .ind-solution__icon-wrap {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon-wrap svg,
+  :global(html[data-theme="light"]) .ind-solution__icon-wrap svg {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-pipeline__num {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__number {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__link {
+    color: var(--deep-ocean);
+  }
+</style>

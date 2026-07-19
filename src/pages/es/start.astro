@@ -1,0 +1,981 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/t.js';
+import tData from '../../i18n/translations/es.json';
+
+const lang = 'es';
+const region = 'es';
+---
+
+<BaseLayout t={tData} title="Comienza tu prueba gratuita | DUSA . studio" description="Acceso completo a la plataforma todo-en-uno de DUSA durante 14 dias. Sin tarjeta de credito. CRM, email, SMS, embudos, reservas y gestion de reputacion." lang="es" ogLocale="es_ES" region={region}>
+
+  <!-- ─── HERO ─── -->
+  <section class="trial-hero section section--dark">
+    <div class="container">
+      <div class="trial-hero__content">
+        <span class="label">Prueba gratuita de 14 dias</span>
+        <h1>Empieza a crecer <span class="gradient-text">hoy</span></h1>
+        <p class="trial-hero__sub">Acceso completo a la plataforma. Sin tarjeta de credito. Configuracion en menos de 10 minutos.</p>
+        <div class="trial-hero__badges">
+          <span class="trial-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Sin tarjeta
+          </span>
+          <span class="trial-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            Cancela cuando quieras
+          </span>
+          <span class="trial-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Acceso completo
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FORM + VALUE PROPS ─── -->
+  <section class="trial section section--dark" style="padding-top:0;" id="trial">
+    <div class="container">
+      <div class="trial__layout">
+        <!-- Signup Form -->
+        <div class="trial__form-wrap">
+          <form class="trial__form" id="trial-form" novalidate>
+            <div class="trial__field">
+              <label class="trial__label" for="trial-fname">Nombre *</label>
+              <input type="text" id="trial-fname" name="firstName" class="trial__input" placeholder="Tu nombre" required />
+            </div>
+
+            <div class="trial__field">
+              <label class="trial__label" for="trial-email">Correo electronico *</label>
+              <input type="email" id="trial-email" name="email" class="trial__input" placeholder="tu@ejemplo.com" required />
+            </div>
+
+            <div class="trial__field">
+              <label class="trial__label" for="trial-business">Nombre de empresa *</label>
+              <input type="text" id="trial-business" name="business" class="trial__input" placeholder="Tu empresa" required />
+            </div>
+
+            <div class="trial__field">
+              <label class="trial__label" for="trial-phone">Telefono</label>
+              <input type="tel" id="trial-phone" name="phone" class="trial__input" placeholder="+34 600 000 000" />
+            </div>
+
+            <button type="submit" class="btn btn--primary trial__submit" id="trial-submit">Comenzar</button>
+
+            <div class="trial__status trial__status--success" id="trial-success" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Ya estas dentro. Revisa tu correo para los datos de acceso.</span>
+            </div>
+            <div class="trial__status trial__status--error" id="trial-error" style="display:none;">
+              <span>Algo salio mal. Por favor, escribenos a <a href="mailto:contact@dusa.studio">contact@dusa.studio</a>.</span>
+            </div>
+          </form>
+        </div>
+
+        <!-- Value Props -->
+        <div class="trial__value">
+          <div class="trial__value-item">
+            <div class="trial__value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </div>
+            <div>
+              <h4 class="trial__value-title">Los 6 sistemas principales incluidos</h4>
+              <p class="trial__value-text">CRM, marketing, embudos, reservas, reputacion y chat IA en un solo lugar.</p>
+            </div>
+          </div>
+
+          <div class="trial__value-item">
+            <div class="trial__value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 2l1.09 3.26L16 6l-2.18 2.18L14.36 12 12 10.09 9.64 12l.54-3.82L8 6l2.91-.74z"/><path d="M5 18l1.09-3.26L3 13l2.91-.74L5 9"/><path d="M19 18l-1.09-3.26L21 13l-2.91-.74L19 9"/></svg>
+            </div>
+            <div>
+              <h4 class="trial__value-title">Automatizaciones con IA desde el primer dia</h4>
+              <p class="trial__value-text">Flujos de trabajo inteligentes que te ahorran horas cada semana, activos desde el momento en que te registras.</p>
+            </div>
+          </div>
+
+          <div class="trial__value-item">
+            <div class="trial__value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </div>
+            <div>
+              <h4 class="trial__value-title">Incorporacion guiada para obtener resultados rapido</h4>
+              <p class="trial__value-text">Te guiamos en la configuracion para que veas valor en tu primera semana.</p>
+            </div>
+          </div>
+
+          <div class="trial__value-item">
+            <div class="trial__value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h4 class="trial__value-title">Cancela cuando quieras, sin preguntas</h4>
+              <p class="trial__value-text">Sin permanencia. Si no es lo adecuado, puedes irte sin compromisos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rotating Testimonials — full width below both columns -->
+      <div class="trial__testimonials" id="trial-testimonials">
+        <div class="trial__testimonial trial__testimonial--active" data-index="0">
+          <blockquote class="trial__quote">
+            "Within the first week, we had automated follow-ups running and booked three new clients. DUSA paid for itself before the trial was even over."
+          </blockquote>
+          <div class="trial__quote-author">
+            <strong>Sarah M.</strong>
+            <span>Beauty &amp; Wellness Studio</span>
+          </div>
+        </div>
+        <div class="trial__testimonial" data-index="1">
+          <blockquote class="trial__quote">
+            "We used to spend hours chasing invoices and missed calls. Now the system handles it all. I actually take weekends off again."
+          </blockquote>
+          <div class="trial__quote-author">
+            <strong>James T.</strong>
+            <span>Residential Plumbing</span>
+          </div>
+        </div>
+        <div class="trial__testimonial" data-index="2">
+          <blockquote class="trial__quote">
+            "Our Google reviews went from 12 to over 80 in three months. The automated review requests changed everything for our local visibility."
+          </blockquote>
+          <div class="trial__quote-author">
+            <strong>Priya K.</strong>
+            <span>Boutique Fitness Studio</span>
+          </div>
+        </div>
+        <div class="trial__testimonial" data-index="3">
+          <blockquote class="trial__quote">
+            "I replaced four separate subscriptions with DUSA. One login, one bill, and everything actually talks to each other now."
+          </blockquote>
+          <div class="trial__quote-author">
+            <strong>Marcus D.</strong>
+            <span>Independent Financial Advisor</span>
+          </div>
+        </div>
+        <div class="trial__testimonial" data-index="4">
+          <blockquote class="trial__quote">
+            "The AI chat captured leads while I was on set. I came back to three new bookings. That would never have happened before."
+          </blockquote>
+          <div class="trial__quote-author">
+            <strong>Lena R.</strong>
+            <span>Photography &amp; Creative Studio</span>
+          </div>
+        </div>
+        <div class="trial__testimonial" data-index="5">
+          <blockquote class="trial__quote">
+            "Setting up funnels used to take us weeks with a developer. We built one in an afternoon and it converted better than anything before."
+          </blockquote>
+          <div class="trial__quote-author">
+            <strong>Tom H.</strong>
+            <span>E-commerce Brand Owner</span>
+          </div>
+        </div>
+        <div class="trial__testimonial-dots" id="testimonial-dots"></div>
+      </div>
+
+      <p class="trial__legal trial__legal--wide">Al registrarte, aceptas nuestros <a href="/es/terms">Terminos</a> y <a href="/es/privacy-policy">Politica de Privacidad</a></p>
+    </div>
+  </section>
+
+  <!-- ─── WHAT YOU GET ─── -->
+  <section class="trial-features section section--dark" id="features">
+    <div class="container">
+      <div class="trial-features__header">
+        <span class="label">Lo que incluye</span>
+        <h2>Todo lo que necesitas para crecer, <span class="gradient-text">en un solo lugar</span></h2>
+      </div>
+      <div class="trial-features__grid">
+        <div class="trial-features__card">
+          <div class="trial-features__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="trial-features__title">CRM y gestion de pipeline</h3>
+          <p class="trial-features__desc">Rastrea cada lead, acuerdo e interaccion con clientes desde un solo panel.</p>
+        </div>
+
+        <div class="trial-features__card">
+          <div class="trial-features__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h3 class="trial-features__title">Marketing por correo y SMS</h3>
+          <p class="trial-features__desc">Envia campanas dirigidas que convierten leads en clientes fieles.</p>
+        </div>
+
+        <div class="trial-features__card">
+          <div class="trial-features__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3 class="trial-features__title">Reservas y calendario</h3>
+          <p class="trial-features__desc">Permite que los clientes reserven online, sincroniza calendarios y automatiza recordatorios.</p>
+        </div>
+
+        <div class="trial-features__card">
+          <div class="trial-features__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <h3 class="trial-features__title">Constructor de embudos y sitios web</h3>
+          <p class="trial-features__desc">Crea paginas de destino y embudos de venta de alta conversion sin codigo.</p>
+        </div>
+
+        <div class="trial-features__card">
+          <div class="trial-features__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3 class="trial-features__title">Gestion de reputacion</h3>
+          <p class="trial-features__desc">Recopila resenas, monitorea comentarios y construye confianza en piloto automatico.</p>
+        </div>
+
+        <div class="trial-features__card">
+          <div class="trial-features__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/></svg>
+          </div>
+          <h3 class="trial-features__title">Chat IA y automatizaciones</h3>
+          <p class="trial-features__desc">Responde a leads al instante con IA, luego transfiere cuando estes listo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BOTTOM CTA ─── -->
+  <section class="trial-cta section section--dark">
+    <div class="container">
+      <div class="trial-cta__content">
+        <h2>Todavia <span class="gradient-text">decidiendo?</span></h2>
+        <p class="trial-cta__text">Prefieres una demostracion guiada? Reserva una demo gratuita y te mostramos la plataforma usando tu negocio como ejemplo.</p>
+        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Reservar una demo</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── HERO ─── */
+  .trial-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .trial-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .trial-hero__sub {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .trial-hero__badges {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .trial-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247, 244, 239, 0.5);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    border-radius: 100px;
+    padding: 0.5rem 1rem;
+  }
+
+  .trial-badge svg {
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+  }
+
+  /* ─── LAYOUT ─── */
+  .trial__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  /* ─── FORM ─── */
+  .trial__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .trial__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .trial__label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  .trial__input {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    color: var(--warm-white);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    transition: all var(--duration-fast);
+    width: 100%;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .trial__input::placeholder {
+    color: rgba(247, 244, 239, 0.2);
+  }
+
+  .trial__input:focus {
+    outline: none;
+    border-color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.04);
+    box-shadow: 0 0 0 3px rgba(78, 216, 194, 0.1);
+  }
+
+  .trial__submit {
+    align-self: stretch;
+    margin-top: var(--space-xs);
+    text-align: center;
+  }
+
+  .trial__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .trial__legal {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.35);
+    line-height: 1.6;
+  }
+
+  .trial__legal--wide {
+    text-align: center;
+    margin-top: var(--space-sm);
+  }
+
+  .trial__legal a {
+    color: rgba(247, 244, 239, 0.5);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--duration-fast);
+  }
+
+  .trial__legal a:hover {
+    color: var(--reef-aqua);
+  }
+
+  .trial__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .trial__status--success {
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.2);
+    color: var(--reef-aqua);
+  }
+
+  .trial__status--error {
+    background: rgba(255, 100, 100, 0.08);
+    border: 1px solid rgba(255, 100, 100, 0.2);
+    color: #ff8a8a;
+  }
+
+  .trial__status--error a {
+    color: var(--reef-aqua);
+  }
+
+  /* ─── VALUE PROPS ─── */
+  .trial__value {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .trial__value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+  }
+
+  .trial__value-icon {
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .trial__value-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.25rem;
+  }
+
+  .trial__value-text {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+  }
+
+  /* ─── ROTATING TESTIMONIALS ─── */
+  .trial__testimonials {
+    position: relative;
+    margin-top: var(--space-xl);
+    min-height: 120px;
+  }
+
+  .trial__testimonial {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+
+  .trial__testimonial--active {
+    opacity: 1;
+    position: relative;
+    left: auto;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .trial__quote {
+    font-size: 1.0625rem;
+    font-style: italic;
+    color: rgba(247, 244, 239, 0.7);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+  }
+
+  .trial__quote-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+  }
+
+  .trial__quote-author strong {
+    font-size: 0.9375rem;
+    color: var(--warm-white);
+    font-weight: 600;
+  }
+
+  .trial__quote-author span {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  .trial__testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--space-md);
+  }
+
+  .trial__dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trial__dot::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(247, 244, 239, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .trial__dot--active::before {
+    background: var(--reef-aqua);
+    box-shadow: 0 0 8px rgba(78, 216, 194, 0.3);
+  }
+
+  /* ─── FEATURES GRID ─── */
+  .trial-features__header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .trial-features__header h2 {
+    margin-top: var(--space-sm);
+  }
+
+  .trial-features__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .trial-features__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .trial-features__card:hover {
+    border-color: rgba(78, 216, 194, 0.15);
+    background: rgba(247, 244, 239, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .trial-features__icon {
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-sm);
+  }
+
+  .trial-features__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.375rem;
+  }
+
+  .trial-features__desc {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.5);
+    line-height: 1.6;
+  }
+
+  /* ─── BOTTOM CTA ─── */
+  .trial-cta__content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .trial-cta__text {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .trial__layout {
+      gap: var(--space-xl);
+    }
+
+    .trial-hero__sub {
+      font-size: 1.125rem;
+    }
+
+    .trial-features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .trial__layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .trial-hero__sub {
+      font-size: 1.0625rem;
+    }
+
+    .trial-features__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .trial-hero__badges {
+      gap: var(--space-xs);
+    }
+
+    .trial__testimonial {
+      padding: var(--space-md);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trial-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+
+    .trial__testimonial {
+      padding: var(--space-sm);
+    }
+
+    .trial-features__card {
+      padding: var(--space-md);
+    }
+  }
+
+  /* ─── GSAP HIDDEN UNTIL JS ─── */
+  .trial-hero__content,
+  .trial__form-wrap,
+  .trial__value-item,
+  .trial__testimonials,
+  .trial-features__header,
+  .trial-features__card,
+  .trial-cta__content {
+    visibility: hidden;
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .trial-hero__sub {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .trial-badge {
+    color: rgba(12, 14, 20, 0.5);
+    background: rgba(12, 14, 20, 0.03);
+    border-color: rgba(12, 14, 20, 0.1);
+  }
+
+  :global(html[data-theme="light"]) .trial-badge svg {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .trial__label {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .trial__input {
+    color: var(--deep-black);
+    background: rgba(12, 14, 20, 0.03);
+    border: 1px solid rgba(12, 14, 20, 0.12);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  :global(html[data-theme="light"]) .trial__input::placeholder {
+    color: rgba(12, 14, 20, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .trial__input:focus {
+    border-color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.03);
+    box-shadow: 0 0 0 3px rgba(26, 58, 92, 0.1);
+  }
+
+  :global(html[data-theme="light"]) .trial__legal {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .trial__legal a {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .trial__legal a:hover {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .trial__value-icon {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .trial__value-title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .trial__value-text {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .trial__testimonial {
+    background: rgba(12, 14, 20, 0.02);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .trial__dot::before {
+    background: rgba(12, 14, 20, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .trial__dot--active::before {
+    background: var(--deep-ocean);
+    box-shadow: 0 0 8px rgba(26, 58, 92, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .trial__legal--wide {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .trial__legal--wide a {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .trial__quote {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .trial__quote-author strong {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .trial__quote-author span {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .trial-features__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .trial-features__card:hover {
+    border-color: rgba(26, 58, 92, 0.15);
+    background: rgba(12, 14, 20, 0.04);
+    box-shadow: 0 6px 24px rgba(12, 14, 20, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .trial-features__icon {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .trial-features__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .trial-features__desc {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .trial-cta__text {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .trial__status--success {
+    background: rgba(54, 205, 164, 0.08);
+    border: 1px solid rgba(54, 205, 164, 0.25);
+    color: #1a8a6a;
+  }
+
+  :global(html[data-theme="light"]) .trial__status--error {
+    background: rgba(232, 82, 78, 0.08);
+    border: 1px solid rgba(232, 82, 78, 0.25);
+    color: #c0302d;
+  }
+
+  :global(html[data-theme="light"]) .trial__status--error a {
+    color: var(--deep-ocean);
+  }
+</style>
+
+<script>
+  function initTrialAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initTrialAnimations, 100);
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+
+    // Make elements visible
+    gsap.set('.trial-hero__content, .trial__form-wrap, .trial__value-item, .trial__testimonials, .trial-features__header, .trial-features__card, .trial-cta__content', {
+      visibility: 'visible',
+    });
+
+    // Hero
+    gsap.fromTo('.trial-hero__content',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+    );
+
+    // Form
+    gsap.fromTo('.trial__form-wrap',
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.25 }
+    );
+
+    // Value items
+    gsap.fromTo('.trial__value-item',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 0.35 }
+    );
+
+    // Testimonials
+    gsap.fromTo('.trial__testimonials',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.75 }
+    );
+
+    // Features header
+    gsap.fromTo('.trial-features__header',
+      { y: 30, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: '.trial-features__header', start: 'top 85%', once: true }
+      }
+    );
+
+    // Features cards
+    gsap.fromTo('.trial-features__card',
+      { y: 25, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.trial-features__grid', start: 'top 85%', once: true }
+      }
+    );
+
+    // Bottom CTA
+    gsap.fromTo('.trial-cta__content',
+      { y: 25, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: '.trial-cta__content', start: 'top 85%', once: true }
+      }
+    );
+  }
+  initTrialAnimations();
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }
+  });
+
+  // ─── TRIAL FORM SUBMISSION ───
+  const trialForm = document.getElementById('trial-form');
+  const trialSubmitBtn = document.getElementById('trial-submit');
+  const trialSuccess = document.getElementById('trial-success');
+  const trialError = document.getElementById('trial-error');
+
+  trialForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    trialSuccess.style.display = 'none';
+    trialError.style.display = 'none';
+
+    const formData = new FormData(trialForm);
+    const data = {
+      firstName: formData.get('firstName'),
+      email: formData.get('email'),
+      business: formData.get('business'),
+      phone: formData.get('phone'),
+    };
+
+    // Pull tool stack from sessionStorage (set on pricing page)
+    try {
+      const toolTags = sessionStorage.getItem('dusa_tool_tags');
+      const toolStack = sessionStorage.getItem('dusa_tool_stack');
+      const currentSpend = sessionStorage.getItem('dusa_current_spend');
+      const interests = sessionStorage.getItem('dusa_interests');
+      if (toolTags) data.current_tools = toolTags;
+      if (toolStack) data.tool_stack = JSON.parse(toolStack);
+      if (currentSpend) data.current_spend = currentSpend;
+      if (interests) data.dusa_interests = JSON.parse(interests);
+    } catch(err) { /* silent */ }
+
+    trialSubmitBtn.disabled = true;
+    trialSubmitBtn.textContent = 'Configurando tu cuenta...';
+
+    try {
+      const res = await fetch('https://services.leadconnectorhq.com/hooks/rUKGht903K7MlneMT1NF/webhook-trigger/2f41fe3b-9c02-4958-acb1-2637525558de', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        window.location.href = '/es/thank-you';
+      } else {
+        trialError.style.display = 'flex';
+      }
+    } catch (err) {
+      trialError.style.display = 'flex';
+    } finally {
+      trialSubmitBtn.disabled = false;
+      trialSubmitBtn.textContent = 'Comenzar';
+    }
+  });
+
+  // ─── ROTATING TESTIMONIALS ───
+  (function initTestimonialCarousel() {
+    const container = document.getElementById('trial-testimonials');
+    if (!container) return;
+
+    const testimonials = container.querySelectorAll('.trial__testimonial');
+    const dotsContainer = document.getElementById('testimonial-dots');
+    let currentIndex = 0;
+    let interval;
+
+    // Build dots
+    testimonials.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'trial__dot' + (i === 0 ? ' trial__dot--active' : '');
+      dot.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      testimonials[currentIndex].classList.remove('trial__testimonial--active');
+      dotsContainer.children[currentIndex].classList.remove('trial__dot--active');
+      currentIndex = index;
+      testimonials[currentIndex].classList.add('trial__testimonial--active');
+      dotsContainer.children[currentIndex].classList.add('trial__dot--active');
+      resetInterval();
+    }
+
+    function next() {
+      goTo((currentIndex + 1) % testimonials.length);
+    }
+
+    function resetInterval() {
+      clearInterval(interval);
+      interval = setInterval(next, 5000);
+    }
+
+    resetInterval();
+  })();
+</script>

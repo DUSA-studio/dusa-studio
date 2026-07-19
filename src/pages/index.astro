@@ -1,22 +1,44 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import WhatIsDusa from '../components/WhatIsDusa.astro';
 import UnderwaterDive from '../components/UnderwaterDive.astro';
 import FunnelComparison from '../components/FunnelComparison.astro';
 import Features from '../components/Features.astro';
 import HowItWorks from '../components/HowItWorks.astro';
+import Onboarding from '../components/Onboarding.astro';
+import BrandCarousel from '../components/BrandCarousel.astro';
 import SocialProof from '../components/SocialProof.astro';
 import CTA from '../components/CTA.astro';
+import t from '../i18n/translations/en.json';
 ---
 
-<BaseLayout>
-  <Hero />
-  <UnderwaterDive />
-  <FunnelComparison />
-  <Features />
-  <HowItWorks />
-  <SocialProof />
-  <CTA />
+<BaseLayout t={t}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DUSA . studio",
+    "url": "https://dusa.studio",
+    "logo": "https://dusa.studio/favicon.png",
+    "description": "All-in-one growth platform for small businesses. CRM, marketing automation, sales pipelines, and customer engagement from one login.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sydney",
+      "addressRegion": "NSW",
+      "addressCountry": "AU"
+    },
+    "sameAs": []
+  })} />
+  <Hero t={t} />
+  <WhatIsDusa t={t} />
+  <UnderwaterDive t={t} />
+  <FunnelComparison t={t} />
+  <Features t={t} />
+  <HowItWorks t={t} />
+  <Onboarding t={t} />
+  <BrandCarousel t={t} />
+  <SocialProof t={t} />
+  <CTA t={t} />
 </BaseLayout>
 
 <script>
@@ -27,6 +49,9 @@ import CTA from '../components/CTA.astro';
     }
 
     gsap.registerPlugin(ScrollTrigger);
+
+    // Mark GSAP as ready so CSS fallback animation is cancelled
+    document.documentElement.classList.add('gsap-ready');
 
     // ─── MAKE REVEAL ELEMENTS VISIBLE TO GSAP (hidden via CSS visibility:hidden) ───
     // Only set visibility — from({opacity:0}) handles the fade; setting opacity here would poison the end-state.

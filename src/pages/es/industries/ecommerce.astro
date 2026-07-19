@@ -1,0 +1,532 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/es.json';
+
+const lang = 'es';
+const region = 'es';
+
+const title = 'Automatizacion de Marketing para E-Commerce | DUSA.studio';
+const description = 'Recupera carritos abandonados, automatiza el engagement post-compra y crea programas de lealtad VIP. DUSA es la plataforma de crecimiento todo en uno para marcas de e-commerce.';
+
+const painPoints = [
+  {
+    icon: '🛒',
+    title: 'Carritos abandonados sin seguimiento',
+    desc: 'Un solo correo de recuperacion no es suficiente. La mayoria de las plataformas se detienen ahi, dejando miles de dolares en ingresos dentro de carritos abandonados.',
+  },
+  {
+    icon: '📦',
+    title: 'Sin engagement post-compra',
+    desc: 'La venta ocurre y luego silencio. Sin secuencia de agradecimiento, sin venta cruzada, sin solicitud de resena. Estas dejando ingresos recurrentes sobre la mesa.',
+  },
+  {
+    icon: '👑',
+    title: 'Sin segmentacion VIP',
+    desc: 'Tus mejores clientes reciben la misma experiencia que todos los demas. Sin reconocimiento, sin ofertas exclusivas, sin razon para mantenerse leales.',
+  },
+  {
+    icon: '🔄',
+    title: 'Baja tasa de recompra',
+    desc: 'Adquirir un nuevo cliente cuesta cinco veces mas que retener uno. Sin flujos de re-engagement, la mayoria de los compradores nunca vuelve.',
+  },
+];
+
+const features = [
+  {
+    title: 'Recuperacion de carritos abandonados',
+    desc: 'Secuencias de recuperacion en multiples pasos por correo electronico y SMS. Recordatorios programados, incentivos de descuento y disparadores de urgencia que traen de vuelta a los compradores.',
+  },
+  {
+    title: 'Secuencias post-compra',
+    desc: 'Correos de agradecimiento, actualizaciones de envio, consejos de uso y encuestas de satisfaccion. Mantiene la conversacion activa despues de la venta.',
+  },
+  {
+    title: 'Automatizacion de solicitud de resenas',
+    desc: 'Solicita resenas automaticamente en el momento perfecto, despues de la entrega y antes de que la emocion se desvanezca. Construye prueba social en piloto automatico.',
+  },
+  {
+    title: 'Flujos de venta cruzada y upsell',
+    desc: 'Recomienda productos complementarios basados en el historial de compra. Activa ofertas de upsell cuando los clientes alcanzan umbrales de gasto especificos.',
+  },
+  {
+    title: 'Gestion de niveles VIP',
+    desc: 'Segmenta clientes por valor de vida. Desbloquea beneficios exclusivos, acceso anticipado y ofertas personalizadas para tus mejores compradores.',
+  },
+  {
+    title: 'Recompensas de cumpleanos',
+    desc: 'Mensajes automaticos de cumpleanos con codigos de descuento exclusivos. Un pequeno gesto que impulsa la lealtad y las compras recurrentes.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Primera compra', desc: 'El cliente completa su primer pedido' },
+  { stage: 'Comprador recurrente', desc: 'Segunda compra dentro de 90 dias' },
+  { stage: 'Cliente leal', desc: 'Tres o mas pedidos, interactua con los correos' },
+  { stage: 'VIP', desc: 'Top 10% por gasto acumulado, beneficios exclusivos desbloqueados' },
+  { stage: 'Embajador de marca', desc: 'Deja resenas, refiere amigos, comparte en redes' },
+  { stage: 'Recuperacion', desc: 'Un comprador anterior ha dejado de comprar. DUSA activa una campana de reenganche personalizada con recomendaciones de productos a medida.' },
+];
+
+const stats = [
+  { value: '69%', label: 'tasa promedio de abandono de carrito en todo el e-commerce' },
+  { value: '5x', label: 'mas economico retener un cliente existente que adquirir uno nuevo' },
+  { value: '306%', label: 'mayor valor de vida en clientes que se unen a un programa VIP' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://dusa.studio/es/' },
+    { '@type': 'ListItem', position: 2, name: 'Industrias', item: 'https://dusa.studio/es/industries' },
+    { '@type': 'ListItem', position: 3, name: 'E-commerce', item: 'https://dusa.studio/es/industries/ecommerce' },
+  ],
+});
+---
+
+<BaseLayout t={tData} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="ec-hero section section--dark">
+    <div class="container">
+      <div class="ec-hero__content">
+        <span class="label">E-Commerce</span>
+        <h1><span class="gradient-text">Automatizacion de marketing</span> para marcas de e-commerce</h1>
+        <p class="ec-hero__sub">
+          Recupera carritos abandonados, cultiva relaciones post-compra y convierte compradores ocasionales en embajadores de tu marca de por vida.
+        </p>
+        <div class="ec-hero__actions">
+          <a href="/es/start" class="btn btn--primary">Comenzar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="ec-pain section section--dark">
+    <div class="container">
+      <div class="ec-pain__header">
+        <span class="label">El Problema</span>
+        <h2>Estas perdiendo ingresos <span class="gradient-text">despues del clic</span></h2>
+        <p class="ec-pain__intro">La mayoria de las marcas de e-commerce se enfocan en el trafico e ignoran todo lo que sucede despues de la primera visita. Esto es lo que te esta costando.</p>
+      </div>
+      <div class="ec-pain__grid">
+        {painPoints.map((point) => (
+          <div class="ec-pain__card">
+            <span class="ec-pain__icon">{point.icon}</span>
+            <h3 class="ec-pain__card-title">{point.title}</h3>
+            <p class="ec-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="ec-solution section section--dark">
+    <div class="container">
+      <div class="ec-solution__header">
+        <span class="label">La Solucion</span>
+        <h2>Como funciona DUSA para <span class="gradient-text">e-commerce</span></h2>
+        <p class="ec-solution__intro">Flujos automatizados que convierten visitantes en compradores, compradores en clientes recurrentes y clientes recurrentes en embajadores de marca.</p>
+      </div>
+      <div class="ec-solution__grid">
+        {features.map((feature) => (
+          <div class="ec-solution__card">
+            <h3 class="ec-solution__card-title">{feature.title}</h3>
+            <p class="ec-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="ec-pipeline section section--dark">
+    <div class="container">
+      <div class="ec-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>El <span class="gradient-text">recorrido de tu cliente</span> de un vistazo</h2>
+      </div>
+      <div class="ec-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="ec-pipeline__stage">
+            <div class="ec-pipeline__number">{i + 1}</div>
+            <h3 class="ec-pipeline__stage-title">{step.stage}</h3>
+            <p class="ec-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="ec-stats section section--dark">
+    <div class="container">
+      <div class="ec-stats__header">
+        <span class="label">Impacto</span>
+        <h2>Los numeros hablan <span class="gradient-text">por si solos</span></h2>
+      </div>
+      <div class="ec-stats__grid">
+        {stats.map((stat) => (
+          <div class="ec-stats__card">
+            <span class="ec-stats__value">{stat.value}</span>
+            <p class="ec-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ec-cta section section--dark">
+    <div class="container">
+      <div class="ec-cta__box">
+        <h2>Listo para hacer crecer tus <span class="gradient-text">ingresos de e-commerce</span>?</h2>
+        <p class="ec-cta__sub">Pon en marcha tu recuperacion de carritos, flujos post-compra y programa VIP en una sola plataforma.</p>
+        <div class="ec-cta__actions">
+          <a href="/es/start" class="btn btn--primary">Comenzar</a>
+          <a href="/blog/marketing-for-ecommerce" class="btn btn--outline">Leer la guia</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ec-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .ec-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ec-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ec-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .ec-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .ec-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .ec-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .ec-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ec-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .ec-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ec-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .ec-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .ec-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .ec-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .ec-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ec-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ec-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .ec-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .ec-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .ec-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .ec-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ec-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .ec-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .ec-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .ec-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .ec-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .ec-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ec-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .ec-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .ec-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .ec-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .ec-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .ec-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ec-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .ec-hero__content h1,
+  :global(html[data-theme="light"]) .ec-pain__header h2,
+  :global(html[data-theme="light"]) .ec-solution__header h2,
+  :global(html[data-theme="light"]) .ec-pipeline__header h2,
+  :global(html[data-theme="light"]) .ec-stats__header h2,
+  :global(html[data-theme="light"]) .ec-cta__box h2,
+  :global(html[data-theme="light"]) .ec-pain__card-title,
+  :global(html[data-theme="light"]) .ec-solution__card-title,
+  :global(html[data-theme="light"]) .ec-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .ec-hero__sub,
+  :global(html[data-theme="light"]) .ec-pain__intro,
+  :global(html[data-theme="light"]) .ec-solution__intro,
+  :global(html[data-theme="light"]) .ec-pain__card-desc,
+  :global(html[data-theme="light"]) .ec-solution__card-desc,
+  :global(html[data-theme="light"]) .ec-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .ec-stats__label,
+  :global(html[data-theme="light"]) .ec-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .ec-pain__card,
+  :global(html[data-theme="light"]) .ec-solution__card,
+  :global(html[data-theme="light"]) .ec-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .ec-pain__card:hover,
+  :global(html[data-theme="light"]) .ec-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .ec-stats__card,
+  :global(html[data-theme="light"]) .ec-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .ec-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .ec-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ec-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .ec-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .ec-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .ec-pipeline__stages {
+      flex-direction: column;
+    }
+    .ec-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .ec-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+</style>

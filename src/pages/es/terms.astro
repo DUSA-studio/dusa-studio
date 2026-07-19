@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/t.js';
+import { getRegion } from '../../i18n/regions.js';
+
+const lang = 'es';
+const region = 'es';
+const r = getRegion(region);
+const lastUpdated = '28 June 2026';
+---
+
+<BaseLayout title={`${t(lang, 'common.termsOfService')} | DUSA . studio`} description="Terminos y condiciones para el uso de la plataforma y el sitio web de DUSA . studio." lang={r.htmlLang} ogLocale={r.ogLocale} region={region}>
+
+  <section class="legal-hero section section--dark">
+    <div class="container">
+      <div class="legal-hero__content">
+        <span class="label">Legal</span>
+        <h1>Terminos de servicio</h1>
+        <p class="legal-hero__date">Ultima actualizacion: {lastUpdated}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="legal section section--dark" style="padding-top:0;">
+    <div class="container">
+      <div class="legal__body">
+        <p class="legal__notice"><em>Esta es una traduccion de referencia. La version en ingles disponible en dusa.studio/terms es la version juridicamente vinculante.</em></p>
+
+        <h2>1. Agreement to terms</h2>
+        <p>By accessing or using the DUSA . studio website and platform ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not use the Service.</p>
+        <p>These Terms constitute a legally binding agreement between you and DUSA . studio ("we", "us", "our"), operated from Sydney, Australia. These Terms, in combination with our <a href="/privacy-policy">Privacy Policy</a>, govern your access to and use of the Service.</p>
+
+        <h2>2. Description of Service</h2>
+        <p>DUSA . studio provides a digital growth platform that includes CRM, marketing automation, website building, AI tools, and related services for businesses. The specific features available to you depend on your subscription plan. DUSA is a technology platform provider only. We provide the software infrastructure that enables you to manage your business operations, but we do not initiate, create, or control the content, timing, or recipients of any communications you send.</p>
+
+        <h2>3. Eligibility</h2>
+        <p>You must be at least 18 years old and have the legal capacity to enter into a binding agreement to use our Service. By using the Service, you represent that you meet these requirements.</p>
+
+        <h2>4. Account registration</h2>
+        <p>To access certain features, you must create an account. You agree to provide accurate, current, and complete information during registration, maintain and update your information as needed, keep your login credentials confidential, and notify us immediately of any unauthorised use of your account.</p>
+        <p>You are responsible for all activities that occur under your account. You are responsible for maintaining the confidentiality of your login credentials and for implementing recommended security protocols, including enabling two-factor authentication (2FA).</p>
+
+        <h2>5. Subscription and fees</h2>
+        <p>Access to the DUSA platform requires a paid subscription. Details of available plans and pricing are listed on our <a href="/es/pricing">Pricing page</a>.</p>
+        <p>Fees are billed in advance on a monthly or annual basis, depending on your selected plan. All prices are displayed in the currency applicable to your region. Prices are exclusive of applicable taxes (including GST, VAT, IVA, and other sales taxes) where applicable. You are responsible for all applicable taxes in your jurisdiction.</p>
+        <p>We reserve the right to modify pricing with 30 days' notice. Continued use of the Service after a price change constitutes acceptance of the new pricing.</p>
+
+        <h2>6. Free trials and demos</h2>
+        <p>We may offer free trials or demo access at our discretion. Trial accounts may have limited functionality. At the end of a trial period, your account will either convert to a paid subscription or be deactivated, depending on your preference.</p>
+        <p>For users in the European Union, you have the right to withdraw from an online purchase within 14 days of the transaction in accordance with the EU Consumer Rights Directive. To exercise this right, contact us at <a href="mailto:contact@dusa.studio">contact@dusa.studio</a> within the withdrawal period.</p>
+
+        <h2>7. Cancellation and refunds</h2>
+        <p>You may cancel your subscription at any time through your account settings or by contacting us. Cancellation takes effect at the end of the current billing period. We do not provide pro-rata refunds for partial billing periods unless required by applicable law.</p>
+        <p>We reserve the right to offer refunds on a case-by-case basis at our sole discretion. Nothing in this section limits any refund rights you may have under applicable consumer protection laws in your jurisdiction.</p>
+
+        <h2>8. Acceptable use</h2>
+        <p>You agree not to use the Service to send unsolicited or spam communications, violate any applicable laws or regulations, infringe on the intellectual property rights of others, distribute malicious software or harmful content, attempt to gain unauthorised access to our systems or other users' accounts, or use the platform for any illegal, fraudulent, or deceptive purpose.</p>
+        <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
+
+        <h2>9. Your compliance obligations</h2>
+        <p>You are solely responsible for your use of the Service, including compliance with all applicable laws and regulations in your jurisdiction. This includes, but is not limited to:</p>
+        <p><strong>Australia:</strong> the Australian Privacy Act 1988, the Spam Act 2003, and the Australian Consumer Law.</p>
+        <p><strong>European Union and United Kingdom:</strong> the General Data Protection Regulation (GDPR), the UK GDPR, the UK Data Protection Act 2018, and the ePrivacy Directive.</p>
+        <p><strong>United States:</strong> the CAN-SPAM Act, the Telephone Consumer Protection Act (TCPA), the California Consumer Privacy Act (CCPA), the California Privacy Rights Act (CPRA), and other applicable state privacy laws.</p>
+        <p><strong>Brazil:</strong> the Lei Geral de Protecao de Dados (LGPD).</p>
+        <p><strong>Mexico:</strong> the Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares (LFPDPPP).</p>
+        <p>You are also responsible for compliance with all applicable accessibility laws, tax laws (including GST, VAT, IVA, sales tax), and any other applicable regulations in your jurisdiction. DUSA is not responsible for your compliance with laws and does not represent that your use of the Service will comply with any laws.</p>
+
+        <h2>10. Data protection and privacy</h2>
+        <p>Your use of the Service is also governed by our <a href="/privacy-policy">Privacy Policy</a>, which describes how we collect, use, and protect your personal information.</p>
+        <p><strong>Data subject rights management.</strong> You are solely responsible for managing and responding to all data subject rights requests from your customers and end users, including but not limited to requests for access, deletion, correction, portability, restriction of processing, and objection to processing of personal data. You must establish and maintain appropriate procedures to receive, document, respond to, and fulfil such requests within the timeframes required by applicable privacy laws.</p>
+        <p><strong>Data breach notification.</strong> You are solely responsible for complying with all applicable data breach notification laws and regulations. In the event you discover or are notified of a security incident affecting personal data processed through the Service, you shall promptly investigate the incident and take appropriate remedial measures, determine if the incident triggers any notification obligations under applicable laws, and make all legally required notifications to affected individuals, regulatory authorities, and other required parties within the timeframes specified by applicable laws.</p>
+        <p><strong>Data retention and deletion.</strong> You are solely responsible for establishing and implementing appropriate data retention periods and deletion procedures for personal data processed through the Service, in compliance with all applicable privacy laws and regulations. Upon termination of your account, we will make your data available for export for a reasonable period (30 days) following termination.</p>
+
+        <h2>11. Your content</h2>
+        <p>You retain ownership of any content you upload, create, or store on the platform ("Your Content"). By using the Service, you grant us a limited licence to host, display, and process Your Content solely for the purpose of providing the Service to you.</p>
+        <p>You are responsible for ensuring that Your Content does not violate any laws or third-party rights.</p>
+
+        <h2>12. Our intellectual property</h2>
+        <p>All intellectual property in the Service (including software, design, branding, and documentation) remains the property of DUSA . studio. Nothing in these Terms grants you any rights to our intellectual property other than the limited right to use the Service as described.</p>
+
+        <h2>13. Third-party integrations</h2>
+        <p>The Service may integrate with third-party platforms and services. We are not responsible for the availability, accuracy, or practices of those third parties. Your use of third-party services is subject to their own terms and privacy policies. DUSA is not responsible for, and hereby disclaims any liability for, any act or omission of any third-party service provider or the operation of any third-party services, including access to, modification of, or deletion of data.</p>
+
+        <h2>14. Service availability</h2>
+        <p>We aim to provide continuous, uninterrupted access to the Service but do not guarantee 100% uptime. We may perform scheduled maintenance or updates that temporarily affect availability. We will endeavour to provide reasonable notice of planned downtime.</p>
+
+        <h2>15. Limitation of liability</h2>
+        <p>To the maximum extent permitted by applicable law, our total liability to you for any claims arising from or related to the Service is limited to the total fees you have paid to us in the 12 months preceding the claim.</p>
+        <p>We are not liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunity.</p>
+        <p>Nothing in these Terms excludes or limits any rights you may have under mandatory consumer protection laws in your jurisdiction that cannot be excluded or limited, including the Australian Consumer Law, EU consumer protection regulations, or other applicable mandatory protections.</p>
+
+        <h2>16. Indemnification</h2>
+        <p>You agree to indemnify and hold harmless DUSA . studio from any claims, losses, damages, liabilities, and expenses (including legal fees) arising from your use of the Service, your breach of these Terms, or your violation of any law or third-party rights.</p>
+
+        <h2>17. Modifications to Terms</h2>
+        <p>We may update these Terms from time to time. Material changes will be communicated via email or a notice on our website. Continued use of the Service after changes take effect constitutes acceptance of the updated Terms.</p>
+
+        <h2>18. Termination</h2>
+        <p>We may suspend or terminate your access to the Service at any time if you breach these Terms, fail to pay applicable fees, or engage in conduct that we determine is harmful to our Service or other users.</p>
+        <p>Upon termination, your right to use the Service ceases immediately. We will make your data available for export for a reasonable period (30 days) following termination.</p>
+
+        <h2>19. International use</h2>
+        <p>DUSA makes no representation that materials on the Service are appropriate or available for use in all locations. Those who choose to access the Service from locations outside Australia do so on their own initiative and at their own risk. If you choose to access the Service from outside Australia, you are responsible for compliance with local laws in your jurisdiction, including but not limited to applicable data protection, tax, and consumer protection regulations.</p>
+
+        <h2>20. Governing law</h2>
+        <p>These Terms are governed by the laws of New South Wales, Australia. Any disputes arising from these Terms will be subject to the jurisdiction of the courts of New South Wales, except where mandatory local consumer protection laws in your jurisdiction require otherwise. Nothing in these Terms affects the statutory rights of consumers in the European Union, United Kingdom, Brazil, or any other jurisdiction where such rights cannot be waived or limited by contract.</p>
+
+        <h2>21. Contact</h2>
+        <p>If you have questions about these Terms, contact us at:</p>
+        <p><strong>DUSA . studio</strong><br/>Sydney, NSW, Australia<br/><a href="mailto:contact@dusa.studio">contact@dusa.studio</a></p>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .legal-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .legal-hero__content { max-width: 700px; }
+  .legal-hero__date {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.4);
+    margin-top: var(--space-xs);
+  }
+  .legal__body { max-width: 720px; margin: 0 auto; }
+  .legal__body h2 {
+    font-size: 1.25rem; font-weight: 600; color: var(--warm-white);
+    margin-top: var(--space-xl); margin-bottom: var(--space-sm);
+  }
+  .legal__body h2:first-of-type { margin-top: 0; }
+  .legal__body p {
+    font-size: 1rem; line-height: 1.75; color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-sm);
+  }
+  .legal__body strong { color: rgba(247, 244, 239, 0.8); }
+  .legal__body a { color: var(--reef-aqua); transition: opacity var(--duration-fast); }
+  .legal__body a:hover { opacity: 0.8; }
+  .legal__notice {
+    background: rgba(78, 216, 194, 0.06);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-xl);
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.7);
+  }
+  @media (max-width: 768px) {
+    .legal-hero { padding-bottom: var(--space-lg); }
+    .legal__body h2 { font-size: 1.125rem; margin-top: var(--space-lg); }
+  }
+  @media (max-width: 480px) {
+    .legal-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+  }
+  .legal-hero__content { visibility: hidden; }
+  :global(html[data-theme="light"]) .legal-hero__date { color: rgba(12, 14, 20, 0.45); }
+  :global(html[data-theme="light"]) .legal__body h2 { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .legal__body p { color: rgba(12, 14, 20, 0.65); }
+  :global(html[data-theme="light"]) .legal__body strong { color: rgba(12, 14, 20, 0.85); }
+  :global(html[data-theme="light"]) .legal__body a { color: var(--deep-ocean); }
+</style>
+
+<script>
+  function initLegalAnimations() {
+    if (typeof gsap === 'undefined') {
+      setTimeout(initLegalAnimations, 100);
+      return;
+    }
+    gsap.set('.legal-hero__content', { visibility: 'visible' });
+    gsap.fromTo('.legal-hero__content',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+    );
+  }
+  initLegalAnimations();
+</script>

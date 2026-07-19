@@ -1,21 +1,36 @@
 ---
 // UnderwaterDive.astro — Problem/Opportunity section (simplified for launch)
 // Full Captain's Bridge creative concept is parked in memory for post-launch.
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const s = t?.underwaterDive || {};
+const udLabel = s.label || 'Sound familiar?';
+const udHeading = s.heading || 'Too many tools.';
+const udHeadingAccent = s.headingAccent || 'One simple fix.';
+const udDesc = s.description || 'Most small businesses juggle 10+ platforms that don\'t talk to each other. DUSA brings everything into one place, so you can focus on what matters: growing.';
+const ud1Title = s.answer1Title || 'One platform';
+const ud1Desc = s.answer1Desc || 'replaces the 10+ tools draining your budget';
+const ud2Title = s.answer2Title || 'Everything connects';
+const ud2Desc = s.answer2Desc || 'CRM, email, SMS, funnels, payments, all in sync';
+const ud3Title = s.answer3Title || 'Built to grow';
+const ud3Desc = s.answer3Desc || 'AI-powered automations that scale with you';
 ---
 
 <section class="problem" id="problem">
   <div class="problem__inner">
 
-    <span class="problem__label reveal">Sound familiar?</span>
+    <span class="problem__label reveal">{udLabel}</span>
 
     <h2 class="problem__heading reveal">
-      Too many tools.<br />
-      <span class="problem__accent">One simple fix.</span>
+      {udHeading}<br />
+      <span class="problem__accent gradient-text">{udHeadingAccent}</span>
     </h2>
 
     <p class="problem__sub reveal">
-      Most small businesses juggle 10+ platforms that don't talk to each other.
-      DUSA brings everything into one place, so you can focus on what matters: growing.
+      {udDesc}
     </p>
 
     <div class="problem__points">
@@ -25,8 +40,8 @@
             <path d="M16 4L20 12L28 13.5L22 19.5L23.5 28L16 24L8.5 28L10 19.5L4 13.5L12 12L16 4Z" stroke="rgba(78,216,194,0.6)" stroke-width="1.5" fill="none"/>
           </svg>
         </span>
-        <span class="problem__point-value">One platform</span>
-        <span class="problem__point-label">replaces the 10+ tools draining your budget</span>
+        <span class="problem__point-value">{ud1Title}</span>
+        <span class="problem__point-label">{ud1Desc}</span>
       </div>
       <div class="problem__point reveal">
         <span class="problem__point-icon">
@@ -35,8 +50,8 @@
             <path d="M10 16.5L14 20.5L22 12.5" stroke="rgba(78,216,194,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span class="problem__point-value">Everything connects</span>
-        <span class="problem__point-label">CRM, email, SMS, funnels, payments, all in sync</span>
+        <span class="problem__point-value">{ud2Title}</span>
+        <span class="problem__point-label">{ud2Desc}</span>
       </div>
       <div class="problem__point reveal">
         <span class="problem__point-icon">
@@ -45,8 +60,8 @@
             <circle cx="26" cy="6" r="3" stroke="rgba(78,216,194,0.6)" stroke-width="1.5" fill="none"/>
           </svg>
         </span>
-        <span class="problem__point-value">Built to grow</span>
-        <span class="problem__point-label">AI-powered automations that scale with you</span>
+        <span class="problem__point-value">{ud3Title}</span>
+        <span class="problem__point-label">{ud3Desc}</span>
       </div>
     </div>
 
@@ -156,7 +171,7 @@
 
   @media (max-width: 640px) {
     .problem {
-      padding: 5rem 1.5rem;
+      padding: 5rem var(--space-md);
     }
 
     .problem__points {
@@ -164,5 +179,61 @@
       align-items: center;
       gap: 2.5rem;
     }
+
+    .problem__point {
+      max-width: 320px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .problem {
+      padding: 3.5rem 1.25rem;
+    }
+
+    .problem__label {
+      font-size: 0.6875rem;
+    }
+
+    .problem__sub {
+      margin-bottom: 2.5rem;
+    }
+
+    .problem__points {
+      gap: 2rem;
+    }
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .problem {
+    background: var(--warm-white);
+    padding: 5rem 2rem;
+  }
+
+  :global(html[data-theme="light"]) .problem::before {
+    background: linear-gradient(to right, transparent, rgba(26, 58, 92, 0.12) 30%, rgba(26, 58, 92, 0.08) 50%, rgba(26, 58, 92, 0.12) 70%, transparent);
+  }
+
+  :global(html[data-theme="light"]) .problem__heading {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .problem__accent {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .problem__sub {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .problem__point-value {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .problem__point-label {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .problem__label {
+    color: var(--deep-ocean);
   }
 </style>

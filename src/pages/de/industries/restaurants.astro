@@ -1,0 +1,631 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/de.json';
+const lang = 'de';
+const region = 'de';
+---
+
+<BaseLayout t={tData} title="Kundenbindung für Restaurants | DUSA.studio" description="Mehr Tische füllen, No-Shows reduzieren und Erstbesucher zu Stammgästen machen. Reservierungserinnerungen, Bewertungsautomatisierung, Geburtstagskampagnen und Treueprogramme für Restaurants.">
+
+  <!-- Hero -->
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">Restaurants</span>
+        <h1>Tische füllen.<br/><span class="gradient-text">Stammgäste</span> gewinnen.</h1>
+        <p class="ind-hero__sub">Die meisten Restaurants haben kein System, um nach dem Besuch mit Gästen in Kontakt zu bleiben. DUSA bringt sie mit automatisierter Kommunikation zurück, die persönlich wirkt, nicht aufdringlich.</p>
+        <a href="/de/start" class="btn btn--primary">Kostenlos starten</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="ind-pain section section--dark">
+    <div class="container">
+      <h2><span class="gradient-text">Kommt Ihnen das bekannt vor?</span></h2>
+      <div class="ind-pain__cards">
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+              <path d="M16 2v4"/>
+              <path d="M8 2v4"/>
+              <path d="M3 10h18"/>
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">No-Show-Reservierungen</h3>
+          <p class="ind-pain__card-desc">Gäste reservieren und erscheinen nicht. Leere Tische an einem vollen Abend bedeuten verlorenen Umsatz, der nicht wiedergutzumachen ist.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <path d="M22 6l-10 7L2 6"/>
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Keine Nachbetreuung der Gäste</h3>
+          <p class="ind-pain__card-desc">Ein Gast hat ein tolles Essen und geht. Sie hören nie wieder von ihm, weil es kein Follow-up-System gibt.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Wenige Google-Bewertungen</h3>
+          <p class="ind-pain__card-desc">Sie wissen, dass Ihr Essen hervorragend ist, aber Ihr Google-Eintrag spiegelt das nicht wider. Nach Bewertungen zu fragen, fühlt sich unangenehm an und passiert unregelmäßig.</p>
+        </div>
+
+        <div class="ind-pain__card">
+          <div class="ind-pain__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3 class="ind-pain__card-title">Kein Geburtstags- oder Treueprogramm</h3>
+          <p class="ind-pain__card-desc">Sie haben keine Möglichkeit, Stammgäste zu belohnen oder ihnen zum Geburtstag eine Freude zu machen. Kundentreue bleibt im Kopf der Gäste, nicht in Ihrem System.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="ind-solution section section--dark">
+    <div class="container">
+      <h2>So funktioniert DUSA für <span class="gradient-text">Restaurants</span></h2>
+      <p class="ind-solution__sub">Von der ersten Reservierung bis zum fünften Besuch und darüber hinaus.</p>
+      <div class="ind-solution__grid">
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Reservierungserinnerungen</h3>
+          <p class="ind-solution__card-desc">Automatische SMS- und E-Mail-Erinnerungen vor jeder Buchung. Gäste bestätigen oder stornieren mit einem Fingertipp, damit Ihr Saalplan aktuell bleibt.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Bewertungsanfragen nach dem Besuch</h3>
+          <p class="ind-solution__card-desc">Nach dem Besuch sendet DUSA eine freundliche Bewertungsanfrage. Machen Sie es zufriedenen Gästen leicht, ihre Erfahrung auf Google zu teilen.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Geburtstagskampagnen</h3>
+          <p class="ind-solution__card-desc">Erfassen Sie Geburtstage Ihrer Gäste und senden Sie ein personalisiertes Angebot zum großen Tag. Ein kostenloses Dessert oder ein Rabatt bringt sie mit Freunden zurück.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12v10H4V12"/>
+              <path d="M2 7h20v5H2z"/>
+              <path d="M12 22V7"/>
+              <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+              <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Digitales Treueprogramm</h3>
+          <p class="ind-solution__card-desc">Ersetzen Sie die alte Stempelkarte durch ein digitales Treueprogramm. Erfassen Sie Besuche, belohnen Sie Meilensteine und sorgen Sie dafür, dass Gäste wiederkommen, ganz ohne Papier.</p>
+        </div>
+
+        <div class="ind-solution__card">
+          <div class="ind-solution__icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+              <path d="M16 2v4"/>
+              <path d="M8 2v4"/>
+              <path d="M3 10h18"/>
+            </svg>
+          </div>
+          <h3 class="ind-solution__card-title">Saisonale Aktionen</h3>
+          <p class="ind-solution__card-desc">Starten Sie gezielte Kampagnen zum Valentinstag, Muttertag oder für eigene Events. Erreichen Sie die richtigen Gäste zur richtigen Zeit per SMS und E-Mail.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="ind-pipeline section section--dark">
+    <div class="container">
+      <h2>Die <span class="gradient-text">Gästereise</span></h2>
+      <div class="ind-pipeline__track">
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">01</div>
+          <h3 class="ind-pipeline__step-title">Erster Besuch</h3>
+          <p class="ind-pipeline__step-desc">Ein neuer Gast reserviert und speist bei Ihnen. DUSA erfasst die Daten und sendet eine Dankesnachricht mit Bewertungsanfrage.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">02</div>
+          <h3 class="ind-pipeline__step-title">Wiederkehrender Gast</h3>
+          <p class="ind-pipeline__step-desc">Der Gast kommt wieder. DUSA erfasst die Besuchshäufigkeit und beginnt, das Treueprofil aufzubauen.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">03</div>
+          <h3 class="ind-pipeline__step-title">Treuemitglied</h3>
+          <p class="ind-pipeline__step-desc">Nach mehreren Besuchen schaltet der Gast Prämien frei. Geburtstagsangebote und exklusive Einladungen halten das Interesse aufrecht.</p>
+        </div>
+
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">04</div>
+          <h3 class="ind-pipeline__step-title">VIP</h3>
+          <p class="ind-pipeline__step-desc">Ihre treuesten Stammgäste. Bevorzugte Reservierungen, Zugang zu besonderen Events und personalisierte Angebote geben ihnen das Gefühl, wertgeschätzt zu werden.</p>
+        </div>
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">05</div>
+          <h3 class="ind-pipeline__step-title">Markenbotschafter</h3>
+          <p class="ind-pipeline__step-desc">Ihre grossten Fans hinterlassen Bewertungen, teilen in sozialen Medien und bringen Freunde mit. DUSA belohnt sie mit exklusiven Vorteilen und fruhem Zugang.</p>
+        </div>
+        <div class="ind-pipeline__step">
+          <div class="ind-pipeline__num">06</div>
+          <h3 class="ind-pipeline__step-title">Ruckgewinnung</h3>
+          <p class="ind-pipeline__step-desc">Ein Stammgast war lange nicht mehr da. DUSA lost ein personalisiertes Angebot aus, um ihn zuruckzugewinnen.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="ind-stats section section--dark">
+    <div class="container">
+      <div class="ind-stats__grid">
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">20%</span>
+          <span class="ind-stats__label">der Reservierungen enden als No-Show ohne Erinnerungen</span>
+        </div>
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">70%</span>
+          <span class="ind-stats__label">der Gäste prüfen Google-Bewertungen, bevor sie ein Restaurant wählen</span>
+        </div>
+
+        <div class="ind-stats__card">
+          <span class="ind-stats__number">5x</span>
+          <span class="ind-stats__label">wahrscheinlicher, dass Gäste mit einem Treueprogramm wiederkommen</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ind-cta section section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2>Bereit, mehr Tische zu füllen?</h2>
+        <p>Richten Sie automatisierte Gästekommunikation in wenigen Minuten ein. Keine Verträge, keine Kreditkarte erforderlich.</p>
+        <div class="ind-cta__actions">
+          <a href="/de/start" class="btn btn--primary">Jetzt starten</a>
+          <a href="/blog/restaurant-customer-engagement" class="ind-cta__link">Leitfaden lesen &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://dusa.studio/de/" },
+      { "@type": "ListItem", "position": 2, "name": "Branchen", "item": "https://dusa.studio/de/industries/" },
+      { "@type": "ListItem", "position": 3, "name": "Restaurants", "item": "https://dusa.studio/de/industries/restaurants" }
+    ]
+  })} />
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .ind-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Pain Points */
+  .ind-pain {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-pain h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-pain__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ind-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ind-pain__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+  .ind-pain__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+  .ind-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pain__card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* Solution */
+  .ind-solution {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-solution h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xs);
+  }
+  .ind-solution__sub {
+    text-align: center;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-xl);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .ind-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .ind-solution__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+  .ind-solution__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+  .ind-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-solution__card-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* Pipeline - 4 steps for restaurants */
+  .ind-pipeline {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-pipeline h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-pipeline__track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-lg);
+  }
+  .ind-pipeline__step {
+    text-align: center;
+  }
+  .ind-pipeline__num {
+    font-family: var(--font-mono, monospace);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
+    opacity: 0.3;
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pipeline__step-title {
+    font-family: var(--font-headline);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-pipeline__step-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  /* Stats */
+  .ind-stats {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+  .ind-stats h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+  .ind-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .ind-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ind-stats__number {
+    display: block;
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-stats__label {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+  .ind-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .ind-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .ind-cta__box p {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ind-cta__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+  .ind-cta__link {
+    font-family: var(--font-headline);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .ind-cta__link:hover {
+    opacity: 0.7;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .ind-pain__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ind-pain__cards {
+      grid-template-columns: 1fr;
+    }
+    .ind-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .ind-pipeline__track {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+    .ind-stats__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+    .ind-pipeline__track {
+      grid-template-columns: 1fr;
+    }
+    .ind-pain__card,
+    .ind-solution__card,
+    .ind-stats__card {
+      padding: var(--space-md);
+    }
+    .ind-cta__box {
+      padding: var(--space-md);
+    }
+    .ind-cta__actions {
+      flex-direction: column;
+    }
+  }
+
+  /* Light Mode */
+  :global(html[data-theme="light"]) .ind-hero__content h1,
+  :global(html[data-theme="light"]) .ind-pain__card-title,
+  :global(html[data-theme="light"]) .ind-solution__card-title,
+  :global(html[data-theme="light"]) .ind-pipeline__step-title,
+  :global(html[data-theme="light"]) .ind-pain h2,
+  :global(html[data-theme="light"]) .ind-solution h2,
+  :global(html[data-theme="light"]) .ind-pipeline h2,
+  :global(html[data-theme="light"]) .ind-stats h2,
+  :global(html[data-theme="light"]) .ind-cta__box h2 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__sub,
+  :global(html[data-theme="light"]) .ind-pain__card-desc,
+  :global(html[data-theme="light"]) .ind-solution__card-desc,
+  :global(html[data-theme="light"]) .ind-solution__sub,
+  :global(html[data-theme="light"]) .ind-pipeline__step-desc,
+  :global(html[data-theme="light"]) .ind-stats__label,
+  :global(html[data-theme="light"]) .ind-cta__box p {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card,
+  :global(html[data-theme="light"]) .ind-solution__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card:hover,
+  :global(html[data-theme="light"]) .ind-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__card {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain,
+  :global(html[data-theme="light"]) .ind-solution,
+  :global(html[data-theme="light"]) .ind-pipeline,
+  :global(html[data-theme="light"]) .ind-stats {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon-wrap,
+  :global(html[data-theme="light"]) .ind-solution__icon-wrap {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon-wrap svg,
+  :global(html[data-theme="light"]) .ind-solution__icon-wrap svg {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-pipeline__num {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__number {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__link {
+    color: var(--deep-ocean);
+  }
+</style>

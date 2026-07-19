@@ -1,0 +1,555 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import t from '../../i18n/translations/en.json';
+
+const painPoints = [
+  {
+    icon: 'M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    title: 'Slow intake process losing clients',
+    desc: 'Prospective clients reach out and wait days for a response. By the time your team follows up, they have already engaged another firm. Speed matters in client acquisition.',
+  },
+  {
+    icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1',
+    title: 'No referral tracking',
+    desc: 'You know referrals drive your best clients, but you have no system to track where they come from, thank the referrer, or measure which sources perform best.',
+  },
+  {
+    icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+    title: 'Limited online visibility',
+    desc: 'People searching for legal help online cannot find you. Your competitors are investing in their digital presence while your firm relies on an outdated website and hope.',
+  },
+  {
+    icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    title: 'No systematic consultation follow-up',
+    desc: 'Initial consultations happen, but there is no structured follow-up sequence. Potential clients slip through the cracks because nobody scheduled the next touchpoint.',
+  },
+];
+
+const features = [
+  { title: 'Intake form automation', desc: 'Streamline your client intake with smart forms that collect the right information upfront. Enquiries are routed to the correct practice area automatically.' },
+  { title: 'Case status notifications', desc: 'Keep clients informed about their matter without manual phone calls. Automated status updates reduce "where is my case" calls and improve client satisfaction.' },
+  { title: 'Referral source tracking', desc: 'Tag every new client with their referral source. Track which relationships, directories, and channels deliver your best matters so you can invest accordingly.' },
+  { title: 'Thought leadership content', desc: 'Schedule and distribute legal insights, case studies, and practice area updates across email and social media. Position your firm as the authority in your field.' },
+  { title: 'Consultation follow-up sequences', desc: 'After an initial consultation, trigger a structured follow-up sequence. Timely emails and SMS messages keep your firm top of mind until the client decides to proceed.' },
+  { title: 'Review and testimonial collection', desc: 'Automatically request Google reviews and testimonials from satisfied clients at matter close. Build your online reputation with minimal effort from your team.' },
+];
+
+const pipeline = [
+  { stage: 'Enquiry', desc: 'Prospective client submits intake form or makes contact' },
+  { stage: 'Consultation', desc: 'Initial meeting to assess the matter and fit' },
+  { stage: 'Engaged', desc: 'Client signs engagement letter and retainer' },
+  { stage: 'Active Matter', desc: 'Matter underway with status updates sent automatically' },
+  { stage: 'Matter Closed', desc: 'Matter concluded with review request triggered' },
+  { stage: 'Referral', desc: 'Happy client enters referral nurture sequence' },
+];
+
+const stats = [
+  { value: '42%', label: 'of prospective legal clients choose the first firm that responds' },
+  { value: '3.5x', label: 'more referrals when a systematic tracking and thank-you process is in place' },
+  { value: '68%', label: 'of clients say proactive status updates improve their experience' },
+];
+---
+
+<BaseLayout
+  t={t}
+  title="Marketing Automation for Law Firms | DUSA.studio"
+  description="Stop losing prospective clients to slow intake. DUSA gives law firms automated client intake, referral tracking, consultation follow-ups, and case status notifications in one platform."
+>
+  <!-- ═══ Hero ═══ -->
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">Law Firms</span>
+        <h1>Marketing automation for <span class="gradient-text">law firms</span></h1>
+        <p class="ind-hero__sub">
+          Your firm's expertise is not the problem. The problem is that prospective clients cannot find you, and when they do, slow intake and inconsistent follow-up lose them before they engage. DUSA fixes the process.
+        </p>
+        <a href="/start" class="btn btn--primary">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pain Points ═══ -->
+  <section class="ind-pain section--dark">
+    <div class="container">
+      <h2 class="ind-section-title">Sound familiar?</h2>
+      <div class="ind-pain__grid">
+        {painPoints.map((p) => (
+          <div class="ind-pain__card">
+            <div class="ind-pain__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={p.icon} />
+              </svg>
+            </div>
+            <h3 class="ind-pain__title">{p.title}</h3>
+            <p class="ind-pain__desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Solution ═══ -->
+  <section class="ind-solution section--dark">
+    <div class="container">
+      <h2 class="ind-section-title">How DUSA works for <span class="gradient-text">law firms</span></h2>
+      <p class="ind-solution__intro">From first enquiry to closed matter and referral, every client touchpoint is tracked, automated, and professional.</p>
+      <div class="ind-solution__grid">
+        {features.map((f) => (
+          <div class="ind-solution__item">
+            <h3 class="ind-solution__item-title">{f.title}</h3>
+            <p class="ind-solution__item-desc">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pipeline ═══ -->
+  <section class="ind-pipeline section--dark">
+    <div class="container">
+      <h2 class="ind-section-title">Your client pipeline</h2>
+      <div class="ind-pipeline__track">
+        {pipeline.map((p, i) => (
+          <div class="ind-pipeline__stage">
+            <div class="ind-pipeline__num">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="ind-pipeline__stage-title">{p.stage}</h3>
+            <p class="ind-pipeline__stage-desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Stats ═══ -->
+  <section class="ind-stats section--dark">
+    <div class="container">
+      <div class="ind-stats__grid">
+        {stats.map((s) => (
+          <div class="ind-stats__item">
+            <div class="ind-stats__value">{s.value}</div>
+            <p class="ind-stats__label">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="ind-cta section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2 class="ind-cta__title">Ready to modernise your firm's client acquisition?</h2>
+        <p class="ind-cta__desc">Set up automated intake, referral tracking, and follow-up sequences in under an hour. No lock-in contracts.</p>
+        <div class="ind-cta__actions">
+          <a href="/start" class="btn btn--primary">Get Started</a>
+          <a href="/blog/marketing-for-law-firms" class="ind-cta__link">Read the guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Breadcrumb JSON-LD ═══ -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dusa.studio/" },
+      { "@type": "ListItem", "position": 2, "name": "Industries", "item": "https://dusa.studio/industries" },
+      { "@type": "ListItem", "position": 3, "name": "Law Firms", "item": "https://dusa.studio/industries/law-firms" }
+    ]
+  })} />
+</BaseLayout>
+
+<style>
+  /* ─── Hero ─── */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .ind-hero__content {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ind-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  /* ─── Section Titles ─── */
+  .ind-section-title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* ─── Pain Points ─── */
+  .ind-pain {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .ind-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast), transform var(--duration-fast);
+  }
+
+  .ind-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .ind-pain__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-sm);
+  }
+
+  .ind-pain__icon svg {
+    width: 22px;
+    height: 22px;
+    color: var(--reef-aqua);
+  }
+
+  .ind-pain__title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-pain__desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* ─── Solution ─── */
+  .ind-solution {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-solution__intro {
+    text-align: center;
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    max-width: 560px;
+    margin: calc(-1 * var(--space-md)) auto var(--space-xl);
+    line-height: 1.65;
+  }
+
+  .ind-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .ind-solution__item {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast);
+  }
+
+  .ind-solution__item:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .ind-solution__item-title {
+    font-family: var(--font-headline);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-solution__item-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  /* ─── Pipeline ─── */
+  .ind-pipeline {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-pipeline__track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-md);
+  }
+
+  .ind-pipeline__stage {
+    text-align: center;
+    position: relative;
+  }
+
+  .ind-pipeline__stage:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 1.25rem;
+    right: calc(-1 * var(--space-md) / 2);
+    width: var(--space-md);
+    height: 1px;
+    background: rgba(78, 216, 194, 0.2);
+  }
+
+  .ind-pipeline__num {
+    font-family: var(--font-mono, monospace);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
+    opacity: 0.3;
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.25rem;
+  }
+
+  .ind-pipeline__stage-desc {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: rgba(247, 244, 239, 0.5);
+  }
+
+  /* ─── Stats ─── */
+  .ind-stats {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .ind-stats__item {
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .ind-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-stats__label {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* ─── CTA ─── */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .ind-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .ind-cta__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-cta__desc {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ind-cta__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .ind-cta__link {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    transition: opacity var(--duration-fast);
+  }
+
+  .ind-cta__link:hover {
+    opacity: 0.75;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .ind-pain__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ind-solution__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ind-pipeline__track {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ind-pipeline__stage:not(:last-child)::after {
+      display: none;
+    }
+
+    .ind-stats__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+
+    .ind-pipeline__track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ind-pain__card,
+    .ind-solution__item {
+      padding: var(--space-md);
+    }
+
+    .ind-cta__box {
+      padding: var(--space-md);
+    }
+  }
+
+  /* ─── Light Mode ─── */
+  :global(html[data-theme="light"]) .ind-hero__content h1,
+  :global(html[data-theme="light"]) .ind-section-title,
+  :global(html[data-theme="light"]) .ind-pain__title,
+  :global(html[data-theme="light"]) .ind-solution__item-title,
+  :global(html[data-theme="light"]) .ind-pipeline__stage-title,
+  :global(html[data-theme="light"]) .ind-cta__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__sub,
+  :global(html[data-theme="light"]) .ind-pain__desc,
+  :global(html[data-theme="light"]) .ind-solution__intro,
+  :global(html[data-theme="light"]) .ind-solution__item-desc,
+  :global(html[data-theme="light"]) .ind-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .ind-stats__label,
+  :global(html[data-theme="light"]) .ind-cta__desc {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card,
+  :global(html[data-theme="light"]) .ind-solution__item {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card:hover,
+  :global(html[data-theme="light"]) .ind-solution__item:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__item {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain,
+  :global(html[data-theme="light"]) .ind-solution,
+  :global(html[data-theme="light"]) .ind-pipeline,
+  :global(html[data-theme="light"]) .ind-stats {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon svg {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-pipeline__num {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__link {
+    color: var(--deep-ocean);
+  }
+</style>

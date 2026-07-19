@@ -1,0 +1,167 @@
+---
+import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
+---
+
+<BlogPostLayout
+  title="Démarrer avec DUSA : votre guide de configuration étape par étape"
+  description="Nouveau sur DUSA ? Ce guide vous accompagne à travers les 8 premières étapes de configuration, de votre profil d'entreprise à votre première campagne, pour que votre système soit opérationnel rapidement."
+  publishDate="2026-03-20"
+  author="Eliah Lade"
+  category="Getting Started"
+  readTime="8 min"
+  slug="getting-started-with-dusa"
+>
+
+<p>Vous vous êtes inscrit. Vous regardez le tableau de bord. Et maintenant vous vous demandez : par où commencer vraiment ?</p>
+
+<p>C'est la question la plus fréquente que nous entendons de la part des nouveaux utilisateurs de DUSA, et elle est tout à fait légitime. La plateforme fait beaucoup de choses. CRM, automatisations, pages d'atterrissage, campagnes d'e-mail, gestion des avis, calendriers, pipelines. Quand tout est disponible en même temps, l'ordre dans lequel aborder les choses est important.</p>
+
+<p>Ce guide vous accompagne à travers la première configuration dans un ordre logique. Suivez-le étape par étape et vous passerez d'un compte vide à un système fonctionnel qui capture des prospects, assure les suivis automatiquement et commence à générer des avis. Tout en une seule session si vous êtes ambitieux, ou réparti sur quelques jours si cela vous convient mieux.</p>
+
+<div class="divider">...</div>
+
+<h2>Étape 1 : Configurez votre profil d'entreprise</h2>
+
+<p>Avant tout, mettez de l'ordre dans vos affaires. Rendez-vous dans <strong>Paramètres</strong> et renseignez les informations de votre entreprise. Cela inclut le nom de votre entreprise, votre numéro de téléphone, votre adresse, l'URL de votre site web et votre fuseau horaire. Ces informations se répercutent dans chaque modèle, automatisation et page que vous construirez par la suite, donc les renseigner correctement maintenant vous évite de les corriger partout plus tard.</p>
+
+<p>Téléchargez votre logo pendant que vous êtes ici. Si vous avez des couleurs de marque, notez-les. Vous les utiliserez lors de la construction de pages d'atterrissage et de modèles d'e-mail sous peu.</p>
+
+<p>Cette étape prend cinq minutes. Ne la sautez pas.</p>
+
+<h2>Étape 2 : Connectez vos canaux de communication</h2>
+
+<p>DUSA fonctionne mieux quand toutes vos conversations se trouvent au même endroit. Connectez les canaux que vos clients utilisent déjà pour vous contacter.</p>
+
+<ul>
+  <li><strong>E-mail :</strong> Connectez votre e-mail professionnel pour pouvoir envoyer et recevoir directement depuis la plateforme. Cela alimente également vos campagnes d'e-mail et vos séquences automatisées.</li>
+  <li><strong>SMS :</strong> Configurez votre numéro de téléphone pour la messagerie texte. De nombreuses petites entreprises constatent que les SMS ont les taux d'ouverture les plus élevés de tous les canaux.</li>
+  <li><strong>Google My Business :</strong> Liez votre fiche GMB pour que les avis et les messages arrivent dans votre boîte de réception.</li>
+  <li><strong>Facebook et Instagram :</strong> Connectez vos comptes sociaux pour gérer les messages directs et les commentaires sans changer d'application.</li>
+</ul>
+
+<p>Vous n'avez pas besoin de tout connecter aujourd'hui. Commencez par l'e-mail et les SMS. Ces deux canaux couvrent à eux seuls la plupart des communications clients pour les entreprises de services.</p>
+
+<div class="divider">...</div>
+
+<h2>Étape 3 : Importez vos contacts</h2>
+
+<p>Votre CRM n'est aussi bon que les données qu'il contient. Si vous avez une liste existante de clients, de prospects ou d'anciennes demandes, c'est le moment de les intégrer.</p>
+
+<p>Allez dans <strong>Contacts</strong> et utilisez l'outil d'importation. Vous pouvez télécharger un fichier CSV avec des colonnes pour le nom, l'e-mail, le numéro de téléphone et tous les tags que vous souhaitez appliquer. Si vous gérez votre entreprise depuis une feuille de calcul (sans jugement, nous sommes tous passés par là), c'est là que cette feuille de calcul trouve enfin un vrai foyer.</p>
+
+<p>Quelques conseils pour une importation propre :</p>
+
+<ul>
+  <li>Supprimez les doublons avant de télécharger. Le système peut les gérer, mais il est plus propre de commencer sur de bonnes bases.</li>
+  <li>Ajoutez des tags lors de l'importation pour segmenter votre liste. Par exemple : "client-passé", "prospect-2025", "référence". Les tags rendent les automatisations beaucoup plus puissantes par la suite.</li>
+  <li>Incluez les numéros de téléphone là où vous les avez. Vous en aurez besoin pour les campagnes SMS et les rappels de rendez-vous.</li>
+</ul>
+
+<p>Si vous partez de zéro contact, c'est tout à fait normal. Passez à la suite et revenez-y une fois que les prospects commencent à affluer depuis votre page d'atterrissage.</p>
+
+<h2>Étape 4 : Construisez votre premier pipeline</h2>
+
+<p>Un pipeline est la façon dont vous suivez où chaque prospect se trouve dans votre processus de vente. Pensez-y comme un tableau visuel où les contacts se déplacent de gauche à droite à mesure qu'ils se rapprochent de devenir client.</p>
+
+<p>Un pipeline de départ simple pourrait ressembler à ceci :</p>
+
+<ul>
+  <li><strong>Nouveau prospect</strong> : il vient d'arriver</li>
+  <li><strong>Contacté</strong> : vous avez pris contact</li>
+  <li><strong>Rendez-vous pris</strong> : il est dans le calendrier</li>
+  <li><strong>Proposition envoyée</strong> : il considère votre offre</li>
+  <li><strong>Gagné</strong> : il a dit oui</li>
+  <li><strong>Perdu</strong> : pas cette fois</li>
+</ul>
+
+<p>Vous pouvez personnaliser cela pour correspondre à votre activité. Un artisan pourrait avoir "Devis envoyé" et "Travail planifié". Un consultant pourrait avoir "Appel de découverte" et "Intégration". Faites-en le vôtre.</p>
+
+<p>La puissance du pipeline est qu'il vous donne une vue unique de toute votre entreprise. Plus besoin de se demander combien de prospects vous avez ou où ils sont bloqués. Tout est là, devant vous.</p>
+
+<div class="divider">...</div>
+
+<h2>Étape 5 : Créez votre première automatisation</h2>
+
+<p>C'est là que les choses commencent à changer. L'automatisation est ce qui distingue un propriétaire d'entreprise débordé d'un propriétaire d'entreprise intelligent.</p>
+
+<p>Commencez simplement. Voici une première automatisation que chaque entreprise devrait avoir :</p>
+
+<p><strong>Séquence de suivi des nouveaux prospects</strong></p>
+
+<ul>
+  <li><strong>Déclencheur :</strong> Un nouveau contact est ajouté à votre étape de pipeline "Nouveau prospect"</li>
+  <li><strong>Étape 1 :</strong> Envoyer un e-mail de bienvenue immédiatement. Présentez-vous, confirmez que vous avez reçu leur demande et définissez les attentes pour les prochaines étapes.</li>
+  <li><strong>Étape 2 :</strong> Attendre 10 minutes. Envoyer un SMS : "Bonjour [Prénom], merci de nous avoir contactés. Je reviendrai vers vous sous peu. Y a-t-il quelque chose de spécifique pour lequel vous avez besoin d'aide ?"</li>
+  <li><strong>Étape 3 :</strong> Attendre 24 heures. Si pas de réponse, envoyer un e-mail de suivi avec plus de détails sur vos services et un lien pour prendre rendez-vous.</li>
+  <li><strong>Étape 4 :</strong> Attendre 3 jours. Envoyer un dernier SMS de vérification.</li>
+</ul>
+
+<p>Cette automatisation fonctionne en permanence. Un prospect qui arrive à 23h un mardi reçoit la même réponse rapide et professionnelle que celui qui arrive à 9h un lundi. Cette cohérence est ce qui construit la confiance.</p>
+
+<blockquote><p>Le meilleur suivi est celui qui se produit que vous vous en souveniez ou non.</p></blockquote>
+
+<h2>Étape 6 : Construisez une page d'atterrissage</h2>
+
+<p>Vous avez besoin d'un endroit où envoyer les gens. Que ce soit depuis une annonce Google, un lien dans la bio Instagram, ou un QR code sur votre carte de visite, une page d'atterrissage dédiée convertit mieux que votre site général parce qu'elle a un seul rôle et un seul appel à l'action.</p>
+
+<p>Utilisez le constructeur de pages pour créer une page d'atterrissage simple avec :</p>
+
+<ul>
+  <li>Un titre clair qui indique ce que vous faites et qui vous aidez</li>
+  <li>Un formulaire court collectant le nom, l'e-mail et le numéro de téléphone</li>
+  <li>Quelques lignes de preuve sociale (témoignages, nombre d'avis, années d'activité)</li>
+  <li>Un seul appel à l'action fort</li>
+</ul>
+
+<p>Restez concentré. Une page, une offre, une action. Résistez à l'envie de raconter toute votre histoire ici. L'objectif est de capturer le prospect. Vous pouvez les accompagner avec votre automatisation ensuite.</p>
+
+<p>Quand quelqu'un remplit le formulaire, le système crée automatiquement un contact, l'ajoute à votre pipeline et déclenche la séquence de suivi que vous venez de construire. Tout connecté. Tout automatique.</p>
+
+<div class="divider">...</div>
+
+<h2>Étape 7 : Configurez les demandes d'avis</h2>
+
+<p>Les avis sont le levier de croissance le plus sous-utilisé pour les petites entreprises. La plupart des clients satisfaits laisseraient un avis si vous le leur demandiez. Le problème est que la plupart des entreprises oublient de demander, ou demandent trop tard, ou le processus est maladroit.</p>
+
+<p>Configurez une demande d'avis automatisée qui se déclenche après qu'un travail est terminé ou qu'un service est rendu. Le flux est simple :</p>
+
+<ul>
+  <li>Quand vous déplacez un contact vers votre étape "Gagné" ou "Terminé", attendez un jour</li>
+  <li>Envoyez un SMS : "Bonjour [Prénom], merci d'avoir choisi [Entreprise]. Si vous avez eu une bonne expérience, nous serions ravis d'un avis rapide. Voici le lien : [Lien d'avis]"</li>
+  <li>Si aucun avis après 3 jours, envoyez un e-mail de suivi discret</li>
+</ul>
+
+<p>C'est tout. Deux messages. Entièrement automatisé. Les entreprises qui mettent cela en place de manière cohérente voient leur nombre d'avis Google grimper régulièrement mois après mois. Ces avis génèrent alors plus de prospects organiques, qui alimentent votre pipeline. C'est une boucle de croissance qui fonctionne toute seule.</p>
+
+<h2>Étape 8 : Envoyez votre première campagne</h2>
+
+<p>Avec vos contacts importés et vos canaux connectés, vous êtes prêt à envoyer votre première diffusion. Cela pourrait être une newsletter mensuelle, une offre spéciale, une promotion saisonnière, ou simplement un message de réengagement à d'anciens clients.</p>
+
+<p>Allez dans <strong>Marketing</strong> et créez une nouvelle campagne d'e-mail. Choisissez un modèle ou construisez depuis zéro. Écrivez quelque chose d'authentique. Vous n'avez pas besoin d'être rédacteur. Soyez simplement clair sur ce que vous proposez et pourquoi cela compte pour la personne qui vous lit.</p>
+
+<p>Quelques notes pratiques :</p>
+
+<ul>
+  <li>Segmentez votre liste en utilisant les tags que vous avez configurés lors de l'importation. Un message à d'anciens clients devrait se lire différemment de celui destiné à des prospects froids.</li>
+  <li>Incluez un appel à l'action clair. Réserver un appel, visiter votre page, répondre à cet e-mail. Donnez aux gens une seule chose à faire ensuite.</li>
+  <li>Testez avant d'envoyer. Envoyez-vous un aperçu. Vérifiez les liens. Lisez-le sur votre téléphone.</li>
+</ul>
+
+<blockquote><p>Votre première campagne n'a pas besoin d'être parfaite. Elle doit être envoyée.</p></blockquote>
+
+<div class="divider">...</div>
+
+<h2>Vous êtes opérationnel</h2>
+
+<p>Voilà la configuration complète. Profil d'entreprise, canaux de communication, contacts, pipeline, automatisation, page d'atterrissage, avis et votre première campagne. Si vous avez suivi, vous avez maintenant un système qui capture des prospects, assure les suivis automatiquement, suit votre processus de vente et demande des avis sans que vous n'ayez à lever le petit doigt.</p>
+
+<p>Tout l'intérêt est de construire cela une fois et de le laisser travailler pour vous. Pas parfaitement. Pas éternellement sans ajustement. Mais ça fonctionne. Et fonctionner dépasse le simple fait de planifier, à chaque fois.</p>
+
+<p>La prochaine étape est d'observer ce qui se passe, de regarder vos chiffres après une semaine et d'ajuster à partir de là. La plateforme vous fournit les données. Utilisez-les.</p>
+
+<div class="blog-cta">
+  <p><strong>Vous avez besoin d'aide pour la configuration ?</strong></p>
+  <p>Nous aidons des entreprises à démarrer sur DUSA chaque semaine. Si vous préférez que quelqu'un vous guide, <a href="/fr/contact">réservez un appel de configuration</a> et nous vous mettrons sur la bonne voie.</p>
+</div>
+
+</BlogPostLayout>

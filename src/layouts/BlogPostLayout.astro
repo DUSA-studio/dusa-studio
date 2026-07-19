@@ -1,0 +1,755 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: string;
+  author: string;
+  category: string;
+  readTime: string;
+  slug: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  publishDate,
+  author = 'Eliah Lade',
+  category,
+  readTime,
+  slug,
+  ogImage = '/og-default.jpg',
+} = Astro.props;
+
+const siteBase = 'https://dusa.studio';
+const canonicalUrl = `${siteBase}/blog/${slug}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteBase}${ogImage}`;
+const formattedDate = new Date(publishDate).toLocaleDateString('en-AU', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const isoDate = new Date(publishDate).toISOString();
+
+// Breadcrumb schema for blog posts
+const breadcrumbSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteBase}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteBase}/blog` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
+  ],
+});
+
+// Hreflang alternates
+const hreflangs = [
+  { hreflang: 'en-au', prefix: '' },
+  { hreflang: 'es-es', prefix: '/es' },
+  { hreflang: 'es-mx', prefix: '/mx' },
+  { hreflang: 'pt-br', prefix: '/br' },
+  { hreflang: 'fr-fr', prefix: '/fr' },
+  { hreflang: 'de-de', prefix: '/de' },
+];
+
+// All blog posts for related posts logic
+const allPosts = [
+  { title: 'How to build a sales funnel for your small business', slug: 'sales-funnel-small-business', category: 'Growth', readTime: '7 min' },
+  { title: 'Email marketing for small business: the complete guide', slug: 'email-marketing-small-business', category: 'Marketing', readTime: '9 min' },
+  { title: 'CRM for small business: why you need one and how to choose', slug: 'crm-small-business', category: 'Technology', readTime: '6 min' },
+  { title: 'How to get more Google reviews for your local business', slug: 'get-more-google-reviews', category: 'Marketing', readTime: '6 min' },
+  { title: 'Marketing automation for small business: where to start', slug: 'marketing-automation-getting-started', category: 'Automation', readTime: '7 min' },
+  { title: 'Landing pages that convert: design tips for small business', slug: 'landing-pages-that-convert', category: 'Growth', readTime: '6 min' },
+  { title: 'SMS marketing for small business: best practices and examples', slug: 'sms-marketing-small-business', category: 'Marketing', readTime: '6 min' },
+  { title: 'Peace & Party', slug: 'peace-and-party', category: 'Philosophy', readTime: '6 min' },
+  { title: 'How to reduce no-shows with automated appointment reminders', slug: 'reduce-no-shows', category: 'Automation', readTime: '5 min' },
+  { title: 'Social media scheduling: how to save hours every week', slug: 'social-media-scheduling', category: 'Marketing', readTime: '5 min' },
+  { title: 'Lead generation for service businesses: proven strategies that work', slug: 'lead-generation-service-business', category: 'Growth', readTime: '8 min' },
+  { title: 'How to create a customer follow-up system that works on autopilot', slug: 'customer-follow-up-system', category: 'Automation', readTime: '6 min' },
+  { title: 'Website vs. sales funnel: which does your small business need?', slug: 'website-vs-funnel', category: 'Strategy', readTime: '5 min' },
+  { title: '5 tools every sole operator should replace with one platform', slug: '5-tools-to-replace', category: 'Growth', readTime: '5 min' },
+  { title: 'How to automate your follow-up without sounding like a robot', slug: 'automate-follow-up', category: 'Automation', readTime: '7 min' },
+  { title: 'Reputation management: why your Google reviews matter more than your website', slug: 'reputation-management', category: 'Marketing', readTime: '6 min' },
+  { title: 'The real cost of disconnected tools (and what to do about it)', slug: 'real-cost-of-disconnected-tools', category: 'Strategy', readTime: '4 min' },
+  { title: 'Getting started with DUSA: a step-by-step setup guide', slug: 'getting-started-with-dusa', category: 'Getting Started', readTime: '8 min' },
+  { title: 'Booking systems that convert: how to stop losing leads to scheduling friction', slug: 'booking-systems-that-convert', category: 'Growth', readTime: '5 min' },
+  { title: 'How to reclaim your evenings: automation for business owners who want their life back', slug: 'reclaim-your-evenings', category: 'Balance', readTime: '6 min' },
+  { title: 'AI for small business: what actually works (and what is just hype)', slug: 'ai-powered-small-business', category: 'Technology', readTime: '7 min' },
+  { title: 'DUSA vs HubSpot: which is better for small business?', slug: 'dusa-vs-hubspot', category: 'Comparison', readTime: '8 min' },
+  { title: 'DUSA vs Mailchimp: more than just email marketing', slug: 'dusa-vs-mailchimp', category: 'Comparison', readTime: '7 min' },
+  { title: 'All-in-one platform vs separate tools: the real cost comparison', slug: 'all-in-one-vs-separate-tools', category: 'Strategy', readTime: '7 min' },
+  { title: 'DUSA vs ClickFunnels: the full platform vs the funnel specialist', slug: 'dusa-vs-clickfunnels', category: 'Comparison', readTime: '7 min' },
+  { title: 'DUSA vs Keap: small business CRM comparison', slug: 'dusa-vs-keap', category: 'Comparison', readTime: '7 min' },
+  { title: 'DUSA vs ActiveCampaign: email automation and beyond', slug: 'dusa-vs-activecampaign', category: 'Comparison', readTime: '7 min' },
+  { title: 'Best all-in-one platform for small business in 2026', slug: 'best-all-in-one-platform-small-business', category: 'Growth', readTime: '10 min' },
+];
+
+// Find 3 related posts: prioritise same category, then fill from other categories
+const otherPosts = allPosts.filter((p) => p.slug !== slug);
+const sameCategory = otherPosts.filter((p) => p.category === category);
+const differentCategory = otherPosts.filter((p) => p.category !== category);
+const relatedPosts = [...sameCategory, ...differentCategory].slice(0, 3);
+
+// JSON-LD structured data for AEO/GEO/SEO
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: description,
+  author: {
+    '@type': 'Person',
+    name: author,
+    jobTitle: 'Founder',
+    url: 'https://dusa.studio/about',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'DUSA . studio',
+    url: 'https://dusa.studio',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://dusa.studio/favicon.png',
+    },
+  },
+  image: ogImageUrl,
+  datePublished: isoDate,
+  dateModified: isoDate,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+  url: canonicalUrl,
+  articleSection: category,
+  inLanguage: 'en-AU',
+});
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0C0E14" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title} | DUSA . studio</title>
+
+    <!-- Hreflang alternate links -->
+    {hreflangs.map(({ hreflang, prefix }) => (
+      <link rel="alternate" hreflang={hreflang} href={`${siteBase}${prefix}/blog/${slug}`} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <!-- Theme detection -->
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem('dusa-theme');
+        if (saved === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+          var mc = document.querySelector('meta[name="theme-color"]');
+          if (mc) mc.setAttribute('content', '#F7F4EF');
+        }
+      })();
+    </script>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={`${title} | DUSA . studio`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="article:published_time" content={isoDate} />
+    <meta property="article:author" content={author} />
+    <meta property="article:section" content={category} />
+    <meta property="article:tag" content={category} />
+    <meta property="og:locale" content="en_AU" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={jsonLd} />
+
+    <!-- Breadcrumb Structured Data -->
+    <script type="application/ld+json" set:html={breadcrumbSchema} />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          if (typeof gsap === 'undefined') {
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(function(el) {
+              el.style.visibility = 'visible';
+              el.style.opacity = '1';
+            });
+          }
+        }, 3000);
+      });
+    </script>
+    <noscript>
+      <style>
+        .reveal, .reveal-left, .reveal-right, .reveal-scale {
+          visibility: visible !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <article class="blog-post section section--dark">
+        <div class="container">
+          <header class="blog-post__header">
+            <div class="blog-post__meta">
+              <span class="blog-post__category">{category}</span>
+              <time datetime={isoDate} class="blog-post__date">{formattedDate}</time>
+              <span class="blog-post__read">{readTime} read</span>
+            </div>
+            <h1 class="blog-post__title">{title}</h1>
+            <p class="blog-post__subtitle">{description}</p>
+            <div class="blog-post__author">
+              <span class="blog-post__author-name">By {author}</span>
+            </div>
+          </header>
+
+          <div class="blog-post__body">
+            <slot />
+          </div>
+
+          <footer class="blog-post__footer">
+            <a href="/blog" class="blog-post__back">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back to all posts
+            </a>
+          </footer>
+
+          {relatedPosts.length > 0 && (
+            <section class="related-posts">
+              <h2 class="related-posts__heading">Keep reading</h2>
+              <div class="related-posts__grid">
+                {relatedPosts.map((post) => (
+                  <a href={`/blog/${post.slug}`} class="related-posts__card">
+                    <span class="related-posts__category">{post.category}</span>
+                    <h3 class="related-posts__title">{post.title}</h3>
+                    <span class="related-posts__meta">{post.readTime} read</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </article>
+    </main>
+    <Footer />
+
+    <!-- LeadConnector Chat Widget -->
+    <script src="https://widgets.leadconnectorhq.com/loader.js"
+      data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+      data-widget-id="6880d1b3b785852440a39d69"
+      defer>
+    </script>
+  </body>
+</html>
+
+<style>
+  .blog-post {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .blog-post__header {
+    max-width: 720px;
+    margin: 0 auto var(--space-xl);
+    text-align: center;
+  }
+
+  .blog-post__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .blog-post__category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(78, 216, 194, 0.25);
+    border-radius: var(--radius-full);
+  }
+
+  .blog-post__date,
+  .blog-post__read {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  .blog-post__title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    line-height: 1.15;
+    margin-bottom: var(--space-sm);
+    letter-spacing: -0.02em;
+  }
+
+  .blog-post__subtitle {
+    font-size: 1.25rem;
+    color: rgba(247, 244, 239, 0.55);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto var(--space-md);
+  }
+
+  .blog-post__author-name {
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.5);
+  }
+
+  /* Article body prose */
+  .blog-post__body {
+    max-width: 680px;
+    margin: 0 auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .blog-post__body :global(h2) {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    line-height: 1.25;
+  }
+
+  .blog-post__body :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xs);
+    line-height: 1.3;
+  }
+
+  .blog-post__body :global(p) {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.7);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .blog-post__body :global(strong) {
+    color: var(--warm-white);
+    font-weight: 600;
+  }
+
+  .blog-post__body :global(em) {
+    color: var(--reef-aqua);
+    font-style: italic;
+  }
+
+  .blog-post__body :global(blockquote) {
+    border-left: 3px solid var(--reef-aqua);
+    padding: var(--space-sm) var(--space-md);
+    margin: var(--space-lg) 0;
+    background: rgba(78, 216, 194, 0.04);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .blog-post__body :global(blockquote p) {
+    font-size: 1.1875rem;
+    color: rgba(247, 244, 239, 0.8);
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  .blog-post__body :global(a) {
+    color: var(--reef-aqua);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity var(--duration-fast);
+  }
+
+  .blog-post__body :global(a:hover) {
+    opacity: 0.8;
+  }
+
+  .blog-post__body :global(hr) {
+    border: none;
+    height: 1px;
+    background: rgba(247, 244, 239, 0.08);
+    margin: var(--space-xl) 0;
+  }
+
+  .blog-post__body :global(ul),
+  .blog-post__body :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .blog-post__body :global(li) {
+    font-size: 1.125rem;
+    color: rgba(247, 244, 239, 0.7);
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Comparison tables */
+  .blog-post__body :global(.comparison-table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-lg) 0;
+    font-size: 0.9375rem;
+  }
+
+  .blog-post__body :global(.comparison-table th) {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    border-bottom: 2px solid rgba(78, 216, 194, 0.25);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .blog-post__body :global(.comparison-table td) {
+    padding: 0.75rem 1rem;
+    color: rgba(247, 244, 239, 0.7);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .blog-post__body :global(.comparison-table tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .blog-post__body :global(.comparison-table tr:hover td) {
+    background: rgba(78, 216, 194, 0.03);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(.comparison-table th) {
+    color: var(--deep-black);
+    border-bottom-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(.comparison-table td) {
+    color: rgba(12, 14, 20, 0.7);
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(.comparison-table tr:hover td) {
+    background: rgba(78, 216, 194, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    .blog-post__body :global(.comparison-table) {
+      font-size: 0.8125rem;
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .blog-post__body :global(.comparison-table th),
+    .blog-post__body :global(.comparison-table td) {
+      padding: 0.5rem 0.75rem;
+      white-space: nowrap;
+    }
+  }
+
+  /* Divider accent */
+  .blog-post__body :global(.divider) {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--reef-aqua);
+    letter-spacing: 0.5em;
+    margin: var(--space-xl) 0;
+    opacity: 0.5;
+  }
+
+  /* CTA callout */
+  .blog-post__body :global(.blog-cta) {
+    background: rgba(78, 216, 194, 0.06);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin: var(--space-xl) 0;
+    text-align: center;
+  }
+
+  .blog-post__body :global(.blog-cta p) {
+    color: rgba(247, 244, 239, 0.8);
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-post__body :global(.blog-cta p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Footer nav */
+  .blog-post__footer {
+    max-width: 680px;
+    margin: var(--space-xl) auto 0;
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .blog-post__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.5);
+    transition: color var(--duration-fast);
+    padding: 0.75rem 0;
+    min-height: 44px;
+  }
+
+  .blog-post__back:hover {
+    color: var(--reef-aqua);
+  }
+
+  /* Related posts */
+  .related-posts {
+    max-width: 680px;
+    margin: var(--space-2xl) auto 0;
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .related-posts__heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.01em;
+  }
+
+  .related-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .related-posts__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: var(--space-md);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-md);
+    background: rgba(247, 244, 239, 0.02);
+    text-decoration: none;
+    transition: border-color var(--duration-fast), background var(--duration-fast);
+  }
+
+  .related-posts__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    background: rgba(78, 216, 194, 0.04);
+  }
+
+  .related-posts__category {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid rgba(78, 216, 194, 0.2);
+    border-radius: var(--radius-full);
+    align-self: flex-start;
+  }
+
+  .related-posts__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .related-posts__meta {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.35);
+  }
+
+  /* Light mode overrides */
+  :global(html[data-theme="light"]) .blog-post__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__subtitle {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__date,
+  :global(html[data-theme="light"]) .blog-post__read {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__author-name {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(h2),
+  :global(html[data-theme="light"]) .blog-post__body :global(h3) {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(p) {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(strong) {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(blockquote) {
+    background: rgba(78, 216, 194, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(blockquote p) {
+    color: rgba(12, 14, 20, 0.75);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(li) {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(.blog-cta) {
+    background: rgba(78, 216, 194, 0.08);
+    border-color: rgba(78, 216, 194, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(.blog-cta p) {
+    color: rgba(12, 14, 20, 0.75);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(hr) {
+    background: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__body :global(em) {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__footer {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__back {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .blog-post__back:hover {
+    color: var(--reef-aqua);
+  }
+
+  :global(html[data-theme="light"]) .related-posts {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .related-posts__heading {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .related-posts__card {
+    border-color: rgba(12, 14, 20, 0.08);
+    background: rgba(12, 14, 20, 0.02);
+  }
+
+  :global(html[data-theme="light"]) .related-posts__card:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+    background: rgba(78, 216, 194, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .related-posts__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .related-posts__meta {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .blog-post__title {
+      font-size: clamp(1.75rem, 6vw, 2.5rem);
+    }
+
+    .blog-post__subtitle {
+      font-size: 1.0625rem;
+    }
+
+    .blog-post__body :global(p),
+    .blog-post__body :global(li) {
+      font-size: 1.0625rem;
+    }
+
+    .related-posts__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blog-post {
+      padding-top: calc(var(--nav-height) + var(--space-xl));
+    }
+
+    .blog-post__meta {
+      gap: 0.5rem;
+    }
+  }
+
+  /* GSAP hidden until animated */
+  .blog-post__header,
+  .blog-post__body {
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  function initPostAnimations() {
+    if (typeof gsap === 'undefined') {
+      setTimeout(initPostAnimations, 100);
+      return;
+    }
+    gsap.set('.blog-post__header, .blog-post__body', { visibility: 'visible' });
+    gsap.fromTo('.blog-post__header',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+    );
+    gsap.fromTo('.blog-post__body',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.35 }
+    );
+  }
+  initPostAnimations();
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+    }
+  });
+</script>

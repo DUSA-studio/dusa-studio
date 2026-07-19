@@ -1,0 +1,387 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/t.js';
+import tData from '../../../i18n/translations/pt.json';
+
+const lang = 'pt';
+const region = 'br';
+
+const industries = [
+  {
+    title: 'Imobiliario',
+    desc: 'Gestao de pipeline, follow-ups automaticos de visitas, e matching de compradores para corretores que querem fechar mais negocios.',
+    slug: '/br/industries/real-estate',
+    icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z',
+  },
+  {
+    title: 'Academias e Fitness',
+    desc: 'Onboarding de alunos, lembretes de aulas, campanhas de recuperacao e rastreamento de indicacoes para reduzir evasao e lotar suas aulas.',
+    slug: '/br/industries/gyms',
+    icon: 'M6.5 6.5h11M6 12h12M17.5 17.5h-11M20 21V3M4 21V3',
+  },
+  {
+    title: 'Servicos Gerais',
+    desc: 'Retorno automatico de chamadas perdidas, pipelines de orcamento, agendamento de servicos e lembretes de cobranca para profissionais que estao sempre em campo.',
+    slug: '/br/industries/tradies',
+    icon: 'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z',
+  },
+  {
+    title: 'Restaurantes',
+    desc: 'Lembretes de reservas, solicitacao de avaliacoes pos-visita, campanhas de aniversario e programas de fidelidade digital.',
+    slug: '/br/industries/restaurants',
+    icon: 'M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3',
+  },
+  {
+    title: 'Saloes e Spas',
+    desc: 'Agendamento online, lembretes automaticos, campanhas de reagendamento e rastreamento de preferencias para preencher todas as cadeiras.',
+    slug: '/br/industries/salons',
+    icon: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
+  },
+  {
+    title: 'Contadores',
+    desc: 'Automacao de coleta de documentos, lembretes de prazos e engajamento continuo com clientes alem da temporada de impostos.',
+    slug: '/br/industries/accountants',
+    icon: 'M4 2v20h16V8l-6-6H4zM14 2v6h6M8 13h8M8 17h8M8 9h2',
+  },
+  {
+    title: 'Clinicas Odontologicas',
+    desc: 'Lembretes de retorno, captacao de novos pacientes, geracao de avaliacoes e acompanhamento de planos de tratamento no piloto automatico.',
+    slug: '/br/industries/dentists',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  },
+  {
+    title: 'Fotografos',
+    desc: 'Respostas automaticas a consultas, fluxos de contratos, lembretes de sessoes, entrega de galerias e sequencias de upsell de impressoes.',
+    slug: '/br/industries/photographers',
+    icon: 'M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2zM12 17a4 4 0 100-8 4 4 0 000 8z',
+  },
+  {
+    title: 'Construcao Civil',
+    desc: 'Rastreamento de leads, follow-ups de orcamento, comunicacao de marcos do projeto e cobranca de pagamentos para construtores.',
+    slug: '/br/industries/construction',
+    icon: 'M2 20h20M5 20V10l7-7 7 7v10M9 20v-6h6v6',
+  },
+  {
+    title: 'Personal Trainers',
+    desc: 'Funis de isca digital, agendamento de consultas, showcases de transformacao e check-ins automaticos com clientes.',
+    slug: '/br/industries/personal-trainers',
+    icon: 'M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M8.5 11a4 4 0 100-8 4 4 0 000 8zM20 8v6M23 11h-6',
+  },
+  {
+    title: 'Servicos de Limpeza',
+    desc: 'Gestao de agendamentos recorrentes, follow-ups de qualidade, escala de equipes e campanhas de upsell para empresas de limpeza.',
+    slug: '/br/industries/cleaning-services',
+    icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+  },
+  {
+    title: 'Escritorios de Advocacia',
+    desc: 'Automacao de formularios de admissao, atualizacoes de status de casos, rastreamento de indicacoes e conteudo de lideranca dentro da conformidade.',
+    slug: '/br/industries/law-firms',
+    icon: 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z',
+  },
+  {
+    title: 'Administradores de Imoveis',
+    desc: 'Automacao do ciclo de vida do inquilino, pipelines de solicitacao de manutencao, lembretes de aluguel e campanhas de renovacao de contrato.',
+    slug: '/br/industries/property-managers',
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2m-16 0H3M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1',
+  },
+  {
+    title: 'Oficinas Mecanicas',
+    desc: 'Automacao de lembretes de revisao, campanhas sazonais, geracao de avaliacoes e programas de fidelidade para mecanicos.',
+    slug: '/br/industries/auto-repair',
+    icon: 'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z',
+  },
+  {
+    title: 'Coaches e Consultores',
+    desc: 'Funis de chamada de descoberta, sequencias de onboarding, agendamento de sessoes e coleta de depoimentos para escalar sua pratica.',
+    slug: '/br/industries/coaches',
+    icon: 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
+  },
+  {
+    title: 'E-commerce',
+    desc: 'Sequencias pos-compra, automacao de avaliacoes, fluxos de cross-sell, segmentacao VIP e recompensas de aniversario.',
+    slug: '/br/industries/ecommerce',
+    icon: 'M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0',
+  },
+];
+---
+
+<BaseLayout
+  t={tData}
+  title="Setores | DUSA.studio"
+  description="O DUSA foi feito para o seu setor. Veja como nossa plataforma de crescimento funciona para imoveis, servicos, academias, restaurantes, saloes, dentistas e muito mais."
+>
+  <!-- ═══ Hero ═══ -->
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">Setores</span>
+        <h1>Feito para o <span class="gradient-text">seu</span> setor</h1>
+        <p class="ind-hero__sub">
+          Cada negocio e diferente. Por isso o DUSA se adapta ao seu jeito de trabalhar, com pipelines, automacoes e fluxos de trabalho projetados para o seu setor especifico. Encontre o seu abaixo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Industry Grid ═══ -->
+  <section class="ind-grid section--dark">
+    <div class="container">
+      <div class="ind-grid__cards">
+        {industries.map((ind) => (
+          <a href={ind.slug} class="ind-card">
+            <div class="ind-card__icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={ind.icon} />
+              </svg>
+            </div>
+            <h2 class="ind-card__title">{ind.title}</h2>
+            <p class="ind-card__desc">{ind.desc}</p>
+            <span class="ind-card__link">Saiba mais &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="ind-cta section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2 class="ind-cta__title">Nao encontrou seu setor?</h2>
+        <p class="ind-cta__desc">O DUSA funciona para qualquer negocio baseado em servicos. Entre em contato e vamos mostrar como ele se encaixa no seu fluxo de trabalho.</p>
+        <div class="ind-cta__buttons">
+          <a href="/br/start" class="btn btn--primary">Comece Agora</a>
+          <a href="/br/contact" class="btn btn--outline">Fale Conosco</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dusa.studio/" },
+    { "@type": "ListItem", "position": 2, "name": "Setores", "item": "https://dusa.studio/br/industries/" }
+  ]
+}
+</script>
+
+<style>
+  /* ─── Hero ─── */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .ind-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── Grid ─── */
+  .ind-grid {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .ind-grid__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .ind-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast), transform var(--duration-fast);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ind-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .ind-card__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+
+  .ind-card__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+
+  .ind-card__title {
+    font-family: var(--font-headline);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-card__desc {
+    font-size: 0.925rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+    flex: 1;
+  }
+
+  .ind-card__link {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--reef-aqua);
+    transition: opacity var(--duration-fast);
+  }
+
+  .ind-card:hover .ind-card__link {
+    opacity: 0.8;
+  }
+
+  /* ─── CTA ─── */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-3xl);
+  }
+
+  .ind-cta__box {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--space-2xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .ind-cta__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .ind-cta__desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.65;
+    margin-bottom: var(--space-lg);
+  }
+
+  .ind-cta__buttons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── Light mode ─── */
+  :global(html[data-theme="light"]) .ind-hero__sub {
+    color: rgba(30, 30, 30, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .ind-card {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__desc {
+    color: rgba(30, 30, 30, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__desc {
+    color: rgba(30, 30, 30, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__content h1 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__icon-wrap {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__icon-wrap svg {
+    color: var(--deep-ocean);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .ind-grid__cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ind-grid__cards {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-grid__cards {
+      grid-template-columns: 1fr;
+    }
+
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-xl));
+      padding-bottom: var(--space-md);
+    }
+
+    .ind-cta__box {
+      padding: var(--space-lg);
+    }
+  }
+</style>

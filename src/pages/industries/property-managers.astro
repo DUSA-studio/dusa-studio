@@ -1,0 +1,528 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import t from '../../i18n/translations/en.json';
+
+const title = 'CRM for Property Managers | DUSA.studio';
+const description = 'Automate tenant communication, maintenance requests, lease renewals, and rent collection. DUSA is the all-in-one growth platform built for property managers.';
+
+const painPoints = [
+  {
+    icon: '📨',
+    title: 'Scattered Tenant Communication',
+    desc: 'Tenant messages are split across email, phone, text, and portals. Nothing is tracked in one place, so things slip through the cracks.',
+  },
+  {
+    icon: '🔧',
+    title: 'Maintenance Requests Lost in Email',
+    desc: 'Repair requests come in from every direction with no system to prioritise, assign, or follow up. Tenants get frustrated. You get blamed.',
+  },
+  {
+    icon: '📅',
+    title: 'Manual Lease Renewal Tracking',
+    desc: 'Spreadsheets and calendar reminders are not a renewal strategy. Leases lapse, tenants leave, and vacancies cost you thousands.',
+  },
+  {
+    icon: '💸',
+    title: 'Late Rent Collection',
+    desc: 'Chasing rent manually every month wastes time and creates awkward conversations. Automated reminders solve both problems.',
+  },
+];
+
+const features = [
+  {
+    title: 'Tenant Lifecycle Automation',
+    desc: 'From enquiry to move-in to renewal, every stage is mapped and automated. No tenant falls through the cracks.',
+  },
+  {
+    title: 'Maintenance Request Pipeline',
+    desc: 'Tenants submit requests through a form. You triage, assign, and track resolution from a single dashboard.',
+  },
+  {
+    title: 'Rent Reminder Sequences',
+    desc: 'Automated SMS and email reminders go out before rent is due, on the due date, and if payment is late.',
+  },
+  {
+    title: 'Lease Renewal Campaigns',
+    desc: 'Trigger renewal outreach 90 days before a lease expires. Automate follow-ups until the tenant confirms.',
+  },
+  {
+    title: 'Owner Reporting',
+    desc: 'Generate monthly owner reports with occupancy rates, maintenance updates, and rent collection summaries.',
+  },
+];
+
+const pipeline = [
+  { stage: 'Enquiry', desc: 'New tenant fills out an interest form' },
+  { stage: 'Application', desc: 'Background and credit checks underway' },
+  { stage: 'Lease Signed', desc: 'Agreement executed, move-in scheduled' },
+  { stage: 'Active Tenant', desc: 'Ongoing communication and maintenance' },
+  { stage: 'Renewal Due', desc: 'Automated outreach begins at 90 days' },
+  { stage: 'Renewed', desc: 'Lease extended, cycle continues' },
+];
+
+const stats = [
+  { value: '73%', label: 'of tenants prefer digital communication over phone calls' },
+  { value: '2.5x', label: 'faster maintenance resolution with automated triage' },
+  { value: '40%', label: 'reduction in late rent payments with automated reminders' },
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://dusa.studio/' },
+    { '@type': 'ListItem', position: 2, name: 'Industries', item: 'https://dusa.studio/industries' },
+    { '@type': 'ListItem', position: 3, name: 'Property Managers', item: 'https://dusa.studio/industries/property-managers' },
+  ],
+});
+---
+
+<BaseLayout t={t} title={title} description={description}>
+  <script type="application/ld+json" set:html={jsonLd} slot="head" />
+
+  <!-- Hero -->
+  <section class="pm-hero section section--dark">
+    <div class="container">
+      <div class="pm-hero__content">
+        <span class="label">Property Management</span>
+        <h1>The <span class="gradient-text">growth platform</span> built for property managers</h1>
+        <p class="pm-hero__sub">
+          Automate tenant communication, maintenance workflows, lease renewals, and rent collection. All from one platform.
+        </p>
+        <div class="pm-hero__actions">
+          <a href="/start" class="btn btn--primary">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Points -->
+  <section class="pm-pain section section--dark">
+    <div class="container">
+      <div class="pm-pain__header">
+        <span class="label">The Problem</span>
+        <h2>Property management is <span class="gradient-text">drowning in admin</span></h2>
+        <p class="pm-pain__intro">Most property managers are stuck juggling disconnected tools and manual processes. Here is what that looks like.</p>
+      </div>
+      <div class="pm-pain__grid">
+        {painPoints.map((point) => (
+          <div class="pm-pain__card">
+            <span class="pm-pain__icon">{point.icon}</span>
+            <h3 class="pm-pain__card-title">{point.title}</h3>
+            <p class="pm-pain__card-desc">{point.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="pm-solution section section--dark">
+    <div class="container">
+      <div class="pm-solution__header">
+        <span class="label">The Solution</span>
+        <h2>How DUSA works for <span class="gradient-text">property managers</span></h2>
+        <p class="pm-solution__intro">One platform to manage every tenant interaction, from first enquiry to lease renewal.</p>
+      </div>
+      <div class="pm-solution__grid">
+        {features.map((feature) => (
+          <div class="pm-solution__card">
+            <h3 class="pm-solution__card-title">{feature.title}</h3>
+            <p class="pm-solution__card-desc">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pipeline -->
+  <section class="pm-pipeline section section--dark">
+    <div class="container">
+      <div class="pm-pipeline__header">
+        <span class="label">Pipeline</span>
+        <h2>Your <span class="gradient-text">tenant pipeline</span> at a glance</h2>
+      </div>
+      <div class="pm-pipeline__stages">
+        {pipeline.map((step, i) => (
+          <div class="pm-pipeline__stage">
+            <div class="pm-pipeline__number">{i + 1}</div>
+            <h3 class="pm-pipeline__stage-title">{step.stage}</h3>
+            <p class="pm-pipeline__stage-desc">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="pm-stats section section--dark">
+    <div class="container">
+      <div class="pm-stats__header">
+        <span class="label">Impact</span>
+        <h2>The numbers speak for <span class="gradient-text">themselves</span></h2>
+      </div>
+      <div class="pm-stats__grid">
+        {stats.map((stat) => (
+          <div class="pm-stats__card">
+            <span class="pm-stats__value">{stat.value}</span>
+            <p class="pm-stats__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pm-cta section section--dark">
+    <div class="container">
+      <div class="pm-cta__box">
+        <h2>Ready to streamline your <span class="gradient-text">property management</span>?</h2>
+        <p class="pm-cta__sub">Get your tenant pipeline, maintenance workflows, and renewal campaigns running in one platform.</p>
+        <div class="pm-cta__actions">
+          <a href="/start" class="btn btn--primary">Get Started</a>
+          <a href="/blog/crm-for-property-managers" class="btn btn--outline">Read the guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .pm-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+  .pm-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .pm-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pm-hero__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Pain Points */
+  .pm-pain {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-pain__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-pain__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-pain__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .pm-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  .pm-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .pm-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .pm-pain__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+  .pm-pain__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .pm-pain__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Solution */
+  .pm-solution {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-solution__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-solution__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-solution__intro {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+  }
+  .pm-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .pm-solution__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .pm-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+  .pm-solution__card-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .pm-solution__card-desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Pipeline */
+  .pm-pipeline {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-pipeline__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-pipeline__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-pipeline__stages {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    padding-bottom: var(--space-sm);
+  }
+  .pm-pipeline__stage {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+  .pm-pipeline__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(78, 216, 194, 0.15);
+    color: var(--reef-aqua);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    margin: 0 auto var(--space-sm);
+  }
+  .pm-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+  .pm-pipeline__stage-desc {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Stats */
+  .pm-stats {
+    padding: var(--space-2xl) 0;
+  }
+  .pm-stats__header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+  .pm-stats__header h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+  }
+  .pm-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+  .pm-stats__card {
+    text-align: center;
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+  .pm-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--reef-aqua);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+  .pm-stats__label {
+    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .pm-cta {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+  .pm-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .pm-cta__box h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    color: var(--warm-white);
+  }
+  .pm-cta__sub {
+    color: rgba(247, 244, 239, 0.6);
+    margin-top: var(--space-sm);
+    line-height: 1.7;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pm-cta__actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Light mode */
+  :global(html[data-theme="light"]) .pm-hero__content h1,
+  :global(html[data-theme="light"]) .pm-pain__header h2,
+  :global(html[data-theme="light"]) .pm-solution__header h2,
+  :global(html[data-theme="light"]) .pm-pipeline__header h2,
+  :global(html[data-theme="light"]) .pm-stats__header h2,
+  :global(html[data-theme="light"]) .pm-cta__box h2,
+  :global(html[data-theme="light"]) .pm-pain__card-title,
+  :global(html[data-theme="light"]) .pm-solution__card-title,
+  :global(html[data-theme="light"]) .pm-pipeline__stage-title {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .pm-hero__sub,
+  :global(html[data-theme="light"]) .pm-pain__intro,
+  :global(html[data-theme="light"]) .pm-solution__intro,
+  :global(html[data-theme="light"]) .pm-pain__card-desc,
+  :global(html[data-theme="light"]) .pm-solution__card-desc,
+  :global(html[data-theme="light"]) .pm-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .pm-stats__label,
+  :global(html[data-theme="light"]) .pm-cta__sub {
+    color: rgba(12, 14, 20, 0.65);
+  }
+  :global(html[data-theme="light"]) .pm-pain__card,
+  :global(html[data-theme="light"]) .pm-solution__card,
+  :global(html[data-theme="light"]) .pm-pipeline__stage {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .pm-pain__card:hover,
+  :global(html[data-theme="light"]) .pm-solution__card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+  :global(html[data-theme="light"]) .pm-stats__card,
+  :global(html[data-theme="light"]) .pm-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+  :global(html[data-theme="light"]) .pm-pipeline__number {
+    background: rgba(78, 216, 194, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .pm-pain__grid {
+      grid-template-columns: 1fr;
+    }
+    .pm-solution__grid {
+      grid-template-columns: 1fr;
+    }
+    .pm-stats__grid {
+      grid-template-columns: 1fr;
+    }
+    .pm-pipeline__stages {
+      flex-direction: column;
+    }
+    .pm-pipeline__stage {
+      min-width: unset;
+    }
+  }
+  @media (max-width: 480px) {
+    .pm-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    }
+  }
+
+  :global(html[data-theme="light"]) .pm-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .pm-cta__actions .btn--outline {
+    color: var(--deep-ocean);
+  }
+</style>

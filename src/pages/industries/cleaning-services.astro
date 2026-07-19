@@ -1,0 +1,554 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import t from '../../i18n/translations/en.json';
+
+const painPoints = [
+  {
+    icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+    title: 'Managing recurring bookings manually',
+    desc: 'You are juggling spreadsheets, calendars, and text messages to keep track of who gets cleaned when. One mistake means a missed appointment and a frustrated client.',
+  },
+  {
+    icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
+    title: 'No system for quality feedback',
+    desc: 'You only hear from clients when something goes wrong. Without a feedback loop after each clean, small issues become big complaints and you lose clients silently.',
+  },
+  {
+    icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    title: 'Missed upsell opportunities',
+    desc: 'Your regular clients would happily pay for deep cleans, carpet cleaning, or window washing. But nobody is asking them because there is no system to prompt the offer.',
+  },
+  {
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z',
+    title: 'Crew scheduling chaos',
+    desc: 'Coordinating multiple cleaners across different jobs and locations is a daily headache. Last-minute changes mean frantic phone calls and missed cleans.',
+  },
+];
+
+const features = [
+  { title: 'Recurring booking management', desc: 'Set up weekly, fortnightly, or monthly schedules for each client. The system handles reminders, confirmations, and rescheduling without you touching a thing.' },
+  { title: 'Post-clean quality surveys', desc: 'Automatically send a quick satisfaction check after every clean. Catch issues early and show clients you care about getting it right.' },
+  { title: 'Upsell campaigns', desc: 'Trigger seasonal offers for deep cleaning, carpet cleaning, window washing, and end-of-lease cleans. Reach the right clients at the right time with zero manual effort.' },
+  { title: 'Crew scheduling', desc: 'Assign cleaners to jobs, send automated schedule notifications, and handle last-minute swaps. Your crew knows where to be and when.' },
+  { title: 'Review requests', desc: 'After a string of great cleans, automatically ask happy clients for a Google review. Build your online reputation while you focus on operations.' },
+];
+
+const pipeline = [
+  { stage: 'Enquiry', desc: 'New client reaches out for a quote via form, call, or referral' },
+  { stage: 'Quote', desc: 'Customised quote sent based on property size and service type' },
+  { stage: 'First Clean', desc: 'Initial clean completed with follow-up quality check' },
+  { stage: 'Recurring Client', desc: 'Regular schedule set up with automated booking management' },
+  { stage: 'Upsell Opportunity', desc: 'Seasonal or add-on services offered at the right moment' },
+  { stage: 'Review & Refer', desc: 'Satisfied clients leave reviews and refer neighbours. DUSA automates review requests and tracks referral rewards.' },
+];
+
+const stats = [
+  { value: '28%', label: 'revenue increase from automated upsell campaigns to existing clients' },
+  { value: '4.8x', label: 'more Google reviews when requests are sent after every clean' },
+  { value: '92%', label: 'of recurring clients stay when post-clean feedback loops are active' },
+];
+---
+
+<BaseLayout
+  t={t}
+  title="CRM for Cleaning Services | DUSA.studio"
+  description="Stop managing bookings in spreadsheets. DUSA gives cleaning businesses recurring booking management, crew scheduling, upsell campaigns, and review automation in one platform."
+>
+  <!-- ═══ Hero ═══ -->
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">Cleaning Services</span>
+        <h1>A CRM built for <span class="gradient-text">cleaning businesses</span></h1>
+        <p class="ind-hero__sub">
+          Managing recurring cleans, crew schedules, and client communication should not eat into your profit margin. DUSA handles the admin so you can focus on growing your client base.
+        </p>
+        <a href="/start" class="btn btn--primary">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pain Points ═══ -->
+  <section class="ind-pain section--dark">
+    <div class="container">
+      <h2 class="ind-section-title">Sound familiar?</h2>
+      <div class="ind-pain__grid">
+        {painPoints.map((p) => (
+          <div class="ind-pain__card">
+            <div class="ind-pain__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={p.icon} />
+              </svg>
+            </div>
+            <h3 class="ind-pain__title">{p.title}</h3>
+            <p class="ind-pain__desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Solution ═══ -->
+  <section class="ind-solution section--dark">
+    <div class="container">
+      <h2 class="ind-section-title">How DUSA works for <span class="gradient-text">cleaning services</span></h2>
+      <p class="ind-solution__intro">From first enquiry to recurring revenue, every part of your cleaning business runs smoother with the right system behind it.</p>
+      <div class="ind-solution__grid">
+        {features.map((f) => (
+          <div class="ind-solution__item">
+            <h3 class="ind-solution__item-title">{f.title}</h3>
+            <p class="ind-solution__item-desc">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pipeline ═══ -->
+  <section class="ind-pipeline section--dark">
+    <div class="container">
+      <h2 class="ind-section-title">Your cleaning pipeline</h2>
+      <div class="ind-pipeline__track">
+        {pipeline.map((p, i) => (
+          <div class="ind-pipeline__stage">
+            <div class="ind-pipeline__num">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="ind-pipeline__stage-title">{p.stage}</h3>
+            <p class="ind-pipeline__stage-desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Stats ═══ -->
+  <section class="ind-stats section--dark">
+    <div class="container">
+      <div class="ind-stats__grid">
+        {stats.map((s) => (
+          <div class="ind-stats__item">
+            <div class="ind-stats__value">{s.value}</div>
+            <p class="ind-stats__label">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="ind-cta section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2 class="ind-cta__title">Ready to run your cleaning business from one platform?</h2>
+        <p class="ind-cta__desc">Set up recurring bookings, crew schedules, and upsell campaigns in under an hour. No lock-in contracts.</p>
+        <div class="ind-cta__actions">
+          <a href="/start" class="btn btn--primary">Get Started</a>
+          <a href="/blog/crm-for-cleaning-services" class="ind-cta__link">Read the guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Breadcrumb JSON-LD ═══ -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dusa.studio/" },
+      { "@type": "ListItem", "position": 2, "name": "Industries", "item": "https://dusa.studio/industries" },
+      { "@type": "ListItem", "position": 3, "name": "Cleaning Services", "item": "https://dusa.studio/industries/cleaning-services" }
+    ]
+  })} />
+</BaseLayout>
+
+<style>
+  /* ─── Hero ─── */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .ind-hero__content {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ind-hero__content h1 {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  /* ─── Section Titles ─── */
+  .ind-section-title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  /* ─── Pain Points ─── */
+  .ind-pain {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-pain__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .ind-pain__card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast), transform var(--duration-fast);
+  }
+
+  .ind-pain__card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .ind-pain__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-sm);
+  }
+
+  .ind-pain__icon svg {
+    width: 22px;
+    height: 22px;
+    color: var(--reef-aqua);
+  }
+
+  .ind-pain__title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-pain__desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* ─── Solution ─── */
+  .ind-solution {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-solution__intro {
+    text-align: center;
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    max-width: 560px;
+    margin: calc(-1 * var(--space-md)) auto var(--space-xl);
+    line-height: 1.65;
+  }
+
+  .ind-solution__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .ind-solution__item {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast);
+  }
+
+  .ind-solution__item:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .ind-solution__item-title {
+    font-family: var(--font-headline);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-solution__item-desc {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  /* ─── Pipeline ─── */
+  .ind-pipeline {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-pipeline__track {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-md);
+  }
+
+  .ind-pipeline__stage {
+    text-align: center;
+    position: relative;
+  }
+
+  .ind-pipeline__stage:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 1.25rem;
+    right: calc(-1 * var(--space-md) / 2);
+    width: var(--space-md);
+    height: 1px;
+    background: rgba(78, 216, 194, 0.2);
+  }
+
+  .ind-pipeline__num {
+    font-family: var(--font-mono, monospace);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
+    opacity: 0.3;
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-pipeline__stage-title {
+    font-family: var(--font-headline);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: 0.25rem;
+  }
+
+  .ind-pipeline__stage-desc {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: rgba(247, 244, 239, 0.5);
+  }
+
+  /* ─── Stats ─── */
+  .ind-stats {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .ind-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .ind-stats__item {
+    padding: var(--space-lg);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .ind-stats__value {
+    font-family: var(--font-headline);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-stats__label {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgba(247, 244, 239, 0.6);
+  }
+
+  /* ─── CTA ─── */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .ind-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .ind-cta__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-cta__desc {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ind-cta__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .ind-cta__link {
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    transition: opacity var(--duration-fast);
+  }
+
+  .ind-cta__link:hover {
+    opacity: 0.75;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .ind-pain__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ind-solution__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ind-pipeline__track {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ind-pipeline__stage:not(:last-child)::after {
+      display: none;
+    }
+
+    .ind-stats__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+
+    .ind-pipeline__track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ind-pain__card,
+    .ind-solution__item {
+      padding: var(--space-md);
+    }
+
+    .ind-cta__box {
+      padding: var(--space-md);
+    }
+  }
+
+  /* ─── Light Mode ─── */
+  :global(html[data-theme="light"]) .ind-hero__content h1,
+  :global(html[data-theme="light"]) .ind-section-title,
+  :global(html[data-theme="light"]) .ind-pain__title,
+  :global(html[data-theme="light"]) .ind-solution__item-title,
+  :global(html[data-theme="light"]) .ind-pipeline__stage-title,
+  :global(html[data-theme="light"]) .ind-cta__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__sub,
+  :global(html[data-theme="light"]) .ind-pain__desc,
+  :global(html[data-theme="light"]) .ind-solution__intro,
+  :global(html[data-theme="light"]) .ind-solution__item-desc,
+  :global(html[data-theme="light"]) .ind-pipeline__stage-desc,
+  :global(html[data-theme="light"]) .ind-stats__label,
+  :global(html[data-theme="light"]) .ind-cta__desc {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card,
+  :global(html[data-theme="light"]) .ind-solution__item {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__card:hover,
+  :global(html[data-theme="light"]) .ind-solution__item:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__item {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain,
+  :global(html[data-theme="light"]) .ind-solution,
+  :global(html[data-theme="light"]) .ind-pipeline,
+  :global(html[data-theme="light"]) .ind-stats {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-pain__icon svg {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-pipeline__num {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-stats__value {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__link {
+    color: var(--deep-ocean);
+  }
+</style>

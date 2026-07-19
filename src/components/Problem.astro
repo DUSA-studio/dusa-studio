@@ -72,21 +72,21 @@
       <div class="problem__pain reveal">
         <div class="problem__pain-x">✕</div>
         <div>
-          <h4>Nothing connects</h4>
+          <h3>Nothing connects</h3>
           <p>Your email tool can't see your CRM. Your scheduler doesn't know who paid. Data lives in silos.</p>
         </div>
       </div>
       <div class="problem__pain reveal">
         <div class="problem__pain-x">✕</div>
         <div>
-          <h4>Enterprise pricing</h4>
+          <h3>Enterprise pricing</h3>
           <p>The platforms that work charge enterprise prices. You're left duct-taping free tiers together.</p>
         </div>
       </div>
       <div class="problem__pain reveal">
         <div class="problem__pain-x">✕</div>
         <div>
-          <h4>No time to figure it out</h4>
+          <h3>No time to figure it out</h3>
           <p>You run a business, not a marketing agency. Setting up automations shouldn't require a developer.</p>
         </div>
       </div>
@@ -124,6 +124,7 @@
     line-height: 1.7;
     margin-top: var(--space-sm);
     max-width: 420px;
+    overflow-wrap: break-word;
   }
 
   /* ─── COUNTING ANIMATION ─── */
@@ -143,6 +144,7 @@
     position: relative;
     width: 420px;
     height: 380px;
+    overflow: hidden;
   }
 
   .problem__tool {
@@ -300,7 +302,7 @@
     margin-top: 2px;
   }
 
-  .problem__pain h4 {
+  .problem__pain h3 {
     margin-bottom: 4px;
     font-size: 1rem;
     color: var(--deep-black);
@@ -426,13 +428,30 @@
 
   @media (max-width: 480px) {
     .problem__chaos {
-      height: 300px;
+      height: 280px;
     }
 
-    .problem__tool { width: 42px; height: 42px; border-radius: 10px; }
-    .problem__tool svg { width: 18px; height: 18px; }
-    .problem__tool::after { font-size: 0.5rem; }
-    .problem__tool::before { font-size: 0.5rem; }
+    .problem__tool { width: 40px; height: 40px; border-radius: 10px; }
+    .problem__tool svg { width: 16px; height: 16px; }
+    .problem__tool::after { font-size: 0.5rem; bottom: -14px; }
+    .problem__tool::before { font-size: 0.5rem; top: -12px; }
+
+    /* Reposition tools to fit within narrower container */
+    .problem__tool--1  { top: 15px;  left: 5%;   }
+    .problem__tool--2  { top: 8px;   left: 35%;  }
+    .problem__tool--3  { top: 20px;  right: 5%;  left: auto; }
+    .problem__tool--4  { top: 95px;  left: 2%;   }
+    .problem__tool--5  { top: 85px;  left: 33%;  }
+    .problem__tool--6  { top: 100px; right: 2%;  left: auto; }
+    .problem__tool--7  { top: 170px; left: 10%;  }
+    .problem__tool--8  { top: 175px; left: 40%;  }
+    .problem__tool--9  { top: 165px; right: 8%;  left: auto; }
+    .problem__tool--10 { top: 235px; left: 28%;  }
+
+    .problem__total {
+      bottom: -5px;
+      right: 0;
+    }
 
     .problem__pain {
       padding: var(--space-sm);
@@ -445,6 +464,15 @@
     .problem__solution-desc {
       font-size: 1rem;
     }
+  }
+
+  /* ─── Light Mode Accent Fix ─── */
+  :global(html[data-theme="light"]) .problem__solution-inner::before {
+    background: linear-gradient(90deg, transparent, var(--deep-ocean), transparent);
+  }
+
+  :global(html[data-theme="light"]) .problem__solution-label {
+    color: var(--deep-ocean);
   }
 </style>
 

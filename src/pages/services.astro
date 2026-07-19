@@ -1,0 +1,427 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import t from '../i18n/translations/en.json';
+
+const services = [
+  {
+    title: 'Custom Integrations',
+    desc: 'Connect DUSA to your existing tools, third-party APIs, and proprietary systems. We build secure, production-grade integrations that keep your data flowing between platforms without manual effort.',
+    icon: 'M8 12h8M12 8v8',
+    examples: [
+      'REST and webhook API connections',
+      'ERP and accounting system bridges',
+      'POS and inventory sync',
+      'Payment gateway integrations',
+      'Custom data pipelines',
+    ],
+  },
+  {
+    title: 'Complex Automations',
+    desc: 'Go beyond simple triggers. We architect multi-step, conditional automation sequences that handle the workflows unique to your business, from lead qualification to fulfilment to post-sale nurturing.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+    examples: [
+      'Multi-branch lead routing logic',
+      'Conditional follow-up sequences',
+      'Automated proposal and quote generation',
+      'Event-driven workflow orchestration',
+      'Cross-platform action chains',
+    ],
+  },
+  {
+    title: 'Data Migration',
+    desc: 'Moving from another platform? We handle the heavy lifting. Your contacts, deals, campaigns, and history are transferred cleanly so nothing gets lost in transition.',
+    icon: 'M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M1 4h22M10 11v6M14 11v6',
+    examples: [
+      'CRM contact and deal migration',
+      'Email campaign and template transfer',
+      'Historical data mapping and cleanup',
+      'Automation and workflow recreation',
+      'Custom field and tag preservation',
+    ],
+  },
+  {
+    title: 'Custom Reporting and Dashboards',
+    desc: 'Get the visibility you actually need. We build tailored reporting dashboards that surface the metrics that matter to your business, connected to your live data inside DUSA.',
+    icon: 'M18 20V10M12 20V4M6 20v-6',
+    examples: [
+      'KPI tracking dashboards',
+      'Sales pipeline and conversion analytics',
+      'Marketing attribution reports',
+      'Client retention and churn analysis',
+      'Custom data visualisations',
+    ],
+  },
+  {
+    title: 'Bespoke Platform Development',
+    desc: 'When off-the-shelf is not enough. Our engineering team builds custom features, modules, and tools that extend the DUSA platform to fit your exact requirements.',
+    icon: 'M16 18l6-6-6-6M8 6l-6 6 6 6',
+    examples: [
+      'Custom portal and client-facing apps',
+      'Proprietary workflow modules',
+      'Advanced form logic and calculators',
+      'White-label solutions for agencies',
+      'Membership and course platforms',
+    ],
+  },
+  {
+    title: 'Ongoing Managed Support',
+    desc: 'For businesses that want a dedicated technical partner. We provide ongoing support, optimisation, and strategic guidance to ensure your DUSA setup keeps performing as your business evolves.',
+    icon: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
+    examples: [
+      'Dedicated account management',
+      'Monthly strategy and optimisation reviews',
+      'Priority issue resolution',
+      'Proactive system health monitoring',
+      'Training and onboarding for your team',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  t={t}
+  title="Services | DUSA.studio"
+  description="Custom integrations, complex automations, data migration, and bespoke development. DUSA services extend your growth platform to fit your exact business needs."
+>
+  <!-- ═══ Hero ═══ -->
+  <section class="services-hero section section--dark">
+    <div class="container">
+      <div class="services-hero__content">
+        <span class="label">Services</span>
+        <h1>Built for your <span class="gradient-text">business</span>,<br />not a template.</h1>
+        <p class="services-hero__sub">
+          Every business runs differently. When the platform needs to go further, our engineering and automation team builds exactly what you need. Custom integrations, complex workflows, data migration, and bespoke development, all delivered under the DUSA umbrella.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Services Grid ═══ -->
+  <section class="services-grid section--dark">
+    <div class="container">
+      <div class="services-grid__cards">
+        {services.map((s) => (
+          <div class="services-card">
+            <div class="services-card__icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={s.icon} />
+              </svg>
+            </div>
+            <h2 class="services-card__title">{s.title}</h2>
+            <p class="services-card__desc">{s.desc}</p>
+            <ul class="services-card__list">
+              {s.examples.map((ex) => (
+                <li>{ex}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ How It Works ═══ -->
+  <section class="services-process section--dark">
+    <div class="container">
+      <h2 class="services-process__title">How it works</h2>
+      <div class="services-process__steps">
+        <div class="services-process__step">
+          <div class="services-process__num">01</div>
+          <h3 class="services-process__step-title">Discovery Call</h3>
+          <p class="services-process__step-desc">We learn about your business, your current tools, and where the gaps are. No jargon, no pressure.</p>
+        </div>
+        <div class="services-process__step">
+          <div class="services-process__num">02</div>
+          <h3 class="services-process__step-title">Scope and Quote</h3>
+          <p class="services-process__step-desc">We put together a clear scope of work with fixed pricing. You know exactly what you are getting and what it costs before any work begins.</p>
+        </div>
+        <div class="services-process__step">
+          <div class="services-process__num">03</div>
+          <h3 class="services-process__step-title">Build and Test</h3>
+          <p class="services-process__step-desc">Our team builds, tests, and validates everything in a staging environment. You review at every milestone.</p>
+        </div>
+        <div class="services-process__step">
+          <div class="services-process__num">04</div>
+          <h3 class="services-process__step-title">Deploy and Support</h3>
+          <p class="services-process__step-desc">Once approved, we deploy to production and provide ongoing support to make sure everything runs smoothly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="services-cta section--dark">
+    <div class="container">
+      <div class="services-cta__box">
+        <h2 class="services-cta__title">Have something specific in mind?</h2>
+        <p class="services-cta__desc">Tell us what you need. We will let you know how we can help and what it will take.</p>
+        <a href="/contact" class="btn btn--primary services-cta__btn">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ─── Hero ─── */
+  .services-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .services-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .services-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── Grid ─── */
+  .services-grid {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .services-grid__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .services-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast), transform var(--duration-fast);
+  }
+
+  .services-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .services-card__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+
+  .services-card__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+
+  .services-card__title {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .services-card__desc {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-md);
+  }
+
+  .services-card__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .services-card__list li {
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.5);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .services-card__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--reef-aqua);
+    opacity: 0.5;
+  }
+
+  /* ─── Process ─── */
+  .services-process {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .services-process__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .services-process__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .services-process__step {
+    text-align: center;
+  }
+
+  .services-process__num {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
+    opacity: 0.3;
+    margin-bottom: var(--space-xs);
+  }
+
+  .services-process__step-title {
+    font-family: var(--font-headline);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .services-process__step-desc {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  /* ─── CTA ─── */
+  .services-cta {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .services-cta__box {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .services-cta__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .services-cta__desc {
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    color: rgba(247, 244, 239, 0.6);
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .services-cta__btn {
+    display: inline-block;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .services-grid__cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-grid__cards {
+      grid-template-columns: 1fr;
+    }
+
+    .services-process__steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .services-process__steps {
+      grid-template-columns: 1fr;
+    }
+
+    .services-card {
+      padding: var(--space-md);
+    }
+
+    .services-cta__box {
+      padding: var(--space-md);
+    }
+
+    .services-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+  }
+
+  /* ─── Light Mode ─── */
+  :global(html[data-theme="light"]) .services-card__title,
+  :global(html[data-theme="light"]) .services-process__title,
+  :global(html[data-theme="light"]) .services-process__step-title,
+  :global(html[data-theme="light"]) .services-cta__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .services-hero__sub,
+  :global(html[data-theme="light"]) .services-card__desc,
+  :global(html[data-theme="light"]) .services-process__step-desc,
+  :global(html[data-theme="light"]) .services-cta__desc {
+    color: rgba(12, 14, 20, 0.65);
+  }
+
+  :global(html[data-theme="light"]) .services-card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .services-card:hover {
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .services-card__list li {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .services-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .services-process {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+</style>

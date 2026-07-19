@@ -1,5 +1,38 @@
 ---
 // Hero.astro — Full-viewport editorial hero with notification phone mockup
+import allNotifications from '../i18n/notifications.json';
+
+interface Props {
+  t?: Record<string, any>;
+  lang?: string;
+}
+const { t = {}, lang = 'en' } = Astro.props;
+
+const s = t?.hero || {};
+const heroLabel = s.label || 'The AI-Powered Growth System';
+const heroTitle = s.title || 'Everything you need.';
+const heroTitleAccent = s.titleAccent || 'One login.';
+const heroSubtitle = s.subtitle || 'AI-powered marketing, sales, and engagement. All connected. So you can run your business, not your tech stack.';
+const heroGetStarted = s.getStarted || 'Get Started';
+const heroBookDemo = s.bookDemo || 'Book a Demo';
+const heroPhoneApp = s.phoneApp || 'DUSA . studio';
+const heroStatLeads = s.statLeads || 'leads';
+const heroStatTracked = s.statTracked || 'tracked';
+const heroStatRating = s.statRating || 'rating';
+const heroCapCrmTitle = s.capCrmTitle || 'CRM & Contacts';
+const heroCapCrmSub = s.capCrmSub || 'Track every lead';
+const heroCapEmailTitle = s.capEmailTitle || 'Email & SMS';
+const heroCapEmailSub = s.capEmailSub || 'Campaigns on autopilot';
+const heroCapFunnelsTitle = s.capFunnelsTitle || 'Funnels & Automations';
+const heroCapFunnelsSub = s.capFunnelsSub || 'Convert while you sleep';
+const heroCapAiTitle = s.capAiTitle || 'AI Built In';
+const heroCapAiSub = s.capAiSub || 'Smarter conversations, faster growth';
+const heroScrollExplore = s.scrollExplore || 'Explore';
+
+// Pick notification translations for the current language
+const notifLang = (lang in allNotifications) ? lang : 'en';
+const notifTranslations = (allNotifications as Record<string, any>)[notifLang];
+const notifJson = JSON.stringify(notifTranslations);
 ---
 
 <section class="hero section--dark" id="hero">
@@ -11,18 +44,18 @@
   <div class="container hero__inner">
     <div class="hero__layout">
       <div class="hero__content">
-        <span class="label reveal">The AI-Powered Growth System</span>
+        <span class="label reveal">{heroLabel}</span>
 
         <h1 class="hero__title reveal">
-          Everything you need.<br />
-          <span class="gradient-text">One login.</span>
+          {heroTitle}<br />
+          <span class="gradient-text">{heroTitleAccent}</span>
         </h1>
 
-        <p class="hero__subtitle reveal">AI-powered marketing, sales, and engagement. All connected. So you can run your business, not your tech stack.</p>
+        <p class="hero__subtitle reveal">{heroSubtitle}</p>
 
         <div class="hero__ctas reveal">
-          <a href="#features" class="btn btn--primary">Start Growing</a>
-          <a href="#contact" class="btn btn--outline">Book a Demo</a>
+          <a href="/start" data-page="start" class="btn btn--primary">{heroGetStarted}</a>
+          <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">{heroBookDemo}</a>
         </div>
       </div>
 
@@ -32,47 +65,75 @@
           <div class="hero__phone-time" id="hero-phone-clock">9:41</div>
           <div class="hero__phone-header">
             <img class="hero__phone-logo" id="hero-phone-lotus" src="/dusa-logo-animated.webp" alt="DUSA" width="22" height="22" />
-            <span class="hero__phone-app">DUSA . studio</span>
+            <span class="hero__phone-app">{heroPhoneApp}</span>
           </div>
 
           <div class="hero__stats-ticker" id="hero-stats-ticker">
-            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-leads">8</span> leads</div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-leads">8</span> {heroStatLeads}</div>
             <div class="hero__stat-divider"></div>
-            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-revenue">$2.4k</span> tracked</div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-revenue">$2.4k</span> {heroStatTracked}</div>
             <div class="hero__stat-divider"></div>
             <div class="hero__stat-item"><span class="hero__stat-val" id="stat-rating">4.8</span>&#9733;</div>
           </div>
 
           <div class="hero__notifs" id="hero-notif-feed"></div>
+          <script type="application/json" id="hero-notif-data" set:html={notifJson}></script>
         </div>
 
         <div class="hero__platforms">
-          <span class="hero__platforms-label">Available on</span>
-          <div class="hero__platforms-icons">
-            <!-- iOS -->
-            <div class="hero__platform" title="iOS App">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-              </svg>
+          <div class="hero__cube-stage">
+            <div class="hero__cube" id="platform-cube">
+              <!-- Front: iOS -->
+              <div class="hero__cube-face hero__cube-face--front">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              </div>
+              <!-- Right: Android -->
+              <div class="hero__cube-face hero__cube-face--right">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.86-.31-.16-.69-.04-.86.27l-1.87 3.23C14.89 8.35 13.48 8 12 8c-1.48 0-2.89.35-4.44.94L5.69 5.71c-.16-.31-.54-.43-.86-.27-.31.16-.43.55-.27.86l1.84 3.18C3.38 11.2 1.39 13.96 1 17h22c-.39-3.04-2.38-5.8-5.4-7.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
+              </div>
+              <!-- Back: Desktop -->
+              <div class="hero__cube-face hero__cube-face--back">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <!-- Left: Browser -->
+              <div class="hero__cube-face hero__cube-face--left">
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <!-- Top: DUSA Lotus (real favicon) -->
+              <div class="hero__cube-face hero__cube-face--top">
+                <svg viewBox="0 0 500 500" width="36" height="36" fill="currentColor">
+                  <path d="M215.4,395.1c-5.2,0-9.5-3-11.5-8c-7.2-17.8-14.5-35.7-21.7-53.5c-10-24.6-27.3-41.9-51.9-51.9c-17.9-7.3-35.9-14.6-53.8-21.9c-8.7-3.5-10.5-14.9-3.3-20.7c1.1-0.9,2.5-1.6,3.9-2.2c18.1-7.4,36.3-14.6,54.4-22.1c24-10,40.8-27.2,50.7-51.3c7.3-17.8,14.5-35.7,21.7-53.5c2.1-5.2,6.3-8.2,11.6-8.2c5.2,0,9.4,3,11.4,8.2c7.5,18.4,14.7,37,22.5,55.3c10,23.7,27.3,40.3,51.1,50c17.8,7.3,35.7,14.5,53.5,21.7c5,2,8,6.3,8,11.4c0,5.2-2.9,9.5-8,11.5c-17.9,7.3-35.8,14.5-53.7,21.8c-25.2,10.3-42.5,28.2-52.5,53.5c-6.8,17.3-14,34.5-21,51.7C224.7,392.1,220.5,395.1,215.4,395.1z"/>
+                  <path d="M354.7,39.8c3.4,0,6.1,1.9,7.3,5.3c2.3,6.5,4.4,13.1,6.9,19.6c5.8,15.3,16.7,25.6,32.2,31c5.9,2.1,11.9,4,17.8,6.2c5.2,1.9,7,8,3.4,12.2c-0.9,1.1-2.4,2-3.8,2.5c-6.5,2.4-13.1,4.5-19.6,6.9c-15.2,5.8-25.3,16.6-30.7,31.9c-2.1,5.9-4.1,11.8-6.1,17.6c-1.3,3.6-3.9,5.6-7.4,5.6c-3.5,0-6.1-2-7.4-5.6c-2.7-7.5-5-15.1-8.1-22.4c-5.8-13.5-16.1-22.6-29.9-27.6c-6-2.2-12.1-4.2-18.2-6.4c-3.8-1.3-5.7-3.9-5.7-7.5c0-3.6,1.9-6.2,5.7-7.5c7.3-2.6,14.7-4.8,21.8-7.8c14-6,23.4-16.6,28.4-31c2.1-5.9,4.1-11.9,6.2-17.8C348.4,41.7,351.1,39.8,354.7,39.8z"/>
+                  <path d="M362,321.5c3.4,0,6.1,1.9,7.3,5.3c2.3,6.5,4.4,13.1,6.9,19.6c5.8,15.3,16.7,25.6,32.2,31c5.9,2.1,11.9,4,17.8,6.2c5.2,1.9,7,8,3.4,12.2c-0.9,1.1-2.4,2-3.8,2.5c-6.5,2.4-13.1,4.5-19.6,6.9c-15.2,5.8-25.3,16.6-30.7,31.9c-2.1,5.9-4.1,11.8-6.1,17.6c-1.3,3.6-3.9,5.6-7.4,5.6c-3.5,0-6.1-2-7.4-5.6c-2.7-7.5-5-15.1-8.1-22.4c-5.8-13.5-16.1-22.6-29.9-27.6c-6-2.2-12.1-4.2-18.2-6.4c-3.8-1.3-5.7-3.9-5.7-7.5c0-3.6,1.9-6.2,5.7-7.5c7.3-2.6,14.7-4.8,21.8-7.8c14-6,23.4-16.6,28.4-31c2.1-5.9,4.1-11.9,6.2-17.8C355.8,323.3,358.5,321.4,362,321.5z"/>
+                </svg>
+              </div>
+              <!-- Bottom: DUSA Lotus (real favicon) -->
+              <div class="hero__cube-face hero__cube-face--bottom">
+                <svg viewBox="0 0 500 500" width="36" height="36" fill="currentColor">
+                  <path d="M215.4,395.1c-5.2,0-9.5-3-11.5-8c-7.2-17.8-14.5-35.7-21.7-53.5c-10-24.6-27.3-41.9-51.9-51.9c-17.9-7.3-35.9-14.6-53.8-21.9c-8.7-3.5-10.5-14.9-3.3-20.7c1.1-0.9,2.5-1.6,3.9-2.2c18.1-7.4,36.3-14.6,54.4-22.1c24-10,40.8-27.2,50.7-51.3c7.3-17.8,14.5-35.7,21.7-53.5c2.1-5.2,6.3-8.2,11.6-8.2c5.2,0,9.4,3,11.4,8.2c7.5,18.4,14.7,37,22.5,55.3c10,23.7,27.3,40.3,51.1,50c17.8,7.3,35.7,14.5,53.5,21.7c5,2,8,6.3,8,11.4c0,5.2-2.9,9.5-8,11.5c-17.9,7.3-35.8,14.5-53.7,21.8c-25.2,10.3-42.5,28.2-52.5,53.5c-6.8,17.3-14,34.5-21,51.7C224.7,392.1,220.5,395.1,215.4,395.1z"/>
+                  <path d="M354.7,39.8c3.4,0,6.1,1.9,7.3,5.3c2.3,6.5,4.4,13.1,6.9,19.6c5.8,15.3,16.7,25.6,32.2,31c5.9,2.1,11.9,4,17.8,6.2c5.2,1.9,7,8,3.4,12.2c-0.9,1.1-2.4,2-3.8,2.5c-6.5,2.4-13.1,4.5-19.6,6.9c-15.2,5.8-25.3,16.6-30.7,31.9c-2.1,5.9-4.1,11.8-6.1,17.6c-1.3,3.6-3.9,5.6-7.4,5.6c-3.5,0-6.1-2-7.4-5.6c-2.7-7.5-5-15.1-8.1-22.4c-5.8-13.5-16.1-22.6-29.9-27.6c-6-2.2-12.1-4.2-18.2-6.4c-3.8-1.3-5.7-3.9-5.7-7.5c0-3.6,1.9-6.2,5.7-7.5c7.3-2.6,14.7-4.8,21.8-7.8c14-6,23.4-16.6,28.4-31c2.1-5.9,4.1-11.9,6.2-17.8C348.4,41.7,351.1,39.8,354.7,39.8z"/>
+                  <path d="M362,321.5c3.4,0,6.1,1.9,7.3,5.3c2.3,6.5,4.4,13.1,6.9,19.6c5.8,15.3,16.7,25.6,32.2,31c5.9,2.1,11.9,4,17.8,6.2c5.2,1.9,7,8,3.4,12.2c-0.9,1.1-2.4,2-3.8,2.5c-6.5,2.4-13.1,4.5-19.6,6.9c-15.2,5.8-25.3,16.6-30.7,31.9c-2.1,5.9-4.1,11.8-6.1,17.6c-1.3,3.6-3.9,5.6-7.4,5.6c-3.5,0-6.1-2-7.4-5.6c-2.7-7.5-5-15.1-8.1-22.4c-5.8-13.5-16.1-22.6-29.9-27.6c-6-2.2-12.1-4.2-18.2-6.4c-3.8-1.3-5.7-3.9-5.7-7.5c0-3.6,1.9-6.2,5.7-7.5c7.3-2.6,14.7-4.8,21.8-7.8c14-6,23.4-16.6,28.4-31c2.1-5.9,4.1-11.9,6.2-17.8C355.8,323.3,358.5,321.4,362,321.5z"/>
+                </svg>
+              </div>
             </div>
-            <!-- Android -->
-            <div class="hero__platform" title="Android App">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.86-.31-.16-.69-.04-.86.27l-1.87 3.23C14.89 8.35 13.48 8 12 8c-1.48 0-2.89.35-4.44.94L5.69 5.71c-.16-.31-.54-.43-.86-.27-.31.16-.43.55-.27.86l1.84 3.18C3.38 11.2 1.39 13.96 1 17h22c-.39-3.04-2.38-5.8-5.4-7.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/>
-              </svg>
-            </div>
-            <!-- Desktop / Web -->
-            <div class="hero__platform" title="Desktop App">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-              </svg>
-            </div>
-            <!-- Web Browser -->
-            <div class="hero__platform" title="Web Browser">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-              </svg>
-            </div>
+          </div>
+          <div class="hero__platform-btns" id="platform-btns">
+            <button class="hero__platform-btn hero__platform-btn--active" data-face="front" aria-label="iPhone">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              <span>iPhone</span>
+            </button>
+            <button class="hero__platform-btn" data-face="right" aria-label="Android">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.86-.31-.16-.69-.04-.86.27l-1.87 3.23C14.89 8.35 13.48 8 12 8c-1.48 0-2.89.35-4.44.94L5.69 5.71c-.16-.31-.54-.43-.86-.27-.31.16-.43.55-.27.86l1.84 3.18C3.38 11.2 1.39 13.96 1 17h22c-.39-3.04-2.38-5.8-5.4-7.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
+              <span>Android</span>
+            </button>
+            <button class="hero__platform-btn" data-face="back" aria-label="Desktop">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <span>Desktop</span>
+            </button>
+            <button class="hero__platform-btn" data-face="left" aria-label="Web">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              <span>Web</span>
+            </button>
           </div>
         </div>
       </div>
@@ -86,8 +147,8 @@
           </svg>
         </div>
         <div class="hero__cap-text">
-          <span class="hero__cap-title">CRM & Contacts</span>
-          <span class="hero__cap-sub">Track every lead</span>
+          <span class="hero__cap-title">{heroCapCrmTitle}</span>
+          <span class="hero__cap-sub">{heroCapCrmSub}</span>
         </div>
       </div>
       <div class="hero__cap">
@@ -97,8 +158,8 @@
           </svg>
         </div>
         <div class="hero__cap-text">
-          <span class="hero__cap-title">Email & SMS</span>
-          <span class="hero__cap-sub">Campaigns on autopilot</span>
+          <span class="hero__cap-title">{heroCapEmailTitle}</span>
+          <span class="hero__cap-sub">{heroCapEmailSub}</span>
         </div>
       </div>
       <div class="hero__cap">
@@ -108,8 +169,8 @@
           </svg>
         </div>
         <div class="hero__cap-text">
-          <span class="hero__cap-title">Funnels & Automations</span>
-          <span class="hero__cap-sub">Convert while you sleep</span>
+          <span class="hero__cap-title">{heroCapFunnelsTitle}</span>
+          <span class="hero__cap-sub">{heroCapFunnelsSub}</span>
         </div>
       </div>
       <div class="hero__cap">
@@ -119,14 +180,14 @@
           </svg>
         </div>
         <div class="hero__cap-text">
-          <span class="hero__cap-title">AI Built In</span>
-          <span class="hero__cap-sub">Smarter conversations, faster growth</span>
+          <span class="hero__cap-title">{heroCapAiTitle}</span>
+          <span class="hero__cap-sub">{heroCapAiSub}</span>
         </div>
       </div>
     </div>
 
     <div class="hero__scroll-indicator">
-      <span class="hero__scroll-text">Explore</span>
+      <span class="hero__scroll-text">{heroScrollExplore}</span>
       <div class="hero__scroll-line"></div>
       <svg class="hero__scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
         <polyline points="6 9 12 15 18 9"/>
@@ -159,8 +220,12 @@
 
   .hero__water canvas {
     display: block;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
   }
 
   .hero__grid-lines {
@@ -179,7 +244,7 @@
   .hero__inner {
     position: relative;
     z-index: 1;
-    padding: var(--space-3xl) 0 var(--space-xl);
+    padding-block: var(--space-3xl) var(--space-xl);
   }
 
   .hero__layout {
@@ -188,6 +253,11 @@
     gap: var(--space-xl);
     align-items: center;
     margin-bottom: var(--space-xl);
+  }
+
+  /* Grid children need min-width: 0 to prevent overflow from intrinsic sizing */
+  .hero__layout > * {
+    min-width: 0;
   }
 
   .hero__title {
@@ -203,6 +273,7 @@
     line-height: 1.7;
     margin-top: var(--space-md);
     max-width: 480px;
+    overflow-wrap: break-word;
   }
 
   .hero__ctas {
@@ -222,6 +293,7 @@
   .hero__phone {
     width: 320px;
     height: 640px;
+    box-sizing: border-box;
     background: linear-gradient(165deg, rgba(247, 244, 239, 0.06) 0%, rgba(247, 244, 239, 0.02) 100%);
     border: 1px solid rgba(247, 244, 239, 0.1);
     border-radius: 36px;
@@ -263,11 +335,12 @@
 
   .hero__phone-time {
     font-family: var(--font-headline);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: rgba(247, 244, 239, 0.4);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--reef-aqua);
     text-align: center;
     margin-bottom: 16px;
+    letter-spacing: 0.04em;
   }
 
   .hero__phone-header {
@@ -346,6 +419,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 0;
     padding: 6px 12px;
     background: rgba(78, 216, 194, 0.04);
@@ -523,45 +597,117 @@
     line-height: 1.4;
   }
 
-  /* --- Platform Availability --- */
+  /* --- Platform Cube --- */
   .hero__platforms {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 24px;
     margin-top: var(--space-md);
   }
 
-  .hero__platforms-label {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(247, 244, 239, 0.3);
+  .hero__cube-stage {
+    width: 72px;
+    height: 72px;
+    perspective: 600px;
+    flex-shrink: 0;
   }
 
-  .hero__platforms-icons {
-    display: flex;
-    gap: 0.5rem;
+  .hero__cube {
+    width: 72px;
+    height: 72px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: cubeTumble 20s linear infinite;
   }
 
-  .hero__platform {
-    width: 34px;
-    height: 34px;
+  @keyframes cubeTumble {
+    0%   { transform: rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
+    25%  { transform: rotateX(90deg)  rotateY(90deg)  rotateZ(0deg); }
+    50%  { transform: rotateX(180deg) rotateY(180deg) rotateZ(90deg); }
+    75%  { transform: rotateX(270deg) rotateY(270deg) rotateZ(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(0deg); }
+  }
+
+  .hero__cube-face {
+    position: absolute;
+    width: 72px;
+    height: 72px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background: rgba(247, 244, 239, 0.04);
-    border: 1px solid rgba(247, 244, 239, 0.08);
-    color: rgba(247, 244, 239, 0.4);
-    transition: all var(--duration-fast) var(--ease-out);
+    border-radius: 12px;
+    background: rgba(12, 14, 20, 0.85);
+    border: 1px solid rgba(78, 216, 194, 0.18);
+    color: rgba(247, 244, 239, 0.7);
+    box-shadow:
+      inset 0 0 16px rgba(78, 216, 194, 0.06),
+      0 0 8px rgba(78, 216, 194, 0.08);
+    backdrop-filter: blur(4px);
   }
 
-  .hero__platform:hover {
+  .hero__cube-face--front  { transform: rotateY(0deg)    translateZ(36px); }
+  .hero__cube-face--right  { transform: rotateY(90deg)   translateZ(36px); }
+  .hero__cube-face--back   { transform: rotateY(180deg)  translateZ(36px); }
+  .hero__cube-face--left   { transform: rotateY(270deg)  translateZ(36px); }
+  .hero__cube-face--top    { transform: rotateX(90deg)   translateZ(36px); }
+  .hero__cube-face--bottom { transform: rotateX(-90deg)  translateZ(36px); }
+
+  /* Lotus top + bottom face gets a stronger aqua glow */
+  .hero__cube-face--top,
+  .hero__cube-face--bottom {
     color: var(--reef-aqua);
-    border-color: rgba(78, 216, 194, 0.2);
+    background: rgba(12, 14, 20, 0.9);
+    border-color: rgba(78, 216, 194, 0.35);
+    box-shadow:
+      inset 0 0 24px rgba(78, 216, 194, 0.12),
+      0 0 16px rgba(78, 216, 194, 0.2),
+      0 0 32px rgba(78, 216, 194, 0.08);
+  }
+
+  /* Platform selector buttons */
+  .hero__platform-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .hero__platform-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px;
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: 8px;
+    background: rgba(247, 244, 239, 0.04);
+    color: rgba(247, 244, 239, 0.45);
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+
+  .hero__platform-btn:hover {
+    color: rgba(247, 244, 239, 0.7);
+    border-color: rgba(78, 216, 194, 0.25);
     background: rgba(78, 216, 194, 0.06);
+  }
+
+  .hero__platform-btn--active {
+    color: var(--reef-aqua);
+    border-color: rgba(78, 216, 194, 0.35);
+    background: rgba(78, 216, 194, 0.1);
+    box-shadow: 0 0 12px rgba(78, 216, 194, 0.15);
+  }
+
+  /* When user selects a platform, pause the auto-tumble */
+  .hero__cube--paused {
+    animation-play-state: paused !important;
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   /* --- Capabilities Bar --- */
@@ -583,6 +729,7 @@
     border: 1px solid rgba(247, 244, 239, 0.06);
     border-radius: var(--radius-md);
     transition: all var(--duration-normal) var(--ease-out);
+    min-width: 0;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -713,6 +860,16 @@
   }
 
   @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding-top: var(--nav-height);
+      padding-bottom: var(--space-xl);
+    }
+
+    .hero__inner {
+      padding-block: var(--space-xl) var(--space-md);
+    }
+
     .hero__layout {
       grid-template-columns: 1fr;
       gap: var(--space-lg);
@@ -725,6 +882,13 @@
     .hero__subtitle {
       margin-left: auto;
       margin-right: auto;
+      max-width: 90%;
+      overflow-wrap: break-word;
+    }
+
+    .hero__cap-title,
+    .hero__cap-sub {
+      white-space: normal;
     }
 
     .hero__ctas {
@@ -732,8 +896,17 @@
       align-items: center;
     }
 
+    .hero__ctas .btn {
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      min-height: 48px;
+    }
+
     .hero__phone-wrap {
-      order: -1;
+      /* Text stays above phone on mobile -- natural document order */
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .hero__phone {
@@ -743,15 +916,52 @@
 
     .hero__platforms {
       margin-top: var(--space-sm);
+      gap: 12px;
     }
 
-    .hero__platforms-label {
-      font-size: 0.625rem;
+    .hero__cube-stage {
+      width: 56px;
+      height: 56px;
     }
 
-    .hero__platform {
-      width: 30px;
-      height: 30px;
+    .hero__cube {
+      width: 56px;
+      height: 56px;
+    }
+
+    .hero__cube-face {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+    }
+
+    .hero__cube-face--front  { transform: rotateY(0deg)    translateZ(28px); }
+    .hero__cube-face--right  { transform: rotateY(90deg)   translateZ(28px); }
+    .hero__cube-face--back   { transform: rotateY(180deg)  translateZ(28px); }
+    .hero__cube-face--left   { transform: rotateY(270deg)  translateZ(28px); }
+    .hero__cube-face--top    { transform: rotateX(90deg)   translateZ(28px); }
+    .hero__cube-face--bottom { transform: rotateX(-90deg)  translateZ(28px); }
+
+    .hero__cube-face svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .hero__platform-btns {
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero__platform-btn {
+      padding: 6px 10px;
+      font-size: 0.6rem;
+      min-height: 44px;
+    }
+
+    .hero__platform-btn svg {
+      width: 13px;
+      height: 13px;
     }
 
     .hero__capabilities {
@@ -780,20 +990,53 @@
     .hero__scroll-indicator {
       display: none;
     }
+
+    /* Reduce background complexity on mobile for performance */
+    .hero__grid-lines {
+      background-size: 60px 60px;
+    }
   }
 
   @media (max-width: 480px) {
+    .hero__inner {
+      padding-block: var(--space-lg) var(--space-sm);
+    }
+
+    .hero__layout {
+      gap: var(--space-md);
+    }
+
+    .hero__title {
+      font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .hero__title br {
+      display: none;
+    }
+
+    .hero__subtitle {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+
     .hero__capabilities {
       grid-template-columns: 1fr;
     }
 
+    .hero__cap-title,
+    .hero__cap-sub {
+      white-space: normal;
+    }
+
     .hero__phone {
-      width: 240px;
-      height: 480px;
+      width: min(240px, calc(100vw - 6rem));
+      height: auto;
+      aspect-ratio: 1 / 2;
+      max-height: 480px;
     }
 
     .hero__notif {
-      padding: 10px;
+      padding: 8px 10px;
       gap: 8px;
     }
 
@@ -804,6 +1047,333 @@
     .hero__notif-text {
       font-size: 0.6875rem;
     }
+
+    .hero__ctas .btn {
+      width: 100%;
+      max-width: none;
+      text-align: center;
+    }
+
+    .hero__platform-btn span {
+      display: none;
+    }
+
+    .hero__platform-btn {
+      padding: 8px 10px;
+      min-height: 40px;
+      min-width: 40px;
+      justify-content: center;
+    }
+
+    .hero__platform-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero__stats-ticker {
+      font-size: 0.5625rem;
+      padding: 5px 8px;
+    }
+
+    .hero__stat-divider {
+      margin: 0 6px;
+    }
+
+    /* Reduce grid lines on small screens for performance */
+    .hero__grid-lines {
+      display: none;
+    }
+  }
+
+  /* Extra-small screens (320px) */
+  @media (max-width: 360px) {
+    .hero__phone {
+      width: min(220px, calc(100vw - 5rem));
+      max-height: 440px;
+    }
+
+    .hero__phone-notch {
+      width: 80px;
+      margin-bottom: 8px;
+    }
+
+    .hero__phone-time {
+      font-size: 0.75rem;
+      margin-bottom: 10px;
+    }
+
+    .hero__phone-header {
+      padding: 0 2px 8px;
+      margin-bottom: 8px;
+    }
+
+    .hero__notif {
+      padding: 6px 8px;
+      gap: 6px;
+    }
+
+    .hero__notif-icon {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      min-height: 24px;
+      max-width: 24px;
+      max-height: 24px;
+    }
+
+    .hero__notif-title {
+      font-size: 0.6875rem;
+    }
+
+    .hero__notif-text {
+      font-size: 0.625rem;
+    }
+
+    .hero__cube-stage {
+      width: 48px;
+      height: 48px;
+    }
+
+    .hero__cube {
+      width: 48px;
+      height: 48px;
+    }
+
+    .hero__cube-face {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+    }
+
+    .hero__cube-face--front  { transform: rotateY(0deg)    translateZ(24px); }
+    .hero__cube-face--right  { transform: rotateY(90deg)   translateZ(24px); }
+    .hero__cube-face--back   { transform: rotateY(180deg)  translateZ(24px); }
+    .hero__cube-face--left   { transform: rotateY(270deg)  translateZ(24px); }
+    .hero__cube-face--top    { transform: rotateX(90deg)   translateZ(24px); }
+    .hero__cube-face--bottom { transform: rotateX(-90deg)  translateZ(24px); }
+
+    .hero__cube-face svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .hero__cap {
+      padding: 0.625rem 0.75rem;
+    }
+
+    .hero__cap-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .hero__cap-title {
+      font-size: 0.75rem;
+    }
+
+    .hero__cap-sub {
+      font-size: 0.625rem;
+    }
+  }
+
+  /* Landscape mobile - short viewports */
+  @media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+      min-height: auto;
+      padding-bottom: var(--space-md);
+    }
+
+    .hero__inner {
+      padding-block: var(--space-md);
+    }
+
+    .hero__layout {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .hero__phone {
+      width: 180px;
+      height: 360px;
+    }
+
+    .hero__title {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+    }
+
+    .hero__subtitle {
+      font-size: 1rem;
+      margin-top: var(--space-sm);
+    }
+
+    .hero__ctas {
+      margin-top: var(--space-sm);
+    }
+
+    .hero__capabilities {
+      margin-bottom: var(--space-sm);
+      padding-top: var(--space-sm);
+    }
+
+    .hero__platforms {
+      display: none;
+    }
+
+    .hero__grid-lines {
+      display: none;
+    }
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .hero {
+    background: linear-gradient(180deg, #b8d8e8 0%, #d0e6ef 40%, #e4eff4 100%);
+  }
+
+  :global(html[data-theme="light"]) .hero__water {
+    opacity: 1;
+  }
+
+  :global(html[data-theme="light"]) .hero__grid-lines {
+    background-image:
+      linear-gradient(rgba(12, 14, 20, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(12, 14, 20, 0.03) 1px, transparent 1px);
+  }
+
+  :global(html[data-theme="light"]) .hero__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .hero__subtitle {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  /* Phone mockup stays dark — it's a product preview */
+  :global(html[data-theme="light"]) .hero__phone {
+    background: linear-gradient(165deg, #141820 0%, #0C0E14 100%);
+    border-color: rgba(247, 244, 239, 0.1);
+    box-shadow:
+      0 0 0 1px rgba(12, 14, 20, 0.08),
+      0 25px 80px rgba(12, 14, 20, 0.15),
+      0 0 120px rgba(78, 216, 194, 0.06);
+  }
+
+  /* Keep phone internals dark in light mode */
+  :global(html[data-theme="light"]) .hero__phone-notch {
+    background: #0C0E14;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-time {
+    color: var(--reef-aqua);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-app {
+    color: var(--warm-white);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-header {
+    border-bottom-color: rgba(247, 244, 239, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .hero__stats-ticker {
+    background: rgba(78, 216, 194, 0.04);
+    border-bottom-color: rgba(247, 244, 239, 0.04);
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .hero__notif {
+    background: rgba(247, 244, 239, 0.04);
+    border-color: rgba(247, 244, 239, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .hero__notif:hover {
+    background: rgba(247, 244, 239, 0.08);
+  }
+
+  /* Capabilities bar */
+  :global(html[data-theme="light"]) .hero__capabilities {
+    border-top-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hero__cap {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  :global(html[data-theme="light"]) .hero__cap:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(26, 58, 92, 0.15);
+    box-shadow: 0 8px 32px rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hero__cap-title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .hero__cap-sub {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .hero__cap-icon {
+    background: rgba(26, 58, 92, 0.1);
+    border-color: rgba(26, 58, 92, 0.15);
+    color: var(--deep-ocean);
+  }
+
+  /* Platform cube — light mode */
+  :global(html[data-theme="light"]) .hero__cube-face {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(12, 14, 20, 0.1);
+    color: rgba(12, 14, 20, 0.45);
+    box-shadow: inset 0 0 20px rgba(106, 170, 207, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .hero__cube-face--top,
+  :global(html[data-theme="light"]) .hero__cube-face--bottom {
+    color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.2);
+    box-shadow: inset 0 0 20px rgba(26, 58, 92, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .hero__platform-btn {
+    border-color: rgba(12, 14, 20, 0.1);
+    background: rgba(255, 255, 255, 0.3);
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .hero__platform-btn:hover {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.25);
+    background: rgba(26, 58, 92, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .hero__platform-btn--active {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.35);
+    background: rgba(26, 58, 92, 0.1);
+    box-shadow: 0 0 12px rgba(26, 58, 92, 0.1);
+  }
+
+  /* Scroll indicator */
+  :global(html[data-theme="light"]) .hero__scroll-text {
+    color: rgba(12, 14, 20, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .hero__scroll-indicator:hover .hero__scroll-text {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .hero__scroll-line {
+    background: linear-gradient(to bottom, rgba(26, 58, 92, 0.4), rgba(26, 58, 92, 0));
+  }
+
+  :global(html[data-theme="light"]) .hero__scroll-chevron {
+    color: rgba(26, 58, 92, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .hero__scroll-indicator:hover .hero__scroll-chevron {
+    color: var(--deep-ocean);
   }
 </style>
 
@@ -897,59 +1467,38 @@
       ai: '#4ED8C2',
     };
 
-    // 50 notifications — each has a delta (minutes since previous notification)
-    const notifications = [
-      { icon: 'instagram', title: 'Instagram DM', text: 'Jessica R: "Hi! I saw your post, do you have availability this week?"', delta: 2 },
-      { icon: 'stripe', title: 'Invoice Viewed', text: 'Invoice #1047 ($850) viewed by Jessica R.', delta: 3 },
-      { icon: 'stripe', title: 'Invoice Paid', text: '$850 received from Jessica R. Invoice #1047 paid in full.', delta: 4 },
-      { icon: 'whatsapp', title: 'WhatsApp Message', text: 'Tom K: "Thanks for the quote! Can we go ahead and book?"', delta: 1 },
-      { icon: 'calendar', title: 'Appointment Booked', text: 'Marcus L. booked a consultation for tomorrow at 2pm.', delta: 5 },
-      { icon: 'google', title: 'New Google Review', text: 'Sarah M. left a 5-star review: "Best service in Sydney!"', delta: 3 },
-      { icon: 'ai', title: 'AI Follow-Up Sent', text: 'AI composed and sent personalised follow-ups to 3 new leads.', delta: 2 },
-      { icon: 'sms', title: 'SMS Reply Received', text: 'David P: "Yes, the 3pm slot works perfectly for me."', delta: 6 },
-      { icon: 'facebook', title: 'Facebook Lead', text: 'New lead from Facebook ad: Emma T. requested a free quote.', delta: 2 },
-      { icon: 'email', title: 'Email Opened', text: '"Your exclusive offer" opened by 247 contacts. 38% open rate.', delta: 4 },
-      { icon: 'stripe', title: 'Payment Received', text: '$1,200 received from Cooper & Co. Recurring subscription renewed.', delta: 7 },
-      { icon: 'instagram', title: 'Instagram Comment', text: 'New comment on your post: "This looks amazing! DMing you now."', delta: 3 },
-      { icon: 'phone', title: 'Missed Call Logged', text: 'Missed call from +61 412 xxx xxx. Auto-SMS sent with callback link.', delta: 5 },
-      { icon: 'form', title: 'Form Submitted', text: 'Contact form submitted by Alex N. — "Interested in the Growth plan."', delta: 4 },
-      { icon: 'calendar', title: 'Appointment Reminder', text: 'Reminder sent to 4 clients for tomorrow\'s appointments.', delta: 8 },
-      { icon: 'whatsapp', title: 'WhatsApp Message', text: 'Lisa M: "Just wanted to say the results have been incredible!"', delta: 2 },
-      { icon: 'crm', title: 'Pipeline Updated', text: 'Deal "Cafe Fit-out" moved to "Proposal Sent" -- $4,200 value.', delta: 5 },
-      { icon: 'review', title: 'Review Request Sent', text: 'Auto-review request sent to 12 recent clients via SMS.', delta: 3 },
-      { icon: 'funnel', title: 'Funnel Conversion', text: 'Landing page "Free Consultation" converted at 23% this week.', delta: 6 },
-      { icon: 'tiktok', title: 'TikTok Lead', text: 'New lead from TikTok bio link: Jake S. signed up for your webinar.', delta: 4 },
-      { icon: 'email', title: 'Email Replied', text: 'Nathan B. replied: "Count me in for the workshop next Friday."', delta: 3 },
-      { icon: 'stripe', title: 'Subscription Started', text: 'New subscription: Liam H. signed up for the $149/mo plan.', delta: 7 },
-      { icon: 'sms', title: 'Bulk SMS Delivered', text: '89 of 90 promotional SMS messages delivered successfully.', delta: 2 },
-      { icon: 'google', title: 'Google Ad Lead', text: 'New lead from Google Ads: Sophie L. clicked "Get a Free Quote."', delta: 5 },
-      { icon: 'ai', title: 'AI Content Generated', text: 'AI drafted 3 social media posts for this week. Ready for review.', delta: 4 },
-      { icon: 'instagram', title: 'Story Mention', text: '@fit_sydney_studio mentioned you in their story. 2.4k views.', delta: 6 },
-      { icon: 'invoice', title: 'Invoice Overdue', text: 'Invoice #1031 ($640) is 3 days overdue. Auto-reminder sent to Client.', delta: 8 },
-      { icon: 'calendar', title: 'No-Show Detected', text: 'Ryan P. missed their 11am appointment. Rebooking SMS sent.', delta: 3 },
-      { icon: 'website', title: 'Website Visitor', text: 'Returning visitor viewed your pricing page 3 times today.', delta: 5 },
-      { icon: 'whatsapp', title: 'WhatsApp Broadcast', text: 'Broadcast "Weekend Special" delivered to 156 opted-in contacts.', delta: 10 },
-      { icon: 'facebook', title: 'Facebook Comment', text: 'New comment on your ad: "How much for a full package?"', delta: 2 },
-      { icon: 'crm', title: 'Contact Tag Added', text: '"VIP Client" tag auto-added to 8 contacts with $2k+ lifetime value.', delta: 7 },
-      { icon: 'stripe', title: 'Refund Processed', text: '$75 refund issued to Amy R. Reason: duplicate charge.', delta: 12 },
-      { icon: 'email', title: 'Campaign Performing', text: '"Spring Sale" email hit 42% open rate across 1,200 contacts.', delta: 5 },
-      { icon: 'phone', title: 'Voicemail Received', text: 'New voicemail from +61 402 xxx xxx. Transcription: "Hi, calling about..."', delta: 8 },
-      { icon: 'linkedin', title: 'LinkedIn Message', text: 'Chris T. (CEO, Bondi Digital): "Let\'s discuss a partnership."', delta: 4 },
-      { icon: 'form', title: 'Survey Completed', text: 'Client satisfaction survey completed. Average score: 4.8/5.', delta: 6 },
-      { icon: 'ai', title: 'AI Chat Handled', text: 'AI chatbot answered 14 website enquiries overnight. 3 booked demos.', delta: 15 },
-      { icon: 'google', title: 'Google Business Update', text: 'Your Google Business Profile was viewed 340 times this week.', delta: 10 },
-      { icon: 'sms', title: 'Two-Way SMS', text: 'Megan F: "Can I reschedule to Thursday instead? Thanks!"', delta: 3 },
-      { icon: 'stripe', title: 'Quote Accepted', text: 'Quote #892 ($2,100) accepted by Harbour Dental. Invoice generated.', delta: 7 },
-      { icon: 'tiktok', title: 'TikTok Comment', text: 'Viral comment on your video: "This is exactly what I needed!" (2.1k likes)', delta: 5 },
-      { icon: 'calendar', title: 'Slots Filling Up', text: 'Only 2 appointment slots remaining for this Friday.', delta: 12 },
-      { icon: 'instagram', title: 'New Follower Lead', text: '@jennifer_wellness started following you and clicked your link in bio.', delta: 4 },
-      { icon: 'ai', title: 'AI Chat Response', text: 'AI answered: "Do you offer payment plans?" with personalised pricing.', delta: 6 },
-      { icon: 'crm', title: 'Lead Score Updated', text: 'Emily K. lead score increased to 92/100. Ready for outreach.', delta: 8 },
-      { icon: 'email', title: 'Unsubscribe Alert', text: '2 contacts unsubscribed this week. List health: 98.4%.', delta: 10 },
-      { icon: 'funnel', title: 'A/B Test Results', text: 'Variant B headline winning -- 31% higher conversion rate.', delta: 15 },
-      { icon: 'ai', title: 'AI Win-Back Campaign', text: 'AI crafted personalised win-back messages for 42 inactive contacts.', delta: 5 },
-      { icon: 'stripe', title: 'Monthly Revenue', text: 'October revenue: $14,850. Up 18% from last month.', delta: 10 },
+    // Icon and delta metadata (structure only, not translatable)
+    const notifMeta = [
+      { icon: 'instagram', delta: 2 }, { icon: 'stripe', delta: 3 }, { icon: 'stripe', delta: 4 },
+      { icon: 'whatsapp', delta: 1 }, { icon: 'calendar', delta: 5 }, { icon: 'google', delta: 3 },
+      { icon: 'ai', delta: 2 }, { icon: 'sms', delta: 6 }, { icon: 'facebook', delta: 2 },
+      { icon: 'email', delta: 4 }, { icon: 'stripe', delta: 7 }, { icon: 'instagram', delta: 3 },
+      { icon: 'phone', delta: 5 }, { icon: 'form', delta: 4 }, { icon: 'calendar', delta: 8 },
+      { icon: 'whatsapp', delta: 2 }, { icon: 'crm', delta: 5 }, { icon: 'review', delta: 3 },
+      { icon: 'funnel', delta: 6 }, { icon: 'tiktok', delta: 4 }, { icon: 'email', delta: 3 },
+      { icon: 'stripe', delta: 7 }, { icon: 'sms', delta: 2 }, { icon: 'google', delta: 5 },
+      { icon: 'ai', delta: 4 }, { icon: 'instagram', delta: 6 }, { icon: 'invoice', delta: 8 },
+      { icon: 'calendar', delta: 3 }, { icon: 'website', delta: 5 }, { icon: 'whatsapp', delta: 10 },
+      { icon: 'facebook', delta: 2 }, { icon: 'crm', delta: 7 }, { icon: 'stripe', delta: 12 },
+      { icon: 'email', delta: 5 }, { icon: 'phone', delta: 8 }, { icon: 'linkedin', delta: 4 },
+      { icon: 'form', delta: 6 }, { icon: 'ai', delta: 15 }, { icon: 'google', delta: 10 },
+      { icon: 'sms', delta: 3 }, { icon: 'stripe', delta: 7 }, { icon: 'tiktok', delta: 5 },
+      { icon: 'calendar', delta: 12 }, { icon: 'instagram', delta: 4 }, { icon: 'ai', delta: 6 },
+      { icon: 'crm', delta: 8 }, { icon: 'email', delta: 10 }, { icon: 'funnel', delta: 15 },
+      { icon: 'ai', delta: 5 }, { icon: 'stripe', delta: 10 },
     ];
+
+    // Load translated notification titles and text from inline JSON
+    const notifDataEl = document.getElementById('hero-notif-data');
+    const notifTranslations = notifDataEl ? JSON.parse(notifDataEl.textContent) : [];
+
+    // Merge metadata with translations
+    const notifications = notifMeta.map((m, i) => ({
+      icon: m.icon,
+      delta: m.delta,
+      title: notifTranslations[i]?.title || 'Notification',
+      text: notifTranslations[i]?.text || '',
+    }));
 
     let currentIndex = 0;
     let feedStarted = false;
@@ -1266,5 +1815,57 @@
       });
     }, { threshold: 0.1 });
     observer.observe(feed);
+  })();
+
+  // ─── PLATFORM CUBE SELECTOR ───
+  (function initPlatformCube() {
+    const cube = document.getElementById('platform-cube');
+    const btns = document.querySelectorAll('.hero__platform-btn');
+    if (!cube || !btns.length) return;
+
+    // Face rotation map
+    const faceRotations = {
+      front:  'rotateY(0deg)',
+      right:  'rotateY(-90deg)',
+      back:   'rotateY(-180deg)',
+      left:   'rotateY(-270deg)',
+    };
+
+    let resumeTimer = null;
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const face = btn.dataset.face;
+        if (!face || !faceRotations[face]) return;
+
+        // Capture current animated rotation before stopping
+        const current = getComputedStyle(cube).transform;
+
+        // Kill the CSS animation so it doesn't override our transform
+        cube.style.animation = 'none';
+
+        // Hold the current position (prevents snap-to-origin)
+        cube.style.transform = current;
+
+        // Force reflow so the browser registers the held position
+        void cube.offsetWidth;
+
+        // Now add the transition class and rotate to the target face
+        cube.classList.add('hero__cube--paused');
+        cube.style.transform = faceRotations[face];
+
+        // Update active state
+        btns.forEach(b => b.classList.remove('hero__platform-btn--active'));
+        btn.classList.add('hero__platform-btn--active');
+
+        // Resume auto-tumble after 5 seconds
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+          cube.classList.remove('hero__cube--paused');
+          cube.style.animation = '';
+          cube.style.transform = '';
+        }, 5000);
+      });
+    });
   })();
 </script>

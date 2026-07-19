@@ -3,19 +3,435 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const posts = [
   {
+    title: 'Best CRM for real estate agents in 2026',
+    excerpt: 'Why generic CRMs fail property sales and what real estate agents actually need. Pipeline management, listing automation, and follow-up sequences that close deals.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-real-estate',
+    readTime: '8 min',
+  },
+  {
+    title: 'Marketing automation for gyms and fitness studios',
+    excerpt: 'Member retention, class reminders, win-back campaigns, and referral programs. How to automate your gym marketing and reduce churn without losing the personal touch.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/marketing-automation-for-gyms',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for tradies: stop losing jobs to your notebook',
+    excerpt: 'Missed calls, forgotten quotes, and jobs that slip through the cracks. How a simple CRM setup helps tradies win more work and get paid faster.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-tradies',
+    readTime: '7 min',
+  },
+  {
+    title: 'How restaurants can automate customer engagement',
+    excerpt: 'Reservation reminders, post-visit review requests, birthday campaigns, and loyalty programs. The automation playbook for restaurants that want repeat business.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/restaurant-customer-engagement',
+    readTime: '7 min',
+  },
+  {
+    title: 'Salon and spa booking automation: fill your calendar without the phone tag',
+    excerpt: 'Online booking, automated reminders, rebooking campaigns, and client preference tracking. How salons and spas can fill their chairs and reduce no-shows.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/salon-booking-automation',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for accountants and bookkeepers: managing clients beyond tax season',
+    excerpt: 'Seasonal workflow challenges, automated document collection, deadline reminders, and year-round client engagement for accounting practices.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-accountants',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing automation for dental practices',
+    excerpt: 'Recall reminders, new patient acquisition, review generation, and treatment plan follow-ups. How dentists can grow their practice on autopilot.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/dental-practice-marketing',
+    readTime: '7 min',
+  },
+  {
+    title: 'How photographers can automate client management',
+    excerpt: 'From inquiry to gallery delivery. Automate contracts, questionnaires, session reminders, and print upsells so you can focus on the creative work.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/photographer-client-management',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for construction companies: from quote to completion',
+    excerpt: 'Lead tracking, quote follow-ups, project milestone communication, and payment collection. How builders and construction firms can stop losing jobs.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-construction',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing for personal trainers: get more clients without the hustle',
+    excerpt: 'Lead magnets, free consultation funnels, transformation showcases, and referral systems. The marketing playbook for PTs who want to train, not sell.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/marketing-for-personal-trainers',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for cleaning services: automate your business growth',
+    excerpt: 'Recurring booking management, crew scheduling, quality follow-ups, and upsell campaigns. How cleaning businesses can scale without drowning in admin.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-cleaning-services',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing automation for law firms: ethical, effective, and automated',
+    excerpt: 'Intake form automation, case status updates, referral tracking, and thought leadership content. Marketing that works within legal compliance requirements.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/marketing-for-law-firms',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for property managers: automate tenant communication',
+    excerpt: 'Tenant lifecycle automation from inquiry to renewal. Maintenance request tracking, rent reminders, and communication workflows for property managers.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-property-managers',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing for auto repair shops: drive repeat business',
+    excerpt: 'Service reminder automation, seasonal campaigns, review generation, and loyalty programs. How mechanics and auto shops can keep customers coming back.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/marketing-for-auto-repair',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for coaches and consultants: scale without losing the personal touch',
+    excerpt: 'Discovery call funnels, onboarding sequences, session scheduling, and testimonial collection. How to grow your coaching business while keeping it personal.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/crm-for-coaches',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing automation for e-commerce: beyond abandoned cart emails',
+    excerpt: 'Post-purchase sequences, review requests, cross-sell flows, win-back campaigns, and VIP segmentation. The full e-commerce automation playbook.',
+    category: 'Industry',
+    date: '2026-06-29',
+    slug: '/blog/marketing-for-ecommerce',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to set up automated follow-ups that close more deals',
+    excerpt: 'Most businesses stop after one follow-up. Learn how to build multi-channel sequences with email, SMS, and tasks that convert leads while you sleep.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-set-up-automated-follow-ups',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to build a high-converting landing page',
+    excerpt: 'The anatomy of a landing page that converts. Headlines, social proof, CTAs, above-the-fold rules, common mistakes, and A/B testing basics.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-build-high-converting-landing-page',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to create an email drip campaign that converts',
+    excerpt: 'Map the customer journey, write the five-email sequence, nail the timing and subject lines. A complete guide to drip campaigns that actually work.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-create-email-drip-campaign',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to track ROI on your marketing (without a data science degree)',
+    excerpt: 'Which metrics actually matter, UTM parameters, call tracking, attribution basics, and the simple cost-per-lead calculation every business owner should know.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-track-marketing-roi',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to set up online booking for your service business',
+    excerpt: 'Stop losing clients to phone tag. Calendar sync, automated confirmations, no-show reduction, and payment collection at booking time.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-set-up-online-booking',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to build a referral program that actually works',
+    excerpt: 'Referrals convert four times better than cold leads. Design the right incentives, automate the ask, and scale your referral engine without manual effort.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-build-referral-program',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to automate your social media without losing authenticity',
+    excerpt: 'Content batching, scheduling, content pillars, and the minimum viable posting schedule. What to automate and what to keep human.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-automate-social-media',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to create SMS marketing campaigns that get results',
+    excerpt: 'Compliance rules, campaign types, timing, character limits, personalisation, and measuring SMS ROI. Everything you need to run SMS campaigns that convert.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-create-sms-campaigns',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to build a customer loyalty program for your small business',
+    excerpt: 'Points, tiers, VIP programs, and digital punch cards. Design a loyalty program that keeps customers coming back and increases lifetime value.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-build-customer-loyalty-program',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to set up payment processing for your business',
+    excerpt: 'Payment gateways, recurring billing, invoicing automation, and reducing late payments. Get paid faster with the right payment setup.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-set-up-payment-processing',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to automate review requests and build social proof',
+    excerpt: 'The two-step review funnel, multi-platform strategy, timing the ask, and embedding reviews on your site. Build social proof on autopilot.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-automate-review-requests',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to build a sales pipeline that actually gets used',
+    excerpt: 'Why most pipelines fail, defining stages for your business, automation at each stage, forecasting, and pipeline hygiene that keeps deals moving.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-build-sales-pipeline',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to set up lead scoring (and stop wasting time on cold leads)',
+    excerpt: 'Point assignment, qualification thresholds, and automation triggers based on score. A practical guide to focusing on the leads that matter.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-set-up-lead-scoring',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to create a client onboarding workflow that impresses',
+    excerpt: 'The ideal onboarding sequence from welcome to feedback. Automate document collection, set expectations, and reduce early churn.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-create-client-onboarding-workflow',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to automate invoice follow-ups (and get paid faster)',
+    excerpt: 'Pre-due reminders, overdue escalation sequences, late fee policies, and payment plan options. Stop chasing payments manually.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-automate-invoice-follow-ups',
+    readTime: '6 min',
+  },
+  {
+    title: 'How to run a webinar funnel that fills seats and converts',
+    excerpt: 'Topic selection, registration pages, reminder sequences, post-webinar follow-up, and replay strategy. The complete webinar funnel playbook.',
+    category: 'Tutorial',
+    date: '2026-06-29',
+    slug: '/blog/how-to-run-a-webinar-funnel',
+    readTime: '8 min',
+  },
+  {
+    title: 'DUSA vs HubSpot: which is better for small business?',
+    excerpt: 'A fair comparison of DUSA and HubSpot for small business owners. Features, pricing, complexity, and which platform fits your actual needs.',
+    category: 'Comparison',
+    date: '2026-06-22',
+    slug: '/blog/dusa-vs-hubspot',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to build a sales funnel for your small business',
+    excerpt: 'A step-by-step guide to building a sales funnel that turns strangers into customers. Learn the four stages every small business funnel needs and how to automate each one.',
+    category: 'Growth',
+    date: '2026-06-20',
+    slug: '/blog/sales-funnel-small-business',
+    readTime: '7 min',
+  },
+  {
+    title: 'DUSA vs Mailchimp: more than just email marketing',
+    excerpt: 'Mailchimp handles email well, but modern small businesses need more. See how DUSA compares as a full growth platform with CRM, funnels, SMS, and automation built in.',
+    category: 'Comparison',
+    date: '2026-06-18',
+    slug: '/blog/dusa-vs-mailchimp',
+    readTime: '7 min',
+  },
+  {
+    title: 'Email marketing for small business: the complete guide',
+    excerpt: 'Everything you need to know about email marketing as a small business. From building your list to writing campaigns that convert, with practical examples.',
+    category: 'Marketing',
+    date: '2026-06-16',
+    slug: '/blog/email-marketing-small-business',
+    readTime: '9 min',
+  },
+  {
+    title: 'All-in-one platform vs separate tools: the real cost comparison',
+    excerpt: 'The typical small business tool stack costs $300-500 per month before you count the hidden costs. Here is what happens when you consolidate into one platform.',
+    category: 'Strategy',
+    date: '2026-06-14',
+    slug: '/blog/all-in-one-vs-separate-tools',
+    readTime: '7 min',
+  },
+  {
+    title: 'CRM for small business: why you need one and how to choose',
+    excerpt: 'Still running your business from a spreadsheet? Here is why a CRM changes everything, what to look for, and the common mistakes to avoid when choosing one.',
+    category: 'Technology',
+    date: '2026-06-12',
+    slug: '/blog/crm-small-business',
+    readTime: '6 min',
+  },
+  {
+    title: 'DUSA vs ClickFunnels: the full platform vs the funnel specialist',
+    excerpt: 'ClickFunnels builds great funnels, but modern small businesses need more than funnels. See how DUSA compares as a full growth platform with CRM, email, SMS, booking, and automation built in.',
+    category: 'Comparison',
+    date: '2026-06-10',
+    slug: '/blog/dusa-vs-clickfunnels',
+    readTime: '7 min',
+  },
+  {
+    title: 'How to get more Google reviews for your local business',
+    excerpt: 'Google reviews are the most powerful growth lever for local businesses. Learn when to ask, how to ask, and how to automate the entire process.',
+    category: 'Marketing',
+    date: '2026-06-08',
+    slug: '/blog/get-more-google-reviews',
+    readTime: '6 min',
+  },
+  {
+    title: 'DUSA vs Keap: small business CRM comparison',
+    excerpt: 'Keap offers powerful automation, but its pricing and complexity can overwhelm small teams. See how DUSA compares on features, cost, and ease of use for small business.',
+    category: 'Comparison',
+    date: '2026-06-06',
+    slug: '/blog/dusa-vs-keap',
+    readTime: '7 min',
+  },
+  {
+    title: 'Marketing automation for small business: where to start',
+    excerpt: 'Marketing automation does not have to be complicated. Here are the three automations every small business should set up first, and how to build them.',
+    category: 'Automation',
+    date: '2026-06-04',
+    slug: '/blog/marketing-automation-getting-started',
+    readTime: '7 min',
+  },
+  {
+    title: 'DUSA vs ActiveCampaign: email automation and beyond',
+    excerpt: 'ActiveCampaign is a leader in email automation, but small businesses need more than email. See how DUSA compares on features, pricing, and the full growth platform picture.',
+    category: 'Comparison',
+    date: '2026-06-02',
+    slug: '/blog/dusa-vs-activecampaign',
+    readTime: '7 min',
+  },
+  {
+    title: 'Landing pages that convert: design tips for small business',
+    excerpt: 'What makes a landing page different from a website, the anatomy of a high-converting page, and the design mistakes costing you leads.',
+    category: 'Growth',
+    date: '2026-05-30',
+    slug: '/blog/landing-pages-that-convert',
+    readTime: '6 min',
+  },
+  {
+    title: 'Best all-in-one platform for small business in 2026',
+    excerpt: 'A fair comparison of the top all-in-one business platforms for small business in 2026. HubSpot, Keap, Zoho CRM, ActiveCampaign, and DUSA reviewed on features, pricing, and fit.',
+    category: 'Growth',
+    date: '2026-05-28',
+    slug: '/blog/best-all-in-one-platform-small-business',
+    readTime: '10 min',
+  },
+  {
+    title: 'SMS marketing for small business: best practices and examples',
+    excerpt: 'SMS has a 98% open rate. Here is how to use it without annoying your customers, with ready-to-use templates for reminders, promos, and review requests.',
+    category: 'Marketing',
+    date: '2026-05-26',
+    slug: '/blog/sms-marketing-small-business',
+    readTime: '6 min',
+  },
+  {
+    title: 'Peace & Party',
+    excerpt: 'The balance of life. Work and play. Good habits each day, to achieve more. This is the philosophy behind the lotus and the blue agave, and the reason we celebrate with pizza.',
+    category: 'Philosophy',
+    date: '2026-05-23',
+    slug: '/blog/peace-and-party',
+    readTime: '6 min',
+  },
+  {
+    title: 'How to reduce no-shows with automated appointment reminders',
+    excerpt: 'No-shows cost service businesses thousands every year. Here is the reminder sequence that cuts them by up to 80%, fully automated.',
+    category: 'Automation',
+    date: '2026-05-20',
+    slug: '/blog/reduce-no-shows',
+    readTime: '5 min',
+  },
+  {
+    title: 'Social media scheduling: how to save hours every week',
+    excerpt: 'Stop posting on the fly. Learn how to batch your content, pick the right platforms, and build a minimum viable posting schedule that actually works.',
+    category: 'Marketing',
+    date: '2026-05-16',
+    slug: '/blog/social-media-scheduling',
+    readTime: '5 min',
+  },
+  {
+    title: 'Lead generation for service businesses: proven strategies that work',
+    excerpt: 'Why most service businesses struggle with leads and the proven stack that fixes it. From landing pages to referral systems to local SEO.',
+    category: 'Growth',
+    date: '2026-05-12',
+    slug: '/blog/lead-generation-service-business',
+    readTime: '8 min',
+  },
+  {
+    title: 'How to create a customer follow-up system that works on autopilot',
+    excerpt: 'Most businesses lose money in the follow-up. Here is how to build an automated system that nurtures leads at every stage without you lifting a finger.',
+    category: 'Automation',
+    date: '2026-05-08',
+    slug: '/blog/customer-follow-up-system',
+    readTime: '6 min',
+  },
+  {
+    title: 'Website vs. sales funnel: which does your small business need?',
+    excerpt: 'Websites and funnels serve different purposes. Here is when you need which, how they work together, and the common mistakes that waste your budget.',
+    category: 'Strategy',
+    date: '2026-05-04',
+    slug: '/blog/website-vs-funnel',
+    readTime: '5 min',
+  },
+  {
     title: '5 tools every sole operator should replace with one platform',
-    excerpt: 'If you\'re paying for a CRM, email tool, calendar app, funnel builder, and review manager separately, you\'re overspending by hundreds per month. Here\'s how to consolidate.',
+    excerpt: 'If you are paying for a CRM, email tool, calendar app, funnel builder, and review manager separately, you are overspending by hundreds per month. Here is how to consolidate.',
     category: 'Growth',
     date: '2026-04-20',
-    slug: '#',
+    slug: '/blog/5-tools-to-replace',
     readTime: '5 min',
   },
   {
     title: 'How to automate your follow-up without sounding like a robot',
-    excerpt: 'Automated sequences don\'t have to feel cold. Learn how to build nurture workflows that sound like you, respond at the right time, and convert leads while you sleep.',
+    excerpt: 'Automated sequences do not have to feel cold. Learn how to build nurture workflows that sound like you, respond at the right time, and convert leads while you sleep.',
     category: 'Automation',
     date: '2026-04-14',
-    slug: '#',
+    slug: '/blog/automate-follow-up',
     readTime: '7 min',
   },
   {
@@ -23,32 +439,48 @@ const posts = [
     excerpt: 'For local businesses, reviews are the new homepage. We break down how to systematically collect, respond to, and leverage reviews for growth.',
     category: 'Marketing',
     date: '2026-04-07',
-    slug: '#',
+    slug: '/blog/reputation-management',
     readTime: '6 min',
   },
   {
     title: 'The real cost of disconnected tools (and what to do about it)',
-    excerpt: 'We calculated the true cost of running separate CRM, email, scheduling, and funnel tools. Spoiler: it\'s not just the subscription fees that hurt.',
+    excerpt: 'We calculated the true cost of running separate CRM, email, scheduling, and funnel tools. Spoiler: it is not just the subscription fees that hurt.',
     category: 'Strategy',
     date: '2026-03-28',
-    slug: '#',
+    slug: '/blog/real-cost-of-disconnected-tools',
     readTime: '4 min',
   },
   {
     title: 'Getting started with DUSA: a step-by-step setup guide',
-    excerpt: 'From signing up to sending your first campaign, here\'s everything you need to know to get the DUSA platform running for your business in under 48 hours.',
+    excerpt: 'From signing up to sending your first campaign, here is everything you need to know to get the DUSA platform running for your business in under 48 hours.',
     category: 'Getting Started',
     date: '2026-03-20',
-    slug: '#',
+    slug: '/blog/getting-started-with-dusa',
     readTime: '8 min',
   },
   {
     title: 'Booking systems that convert: how to stop losing leads to scheduling friction',
-    excerpt: 'Every extra step between "I\'m interested" and "I\'m booked" costs you money. Learn how to build frictionless booking flows that capture more appointments.',
+    excerpt: 'Every extra step between "I am interested" and "I am booked" costs you money. Learn how to build frictionless booking flows that capture more appointments.',
     category: 'Growth',
     date: '2026-03-14',
-    slug: '#',
+    slug: '/blog/booking-systems-that-convert',
     readTime: '5 min',
+  },
+  {
+    title: 'How to reclaim your evenings: automation for business owners who want their life back',
+    excerpt: 'Working nights, always being on, the guilt of stepping away. Here is how automation gives you freedom and brings balance back to your life.',
+    category: 'Balance',
+    date: '2026-03-07',
+    slug: '/blog/reclaim-your-evenings',
+    readTime: '6 min',
+  },
+  {
+    title: 'AI for small business: what actually works (and what is just hype)',
+    excerpt: 'Cut through the noise. We break down which AI features help small businesses today, and which ones are still more marketing than substance.',
+    category: 'Technology',
+    date: '2026-02-28',
+    slug: '/blog/ai-powered-small-business',
+    readTime: '7 min',
   },
 ];
 
@@ -57,20 +489,40 @@ function formatDate(dateStr: string) {
 }
 ---
 
-<BaseLayout title="Blog | DUSA . studio" description="Growth strategies, platform tips, and marketing insights for small businesses and sole operators. From the DUSA . studio team.">
+<BaseLayout title="News | DUSA . studio" description="News, insights, and updates from DUSA . studio. Articles on growth strategy, platform tips, podcast episodes, and social media updates for small businesses.">
 
   <section class="blog-hero section section--dark">
     <div class="container">
       <div class="blog-hero__content">
-        <span class="label">Blog</span>
-        <h1>Insights for<br/><span class="gradient-text">growing businesses</span></h1>
-        <p class="blog-hero__sub">Practical strategies, platform tips, and marketing know-how for sole operators and small teams.</p>
+        <span class="label">News</span>
+        <h1>Stay in the <span class="gradient-text">loop</span></h1>
+        <p class="blog-hero__sub">Articles, updates, and insights from the DUSA . studio team. Follow along as we build the growth platform for small businesses.</p>
+        <div class="blog-hero__social">
+          <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="blog-hero__social-link" aria-label="Follow on Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            @the.dusa.studio
+          </a>
+          <a href="https://www.linkedin.com/company/dusa-studio" target="_blank" rel="noopener noreferrer" class="blog-hero__social-link" aria-label="Follow on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ═══ Articles ═══ -->
   <section class="blog-list section section--dark" style="padding-top:0;">
     <div class="container">
+      <h2 class="blog-section-title">Articles</h2>
       <div class="blog-grid">
         {posts.map((post, i) => (
           <a href={post.slug} class={`blog-card ${i === 0 ? 'blog-card--featured' : ''}`}>
@@ -87,16 +539,88 @@ function formatDate(dateStr: string) {
     </div>
   </section>
 
+  <!-- ═══ Social / Instagram ═══ -->
+  <section class="blog-social section section--dark">
+    <div class="container">
+      <h2 class="blog-section-title">Follow Along</h2>
+      <p class="blog-social__desc">Behind the scenes, product updates, and small business tips. Follow <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer">@the.dusa.studio</a> on Instagram.</p>
+
+      <div class="ig-carousel">
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="ig-carousel__card">
+          <div class="ig-carousel__img ig-carousel__img--1">
+            <div class="ig-carousel__overlay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </div>
+          <div class="ig-carousel__meta">
+            <span class="ig-carousel__type">Tips</span>
+            <span class="ig-carousel__caption">Growth strategies for small businesses</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="ig-carousel__card">
+          <div class="ig-carousel__img ig-carousel__img--2">
+            <div class="ig-carousel__overlay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </div>
+          <div class="ig-carousel__meta">
+            <span class="ig-carousel__type">Behind the Scenes</span>
+            <span class="ig-carousel__caption">Building the platform, one feature at a time</span>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="ig-carousel__card">
+          <div class="ig-carousel__img ig-carousel__img--3">
+            <div class="ig-carousel__overlay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </div>
+          <div class="ig-carousel__meta">
+            <span class="ig-carousel__type">Product Updates</span>
+            <span class="ig-carousel__caption">New features, automations, and more</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ig-carousel__cta">
+        <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Follow @the.dusa.studio
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Podcast ═══ -->
+  <section class="blog-podcast section section--dark">
+    <div class="container">
+      <h2 class="blog-section-title">Podcast</h2>
+      <div class="blog-podcast__coming">
+        <div class="blog-podcast__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+        </div>
+        <h3>Coming soon.</h3>
+        <p>We are building something for founders who want real talk about growing a small business with the right tools. Stay tuned.</p>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
 
 <style>
   .blog-hero {
-    padding-top: calc(var(--nav-height) + var(--space-2xl));
-    padding-bottom: var(--space-xl);
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
   }
 
   .blog-hero__content {
-    max-width: 600px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .blog-hero__sub {
@@ -104,6 +628,9 @@ function formatDate(dateStr: string) {
     color: rgba(247, 244, 239, 0.6);
     line-height: 1.7;
     margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .blog-grid {
@@ -202,7 +729,202 @@ function formatDate(dateStr: string) {
     }
   }
 
+  /* ─── Section Titles ─── */
+  .blog-section-title {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  /* ─── Hero Social Links ─── */
+  .blog-hero__social {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .blog-hero__social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.45);
+    transition: color var(--duration-fast);
+  }
+
+  .blog-hero__social-link:hover {
+    color: var(--reef-aqua);
+  }
+
+  .blog-hero__social-link svg {
+    flex-shrink: 0;
+  }
+
+  /* ─── Social Section ─── */
+  .blog-social {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.04);
+  }
+
+  .blog-social__desc {
+    font-size: 1.0625rem;
+    color: rgba(247, 244, 239, 0.55);
+    margin-bottom: var(--space-lg);
+    margin-top: calc(-1 * var(--space-sm));
+  }
+
+  .blog-social__desc a {
+    color: var(--reef-aqua);
+  }
+
+  /* Instagram Carousel */
+  .ig-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .ig-carousel__card {
+    display: block;
+    border-radius: var(--radius-lg, 16px);
+    overflow: hidden;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    transition: transform var(--duration-fast), border-color var(--duration-fast);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ig-carousel__card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  .ig-carousel__img {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+
+  .ig-carousel__img--1 {
+    background: linear-gradient(135deg, rgba(78, 216, 194, 0.15) 0%, rgba(26, 58, 92, 0.3) 50%, rgba(106, 170, 207, 0.15) 100%);
+  }
+
+  .ig-carousel__img--2 {
+    background: linear-gradient(135deg, rgba(106, 170, 207, 0.2) 0%, rgba(78, 216, 194, 0.12) 50%, rgba(26, 58, 92, 0.25) 100%);
+  }
+
+  .ig-carousel__img--3 {
+    background: linear-gradient(135deg, rgba(26, 58, 92, 0.25) 0%, rgba(106, 170, 207, 0.15) 50%, rgba(78, 216, 194, 0.2) 100%);
+  }
+
+  .ig-carousel__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(247, 244, 239, 0.25);
+    transition: color var(--duration-fast), background var(--duration-fast);
+  }
+
+  .ig-carousel__card:hover .ig-carousel__overlay {
+    color: var(--reef-aqua);
+    background: rgba(12, 14, 20, 0.3);
+  }
+
+  .ig-carousel__meta {
+    padding: var(--space-sm);
+  }
+
+  .ig-carousel__type {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--reef-aqua);
+    opacity: 0.7;
+    margin-bottom: 0.25rem;
+  }
+
+  .ig-carousel__caption {
+    display: block;
+    font-size: 0.875rem;
+    color: rgba(247, 244, 239, 0.55);
+    line-height: 1.5;
+  }
+
+  .ig-carousel__cta {
+    text-align: center;
+    margin-top: var(--space-lg);
+  }
+
+  .ig-carousel__cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .ig-carousel {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+
+    .ig-carousel__img {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  /* ─── Podcast Section ─── */
+  .blog-podcast {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    border-top: 1px solid rgba(247, 244, 239, 0.04);
+  }
+
+  .blog-podcast__coming {
+    text-align: center;
+    padding: var(--space-xl);
+    background: rgba(247, 244, 239, 0.02);
+    border: 1px solid rgba(247, 244, 239, 0.05);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .blog-podcast__icon {
+    color: var(--reef-aqua);
+    opacity: 0.5;
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-podcast__coming h3 {
+    font-family: var(--font-headline);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .blog-podcast__coming p {
+    font-size: 1rem;
+    color: rgba(247, 244, 239, 0.45);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
   @media (max-width: 480px) {
+    .blog-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+
     .blog-card {
       padding: var(--space-md);
     }
@@ -213,6 +935,90 @@ function formatDate(dateStr: string) {
   .blog-card {
     visibility: hidden;
   }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .blog-hero__sub {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .blog-card {
+    background: rgba(12, 14, 20, 0.02);
+    border: 1px solid rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-card:hover {
+    border-color: rgba(26, 58, 92, 0.2);
+    background: rgba(12, 14, 20, 0.04);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__excerpt {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__date {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__read {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .blog-card__category {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .blog-section-title {
+    color: var(--deep-ocean);
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .blog-hero__social-link {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .blog-social__desc {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__card {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__card:hover {
+    border-color: rgba(78, 216, 194, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__caption {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .ig-carousel__overlay {
+    color: rgba(12, 14, 20, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .blog-social,
+  :global(html[data-theme="light"]) .blog-podcast {
+    border-top-color: rgba(12, 14, 20, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .blog-podcast__coming {
+    background: rgba(12, 14, 20, 0.02);
+    border-color: rgba(12, 14, 20, 0.06);
+  }
+
+  :global(html[data-theme="light"]) .blog-podcast__coming h3 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .blog-podcast__coming p {
+    color: rgba(12, 14, 20, 0.5);
+  }
 </style>
 
 <script>
@@ -222,15 +1028,18 @@ function formatDate(dateStr: string) {
       return;
     }
     gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
     gsap.set('.blog-hero__content, .blog-card', {
       visibility: 'visible',
     });
-    gsap.from('.blog-hero__content', {
-      y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.1,
-    });
-    gsap.from('.blog-card', {
-      y: 25, opacity: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out', delay: 0.3,
-    });
+    gsap.fromTo('.blog-hero__content',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+    );
+    gsap.fromTo('.blog-card',
+      { y: 25, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power3.out', delay: 0.3 }
+    );
   }
   initBlogAnimations();
 

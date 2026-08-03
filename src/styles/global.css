@@ -744,3 +744,11 @@ html[data-theme="light"] .problem__solution-title {
 html[data-theme="light"] .problem__solution-desc {
   color: rgba(247, 244, 239, 0.55);
 }
+
+/* ── Mobile hardening: never allow horizontal scroll/clipping ── */
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}

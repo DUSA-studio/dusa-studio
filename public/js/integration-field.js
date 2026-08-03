@@ -90,15 +90,17 @@
     var w = container.clientWidth || 800;
     var h = container.clientHeight || 600;
 
-    // Skip on very small screens
-    if (w < 480) return;
+    // Small screens get a lightweight field: fewer cubes, no connection web
+    var isMobile = w < 480;
+    var MOBILE_IDS = ['claude', 'chatgpt', 'instagram', 'facebook', 'whatsapp',
+      'gmail', 'stripe', 'shopify', 'canva', 'xero', 'gcal', 'slack'];
 
     var reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Slightly larger cubes on big screens so the field reads clearly
-    var sizeScale = Math.max(1, Math.min(1.35, Math.min(w, h) / 820));
-    var margin = 10;
+    var sizeScale = isMobile ? 0.72 : Math.max(1, Math.min(1.35, Math.min(w, h) / 820));
+    var margin = isMobile ? 6 : 10;
 
     // Untransformed layout position helper (GSAP transforms don't skew it)
     function docXY(el) {
@@ -155,7 +157,10 @@
       else { it.cy = excl.y2 + r; it.vy = Math.abs(it.vy); }
     }
 
-    var sorted = CUBES.slice().sort(function(a, b) { return SIZE[b.size] - SIZE[a.size]; });
+    var pool = isMobile
+      ? CUBES.filter(function(c) { return MOBILE_IDS.indexOf(c.id) !== -1; })
+      : CUBES;
+    var sorted = pool.slice().sort(function(a, b) { return SIZE[b.size] - SIZE[a.size]; });
     var items = [];
 
     sorted.forEach(function(cube, i) {
@@ -243,21 +248,24 @@
     // the phone during the funnel. Sits beneath the cubes, extends down to
     // the phone so threads can reach it.
     var canvasH = Math.ceil(Math.max(h, target.y + 160));
-    var lineCanvas = document.createElement('canvas');
-    lineCanvas.style.position = 'absolute';
-    lineCanvas.style.left = '0';
-    lineCanvas.style.top = '0';
-    lineCanvas.style.width = w + 'px';
-    lineCanvas.style.height = canvasH + 'px';
-    lineCanvas.style.pointerEvents = 'none';
-    lineCanvas.style.zIndex = '-1';
-    var dpr = Math.min(2, window.devicePixelRatio || 1);
-    lineCanvas.width = Math.round(w * dpr);
-    lineCanvas.height = Math.round(canvasH * dpr);
-    var lctx = lineCanvas.getContext('2d');
-    lctx.scale(dpr, dpr);
-    lctx.lineCap = 'round';
-    container.insertBefore(lineCanvas, container.firstChild);
+    var lctx = null;
+    if (!isMobile) {
+      var lineCanvas = document.createElement('canvas');
+      lineCanvas.style.position = 'absolute';
+      lineCanvas.style.left = '0';
+      lineCanvas.style.top = '0';
+      lineCanvas.style.width = w + 'px';
+      lineCanvas.style.height = canvasH + 'px';
+      lineCanvas.style.pointerEvents = 'none';
+      lineCanvas.style.zIndex = '-1';
+      var dpr = Math.min(2, window.devicePixelRatio || 1);
+      lineCanvas.width = Math.round(w * dpr);
+      lineCanvas.height = Math.round(canvasH * dpr);
+      lctx = lineCanvas.getContext('2d');
+      lctx.scale(dpr, dpr);
+      lctx.lineCap = 'round';
+      container.insertBefore(lineCanvas, container.firstChild);
+    }
 
     // Fluoro-tube strike-up: when scrolling starts, the connection web
     // flickers on like an old fluorescent light — "the system just turned on"
@@ -339,6 +347,7 @@
       }
 
       // ── Draw the connection web ──
+      if (!lctx) return;
       lctx.clearRect(0, 0, w, canvasH);
       var light = document.documentElement.getAttribute('data-theme') === 'light';
       var rgb = light ? '26, 58, 92' : '78, 216, 194';
@@ -510,10 +519,6 @@
       '    0 4px 12px rgba(0,0,0,0.08);',
       '}',
 
-      /* Hide on small mobile */
-      '@media (max-width: 480px) {',
-      '  .ifield-stage { display: none; }',
-      '}',
     ].join('\n');
     document.head.appendChild(s);
   }

@@ -49,15 +49,15 @@ import t from '../../i18n/translations/de.json';
     gsap.registerPlugin(ScrollTrigger);
     document.documentElement.classList.add('gsap-ready');
     gsap.set('.reveal, .reveal-left, .reveal-right, .reveal-scale', { visibility: 'visible' });
-    const heroTl = gsap.timeline({ delay: 0.2 });
+    const heroTl = gsap.timeline({
+      scrollTrigger: { trigger: '.hero__inner', start: 'top 75%', once: true },
+    });
     const heroLabel = document.querySelector('.hero .label');
     if (heroLabel) heroTl.from(heroLabel, { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' });
     const heroTitle = document.querySelector('.hero__title');
     if (heroTitle) heroTl.from(heroTitle, { y: 60, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.3');
     const heroSub = document.querySelector('.hero__subtitle');
     if (heroSub) heroTl.from(heroSub, { y: 30, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5');
-    const heroCtas = document.querySelectorAll('.hero__ctas .btn');
-    if (heroCtas.length) heroTl.from(heroCtas, { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, '-=0.3');
     const heroPhone = document.querySelector('.hero__phone-wrap');
     if (heroPhone) heroTl.from(heroPhone, { y: 80, opacity: 0, scale: 0.92, duration: 1.2, ease: 'power4.out' }, '-=0.8');
     const notifFeed = document.querySelector('#hero-notif-feed');

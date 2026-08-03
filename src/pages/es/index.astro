@@ -62,7 +62,9 @@ import t from '../../i18n/translations/es.json';
       visibility: 'visible',
     });
 
-    const heroTl = gsap.timeline({ delay: 0.2 });
+    const heroTl = gsap.timeline({
+      scrollTrigger: { trigger: '.hero__inner', start: 'top 75%', once: true },
+    });
 
     const heroLabel = document.querySelector('.hero .label');
     if (heroLabel) {
@@ -77,11 +79,6 @@ import t from '../../i18n/translations/es.json';
     const heroSub = document.querySelector('.hero__subtitle');
     if (heroSub) {
       heroTl.from(heroSub, { y: 30, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5');
-    }
-
-    const heroCtas = document.querySelectorAll('.hero__ctas .btn');
-    if (heroCtas.length) {
-      heroTl.from(heroCtas, { y: 20, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out' }, '-=0.3');
     }
 
     const heroPhone = document.querySelector('.hero__phone-wrap');

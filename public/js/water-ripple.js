@@ -244,6 +244,8 @@
     if (!container) return;
 
     const canvas = document.createElement('canvas');
+    // Style inline so it works regardless of Astro CSS scoping
+    canvas.style.cssText = 'display:block;position:absolute;inset:0;width:100%;height:100%;';
     container.appendChild(canvas);
 
     const gl = canvas.getContext('webgl2', {
@@ -382,21 +384,18 @@
       heroSection.addEventListener('touchend', onMouseLeave);
     }
 
-    // Resize handler — "cover" mode: canvas is always square so the
-    // 512x512 ripple simulation maps 1:1 and drops stay circular.
-    // CSS overflow:hidden on .hero clips the excess.
-    // Always use max(width, height) so the animation fills the hero
-    // without squishing. On portrait screens, the sides are simply cropped.
-    // Cap at 1200px CSS-pixels to keep GPU cost reasonable on tall mobile layouts.
+    // Resize handler — CSS stretches the canvas to fill .hero__water (inset:0).
+    // We only set the backing buffer resolution here, capped for GPU performance.
     function resize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = canvas.parentElement.getBoundingClientRect();
-      const size = Math.min(Math.max(rect.width, rect.height), 1200);
-
-      canvas.width = size * dpr;
-      canvas.height = size * dpr;
-      canvas.style.width = size + 'px';
-      canvas.style.height = size + 'px';
+      const w = canvas.clientWidth || container.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || container.clientHeight || window.innerHeight;
+      if (w === 0 || h === 0) return;
+      // Cap max buffer dimension at 2048px to keep GPU cost manageable
+      const maxDim = 2048;
+      const scale = Math.min(dpr, maxDim / Math.max(w, h));
+      canvas.width = Math.round(w * scale);
+      canvas.height = Math.round(h * scale);
     }
 
     resize();

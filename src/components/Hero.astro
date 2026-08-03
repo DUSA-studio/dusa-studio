@@ -41,6 +41,61 @@ const notifJson = JSON.stringify(notifTranslations);
     <div class="hero__grid-lines"></div>
   </div>
 
+  <!-- ─── HERO INTRO: opening statement over the integration globe ─── -->
+  <div class="hero__intro" id="hero-intro">
+    <div class="hero__integration-field" id="integration-field">
+      <!-- Rotating globe of app cubes rendered by integration-field.js -->
+    </div>
+    <div class="hero__intro-scrim" aria-hidden="true"></div>
+
+    <div class="hero__intro-content">
+      <span class="hero__intro-label">Growth, done for you</span>
+
+      <h2 class="hero__intro-headline">
+        We help your business <span class="gradient-text">grow</span>.
+      </h2>
+
+      <p class="hero__intro-sub">
+        Running a business today means a dozen apps that don't talk to each
+        other, and you stuck in the middle. DUSA replaces the mess with one
+        system that chases every lead, books the jobs, and gets you paid.
+        Automatically.
+      </p>
+
+      <div class="hero__intro-stats">
+        <div class="hero__intro-stat hero__intro-stat--dim">
+          <span class="hero__intro-stat-num">12+ apps</span>
+          <span class="hero__intro-stat-label">too many apps to run a business</span>
+        </div>
+        <div class="hero__intro-stat">
+          <span class="hero__intro-stat-num">1 login</span>
+          <span class="hero__intro-stat-label">what it takes with DUSA</span>
+        </div>
+        <div class="hero__intro-stat">
+          <span class="hero__intro-stat-num">10+ hrs</span>
+          <span class="hero__intro-stat-label">of busywork handed to AI, every week</span>
+        </div>
+        <div class="hero__intro-stat">
+          <span class="hero__intro-stat-num">+32%</span>
+          <span class="hero__intro-stat-label">more revenue in your first year</span>
+        </div>
+      </div>
+      <p class="hero__intro-statnote">Less chaos. More customers. That's the whole idea.</p>
+
+      <div class="hero__intro-ctas">
+        <a href="/start" data-page="start" class="btn btn--primary">Get Started</a>
+        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Book a Free Demo</a>
+      </div>
+
+      <p class="hero__intro-note">Setup done for you &middot; Powered by AI &middot; Cancel anytime</p>
+    </div>
+
+    <button class="hero__intro-scroll" id="intro-scroll-cue" aria-label="Scroll to see the platform">
+      <span>See what's inside</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+
   <div class="container hero__inner">
     <div class="hero__layout">
       <div class="hero__content">
@@ -62,6 +117,10 @@ const notifJson = JSON.stringify(notifTranslations);
       <div class="hero__phone-wrap reveal-right">
         <div class="hero__phone">
           <div class="hero__phone-notch"></div>
+          <div class="hero__phone-browserbar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <em>app.dusa.studio</em>
+          </div>
           <div class="hero__phone-time" id="hero-phone-clock">9:41</div>
           <div class="hero__phone-header">
             <img class="hero__phone-logo" id="hero-phone-lotus" src="/dusa-logo-animated.webp" alt="DUSA" width="22" height="22" />
@@ -78,6 +137,12 @@ const notifJson = JSON.stringify(notifTranslations);
 
           <div class="hero__notifs" id="hero-notif-feed"></div>
           <script type="application/json" id="hero-notif-data" set:html={notifJson}></script>
+        </div>
+
+        <!-- Monitor stand — only visible in Desktop mode -->
+        <div class="hero__phone-stand" aria-hidden="true">
+          <i></i>
+          <span></span>
         </div>
 
         <div class="hero__platforms">
@@ -99,13 +164,9 @@ const notifJson = JSON.stringify(notifTranslations);
               <div class="hero__cube-face hero__cube-face--left">
                 <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
               </div>
-              <!-- Top: DUSA Lotus (real favicon) -->
+              <!-- Top: Tablet -->
               <div class="hero__cube-face hero__cube-face--top">
-                <svg viewBox="0 0 500 500" width="36" height="36" fill="currentColor">
-                  <path d="M215.4,395.1c-5.2,0-9.5-3-11.5-8c-7.2-17.8-14.5-35.7-21.7-53.5c-10-24.6-27.3-41.9-51.9-51.9c-17.9-7.3-35.9-14.6-53.8-21.9c-8.7-3.5-10.5-14.9-3.3-20.7c1.1-0.9,2.5-1.6,3.9-2.2c18.1-7.4,36.3-14.6,54.4-22.1c24-10,40.8-27.2,50.7-51.3c7.3-17.8,14.5-35.7,21.7-53.5c2.1-5.2,6.3-8.2,11.6-8.2c5.2,0,9.4,3,11.4,8.2c7.5,18.4,14.7,37,22.5,55.3c10,23.7,27.3,40.3,51.1,50c17.8,7.3,35.7,14.5,53.5,21.7c5,2,8,6.3,8,11.4c0,5.2-2.9,9.5-8,11.5c-17.9,7.3-35.8,14.5-53.7,21.8c-25.2,10.3-42.5,28.2-52.5,53.5c-6.8,17.3-14,34.5-21,51.7C224.7,392.1,220.5,395.1,215.4,395.1z"/>
-                  <path d="M354.7,39.8c3.4,0,6.1,1.9,7.3,5.3c2.3,6.5,4.4,13.1,6.9,19.6c5.8,15.3,16.7,25.6,32.2,31c5.9,2.1,11.9,4,17.8,6.2c5.2,1.9,7,8,3.4,12.2c-0.9,1.1-2.4,2-3.8,2.5c-6.5,2.4-13.1,4.5-19.6,6.9c-15.2,5.8-25.3,16.6-30.7,31.9c-2.1,5.9-4.1,11.8-6.1,17.6c-1.3,3.6-3.9,5.6-7.4,5.6c-3.5,0-6.1-2-7.4-5.6c-2.7-7.5-5-15.1-8.1-22.4c-5.8-13.5-16.1-22.6-29.9-27.6c-6-2.2-12.1-4.2-18.2-6.4c-3.8-1.3-5.7-3.9-5.7-7.5c0-3.6,1.9-6.2,5.7-7.5c7.3-2.6,14.7-4.8,21.8-7.8c14-6,23.4-16.6,28.4-31c2.1-5.9,4.1-11.9,6.2-17.8C348.4,41.7,351.1,39.8,354.7,39.8z"/>
-                  <path d="M362,321.5c3.4,0,6.1,1.9,7.3,5.3c2.3,6.5,4.4,13.1,6.9,19.6c5.8,15.3,16.7,25.6,32.2,31c5.9,2.1,11.9,4,17.8,6.2c5.2,1.9,7,8,3.4,12.2c-0.9,1.1-2.4,2-3.8,2.5c-6.5,2.4-13.1,4.5-19.6,6.9c-15.2,5.8-25.3,16.6-30.7,31.9c-2.1,5.9-4.1,11.8-6.1,17.6c-1.3,3.6-3.9,5.6-7.4,5.6c-3.5,0-6.1-2-7.4-5.6c-2.7-7.5-5-15.1-8.1-22.4c-5.8-13.5-16.1-22.6-29.9-27.6c-6-2.2-12.1-4.2-18.2-6.4c-3.8-1.3-5.7-3.9-5.7-7.5c0-3.6,1.9-6.2,5.7-7.5c7.3-2.6,14.7-4.8,21.8-7.8c14-6,23.4-16.6,28.4-31c2.1-5.9,4.1-11.9,6.2-17.8C355.8,323.3,358.5,321.4,362,321.5z"/>
-                </svg>
+                <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg>
               </div>
               <!-- Bottom: DUSA Lotus (real favicon) -->
               <div class="hero__cube-face hero__cube-face--bottom">
@@ -118,19 +179,20 @@ const notifJson = JSON.stringify(notifTranslations);
             </div>
           </div>
           <div class="hero__platform-btns" id="platform-btns">
-            <button class="hero__platform-btn hero__platform-btn--active" data-face="front" aria-label="iPhone">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-              <span>iPhone</span>
+            <button class="hero__platform-btn hero__platform-btn--active" data-mode="phone" aria-label="Phone. Click again to switch between iPhone and Android" title="Click again to switch iPhone / Android">
+              <svg class="hero__pbtn-ios" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              <svg class="hero__pbtn-android" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.86-.31-.16-.69-.04-.86.27l-1.87 3.23C14.89 8.35 13.48 8 12 8c-1.48 0-2.89.35-4.44.94L5.69 5.71c-.16-.31-.54-.43-.86-.27-.31.16-.43.55-.27.86l1.84 3.18C3.38 11.2 1.39 13.96 1 17h22c-.39-3.04-2.38-5.8-5.4-7.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
+              <span>Phone</span>
             </button>
-            <button class="hero__platform-btn" data-face="right" aria-label="Android">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.27-.86-.31-.16-.69-.04-.86.27l-1.87 3.23C14.89 8.35 13.48 8 12 8c-1.48 0-2.89.35-4.44.94L5.69 5.71c-.16-.31-.54-.43-.86-.27-.31.16-.43.55-.27.86l1.84 3.18C3.38 11.2 1.39 13.96 1 17h22c-.39-3.04-2.38-5.8-5.4-7.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
-              <span>Android</span>
+            <button class="hero__platform-btn" data-mode="tablet" aria-label="Tablet">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg>
+              <span>Tablet</span>
             </button>
-            <button class="hero__platform-btn" data-face="back" aria-label="Desktop">
+            <button class="hero__platform-btn" data-mode="desktop" aria-label="Desktop">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               <span>Desktop</span>
             </button>
-            <button class="hero__platform-btn" data-face="left" aria-label="Web">
+            <button class="hero__platform-btn" data-mode="web" aria-label="Web">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
               <span>Web</span>
             </button>
@@ -200,8 +262,7 @@ const notifJson = JSON.stringify(notifTranslations);
   .hero {
     position: relative;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
+    display: block;
     overflow: hidden;
     padding-top: var(--nav-height);
   }
@@ -218,15 +279,8 @@ const notifJson = JSON.stringify(notifTranslations);
     z-index: 0;
   }
 
-  .hero__water canvas {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-  }
+  /* Canvas is created dynamically by water-ripple.js — styles are set inline
+     in the script to avoid Astro scoping issues with dynamic elements. */
 
   .hero__grid-lines {
     position: absolute;
@@ -245,14 +299,23 @@ const notifJson = JSON.stringify(notifTranslations);
     position: relative;
     z-index: 1;
     padding-block: var(--space-3xl) var(--space-xl);
+    width: 100%;
   }
 
+  /* Centered column — the phone is the hero: apps funnel into it on scroll */
   .hero__layout {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-xl);
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
     margin-bottom: var(--space-xl);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   /* Grid children need min-width: 0 to prevent overflow from intrinsic sizing */
@@ -272,7 +335,8 @@ const notifJson = JSON.stringify(notifTranslations);
     color: rgba(247, 244, 239, 0.5);
     line-height: 1.7;
     margin-top: var(--space-md);
-    max-width: 480px;
+    max-width: 560px;
+    margin-inline: auto;
     overflow-wrap: break-word;
   }
 
@@ -413,6 +477,246 @@ const notifJson = JSON.stringify(notifTranslations);
   }
 
   /* Glow effect is applied via JS inline styles for reliability */
+
+  /* ══ DEVICE MORPH — phone ↔ tablet ↔ laptop ↔ web ══ */
+  .hero__phone {
+    transition:
+      width 0.55s var(--ease-out),
+      height 0.55s var(--ease-out),
+      border-radius 0.55s var(--ease-out),
+      padding 0.55s var(--ease-out);
+  }
+
+  /* Android — punch-hole camera instead of the notch bar */
+  .hero__phone--android .hero__phone-notch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(247, 244, 239, 0.16);
+  }
+
+  /* Tablet — wider, softer corners, same feed (an iPad is a big phone) */
+  .hero__phone--tablet {
+    width: min(430px, 92vw);
+    height: 580px;
+    border-radius: 26px;
+  }
+
+  .hero__phone--tablet .hero__phone-notch {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* Laptop — landscape screen, notifications become desktop toasts on the
+     right, with a hinted dashboard behind them */
+  .hero__phone--laptop,
+  .hero__phone--web {
+    width: min(600px, 92vw);
+    height: 430px;
+  }
+
+  /* Desktop — Mac-style display with an aluminium chin */
+  .hero__phone--laptop {
+    border-radius: 16px;
+    border-bottom: 14px solid rgba(247, 244, 239, 0.12);
+  }
+
+  /* Monitor stand: tapered neck + the base line at desk level,
+     right where the keyboard would sit */
+  .hero__phone-stand {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -2px;
+  }
+
+  .hero__phone--laptop + .hero__phone-stand {
+    display: flex;
+  }
+
+  .hero__phone-stand i {
+    width: 86px;
+    height: 44px;
+    background: linear-gradient(180deg, rgba(247, 244, 239, 0.12), rgba(247, 244, 239, 0.05));
+    clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+  }
+
+  .hero__phone-stand span {
+    width: 250px;
+    height: 9px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(247, 244, 239, 0.16), rgba(247, 244, 239, 0.08));
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero__phone--laptop .hero__phone-notch {
+    display: none;
+  }
+
+  .hero__phone--laptop .hero__phone-time {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 0.8rem;
+    margin: 0;
+    z-index: 2;
+  }
+
+  .hero__phone--laptop .hero__notifs,
+  .hero__phone--web .hero__notifs {
+    position: absolute;
+    top: 102px;
+    right: 16px;
+    bottom: 16px;
+    width: 240px;
+    gap: 10px;
+    padding: 0;
+  }
+
+  /* Roomier macOS banner padding */
+  .hero__phone--laptop :global(.hero__notif),
+  .hero__phone--web :global(.hero__notif) {
+    padding: 11px 13px;
+  }
+
+  /* macOS-style notification banners — new ones slide in from the right
+     at the top corner, translucent glass, no app-feed colour bar */
+  @keyframes macNotifIn {
+    0%   { transform: translateX(130%); opacity: 0; }
+    70%  { transform: translateX(-3%); opacity: 1; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  .hero__phone--laptop :global(.hero__notif),
+  .hero__phone--web :global(.hero__notif),
+  .hero__phone--laptop :global(.hero__typing),
+  .hero__phone--web :global(.hero__typing) {
+    background: rgba(46, 54, 70, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    animation: macNotifIn 0.5s cubic-bezier(0.2, 0.85, 0.3, 1) both;
+  }
+
+  /* Cascade politely when switching into Desktop / Web mode */
+  .hero__phone--laptop :global(.hero__notif:nth-child(2)),
+  .hero__phone--web :global(.hero__notif:nth-child(2)) { animation-delay: 0.06s; }
+  .hero__phone--laptop :global(.hero__notif:nth-child(3)),
+  .hero__phone--web :global(.hero__notif:nth-child(3)) { animation-delay: 0.12s; }
+  .hero__phone--laptop :global(.hero__notif:nth-child(4)),
+  .hero__phone--web :global(.hero__notif:nth-child(4)) { animation-delay: 0.18s; }
+  .hero__phone--laptop :global(.hero__notif:nth-child(n+5)),
+  .hero__phone--web :global(.hero__notif:nth-child(n+5)) { animation-delay: 0.24s; }
+
+  /* Mac banners have no coloured left bar */
+  .hero__phone--laptop :global(.hero__notif span[style*="width: 2px"]),
+  .hero__phone--web :global(.hero__notif span[style*="width: 2px"]),
+  .hero__phone--laptop :global(.hero__notif span[style*="width:2px"]),
+  .hero__phone--web :global(.hero__notif span[style*="width:2px"]) {
+    display: none;
+  }
+
+  .hero__phone--web .hero__notifs {
+    top: 130px;
+  }
+
+  /* Faint dashboard skeleton on the left of the laptop/web screen */
+  .hero__phone--laptop::after,
+  .hero__phone--web::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    right: 272px;
+    top: 102px;
+    bottom: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    background:
+      linear-gradient(rgba(247, 244, 239, 0.05), rgba(247, 244, 239, 0.05)) 0 0 / 100% 30px no-repeat,
+      linear-gradient(180deg, rgba(78, 216, 194, 0.45), rgba(78, 216, 194, 0.06)) 16px 100% / 26px 42% no-repeat,
+      linear-gradient(180deg, rgba(78, 216, 194, 0.45), rgba(78, 216, 194, 0.06)) 52px 100% / 26px 62% no-repeat,
+      linear-gradient(180deg, rgba(78, 216, 194, 0.45), rgba(78, 216, 194, 0.06)) 88px 100% / 26px 50% no-repeat,
+      linear-gradient(180deg, rgba(78, 216, 194, 0.45), rgba(78, 216, 194, 0.06)) 124px 100% / 26px 76% no-repeat,
+      linear-gradient(180deg, rgba(78, 216, 194, 0.45), rgba(78, 216, 194, 0.06)) 160px 100% / 26px 58% no-repeat;
+  }
+
+  .hero__phone--web::after {
+    top: 130px;
+  }
+
+  /* Web — browser chrome with traffic lights and the app URL */
+  .hero__phone--web {
+    border-radius: 14px;
+    padding-top: 48px;
+  }
+
+  .hero__phone--web .hero__phone-notch,
+  .hero__phone--web .hero__phone-time {
+    display: none;
+  }
+
+  .hero__phone-browserbar {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    background: rgba(247, 244, 239, 0.05);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.08);
+    z-index: 2;
+  }
+
+  .hero__phone--web .hero__phone-browserbar {
+    display: flex;
+  }
+
+  .hero__phone-browserbar span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hero__phone-browserbar span:nth-child(1) { background: #ff5f57; }
+  .hero__phone-browserbar span:nth-child(2) { background: #febc2e; }
+  .hero__phone-browserbar span:nth-child(3) { background: #28c840; }
+
+  .hero__phone-browserbar em {
+    flex: 1;
+    margin-left: 10px;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    color: rgba(247, 244, 239, 0.55);
+    background: rgba(12, 14, 20, 0.5);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    border-radius: 7px;
+    padding: 4px 12px;
+    text-align: center;
+  }
+
+  /* Phone chip shows both OS marks — the active one lit, the other dimmed.
+     Clicking Phone again swaps which OS is on screen. */
+  .hero__platform-btn .hero__pbtn-ios,
+  .hero__platform-btn .hero__pbtn-android {
+    transition: opacity 0.25s ease;
+  }
+
+  .hero__platform-btn[data-mode="phone"]:not(.is-android) .hero__pbtn-android {
+    opacity: 0.35;
+  }
+
+  .hero__platform-btn.is-android .hero__pbtn-ios {
+    opacity: 0.35;
+  }
 
   /* ─── STATS TICKER ─── */
   .hero__stats-ticker {
@@ -713,7 +1017,7 @@ const notifJson = JSON.stringify(notifTranslations);
   /* --- Capabilities Bar --- */
   .hero__capabilities {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: var(--space-sm);
     padding-top: var(--space-lg);
     margin-bottom: var(--space-2xl);
@@ -776,7 +1080,7 @@ const notifJson = JSON.stringify(notifTranslations);
   .hero__cap-sub {
     font-size: 0.75rem;
     color: rgba(247, 244, 239, 0.4);
-    white-space: nowrap;
+    line-height: 1.4;
   }
 
   /* --- Scroll Indicator --- */
@@ -1224,6 +1528,266 @@ const notifJson = JSON.stringify(notifTranslations);
     }
   }
 
+  /* ─── HERO INTRO SECTION ─── */
+  .hero__intro {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - var(--nav-height));
+    min-height: calc(100svh - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg) var(--space-lg) calc(var(--space-xl) + 48px);
+  }
+
+  .hero__integration-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: auto;
+  }
+
+  /* Soft dark pool behind the copy so it stays readable over the globe */
+  .hero__intro-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 420px 340px at 50% 47%,
+      rgba(12, 14, 20, 0.8) 0%,
+      rgba(12, 14, 20, 0.5) 55%,
+      transparent 100%
+    );
+  }
+
+  /* Framed glass panel — keeps the copy readable, and the drifting cubes
+     bounce off this box instead of passing behind the letters */
+  .hero__intro-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 820px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-lg) var(--space-xl);
+    background: rgba(12, 14, 20, 0.62);
+    border: 1px solid rgba(247, 244, 239, 0.09);
+    border-radius: 28px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.35),
+      0 0 60px rgba(78, 216, 194, 0.04),
+      inset 0 1px 0 rgba(247, 244, 239, 0.06);
+  }
+
+  .hero__intro-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--reef-aqua);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__intro-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--warm-white);
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-sm);
+  }
+
+  /* Extend the clipped-background box so the last glyph (w) is never cut off
+     by background-clip: text combined with negative letter-spacing */
+  .hero__intro-headline :global(.gradient-text) {
+    padding-right: 0.1em;
+    margin-right: -0.1em;
+  }
+
+  .hero__intro-sub {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.72);
+    max-width: 620px;
+    margin: 0 0 var(--space-md);
+  }
+
+  /* Results grid — the "what's in it for me", right up front.
+     Always 2x2: row one is the before/after story, row two the payoff. */
+  .hero__intro-stats {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    justify-items: center;
+    gap: 14px 0;
+    margin-bottom: 10px;
+  }
+
+  .hero__intro-stat:nth-child(3)::before {
+    display: none;
+  }
+
+  .hero__intro-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 26px;
+    position: relative;
+  }
+
+  .hero__intro-stat + .hero__intro-stat::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 1px;
+    background: rgba(247, 244, 239, 0.12);
+  }
+
+  .hero__intro-stat-num {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--reef-aqua);
+    text-shadow: 0 0 24px rgba(78, 216, 194, 0.35);
+    white-space: nowrap;
+  }
+
+  /* The "before" number — washed out, so the DUSA number next to it pops */
+  .hero__intro-stat--dim .hero__intro-stat-num {
+    color: rgba(247, 244, 239, 0.35);
+    text-shadow: none;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: rgba(247, 244, 239, 0.3);
+  }
+
+  .hero__intro-stat-label {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: rgba(247, 244, 239, 0.6);
+    white-space: nowrap;
+  }
+
+  .hero__intro-statnote {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.35);
+    margin: 0 0 var(--space-md);
+  }
+
+  .hero__intro-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__intro-note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.42);
+    margin: 0;
+  }
+
+  .hero__intro-scroll {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: rgba(12, 14, 20, 0.6);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.55);
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .hero__intro-scroll:hover {
+    color: var(--reef-aqua);
+    border-color: rgba(78, 216, 194, 0.35);
+  }
+
+  .hero__intro-scroll svg {
+    width: 18px;
+    height: 18px;
+    animation: introScrollBounce 2.2s ease-in-out infinite;
+  }
+
+  @keyframes introScrollBounce {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+
+  @media (max-width: 768px) {
+    .hero__intro {
+      padding: var(--space-md) var(--space-sm) calc(var(--space-lg) + 44px);
+    }
+
+    .hero__intro-content {
+      padding: var(--space-md) var(--space-sm);
+      border-radius: 20px;
+    }
+
+    .hero__intro-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 0;
+    }
+
+    .hero__intro-stat {
+      padding: 2px 14px;
+    }
+
+    /* Only vertical divider between columns, not rows */
+    .hero__intro-stat:nth-child(3)::before {
+      display: none;
+    }
+
+    .hero__intro-ctas {
+      flex-direction: column;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .hero__intro-ctas .btn {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .hero {
     background: linear-gradient(180deg, #b8d8e8 0%, #d0e6ef 40%, #e4eff4 100%);
@@ -1247,46 +1811,139 @@ const notifJson = JSON.stringify(notifTranslations);
     color: rgba(12, 14, 20, 0.55);
   }
 
-  /* Phone mockup stays dark — it's a product preview */
+  /* ── Light-mode phone: the device follows the site theme ── */
   :global(html[data-theme="light"]) .hero__phone {
-    background: linear-gradient(165deg, #141820 0%, #0C0E14 100%);
-    border-color: rgba(247, 244, 239, 0.1);
+    background: linear-gradient(165deg, #ffffff 0%, #eef2f5 100%);
+    border-color: rgba(12, 14, 20, 0.14);
     box-shadow:
-      0 0 0 1px rgba(12, 14, 20, 0.08),
-      0 25px 80px rgba(12, 14, 20, 0.15),
-      0 0 120px rgba(78, 216, 194, 0.06);
+      0 0 0 1px rgba(12, 14, 20, 0.05),
+      0 25px 80px rgba(12, 14, 20, 0.18),
+      0 0 120px rgba(78, 216, 194, 0.08);
   }
 
-  /* Keep phone internals dark in light mode */
   :global(html[data-theme="light"]) .hero__phone-notch {
-    background: #0C0E14;
+    background: rgba(12, 14, 20, 0.18);
   }
 
   :global(html[data-theme="light"]) .hero__phone-time {
-    color: var(--reef-aqua);
+    color: var(--deep-ocean);
   }
 
   :global(html[data-theme="light"]) .hero__phone-app {
-    color: var(--warm-white);
+    color: rgba(12, 14, 20, 0.65);
   }
 
   :global(html[data-theme="light"]) .hero__phone-header {
-    border-bottom-color: rgba(247, 244, 239, 0.06);
+    border-bottom-color: rgba(12, 14, 20, 0.08);
   }
 
   :global(html[data-theme="light"]) .hero__stats-ticker {
-    background: rgba(78, 216, 194, 0.04);
-    border-bottom-color: rgba(247, 244, 239, 0.04);
-    color: rgba(247, 244, 239, 0.4);
+    background: rgba(26, 58, 92, 0.05);
+    border-bottom-color: rgba(12, 14, 20, 0.05);
+    color: rgba(12, 14, 20, 0.45);
   }
 
-  :global(html[data-theme="light"]) .hero__notif {
-    background: rgba(247, 244, 239, 0.04);
-    border-color: rgba(247, 244, 239, 0.06);
+  :global(html[data-theme="light"]) .hero__stat-val {
+    color: var(--deep-ocean);
   }
 
-  :global(html[data-theme="light"]) .hero__notif:hover {
-    background: rgba(247, 244, 239, 0.08);
+  /* Notification cards — dynamic elements carry inline colours,
+     so text overrides need !important */
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif) {
+    background: rgba(12, 14, 20, 0.045);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif-title) {
+    color: #10141d !important;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif-time) {
+    color: rgba(12, 14, 20, 0.4) !important;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif-text) {
+    color: rgba(12, 14, 20, 0.55) !important;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif--quiet .hero__notif-title) {
+    color: var(--deep-ocean) !important;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif--quiet .hero__notif-text),
+  :global(html[data-theme="light"]) .hero__phone :global(.hero__notif--quiet .hero__notif-time) {
+    color: rgba(26, 58, 92, 0.6) !important;
+  }
+
+  /* Browser chrome + desktop dashboard skeleton in light mode */
+  :global(html[data-theme="light"]) .hero__phone-browserbar {
+    background: rgba(12, 14, 20, 0.05);
+    border-bottom-color: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-browserbar em {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(12, 14, 20, 0.08);
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone--laptop::after,
+  :global(html[data-theme="light"]) .hero__phone--web::after {
+    border-color: rgba(12, 14, 20, 0.07);
+    background:
+      linear-gradient(rgba(12, 14, 20, 0.05), rgba(12, 14, 20, 0.05)) 0 0 / 100% 30px no-repeat,
+      linear-gradient(180deg, rgba(26, 58, 92, 0.5), rgba(26, 58, 92, 0.08)) 16px 100% / 26px 42% no-repeat,
+      linear-gradient(180deg, rgba(26, 58, 92, 0.5), rgba(26, 58, 92, 0.08)) 52px 100% / 26px 62% no-repeat,
+      linear-gradient(180deg, rgba(26, 58, 92, 0.5), rgba(26, 58, 92, 0.08)) 88px 100% / 26px 50% no-repeat,
+      linear-gradient(180deg, rgba(26, 58, 92, 0.5), rgba(26, 58, 92, 0.08)) 124px 100% / 26px 76% no-repeat,
+      linear-gradient(180deg, rgba(26, 58, 92, 0.5), rgba(26, 58, 92, 0.08)) 160px 100% / 26px 58% no-repeat;
+  }
+
+  /* macOS banners in light mode */
+  :global(html[data-theme="light"]) .hero__phone--laptop :global(.hero__notif),
+  :global(html[data-theme="light"]) .hero__phone--web :global(.hero__notif),
+  :global(html[data-theme="light"]) .hero__phone--laptop :global(.hero__typing),
+  :global(html[data-theme="light"]) .hero__phone--web :global(.hero__typing) {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(12, 14, 20, 0.1);
+    box-shadow: 0 10px 30px rgba(12, 14, 20, 0.16);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone--laptop {
+    border-bottom-color: rgba(12, 14, 20, 0.16);
+  }
+
+  /* ── Device morph on small screens (placed last so it wins over the
+     base mobile phone sizing) ── */
+  @media (max-width: 768px) {
+    .hero__phone--tablet {
+      width: min(430px, 94vw);
+      height: 520px;
+    }
+
+    .hero__phone--laptop,
+    .hero__phone--web {
+      width: min(600px, 94vw);
+      height: 380px;
+    }
+
+    /* Not enough room for the dashboard skeleton — banners take the screen */
+    .hero__phone--laptop::after,
+    .hero__phone--web::after {
+      display: none;
+    }
+
+    .hero__phone--laptop .hero__notifs,
+    .hero__phone--web .hero__notifs {
+      left: 14px;
+      right: 14px;
+      width: auto;
+      top: 96px;
+    }
+
+    .hero__phone--web .hero__notifs {
+      top: 124px;
+    }
   }
 
   /* Capabilities bar */
@@ -1375,9 +2032,86 @@ const notifJson = JSON.stringify(notifTranslations);
   :global(html[data-theme="light"]) .hero__scroll-indicator:hover .hero__scroll-chevron {
     color: var(--deep-ocean);
   }
+
+  /* Intro section — light mode */
+  :global(html[data-theme="light"]) .hero__intro-content {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(12, 14, 20, 0.1);
+    box-shadow:
+      0 24px 60px rgba(12, 14, 20, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-headline {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-sub {
+    color: rgba(12, 14, 20, 0.62);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-label {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-scrim {
+    background: radial-gradient(
+      ellipse 420px 340px at 50% 47%,
+      rgba(228, 239, 244, 0.85) 0%,
+      rgba(228, 239, 244, 0.55) 55%,
+      transparent 100%
+    );
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-stat-num {
+    color: var(--deep-ocean);
+    text-shadow: none;
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-stat--dim .hero__intro-stat-num {
+    color: rgba(12, 14, 20, 0.35);
+    text-decoration-color: rgba(12, 14, 20, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-stand i {
+    background: linear-gradient(180deg, rgba(12, 14, 20, 0.18), rgba(12, 14, 20, 0.08));
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-stand span {
+    background: linear-gradient(180deg, rgba(12, 14, 20, 0.22), rgba(12, 14, 20, 0.1));
+    box-shadow: 0 10px 24px rgba(12, 14, 20, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-stat-label {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-statnote {
+    color: rgba(12, 14, 20, 0.35);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-stat + .hero__intro-stat::before {
+    background: rgba(12, 14, 20, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-note {
+    color: rgba(12, 14, 20, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-scroll {
+    color: rgba(12, 14, 20, 0.5);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .hero__intro-scroll:hover {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.35);
+  }
 </style>
 
 <script src="/js/water-ripple.js" defer></script>
+<script src="/js/integration-field.js" defer></script>
 
 <script>
   // Live clock for phone mockup
@@ -1817,55 +2551,88 @@ const notifJson = JSON.stringify(notifTranslations);
     observer.observe(feed);
   })();
 
-  // ─── PLATFORM CUBE SELECTOR ───
-  (function initPlatformCube() {
+  // ─── PLATFORM SELECTOR — morphs the device mockup + rotates the cube ───
+  (function initPlatformSelector() {
     const cube = document.getElementById('platform-cube');
     const btns = document.querySelectorAll('.hero__platform-btn');
-    if (!cube || !btns.length) return;
+    const phone = document.querySelector('.hero__phone');
+    if (!cube || !btns.length || !phone) return;
 
-    // Face rotation map
     const faceRotations = {
-      front:  'rotateY(0deg)',
-      right:  'rotateY(-90deg)',
-      back:   'rotateY(-180deg)',
-      left:   'rotateY(-270deg)',
+      front: 'rotateY(0deg)',        // iPhone
+      right: 'rotateY(-90deg)',      // Android
+      back:  'rotateY(-180deg)',     // Desktop
+      left:  'rotateY(-270deg)',     // Web
+      top:   'rotateX(-90deg)',      // Tablet
     };
 
+    let mode = 'phone';
+    let phoneOS = 'ios';
     let resumeTimer = null;
+
+    function faceFor() {
+      if (mode === 'phone') return phoneOS === 'ios' ? 'front' : 'right';
+      if (mode === 'tablet') return 'top';
+      if (mode === 'desktop') return 'back';
+      return 'left';
+    }
+
+    function apply(btn) {
+      // Morph the device mockup
+      phone.classList.remove(
+        'hero__phone--tablet', 'hero__phone--laptop',
+        'hero__phone--web', 'hero__phone--android'
+      );
+      if (mode === 'tablet') phone.classList.add('hero__phone--tablet');
+      else if (mode === 'desktop') phone.classList.add('hero__phone--laptop');
+      else if (mode === 'web') phone.classList.add('hero__phone--web');
+      else if (phoneOS === 'android') phone.classList.add('hero__phone--android');
+
+      // Phone chip shows whichever OS is on screen
+      const phoneBtn = document.querySelector('.hero__platform-btn[data-mode="phone"]');
+      if (phoneBtn) phoneBtn.classList.toggle('is-android', phoneOS === 'android');
+
+      // Land the cube on the matching face
+      const current = getComputedStyle(cube).transform;
+      cube.style.animation = 'none';
+      cube.style.transform = current;
+      void cube.offsetWidth;
+      cube.classList.add('hero__cube--paused');
+      cube.style.transform = faceRotations[faceFor()];
+
+      btns.forEach(b => b.classList.remove('hero__platform-btn--active'));
+      btn.classList.add('hero__platform-btn--active');
+
+      // Resume auto-tumble after 5 seconds
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => {
+        cube.classList.remove('hero__cube--paused');
+        cube.style.animation = '';
+        cube.style.transform = '';
+      }, 5000);
+    }
 
     btns.forEach(btn => {
       btn.addEventListener('click', () => {
-        const face = btn.dataset.face;
-        if (!face || !faceRotations[face]) return;
-
-        // Capture current animated rotation before stopping
-        const current = getComputedStyle(cube).transform;
-
-        // Kill the CSS animation so it doesn't override our transform
-        cube.style.animation = 'none';
-
-        // Hold the current position (prevents snap-to-origin)
-        cube.style.transform = current;
-
-        // Force reflow so the browser registers the held position
-        void cube.offsetWidth;
-
-        // Now add the transition class and rotate to the target face
-        cube.classList.add('hero__cube--paused');
-        cube.style.transform = faceRotations[face];
-
-        // Update active state
-        btns.forEach(b => b.classList.remove('hero__platform-btn--active'));
-        btn.classList.add('hero__platform-btn--active');
-
-        // Resume auto-tumble after 5 seconds
-        clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(() => {
-          cube.classList.remove('hero__cube--paused');
-          cube.style.animation = '';
-          cube.style.transform = '';
-        }, 5000);
+        const m = btn.dataset.mode;
+        if (!m) return;
+        // Clicking Phone again flips iPhone ↔ Android
+        if (m === 'phone' && mode === 'phone') {
+          phoneOS = phoneOS === 'ios' ? 'android' : 'ios';
+        }
+        mode = m;
+        apply(btn);
       });
+    });
+  })();
+
+  // ─── INTRO SCROLL CUE ───
+  (function initIntroScroll() {
+    const cue = document.getElementById('intro-scroll-cue');
+    const target = document.querySelector('.hero__inner');
+    if (!cue || !target) return;
+    cue.addEventListener('click', () => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   })();
 </script>

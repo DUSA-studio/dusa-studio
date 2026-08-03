@@ -1,0 +1,678 @@
+---
+// Devices.astro — Overlapping laptop / iPad / iPhone composite showing the
+// DUSA platform on every screen. Narrative: the hero shows great apps floating
+// around disconnected; this section shows them stitched into one system.
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+const s = t?.devices || {};
+
+const label = s.label || 'Anywhere, anytime';
+const title = s.title || 'Your whole business,';
+const titleAccent = s.titleAccent || 'on every screen.';
+const subtitle = s.subtitle || 'One system, one login, wherever you go. Same data on every device, always in sync.';
+
+const laptopTitle = s.laptopTitle || 'On your laptop';
+const laptopDesc = s.laptopDesc || 'Your command centre. Every lead, campaign, and dollar on one dashboard.';
+const phoneTitle = s.phoneTitle || 'On your iPhone';
+const phoneDesc = s.phoneDesc || 'Your business in your pocket. Reply to leads and take payments on the go.';
+const tabletTitle = s.tabletTitle || 'On your iPad';
+const tabletDesc = s.tabletDesc || 'Perfect at the counter. Bookings, forms, and checkouts for your customers.';
+---
+
+<section class="devices section--dark" id="devices">
+  <div class="container">
+    <div class="devices__header">
+      <span class="label reveal">{label}</span>
+      <h2 class="devices__title reveal">
+        {title}<br />
+        <span class="gradient-text">{titleAccent}</span>
+      </h2>
+      <p class="devices__subtitle reveal">{subtitle}</p>
+    </div>
+
+    <!-- ── Overlapping device composite ── -->
+    <div class="devices__composite reveal" aria-hidden="true">
+      <!-- Laptop (base layer, centred) -->
+      <div class="dev-laptop">
+        <div class="dev-laptop__screen">
+          <div class="dev-ui">
+            <div class="dev-ui__bar">
+              <span class="dev-ui__dot"></span>
+              <span class="dev-ui__brand">DUSA . studio</span>
+              <span class="dev-ui__pagetitle">Dashboard</span>
+            </div>
+            <div class="dev-ui__body">
+              <div class="dev-ui__side">
+                <span class="is-active">Dashboard</span>
+                <span>Contacts</span>
+                <span>Pipeline</span>
+                <span>Marketing</span>
+                <span>Payments</span>
+                <span>AI Studio</span>
+              </div>
+              <div class="dev-ui__main">
+                <div class="dev-ui__kpis">
+                  <div class="dev-ui__kpi">
+                    <em>New leads</em>
+                    <strong>38</strong>
+                    <i>&uarr; 12%</i>
+                  </div>
+                  <div class="dev-ui__kpi">
+                    <em>Revenue</em>
+                    <strong>$12.4k</strong>
+                    <i>&uarr; 8%</i>
+                  </div>
+                  <div class="dev-ui__kpi">
+                    <em>Bookings</em>
+                    <strong>21</strong>
+                    <i>&uarr; 5%</i>
+                  </div>
+                </div>
+                <div class="dev-ui__chart">
+                  <i style="height: 32%"></i><i style="height: 48%"></i><i style="height: 40%"></i><i style="height: 62%"></i><i style="height: 52%"></i><i style="height: 78%"></i><i style="height: 68%"></i><i style="height: 90%"></i>
+                </div>
+                <div class="dev-ui__pipeline">
+                  <span class="is-active">Lead in</span>
+                  <span>Contacted</span>
+                  <span>Booked</span>
+                  <span>Paid</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-laptop__base"></div>
+      </div>
+
+      <!-- iPad (overlaps bottom-left) -->
+      <div class="dev-tablet">
+        <div class="dev-ui">
+          <div class="dev-ui__bar">
+            <span class="dev-ui__dot"></span>
+            <span class="dev-ui__brand">Today's bookings</span>
+          </div>
+          <div class="dev-ui__bookings">
+            <div class="dev-ui__booking">
+              <em>9:00</em>
+              <span><strong>Sarah M.</strong>Consultation</span>
+            </div>
+            <div class="dev-ui__booking">
+              <em>10:30</em>
+              <span><strong>Marco T.</strong>Fitting</span>
+            </div>
+            <div class="dev-ui__booking">
+              <em>1:00</em>
+              <span><strong>Ava K.</strong>Follow up</span>
+            </div>
+            <div class="dev-ui__booking is-open">
+              <em>2:30</em>
+              <span><strong>Open slot</strong>Tap to fill</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- iPhone (overlaps bottom-right) -->
+      <div class="dev-phone">
+        <div class="dev-phone__island"></div>
+        <div class="dev-ui">
+          <div class="dev-ui__bar dev-ui__bar--center">
+            <span class="dev-ui__dot"></span>
+          </div>
+          <div class="dev-ui__notifs">
+            <div class="dev-ui__notif is-new">
+              <strong>New lead</strong>
+              <span>Emma, via Instagram</span>
+            </div>
+            <div class="dev-ui__notif">
+              <strong>Payment received</strong>
+              <span>$220 &middot; Invoice #114</span>
+            </div>
+            <div class="dev-ui__notif">
+              <strong>AI answered</strong>
+              <span>Missed call handled</span>
+            </div>
+          </div>
+          <div class="dev-ui__pill">Open DUSA</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Descriptions ── -->
+    <div class="devices__row">
+      <div class="devices__item reveal">
+        <h3 class="devices__item-title">{laptopTitle}</h3>
+        <p class="devices__item-desc">{laptopDesc}</p>
+      </div>
+      <div class="devices__item reveal">
+        <h3 class="devices__item-title">{tabletTitle}</h3>
+        <p class="devices__item-desc">{tabletDesc}</p>
+      </div>
+      <div class="devices__item reveal">
+        <h3 class="devices__item-title">{phoneTitle}</h3>
+        <p class="devices__item-desc">{phoneDesc}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .devices {
+    position: relative;
+    padding-block: var(--space-3xl);
+    background: var(--deep-black);
+    overflow: hidden;
+  }
+
+  .devices__header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .devices__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--warm-white);
+    margin: var(--space-sm) 0;
+  }
+
+  .devices__title :global(.gradient-text) {
+    padding-right: 0.1em;
+    margin-right: -0.1em;
+  }
+
+  .devices__subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.65);
+    margin: 0;
+  }
+
+  /* ══ Composite — laptop base, iPad + iPhone overlap its lower corners ══ */
+  .devices__composite {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto var(--space-2xl);
+    padding-bottom: 56px; /* room for the overlapping devices */
+  }
+
+  .dev-laptop {
+    width: 72%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dev-tablet {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 27%;
+    z-index: 2;
+    transform: rotate(-3deg);
+  }
+
+  .dev-phone {
+    position: absolute;
+    right: 1%;
+    bottom: -6px;
+    width: 17.5%;
+    min-width: 128px;
+    z-index: 3;
+    transform: rotate(3deg);
+  }
+
+  /* ── Shared device shell styling ── */
+  .dev-laptop__screen,
+  .dev-tablet,
+  .dev-phone {
+    background: linear-gradient(165deg, rgba(247, 244, 239, 0.08) 0%, rgba(247, 244, 239, 0.03) 100%);
+    border: 1px solid rgba(247, 244, 239, 0.16);
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.55),
+      0 0 90px rgba(78, 216, 194, 0.05),
+      inset 0 1px 0 rgba(247, 244, 239, 0.1);
+    overflow: hidden;
+  }
+
+  /* ── Laptop ── */
+  .dev-laptop__screen {
+    aspect-ratio: 16 / 10;
+    border-radius: 14px 14px 0 0;
+    padding: 9px 9px 0;
+  }
+
+  .dev-laptop__base {
+    height: 13px;
+    margin: 0 -5%;
+    background: linear-gradient(180deg, rgba(247, 244, 239, 0.16), rgba(247, 244, 239, 0.06));
+    border-radius: 0 0 14px 14px;
+    border: 1px solid rgba(247, 244, 239, 0.13);
+    border-top: none;
+    position: relative;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .dev-laptop__base::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18%;
+    height: 5px;
+    background: rgba(12, 14, 20, 0.4);
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* ── iPad ── */
+  .dev-tablet {
+    aspect-ratio: 3 / 4;
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  /* ── iPhone ── */
+  .dev-phone {
+    aspect-ratio: 9 / 18.5;
+    border-radius: 26px;
+    padding: 11px 9px 9px;
+  }
+
+  .dev-phone__island {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 34%;
+    height: 7px;
+    background: rgba(12, 14, 20, 0.85);
+    border-radius: 8px;
+    z-index: 2;
+  }
+
+  /* ══ Mini platform UI inside the screens ══ */
+  .dev-ui {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #10141d 0%, #0c0e14 100%);
+    border-radius: 8px;
+    padding: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-family: var(--font-mono);
+    overflow: hidden;
+  }
+
+  .dev-phone .dev-ui { border-radius: 17px; padding-top: 15px; }
+  .dev-tablet .dev-ui { border-radius: 11px; }
+
+  .dev-ui__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.07);
+    flex-shrink: 0;
+  }
+
+  .dev-ui__bar--center { justify-content: center; }
+
+  .dev-ui__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--reef-aqua);
+    box-shadow: 0 0 8px rgba(78, 216, 194, 0.6);
+    flex-shrink: 0;
+  }
+
+  .dev-ui__brand {
+    font-size: 8px;
+    letter-spacing: 0.06em;
+    color: rgba(247, 244, 239, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__pagetitle {
+    margin-left: auto;
+    font-size: 7px;
+    color: rgba(78, 216, 194, 0.8);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dev-ui__body {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Sidebar with real nav labels */
+  .dev-ui__side {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 24%;
+    flex-shrink: 0;
+  }
+
+  .dev-ui__side span {
+    font-size: 6.5px;
+    letter-spacing: 0.04em;
+    color: rgba(247, 244, 239, 0.42);
+    padding: 3px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__side span.is-active {
+    color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.1);
+    border: 1px solid rgba(78, 216, 194, 0.2);
+  }
+
+  .dev-ui__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  /* KPI stat cards */
+  .dev-ui__kpis {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .dev-ui__kpi {
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    border-radius: 6px;
+    padding: 5px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .dev-ui__kpi em {
+    font-style: normal;
+    font-size: 6px;
+    color: rgba(247, 244, 239, 0.45);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__kpi strong {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--warm-white);
+    font-family: var(--font-heading);
+  }
+
+  .dev-ui__kpi i {
+    font-style: normal;
+    font-size: 6px;
+    color: var(--reef-aqua);
+  }
+
+  /* Revenue chart */
+  .dev-ui__chart {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding: 6px;
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: 6px;
+    min-height: 0;
+  }
+
+  .dev-ui__chart i {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+    background: linear-gradient(180deg, var(--reef-aqua), rgba(78, 216, 194, 0.2));
+    opacity: 0.85;
+  }
+
+  /* Pipeline stages */
+  .dev-ui__pipeline {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .dev-ui__pipeline span {
+    font-size: 6px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    color: rgba(247, 244, 239, 0.45);
+    padding: 3px 2px;
+    border-radius: 4px;
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__pipeline span.is-active {
+    color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.25);
+  }
+
+  /* iPad bookings */
+  .dev-ui__bookings {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .dev-ui__booking {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 7px;
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    border-left: 2px solid rgba(78, 216, 194, 0.6);
+    border-radius: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .dev-ui__booking em {
+    font-style: normal;
+    font-size: 7px;
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+  }
+
+  .dev-ui__booking span {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 6px;
+    color: rgba(247, 244, 239, 0.4);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__booking span strong {
+    font-size: 7.5px;
+    font-weight: 600;
+    color: rgba(247, 244, 239, 0.85);
+  }
+
+  .dev-ui__booking.is-open {
+    border-left-color: rgba(247, 244, 239, 0.2);
+    border-style: dashed;
+    background: transparent;
+  }
+
+  .dev-ui__booking.is-open em { color: rgba(247, 244, 239, 0.35); }
+  .dev-ui__booking.is-open span strong { color: rgba(247, 244, 239, 0.45); }
+
+  /* iPhone notifications */
+  .dev-ui__notifs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .dev-ui__notif {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 5px 7px;
+    background: rgba(247, 244, 239, 0.05);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    border-radius: 7px;
+  }
+
+  .dev-ui__notif strong {
+    font-size: 7px;
+    font-weight: 600;
+    color: rgba(247, 244, 239, 0.85);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__notif span {
+    font-size: 6px;
+    color: rgba(247, 244, 239, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .dev-ui__notif.is-new {
+    background: rgba(78, 216, 194, 0.1);
+    border-color: rgba(78, 216, 194, 0.3);
+  }
+
+  .dev-ui__notif.is-new strong { color: var(--reef-aqua); }
+
+  .dev-ui__pill {
+    height: 18px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, rgba(78, 216, 194, 0.9), rgba(106, 170, 207, 0.9));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--deep-black);
+    flex-shrink: 0;
+  }
+
+  /* ── Descriptions row ── */
+  .devices__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-lg);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .devices__item {
+    text-align: center;
+  }
+
+  .devices__item-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin: 0 0 6px;
+  }
+
+  .devices__item-desc {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+    margin: 0 auto;
+    max-width: 300px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .devices__composite {
+      padding-bottom: 40px;
+    }
+
+    .dev-laptop { width: 88%; }
+
+    .dev-tablet { display: none; }
+
+    .dev-phone {
+      width: 24%;
+      min-width: 96px;
+      right: 0;
+      bottom: -12px;
+    }
+
+    .dev-ui__side { display: none; }
+  }
+
+  /* ── Light mode ── */
+  :global(html[data-theme="light"]) .devices {
+    background: var(--warm-white);
+  }
+
+  :global(html[data-theme="light"]) .devices__title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .devices__subtitle {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .devices__item-title {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .devices__item-desc {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .dev-laptop__screen,
+  :global(html[data-theme="light"]) .dev-tablet,
+  :global(html[data-theme="light"]) .dev-phone {
+    background: linear-gradient(165deg, rgba(12, 14, 20, 0.1) 0%, rgba(12, 14, 20, 0.04) 100%);
+    border-color: rgba(12, 14, 20, 0.16);
+    box-shadow:
+      0 24px 60px rgba(12, 14, 20, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .dev-laptop__base {
+    background: linear-gradient(180deg, rgba(12, 14, 20, 0.18), rgba(12, 14, 20, 0.08));
+    border-color: rgba(12, 14, 20, 0.16);
+    box-shadow: 0 16px 32px rgba(12, 14, 20, 0.12);
+  }
+</style>

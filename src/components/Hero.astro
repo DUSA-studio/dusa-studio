@@ -29,6 +29,25 @@ const heroCapAiTitle = s.capAiTitle || 'AI Built In';
 const heroCapAiSub = s.capAiSub || 'Smarter conversations, faster growth';
 const heroScrollExplore = s.scrollExplore || 'Explore';
 
+// Intro (opening panel) strings
+const introLabel = s.introLabel || 'Growth, done for you';
+const introH1 = s.introH1 || 'We help your business';
+const introH1Accent = s.introH1Accent || 'grow';
+const introSub = s.introSub || "Running a business today means a dozen apps that don't talk to each other, and you stuck in the middle. DUSA replaces the mess with one system that chases every lead, books the jobs, and gets you paid. Automatically.";
+const introStat1n = s.introStat1n || '12+ apps';
+const introStat1l = s.introStat1l || 'too many apps to run a business';
+const introStat2n = s.introStat2n || '1 login';
+const introStat2l = s.introStat2l || 'what it takes with DUSA';
+const introStat3n = s.introStat3n || '10+ hrs';
+const introStat3l = s.introStat3l || 'of busywork handed to AI, every week';
+const introStat4n = s.introStat4n || '+32%';
+const introStat4l = s.introStat4l || 'more revenue in your first year';
+const introNote = s.introNote || "Less chaos. More customers. That's the whole idea.";
+const introSee = s.introSee || "See what's inside";
+const introFreeDemo = s.introFreeDemo || 'Book a Free Demo';
+const introFreeDemoShort = s.introFreeDemoShort || 'Free Demo';
+const introSetupNote = s.introSetupNote || 'Setup done for you &middot; Powered by AI &middot; Cancel anytime';
+
 // Pick notification translations for the current language
 const notifLang = (lang in allNotifications) ? lang : 'en';
 const notifTranslations = (allNotifications as Record<string, any>)[notifLang];
@@ -49,57 +68,52 @@ const notifJson = JSON.stringify(notifTranslations);
     <div class="hero__intro-scrim" aria-hidden="true"></div>
 
     <div class="hero__intro-content">
-      <span class="hero__intro-label">Growth, done for you</span>
+      <span class="hero__intro-label">{introLabel}</span>
 
       <h2 class="hero__intro-headline">
-        We help your business <span class="gradient-text">grow</span>.
+        {introH1} <span class="gradient-text">{introH1Accent}</span>.
       </h2>
 
-      <p class="hero__intro-sub">
-        Running a business today means a dozen apps that don't talk to each
-        other, and you stuck in the middle. DUSA replaces the mess with one
-        system that chases every lead, books the jobs, and gets you paid.
-        Automatically.
-      </p>
+      <p class="hero__intro-sub">{introSub}</p>
 
       <div class="hero__intro-stats">
         <div class="hero__intro-stat hero__intro-stat--dim">
-          <span class="hero__intro-stat-num">12+ apps</span>
-          <span class="hero__intro-stat-label">too many apps to run a business</span>
+          <span class="hero__intro-stat-num">{introStat1n}</span>
+          <span class="hero__intro-stat-label">{introStat1l}</span>
         </div>
         <div class="hero__intro-stat">
-          <span class="hero__intro-stat-num">1 login</span>
-          <span class="hero__intro-stat-label">what it takes with DUSA</span>
+          <span class="hero__intro-stat-num">{introStat2n}</span>
+          <span class="hero__intro-stat-label">{introStat2l}</span>
         </div>
         <div class="hero__intro-stat">
-          <span class="hero__intro-stat-num">10+ hrs</span>
-          <span class="hero__intro-stat-label">of busywork handed to AI, every week</span>
+          <span class="hero__intro-stat-num">{introStat3n}</span>
+          <span class="hero__intro-stat-label">{introStat3l}</span>
         </div>
         <div class="hero__intro-stat">
-          <span class="hero__intro-stat-num">+32%</span>
-          <span class="hero__intro-stat-label">more revenue in your first year</span>
+          <span class="hero__intro-stat-num">{introStat4n}</span>
+          <span class="hero__intro-stat-label">{introStat4l}</span>
         </div>
       </div>
-      <p class="hero__intro-statnote">Less chaos. More customers. That's the whole idea.</p>
+      <p class="hero__intro-statnote">{introNote}</p>
 
       <div class="hero__intro-ctas">
-        <a href="/start" data-page="start" class="btn btn--primary">Get Started</a>
-        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Book a Free Demo</a>
+        <a href="/start" data-page="start" class="btn btn--primary">{heroGetStarted}</a>
+        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">{introFreeDemo}</a>
       </div>
 
-      <p class="hero__intro-note">Setup done for you &middot; Powered by AI &middot; Cancel anytime</p>
+      <p class="hero__intro-note" set:html={introSetupNote}></p>
     </div>
 
     <button class="hero__intro-scroll" id="intro-scroll-cue" aria-label="Scroll to see the platform">
-      <span>See what's inside</span>
+      <span>{introSee}</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button>
   </div>
 
   <!-- Sticky mobile CTA — appears once the intro is scrolled past -->
   <div class="hero__sticky-cta" id="sticky-cta">
-    <a href="/start" data-page="start" class="hero__sticky-btn">Get Started</a>
-    <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="hero__sticky-btn hero__sticky-btn--ghost">Free Demo</a>
+    <a href="/start" data-page="start" class="hero__sticky-btn">{heroGetStarted}</a>
+    <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="hero__sticky-btn hero__sticky-btn--ghost">{introFreeDemoShort}</a>
   </div>
 
   <div class="container hero__inner">

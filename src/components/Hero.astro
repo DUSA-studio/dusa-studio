@@ -1756,14 +1756,49 @@ const notifJson = JSON.stringify(notifTranslations);
     }
 
     .hero__intro-content {
-      padding: var(--space-md) var(--space-sm);
+      padding: var(--space-md) 14px;
       border-radius: 20px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .hero__intro-headline {
+      font-size: clamp(1.9rem, 8vw, 2.5rem);
+    }
+
+    .hero__intro-sub {
+      font-size: 1rem;
     }
 
     .hero__intro-stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px 0;
+      gap: 12px 0;
+      width: 100%;
+    }
+
+    .hero__intro-stat {
+      padding: 2px 6px;
+      min-width: 0;
+    }
+
+    /* Labels must wrap on small screens — nowrap forces the whole
+       panel wider than the viewport */
+    .hero__intro-stat-label {
+      white-space: normal;
+      max-width: 150px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .hero__intro-stat-num {
+      font-size: 1.55rem;
+    }
+
+    .hero__intro-note {
+      max-width: 100%;
+      letter-spacing: 0.05em;
+      line-height: 1.6;
     }
 
     .hero__intro-stat {

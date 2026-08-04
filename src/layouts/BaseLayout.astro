@@ -143,23 +143,16 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     <script src="/js/vendor/gsap-3.12.5.min.js" defer></script>
     <script src="/js/vendor/ScrollTrigger-3.12.5.min.js" defer></script>
 
-    <!-- GSAP fallback: if CDN fails or JS is slow, ensure content is still visible -->
-    <script>
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          if (typeof gsap === 'undefined') {
-            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(function(el) {
-              el.style.visibility = 'visible';
-              el.style.opacity = '1';
-            });
-          }
-        }, 3000);
-      });
-    </script>
+    <!-- Scroll reveals: one IntersectionObserver, no GSAP dependency.
+         Loaded early and deferred so anything already on screen is shown
+         before first paint. -->
+    <script src="/js/reveal.js" defer></script>
     <noscript>
       <style>
         .reveal, .reveal-left, .reveal-right, .reveal-scale {
           visibility: visible !important;
+          opacity: 1 !important;
+          transform: none !important;
         }
       </style>
     </noscript>

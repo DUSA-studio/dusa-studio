@@ -432,16 +432,38 @@ html[data-theme="light"] .gradient-text {
   transform: translateY(-2px);
 }
 
-/* --- Scroll Reveal — GSAP controls visibility via set() + from() --- */
-/* Visibility: 'hidden' prevents flash; GSAP sets visibility:'visible' + opacity:0 before animating */
-/* CSS fallback: after 1.5s, if GSAP hasn't taken over, fade in gracefully */
+/* --- Scroll Reveal — driven by /js/reveal.js (IntersectionObserver) ---------
+   These used to be one GSAP ScrollTrigger per element. The homepage carries
+   ~54 of them, and each one recalculated position on every scroll and resize,
+   which made ScrollTrigger the largest single consumer of main-thread time in
+   a mobile trace. A single IntersectionObserver now adds `is-in`, and the
+   transition below does the rest.
+
+   Note these start at opacity:0, not visibility:hidden. Content that is
+   already on screen at load is shown by reveal.js before paint, and the
+   <noscript> rule keeps everything visible when scripting is off. */
 .reveal,
 .reveal-left,
 .reveal-right,
 .reveal-scale {
-  visibility: hidden;
-  animation: revealFallback 0.8s ease forwards;
-  animation-delay: 1.5s;
+  opacity: 0;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal       { transform: translateY(50px); }
+.reveal-left  { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal-scale { transform: scale(0.94); }
+
+.reveal.is-in,
+.reveal-left.is-in,
+.reveal-right.is-in,
+.reveal-scale.is-in {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
 }
 
 /* --- Hero: paint immediately, do NOT wait on GSAP ---------------------------
@@ -449,7 +471,7 @@ html[data-theme="light"] .gradient-text {
    visibility:hidden until the deferred GSAP bundle downloaded, parsed and ran
    its intro timeline, which pushed LCP out by the whole length of that chain.
    The hero intro is now a plain CSS animation, so it starts as soon as the
-   stylesheet is parsed. GSAP still owns every reveal below the fold. */
+   stylesheet is parsed. reveal.js owns everything below the fold. */
 .hero .reveal,
 .hero .reveal-left,
 .hero .reveal-right,
@@ -481,18 +503,17 @@ html[data-theme="light"] .gradient-text {
   }
 }
 
-/* GSAP-ready: once gsap has loaded and set visibility, cancel the CSS fallback */
-.gsap-ready .reveal,
-.gsap-ready .reveal-left,
-.gsap-ready .reveal-right,
-.gsap-ready .reveal-scale {
-  animation: none;
-}
-
-@keyframes revealFallback {
-  to {
+/* Reduced motion: show reveals outright, no travel. reveal.js also skips the
+   observer entirely in this case, so this is belt and braces. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    transition: none;
     visibility: visible;
     opacity: 1;
+    transform: none;
   }
 }
 

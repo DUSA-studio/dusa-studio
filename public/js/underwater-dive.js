@@ -437,8 +437,15 @@
   }
 
   // ─── RENDER LOOP ───
-  var raf;
+  // Full-screen 2D canvas scene (sky, stars, waves, rain, lightning, spray,
+  // beacon). It used to run at 60fps from page load until the element was
+  // removed, regardless of whether it was anywhere near the viewport. It now
+  // only draws while it is on screen and the tab is visible.
+  var raf = 0;
+  var running = false;
+
   function render() {
+    raf = running ? requestAnimationFrame(render) : 0;
     time += 0.016;
     ctx.clearRect(0, 0, W, H);
     drawSky();
@@ -448,7 +455,18 @@
     drawLightning();
     drawSpray();
     drawBeacon();
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
     raf = requestAnimationFrame(render);
+  }
+
+  function stop() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
   }
 
   // ─── PUBLIC API ───
@@ -459,12 +477,33 @@
 
   // ─── INIT ───
   resize();
-  render();
+
+  // No prefers-reduced-motion opt-out here: this scene is scroll-driven, so
+  // freezing it would leave the section stuck mid-transition rather than
+  // calmed down. Gating it on visibility is the win.
+  var onScreen = true;
+
+  if ('IntersectionObserver' in window) {
+    onScreen = false;
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[0].isIntersecting;
+      if (onScreen && !document.hidden) start();
+      else stop();
+    }, { threshold: 0 }).observe(container);
+  } else {
+    start();
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop();
+    else if (onScreen) start();
+  });
+
   window.addEventListener('resize', resize);
 
   var obs = new MutationObserver(function () {
     if (!document.getElementById('bridge-canvas-wrap')) {
-      cancelAnimationFrame(raf);
+      stop();
       window.removeEventListener('resize', resize);
       obs.disconnect();
     }

@@ -185,23 +185,13 @@ const jsonLd = JSON.stringify({
     <!-- GSAP (self-hosted: same origin, immutable cache, no cdnjs round trip) -->
     <script src="/js/vendor/gsap-3.12.5.min.js" defer></script>
     <script src="/js/vendor/ScrollTrigger-3.12.5.min.js" defer></script>
-
-    <script>
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          if (typeof gsap === 'undefined') {
-            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(function(el) {
-              el.style.visibility = 'visible';
-              el.style.opacity = '1';
-            });
-          }
-        }, 3000);
-      });
-    </script>
+    <script src="/js/reveal.js" defer></script>
     <noscript>
       <style>
         .reveal, .reveal-left, .reveal-right, .reveal-scale {
           visibility: visible !important;
+          opacity: 1 !important;
+          transform: none !important;
         }
       </style>
     </noscript>
@@ -722,31 +712,33 @@ const jsonLd = JSON.stringify({
     }
   }
 
-  /* GSAP hidden until animated */
+  /* Entrance animation in CSS, not GSAP.
+     These two elements cover the whole article, so hiding them until a
+     deferred library loaded meant every blog post's LCP was gated on GSAP. */
   .blog-post__header,
   .blog-post__body {
-    visibility: hidden;
+    animation: postIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .blog-post__header { animation-delay: 0.05s; }
+  .blog-post__body   { animation-delay: 0.2s; }
+
+  @keyframes postIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blog-post__header,
+    .blog-post__body {
+      animation: none;
+    }
   }
 </style>
 
 <script>
-  function initPostAnimations() {
-    if (typeof gsap === 'undefined') {
-      setTimeout(initPostAnimations, 100);
-      return;
-    }
-    gsap.set('.blog-post__header, .blog-post__body', { visibility: 'visible' });
-    gsap.fromTo('.blog-post__header',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
-    );
-    gsap.fromTo('.blog-post__body',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.35 }
-    );
-  }
-  initPostAnimations();
-
+  // The post entrance is pure CSS now. This only wakes GSAP's ticker back up
+  // when the tab regains focus, for whatever other animations the page runs.
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden && typeof gsap !== 'undefined') {
       gsap.ticker.wake();

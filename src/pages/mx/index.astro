@@ -56,7 +56,6 @@ import t from '../../i18n/translations/es.json';
     }
     gsap.registerPlugin(ScrollTrigger);
     document.documentElement.classList.add('gsap-ready');
-    gsap.set('.reveal, .reveal-left, .reveal-right, .reveal-scale', { visibility: 'visible' });
     const heroTl = gsap.timeline({
       scrollTrigger: { trigger: '.hero__inner', start: 'top 75%', once: true },
     });
@@ -67,24 +66,11 @@ import t from '../../i18n/translations/es.json';
     const notifFeed = document.querySelector('#hero-notif-feed');
     if (notifFeed) { gsap.set(notifFeed, { opacity: 0 }); heroTl.to(notifFeed, { opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.6'); }
     const heroProof = document.querySelector('.hero__proof');
-    const heroOnly = '.hero';
-    gsap.utils.toArray('.reveal').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, { y: 50, opacity: 0, duration: 0.8, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
-    });
-    gsap.utils.toArray('.reveal-left').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, { x: -50, opacity: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
-    });
-    gsap.utils.toArray('.reveal-right').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, { x: 50, opacity: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
-    });
-    gsap.utils.toArray('.reveal-scale').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, { scale: 0.9, opacity: 0, duration: 1, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
-    });
-    document.querySelectorAll('.hiw__step-num').forEach((el) => {
+    // ─── SCROLL REVEALS ───
+    // Handled by /js/reveal.js (a single IntersectionObserver). This used to
+    // create one ScrollTrigger per .reveal element — ~54 of them on this page.
+
+document.querySelectorAll('.hiw__step-num').forEach((el) => {
       gsap.from(el, { scale: 0.3, opacity: 0, duration: 0.6, ease: 'back.out(2)', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
     });
     document.querySelectorAll('.proof__stat-value').forEach((el) => {

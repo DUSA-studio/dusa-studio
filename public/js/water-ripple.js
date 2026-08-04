@@ -305,8 +305,13 @@
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-    // Triple-buffer ping-pong
-    const res = RIPPLE_RESOLUTION;
+    // Triple-buffer ping-pong.
+    // Coarse pointers (phones/tablets) get half the simulation resolution:
+    // that is 4x fewer texels per pass, twice a frame, and on an ambient
+    // background effect the difference is not visible.
+    const coarsePointer = window.matchMedia &&
+      window.matchMedia('(pointer: coarse)').matches;
+    const res = coarsePointer ? RIPPLE_RESOLUTION / 2 : RIPPLE_RESOLUTION;
     let fbo0 = createFBO(gl, res, res);
     let fbo1 = createFBO(gl, res, res);
     let fbo2 = createFBO(gl, res, res);
@@ -415,8 +420,16 @@
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
 
+    // ─── Run gate ───
+    // This is a full-screen WebGL simulation. It used to run at 60fps for as
+    // long as the page was open, including while the visitor was several
+    // sections further down and the hero was nowhere near the viewport.
+    // Now it only runs while the hero is on screen and the tab is visible.
+    let rafId = 0;
+    let running = false;
+
     function frame(now) {
-      requestAnimationFrame(frame);
+      rafId = running ? requestAnimationFrame(frame) : 0;
 
       const t = (now - startTime) / 1000;
       const texel = [1.0 / res, 1.0 / res];
@@ -481,7 +494,44 @@
       drawQuad(dA);
     }
 
-    requestAnimationFrame(frame);
+    function start() {
+      if (running) return;
+      running = true;
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+    }
+
+    const reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      // Draw the surface once so the hero is not empty, then leave it still.
+      running = true;
+      frame(performance.now());
+      running = false;
+      rafId = 0;
+    } else {
+      let onScreen = true;
+      if ('IntersectionObserver' in window) {
+        onScreen = false;
+        new IntersectionObserver(function (entries) {
+          onScreen = entries[0].isIntersecting;
+          if (onScreen && !document.hidden) start();
+          else stop();
+        }, { threshold: 0 }).observe(container);
+      } else {
+        start();
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop();
+        else if (onScreen) start();
+      });
+    }
   }
 
   // Start when DOM is ready

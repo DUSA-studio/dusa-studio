@@ -58,11 +58,6 @@ import t from '../i18n/translations/en.json';
     // Mark GSAP as ready so CSS fallback animation is cancelled
     document.documentElement.classList.add('gsap-ready');
 
-    // ─── MAKE REVEAL ELEMENTS VISIBLE TO GSAP (hidden via CSS visibility:hidden) ───
-    // Only set visibility — from({opacity:0}) handles the fade; setting opacity here would poison the end-state.
-    gsap.set('.reveal, .reveal-left, .reveal-right, .reveal-scale', {
-      visibility: 'visible',
-    });
 
     // ─── HERO INTRO SEQUENCE ───
     const heroTl = gsap.timeline({
@@ -105,41 +100,10 @@ import t from '../i18n/translations/en.json';
     // Phone parallax removed — was causing scroll glitches
 
     // ─── SCROLL REVEALS ───
-    // Every .reveal element animates individually when it enters the viewport
-    const heroOnly = '.hero';
-    gsap.utils.toArray('.reveal').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, {
-        y: 50, opacity: 0, duration: 0.8, ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
-    });
+    // Handled by /js/reveal.js (a single IntersectionObserver). This used to
+    // create one ScrollTrigger per .reveal element — ~54 of them on this page.
 
-    gsap.utils.toArray('.reveal-left').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, {
-        x: -50, opacity: 0, duration: 1, ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
-    });
-
-    gsap.utils.toArray('.reveal-right').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, {
-        x: 50, opacity: 0, duration: 1, ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
-    });
-
-    gsap.utils.toArray('.reveal-scale').forEach((el: Element) => {
-      if ((el as HTMLElement).closest(heroOnly)) return;
-      gsap.from(el, {
-        scale: 0.9, opacity: 0, duration: 1, ease: 'power4.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
-    });
-
-    // Step numbers pop
+// Step numbers pop
     document.querySelectorAll('.hiw__step-num').forEach((el) => {
       gsap.from(el, {
         scale: 0.3, opacity: 0, duration: 0.6, ease: 'back.out(2)',

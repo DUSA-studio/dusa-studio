@@ -40,25 +40,25 @@ const region = 'mx';
       <div class="trial__layout">
         <!-- Signup Form -->
         <div class="trial__form-wrap">
-          <form class="trial__form" id="trial-form" novalidate>
+          <form class="trial__form" id="trial-form">
             <div class="trial__field">
               <label class="trial__label" for="trial-fname">Nombre *</label>
-              <input type="text" id="trial-fname" name="firstName" class="trial__input" placeholder="Tu nombre" required />
+              <input type="text" id="trial-fname" name="firstName" class="trial__input" placeholder="Tu nombre" required autocomplete="given-name" />
             </div>
 
             <div class="trial__field">
               <label class="trial__label" for="trial-email">Correo electronico *</label>
-              <input type="email" id="trial-email" name="email" class="trial__input" placeholder="tu@ejemplo.com" required />
+              <input type="email" id="trial-email" name="email" class="trial__input" placeholder="tu@ejemplo.com" required autocomplete="email" />
             </div>
 
             <div class="trial__field">
               <label class="trial__label" for="trial-business">Nombre de empresa *</label>
-              <input type="text" id="trial-business" name="business" class="trial__input" placeholder="Tu empresa" required />
+              <input type="text" id="trial-business" name="business" class="trial__input" placeholder="Tu empresa" required autocomplete="organization" />
             </div>
 
             <div class="trial__field">
               <label class="trial__label" for="trial-phone">Telefono</label>
-              <input type="tel" id="trial-phone" name="phone" class="trial__input" placeholder="+52 55 0000 0000" />
+              <input type="tel" id="trial-phone" name="phone" class="trial__input" placeholder="+52 55 0000 0000" autocomplete="tel" />
             </div>
 
             <button type="submit" class="btn btn--primary trial__submit" id="trial-submit">Comenzar</button>
@@ -884,6 +884,10 @@ const region = 'mx';
 
   trialForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!e.target.checkValidity()) {
+      e.target.reportValidity();
+      return;
+    }
     trialSuccess.style.display = 'none';
     trialError.style.display = 'none';
 

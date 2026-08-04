@@ -24,32 +24,32 @@ const r = getRegion(region);
     <div class="container">
       <div class="contact__layout">
         <div class="contact__form-wrap">
-          <form class="contact__form" id="contact-form" novalidate>
+          <form class="contact__form" id="contact-form">
             <div class="contact__row">
               <div class="contact__field">
                 <label class="contact__label" for="contact-name">{t(lang, 'contact.formNameLabel')}</label>
-                <input type="text" id="contact-name" name="name" class="contact__input" placeholder={t(lang, 'contact.formNamePlaceholder')} required />
+                <input type="text" id="contact-name" name="name" class="contact__input" placeholder={t(lang, 'contact.formNamePlaceholder')} required autocomplete="name" />
               </div>
               <div class="contact__field">
                 <label class="contact__label" for="contact-email">{t(lang, 'contact.formEmailLabel')}</label>
-                <input type="email" id="contact-email" name="email" class="contact__input" placeholder={t(lang, 'contact.formEmailPlaceholder')} required />
+                <input type="email" id="contact-email" name="email" class="contact__input" placeholder={t(lang, 'contact.formEmailPlaceholder')} required autocomplete="email" />
               </div>
             </div>
 
             <div class="contact__row">
               <div class="contact__field">
                 <label class="contact__label" for="contact-phone">{t(lang, 'contact.formPhoneLabel')}</label>
-                <input type="tel" id="contact-phone" name="phone" class="contact__input" placeholder={t(lang, 'contact.formPhonePlaceholder')} />
+                <input type="tel" id="contact-phone" name="phone" class="contact__input" placeholder={t(lang, 'contact.formPhonePlaceholder')} autocomplete="tel" />
               </div>
               <div class="contact__field">
                 <label class="contact__label" for="contact-business">{t(lang, 'contact.formBusinessLabel')}</label>
-                <input type="text" id="contact-business" name="business" class="contact__input" placeholder={t(lang, 'contact.formBusinessPlaceholder')} required />
+                <input type="text" id="contact-business" name="business" class="contact__input" placeholder={t(lang, 'contact.formBusinessPlaceholder')} required autocomplete="organization" />
               </div>
             </div>
 
             <div class="contact__field">
               <label class="contact__label" for="contact-message">{t(lang, 'contact.formMessageLabel')}</label>
-              <textarea id="contact-message" name="message" class="contact__input contact__textarea" placeholder={t(lang, 'contact.formMessagePlaceholder')} required></textarea>
+              <textarea id="contact-message" name="message" class="contact__input contact__textarea" placeholder={t(lang, 'contact.formMessagePlaceholder')} required autocomplete="off"></textarea>
             </div>
 
             <button type="submit" class="btn btn--primary contact__submit" id="contact-submit">{t(lang, 'contact.formSubmit')}</button>
@@ -471,6 +471,10 @@ const r = getRegion(region);
 
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!e.target.checkValidity()) {
+      e.target.reportValidity();
+      return;
+    }
     successMsg.style.display = 'none';
     errorMsg.style.display = 'none';
 

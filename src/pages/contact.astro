@@ -20,32 +20,32 @@ import t from '../i18n/translations/en.json';
       <div class="contact__layout">
         <!-- Contact Form -->
         <div class="contact__form-wrap">
-          <form class="contact__form" id="contact-form" novalidate>
+          <form class="contact__form" id="contact-form">
             <div class="contact__row">
               <div class="contact__field">
                 <label class="contact__label" for="contact-name">Name *</label>
-                <input type="text" id="contact-name" name="name" class="contact__input" placeholder="Your name" required />
+                <input type="text" id="contact-name" name="name" class="contact__input" placeholder="Your name" required autocomplete="name" />
               </div>
               <div class="contact__field">
                 <label class="contact__label" for="contact-email">Email *</label>
-                <input type="email" id="contact-email" name="email" class="contact__input" placeholder="you@example.com" required />
+                <input type="email" id="contact-email" name="email" class="contact__input" placeholder="you@example.com" required autocomplete="email" />
               </div>
             </div>
 
             <div class="contact__row">
               <div class="contact__field">
                 <label class="contact__label" for="contact-phone">Phone</label>
-                <input type="tel" id="contact-phone" name="phone" class="contact__input" placeholder="+61 400 000 000" />
+                <input type="tel" id="contact-phone" name="phone" class="contact__input" placeholder="+61 400 000 000" autocomplete="tel" />
               </div>
               <div class="contact__field">
                 <label class="contact__label" for="contact-business">Business *</label>
-                <input type="text" id="contact-business" name="business" class="contact__input" placeholder="Your business name" required />
+                <input type="text" id="contact-business" name="business" class="contact__input" placeholder="Your business name" required autocomplete="organization" />
               </div>
             </div>
 
             <div class="contact__field">
               <label class="contact__label" for="contact-message">Message *</label>
-              <textarea id="contact-message" name="message" class="contact__input contact__textarea" placeholder="Tell us a bit about your business and what you're looking for..." required></textarea>
+              <textarea id="contact-message" name="message" class="contact__input contact__textarea" placeholder="Tell us a bit about your business and what you're looking for..." required autocomplete="off"></textarea>
             </div>
 
             <button type="submit" class="btn btn--primary contact__submit" id="contact-submit">Send Message</button>
@@ -473,6 +473,10 @@ import t from '../i18n/translations/en.json';
 
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!e.target.checkValidity()) {
+      e.target.reportValidity();
+      return;
+    }
     successMsg.style.display = 'none';
     errorMsg.style.display = 'none';
 

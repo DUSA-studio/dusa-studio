@@ -752,3 +752,18 @@ html[data-theme="light"] .problem__solution-desc {
     overflow-x: clip;
   }
 }
+
+/* ── Chat widget: hold it back for the first 12s so it never covers
+   the hero CTAs on first load ── */
+chat-widget {
+  visibility: hidden;
+  opacity: 0;
+  animation: chat-widget-appear 0.5s ease 12s forwards;
+}
+
+@keyframes chat-widget-appear {
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}

@@ -120,6 +120,14 @@ interface Props {
 }
 const { t = {} } = Astro.props;
 
+// Two-letter initials for the avatar fallback when no photo is provided.
+// To use a real client photo, add `photo: '/testimonials/name.jpg'` to the
+// testimonial entry above and drop the image in public/testimonials/.
+function initials(name: string) {
+  const parts = name.replace(/\./g, '').split(/\s+/).filter(Boolean);
+  return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
+}
+
 const sp = t?.socialProof || {};
 const spLabel = sp.resultsLabel || 'Results That Speak';
 const spHeading = sp.heading || 'Businesses grow faster with';
@@ -168,7 +176,9 @@ const stats = [
                 ))}
               </div>
               <div class="proof__author">
-                <div class="proof__author-avatar">{t.name.charAt(0)}</div>
+                {(t as any).photo
+                  ? <img class="proof__author-photo" src={(t as any).photo} alt={t.name} loading="lazy" width="40" height="40" />
+                  : <div class="proof__author-avatar">{initials(t.name)}</div>}
                 <div>
                   <div class="proof__author-name">{t.name}</div>
                   <div class="proof__author-role">{t.role} <span class="proof__source">via {t.source}</span></div>
@@ -351,6 +361,16 @@ const stats = [
     display: flex;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  .proof__author-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(78, 216, 194, 0.4);
+    box-shadow: 0 0 12px rgba(78, 216, 194, 0.15);
   }
 
   .proof__author-avatar {

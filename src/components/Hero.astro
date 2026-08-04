@@ -143,7 +143,10 @@ const notifJson = JSON.stringify(notifTranslations);
           </div>
           <div class="hero__phone-time" id="hero-phone-clock">9:41</div>
           <div class="hero__phone-header">
-            <img class="hero__phone-logo" id="hero-phone-lotus" src="/dusa-logo-animated.webp" alt="DUSA" width="22" height="22" />
+            <!-- Static lotus: this renders at 22x22, where a 91-frame animation is
+                 both invisible and 96KB on the critical path. The animated
+                 version still runs in the Features chip, at 52px. -->
+            <img class="hero__phone-logo" id="hero-phone-lotus" src="/dusa-logo.webp" alt="DUSA" width="22" height="22" decoding="async" />
             <span class="hero__phone-app">{heroPhoneApp}</span>
           </div>
 

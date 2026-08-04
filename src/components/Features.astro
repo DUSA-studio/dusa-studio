@@ -165,7 +165,11 @@ const featCta = s.ctaText || 'See it in action';
               <animate attributeName="opacity" dur="1.5s" repeatCount="indefinite" values="0;0;0.9;0.15;0" keyTimes="0;0.72;0.82;0.94;1"/>
             </rect>
             <!-- DUSA logo -->
-            <image href="/dusa-logo-animated.webp" x="314" y="314" width="52" height="52"/>
+            <!-- Deferred: an SVG <image> loads eagerly with the document, so the
+                 96KB animation used to download during the homepage's initial
+                 load even though this chip sits well below the fold. The static
+                 lotus shows immediately; the animation swaps in on approach. -->
+            <image id="features-lotus" href="/dusa-logo.webp" data-animated="/dusa-logo-animated.webp" x="314" y="314" width="52" height="52"/>
             <!-- CPU label tab (extends above package) -->
             <rect x="312" y="272" width="56" height="23" rx="2" fill="rgba(12,14,20,0.95)" stroke="rgba(78,216,194,0.45)" stroke-width="1.5"/>
             <text x="340" y="288" text-anchor="middle" fill="#4ED8C2" font-family="var(--font-headline), sans-serif" font-size="12" font-weight="700" letter-spacing="0.2em">DUSA</text>
@@ -707,6 +711,31 @@ const featCta = s.ctaText || 'See it in action';
 </style>
 
 <script>
+  /* Swap the static lotus for the animated one only once the chip is close to
+     the viewport. Runs independently of GSAP so a slow library never holds it up. */
+  (function () {
+    var el = document.getElementById('features-lotus');
+    if (!el) return;
+    var src = el.getAttribute('data-animated');
+    if (!src) return;
+
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;  // the still lotus is the correct end state here
+
+    function load() {
+      el.setAttributeNS('http://www.w3.org/1999/xlink', 'href', src);
+      el.setAttribute('href', src);
+    }
+
+    if (!('IntersectionObserver' in window)) { load(); return; }
+
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { load(); io.disconnect(); }
+    }, { rootMargin: '200px' });
+    io.observe(el);
+  })();
+
   function initMoboAnimations() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
       setTimeout(initMoboAnimations, 100);

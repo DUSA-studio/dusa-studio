@@ -2,8 +2,8 @@
    DUSA . studio — Global Styles & Brand Tokens
    ============================================ */
 
-/* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+/* --- Fonts (self-hosted; inlined into the CSS bundle at build time) --- */
+@import './fonts.css';
 
 /* --- Brand Tokens --- */
 :root {
@@ -442,6 +442,43 @@ html[data-theme="light"] .gradient-text {
   visibility: hidden;
   animation: revealFallback 0.8s ease forwards;
   animation-delay: 1.5s;
+}
+
+/* --- Hero: paint immediately, do NOT wait on GSAP ---------------------------
+   The <h1> inside .hero is the LCP element. It used to sit at
+   visibility:hidden until the deferred GSAP bundle downloaded, parsed and ran
+   its intro timeline, which pushed LCP out by the whole length of that chain.
+   The hero intro is now a plain CSS animation, so it starts as soon as the
+   stylesheet is parsed. GSAP still owns every reveal below the fold. */
+.hero .reveal,
+.hero .reveal-left,
+.hero .reveal-right,
+.hero .reveal-scale {
+  visibility: visible;
+  animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero .label.reveal          { animation-delay: 0s; }
+.hero .hero__title.reveal    { animation-delay: 0.06s; }
+.hero .hero__subtitle.reveal { animation-delay: 0.16s; }
+.hero .hero__ctas.reveal     { animation-delay: 0.26s; }
+.hero .hero__phone-wrap      { animation-delay: 0.18s; }
+.hero .hero__capabilities.reveal { animation-delay: 0.34s; }
+
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .reveal,
+  .hero .reveal-left,
+  .hero .reveal-right,
+  .hero .reveal-scale {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* GSAP-ready: once gsap has loaded and set visibility, cancel the CSS fallback */

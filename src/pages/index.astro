@@ -72,26 +72,22 @@ import t from '../i18n/translations/en.json';
     // Label slides up
     const heroLabel = document.querySelector('.hero .label');
     if (heroLabel) {
-      heroTl.from(heroLabel, { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' });
     }
 
     // Title slides up
     const heroTitle = document.querySelector('.hero__title');
     if (heroTitle) {
-      heroTl.from(heroTitle, { y: 60, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.3');
     }
 
     // Subtitle slides up
     const heroSub = document.querySelector('.hero__subtitle');
     if (heroSub) {
-      heroTl.from(heroSub, { y: 30, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5');
     }
 
     // CTAs stagger in
     // Phone floats up with scale
     const heroPhone = document.querySelector('.hero__phone-wrap');
     if (heroPhone) {
-      heroTl.from(heroPhone, { y: 80, opacity: 0, scale: 0.92, duration: 1.2, ease: 'power4.out' }, '-=0.8');
     }
 
     // Notification feed fades in as a unit (individual notifs animate via JS)
@@ -104,7 +100,6 @@ import t from '../i18n/translations/en.json';
     // Proof bar slides up
     const heroProof = document.querySelector('.hero__proof');
     if (heroProof) {
-      heroTl.from(heroProof, { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3');
     }
 
     // Phone parallax removed — was causing scroll glitches

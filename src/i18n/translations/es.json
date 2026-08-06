@@ -512,5 +512,40 @@
     "minRead": "min de lectura",
     "featuredLabel": "Destacado",
     "backToBlog": "Volver a Noticias"
+  },
+  "faq": {
+    "eyebrow": "¿Preguntas? Respondidas.",
+    "heading": "Todo lo que podrías",
+    "headingAccent": "querer preguntar.",
+    "items": [
+      {
+        "q": "¿Qué hace exactamente DUSA?",
+        "a": "DUSA reemplaza las más de 10 aplicaciones desconectadas que la mayoría de los negocios usan con una sola plataforma. CRM, email, SMS, embudos, agendamiento, pagos, reseñas y automatizaciones con IA, todo con un solo acceso. Cada lead recibe seguimiento, cada reserva se confirma y cada respuesta ocurre automáticamente."
+      },
+      {
+        "q": "¿Cuánto cuesta?",
+        "a": "Los planes comienzan en $149 al mes. La mayoría de los negocios que incorporamos pagan entre $800 y $1,100 al mes en herramientas separadas, así que el cambio suele pagarse solo varias veces en el primer mes."
+      },
+      {
+        "q": "¿Necesito conocimientos técnicos?",
+        "a": "Para nada. Nosotros hacemos la configuración por ti. Tu CRM, automatizaciones, embudos e integraciones quedan configurados por nuestro equipo en la primera semana. Si sabes usar el correo electrónico, puedes usar DUSA."
+      },
+      {
+        "q": "¿Qué pasa con mis contactos y herramientas actuales?",
+        "a": "Migramos todo. Contactos, campañas y datos se trasladan desde tus herramientas anteriores como parte del onboarding, y capacitamos a tu equipo antes del lanzamiento. Nada se pierde en el cambio."
+      },
+      {
+        "q": "¿Estoy atado a un contrato?",
+        "a": "No. Puedes cancelar cuando quieras. Retenemos a nuestros clientes siendo útiles, no cerrando la puerta."
+      },
+      {
+        "q": "¿Qué tan rápido puedo empezar?",
+        "a": "Tu espacio de trabajo queda configurado en días, y la mayoría de los negocios están completamente operativos, con datos migrados y equipo capacitado, en dos semanas."
+      },
+      {
+        "q": "¿Y si me quedo atascado?",
+        "a": "El soporte con IA está disponible 24/7 en todos los planes, con personas reales detrás. Los planes Growth y Bespoke también incluyen un gestor de cuenta dedicado que te acompaña de forma proactiva."
+      }
+    ]
   }
 }

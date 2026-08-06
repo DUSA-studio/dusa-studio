@@ -512,5 +512,40 @@
     "minRead": "min de lecture",
     "featuredLabel": "À la une",
     "backToBlog": "Retour aux actualités"
+  },
+  "faq": {
+    "eyebrow": "Des questions ? Réponses.",
+    "heading": "Tout ce que vous pourriez",
+    "headingAccent": "vouloir demander.",
+    "items": [
+      {
+        "q": "Que fait exactement DUSA ?",
+        "a": "DUSA remplace les 10 applications et plus, déconnectées les unes des autres, que la plupart des entreprises utilisent, par une seule plateforme. CRM, email, SMS, tunnels de vente, prise de rendez-vous, paiements, avis clients et automatisations IA, le tout avec un seul identifiant. Chaque prospect est relancé, chaque réservation est confirmée et chaque suivi se fait automatiquement."
+      },
+      {
+        "q": "Combien ça coûte ?",
+        "a": "Les formules commencent à 149 $ par mois. La plupart des entreprises que nous intégrons paient entre 800 $ et 1 100 $ par mois en outils séparés, le changement se rentabilise donc généralement plusieurs fois dès le premier mois."
+      },
+      {
+        "q": "Faut-il être technique ?",
+        "a": "Pas du tout. Nous faisons la configuration pour vous. Votre CRM, vos automatisations, vos tunnels et vos intégrations sont configurés par notre équipe dès la première semaine. Si vous savez utiliser un email, vous savez utiliser DUSA."
+      },
+      {
+        "q": "Que deviennent mes contacts et outils actuels ?",
+        "a": "Nous migrons tout. Contacts, campagnes et données sont transférés depuis vos anciens outils pendant l'onboarding, et nous formons votre équipe avant le lancement. Rien ne se perd dans le changement."
+      },
+      {
+        "q": "Suis-je engagé par un contrat ?",
+        "a": "Non. Vous pouvez annuler à tout moment. Nous gardons nos clients en étant utiles, pas en fermant la porte à clé."
+      },
+      {
+        "q": "En combien de temps puis-je être opérationnel ?",
+        "a": "Votre espace de travail est configuré en quelques jours, et la plupart des entreprises sont pleinement opérationnelles, données migrées et équipe formée, en deux semaines."
+      },
+      {
+        "q": "Et si je suis bloqué ?",
+        "a": "Le support IA est disponible 24h/24 et 7j/7 sur toutes les formules, avec de vraies personnes derrière. Les formules Growth et Bespoke incluent aussi un gestionnaire de compte dédié qui vous accompagne de manière proactive."
+      }
+    ]
   }
 }

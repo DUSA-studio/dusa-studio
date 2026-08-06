@@ -1,0 +1,271 @@
+---
+// FAQ.astro — Objection-handling FAQ placed just before the final CTA.
+// Uses native <details>/<summary> (no JS needed) + FAQPage JSON-LD for
+// rich results in Google. Copy rule: no em dashes in client-facing text.
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+
+const s = t?.faq || {};
+const faqEyebrow = s.eyebrow || 'Questions? Answered.';
+const faqHeading = s.heading || 'Everything you might';
+const faqHeadingAccent = s.headingAccent || 'want to ask.';
+
+const defaultItems = [
+  {
+    q: 'What exactly does DUSA do?',
+    a: 'DUSA replaces the 10+ disconnected apps most businesses juggle with one platform. CRM, email, SMS, funnels, scheduling, payments, reviews, and AI automations, all under one login. Every lead gets chased, every booking gets confirmed, and every follow-up happens automatically.',
+  },
+  {
+    q: 'How much does it cost?',
+    a: 'Plans start at $149 per month. Most businesses we onboard are currently paying $800 to $1,100 per month across separate tools, so switching usually pays for itself several times over in the first month.',
+  },
+  {
+    q: 'Do I need to be technical?',
+    a: 'Not at all. We do the setup for you. Your CRM, automations, funnels, and integrations are configured by our team within the first week. If you can use email, you can run DUSA.',
+  },
+  {
+    q: 'What happens to my existing contacts and tools?',
+    a: 'We migrate everything. Contacts, campaigns, and data move across from your old tools as part of onboarding, and we train you and your team before you go live. Nothing gets lost in the switch.',
+  },
+  {
+    q: 'Am I locked into a contract?',
+    a: 'No. You can cancel anytime. We keep customers by being useful, not by locking the door.',
+  },
+  {
+    q: 'How fast can I be up and running?',
+    a: 'Your workspace is set up within days, and most businesses are fully live, with data migrated and team trained, inside two weeks.',
+  },
+  {
+    q: 'What if I get stuck?',
+    a: 'AI support is available 24/7 on every plan, and real humans back it up. Growth and Bespoke plans also get a dedicated account manager who checks in on you proactively.',
+  },
+];
+
+const items: { q: string; a: string }[] = s.items || defaultItems;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((it) => ({
+    '@type': 'Question',
+    name: it.q,
+    acceptedAnswer: { '@type': 'Answer', text: it.a },
+  })),
+};
+---
+
+<section class="faq section--dark" id="faq">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <div class="faq__inner">
+    <span class="faq__eyebrow reveal">{faqEyebrow}</span>
+    <h2 class="faq__heading reveal">
+      {faqHeading}
+      <span class="faq__accent gradient-text">{faqHeadingAccent}</span>
+    </h2>
+
+    <div class="faq__list">
+      {items.map((it, i) => (
+        <details class="faq__item reveal" {...(i === 0 ? { open: true } : {})}>
+          <summary class="faq__q">
+            <span>{it.q}</span>
+            <svg class="faq__chev" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 7l5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </summary>
+          <p class="faq__a">{it.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    position: relative;
+    background: var(--deep-black, #0C0E14);
+    padding: 6rem 2rem 7rem;
+  }
+
+  .faq::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(78, 216, 194, 0.1) 30%,
+      rgba(78, 216, 194, 0.06) 50%,
+      rgba(78, 216, 194, 0.1) 70%,
+      transparent
+    );
+  }
+
+  .faq__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .faq__eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono, 'Space Mono', monospace);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(78, 216, 194, 0.6);
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: 100px;
+    visibility: hidden;
+  }
+
+  .faq__heading {
+    font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--warm-white, #F7F4EF);
+    margin-bottom: 3rem;
+    visibility: hidden;
+  }
+
+  .faq__accent {
+    color: rgba(78, 216, 194, 0.9);
+  }
+
+  .faq__list {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .faq__item {
+    border: 1px solid rgba(78, 216, 194, 0.08);
+    border-radius: 12px;
+    background: rgba(247, 244, 239, 0.02);
+    transition: border-color 0.3s ease, background 0.3s ease;
+    visibility: hidden;
+  }
+
+  .faq__item:hover {
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+
+  .faq__item[open] {
+    background: rgba(247, 244, 239, 0.035);
+    border-color: rgba(78, 216, 194, 0.18);
+  }
+
+  .faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.4rem;
+    font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+    font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+    font-weight: 600;
+    color: var(--warm-white, #F7F4EF);
+    line-height: 1.35;
+  }
+
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__chev {
+    flex-shrink: 0;
+    color: rgba(78, 216, 194, 0.6);
+    transition: transform 0.25s ease;
+  }
+
+  .faq__item[open] .faq__chev {
+    transform: rotate(180deg);
+  }
+
+  .faq__a {
+    padding: 0 1.4rem 1.25rem;
+    font-size: 0.925rem;
+    line-height: 1.7;
+    color: rgba(247, 244, 239, 0.55);
+    max-width: 640px;
+  }
+
+  @media (max-width: 480px) {
+    .faq {
+      padding: 3.5rem 1.25rem 4rem;
+    }
+
+    .faq__eyebrow {
+      font-size: 0.625rem;
+      letter-spacing: 0.14em;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .faq__heading {
+      margin-bottom: 2rem;
+    }
+
+    .faq__q {
+      padding: 1rem 1.1rem;
+    }
+
+    .faq__a {
+      padding: 0 1.1rem 1.1rem;
+    }
+  }
+
+  /* ─── LIGHT MODE ─── */
+  :global(html[data-theme="light"]) .faq {
+    background: var(--warm-white);
+  }
+
+  :global(html[data-theme="light"]) .faq::before {
+    background: linear-gradient(to right, transparent, rgba(26, 58, 92, 0.12) 30%, rgba(26, 58, 92, 0.08) 50%, rgba(26, 58, 92, 0.12) 70%, transparent);
+  }
+
+  :global(html[data-theme="light"]) .faq__eyebrow {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .faq__heading {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .faq__accent {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .faq__item {
+    background: rgba(26, 58, 92, 0.03);
+    border-color: rgba(26, 58, 92, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .faq__item:hover,
+  :global(html[data-theme="light"]) .faq__item[open] {
+    border-color: rgba(26, 58, 92, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .faq__q {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .faq__chev {
+    color: rgba(26, 58, 92, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .faq__a {
+    color: rgba(12, 14, 20, 0.55);
+  }
+</style>

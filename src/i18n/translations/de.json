@@ -512,5 +512,40 @@
     "minRead": "Min. Lesezeit",
     "featuredLabel": "Empfohlen",
     "backToBlog": "Zurück zu Neuigkeiten"
+  },
+  "faq": {
+    "eyebrow": "Fragen? Beantwortet.",
+    "heading": "Alles, was Sie",
+    "headingAccent": "wissen möchten.",
+    "items": [
+      {
+        "q": "Was genau macht DUSA?",
+        "a": "DUSA ersetzt die mehr als 10 unverbundenen Apps, mit denen die meisten Unternehmen jonglieren, durch eine einzige Plattform. CRM, E-Mail, SMS, Funnels, Terminbuchung, Zahlungen, Bewertungen und KI-Automatisierungen, alles mit einem Login. Jeder Lead wird nachverfolgt, jede Buchung bestätigt und jedes Follow-up läuft automatisch."
+      },
+      {
+        "q": "Was kostet das?",
+        "a": "Die Tarife beginnen bei 149 $ pro Monat. Die meisten Unternehmen, die wir onboarden, zahlen aktuell 800 $ bis 1.100 $ pro Monat für separate Tools. Der Wechsel rechnet sich daher meist schon im ersten Monat mehrfach."
+      },
+      {
+        "q": "Muss ich technisch versiert sein?",
+        "a": "Überhaupt nicht. Wir übernehmen die Einrichtung für Sie. Ihr CRM, Ihre Automatisierungen, Funnels und Integrationen werden in der ersten Woche von unserem Team konfiguriert. Wer E-Mails schreiben kann, kann DUSA bedienen."
+      },
+      {
+        "q": "Was passiert mit meinen bestehenden Kontakten und Tools?",
+        "a": "Wir migrieren alles. Kontakte, Kampagnen und Daten ziehen im Rahmen des Onboardings aus Ihren alten Tools um, und wir schulen Sie und Ihr Team vor dem Start. Beim Wechsel geht nichts verloren."
+      },
+      {
+        "q": "Bin ich vertraglich gebunden?",
+        "a": "Nein. Sie können jederzeit kündigen. Wir halten unsere Kunden, indem wir nützlich sind, nicht indem wir die Tür abschließen."
+      },
+      {
+        "q": "Wie schnell bin ich startklar?",
+        "a": "Ihr Arbeitsbereich ist innerhalb weniger Tage eingerichtet, und die meisten Unternehmen sind in zwei Wochen vollständig live, mit migrierten Daten und geschultem Team."
+      },
+      {
+        "q": "Was ist, wenn ich nicht weiterkomme?",
+        "a": "KI-Support ist in allen Tarifen rund um die Uhr verfügbar, mit echten Menschen dahinter. Growth- und Bespoke-Tarife erhalten zusätzlich einen persönlichen Account Manager, der sich proaktiv meldet."
+      }
+    ]
   }
 }

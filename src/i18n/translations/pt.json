@@ -512,5 +512,40 @@
     "minRead": "min de leitura",
     "featuredLabel": "Destaque",
     "backToBlog": "Voltar para Notícias"
+  },
+  "faq": {
+    "eyebrow": "Perguntas? Respondidas.",
+    "heading": "Tudo o que você pode",
+    "headingAccent": "querer perguntar.",
+    "items": [
+      {
+        "q": "O que exatamente a DUSA faz?",
+        "a": "A DUSA substitui os mais de 10 aplicativos desconectados que a maioria dos negócios usa por uma única plataforma. CRM, email, SMS, funis, agendamento, pagamentos, avaliações e automações com IA, tudo com um único login. Cada lead recebe acompanhamento, cada reserva é confirmada e cada follow-up acontece automaticamente."
+      },
+      {
+        "q": "Quanto custa?",
+        "a": "Os planos começam em $149 por mês. A maioria dos negócios que integramos paga entre $800 e $1.100 por mês em ferramentas separadas, então a troca costuma se pagar várias vezes já no primeiro mês."
+      },
+      {
+        "q": "Preciso ser técnico?",
+        "a": "De jeito nenhum. Nós fazemos a configuração para você. Seu CRM, automações, funis e integrações são configurados pela nossa equipe na primeira semana. Se você sabe usar email, sabe usar a DUSA."
+      },
+      {
+        "q": "O que acontece com meus contatos e ferramentas atuais?",
+        "a": "Migramos tudo. Contatos, campanhas e dados são transferidos das suas ferramentas antigas durante o onboarding, e treinamos você e sua equipe antes do lançamento. Nada se perde na troca."
+      },
+      {
+        "q": "Fico preso a um contrato?",
+        "a": "Não. Você pode cancelar quando quiser. Mantemos nossos clientes sendo úteis, não trancando a porta."
+      },
+      {
+        "q": "Em quanto tempo posso começar?",
+        "a": "Seu espaço de trabalho fica pronto em dias, e a maioria dos negócios está totalmente no ar, com dados migrados e equipe treinada, em duas semanas."
+      },
+      {
+        "q": "E se eu ficar travado?",
+        "a": "O suporte com IA está disponível 24/7 em todos os planos, com pessoas reais por trás. Os planos Growth e Bespoke também incluem um gerente de conta dedicado que acompanha você de forma proativa."
+      }
+    ]
   }
 }

@@ -1,0 +1,36 @@
+# DUSA . studio
+
+> DUSA . studio (Digital Utility for Sales and Automation) is an all-in-one, AI-powered growth platform for small businesses. It replaces the 10+ disconnected apps most businesses juggle (CRM, email, SMS, funnels, scheduling, payments, review management, courses) with one system under one login. Setup, data migration and training are done for the customer. Based in Sydney, Australia, serving customers globally.
+
+Key facts:
+- Product category: all-in-one CRM and marketing automation platform for small businesses
+- Positioning: replaces separate subscriptions to tools like HubSpot, Mailchimp, ClickFunnels, Calendly, Birdeye and Zapier with a single platform
+- Pricing (AUD): Launchpad $47/month, Starter $149/month, Growth $297/month, Bespoke (custom). Annual billing gives 2 months free. All core plans include a 14-day free trial, cancel anytime.
+- Typical outcomes: replaces 5+ tools, saves customers $800+/month in software spend, 10+ hours/week of busywork automated with AI
+- Onboarding: done-for-you setup within the first week, migration and training in week two
+- Support: AI support 24/7 on all plans; dedicated account manager on Growth and Bespoke plans
+- Founded by Eliah Lade. Contact: contact@dusa.studio, +61 488 825 686
+
+## Main pages
+
+- [Homepage](https://dusa.studio/): what DUSA is and does, with FAQ
+- [Pricing](https://dusa.studio/pricing): plans, inclusions and pricing FAQ
+- [Services](https://dusa.studio/services): custom AI, social media management, integrations and IT support beyond the platform
+- [Onboarding](https://dusa.studio/onboarding): the sign-up to launch process
+- [Industries](https://dusa.studio/industries): solutions for real estate, gyms, trades, restaurants, salons, accountants, dentists, photographers, construction, personal trainers, cleaning services, law firms, property managers, auto repair, coaches and e-commerce
+- [About](https://dusa.studio/about): company background
+- [Contact](https://dusa.studio/contact): get in touch or book a demo
+
+## Comparisons
+
+- [DUSA vs HubSpot](https://dusa.studio/blog/dusa-vs-hubspot)
+- [DUSA vs Mailchimp](https://dusa.studio/blog/dusa-vs-mailchimp)
+- [DUSA vs ClickFunnels](https://dusa.studio/blog/dusa-vs-clickfunnels)
+- [DUSA vs ActiveCampaign](https://dusa.studio/blog/dusa-vs-activecampaign)
+- [DUSA vs Keap](https://dusa.studio/blog/dusa-vs-keap)
+
+## Guides
+
+- [Blog and guides](https://dusa.studio/blog): 60+ articles on CRM, marketing automation, lead generation and growth for small businesses
+
+The site is also available in Spanish (/es, /mx), Portuguese (/br), French (/fr) and German (/de), with regional pricing for the US (/us) and UK (/uk).

@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import t from '../i18n/translations/en.json';
+import { SAAS_PLANS } from '../config/saas-links';
+
+const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
 ---
 
-<BaseLayout t={t} title="Start Your Free Trial | DUSA . studio" description="Get full access to DUSA's all-in-one growth platform for 14 days. No credit card required. CRM, email, SMS, funnels, booking, and reputation management.">
+<BaseLayout t={t} title="Start Your Free Trial | DUSA . studio" description="Get full access to DUSA's all-in-one growth platform free for 14 days. Cancel anytime. CRM, email, SMS, funnels, booking, and reputation management.">
 
   <!-- ─── HERO ─── -->
   <section class="trial-hero section section--dark">
@@ -11,11 +14,11 @@ import t from '../i18n/translations/en.json';
       <div class="trial-hero__content">
         <span class="label">14-Day Free Trial</span>
         <h1>Start growing <span class="gradient-text">today</span></h1>
-        <p class="trial-hero__sub">Full platform access. No credit card required. Set up in under 10 minutes.</p>
+        <p class="trial-hero__sub">Pick a plan, activate your trial, and be inside your platform in minutes. $0 today. Cancel anytime before day 14 and pay nothing.</p>
         <div class="trial-hero__badges">
           <span class="trial-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            No credit card
+            $0 today
           </span>
           <span class="trial-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
@@ -30,12 +33,56 @@ import t from '../i18n/translations/en.json';
     </div>
   </section>
 
+  {linksReady && (
+  <!-- ─── PLAN CHOOSER: the activation path ─── -->
+  <section class="activate section section--dark" style="padding-top:0;" id="activate">
+    <div class="container">
+      <div class="activate__toggle-wrap">
+        <div class="activate__toggle" role="tablist" aria-label="Billing cycle">
+          <button class="activate__toggle-btn is-active" id="cycle-monthly" role="tab" aria-selected="true">Monthly</button>
+          <button class="activate__toggle-btn" id="cycle-annual" role="tab" aria-selected="false">Annual <span class="activate__toggle-badge">2 months free</span></button>
+        </div>
+      </div>
+
+      <div class="activate__grid">
+        {SAAS_PLANS.map((plan) => (
+          <div class={`activate__card${plan.highlight ? ' activate__card--highlight' : ''}`} data-plan={plan.id}>
+            {plan.highlight && <span class="activate__popular">Most popular</span>}
+            <h3 class="activate__name">{plan.name}</h3>
+            <p class="activate__blurb">{plan.blurb}</p>
+            <div class="activate__price">
+              <span class="activate__price-num" data-monthly={`$${plan.monthlyPrice}`} data-annual={`$${plan.annualPrice}`}>${plan.monthlyPrice}</span>
+              <span class="activate__price-per" data-monthly="/month AUD" data-annual="/year AUD">/month AUD</span>
+            </div>
+            <ul class="activate__features">
+              {plan.features.map((f) => (
+                <li>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="20 6 9 17 4 12"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a class={`btn ${plan.highlight ? 'btn--primary' : 'btn--outline'} activate__btn`} href={plan.links.monthly} data-monthly={plan.links.monthly} data-annual={plan.links.annual} target="_blank" rel="noopener">
+              Start free trial
+            </a>
+            <p class="activate__note">14 days free &middot; then ${plan.monthlyPrice}/mo &middot; cancel anytime</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="activate__assist">Not sure which plan? <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer">Book a free demo</a> or leave your details below and we'll set it up with you.</p>
+    </div>
+  </section>
+  )}
+
   <!-- ─── FORM + VALUE PROPS ─── -->
   <section class="trial section section--dark" style="padding-top:0;" id="trial">
     <div class="container">
       <div class="trial__layout">
-        <!-- Signup Form -->
+        <!-- Assisted path: lead form -->
         <div class="trial__form-wrap">
+          <h2 class="trial__form-heading">Prefer it set up <span class="gradient-text">with you?</span></h2>
+          <p class="trial__form-sub">Leave your details and we'll walk you through the platform and set up your trial together.</p>
           <form class="trial__form" id="trial-form">
             <div class="trial__field">
               <label class="trial__label" for="trial-fname">First Name *</label>
@@ -805,7 +852,247 @@ import t from '../i18n/translations/en.json';
   :global(html[data-theme="light"]) .trial__status--error a {
     color: var(--deep-ocean);
   }
+  .trial__form-heading {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--warm-white);
+    margin-bottom: 6px;
+  }
+
+  .trial__form-sub {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.5);
+    margin-bottom: var(--space-md);
+  }
+
+  /* ─── Plan chooser / activation ─── */
+  .activate__toggle-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .activate__toggle {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    border-radius: 100px;
+    background: rgba(247, 244, 239, 0.03);
+  }
+
+  .activate__toggle-btn {
+    border: none;
+    background: transparent;
+    color: rgba(247, 244, 239, 0.6);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1.1rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .activate__toggle-btn.is-active {
+    background: rgba(78, 216, 194, 0.14);
+    color: var(--reef-aqua);
+  }
+
+  .activate__toggle-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--reef-aqua);
+    margin-left: 4px;
+  }
+
+  .activate__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .activate__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    border: 1px solid rgba(247, 244, 239, 0.09);
+    border-radius: 18px;
+    background: rgba(247, 244, 239, 0.02);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .activate__card:hover {
+    border-color: rgba(78, 216, 194, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .activate__card--highlight {
+    border-color: rgba(78, 216, 194, 0.45);
+    background: rgba(78, 216, 194, 0.045);
+  }
+
+  .activate__card.is-preselected {
+    box-shadow: 0 0 0 2px rgba(78, 216, 194, 0.5), 0 18px 50px rgba(0, 0, 0, 0.3);
+  }
+
+  .activate__popular {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--deep-black);
+    background: var(--reef-aqua);
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .activate__name {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--warm-white);
+    margin-bottom: 6px;
+  }
+
+  .activate__blurb {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: rgba(247, 244, 239, 0.5);
+    margin-bottom: var(--space-sm);
+    min-height: 2.6em;
+  }
+
+  .activate__price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .activate__price-num {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--warm-white);
+  }
+
+  .activate__price-per {
+    font-size: 0.85rem;
+    color: rgba(247, 244, 239, 0.45);
+  }
+
+  .activate__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    flex-grow: 1;
+  }
+
+  .activate__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  .activate__features svg {
+    color: var(--reef-aqua);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .activate__btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .activate__note {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(247, 244, 239, 0.4);
+  }
+
+  .activate__assist {
+    text-align: center;
+    margin-top: var(--space-lg);
+    font-size: 0.9rem;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  .activate__assist a {
+    color: var(--reef-aqua);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .activate__grid {
+      grid-template-columns: 1fr;
+      max-width: 440px;
+    }
+
+    .activate__card--highlight {
+      order: -1;
+    }
+  }
 </style>
+
+<script>
+  // ─── Plan chooser: billing toggle + ?plan= preselect ───
+  function initActivate() {
+    const section = document.getElementById('activate');
+    if (!section) return;
+
+    const mBtn = document.getElementById('cycle-monthly');
+    const aBtn = document.getElementById('cycle-annual');
+
+    function setCycle(cycle) {
+      const monthly = cycle === 'monthly';
+      mBtn.classList.toggle('is-active', monthly);
+      aBtn.classList.toggle('is-active', !monthly);
+      mBtn.setAttribute('aria-selected', monthly ? 'true' : 'false');
+      aBtn.setAttribute('aria-selected', monthly ? 'false' : 'true');
+      section.querySelectorAll('[data-monthly]').forEach(function (el) {
+        const val = el.getAttribute(monthly ? 'data-monthly' : 'data-annual');
+        if (el.tagName === 'A') el.setAttribute('href', val);
+        else el.textContent = val;
+      });
+    }
+
+    mBtn.addEventListener('click', function () { setCycle('monthly'); });
+    aBtn.addEventListener('click', function () { setCycle('annual'); });
+
+    // Preselect the plan passed from pricing cards (/start?plan=starter)
+    const wanted = new URLSearchParams(window.location.search).get('plan');
+    if (wanted) {
+      const card = section.querySelector('[data-plan="' + wanted + '"]');
+      if (card) card.classList.add('is-preselected');
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initActivate);
+  } else {
+    initActivate();
+  }
+</script>
 
 <script>
   function initTrialAnimations() {

@@ -823,6 +823,25 @@ chat-widget {
   z-index: 2147483000;
 }
 
+/* ─── Uniform hero clearance under the fixed nav ───────────────────────
+   Every page's opening section must clear the 88px fixed nav by the same
+   margin. Individual pages had drifted (some at 40px = clipped under the
+   nav, onboarding at 184px = a chasm). One rule, one rhythm, all pages.
+   The homepage hero and /start manage their own larger layouts. */
+.pricing-hero, .ind-hero, .industry-hero, .blog-hero, .legal-hero,
+.services-hero, .contact-hero, .about-hero, .ob-hero, .ar-hero,
+.co-hero, .ec-hero, .pm-hero, .thankyou {
+  padding-top: calc(var(--nav-height) + 48px) !important;
+}
+
+@media (max-width: 768px) {
+  .pricing-hero, .ind-hero, .industry-hero, .blog-hero, .legal-hero,
+  .services-hero, .contact-hero, .about-hero, .ob-hero, .ar-hero,
+  .co-hero, .ec-hero, .pm-hero, .thankyou {
+    padding-top: calc(var(--nav-height) + 28px) !important;
+  }
+}
+
 @keyframes chat-widget-appear {
   to {
     visibility: visible;

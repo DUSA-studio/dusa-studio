@@ -1056,6 +1056,53 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
       order: -1;
     }
   }
+
+  /* ─── Light mode ─── */
+  :global(html[data-theme="light"]) .activate__card {
+    border-color: rgba(26, 58, 92, 0.12);
+    background: rgba(26, 58, 92, 0.03);
+  }
+
+  :global(html[data-theme="light"]) .activate__card--highlight {
+    border-color: rgba(26, 58, 92, 0.3);
+    background: rgba(78, 216, 194, 0.07);
+  }
+
+  :global(html[data-theme="light"]) .activate__name,
+  :global(html[data-theme="light"]) .activate__price-num {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .activate__blurb {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .activate__price-per,
+  :global(html[data-theme="light"]) .activate__note {
+    color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .activate__features li {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .activate__assist {
+    color: rgba(12, 14, 20, 0.6);
+  }
+
+  :global(html[data-theme="light"]) .activate__toggle {
+    border-color: rgba(12, 14, 20, 0.12);
+    background: rgba(12, 14, 20, 0.03);
+  }
+
+  :global(html[data-theme="light"]) .activate__toggle-btn {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .activate__toggle-btn.is-active {
+    background: rgba(78, 216, 194, 0.2);
+    color: #0d7a68;
+  }
 </style>
 
 <script>

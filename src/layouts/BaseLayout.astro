@@ -23,6 +23,11 @@ const {
   t = {},
 } = Astro.props;
 
+// Clamp meta descriptions to 160 chars at a word boundary (SERP hygiene).
+const seoDescription = description.length <= 160
+  ? description
+  : description.slice(0, 157).replace(/\s+\S*$/, '') + '…';
+
 /* ─── Canonical + hreflang logic ─── */
 const siteBase = 'https://dusa.studio';
 const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -88,7 +93,7 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    <meta name="description" content={seoDescription} />
     <meta name="theme-color" content="#0C0E14" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
@@ -116,7 +121,7 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={seoDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content="https://dusa.studio/og-default.jpg" />
@@ -125,7 +130,7 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={seoDescription} />
     <meta name="twitter:image" content="https://dusa.studio/og-default.jpg" />
 
     <!-- Breadcrumb structured data -->

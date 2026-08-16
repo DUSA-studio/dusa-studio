@@ -27,6 +27,23 @@ const {
 
 const siteBase = 'https://dusa.studio';
 const canonicalUrl = `${siteBase}/blog/${slug}`;
+
+// SERP hygiene: keep <title> within ~62 chars and the meta description
+// within 160. Long "Main phrase: subtitle" titles fall back to the main
+// phrase; anything still too long is clamped at a word boundary. The
+// on-page H1 always shows the full title — this only shapes the SERP.
+function clampTitle(t) {
+  if (t.length <= 46) return `${t} | DUSA . studio`;
+  if (t.length <= 62) return t;
+  const main = t.split(':')[0].trim();
+  if (main.length >= 18 && main.length <= 46) return `${main} | DUSA . studio`;
+  if (main.length > 18 && main.length <= 62) return main;
+  return t.slice(0, 59).replace(/\s+\S*$/, '') + '…';
+}
+const seoTitle = clampTitle(title);
+const seoDescription = description.length <= 160
+  ? description
+  : description.slice(0, 157).replace(/\s+\S*$/, '') + '…';
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteBase}${ogImage}`;
 const formattedDate = new Date(publishDate).toLocaleDateString('en-AU', {
   day: 'numeric',
@@ -133,12 +150,12 @@ const jsonLd = JSON.stringify({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    <meta name="description" content={seoDescription} />
     <meta name="theme-color" content="#0C0E14" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonicalUrl} />
-    <title>{title} | DUSA . studio</title>
+    <title>{seoTitle}</title>
 
     <!-- Hreflang alternate links -->
     {hreflangs.map(({ hreflang, prefix }) => (
@@ -159,8 +176,8 @@ const jsonLd = JSON.stringify({
     </script>
 
     <!-- Open Graph -->
-    <meta property="og:title" content={`${title} | DUSA . studio`} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={seoTitle} />
+    <meta property="og:description" content={seoDescription} />
     <meta property="og:type" content="article" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
@@ -173,7 +190,7 @@ const jsonLd = JSON.stringify({
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={seoDescription} />
     <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- JSON-LD Structured Data -->

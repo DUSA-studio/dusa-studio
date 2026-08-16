@@ -691,7 +691,9 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
 
   @media (max-width: 480px) {
     .trial-hero {
-      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      /* !important: a late-loading global .section mobile rule was collapsing
+         this to 40px, sliding the hero under the fixed nav */
+      padding-top: calc(var(--nav-height) + var(--space-lg)) !important;
       padding-bottom: var(--space-lg);
     }
 
@@ -858,6 +860,14 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
     line-height: 1.6;
     color: rgba(247, 244, 239, 0.5);
     margin-bottom: var(--space-md);
+  }
+
+  :global(html[data-theme="light"]) .trial__form-heading {
+    color: var(--deep-black);
+  }
+
+  :global(html[data-theme="light"]) .trial__form-sub {
+    color: rgba(12, 14, 20, 0.55);
   }
 
   /* ─── Plan chooser / activation ─── */

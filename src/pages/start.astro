@@ -65,7 +65,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
             <a class={`btn ${plan.highlight ? 'btn--primary' : 'btn--outline'} activate__btn`} href={plan.links.monthly} data-monthly={plan.links.monthly} data-annual={plan.links.annual} target="_blank" rel="noopener">
               Start free trial
             </a>
-            <p class="activate__note">14 days free &middot; then ${plan.monthlyPrice}/mo &middot; cancel anytime</p>
+            <p class="activate__note" data-monthly={`14 days free · then $${plan.monthlyPrice}/mo · cancel anytime`} data-annual={`14 days free · then $${plan.annualPrice}/yr · cancel anytime`}>14 days free &middot; then ${plan.monthlyPrice}/mo &middot; cancel anytime</p>
           </div>
         ))}
       </div>

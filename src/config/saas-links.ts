@@ -32,8 +32,8 @@ export const SAAS_PLANS: SaasPlan[] = [
       'Basic analytics',
     ],
     links: {
-      monthly: '#pending',
-      annual: '#pending',
+      monthly: 'https://buy.stripe.com/fZudRb9o6dSD4Tv0QweAg0c',
+      annual: 'https://buy.stripe.com/9B6dRb0RA5m785H42IeAg0d',
     },
   },
   {
@@ -50,8 +50,8 @@ export const SAAS_PLANS: SaasPlan[] = [
       'Email support',
     ],
     links: {
-      monthly: '#pending',
-      annual: '#pending',
+      monthly: 'https://buy.stripe.com/28E9AVgQybKvfy99n2eAg0e',
+      annual: 'https://buy.stripe.com/14A7sN6bU29V5Xz8iYeAg0f',
     },
   },
   {
@@ -68,8 +68,8 @@ export const SAAS_PLANS: SaasPlan[] = [
       'Priority support + account manager',
     ],
     links: {
-      monthly: '#pending',
-      annual: '#pending',
+      monthly: 'https://buy.stripe.com/6oU28tgQy8yjgCd8iYeAg0k',
+      annual: 'https://buy.stripe.com/cNi4gB2ZI3dZdq142IeAg0l',
     },
   },
 ];

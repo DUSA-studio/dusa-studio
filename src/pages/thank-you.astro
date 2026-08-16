@@ -216,10 +216,7 @@ import t from '../i18n/translations/en.json';
     }
   }
 
-  /* ─── GSAP HIDDEN UNTIL JS ─── */
-  .thankyou__content {
-    visibility: hidden;
-  }
+  /* Conversion elements render immediately; motion is additive only. */
 
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .thankyou__sub {
@@ -272,7 +269,7 @@ import t from '../i18n/translations/en.json';
     gsap.registerPlugin(ScrollTrigger);
     document.documentElement.classList.add('gsap-ready');
 
-    gsap.set('.thankyou__content', { visibility: 'visible' });
+    /* elements start visible */
 
     // Stagger the content in
     gsap.fromTo('.thankyou__icon',
@@ -281,18 +278,18 @@ import t from '../i18n/translations/en.json';
     );
 
     gsap.fromTo('.thankyou__content .label, .thankyou__content h1, .thankyou__sub',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.3 }
+      { y: 20 },
+      { y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.3 }
     );
 
     gsap.fromTo('.thankyou__step',
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: 'power3.out', delay: 0.6 }
+      { y: 25 },
+      { y: 0, duration: 0.5, stagger: 0.15, ease: 'power3.out', delay: 0.6 }
     );
 
     gsap.fromTo('.thankyou__actions, .thankyou__help',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 1.05 }
+      { y: 20 },
+      { y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 1.05 }
     );
   }
   initThankYouAnimations();

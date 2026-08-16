@@ -704,16 +704,10 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
     }
   }
 
-  /* ─── GSAP HIDDEN UNTIL JS ─── */
-  .trial-hero__content,
-  .trial__form-wrap,
-  .trial__value-item,
-  .trial__testimonials,
-  .trial-features__header,
-  .trial-features__card,
-  .trial-cta__content {
-    visibility: hidden;
-  }
+  /* Conversion elements are NEVER animation-gated on this page. The old
+     visibility:hidden + GSAP entrance pattern left the entire page blank
+     whenever a tween stalled. Everything renders immediately; GSAP only
+     adds motion on top for below-the-fold sections. */
 
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .trial-hero__sub {
@@ -1103,61 +1097,23 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
     gsap.registerPlugin(ScrollTrigger);
     document.documentElement.classList.add('gsap-ready');
 
-    // Make elements visible
-    gsap.set('.trial-hero__content, .trial__form-wrap, .trial__value-item, .trial__testimonials, .trial-features__header, .trial-features__card, .trial-cta__content', {
-      visibility: 'visible',
+    // Above-the-fold (hero, form, plan chooser) renders with no animation:
+    // a stalled tween must never blank the money page. Below-the-fold
+    // sections get a light scroll-in that starts VISIBLE and only moves.
+    gsap.from('.trial-features__header', {
+      y: 24, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '.trial-features__header', start: 'top 85%', once: true }
     });
 
-    // Hero
-    gsap.fromTo('.trial-hero__content',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
-    );
+    gsap.from('.trial-features__card', {
+      y: 20, duration: 0.5, stagger: 0.08, ease: 'power3.out',
+      scrollTrigger: { trigger: '.trial-features__grid', start: 'top 85%', once: true }
+    });
 
-    // Form
-    gsap.fromTo('.trial__form-wrap',
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.25 }
-    );
-
-    // Value items
-    gsap.fromTo('.trial__value-item',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 0.35 }
-    );
-
-    // Testimonials
-    gsap.fromTo('.trial__testimonials',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.75 }
-    );
-
-    // Features header
-    gsap.fromTo('.trial-features__header',
-      { y: 30, opacity: 0 },
-      {
-        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
-        scrollTrigger: { trigger: '.trial-features__header', start: 'top 85%', once: true }
-      }
-    );
-
-    // Features cards
-    gsap.fromTo('.trial-features__card',
-      { y: 25, opacity: 0 },
-      {
-        y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out',
-        scrollTrigger: { trigger: '.trial-features__grid', start: 'top 85%', once: true }
-      }
-    );
-
-    // Bottom CTA
-    gsap.fromTo('.trial-cta__content',
-      { y: 25, opacity: 0 },
-      {
-        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
-        scrollTrigger: { trigger: '.trial-cta__content', start: 'top 85%', once: true }
-      }
-    );
+    gsap.from('.trial-cta__content', {
+      y: 20, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '.trial-cta__content', start: 'top 85%', once: true }
+    });
   }
   initTrialAnimations();
 

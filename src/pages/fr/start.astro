@@ -661,16 +661,7 @@ const region = 'fr';
     }
   }
 
-  /* ─── GSAP HIDDEN UNTIL JS ─── */
-  .trial-hero__content,
-  .trial__form-wrap,
-  .trial__value-item,
-  .trial__testimonials,
-  .trial-features__header,
-  .trial-features__card,
-  .trial-cta__content {
-    visibility: hidden;
-  }
+  /* Conversion elements render immediately; motion is additive only. */
 
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .trial-hero__sub {
@@ -821,57 +812,55 @@ const region = 'fr';
     document.documentElement.classList.add('gsap-ready');
 
     // Make elements visible
-    gsap.set('.trial-hero__content, .trial__form-wrap, .trial__value-item, .trial__testimonials, .trial-features__header, .trial-features__card, .trial-cta__content', {
-      visibility: 'visible',
-    });
+    /* elements start visible */
 
     // Hero
     gsap.fromTo('.trial-hero__content',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+      { y: 30 },
+      { y: 0, duration: 0.8, ease: 'power3.out', delay: 0.1 }
     );
 
     // Form
     gsap.fromTo('.trial__form-wrap',
-      { y: 25, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.25 }
+      { y: 25 },
+      { y: 0, duration: 0.8, ease: 'power3.out', delay: 0.25 }
     );
 
     // Value items
     gsap.fromTo('.trial__value-item',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 0.35 }
+      { y: 20 },
+      { y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out', delay: 0.35 }
     );
 
     // Testimonials
     gsap.fromTo('.trial__testimonials',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.75 }
+      { y: 20 },
+      { y: 0, duration: 0.6, ease: 'power3.out', delay: 0.75 }
     );
 
     // Features header
     gsap.fromTo('.trial-features__header',
-      { y: 30, opacity: 0 },
+      { y: 30 },
       {
-        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+        y: 0, duration: 0.7, ease: 'power3.out',
         scrollTrigger: { trigger: '.trial-features__header', start: 'top 85%', once: true }
       }
     );
 
     // Features cards
     gsap.fromTo('.trial-features__card',
-      { y: 25, opacity: 0 },
+      { y: 25 },
       {
-        y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+        y: 0, duration: 0.5, stagger: 0.1, ease: 'power3.out',
         scrollTrigger: { trigger: '.trial-features__grid', start: 'top 85%', once: true }
       }
     );
 
     // Bottom CTA
     gsap.fromTo('.trial-cta__content',
-      { y: 25, opacity: 0 },
+      { y: 25 },
       {
-        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+        y: 0, duration: 0.7, ease: 'power3.out',
         scrollTrigger: { trigger: '.trial-cta__content', start: 'top 85%', once: true }
       }
     );

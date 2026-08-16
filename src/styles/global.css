@@ -817,6 +817,10 @@ chat-widget {
   visibility: hidden;
   opacity: 0;
   animation: chat-widget-appear 0.5s ease 12s forwards;
+  /* The animation creates a stacking context, which dropped the widget
+     BEHIND page elements (pricing badges etc). Pin it above everything. */
+  position: relative;
+  z-index: 2147483000;
 }
 
 @keyframes chat-widget-appear {

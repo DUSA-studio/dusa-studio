@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { INDUSTRY_ICONS } from '../../../config/industry-icons';
 import { t } from '../../../i18n/t.js';
 import tData from '../../../i18n/translations/de.json';
 const lang = 'de';
@@ -10,97 +11,81 @@ const industries = [
     title: 'Immobilien',
     desc: 'Pipeline-Management, automatisierte Nachfassaktionen nach Besichtigungen und Käufer-Matching für Makler, die mehr Abschlüsse erzielen wollen.',
     slug: '/de/industries/real-estate',
-    icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z',
   },
   {
     title: 'Fitnessstudios',
     desc: 'Mitglieder-Onboarding, Kurserinnerungen, Rückgewinnungskampagnen und Empfehlungstracking, um Abwanderung zu reduzieren und Kurse zu füllen.',
     slug: '/de/industries/gyms',
-    icon: 'M6.5 6.5h11M6 12h12M17.5 17.5h-11M20 21V3M4 21V3',
   },
   {
     title: 'Handwerk',
     desc: 'Verpasste-Anruf-SMS, Angebotspipelines, Terminplanung und Rechnungserinnerungen für Handwerker, die zu beschäftigt auf der Baustelle sind.',
     slug: '/de/industries/tradies',
-    icon: 'M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z',
   },
   {
     title: 'Restaurants',
     desc: 'Reservierungserinnerungen, Bewertungsanfragen nach dem Besuch, Geburtstagskampagnen und digitale Treueprogramme.',
     slug: '/de/industries/restaurants',
-    icon: 'M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3',
   },
   {
     title: 'Salons und Spas',
     desc: 'Online-Buchung, automatische Erinnerungen, Wiederbuchungskampagnen und Kundenpräferenz-Tracking, um jeden Platz zu füllen.',
     slug: '/de/industries/salons',
-    icon: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z',
   },
   {
     title: 'Steuerberater',
     desc: 'Automatisierte Dokumentenerfassung, Fristenerinnerungen und ganzjährige Mandantenbindung über die Steuersaison hinaus.',
     slug: '/de/industries/accountants',
-    icon: 'M4 2v20h16V8l-6-6H4zM14 2v6h6M8 13h8M8 17h8M8 9h2',
   },
   {
     title: 'Zahnarztpraxen',
     desc: 'Recall-Erinnerungen, Neupatientengewinnung, Bewertungsgenerierung und automatische Nachverfolgung von Behandlungsplänen.',
     slug: '/de/industries/dentists',
-    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
   },
   {
     title: 'Fotografen',
     desc: 'Automatische Antworten auf Anfragen, Vertragsworkflows, Terminerinnerungen, Galerieversand und Print-Upsell-Sequenzen.',
     slug: '/de/industries/photographers',
-    icon: 'M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2zM12 17a4 4 0 100-8 4 4 0 000 8z',
   },
   {
     title: 'Bauunternehmen',
     desc: 'Lead-Tracking, Angebotsnachverfolgung, Meilenstein-Kommunikation und Zahlungseinzug für Bauunternehmer.',
     slug: '/de/industries/construction',
-    icon: 'M2 20h20M5 20V10l7-7 7 7v10M9 20v-6h6v6',
   },
   {
     title: 'Personal Trainer',
     desc: 'Lead-Magnet-Funnels, Beratungsbuchung, Transformations-Showcases und automatisierte Kunden-Check-ins.',
     slug: '/de/industries/personal-trainers',
-    icon: 'M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M8.5 11a4 4 0 100-8 4 4 0 000 8zM20 8v6M23 11h-6',
   },
   {
     title: 'Reinigungsdienste',
     desc: 'Verwaltung wiederkehrender Buchungen, Qualitätsnachfragen, Teamplanung und Upsell-Kampagnen für Reinigungsunternehmen.',
     slug: '/de/industries/cleaning-services',
-    icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
   },
   {
     title: 'Anwaltskanzleien',
     desc: 'Automatisierte Aufnahmeformulare, Fallstatus-Updates, Empfehlungstracking und Thought-Leadership-Inhalte im Rahmen der Compliance.',
     slug: '/de/industries/law-firms',
-    icon: 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z',
   },
   {
     title: 'Hausverwaltungen',
     desc: 'Automatisierung des Mieter-Lebenszyklus, Wartungsanfrage-Pipelines, Mieterinnerungen und Mietvertragsverlängerungskampagnen.',
     slug: '/de/industries/property-managers',
-    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2m-16 0H3M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1',
   },
   {
     title: 'Autowerkstätten',
     desc: 'Automatische Serviceerinnerungen, saisonale Kampagnen, Bewertungsgenerierung und Treueprogramme für Werkstätten.',
     slug: '/de/industries/auto-repair',
-    icon: 'M12 15a3 3 0 100-6 3 3 0 000 6zM19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z',
   },
   {
     title: 'Coaches und Berater',
     desc: 'Discovery-Call-Funnels, Onboarding-Sequenzen, Terminplanung und Testimonial-Sammlung, um Ihre Praxis zu skalieren.',
     slug: '/de/industries/coaches',
-    icon: 'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
   },
   {
     title: 'E-Commerce',
     desc: 'Post-Purchase-Sequenzen, Bewertungsautomatisierung, Cross-Sell-Flows, VIP-Segmentierung und Geburtstagsbelohnungen.',
     slug: '/de/industries/ecommerce',
-    icon: 'M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0',
   },
 ];
 ---
@@ -131,7 +116,7 @@ const industries = [
           <a href={ind.slug} class="ind-card">
             <div class="ind-card__icon-wrap">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d={ind.icon} />
+                <path d={INDUSTRY_ICONS[ind.slug.split('/').pop()]} />
               </svg>
             </div>
             <h2 class="ind-card__title">{ind.title}</h2>

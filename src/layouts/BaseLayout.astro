@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { stripRegion, urlFor, navRoutesByRegion, REGION_PREFIXES } from '../i18n/routes';
 import '../styles/global.css';
 
 interface Props {
@@ -39,25 +40,32 @@ const localeMatch = rawPath.match(localePattern);
 const basePath = localeMatch ? rawPath.replace(localePattern, '/').replace(/^\/$/, '') : rawPath;
 const pagePath = basePath === '/' ? '' : basePath;
 
-// Hreflang definitions — all supported locale/region combos
-// US and UK only have /pricing, so only include their hreflang on pages that exist
-const usUkPages = ['', '/pricing']; // root (homepage) and /pricing only
-const allHreflangs = [
-  { hreflang: 'en-au', prefix: '' },
-  { hreflang: 'en-us', prefix: '/us' },
-  { hreflang: 'en-gb', prefix: '/uk' },
-  { hreflang: 'es-es', prefix: '/es' },
-  { hreflang: 'es-mx', prefix: '/mx' },
-  { hreflang: 'pt-br', prefix: '/br' },
-  { hreflang: 'fr-fr', prefix: '/fr' },
-  { hreflang: 'de-de', prefix: '/de' },
-];
-const hreflangs = allHreflangs.filter(({ hreflang }) => {
-  if (hreflang === 'en-us' || hreflang === 'en-gb') {
-    return usUkPages.includes(pagePath);
-  }
-  return true;
-});
+// Hreflang definitions — emitted ONLY for regions where this page actually
+// exists. Page coverage is uneven (61 EN blog posts vs 1 DE, and /us + /uk are
+// pricing-only), so anything hand-maintained drifts and ends up advertising
+// 404s to Google. Routes are read from the filesystem at build time instead.
+const HREFLANG_BY_REGION: Record<string, string> = {
+  au: 'en-au', us: 'en-us', uk: 'en-gb', es: 'es-es',
+  mx: 'es-mx', br: 'pt-br', fr: 'fr-fr', de: 'de-de',
+};
+
+const { basePath: hreflangBasePath } = stripRegion(rawPath);
+
+const hreflangs = REGION_PREFIXES
+  .map((r) => ({ region: r, hreflang: HREFLANG_BY_REGION[r], href: urlFor(r, hreflangBasePath) }))
+  .filter((x): x is { region: typeof REGION_PREFIXES[number]; hreflang: string; href: string } => x.href !== null);
+
+// Which regions this page is reachable in — handed to the switcher so it can
+// never send someone to a page that does not exist.
+const regionAlternates: Record<string, string> = Object.fromEntries(
+  hreflangs.map(({ region, href }) => [region, href])
+);
+// Which top-level pages each region actually has (blog posts collapsed).
+const regionRoutes = navRoutesByRegion();
+// Regions that have a homepage to fall back to.
+const regionHomes: Record<string, string> = Object.fromEntries(
+  REGION_PREFIXES.map((r) => [r, urlFor(r, '/')]).filter(([, href]) => href !== null) as [string, string][]
+);
 
 /* ─── Breadcrumb schema (non-homepage only) ─── */
 const isHomepage = rawPath === '/' || rawPath === '';
@@ -102,10 +110,10 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     <title>{title}</title>
 
     <!-- Hreflang alternate links for international SEO -->
-    {hreflangs.map(({ hreflang, prefix }) => (
-      <link rel="alternate" hreflang={hreflang} href={`${siteBase}${prefix}${pagePath}`} />
+    {hreflangs.map(({ hreflang, href }) => (
+      <link rel="alternate" hreflang={hreflang} href={`${siteBase}${href === '/' ? '' : href}`} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={`${siteBase}${pagePath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteBase}${(regionAlternates.au ?? rawPath) === '/' ? '' : (regionAlternates.au ?? rawPath)}`} />
 
     <!-- Theme detection — runs before paint to prevent flash -->
     <script is:inline>
@@ -163,7 +171,7 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     </noscript>
   </head>
   <body>
-    <Nav t={t} />
+    <Nav t={t} regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
     <main>
       <slot />
     </main>

@@ -4,9 +4,15 @@ import { INDUSTRY_ICONS } from '../config/industry-icons';
 
 interface Props {
   t?: Record<string, any>;
+  /** Real URLs of this page in each region (build-time; only ones that exist). */
+  regionAlternates?: Record<string, string>;
+  /** Homepage URL for each region that has one. */
+  regionHomes?: Record<string, string>;
+  /** Region-stripped page paths available in each region. */
+  regionRoutes?: Record<string, string[]>;
 }
 
-const { t = {} } = Astro.props;
+const { t = {}, regionAlternates = {}, regionHomes = {}, regionRoutes = {} } = Astro.props;
 
 const n = t?.nav || {};
 const pricingLabel = n.pricing || 'Pricing';
@@ -97,6 +103,7 @@ const industryLinks = [
           <button class="nav__region-option" data-region="fr"><span class="nav__region-flag">🇫🇷</span> France <span class="nav__region-currency">EUR</span></button>
           <button class="nav__region-option" data-region="de"><span class="nav__region-flag">🇩🇪</span> Deutschland <span class="nav__region-currency">EUR</span></button>
         </div>
+        <script type="application/json" id="dusa-region-map" set:html={JSON.stringify({ alternates: regionAlternates, homes: regionHomes, routes: regionRoutes })}></script>
       </div>
       <a href="/start" class="btn btn--primary nav__cta">{getStartedLabel}</a>
       <button class="nav__theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
@@ -1139,18 +1146,26 @@ const industryLinks = [
   const regionToggle = document.getElementById('region-toggle');
   const regionDropdown = document.getElementById('region-dropdown');
 
-  // Known regions and which pages each has
+  // Which pages actually exist where — supplied at build time from the
+  // filesystem (see src/i18n/routes.ts). Previously these were hand-maintained
+  // lists that had drifted: the AU list was missing the homepage, so switching
+  // back to AUD from a translated home page dumped you on /pricing.
   const regionPrefixes = ['au','us','uk','es','mx','br','fr','de'];
-  const regionPages = {
-    au: ['pricing','services','about','blog','contact','onboarding','start','privacy-policy','terms','thank-you','industries'],
-    us: ['pricing'],
-    uk: ['pricing'],
-    es: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
-    mx: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
-    br: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
-    fr: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
-    de: ['index','pricing','services','about','contact','onboarding','start','blog','privacy-policy','terms','thank-you','industries'],
-  };
+  const ENGLISH_REGIONS = ['au','us','uk'];
+  const REGION_PREF_KEY = 'dusa-region';
+
+  let REGION_ALTERNATES = {};
+  let REGION_HOMES = {};
+  let REGION_ROUTES = {};
+  try {
+    const raw = document.getElementById('dusa-region-map')?.textContent;
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      REGION_ALTERNATES = parsed.alternates || {};
+      REGION_HOMES = parsed.homes || {};
+      REGION_ROUTES = parsed.routes || {};
+    }
+  } catch (e) { /* fall back to staying put */ }
 
   // Detect current region and page path from URL
   function parseCurrentPath() {
@@ -1167,35 +1182,41 @@ const industryLinks = [
     return { region: 'au', page: pagePath };
   }
 
-  // Build new URL for target region, keeping the same page where possible
-  function buildRegionUrl(targetRegion, currentPage) {
-    const targetPages = regionPages[targetRegion] || [];
-    // Determine the base page name (e.g., 'blog/some-post' → check 'blog')
-    const basePage = currentPage.split('/')[0] || 'index';
-    const pageExists = targetPages.includes(basePage);
-    // For blog posts specifically, check if the region has a blog directory
-    const isBlogPost = currentPage.startsWith('blog/');
+  // Where should the region switcher send someone? In priority order:
+  //   1. the same page in the target region, if it exists;
+  //   2. that region's homepage;
+  //   3. nowhere — stay put (this is /us and /uk, which are pricing-only and
+  //      otherwise share the English site; only the currency differs).
+  // It must never silently substitute a different page, which is what the old
+  // "fall back to /pricing" rule did.
+  function buildRegionUrl(targetRegion) {
+    if (REGION_ALTERNATES[targetRegion]) return REGION_ALTERNATES[targetRegion];
+    if (REGION_HOMES[targetRegion]) return REGION_HOMES[targetRegion];
+    return null;
+  }
 
-    let targetPage;
-    if (pageExists || (isBlogPost && targetPages.includes('blog'))) {
-      targetPage = currentPage;
-    } else {
-      // Fallback: go to the same page the region supports, or its root
-      if (targetPages.includes('pricing')) {
-        targetPage = 'pricing';
-      } else {
-        targetPage = 'index';
-      }
-    }
+  function rememberRegion(region) {
+    try { localStorage.setItem(REGION_PREF_KEY, region); } catch (e) {}
+  }
+  function storedRegion() {
+    try { return localStorage.getItem(REGION_PREF_KEY); } catch (e) { return null; }
+  }
 
-    if (targetRegion === 'au') {
-      // AU pages are at root
-      if (targetPage === 'index') return '/';
-      return '/' + targetPage;
-    }
-    // All other regions are prefixed
-    if (targetPage === 'index') return '/' + targetRegion + '/';
-    return '/' + targetRegion + '/' + targetPage;
+  // Reflect a region in the UI without navigating: highlight it, and point
+  // every pricing link at that region's pricing page so the chosen currency
+  // actually sticks while browsing the shared English pages.
+  function applyRegionPreference(region) {
+    document.querySelectorAll('.nav__region-option').forEach(btn => {
+      btn.classList.toggle('nav__region-option--active', btn.getAttribute('data-region') === region);
+    });
+    const mobileSel = document.getElementById('mobile-region-select');
+    if (mobileSel && mobileSel.value !== region) mobileSel.value = region;
+
+    const hasPricing = (REGION_ROUTES[region] || []).includes('/pricing');
+    const pricingHref = (region === 'au' || !hasPricing) ? '/pricing' : '/' + region + '/pricing';
+    document.querySelectorAll('a[data-page="pricing"]').forEach(link => {
+      link.href = pricingHref;
+    });
   }
 
   // ─── Seamless region switch: keep the reader's place on the page ───
@@ -1283,7 +1304,19 @@ const industryLinks = [
   function switchRegion(targetRegion) {
     const { region: currentRegion, page: currentPage } = parseCurrentPath();
     if (targetRegion === currentRegion) return;
-    const newUrl = buildRegionUrl(targetRegion, currentPage);
+    rememberRegion(targetRegion);
+
+    const newUrl = buildRegionUrl(targetRegion);
+    const here = window.location.pathname.replace(/\/$/, '') || '/';
+
+    // No equivalent page and no regional homepage: keep the reader exactly
+    // where they are and just apply the currency choice.
+    if (!newUrl || (newUrl.replace(/\/$/, '') || '/') === here) {
+      applyRegionPreference(targetRegion);
+      document.getElementById('region-dropdown')?.classList.remove('active');
+      return;
+    }
+
     captureScrollState(currentPage);
     window.location.href = newUrl;
   }
@@ -1314,47 +1347,53 @@ const industryLinks = [
 
   // Highlight current region and update nav links for the active region
   (function initRegionState() {
-    const { region } = parseCurrentPath();
-    // Highlight active region in dropdown
-    document.querySelectorAll('.nav__region-option').forEach(btn => {
-      if (btn.getAttribute('data-region') === region) {
-        btn.classList.add('nav__region-option--active');
-      }
-    });
+    const { region: pathRegion } = parseCurrentPath();
+
+    // A stored preference only applies while browsing shared English pages.
+    // On an explicitly translated page the URL always wins.
+    const saved = storedRegion();
+    const region = (ENGLISH_REGIONS.includes(pathRegion) && saved && ENGLISH_REGIONS.includes(saved))
+      ? saved
+      : pathRegion;
+
     const mobileSel = document.getElementById('mobile-region-select');
     if (mobileSel) mobileSel.value = region;
 
-    // Rewrite nav links to point to the correct regional paths
+    // Rewrite nav links to the correct regional paths. Anything the region
+    // does not have falls back to the root (English) version rather than a
+    // prefixed URL that would 404.
     const prefix = (region === 'au') ? '' : '/' + region;
-    const pages = regionPages[region] || [];
     document.querySelectorAll('[data-page]').forEach(link => {
       const page = link.getAttribute('data-page');
-      // Special case: "home" links to the region root
+
       if (page === 'home') {
         const hash = link.getAttribute('data-hash') || '';
-        link.href = ((region === 'au') ? '/' : '/' + region + '/') + hash;
+        link.href = (REGION_HOMES[region] || '/') + hash;
         return;
       }
-      // For nested paths like "industries/real-estate", check the base segment
-      const basePage = page.split('/')[0] || page;
-      if (pages.includes(basePage) || region === 'au') {
-        link.href = prefix + '/' + page;
-      } else {
-        // Page doesn't exist in this region, link to root AU version
-        link.href = '/' + page;
-      }
+
+      // Only use the regional URL if that region actually has the page;
+      // otherwise fall back to the root English version (a prefixed URL for a
+      // page the region lacks is a 404 — this is how /us/ links were breaking).
+      const basePath = '/' + page;
+      const available = REGION_ROUTES[region] || [];
+      const blogPost = /^\/blog\/.+/.test(basePath);
+      const lookup = blogPost ? '/blog' : basePath;
+      link.href = available.includes(lookup) ? (prefix + basePath) : basePath;
     });
 
-    // Also update the logo link to the region root
-    const logoLink = document.querySelector('.nav__logo');
-    if (logoLink) {
-      logoLink.href = (region === 'au') ? '/' : '/' + region + '/';
-    }
+    applyRegionPreference(region);
 
-    // Update the Get Started CTA link
+    // Logo always goes to the region's real homepage (never /us/ or /uk/,
+    // which do not exist).
+    const logoLink = document.querySelector('.nav__logo');
+    if (logoLink) logoLink.href = REGION_HOMES[region] || '/';
+
+    // Get Started CTA
     const ctaLink = document.querySelector('.nav__cta');
-    if (ctaLink && region !== 'au' && pages.includes('start')) {
-      ctaLink.href = prefix + '/start';
+    if (ctaLink) {
+      const hasStart = (REGION_ROUTES[region] || []).includes('/start');
+      ctaLink.href = (region !== 'au' && hasStart) ? ('/' + region + '/start') : '/start';
     }
   })();
 

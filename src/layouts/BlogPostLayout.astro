@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { stripRegion, urlFor, navRoutesByRegion, REGION_PREFIXES } from '../i18n/routes';
 import '../styles/global.css';
 
 interface Props {
@@ -26,7 +27,16 @@ const {
 } = Astro.props;
 
 const siteBase = 'https://dusa.studio';
-const canonicalUrl = `${siteBase}/blog/${slug}`;
+
+// This layout renders the English posts AND their translations, so nothing
+// here may assume the English URL. Canonical must be the page's own URL —
+// pointing every translation at /blog/<slug> told Google to ignore them.
+const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const { region: postRegion } = stripRegion(rawPath);
+const regionPrefix = postRegion === 'au' ? '' : `/${postRegion}`;
+const canonicalUrl = `${siteBase}${regionPrefix}/blog/${slug}`;
+const blogIndexUrl = `${siteBase}${regionPrefix}/blog`;
+const homeUrl = `${siteBase}${urlFor(postRegion, '/') ?? '/'}`;
 
 // SERP hygiene: keep <title> within ~62 chars and the meta description
 // within 160. Long "Main phrase: subtitle" titles fall back to the main
@@ -57,21 +67,31 @@ const breadcrumbSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteBase}/` },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteBase}/blog` },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: homeUrl },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: blogIndexUrl },
     { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
   ],
 });
 
-// Hreflang alternates
-const hreflangs = [
-  { hreflang: 'en-au', prefix: '' },
-  { hreflang: 'es-es', prefix: '/es' },
-  { hreflang: 'es-mx', prefix: '/mx' },
-  { hreflang: 'pt-br', prefix: '/br' },
-  { hreflang: 'fr-fr', prefix: '/fr' },
-  { hreflang: 'de-de', prefix: '/de' },
-];
+// Hreflang alternates — only for regions where this post has actually been
+// translated. Post coverage is very uneven (61 EN vs 1 DE), so advertising a
+// full set produced hundreds of hreflang tags pointing at 404s.
+const HREFLANG_BY_REGION: Record<string, string> = {
+  au: 'en-au', us: 'en-us', uk: 'en-gb', es: 'es-es',
+  mx: 'es-mx', br: 'pt-br', fr: 'fr-fr', de: 'de-de',
+};
+const postBasePath = `/blog/${slug}`;
+const hreflangs = REGION_PREFIXES
+  .map((r) => ({ hreflang: HREFLANG_BY_REGION[r], href: urlFor(r, postBasePath) }))
+  .filter((x): x is { hreflang: string; href: string } => x.href !== null);
+
+const regionAlternates: Record<string, string> = Object.fromEntries(
+  REGION_PREFIXES.map((r) => [r, urlFor(r, postBasePath)]).filter(([, h]) => h !== null) as [string, string][]
+);
+const regionHomes: Record<string, string> = Object.fromEntries(
+  REGION_PREFIXES.map((r) => [r, urlFor(r, '/')]).filter(([, h]) => h !== null) as [string, string][]
+);
+const regionRoutes = navRoutesByRegion();
 
 // All blog posts for related posts logic
 const allPosts = [
@@ -158,8 +178,8 @@ const jsonLd = JSON.stringify({
     <title>{seoTitle}</title>
 
     <!-- Hreflang alternate links -->
-    {hreflangs.map(({ hreflang, prefix }) => (
-      <link rel="alternate" hreflang={hreflang} href={`${siteBase}${prefix}/blog/${slug}`} />
+    {hreflangs.map(({ hreflang, href }) => (
+      <link rel="alternate" hreflang={hreflang} href={`${siteBase}${href}`} />
     ))}
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
@@ -214,7 +234,7 @@ const jsonLd = JSON.stringify({
     </noscript>
   </head>
   <body>
-    <Nav />
+    <Nav regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
     <main>
       <article class="blog-post section section--dark">
         <div class="container">

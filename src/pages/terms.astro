@@ -222,6 +222,10 @@ const lastUpdated = '18 August 2026';
   :global(html[data-theme="light"]) .legal__body a {
     color: var(--deep-ocean);
   }
+
+  .legal__body h2[id] {
+    scroll-margin-top: calc(var(--nav-height) + 24px);
+  }
 </style>
 
 <script>
@@ -237,4 +241,25 @@ const lastUpdated = '18 August 2026';
     );
   }
   initLegalAnimations();
+</script>
+
+<script>
+  /* Honour deep links like /terms#usage-charges once layout has settled. */
+  (function () {
+    function jumpToHash() {
+      var h = window.location.hash;
+      if (!h || h.length < 2) return;
+      var el = document.getElementById(h.slice(1));
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+    if (document.readyState === 'complete') {
+      requestAnimationFrame(jumpToHash);
+    } else {
+      window.addEventListener('load', function () {
+        requestAnimationFrame(jumpToHash);
+        setTimeout(jumpToHash, 250);
+      });
+    }
+  })();
 </script>

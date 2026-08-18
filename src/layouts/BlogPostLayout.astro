@@ -181,7 +181,7 @@ const jsonLd = JSON.stringify({
     {hreflangs.map(({ hreflang, href }) => (
       <link rel="alternate" hreflang={hreflang} href={`${siteBase}${href}`} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={`${siteBase}${urlFor('au', postBasePath) ?? `${regionPrefix}/blog/${slug}`}`} />
 
     <!-- Theme detection -->
     <script is:inline>

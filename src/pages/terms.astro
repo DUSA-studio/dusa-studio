@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import t from '../i18n/translations/en.json';
 
-const lastUpdated = '28 June 2026';
+const lastUpdated = '18 August 2026';
 ---
 
 <BaseLayout t={t} title="Terms of Service | DUSA . studio" description="Terms and conditions for using the DUSA . studio platform and website. Covers Australian, EU, UK, US, and Brazilian regulations.">
@@ -39,20 +39,35 @@ const lastUpdated = '28 June 2026';
         <p>Access to the DUSA platform requires a paid subscription. Details of available plans and pricing are listed on our <a href="/pricing">Pricing page</a>.</p>
         <p>Fees are billed in advance on a monthly or annual basis, depending on your selected plan. All prices are displayed in the currency applicable to your region. Prices are exclusive of applicable taxes (including GST, VAT, IVA, and other sales taxes) where applicable. You are responsible for all applicable taxes in your jurisdiction.</p>
         <p>We reserve the right to modify pricing with 30 days' notice. Continued use of the Service after a price change constitutes acceptance of the new pricing.</p>
+        <p>Your plan fee covers platform access only. Usage-based charges for communication and AI services are billed separately and in addition to your plan fee, as set out in section 6 below.</p>
 
-        <h2>6. Free trials and demos</h2>
+        <h2 id="usage-charges">6. Usage-based charges and account balance</h2>
+        <p><strong>What your subscription covers.</strong> Your plan fee covers access to the DUSA platform and its features. It does not include the cost of metered communication and AI services consumed through the platform. Those services are supplied by third-party infrastructure providers (including telephony, email delivery, and AI providers) and are charged separately on a pay-for-what-you-use basis, in addition to your plan fee.</p>
+        <p><strong>How usage is paid for.</strong> Metered usage is funded from a prepaid account balance (a "wallet") held within your account. When you first activate a metered service, your payment method on file is charged to pre-load this balance. Usage is then deducted from the balance as it occurs. When the balance falls below a minimum threshold, your payment method is automatically charged a set top-up amount to replenish it, and this cycle repeats for as long as you continue to use metered services.</p>
+        <p><strong>Your control over top-ups.</strong> The auto-recharge amount and the minimum balance that triggers it are shown in your account under Settings &rarr; Company Billing, and you may adjust them at any time. You may also add balance manually at any time. It is your responsibility to monitor your balance and usage.</p>
+        <p><strong>Services that draw on your balance.</strong> Metered services include, without limitation: SMS and MMS messages; inbound and outbound calls and call minutes; phone number provisioning and recurring number rental; email sending and delivery, including newsletters, EDMs, and campaign or automation sends; email and phone number validation; AI features, including conversational AI, content generation, and voice AI; premium workflow actions and triggers; address autocomplete; and other consumption-based services enabled in your account. Certain optional add-ons and third-party applications are instead billed as recurring subscriptions charged directly to your payment method rather than deducted from your balance; these are identified at the point of purchase.</p>
+        <p><strong>Currency.</strong> The infrastructure providers underpinning these services are predominantly United States based and bill in United States dollars. Usage charges and balance top-ups are therefore charged in USD, regardless of the currency in which your platform subscription is billed. Your bank or card issuer may apply currency conversion and international transaction fees. Those fees are set by your bank or card issuer, are outside our control, and are your responsibility.</p>
+        <p><strong>Rates.</strong> Applicable usage rates are available in your account. Rates may include a margin over the underlying provider's wholesale cost. We may vary usage rates on 30 days' notice. Rates and consumption are determined by the underlying providers and may change where those providers change their own pricing.</p>
+        <p><strong>Usage during trials.</strong> Metered usage is charged from the moment the relevant service is activated, including during any free trial period. A free trial applies to the platform subscription fee only and does not waive usage charges.</p>
+        <p><strong>Insufficient balance.</strong> If your balance reaches zero, or a top-up payment fails, metered services may be suspended, delayed, or interrupted until a successful payment is received. This may include the inability to send or receive messages, emails, or calls. Automatic top-up attempts are retried a limited number of times before automatic retries cease, after which you may restore service by topping up manually. To the maximum extent permitted by law, we are not liable for any loss, missed communication, or business interruption arising from suspension of metered services due to an insufficient balance or a failed payment.</p>
+        <p><strong>Timing of charges.</strong> Usage may be recorded against your balance with a delay of up to 24 hours after the activity occurs. Your balance at any given moment may therefore not reflect very recent usage.</p>
+        <p><strong>Included credits.</strong> Where your plan includes complimentary usage credits, those credits are applied to your balance and consumed before any paid balance. Complimentary credits have no cash value, are not transferable or exchangeable, and are not redeemable for cash.</p>
+        <p><strong>Refunds of balance.</strong> Usage that has already been consumed is not refundable. Where a refund of unused balance is provided at our discretion or as required by law, it is limited to the balance remaining at the time of the request.</p>
+        <p><strong>Responsibility for usage.</strong> You are responsible for all usage incurred through your account, including usage generated by automations, workflows, integrations, bulk sends, and any person to whom you grant account access, whether or not that usage was intended.</p>
+
+        <h2>7. Free trials and demos</h2>
         <p>We may offer free trials or demo access at our discretion. Trial accounts may have limited functionality. At the end of a trial period, your account will either convert to a paid subscription or be deactivated, depending on your preference.</p>
         <p>For users in the European Union, you have the right to withdraw from an online purchase within 14 days of the transaction in accordance with the EU Consumer Rights Directive. To exercise this right, contact us at <a href="mailto:contact@dusa.studio">contact@dusa.studio</a> within the withdrawal period.</p>
 
-        <h2>7. Cancellation and refunds</h2>
+        <h2>8. Cancellation and refunds</h2>
         <p>You may cancel your subscription at any time through your account settings or by contacting us. Cancellation takes effect at the end of the current billing period. We do not provide pro-rata refunds for partial billing periods unless required by applicable law.</p>
         <p>We reserve the right to offer refunds on a case-by-case basis at our sole discretion. Nothing in this section limits any refund rights you may have under applicable consumer protection laws in your jurisdiction.</p>
 
-        <h2>8. Acceptable use</h2>
+        <h2>9. Acceptable use</h2>
         <p>You agree not to use the Service to send unsolicited or spam communications, violate any applicable laws or regulations, infringe on the intellectual property rights of others, distribute malicious software or harmful content, attempt to gain unauthorised access to our systems or other users' accounts, or use the platform for any illegal, fraudulent, or deceptive purpose.</p>
         <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
 
-        <h2>9. Your compliance obligations</h2>
+        <h2>10. Your compliance obligations</h2>
         <p>You are solely responsible for your use of the Service, including compliance with all applicable laws and regulations in your jurisdiction. This includes, but is not limited to:</p>
         <p><strong>Australia:</strong> the Australian Privacy Act 1988, the Spam Act 2003, and the Australian Consumer Law.</p>
         <p><strong>European Union and United Kingdom:</strong> the General Data Protection Regulation (GDPR), the UK GDPR, the UK Data Protection Act 2018, and the ePrivacy Directive.</p>
@@ -61,47 +76,47 @@ const lastUpdated = '28 June 2026';
         <p><strong>Mexico:</strong> the Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares (LFPDPPP).</p>
         <p>You are also responsible for compliance with all applicable accessibility laws, tax laws (including GST, VAT, IVA, sales tax), and any other applicable regulations in your jurisdiction. DUSA is not responsible for your compliance with laws and does not represent that your use of the Service will comply with any laws.</p>
 
-        <h2>10. Data protection and privacy</h2>
+        <h2>11. Data protection and privacy</h2>
         <p>Your use of the Service is also governed by our <a href="/privacy-policy">Privacy Policy</a>, which describes how we collect, use, and protect your personal information.</p>
         <p><strong>Data subject rights management.</strong> You are solely responsible for managing and responding to all data subject rights requests from your customers and end users, including but not limited to requests for access, deletion, correction, portability, restriction of processing, and objection to processing of personal data. You must establish and maintain appropriate procedures to receive, document, respond to, and fulfil such requests within the timeframes required by applicable privacy laws.</p>
         <p><strong>Data breach notification.</strong> You are solely responsible for complying with all applicable data breach notification laws and regulations. In the event you discover or are notified of a security incident affecting personal data processed through the Service, you shall promptly investigate the incident and take appropriate remedial measures, determine if the incident triggers any notification obligations under applicable laws, and make all legally required notifications to affected individuals, regulatory authorities, and other required parties within the timeframes specified by applicable laws.</p>
         <p><strong>Data retention and deletion.</strong> You are solely responsible for establishing and implementing appropriate data retention periods and deletion procedures for personal data processed through the Service, in compliance with all applicable privacy laws and regulations. Upon termination of your account, we will make your data available for export for a reasonable period (30 days) following termination.</p>
 
-        <h2>11. Your content</h2>
+        <h2>12. Your content</h2>
         <p>You retain ownership of any content you upload, create, or store on the platform ("Your Content"). By using the Service, you grant us a limited licence to host, display, and process Your Content solely for the purpose of providing the Service to you.</p>
         <p>You are responsible for ensuring that Your Content does not violate any laws or third-party rights.</p>
 
-        <h2>12. Our intellectual property</h2>
+        <h2>13. Our intellectual property</h2>
         <p>All intellectual property in the Service (including software, design, branding, and documentation) remains the property of DUSA . studio. Nothing in these Terms grants you any rights to our intellectual property other than the limited right to use the Service as described.</p>
 
-        <h2>13. Third-party integrations</h2>
+        <h2>14. Third-party integrations</h2>
         <p>The Service may integrate with third-party platforms and services. We are not responsible for the availability, accuracy, or practices of those third parties. Your use of third-party services is subject to their own terms and privacy policies. DUSA is not responsible for, and hereby disclaims any liability for, any act or omission of any third-party service provider or the operation of any third-party services, including access to, modification of, or deletion of data.</p>
 
-        <h2>14. Service availability</h2>
+        <h2>15. Service availability</h2>
         <p>We aim to provide continuous, uninterrupted access to the Service but do not guarantee 100% uptime. We may perform scheduled maintenance or updates that temporarily affect availability. We will endeavour to provide reasonable notice of planned downtime.</p>
 
-        <h2>15. Limitation of liability</h2>
+        <h2>16. Limitation of liability</h2>
         <p>To the maximum extent permitted by applicable law, our total liability to you for any claims arising from or related to the Service is limited to the total fees you have paid to us in the 12 months preceding the claim.</p>
         <p>We are not liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunity.</p>
         <p>Nothing in these Terms excludes or limits any rights you may have under mandatory consumer protection laws in your jurisdiction that cannot be excluded or limited, including the Australian Consumer Law, EU consumer protection regulations, or other applicable mandatory protections.</p>
 
-        <h2>16. Indemnification</h2>
+        <h2>17. Indemnification</h2>
         <p>You agree to indemnify and hold harmless DUSA . studio from any claims, losses, damages, liabilities, and expenses (including legal fees) arising from your use of the Service, your breach of these Terms, or your violation of any law or third-party rights.</p>
 
-        <h2>17. Modifications to Terms</h2>
+        <h2>18. Modifications to Terms</h2>
         <p>We may update these Terms from time to time. Material changes will be communicated via email or a notice on our website. Continued use of the Service after changes take effect constitutes acceptance of the updated Terms.</p>
 
-        <h2>18. Termination</h2>
+        <h2>19. Termination</h2>
         <p>We may suspend or terminate your access to the Service at any time if you breach these Terms, fail to pay applicable fees, or engage in conduct that we determine is harmful to our Service or other users.</p>
         <p>Upon termination, your right to use the Service ceases immediately. We will make your data available for export for a reasonable period (30 days) following termination.</p>
 
-        <h2>19. International use</h2>
+        <h2>20. International use</h2>
         <p>DUSA makes no representation that materials on the Service are appropriate or available for use in all locations. Those who choose to access the Service from locations outside Australia do so on their own initiative and at their own risk. If you choose to access the Service from outside Australia, you are responsible for compliance with local laws in your jurisdiction, including but not limited to applicable data protection, tax, and consumer protection regulations.</p>
 
-        <h2>20. Governing law</h2>
+        <h2>21. Governing law</h2>
         <p>These Terms are governed by the laws of New South Wales, Australia. Any disputes arising from these Terms will be subject to the jurisdiction of the courts of New South Wales, except where mandatory local consumer protection laws in your jurisdiction require otherwise. Nothing in these Terms affects the statutory rights of consumers in the European Union, United Kingdom, Brazil, or any other jurisdiction where such rights cannot be waived or limited by contract.</p>
 
-        <h2>21. Contact</h2>
+        <h2>22. Contact</h2>
         <p>If you have questions about these Terms, contact us at:</p>
         <p><strong>DUSA . studio</strong><br/>Sydney, NSW, Australia<br/><a href="mailto:contact@dusa.studio">contact@dusa.studio</a></p>
 

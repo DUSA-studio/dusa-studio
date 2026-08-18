@@ -312,6 +312,8 @@
     "heroTitleAccent": "Ihr Preis.",
     "heroSub": "Beginnen Sie mit dem, was Sie brauchen. Skalieren Sie, wenn Sie bereit sind. Keine Bindung, keine versteckten Gebühren.",
     "currencyNote": "Alle Preise in {currency}",
+    "usageNoteShort": "Der Planpreis deckt den Plattformzugang ab. Die Nutzung von Nachrichten, Anrufen, E-Mails und KI wird separat nach Verbrauch in USD abgerechnet.",
+    "usageNoteLink": "So funktioniert die nutzungsbasierte Abrechnung",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
     "tierGrowth": "Growth",

@@ -186,7 +186,7 @@ const featureCategories = [
       { label: 'CRM & pipeline management', desc: 'Store every lead, customer, and conversation in one place. Visual drag-and-drop pipelines to track deals, forecast revenue, and never let an opportunity slip.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Funnel & website builder', desc: 'Build high-converting landing pages, opt-in funnels, and a full business website with drag-and-drop. Custom domain, SEO tools, and SSL included.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Email marketing', desc: 'Send beautiful branded emails, build automated nurture sequences, and track opens, clicks, and conversions. No per-send fees on any plan.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
-      { label: 'SMS marketing', desc: 'Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Usage billed at cost as a small pass-through.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
+      { label: 'SMS marketing', desc: 'Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Message usage is billed separately as you use it.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Booking & calendar system', desc: 'Let clients book appointments directly from your website or links. Syncs with Google Calendar, sends automatic reminders, and reduces no-shows.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Social media planner', desc: 'Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
       { label: 'Reputation management', desc: 'Automatically request reviews from happy customers, monitor your online reputation, and respond to reviews from one dashboard.', launchpad: 'Pick 1', starter: true, growth: true, bespoke: true },
@@ -278,7 +278,7 @@ const faqs = [
   },
   {
     q: 'Are there any setup fees or hidden costs?',
-    a: 'There are no setup fees on any plan. SMS, calling, and email sending usage is billed at cost as a small pass-through. Most clients see around $15-25 AUD per month in usage depending on volume. There are no other hidden fees.',
+    a: 'There are no setup fees on any plan. Your plan price covers platform access. Message, call, email and AI usage is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around $15-25 per month depending on volume. There are no other hidden fees.',
   },
   {
     q: 'What kind of support does DUSA offer?',
@@ -342,6 +342,7 @@ const faqs = [
                   <span class="pricing-card__dollar">$</span>
                   <span class="pricing-card__amount">{tier.price}</span>
                   <span class="pricing-card__period">{tier.period}</span>
+                  <sup class="pricing-card__ast" aria-hidden="true">*</sup>
                 </>
               ) : (
                 <span class="pricing-card__custom">Custom</span>
@@ -364,6 +365,9 @@ const faqs = [
           </div>
         ))}
       </div>
+      <p class="usage-note">
+        <span class="usage-note__ast" aria-hidden="true">*</span>Plan price covers platform access. Message, call, email and AI usage is billed separately as you use it, in USD. <a href="/terms#usage-charges">How usage billing works</a>
+      </p>
     </div>
   </section>
 
@@ -534,9 +538,9 @@ const faqs = [
             </tr>
             <tr class="compare__price-row">
               <td></td>
-              <td class="compare__plan-price compare__cell--launchpad">$47/mo</td>
-              <td class="compare__plan-price compare__cell--starter">$149/mo</td>
-              <td class="compare__plan-price compare__cell--growth">$297/mo</td>
+              <td class="compare__plan-price compare__cell--launchpad">$47/mo<sup aria-hidden="true">*</sup></td>
+              <td class="compare__plan-price compare__cell--starter">$149/mo<sup aria-hidden="true">*</sup></td>
+              <td class="compare__plan-price compare__cell--growth">$297/mo<sup aria-hidden="true">*</sup></td>
               <td class="compare__plan-price compare__cell--bespoke">Custom</td>
             </tr>
           </thead>
@@ -602,13 +606,17 @@ const faqs = [
           <button class="mps__tab" data-plan="3">Bespoke</button>
         </div>
         <div class="mps__price" id="mps-price">
-          <span class="mps__price-amount">$47</span><span class="mps__price-period">/mo AUD</span>
+          <span class="mps__price-amount">$47</span><span class="mps__price-period">/mo AUD</span><sup class="mps__ast" aria-hidden="true">*</sup>
         </div>
         <div class="mps__features" id="mps-features"></div>
         <div class="mps__cta">
           <a href="/start" class="btn btn--primary mps__cta-btn" id="mps-cta">Start for $47</a>
         </div>
       </div>
+
+      <p class="usage-note usage-note--table">
+        <span class="usage-note__ast" aria-hidden="true">*</span>Plan price covers platform access. Message, call, email and AI usage is billed separately as you use it, in USD. <a href="/terms#usage-charges">How usage billing works</a>
+      </p>
 
     </div>
   </section>
@@ -2728,6 +2736,81 @@ const faqs = [
   html[data-theme="light"] .compare__feature-row--open .compare__expand-icon {
     color: var(--deep-ocean);
   }
+
+  /* ─── Usage footnote (asterisk on prices) ─── */
+  .pricing-card__ast {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1;
+    color: var(--reef-aqua);
+    opacity: 0.65;
+    margin-left: 1px;
+    align-self: flex-start;
+    padding-top: 0.35em;
+  }
+
+  .compare__plan-price sup,
+  .mps__ast {
+    font-family: var(--font-mono);
+    color: var(--reef-aqua);
+    opacity: 0.65;
+    margin-left: 1px;
+  }
+
+  .mps__ast { font-size: 0.9rem; }
+
+  .usage-note {
+    margin-top: var(--space-lg);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.42);
+  }
+
+  .usage-note--table {
+    margin-top: var(--space-md);
+  }
+
+  .usage-note__ast {
+    color: var(--reef-aqua);
+    opacity: 0.7;
+    margin-right: 0.35em;
+    font-family: var(--font-mono);
+  }
+
+  .usage-note a {
+    color: rgba(247, 244, 239, 0.62);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(78, 216, 194, 0.35);
+    transition: color var(--duration-fast), text-decoration-color var(--duration-fast);
+  }
+
+  .usage-note a:hover {
+    color: var(--reef-aqua);
+    text-decoration-color: var(--reef-aqua);
+  }
+
+  @media (max-width: 480px) {
+    .usage-note { font-size: 0.75rem; padding: 0 var(--space-xs); }
+  }
+
+  html[data-theme="light"] .usage-note {
+    color: rgba(12, 14, 20, 0.5);
+  }
+
+  html[data-theme="light"] .usage-note a {
+    color: rgba(12, 14, 20, 0.68);
+  }
+
+  html[data-theme="light"] .usage-note a:hover {
+    color: var(--deep-ocean);
+    text-decoration-color: var(--deep-ocean);
+  }
+
 </style>
 
 <script>

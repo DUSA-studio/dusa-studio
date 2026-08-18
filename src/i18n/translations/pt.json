@@ -312,6 +312,8 @@
     "heroTitleAccent": "O seu preço.",
     "heroSub": "Comece com o que você precisa. Escale quando estiver pronto. Sem contratos, sem tarifas ocultas.",
     "currencyNote": "Todos os preços em {currency}",
+    "usageNoteShort": "O preco do plano cobre o acesso a plataforma. O uso de mensagens, chamadas, e-mails e IA e cobrado separadamente conforme o consumo, em USD.",
+    "usageNoteLink": "Como funciona a cobranca por uso",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
     "tierGrowth": "Growth",

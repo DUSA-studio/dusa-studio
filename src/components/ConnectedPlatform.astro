@@ -1,11 +1,13 @@
 ---
 // ConnectedPlatform.astro — capability wheel + integrations grid.
 //
-// Structure: hub (DUSA) → AI band spanning every domain → six capability
-// domains → the capabilities inside each. AI features sit inside the domains
-// they actually serve and are tagged, so the "AI runs through everything"
-// claim in the band is backed by named features rather than asserted.
+// Colour logic: the six domains run a single Shallow Water ramp from Mist Blue
+// down to Deep Ocean. Reef Aqua is deliberately NOT used for any domain — it is
+// reserved entirely for AI, so anything glowing aqua on this diagram is AI.
+// That is what lets the "AI across everything" band read as a claim with
+// evidence rather than decoration.
 import { BRAND_MARKS, WORDMARK_ONLY } from '../config/brand-marks';
+import { LOTUS_PATHS } from '../config/lotus';
 
 interface Props { t?: Record<string, any>; }
 const { t = {} } = Astro.props;
@@ -17,67 +19,81 @@ const headingAccent = c.headingAccent || 'connected';
 const sub = c.sub || 'The systems that run your business, and the apps they plug into.';
 const gridHeading = c.gridHeading || 'Connects with';
 const note = c.note || 'Plus 1,000+ more through Zapier and Make.';
-const aiBandLabel = c.aiBand || 'AI ACROSS EVERYTHING';
+const aiBandLabel = c.aiBand || 'AI  ·  ACROSS  EVERYTHING  ·  AI  ·  ACROSS  EVERYTHING';
 
-/* ai: true marks a capability that is AI-powered. */
+const AQUA = '#4ED8C2';
+
+/* Shallow Water ramp: Mist Blue (#6AAACF) → Deep Ocean (#1A3A5C). */
 const DOMAINS = [
-  { name: 'Capture', color: '#F0B24A', items: [
+  { name: 'Capture', color: '#8CC3E2', items: [
     { l: 'Funnels &\nlanding pages' }, { l: 'Websites\n& blogs' }, { l: 'Forms &\nsurveys' },
     { l: 'Chat widget', ai: true }, { l: 'Missed-call\ntext back' },
   ]},
-  { name: 'Sales &\nPayments', color: '#D4956B', items: [
+  { name: 'Sales &\nPayments', color: '#6AAACF', items: [
     { l: 'CRM &\npipelines' }, { l: 'Booking &\ncalendars' }, { l: 'Estimates\n& invoices' },
     { l: 'Payment\nlinks' }, { l: 'Subscriptions' },
   ]},
-  { name: 'Conversations', color: '#6AAACF', items: [
+  { name: 'Conversations', color: '#5391B8', items: [
     { l: 'Unified\ninbox' }, { l: 'Email' }, { l: 'SMS & MMS' },
     { l: 'Conversation\nAI', ai: true }, { l: 'Voice AI', ai: true },
   ]},
-  { name: 'Marketing\n& Social', color: '#9B6BDB', items: [
+  { name: 'Marketing\n& Social', color: '#3D779F', items: [
     { l: 'Email\ncampaigns' }, { l: 'Social\nplanner' },
     { l: 'Content AI', ai: true }, { l: 'Memberships\n& courses' },
   ]},
-  { name: 'Automation', color: '#4ED8C2', items: [
+  { name: 'Automation', color: '#2A5C82', items: [
     { l: 'Workflows\n& triggers' }, { l: 'Smart\nfollow-up', ai: true },
     { l: 'Lead\nrouting' }, { l: 'Task\nautomation' },
   ]},
-  { name: 'Reputation\n& Insight', color: '#36CDA4', items: [
+  { name: 'Reputation\n& Insight', color: '#1A3A5C', items: [
     { l: 'Review\nrequests' }, { l: 'AI review\nreplies', ai: true },
     { l: 'Dashboards' }, { l: 'Attribution' },
   ]},
 ];
 
-/* ─── Geometry, computed at build time so the SVG ships static ─── */
-const CX = 340, CY = 340;
-const R_HUB = 60, R_AI0 = 66, R_AI1 = 98, R_D0 = 104, R_D1 = 184, R_C0 = 188, R_C1 = 300;
-const GAP = 0.012;
+/* ─── Geometry, resolved at build time so the SVG ships static ─── */
+const VB = 760, CX = 380, CY = 380;
+const R_HUB = 80, R_AI0 = 86, R_AI1 = 118, R_D0 = 124, R_D1 = 208, R_C0 = 212, R_C1 = 330;
+const GAP = 0.011;
 
 const pol = (r: number, a: number) => [CX + r * Math.cos(a), CY + r * Math.sin(a)];
 function arc(r0: number, r1: number, a0: number, a1: number) {
   const [x0, y0] = pol(r1, a0), [x1, y1] = pol(r1, a1);
   const [x2, y2] = pol(r0, a1), [x3, y3] = pol(r0, a0);
   const laf = a1 - a0 > Math.PI ? 1 : 0;
-  return `M${x0},${y0}A${r1},${r1} 0 ${laf} 1 ${x1},${y1}L${x2},${y2}A${r0},${r0} 0 ${laf} 0 ${x3},${y3}Z`;
+  return `M${x0.toFixed(2)},${y0.toFixed(2)}A${r1},${r1} 0 ${laf} 1 ${x1.toFixed(2)},${y1.toFixed(2)}` +
+         `L${x2.toFixed(2)},${y2.toFixed(2)}A${r0},${r0} 0 ${laf} 0 ${x3.toFixed(2)},${y3.toFixed(2)}Z`;
 }
 const rgba = (hex: string, a: number) => {
   const n = parseInt(hex.slice(1), 16);
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 };
+/* Pick readable text for a fill rather than guessing. */
+const lum = (hex: string) => {
+  const n = parseInt(hex.slice(1), 16);
+  const ch = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
+};
 
 const total = DOMAINS.reduce((s, d) => s + d.items.length, 0);
 let cursor = -Math.PI / 2;
-const segments: any[] = [];
+const domainSegs: any[] = [];
+const capSegs: any[] = [];
 
 DOMAINS.forEach((d, di) => {
   const span = (d.items.length / total) * Math.PI * 2;
   const a0 = cursor, a1 = cursor + span;
   const mid = (a0 + a1) / 2;
   const [lx, ly] = pol((R_D0 + R_D1) / 2, mid);
-  let deg = (mid * 180) / Math.PI;
-  segments.push({
-    kind: 'domain', di, d: arc(R_D0, R_D1, a0 + GAP, a1 - GAP),
-    fill: rgba(d.color, 0.92), label: d.name, lx, ly,
-    rot: deg > 90 && deg < 270 ? deg + 180 : deg, color: d.color,
+  const deg = (mid * 180) / Math.PI;
+  domainSegs.push({
+    di, d: arc(R_D0, R_D1, a0 + GAP, a1 - GAP),
+    label: d.name, lx, ly, color: d.color,
+    rot: deg > 90 && deg < 270 ? deg + 180 : deg,
+    text: lum(d.color) > 0.35 ? '#0C0E14' : '#F7F4EF',
   });
 
   const iSpan = span / d.items.length;
@@ -85,11 +101,11 @@ DOMAINS.forEach((d, di) => {
     const b0 = a0 + ii * iSpan, b1 = b0 + iSpan;
     const m2 = (b0 + b1) / 2;
     const [ix, iy] = pol((R_C0 + R_C1) / 2, m2);
-    let dg = (m2 * 180) / Math.PI;
-    segments.push({
-      kind: 'cap', di, d: arc(R_C0, R_C1, b0 + GAP, b1 - GAP),
-      fill: it.ai ? 'rgba(78,216,194,0.2)' : rgba(d.color, 0.34),
-      stroke: it.ai ? 'rgba(78,216,194,0.7)' : rgba(d.color, 0.55),
+    const dg = (m2 * 180) / Math.PI;
+    capSegs.push({
+      di, d: arc(R_C0, R_C1, b0 + GAP, b1 - GAP),
+      fill: it.ai ? rgba(AQUA, 0.22) : rgba(d.color, 0.3),
+      stroke: it.ai ? rgba(AQUA, 0.85) : rgba(d.color, 0.6),
       label: it.l, lx: ix, ly: iy, ai: !!it.ai,
       rot: dg > 90 && dg < 270 ? dg + 180 : dg,
     });
@@ -97,7 +113,10 @@ DOMAINS.forEach((d, di) => {
   cursor = a1;
 });
 
-const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2 - 0.02);
+const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.015, -Math.PI / 2 + Math.PI * 2 - 0.015);
+const aiMidR = (R_AI0 + R_AI1) / 2;
+/* Full circle path for the rotating band text. */
+const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.01},${CY - aiMidR} Z`;
 ---
 
 <section class="cp section section--dark" id="connected-platform">
@@ -110,52 +129,124 @@ const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2
 
     <div class="cp__body">
       <div class="cp__wheel-col reveal">
-        <svg class="cp__wheel" viewBox="0 0 680 680" role="img"
-             aria-label="DUSA capability wheel: six domains with AI spanning all of them">
-          <title>What DUSA does</title>
-          <desc>
-            Six capability domains around a central hub, with an AI band spanning
-            all of them: Capture, Sales and Payments, Conversations, Marketing and
-            Social, Automation, and Reputation and Insight.
-          </desc>
+        <div class="cp__stage">
+          <span class="cp__aura" aria-hidden="true"></span>
+          <svg class="cp__wheel" viewBox={`0 0 ${VB} ${VB}`} role="img"
+               aria-labelledby="cp-title cp-desc">
+            <title id="cp-title">What DUSA does</title>
+            <desc id="cp-desc">
+              Six capability domains around a central hub, with an AI layer spanning
+              all of them: Capture, Sales and Payments, Conversations, Marketing and
+              Social, Automation, and Reputation and Insight.
+            </desc>
 
-          <!-- AI band: continuous, spans every domain -->
-          <path d={aiRing} fill="rgba(78,216,194,0.18)" stroke="rgba(78,216,194,0.6)" stroke-width="1" />
-          <path id="cp-ai-path" d={`M ${CX - (R_AI0 + R_AI1) / 2},${CY} a ${(R_AI0 + R_AI1) / 2},${(R_AI0 + R_AI1) / 2} 0 1,1 ${(R_AI0 + R_AI1)},0`} fill="none" />
-          <text class="cp__ai-label" font-size="10" letter-spacing="3" fill="#6FE6D2" font-weight="700">
-            <textPath href="#cp-ai-path" startOffset="50%" text-anchor="middle">{aiBandLabel}</textPath>
-          </text>
+            <defs>
+              <radialGradient id="cpAura" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color={AQUA} stop-opacity="0.16" />
+                <stop offset="55%" stop-color="#1A3A5C" stop-opacity="0.10" />
+                <stop offset="100%" stop-color="#0C0E14" stop-opacity="0" />
+              </radialGradient>
+              <filter id="cpGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="5" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <filter id="cpSoftGlow" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="2.4" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              {DOMAINS.map((d, i) => (
+                <linearGradient id={`cpD${i}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color={d.color} stop-opacity="1" />
+                  <stop offset="100%" stop-color={d.color} stop-opacity="0.72" />
+                </linearGradient>
+              ))}
+            </defs>
 
-          {segments.map((s) => (
-            <path class={`cp__seg cp__seg--d${s.di}`} d={s.d} fill={s.fill}
-                  stroke={s.stroke || 'none'} stroke-width={s.stroke ? 1 : 0} />
-          ))}
+            <circle cx={CX} cy={CY} r={R_C1 + 24} fill="url(#cpAura)" />
 
-          {segments.map((s) => (
-            <g class={`cp__seg cp__seg--d${s.di}`}>
-              <text x={s.lx} y={s.ly} text-anchor="middle" dominant-baseline="middle"
-                    transform={`rotate(${s.rot} ${s.lx} ${s.ly})`}
-                    font-size={s.kind === 'domain' ? 12.5 : 9.6}
-                    font-weight={s.kind === 'domain' ? 700 : 500}
-                    fill={s.kind === 'domain' ? '#0C0E14' : (s.ai ? '#8FF0DF' : 'rgba(247,244,239,0.9)')}>
-                {s.label.split('\n').map((line: string, i: number, arr: string[]) => (
-                  <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * (s.kind === 'domain' ? 12.5 : 9.6) * 0.55) : (s.kind === 'domain' ? 13.5 : 10.6)}>{line}</tspan>
-                ))}
+            <!-- instrument ticks: one per capability -->
+            <g class="cp__ticks" aria-hidden="true">
+              {capSegs.map((_, i) => {
+                const a = -Math.PI / 2 + (i / capSegs.length) * Math.PI * 2;
+                const [x1, y1] = pol(R_C1 + 8, a);
+                const [x2, y2] = pol(R_C1 + 14, a);
+                return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(78,216,194,0.28)" stroke-width="1" />;
+              })}
+            </g>
+            <circle cx={CX} cy={CY} r={R_C1 + 18} fill="none"
+                    stroke="rgba(247,244,239,0.07)" stroke-width="1" />
+
+            <!-- capability ring -->
+            {capSegs.map((s) => (
+              <path class={`cp__seg cp__cap cp__seg--d${s.di} ${s.ai ? 'is-ai' : ''}`}
+                    d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1" />
+            ))}
+
+            <!-- domain ring -->
+            {domainSegs.map((s) => (
+              <path class={`cp__seg cp__dom cp__seg--d${s.di}`} d={s.d}
+                    fill={`url(#cpD${s.di})`} stroke="rgba(12,14,20,0.35)" stroke-width="1" />
+            ))}
+
+            <!-- AI layer: continuous, spans every domain -->
+            <g class="cp__ai">
+              <path d={aiRing} fill={rgba(AQUA, 0.16)} stroke={rgba(AQUA, 0.75)}
+                    stroke-width="1.25" filter="url(#cpSoftGlow)" />
+              <circle class="cp__ai-dash" cx={CX} cy={CY} r={R_AI1 - 1} fill="none"
+                      stroke={rgba(AQUA, 0.5)} stroke-width="1"
+                      stroke-dasharray="3 9" stroke-linecap="round" />
+              <path id="cpAiPath" d={aiTextPath} fill="none" />
+              <text class="cp__ai-label" filter="url(#cpSoftGlow)">
+                <textPath href="#cpAiPath" startOffset="0%">{aiBandLabel}</textPath>
               </text>
             </g>
-          ))}
 
-          <circle cx={CX} cy={CY} r={R_HUB} fill="#0C0E14" stroke="rgba(78,216,194,0.3)" stroke-width="1" />
-          <text x={CX} y={CY - 5} text-anchor="middle" class="cp__hub-name">DUSA</text>
-          <text x={CX} y={CY + 13} text-anchor="middle" class="cp__hub-sub">ONE LOGIN</text>
-        </svg>
+            <!-- labels above fills so nothing clips them -->
+            {capSegs.map((s) => (
+              <g class={`cp__seg cp__seg--d${s.di}`} aria-hidden="true">
+                <text class="cp__cap-text" x={s.lx} y={s.ly} text-anchor="middle"
+                      dominant-baseline="middle" transform={`rotate(${s.rot} ${s.lx} ${s.ly})`}
+                      fill={s.ai ? '#A6F5E7' : 'rgba(247,244,239,0.92)'}>
+                  {s.label.split('\n').map((line: string, i: number, arr: string[]) => (
+                    <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * 5.4) : 10.8}>{line}</tspan>
+                  ))}
+                </text>
+              </g>
+            ))}
+            {domainSegs.map((s) => (
+              <g class={`cp__seg cp__seg--d${s.di}`} aria-hidden="true">
+                <text class="cp__dom-text" x={s.lx} y={s.ly} text-anchor="middle"
+                      dominant-baseline="middle" transform={`rotate(${s.rot} ${s.lx} ${s.ly})`}
+                      fill={s.text}>
+                  {s.label.split('\n').map((line: string, i: number, arr: string[]) => (
+                    <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * 7) : 14}>{line}</tspan>
+                  ))}
+                </text>
+              </g>
+            ))}
+
+            <!-- hub -->
+            <circle cx={CX} cy={CY} r={R_HUB} fill="#0C0E14"
+                    stroke={rgba(AQUA, 0.4)} stroke-width="1" />
+            <circle cx={CX} cy={CY} r={R_HUB - 7} fill="none"
+                    stroke="rgba(247,244,239,0.07)" stroke-width="1" />
+            <g class="cp__lotus" transform={`translate(${CX - 26} ${CY - 44}) scale(0.104)`}
+               fill={AQUA} filter="url(#cpGlow)" aria-hidden="true">
+              {LOTUS_PATHS.map((p) => <path d={p} />)}
+            </g>
+            <text x={CX} y={CY + 22} text-anchor="middle" class="cp__hub-name">DUSA</text>
+            <text x={CX} y={CY + 44} text-anchor="middle" class="cp__hub-sub">ONE LOGIN</text>
+          </svg>
+        </div>
 
         <div class="cp__legend">
           {DOMAINS.map((d, i) => (
-            <button class="cp__lg" data-domain={i} type="button">
-              <i style={`background:${d.color}`}></i>{d.name.replace('\n', ' ')}
+            <button class="cp__lg" data-domain={i} type="button"
+                    style={`--lg:${d.color}`}>
+              <i></i>{d.name.replace('\n', ' ')}
             </button>
           ))}
+          <span class="cp__lg cp__lg--ai" aria-hidden="true"><i></i>AI powered</span>
         </div>
       </div>
 
@@ -179,74 +270,122 @@ const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2
 </section>
 
 <style>
-  .cp__head { text-align: center; max-width: 640px; margin: 0 auto var(--space-lg); }
+  .cp__head { text-align: center; max-width: 660px; margin: 0 auto var(--space-xl); }
   .cp__head h2 { font-weight: 600; margin-top: var(--space-xs); }
   .cp__sub { color: rgba(247, 244, 239, 0.55); margin-top: var(--space-sm); font-size: 1.0625rem; }
 
-  .cp__body {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: var(--space-xl);
-    align-items: center;
+  .cp__body { display: grid; grid-template-columns: 1.32fr 0.68fr; gap: var(--space-xl); align-items: center; }
+
+  /* ─── Stage + ambient aura ─── */
+  .cp__stage { position: relative; }
+  .cp__aura {
+    position: absolute; inset: -8%;
+    background: radial-gradient(circle at 50% 50%,
+      rgba(78, 216, 194, 0.13) 0%,
+      rgba(26, 58, 92, 0.16) 38%,
+      rgba(12, 14, 20, 0) 68%);
+    filter: blur(18px); pointer-events: none; z-index: 0;
   }
+  .cp__wheel { position: relative; z-index: 1; width: 100%; max-width: 660px; height: auto; display: block; margin: 0 auto; }
 
-  .cp__wheel { width: 100%; max-width: 620px; height: auto; display: block; margin: 0 auto; }
-  .cp__ai-label { font-family: var(--font-mono); }
-  .cp__hub-name { font-family: var(--font-headline); font-size: 20px; font-weight: 700; fill: var(--warm-white); }
-  .cp__hub-sub { font-family: var(--font-mono); font-size: 7.5px; letter-spacing: 1.8px; fill: rgba(78, 216, 194, 0.85); }
+  .cp__dom-text { font-family: var(--font-headline); font-size: 13px; font-weight: 700; letter-spacing: 0.01em; }
+  .cp__cap-text { font-family: var(--font-body); font-size: 9.6px; font-weight: 500; }
+  .cp__hub-name { font-family: var(--font-headline); font-size: 21px; font-weight: 700; fill: var(--warm-white); letter-spacing: 0.02em; }
+  .cp__hub-sub { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.2px; fill: rgba(78, 216, 194, 0.9); }
+  .cp__ai-label { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 2.6px; fill: #7FEEDC; }
 
-  .cp__seg { transition: opacity var(--duration-normal) var(--ease-out); }
-  .cp__wheel-col.is-dim .cp__seg:not(.is-on) { opacity: 0.15; }
+  /* Slow drift makes the AI layer feel alive without demanding attention. */
+  .cp__ai-dash { transform-origin: center; animation: cpSpin 44s linear infinite; }
+  .cp__ai-label { transform-origin: center; animation: cpSpin 90s linear infinite reverse; }
+  @keyframes cpSpin { to { transform: rotate(360deg); } }
 
-  .cp__legend { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: var(--space-md); }
+  .cp__seg { transition: opacity var(--duration-normal) var(--ease-out), filter var(--duration-normal) var(--ease-out); }
+  .cp__cap, .cp__dom { cursor: default; }
+  .cp__cap:hover, .cp__dom:hover { filter: brightness(1.35); }
+  .cp__wheel-col.is-dim .cp__seg:not(.is-on) { opacity: 0.13; }
+  .cp__wheel-col.is-dim .cp__seg.is-on { filter: brightness(1.12); }
+
+  /* ─── Legend ─── */
+  .cp__legend { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: var(--space-lg); }
   .cp__lg {
     display: inline-flex; align-items: center; gap: 0.45rem;
-    font-family: inherit; font-size: 0.75rem; color: rgba(247, 244, 239, 0.65);
-    background: rgba(247, 244, 239, 0.04); border: 1px solid rgba(247, 244, 239, 0.09);
-    border-radius: 999px; padding: 0.35rem 0.7rem; cursor: pointer;
-    transition: color var(--duration-fast), border-color var(--duration-fast);
+    font-family: inherit; font-size: 0.75rem; color: rgba(247, 244, 239, 0.62);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: 999px; padding: 0.4rem 0.8rem; cursor: pointer;
+    transition: color var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast);
   }
-  .cp__lg:hover, .cp__lg:focus-visible { color: var(--warm-white); border-color: rgba(78, 216, 194, 0.4); }
-  .cp__lg i { width: 8px; height: 8px; border-radius: 2px; }
+  .cp__lg i { width: 8px; height: 8px; border-radius: 50%; background: var(--lg, var(--mist-blue)); flex-shrink: 0; }
+  .cp__lg:hover, .cp__lg:focus-visible {
+    color: var(--warm-white); border-color: var(--lg, var(--reef-aqua));
+    background: rgba(247, 244, 239, 0.07);
+  }
+  .cp__lg--ai { cursor: default; border-color: rgba(78, 216, 194, 0.35); color: rgba(166, 245, 231, 0.9); }
+  .cp__lg--ai i { background: var(--reef-aqua); box-shadow: 0 0 8px rgba(78, 216, 194, 0.9); }
 
+  /* ─── Integrations grid: glass ─── */
   .cp__grid-head {
     font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.4); margin-bottom: var(--space-sm);
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.42); margin-bottom: var(--space-sm);
   }
   .cp__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
   .cp__chip {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
-    background: rgba(247, 244, 239, 0.045); border: 1px solid rgba(247, 244, 239, 0.09);
-    border-radius: var(--radius-sm, 10px); padding: 0.75rem 0.4rem; min-height: 68px;
-    transition: border-color var(--duration-fast), background var(--duration-fast);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.45rem;
+    background: rgba(247, 244, 239, 0.05);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    border-radius: 12px; padding: 0.8rem 0.4rem; min-height: 72px;
+    transition: transform var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast), background var(--duration-fast),
+                box-shadow var(--duration-fast);
   }
-  .cp__chip:hover { border-color: rgba(78, 216, 194, 0.4); background: rgba(78, 216, 194, 0.06); }
+  .cp__chip:hover {
+    transform: translateY(-2px);
+    border-color: rgba(78, 216, 194, 0.45);
+    background: rgba(78, 216, 194, 0.07);
+    box-shadow: 0 6px 22px rgba(78, 216, 194, 0.14);
+  }
   .cp__chip svg { width: 20px; height: 20px; }
-  .cp__chip svg path { fill: rgba(247, 244, 239, 0.75); transition: fill var(--duration-fast); }
-  .cp__chip:hover svg path { fill: var(--warm-white); }
-  .cp__chip span { font-size: 0.6875rem; color: rgba(247, 244, 239, 0.6); text-align: center; line-height: 1.25; }
-  .cp__chip--word span { font-weight: 600; font-size: 0.75rem; color: rgba(247, 244, 239, 0.72); }
-  .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); margin-top: var(--space-sm); text-align: center; }
+  .cp__chip svg path { fill: rgba(247, 244, 239, 0.72); transition: fill var(--duration-fast); }
+  .cp__chip:hover svg path { fill: var(--reef-aqua); }
+  .cp__chip span { font-size: 0.6875rem; color: rgba(247, 244, 239, 0.58); text-align: center; line-height: 1.25; }
+  .cp__chip--word { min-height: 72px; }
+  .cp__chip--word span { font-weight: 600; font-size: 0.75rem; color: rgba(247, 244, 239, 0.7); }
+  .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); margin-top: var(--space-md); text-align: center; }
 
+  /* ─── Responsive ─── */
   @media (max-width: 1024px) {
-    .cp__body { grid-template-columns: 1fr; gap: var(--space-lg); }
-    .cp__wheel { max-width: 560px; margin: 0 auto; }
+    .cp__body { grid-template-columns: 1fr; gap: var(--space-xl); }
+    .cp__wheel { max-width: 580px; }
+    .cp__grid { grid-template-columns: repeat(4, 1fr); }
   }
   @media (max-width: 700px) {
-    /* Rotated capability labels stop being legible below this width, so the
-       outer ring is hidden and the detail moves to the list underneath. */
-    .cp__wheel { max-width: 340px; }
-    .cp__seg--cap-text { display: none; }
+    /* Rotated capability labels stop being legible here, so the outer ring
+       becomes a quiet colour band and the detail moves to the list below. */
+    .cp__wheel { max-width: 360px; }
+    .cp__cap-text { display: none; }
+    .cp__dom-text { font-size: 15px; }
+    .cp__grid { grid-template-columns: repeat(3, 1fr); }
+    .cp__chip span { font-size: 0.625rem; }
+  }
+  @media (max-width: 420px) {
     .cp__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cp__ai-dash, .cp__ai-label { animation: none; }
   }
 
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .cp__sub { color: rgba(12, 14, 20, 0.6); }
   :global(html[data-theme="light"]) .cp__hub-name { fill: var(--deep-black); }
+  :global(html[data-theme="light"]) .cp__cap-text { fill: rgba(12, 14, 20, 0.82) !important; }
   :global(html[data-theme="light"]) .cp__chip { background: rgba(12, 14, 20, 0.03); border-color: rgba(12, 14, 20, 0.1); }
   :global(html[data-theme="light"]) .cp__chip svg path { fill: rgba(12, 14, 20, 0.7); }
   :global(html[data-theme="light"]) .cp__chip span { color: rgba(12, 14, 20, 0.6); }
   :global(html[data-theme="light"]) .cp__lg { color: rgba(12, 14, 20, 0.65); border-color: rgba(12, 14, 20, 0.12); }
+  :global(html[data-theme="light"]) .cp__grid-head { color: rgba(12, 14, 20, 0.45); }
+  :global(html[data-theme="light"]) .cp__note { color: rgba(12, 14, 20, 0.45); }
 </style>
 
 <script>
@@ -257,7 +396,7 @@ const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2
       col.classList.remove('is-dim');
       col.querySelectorAll('.cp__seg').forEach((s) => s.classList.remove('is-on'));
     };
-    col.querySelectorAll('.cp__lg').forEach((btn) => {
+    col.querySelectorAll('.cp__lg[data-domain]').forEach((btn) => {
       const on = () => {
         clear();
         col.classList.add('is-dim');

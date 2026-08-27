@@ -21,7 +21,7 @@ const sub = c.sub || 'The systems that run your business, and the apps they plug
 const gridHeading = c.gridHeading || 'Connects with';
 const note = c.note || 'Plus 1,000+ more through Zapier and Make.';
 const ctaLabel = c.cta || 'See everything included';
-const aiBandLabel = c.aiBand || 'AI  ·  ACROSS  EVERYTHING  ·  ';
+const aiBandLabel = c.aiBand || 'AI · ACROSS EVERYTHING';
 
 const AQUA = '#4ED8C2';
 
@@ -210,10 +210,8 @@ const STATS = [
                       stroke-dasharray="2 10" stroke-linecap="round" />
               <path id="cpAiPath" d={aiTextPath} fill="none" />
               <text class="cp__ai-label" filter="url(#cpSoftGlow)">
-                <textPath href="#cpAiPath" startOffset="0%"
-                          textLength={(2 * Math.PI * aiMidR).toFixed(1)}
-                          lengthAdjust="spacing">
-                  {aiBandLabel.repeat(2)}
+                <textPath href="#cpAiPath" startOffset="0%" text-anchor="middle">
+                  {aiBandLabel}
                 </textPath>
               </text>
             </g>
@@ -327,10 +325,9 @@ const STATS = [
   .cp__cap-text.is-ai-text { fill: #A6F5E7; }
   .cp__hub-name { font-family: var(--font-headline); font-size: 30px; font-weight: 700; fill: var(--warm-white); letter-spacing: 0.02em; }
   .cp__hub-sub { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 2.4px; fill: rgba(78, 216, 194, 0.95); }
-  .cp__ai-label { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 2.4px; fill: #7FEEDC; }
+  .cp__ai-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; fill: #8FF2E1; }
 
   .cp__ai-dash { transform-origin: center; animation: cpSpin 50s linear infinite; }
-  .cp__ai-label { transform-origin: center; animation: cpSpin 120s linear infinite reverse; }
   @keyframes cpSpin { to { transform: rotate(360deg); } }
 
   /* ─── Entrance: only armed once JS confirms it can also disarm ─── */
@@ -436,7 +433,7 @@ const STATS = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cp__ai-dash, .cp__ai-label { animation: none; }
+    .cp__ai-dash { animation: none; }
     .cp--anim .cp__seg { opacity: 1; transform: none; }
   }
 

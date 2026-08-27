@@ -49,7 +49,7 @@ const DOMAINS = [
 
 /* ─── Geometry, computed at build time so the SVG ships static ─── */
 const CX = 340, CY = 340;
-const R_HUB = 62, R_AI0 = 68, R_AI1 = 92, R_D0 = 98, R_D1 = 178, R_C0 = 182, R_C1 = 292;
+const R_HUB = 60, R_AI0 = 66, R_AI1 = 98, R_D0 = 104, R_D1 = 184, R_C0 = 188, R_C1 = 300;
 const GAP = 0.012;
 
 const pol = (r: number, a: number) => [CX + r * Math.cos(a), CY + r * Math.sin(a)];
@@ -88,8 +88,8 @@ DOMAINS.forEach((d, di) => {
     let dg = (m2 * 180) / Math.PI;
     segments.push({
       kind: 'cap', di, d: arc(R_C0, R_C1, b0 + GAP, b1 - GAP),
-      fill: it.ai ? 'rgba(78,216,194,0.16)' : rgba(d.color, 0.2),
-      stroke: it.ai ? 'rgba(78,216,194,0.55)' : rgba(d.color, 0.42),
+      fill: it.ai ? 'rgba(78,216,194,0.2)' : rgba(d.color, 0.34),
+      stroke: it.ai ? 'rgba(78,216,194,0.7)' : rgba(d.color, 0.55),
       label: it.l, lx: ix, ly: iy, ai: !!it.ai,
       rot: dg > 90 && dg < 270 ? dg + 180 : dg,
     });
@@ -120,9 +120,9 @@ const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2
           </desc>
 
           <!-- AI band: continuous, spans every domain -->
-          <path d={aiRing} fill="rgba(78,216,194,0.14)" stroke="rgba(78,216,194,0.45)" stroke-width="1" />
+          <path d={aiRing} fill="rgba(78,216,194,0.18)" stroke="rgba(78,216,194,0.6)" stroke-width="1" />
           <path id="cp-ai-path" d={`M ${CX - (R_AI0 + R_AI1) / 2},${CY} a ${(R_AI0 + R_AI1) / 2},${(R_AI0 + R_AI1) / 2} 0 1,1 ${(R_AI0 + R_AI1)},0`} fill="none" />
-          <text class="cp__ai-label" font-size="8.5" letter-spacing="2.4" fill="#4ED8C2">
+          <text class="cp__ai-label" font-size="10" letter-spacing="3" fill="#6FE6D2" font-weight="700">
             <textPath href="#cp-ai-path" startOffset="50%" text-anchor="middle">{aiBandLabel}</textPath>
           </text>
 
@@ -135,11 +135,11 @@ const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2
             <g class={`cp__seg cp__seg--d${s.di}`}>
               <text x={s.lx} y={s.ly} text-anchor="middle" dominant-baseline="middle"
                     transform={`rotate(${s.rot} ${s.lx} ${s.ly})`}
-                    font-size={s.kind === 'domain' ? 12 : 9}
+                    font-size={s.kind === 'domain' ? 12.5 : 9.6}
                     font-weight={s.kind === 'domain' ? 700 : 500}
                     fill={s.kind === 'domain' ? '#0C0E14' : (s.ai ? '#8FF0DF' : 'rgba(247,244,239,0.9)')}>
                 {s.label.split('\n').map((line: string, i: number, arr: string[]) => (
-                  <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * (s.kind === 'domain' ? 12 : 9) * 0.55) : (s.kind === 'domain' ? 13 : 10)}>{line}</tspan>
+                  <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * (s.kind === 'domain' ? 12.5 : 9.6) * 0.55) : (s.kind === 'domain' ? 13.5 : 10.6)}>{line}</tspan>
                 ))}
               </text>
             </g>
@@ -185,12 +185,12 @@ const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.02, -Math.PI / 2 + Math.PI * 2
 
   .cp__body {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.3fr 0.7fr;
     gap: var(--space-xl);
     align-items: center;
   }
 
-  .cp__wheel { width: 100%; height: auto; display: block; }
+  .cp__wheel { width: 100%; max-width: 620px; height: auto; display: block; margin: 0 auto; }
   .cp__ai-label { font-family: var(--font-mono); }
   .cp__hub-name { font-family: var(--font-headline); font-size: 20px; font-weight: 700; fill: var(--warm-white); }
   .cp__hub-sub { font-family: var(--font-mono); font-size: 7.5px; letter-spacing: 1.8px; fill: rgba(78, 216, 194, 0.85); }

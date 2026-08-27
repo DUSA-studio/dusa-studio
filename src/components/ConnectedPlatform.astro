@@ -7,7 +7,6 @@
 // That is what lets the "AI across everything" band read as a claim with
 // evidence rather than decoration.
 import { BRAND_MARKS, WORDMARK_ONLY } from '../config/brand-marks';
-import { LOTUS_PATHS } from '../config/lotus';
 
 interface Props { t?: Record<string, any>; }
 const { t = {} } = Astro.props;
@@ -208,7 +207,7 @@ const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.
                       dominant-baseline="middle" transform={`rotate(${s.rot} ${s.lx} ${s.ly})`}
                       fill={s.ai ? '#A6F5E7' : 'rgba(247,244,239,0.92)'}>
                   {s.label.split('\n').map((line: string, i: number, arr: string[]) => (
-                    <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * 5.4) : 10.8}>{line}</tspan>
+                    <tspan x={s.lx} dy={i === 0 ? -((arr.length - 1) * 5.8) : 11.6}>{line}</tspan>
                   ))}
                 </text>
               </g>
@@ -230,12 +229,9 @@ const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.
                     stroke={rgba(AQUA, 0.4)} stroke-width="1" />
             <circle cx={CX} cy={CY} r={R_HUB - 7} fill="none"
                     stroke="rgba(247,244,239,0.07)" stroke-width="1" />
-            <g class="cp__lotus" transform={`translate(${CX - 26} ${CY - 44}) scale(0.104)`}
-               fill={AQUA} filter="url(#cpGlow)" aria-hidden="true">
-              {LOTUS_PATHS.map((p) => <path d={p} />)}
-            </g>
-            <text x={CX} y={CY + 22} text-anchor="middle" class="cp__hub-name">DUSA</text>
-            <text x={CX} y={CY + 44} text-anchor="middle" class="cp__hub-sub">ONE LOGIN</text>
+            <text x={CX} y={CY - 6} text-anchor="middle" class="cp__hub-name">DUSA</text>
+            <text x={CX} y={CY + 18} text-anchor="middle" class="cp__hub-dot">.</text>
+            <text x={CX} y={CY + 34} text-anchor="middle" class="cp__hub-sub">ONE LOGIN</text>
           </svg>
         </div>
 
@@ -274,7 +270,7 @@ const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.
   .cp__head h2 { font-weight: 600; margin-top: var(--space-xs); }
   .cp__sub { color: rgba(247, 244, 239, 0.55); margin-top: var(--space-sm); font-size: 1.0625rem; }
 
-  .cp__body { display: grid; grid-template-columns: 1.32fr 0.68fr; gap: var(--space-xl); align-items: center; }
+  .cp__body { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: var(--space-xl); align-items: center; }
 
   /* ─── Stage + ambient aura ─── */
   .cp__stage { position: relative; }
@@ -286,11 +282,12 @@ const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.
       rgba(12, 14, 20, 0) 68%);
     filter: blur(18px); pointer-events: none; z-index: 0;
   }
-  .cp__wheel { position: relative; z-index: 1; width: 100%; max-width: 660px; height: auto; display: block; margin: 0 auto; }
+  .cp__wheel { position: relative; z-index: 1; width: 100%; max-width: 720px; height: auto; display: block; margin: 0 auto; }
 
-  .cp__dom-text { font-family: var(--font-headline); font-size: 13px; font-weight: 700; letter-spacing: 0.01em; }
-  .cp__cap-text { font-family: var(--font-body); font-size: 9.6px; font-weight: 500; }
-  .cp__hub-name { font-family: var(--font-headline); font-size: 21px; font-weight: 700; fill: var(--warm-white); letter-spacing: 0.02em; }
+  .cp__dom-text { font-family: var(--font-headline); font-size: 13.5px; font-weight: 700; letter-spacing: 0.01em; }
+  .cp__cap-text { font-family: var(--font-body); font-size: 10.4px; font-weight: 500; }
+  .cp__hub-name { font-family: var(--font-headline); font-size: 27px; font-weight: 700; fill: var(--warm-white); letter-spacing: 0.02em; }
+  .cp__hub-dot { font-family: var(--font-headline); font-size: 20px; font-weight: 700; fill: var(--reef-aqua); }
   .cp__hub-sub { font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.2px; fill: rgba(78, 216, 194, 0.9); }
   .cp__ai-label { font-family: var(--font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 2.6px; fill: #7FEEDC; }
 

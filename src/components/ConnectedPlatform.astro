@@ -203,7 +203,7 @@ const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.
             <!-- labels above fills so nothing clips them -->
             {capSegs.map((s) => (
               <g class={`cp__seg cp__seg--d${s.di}`} aria-hidden="true">
-                <text class="cp__cap-text" x={s.lx} y={s.ly} text-anchor="middle"
+                <text class={`cp__cap-text ${s.ai ? "is-ai-text" : ""}`} x={s.lx} y={s.ly} text-anchor="middle"
                       dominant-baseline="middle" transform={`rotate(${s.rot} ${s.lx} ${s.ly})`}
                       fill={s.ai ? '#A6F5E7' : 'rgba(247,244,239,0.92)'}>
                   {s.label.split('\n').map((line: string, i: number, arr: string[]) => (
@@ -375,8 +375,10 @@ const aiTextPath = `M ${CX},${CY - aiMidR} A ${aiMidR},${aiMidR} 0 1,1 ${CX - 0.
 
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .cp__sub { color: rgba(12, 14, 20, 0.6); }
-  :global(html[data-theme="light"]) .cp__hub-name { fill: var(--deep-black); }
   :global(html[data-theme="light"]) .cp__cap-text { fill: rgba(12, 14, 20, 0.82) !important; }
+  :global(html[data-theme="light"]) .cp__cap-text.is-ai-text { fill: #10796B !important; }
+  :global(html[data-theme="light"]) .cp__ai-label { fill: #10796B; }
+  :global(html[data-theme="light"]) .cp__aura { opacity: 0.55; }
   :global(html[data-theme="light"]) .cp__chip { background: rgba(12, 14, 20, 0.03); border-color: rgba(12, 14, 20, 0.1); }
   :global(html[data-theme="light"]) .cp__chip svg path { fill: rgba(12, 14, 20, 0.7); }
   :global(html[data-theme="light"]) .cp__chip span { color: rgba(12, 14, 20, 0.6); }

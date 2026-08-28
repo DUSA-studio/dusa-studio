@@ -14,7 +14,7 @@ export interface Domain { name: string; color: string; items: Capability[] }
 export const DOMAINS: Domain[] = [
   {
     name: 'Capture',
-    color: '#A3D3EC',
+    color: '#A5D6F0',
     items: [
       { l: 'Funnels &\nlanding pages', d: 'Pages built to turn visitors into leads' },
       { l: 'Websites\n& blogs', d: 'Your whole site, hosted and editable' },
@@ -25,7 +25,7 @@ export const DOMAINS: Domain[] = [
   },
   {
     name: 'Sales & Payments',
-    color: '#8DC4E3',
+    color: '#8AC7E9',
     items: [
       { l: 'CRM &\npipelines', d: 'See every deal and what happens next' },
       { l: 'Booking &\ncalendars', d: 'Let clients book without the back and forth' },
@@ -36,7 +36,7 @@ export const DOMAINS: Domain[] = [
   },
   {
     name: 'Conversations',
-    color: '#78B5D9',
+    color: '#6FB7E0',
     items: [
       { l: 'Unified\ninbox', d: 'Every channel in one conversation view' },
       { l: 'Email', d: 'Send, reply and track from one place' },
@@ -47,7 +47,7 @@ export const DOMAINS: Domain[] = [
   },
   {
     name: 'Marketing & Social',
-    color: '#64A6CE',
+    color: '#57A8D6',
     items: [
       { l: 'Email\ncampaigns', d: 'Broadcasts and nurture sequences' },
       { l: 'Social\nplanner', d: 'Schedule every channel from one calendar' },
@@ -57,7 +57,7 @@ export const DOMAINS: Domain[] = [
   },
   {
     name: 'Automation',
-    color: '#5397C2',
+    color: '#4098C8',
     items: [
       { l: 'Workflows\n& triggers', d: 'Set the rules once, it runs forever' },
       { l: 'Smart\nfollow-up', d: 'Chases every lead until they reply', ai: true },
@@ -67,7 +67,7 @@ export const DOMAINS: Domain[] = [
   },
   {
     name: 'Reputation',
-    color: '#4589B4',
+    color: '#3288BC',
     items: [
       { l: 'Review\nrequests', d: 'Asks happy customers at the right moment' },
       { l: 'AI review\nreplies', d: 'Responds to reviews in your tone', ai: true },

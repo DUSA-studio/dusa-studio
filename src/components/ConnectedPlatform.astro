@@ -32,7 +32,7 @@ const AQUA = '#4ED8C2';
 
 /* ─── Geometry, resolved at build time so the SVG ships static ─── */
 const VB = 760, CX = 380, CY = 380;
-const R_HUB = 84, R_AI0 = 90, R_AI1 = 118, R_D0 = 124, R_D1 = 198, R_C0 = 202, R_C1 = 332;
+const R_HUB = 118, R_AI0 = 124, R_AI1 = 152, R_D0 = 158, R_D1 = 226, R_C0 = 230, R_C1 = 344;
 const GAP = 0.010;
 
 const pol = (r: number, a: number) => [CX + r * Math.cos(a), CY + r * Math.sin(a)];
@@ -89,8 +89,8 @@ DOMAINS.forEach((d, di) => {
     const dg = (m2 * 180) / Math.PI;
     capSegs.push({
       di, i: capIndex++, d: arc(R_C0, R_C1, b0 + GAP, b1 - GAP),
-      fill: it.ai ? rgba(AQUA, 0.3) : rgba(d.color, 0.34),
-      stroke: it.ai ? rgba(AQUA, 0.95) : rgba(d.color, 0.62),
+      fill: it.ai ? rgba(AQUA, 0.26) : rgba(d.color, 0.15),
+      stroke: it.ai ? AQUA : rgba(d.color, 0.85),
       label: it.l, plain: it.l.replace('\n', ' '), desc: it.d,
       domain: d.name, lx: ix, ly: iy, ai: !!it.ai,
       rot: dg > 90 && dg < 270 ? dg + 180 : dg,
@@ -162,7 +162,7 @@ const STATS = [
 
         {capSegs.map((s) => (
           <path class={`cp__seg cp__cap cp__seg--d${s.di} ${s.ai ? 'is-ai' : ''}`}
-                style={`--i:${s.i}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1"
+                style={`--i:${s.i}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
                 data-name={s.plain} data-desc={s.desc} data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
         ))}
 
@@ -299,8 +299,8 @@ const STATS = [
   }
   .cp__wheel { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
 
-  .cp__dom-text { font-family: var(--font-headline); font-size: 13px; font-weight: 700; fill: #0C0E14; letter-spacing: 0.01em; }
-  .cp__cap-text { font-family: var(--font-body); font-size: 11px; font-weight: 500; fill: rgba(247, 244, 239, 0.94); }
+  .cp__dom-text { font-family: var(--font-headline); font-size: 15px; font-weight: 700; fill: #0C0E14; letter-spacing: 0.01em; }
+  .cp__cap-text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; fill: rgba(247, 244, 239, 0.94); }
   .cp__cap-text.is-ai-text { fill: #A6F5E7; }
   .cp__ai-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; fill: #8FF2E1; }
   .cp__ai-dash { transform-origin: center; animation: cpSpin 50s linear infinite; }
@@ -320,7 +320,7 @@ const STATS = [
   /* ─── Hub readout ─── */
   .cp__readout {
     position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    width: 19%; text-align: center; pointer-events: none;
+    width: 27%; text-align: center; pointer-events: none;
   }
   .cp__readout > div { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
   .cp__readout > div[hidden] { display: none; }
@@ -408,7 +408,7 @@ const STATS = [
     .cp__stage { max-width: 400px; }
     .cp__cap-text { display: none; }
     .cp__dom-text { font-size: 15px; }
-    .cp__readout { width: 26%; }
+    .cp__readout { width: 34%; }
     .cp__readout-hint { display: none; }
     .cp__stats { gap: 0 var(--space-sm); }
     .cp__stat dt { font-size: 1.375rem; }
@@ -468,6 +468,46 @@ const STATS = [
       io.observe(svg);
       setTimeout(() => svg.classList.add('is-in'), 2500);
     }
+
+
+    /* ── Guarantee no label ever outgrows the shape holding it ──
+       Font metrics are not knowable at build time, and the labels are
+       translated, so measure at runtime and shrink anything that does not
+       fit. This is what stops "Conversations" (and any longer German or
+       Portuguese equivalent) spilling out of its segment. */
+    const CAP_RADIAL = 114; /* R_C1 - R_C0 */
+    function fitLabels() {
+      section.querySelectorAll('.cp__dom-text').forEach((txt) => {
+        const tp = txt.querySelector('textPath');
+        if (!tp) return;
+        const path = section.querySelector(tp.getAttribute('href'));
+        if (!path) return;
+        const room = path.getTotalLength() * 0.86;
+        txt.style.fontSize = '';
+        const base = parseFloat(getComputedStyle(txt).fontSize);
+        let len = tp.getComputedTextLength();
+        if (len > room) txt.style.fontSize = Math.max(9, base * (room / len)).toFixed(2) + 'px';
+      });
+
+      const capRoom = CAP_RADIAL - 20;
+      section.querySelectorAll('.cp__cap-text').forEach((txt) => {
+        txt.style.fontSize = '';
+        const base = parseFloat(getComputedStyle(txt).fontSize);
+        let widest = 0;
+        txt.querySelectorAll('tspan').forEach((sp) => {
+          widest = Math.max(widest, sp.getComputedTextLength());
+        });
+        if (widest > capRoom) txt.style.fontSize = Math.max(7.5, base * (capRoom / widest)).toFixed(2) + 'px';
+      });
+    }
+    /* Fonts load after first paint and change every measurement. */
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLabels);
+    fitLabels();
+    let fitTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(fitTimer);
+      fitTimer = setTimeout(fitLabels, 150);
+    });
 
     const clear = () => {
       stage.classList.remove('is-dim');

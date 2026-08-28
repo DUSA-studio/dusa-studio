@@ -290,7 +290,7 @@ const STATS = [
   }
 
   /* ─── Wheel ─── */
-  .cp__stage { position: relative; max-width: 780px; margin: 0 auto; }
+  .cp__stage { position: relative; max-width: 780px; margin: 0 auto; container-type: inline-size; }
   .cp__aura {
     position: absolute; inset: -12%;
     background: radial-gradient(circle at 50% 50%,
@@ -320,16 +320,16 @@ const STATS = [
   /* ─── Hub readout ─── */
   .cp__readout {
     position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    width: 27%; text-align: center; pointer-events: none;
+    width: 26%; text-align: center; pointer-events: none;
   }
   .cp__readout > div { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
   .cp__readout > div[hidden] { display: none; }
-  .cp__readout-brand { font-family: var(--font-headline); font-size: clamp(1.1rem, 2.6vw, 1.75rem); font-weight: 700; color: var(--warm-white); letter-spacing: 0.02em; line-height: 1; }
-  .cp__readout-sub { font-family: var(--font-mono); font-size: clamp(0.42rem, 0.85vw, 0.55rem); letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
-  .cp__readout-hint { font-size: clamp(0.42rem, 0.8vw, 0.55rem); color: rgba(247, 244, 239, 0.3); margin-top: 0.35rem; }
-  .cp__readout-domain { font-family: var(--font-mono); font-size: clamp(0.4rem, 0.78vw, 0.5rem); letter-spacing: 0.18em; text-transform: uppercase; color: rgba(78, 216, 194, 0.9); }
-  .cp__readout-name { font-family: var(--font-headline); font-size: clamp(0.72rem, 1.5vw, 1rem); font-weight: 700; color: var(--warm-white); line-height: 1.15; }
-  .cp__readout-desc { font-size: clamp(0.5rem, 1vw, 0.7rem); line-height: 1.35; color: rgba(247, 244, 239, 0.62); margin-top: 0.2rem; }
+  .cp__readout-brand { font-family: var(--font-headline); font-size: 4cqw; font-weight: 700; color: var(--warm-white); letter-spacing: 0.02em; line-height: 1; }
+  .cp__readout-sub { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
+  .cp__readout-hint { font-size: 1.15cqw; color: rgba(247, 244, 239, 0.3); margin-top: 0.35rem; }
+  .cp__readout-domain { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(78, 216, 194, 0.9); }
+  .cp__readout-name { font-family: var(--font-headline); font-size: 2.5cqw; font-weight: 700; color: var(--warm-white); line-height: 1.15; }
+  .cp__readout-desc { font-size: 1.6cqw; line-height: 1.35; color: rgba(247, 244, 239, 0.62); margin-top: 0.2rem; }
 
   /* ─── Legend ─── */
   .cp__legend { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: var(--space-lg); }
@@ -408,7 +408,6 @@ const STATS = [
     .cp__stage { max-width: 400px; }
     .cp__cap-text { display: none; }
     .cp__dom-text { font-size: 15px; }
-    .cp__readout { width: 34%; }
     .cp__readout-hint { display: none; }
     .cp__stats { gap: 0 var(--space-sm); }
     .cp__stat dt { font-size: 1.375rem; }

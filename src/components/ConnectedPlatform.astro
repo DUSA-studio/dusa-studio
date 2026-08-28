@@ -484,9 +484,20 @@ const STATS = [
         if (!path) return;
         const room = path.getTotalLength() * 0.86;
         txt.style.fontSize = '';
+        tp.removeAttribute('textLength');
+        tp.removeAttribute('lengthAdjust');
         const base = parseFloat(getComputedStyle(txt).fontSize);
-        let len = tp.getComputedTextLength();
-        if (len > room) txt.style.fontSize = Math.max(9, base * (room / len)).toFixed(2) + 'px';
+        const len = tp.getComputedTextLength();
+        if (len > room) {
+          txt.style.fontSize = Math.max(9, base * (room / len)).toFixed(2) + 'px';
+          /* Shrinking bottoms out at 9px. Anything still too long (a very long
+             translated label) gets condensed to fit exactly, so overflow is
+             impossible rather than merely unlikely. */
+          if (tp.getComputedTextLength() > room) {
+            tp.setAttribute('textLength', room.toFixed(1));
+            tp.setAttribute('lengthAdjust', 'spacingAndGlyphs');
+          }
+        }
       });
 
       const capRoom = CAP_RADIAL - 20;

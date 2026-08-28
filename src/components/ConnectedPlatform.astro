@@ -33,7 +33,7 @@ const AQUA = '#4ED8C2';
 /* ─── Geometry, resolved at build time so the SVG ships static ─── */
 const VB = 760, CX = 380, CY = 380;
 const R_HUB = 118, R_AI0 = 124, R_AI1 = 152, R_D0 = 158, R_D1 = 226, R_C0 = 230, R_C1 = 344;
-const GAP = 0.010;
+const GAP = 0.016;
 
 const pol = (r: number, a: number) => [CX + r * Math.cos(a), CY + r * Math.sin(a)];
 function arc(r0: number, r1: number, a0: number, a1: number) {
@@ -43,6 +43,31 @@ function arc(r0: number, r1: number, a0: number, a1: number) {
   return `M${x0.toFixed(2)},${y0.toFixed(2)}A${r1},${r1} 0 ${laf} 1 ${x1.toFixed(2)},${y1.toFixed(2)}` +
          `L${x2.toFixed(2)},${y2.toFixed(2)}A${r0},${r0} 0 ${laf} 0 ${x3.toFixed(2)},${y3.toFixed(2)}Z`;
 }
+/**
+ * Annular sector with genuinely rounded corners. Each corner is cut back by
+ * `k` along both edges and rejoined with a quarter arc, so the segment reads
+ * as a soft tile rather than a slice of pie chart.
+ */
+function roundedSector(r0: number, r1: number, a0: number, a1: number, k = 5) {
+  const dIn = Math.min(k / r0, (a1 - a0) / 2.2);
+  const dOut = Math.min(k / r1, (a1 - a0) / 2.2);
+  const kr = Math.min(k, (r1 - r0) / 2.2);
+  const P = (r: number, a: number) => pol(r, a).map((n) => n.toFixed(2)).join(',');
+  const laf = a1 - a0 > Math.PI ? 1 : 0;
+  return [
+    `M${P(r0 + kr, a0)}`,
+    `L${P(r1 - kr, a0)}`,
+    `A${k},${k} 0 0 1 ${P(r1, a0 + dOut)}`,
+    `A${r1},${r1} 0 ${laf} 1 ${P(r1, a1 - dOut)}`,
+    `A${k},${k} 0 0 1 ${P(r1 - kr, a1)}`,
+    `L${P(r0 + kr, a1)}`,
+    `A${k},${k} 0 0 1 ${P(r0, a1 - dIn)}`,
+    `A${r0},${r0} 0 ${laf} 0 ${P(r0, a0 + dIn)}`,
+    `A${k},${k} 0 0 1 ${P(r0 + kr, a0)}`,
+    'Z',
+  ].join('');
+}
+
 function arcPath(r: number, a0: number, a1: number, flip: boolean) {
   const [s0, s1] = flip ? [a1, a0] : [a0, a1];
   const [x0, y0] = pol(r, s0), [x1, y1] = pol(r, s1);
@@ -79,7 +104,7 @@ DOMAINS.forEach((d, di) => {
   const [gx1, gy1] = pol(rMid, a0);
   const [gx2, gy2] = pol(rMid, a1);
   domainSegs.push({
-    di, d: arc(R_D0, R_D1, a0 + GAP, a1 - GAP),
+    di, d: roundedSector(R_D0, R_D1, a0 + GAP, a1 - GAP, 7),
     label: d.name, color: d.color,
     nextColor: DOMAINS[(di + 1) % DOMAINS.length].color,
     gx1, gy1, gx2, gy2,
@@ -93,7 +118,7 @@ DOMAINS.forEach((d, di) => {
     const [ix, iy] = pol((R_C0 + R_C1) / 2, m2);
     const dg = (m2 * 180) / Math.PI;
     capSegs.push({
-      di, i: capIndex++, d: arc(R_C0, R_C1, b0 + GAP, b1 - GAP),
+      di, i: capIndex++, d: roundedSector(R_C0, R_C1, b0 + GAP, b1 - GAP, 6),
       fill: it.ai ? rgba(AQUA, 0.26) : rgba(d.color, 0.15),
       stroke: it.ai ? AQUA : rgba(d.color, 0.85),
       label: it.l, plain: it.l.replace('\n', ' '), desc: it.d,
@@ -140,6 +165,19 @@ const STATS = [
             <stop offset="52%" stop-color="#1A3A5C" stop-opacity="0.12" />
             <stop offset="100%" stop-color="#0C0E14" stop-opacity="0" />
           </radialGradient>
+          <radialGradient id="cpSheen" cx="32%" cy="20%" r="62%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16" />
+            <stop offset="55%" stop-color="#FFFFFF" stop-opacity="0.03" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="cpHubWell" cx="50%" cy="38%" r="72%">
+            <stop offset="0%" stop-color="#16202E" />
+            <stop offset="70%" stop-color="#0C0E14" />
+            <stop offset="100%" stop-color="#07080C" />
+          </radialGradient>
+          <filter id="cpDrop" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#04060A" flood-opacity="0.75" />
+          </filter>
           <filter id="cpSoftGlow" x="-60%" y="-60%" width="220%" height="220%">
             <feGaussianBlur stdDeviation="2.6" result="b" />
             <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
@@ -171,10 +209,12 @@ const STATS = [
                 data-name={s.plain} data-desc={s.desc} data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
         ))}
 
+        <g filter="url(#cpDrop)">
         {domainSegs.map((s) => (
           <path class={`cp__seg cp__dom cp__seg--d${s.di}`} style={`--i:${s.di};--glow:${s.color}`}
-                d={s.d} fill={`url(#cpD${s.di})`} stroke="rgba(12,14,20,0.4)" stroke-width="1" />
+                d={s.d} fill={`url(#cpD${s.di})`} stroke="rgba(255,255,255,0.22)" stroke-width="1" />
         ))}
+        </g>
 
         <g class="cp__ai">
           <circle cx={CX} cy={CY} r={(R_AI0 + R_AI1) / 2} fill="none"
@@ -211,7 +251,10 @@ const STATS = [
           </g>
         ))}
 
-        <circle cx={CX} cy={CY} r={R_HUB} fill="#0C0E14" stroke={rgba(AQUA, 0.45)} stroke-width="1" />
+        <circle class="cp__sheen" cx={CX} cy={CY} r={R_C1} fill="url(#cpSheen)"
+                pointer-events="none" aria-hidden="true" />
+
+        <circle cx={CX} cy={CY} r={R_HUB} fill="url(#cpHubWell)" stroke={rgba(AQUA, 0.45)} stroke-width="1" />
         <circle cx={CX} cy={CY} r={R_HUB - 8} fill="none" stroke="rgba(247,244,239,0.08)" stroke-width="1" />
       </svg>
 
@@ -344,7 +387,7 @@ const STATS = [
   .cp__readout > div[hidden] { display: none; }
   .cp__lotus {
     width: 7.5cqw; height: 7.5cqw; display: block; margin-bottom: 0.35rem;
-    background: linear-gradient(140deg, var(--reef-aqua) 0%, var(--mist-blue) 100%);
+    background: var(--warm-white);
     -webkit-mask: url('/favicon-512x512.png') center / contain no-repeat;
     mask: url('/favicon-512x512.png') center / contain no-repeat;
   }

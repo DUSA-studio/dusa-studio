@@ -75,9 +75,14 @@ DOMAINS.forEach((d, di) => {
   const m = ((mid % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
   const flip = m > 0 && m < Math.PI;
   const rLabel = (R_D0 + R_D1) / 2 + (flip ? 5 : -5);
+  const rMid = (R_D0 + R_D1) / 2;
+  const [gx1, gy1] = pol(rMid, a0);
+  const [gx2, gy2] = pol(rMid, a1);
   domainSegs.push({
     di, d: arc(R_D0, R_D1, a0 + GAP, a1 - GAP),
     label: d.name, color: d.color,
+    nextColor: DOMAINS[(di + 1) % DOMAINS.length].color,
+    gx1, gy1, gx2, gy2,
     textPath: arcPath(rLabel, a0 + GAP, a1 - GAP, flip),
   });
 
@@ -99,7 +104,6 @@ DOMAINS.forEach((d, di) => {
   cursor = a1;
 });
 
-const aiRing = arc(R_AI0, R_AI1, -Math.PI / 2 + 0.012, -Math.PI / 2 + Math.PI * 2 - 0.012);
 const aiMidR = (R_AI0 + R_AI1) / 2 + 2;
 const aiTextPath = `M ${CX - aiMidR},${CY} A ${aiMidR},${aiMidR} 0 0 1 ${CX + aiMidR},${CY}`;
 
@@ -140,10 +144,11 @@ const STATS = [
             <feGaussianBlur stdDeviation="2.6" result="b" />
             <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
-          {DOMAINS.map((d, i) => (
-            <linearGradient id={`cpD${i}`} x1="0%" y1="0%" x2="20%" y2="100%">
-              <stop offset="0%" stop-color={d.color} stop-opacity="1" />
-              <stop offset="100%" stop-color={d.color} stop-opacity="0.66" />
+          {domainSegs.map((s2, i) => (
+            <linearGradient id={`cpD${i}`} gradientUnits="userSpaceOnUse"
+                            x1={s2.gx1} y1={s2.gy1} x2={s2.gx2} y2={s2.gy2}>
+              <stop offset="0%" stop-color={s2.color} />
+              <stop offset="100%" stop-color={s2.nextColor} />
             </linearGradient>
           ))}
         </defs>
@@ -162,18 +167,22 @@ const STATS = [
 
         {capSegs.map((s) => (
           <path class={`cp__seg cp__cap cp__seg--d${s.di} ${s.ai ? 'is-ai' : ''}`}
-                style={`--i:${s.i}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
+                style={`--i:${s.i};--glow:${s.ai ? AQUA : s.stroke}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
                 data-name={s.plain} data-desc={s.desc} data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
         ))}
 
         {domainSegs.map((s) => (
-          <path class={`cp__seg cp__dom cp__seg--d${s.di}`} style={`--i:${s.di}`}
+          <path class={`cp__seg cp__dom cp__seg--d${s.di}`} style={`--i:${s.di};--glow:${s.color}`}
                 d={s.d} fill={`url(#cpD${s.di})`} stroke="rgba(12,14,20,0.4)" stroke-width="1" />
         ))}
 
         <g class="cp__ai">
-          <path d={aiRing} fill={rgba(AQUA, 0.17)} stroke={rgba(AQUA, 0.8)}
-                stroke-width="1.25" filter="url(#cpSoftGlow)" />
+          <circle cx={CX} cy={CY} r={(R_AI0 + R_AI1) / 2} fill="none"
+                  stroke={rgba(AQUA, 0.17)} stroke-width={R_AI1 - R_AI0} />
+          <circle cx={CX} cy={CY} r={R_AI0} fill="none" stroke={rgba(AQUA, 0.8)}
+                  stroke-width="1.25" filter="url(#cpSoftGlow)" />
+          <circle cx={CX} cy={CY} r={R_AI1} fill="none" stroke={rgba(AQUA, 0.8)}
+                  stroke-width="1.25" filter="url(#cpSoftGlow)" />
           <circle class="cp__ai-dash" cx={CX} cy={CY} r={R_AI1 - 1} fill="none"
                   stroke={rgba(AQUA, 0.45)} stroke-width="1" stroke-dasharray="2 10" stroke-linecap="round" />
           <path id="cpAiPath" d={aiTextPath} fill="none" />
@@ -209,6 +218,7 @@ const STATS = [
       <!-- Hub readout: HTML rather than SVG text so descriptions can wrap. -->
       <div class="cp__readout" aria-live="polite">
         <div class="cp__readout-default">
+          <span class="cp__lotus" aria-hidden="true"></span>
           <span class="cp__readout-brand">DUSA</span>
           <span class="cp__readout-sub">ONE LOGIN</span>
           <span class="cp__readout-hint">{hubHint}</span>
@@ -255,7 +265,7 @@ const STATS = [
         {[rowA, rowB].map((row, ri) => (
           <div class={`cp__row cp__row--${ri}`}>
             <div class="cp__track">
-              {[...row, ...row].map((a) => (
+              {[...row, ...row, ...row, ...row].map((a) => (
                 <span class={`cp__chip ${a.path ? '' : 'cp__chip--word'}`} style={`--brand:${a.hex || '#4ED8C2'}`}>
                   {a.path && <svg viewBox="0 0 24 24" aria-hidden="true"><path d={a.path} /></svg>}
                   <span>{a.name}</span>
@@ -307,6 +317,15 @@ const STATS = [
   @keyframes cpSpin { to { transform: rotate(360deg); } }
 
   .cp__cap { cursor: pointer; }
+  /* Selected segments light up in their own colour rather than just brightening. */
+  .cp__cap:hover, .cp__dom:hover,
+  .cp__stage.is-dim .cp__seg.is-on {
+    filter: brightness(1.22) drop-shadow(0 0 7px var(--glow, #4ED8C2));
+  }
+  .cp__cap.is-ai:hover,
+  .cp__stage.is-dim .cp__cap.is-ai.is-on {
+    filter: brightness(1.3) drop-shadow(0 0 11px #4ED8C2);
+  }
   .cp__seg { transition: opacity var(--duration-normal) var(--ease-out), filter var(--duration-normal) var(--ease-out); }
   .cp--anim .cp__seg { opacity: 0; transform: scale(0.965); transform-origin: 380px 380px; }
   .cp--anim.is-in .cp__seg {
@@ -315,7 +334,6 @@ const STATS = [
     transition-delay: calc(var(--i, 0) * 22ms);
   }
   .cp__stage.is-dim .cp__seg:not(.is-on) { opacity: 0.1; }
-  .cp__stage.is-dim .cp__seg.is-on { filter: brightness(1.18); }
 
   /* ─── Hub readout ─── */
   .cp__readout {
@@ -324,6 +342,12 @@ const STATS = [
   }
   .cp__readout > div { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
   .cp__readout > div[hidden] { display: none; }
+  .cp__lotus {
+    width: 7.5cqw; height: 7.5cqw; display: block; margin-bottom: 0.35rem;
+    background: linear-gradient(140deg, var(--reef-aqua) 0%, var(--mist-blue) 100%);
+    -webkit-mask: url('/favicon-512x512.png') center / contain no-repeat;
+    mask: url('/favicon-512x512.png') center / contain no-repeat;
+  }
   .cp__readout-brand { font-family: var(--font-headline); font-size: 4cqw; font-weight: 700; color: var(--warm-white); letter-spacing: 0.02em; line-height: 1; }
   .cp__readout-sub { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
   .cp__readout-hint { font-size: 1.15cqw; color: rgba(247, 244, 239, 0.3); margin-top: 0.35rem; }
@@ -372,7 +396,7 @@ const STATS = [
   .cp__track { display: flex; gap: 0.5rem; width: max-content; animation: cpMarquee 46s linear infinite; }
   .cp__row--1 .cp__track { animation-duration: 58s; animation-direction: reverse; }
   .cp__marquee:hover .cp__track { animation-play-state: paused; }
-  @keyframes cpMarquee { to { transform: translateX(-50%); } }
+  @keyframes cpMarquee { to { transform: translateX(-25%); } }
 
   .cp__chip {
     display: inline-flex; align-items: center; gap: 0.5rem; flex-shrink: 0;

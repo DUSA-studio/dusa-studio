@@ -86,7 +86,12 @@ const options = [
 </BaseLayout>
 
 <style>
-  .stg { padding: calc(var(--nav-height) + 3rem) var(--space-md) 6rem; max-width: 1240px; margin: 0 auto; }
+  .stg {
+    padding: calc(var(--nav-height) + 3rem) var(--space-md) 6rem;
+    max-width: 1240px; margin: 0 auto;
+    background: var(--deep-black); color: var(--warm-white);
+  }
+  .stg h1, .stg h2, .stg h3 { color: var(--warm-white); }
 
   .stg__intro { max-width: 720px; margin: 0 auto 4rem; text-align: center; }
   .stg__eyebrow {

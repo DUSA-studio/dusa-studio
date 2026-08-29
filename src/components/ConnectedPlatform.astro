@@ -653,6 +653,25 @@ const STATS = [
   .cp__stage.is-dim .cp__cap.is-ai.is-on {
     filter: brightness(1.32) drop-shadow(0 0 12px #4ED8C2);
   }
+
+  /* Selected labels must survive being sat on top of their own glow.
+     Mint-on-aqua measured 4.3:1 and read as unreadable. A dark halo painted
+     UNDER the glyphs (paint-order) decouples the label from whatever colour
+     the tile happens to be, so contrast is ~19:1 in every domain rather than
+     depending on the tile's hue. */
+  .cp__stage.is-dim .cp__seg.is-on .cp__cap-text,
+  .cp__stage.is-dim .cp__seg.is-on .cp__cap-text.is-ai-text {
+    fill: #FFFFFF;
+    font-weight: 700;
+    paint-order: stroke fill;
+    stroke: rgba(4, 10, 14, 0.92);
+    stroke-width: 3.4px;
+    stroke-linejoin: round;
+  }
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text,
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text.is-ai-text {
+    fill: #FFFFFF; stroke: rgba(6, 24, 34, 0.9);
+  }
   .cp__seg { transition: opacity 0.22s var(--ease-out); }
   .cp--anim .cp__seg { opacity: 0; transform: scale(0.965); transform-origin: 380px 380px; }
   .cp--anim.is-in .cp__seg {
@@ -1042,11 +1061,17 @@ const STATS = [
     };
     /* The AI filter is the visual proof of "AI across everything": it lights
        every AI capability at once, in every domain. */
+    const capLabelGroups = [...svg.querySelectorAll('.cp__cap-text')].map((t) => t.parentElement);
     const lightAi = () => {
       clearMarks();
       stage.classList.add('is-dim');
-      capTiles.forEach((t) => {
-        if (t.classList.contains('is-ai')) { t.classList.add('is-on', 'is-active'); }
+      capTiles.forEach((t, n) => {
+        if (t.classList.contains('is-ai')) {
+          t.classList.add('is-on', 'is-active');
+          /* The label is in a sibling group, so it needs lighting too or it
+             stays at the dimmed 0.1 opacity and is unreadable. */
+          if (capLabelGroups[n]) { capLabelGroups[n].classList.add('is-on'); }
+        }
       });
       tip.classList.remove('is-on');
       readoutSet('AI POWERED', aiChip.querySelector('b').textContent + ' capabilities',

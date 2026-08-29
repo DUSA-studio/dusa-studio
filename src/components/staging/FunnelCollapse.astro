@@ -1,0 +1,167 @@
+---
+// DIRECTION C — "The collapse"
+//
+// Argument: the other two explain the saving. This one shows the consolidation,
+// which is the actual product story. Eight scattered cards, each with its own
+// login and bill, fall into a single DUSA card on scroll. The money is the
+// payoff line rather than the whole point.
+//
+// Driven by one IntersectionObserver and a CSS class, so a JS failure leaves the
+// resting state fully readable rather than a blank box.
+import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../../config/stack-compare';
+
+/* Scatter is deterministic, not random, so the layout is identical on every
+   build and can actually be design-reviewed. */
+const SCATTER = [
+  { x: -38, y: -30, r: -7 }, { x: 6,   y: -40, r: 4 },
+  { x: 44,  y: -26, r: 8 },  { x: -50, y: 6,   r: 5 },
+  { x: 40,  y: 12,  r: -6 }, { x: -30, y: 40,  r: 6 },
+  { x: 10,  y: 48,  r: -4 }, { x: 46,  y: 44,  r: 7 },
+];
+---
+
+<div class="cl" data-collapse>
+  <div class="cl__stage">
+
+    <div class="cl__scatter">
+      {STACK.map((tool, i) => (
+        <span class="cl__card" style={`--x:${SCATTER[i].x}%;--y:${SCATTER[i].y}%;--r:${SCATTER[i].r}deg;--i:${i}`}>
+          <b>{tool.name}</b>
+          <i>{tool.job}</i>
+          <em>{money(tool.cost)}</em>
+        </span>
+      ))}
+    </div>
+
+    <div class="cl__target">
+      <span class="cl__target-tag">One platform</span>
+      <span class="cl__target-name">DUSA . studio</span>
+      <span class="cl__target-cost">{money(DUSA_COST)}<i>/mo</i></span>
+    </div>
+
+  </div>
+
+  <div class="cl__ledger">
+    <span class="cl__from">
+      <i>Was</i><b>{money(STACK_TOTAL)}</b><em>{STACK.length} logins, {STACK.length} bills</em>
+    </span>
+    <span class="cl__arrow" aria-hidden="true"></span>
+    <span class="cl__to">
+      <i>Now</i><b>{money(DUSA_COST)}</b><em>One login, one bill</em>
+    </span>
+    <span class="cl__save">
+      <i>Saved</i><b>{money(SAVING)}</b><em>every month</em>
+    </span>
+  </div>
+</div>
+
+<style>
+  .cl { container-type: inline-size; }
+
+  .cl__stage {
+    position: relative; height: 420px; display: grid; place-items: center;
+    margin-bottom: var(--space-md);
+  }
+  .cl__scatter { position: absolute; inset: 0; }
+
+  .cl__card {
+    position: absolute; left: 50%; top: 50%;
+    display: grid; gap: 0.1rem; padding: 0.6rem 0.85rem; border-radius: 10px;
+    background: rgba(20, 24, 32, 0.92);
+    border: 1px solid rgba(232, 82, 78, 0.28);
+    box-shadow: 0 10px 26px rgba(4, 8, 14, 0.5);
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r));
+    transition: transform 0.8s var(--ease-out), opacity 0.55s var(--ease-out);
+    transition-delay: calc(var(--i) * 45ms);
+  }
+  .cl__card b { font-size: 0.8125rem; color: rgba(247, 244, 239, 0.9); }
+  .cl__card i {
+    font-style: normal; font-family: var(--font-mono); font-size: 0.5625rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.32);
+  }
+  .cl__card em {
+    font-style: normal; font-family: var(--font-mono); font-size: 0.75rem;
+    color: rgba(232, 82, 78, 0.9);
+  }
+
+  /* Collapsed: every card converges on the centre and fades under the target. */
+  .cl.is-in .cl__card {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+
+  .cl__target {
+    position: relative; z-index: 2;
+    display: grid; justify-items: center; gap: 0.25rem;
+    padding: 1.5rem 2.2rem; border-radius: 16px;
+    background: linear-gradient(180deg, rgba(78, 216, 194, 0.12), rgba(78, 216, 194, 0.03));
+    border: 1px solid rgba(78, 216, 194, 0.45);
+    box-shadow: 0 0 40px rgba(78, 216, 194, 0.18);
+    opacity: 0; transform: scale(0.9);
+    transition: opacity 0.5s var(--ease-out) 0.35s, transform 0.6s var(--ease-out) 0.35s;
+  }
+  .cl.is-in .cl__target { opacity: 1; transform: scale(1); }
+  .cl__target-tag {
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--reef-aqua);
+  }
+  .cl__target-name {
+    font-family: var(--font-headline); font-weight: 700; font-size: 1.6rem;
+    color: var(--warm-white);
+  }
+  .cl__target-cost {
+    font-family: var(--font-mono); font-weight: 700; font-size: 1.75rem;
+    color: var(--reef-aqua);
+  }
+  .cl__target-cost i { font-style: normal; font-size: 0.8125rem; opacity: 0.6; }
+
+  .cl__ledger {
+    display: grid; grid-template-columns: 1fr auto 1fr auto; gap: 1.2rem;
+    align-items: center; justify-items: center;
+    padding-top: var(--space-md); border-top: 1px solid rgba(247, 244, 239, 0.08);
+  }
+  .cl__ledger > span { display: grid; justify-items: center; gap: 0.1rem; }
+  .cl__ledger i {
+    font-style: normal; font-family: var(--font-mono); font-size: 0.625rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.35);
+  }
+  .cl__ledger b {
+    font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem;
+    font-variant-numeric: tabular-nums; color: rgba(247, 244, 239, 0.85);
+  }
+  .cl__ledger em { font-style: normal; font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); }
+  .cl__from b { color: rgba(232, 82, 78, 0.95); }
+  .cl__to b, .cl__save b { color: var(--reef-aqua); }
+  .cl__arrow { width: 34px; height: 1px; background: rgba(247, 244, 239, 0.2); }
+
+  @container (max-width: 760px) {
+    .cl__stage { height: 340px; }
+    .cl__card { padding: 0.45rem 0.6rem; }
+    .cl__card b { font-size: 0.6875rem; }
+    .cl__ledger { grid-template-columns: 1fr 1fr; gap: 1rem 0.6rem; }
+    .cl__arrow { display: none; }
+  }
+
+  /* Without motion the collapse never plays, so show the resolved state. */
+  @media (prefers-reduced-motion: reduce) {
+    .cl__card, .cl__target { transition: none; }
+    .cl__target { opacity: 1; transform: none; }
+    .cl__card { opacity: 0; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-collapse]').forEach((el) => {
+    /* Resolve immediately if the observer is unavailable, so the section can
+       never be left showing scattered cards with no payoff. */
+    if (!('IntersectionObserver' in window)) { el.classList.add('is-in'); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { el.classList.add('is-in'); io.disconnect(); }
+      });
+    }, { threshold: 0.45 });
+    io.observe(el);
+  });
+</script>

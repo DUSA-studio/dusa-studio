@@ -5,8 +5,8 @@ export default defineConfig({
   site: 'https://dusa.studio',
   integrations: [
     sitemap({
-      // /preview/* holds unreleased sections for review only — never index them.
-      filter: (page) => !page.includes('/404') && !page.includes('/preview/'),
+      // /preview/* and /staging/* hold unreleased work for review only — never index them.
+      filter: (page) => !page.includes('/404') && !page.includes('/preview/') && !page.includes('/staging/'),
     }),
   ],
 });

@@ -1,0 +1,136 @@
+---
+// Staging compare route: three redesigns of the cost comparison section,
+// plus the current live version at the bottom for reference.
+// Lives on the staging/funnel-redesign branch only. noindex + sitemap-excluded.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FunnelReceipt from '../../components/staging/FunnelReceipt.astro';
+import FunnelScale from '../../components/staging/FunnelScale.astro';
+import FunnelCollapse from '../../components/staging/FunnelCollapse.astro';
+import FunnelComparison from '../../components/FunnelComparison.astro';
+import { STACK, STACK_TOTAL } from '../../config/stack-compare';
+import t from '../../i18n/translations/en.json';
+
+const options = [
+  { n: 'A', id: 'receipt',  title: 'The Receipt',
+    pitch: 'Makes the total verifiable. Every line adds up in front of the reader, so the number is evidence rather than a claim.',
+    best: 'Strongest for a sceptical buyer who wants to check your maths.' },
+  { n: 'B', id: 'scale',    title: 'One Scale',
+    pitch: 'Both costs on a single axis. The ratio lands before a single number is read, and each segment is a real tool sized to its own price.',
+    best: 'Strongest for instant comprehension. Works even if nobody reads a word.' },
+  { n: 'C', id: 'collapse', title: 'The Collapse',
+    pitch: 'Eight scattered tools fall into one platform on scroll. Sells the consolidation story; money is the payoff line, not the whole point.',
+    best: 'Strongest for feel and memorability. Leans on motion.' },
+];
+---
+
+<BaseLayout
+  t={t}
+  noindex={true}
+  title="Staging: cost comparison directions | DUSA . studio"
+  description="Internal staging comparison of unreleased section designs."
+>
+  <div class="stg">
+    <header class="stg__intro">
+      <span class="stg__eyebrow">Staging</span>
+      <h1>Three directions for the cost comparison</h1>
+      <p>
+        Same heading and same data in all three, so you are comparing design and
+        nothing else. The live version is at the bottom for reference.
+      </p>
+
+      <div class="stg__warn">
+        <strong>Before any of these ship, one data call is yours.</strong>
+        The live section prints <b>$1,074/mo</b>, but the eight tools it lists
+        add up to <b>${STACK_TOTAL}</b>. These mockups compute the total from the
+        {STACK.length} tools so it always reconciles. If $1,074 is the number
+        worth keeping, the stack needs more tools in it rather than a bigger
+        total written over the top.
+      </div>
+    </header>
+
+    {options.map((o) => (
+      <section class="stg__block" id={o.id}>
+        <div class="stg__meta">
+          <span class="stg__badge">Direction {o.n}</span>
+          <h2>{o.title}</h2>
+          <p class="stg__pitch">{o.pitch}</p>
+          <p class="stg__best">{o.best}</p>
+        </div>
+
+        <div class="stg__canvas">
+          <div class="stg__header">
+            <span class="label">The real cost of scattered tools</span>
+            <h3>Where does your <span class="gradient-text">money actually go?</span></h3>
+          </div>
+          {o.id === 'receipt'  && <FunnelReceipt />}
+          {o.id === 'scale'    && <FunnelScale />}
+          {o.id === 'collapse' && <FunnelCollapse />}
+        </div>
+      </section>
+    ))}
+
+    <section class="stg__block" id="current">
+      <div class="stg__meta">
+        <span class="stg__badge stg__badge--muted">Currently live</span>
+        <h2>The funnels</h2>
+        <p class="stg__pitch">
+          What is on dusa.studio today. The funnel shapes are decorative, so the
+          totals carry no visual weight and the two sides share no scale.
+        </p>
+      </div>
+      <div class="stg__canvas stg__canvas--bare">
+        <FunnelComparison t={t} />
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .stg { padding: calc(var(--nav-height) + 3rem) var(--space-md) 6rem; max-width: 1240px; margin: 0 auto; }
+
+  .stg__intro { max-width: 720px; margin: 0 auto 4rem; text-align: center; }
+  .stg__eyebrow {
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--reef-aqua);
+  }
+  .stg__intro h1 { margin: 0.6rem 0 0.8rem; }
+  .stg__intro p { color: rgba(247, 244, 239, 0.5); margin: 0 auto; }
+
+  .stg__warn {
+    margin-top: 1.8rem; padding: 1rem 1.2rem; border-radius: 12px; text-align: left;
+    background: rgba(232, 168, 78, 0.08);
+    border: 1px solid rgba(232, 168, 78, 0.35);
+    font-size: 0.875rem; color: rgba(247, 244, 239, 0.72); line-height: 1.6;
+  }
+  .stg__warn strong { display: block; margin-bottom: 0.3rem; color: rgba(240, 190, 120, 0.95); }
+  .stg__warn b { font-family: var(--font-mono); color: var(--warm-white); }
+
+  .stg__block { margin-bottom: 5rem; }
+  .stg__meta { max-width: 640px; margin: 0 auto 1.8rem; text-align: center; }
+  .stg__badge {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.625rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--reef-aqua);
+    border: 1px solid rgba(78, 216, 194, 0.4); border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+  }
+  .stg__badge--muted { color: rgba(247, 244, 239, 0.45); border-color: rgba(247, 244, 239, 0.2); }
+  .stg__meta h2 { margin: 0.7rem 0 0.5rem; }
+  .stg__pitch { color: rgba(247, 244, 239, 0.55); font-size: 0.9375rem; margin: 0 auto; }
+  .stg__best {
+    margin: 0.5rem auto 0; font-size: 0.8125rem; color: rgba(166, 245, 231, 0.7);
+    font-family: var(--font-mono);
+  }
+
+  .stg__canvas {
+    background: rgba(247, 244, 239, 0.015);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    border-radius: 18px; padding: 2.6rem 2rem;
+  }
+  .stg__canvas--bare { padding: 0; overflow: hidden; }
+  .stg__header { text-align: center; margin-bottom: 2.2rem; }
+  .stg__header h3 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); font-weight: 600; margin-top: 0.4rem; }
+
+  @media (max-width: 700px) {
+    .stg__canvas { padding: 1.6rem 1rem; }
+  }
+</style>

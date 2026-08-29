@@ -318,10 +318,10 @@ const FALL = [
     0%   { opacity: 0; top: 1%;  left: calc(50% + var(--lane)); transform: translate(-50%,-50%) scale(1) rotate(0deg); }
     9%   { opacity: 1; }
     46%  { opacity: 1; top: 30%; left: calc(50% + var(--lane) * 0.6); transform: translate(-50%,-50%) scale(0.86) rotate(calc(var(--rot) * 0.4)); }
-    72%  { top: calc(var(--jy) * 1%); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
+    72%  { top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
     /* The small kick back is what makes it read as blocked rather than landed. */
-    82%  { top: calc(var(--jy) * 1% - 1.5%); }
-    100% { opacity: 1; top: calc(var(--jy) * 1%); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
+    82%  { top: calc(var(--jy) - 1.5%); }
+    100% { opacity: 1; top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
   }
   @keyframes gfNote { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 1; } }
 
@@ -394,7 +394,7 @@ const FALL = [
   @media (prefers-reduced-motion: reduce) {
     .gf__chip, .gf__orb, .gf__coin, .gf__burst, .gf__orbit, .gf__moon,
     .gf__bar-fill, .gf__jam-note { animation: none !important; }
-    .gf__chip { opacity: 1; top: calc(var(--jy) * 1%); left: calc(50% + var(--jx)); }
+    .gf__chip { opacity: 1; top: var(--jy); left: calc(50% + var(--jx)); }
     .gf__jam-note { opacity: 1; }
     .gf__orb { display: none; }
     .gf__verdict { position: static; display: grid; gap: 0.9rem; margin-top: 1rem; min-height: 0; }

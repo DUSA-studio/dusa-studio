@@ -28,7 +28,7 @@ const appsSub = c.appsSub || 'Socials, email, invoices and calendars, without sw
 const note = c.note || 'Plus 1,000+ more through Zapier, Make and custom integrations.';
 const ctaLabel = c.cta || 'See everything included';
 const aiBandLabel = c.aiBand || 'AI · ACROSS EVERYTHING';
-const hubHint = c.hubHint || 'Hover to explore';
+const hubHint = c.hubHint || 'Hover to explore, click to keep it';
 
 const AQUA = '#4ED8C2';
 
@@ -464,11 +464,14 @@ const STATS = [
 
     <div class="cp__legend reveal">
       {DOMAINS.map((d, i) => (
-        <button class="cp__lg" data-domain={i} type="button" style={`--lg:${d.color}`}>
+        <button class="cp__lg" data-domain={i} type="button"
+                aria-pressed="false" style={`--lg:${d.color}`}>
           <i></i>{d.name}<b>{d.items.length}</b>
         </button>
       ))}
-      <span class="cp__lg cp__lg--ai"><i></i>AI powered<b>{aiCount}</b></span>
+      <button class="cp__lg cp__lg--ai" data-ai-filter type="button" aria-pressed="false">
+        <i></i>AI powered<b>{aiCount}</b>
+      </button>
     </div>
 
     <!-- The full model as text: readable by screen readers and crawlers. -->
@@ -648,7 +651,7 @@ const STATS = [
     filter: brightness(1.22) drop-shadow(0 0 7px var(--glow, #4ED8C2));
   }
   .cp__stage.is-dim .cp__cap.is-ai.is-on {
-    filter: brightness(1.3) drop-shadow(0 0 11px #4ED8C2);
+    filter: brightness(1.32) drop-shadow(0 0 12px #4ED8C2);
   }
   .cp__seg { transition: opacity 0.22s var(--ease-out); }
   .cp--anim .cp__seg { opacity: 0; transform: scale(0.965); transform-origin: 380px 380px; }
@@ -765,7 +768,22 @@ const STATS = [
     background: rgba(247, 244, 239, 0.07); border-radius: 999px; padding: 1px 6px; margin-left: 0.15rem;
   }
   .cp__lg:hover, .cp__lg:focus-visible { color: var(--warm-white); border-color: var(--lg, var(--reef-aqua)); background: rgba(247, 244, 239, 0.07); }
-  .cp__lg--ai { cursor: default; border-color: rgba(78, 216, 194, 0.4); color: rgba(166, 245, 231, 0.95); }
+  .cp__lg--ai { border-color: rgba(78, 216, 194, 0.4); color: rgba(166, 245, 231, 0.95); }
+
+  /* Locked (clicked) reads as a filled chip so it is clearly different from a
+     passing hover. */
+  .cp__lg.is-locked {
+    color: #0C0E14;
+    background: var(--lg, var(--reef-aqua));
+    border-color: var(--lg, var(--reef-aqua));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--lg, #4ED8C2) 22%, transparent),
+                var(--glass-lip);
+  }
+  .cp__lg.is-locked b { color: rgba(12, 14, 20, 0.62); background: rgba(12, 14, 20, 0.12); }
+  .cp__lg.is-locked i { background: rgba(12, 14, 20, 0.55); box-shadow: none; }
+  .cp__lg--ai.is-locked {
+    background: var(--reef-aqua); border-color: var(--reef-aqua); color: #06303C;
+  }
   .cp__lg--ai i { background: var(--reef-aqua); box-shadow: 0 0 9px rgba(78, 216, 194, 0.95); }
 
   .cp__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -979,118 +997,151 @@ const STATS = [
       fitTimer = setTimeout(fitLabels, 150);
     });
 
-    /* Hover handling is delegated and hysteretic on purpose.
-       Per-element mouseenter/mouseleave fired leave-then-enter every time the
-       pointer crossed between two adjacent segments, which cleared and rebuilt
-       the readout mid-move — that was the jitter. Now: one listener, ignore
-       repeats for the segment already active, and wait a beat before clearing
-       so travelling across the ring is continuous. */
-    let activeSeg = null;
-    let leaveTimer = null;
-
     const capTiles = [...svg.querySelectorAll('.cp__cap')];
+    const chips = [...section.querySelectorAll('.cp__lg[data-domain]')];
+    const aiChip = section.querySelector('.cp__lg--ai');
+
+    /* Hover is a preview; a click locks the view so it can be read at leisure
+       (and so the whole thing works on touch, where hover does not exist). */
+    let locked = null;   // {kind:'domain'|'ai'|'cap', ...}
+    let leaveTimer = null;
+    let activeHit = null;
+
+    const clearMarks = () => {
+      stage.classList.remove('is-dim');
+      stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
+      capTiles.forEach((t) => t.classList.remove('is-active'));
+    };
+    const setChips = () => {
+      chips.forEach((c2) => {
+        const on = !!locked && locked.kind === 'domain' && String(locked.di) === c2.getAttribute('data-domain');
+        c2.classList.toggle('is-locked', on);
+        c2.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      const aiOn = !!locked && locked.kind === 'ai';
+      aiChip.classList.toggle('is-locked', aiOn);
+      aiChip.setAttribute('aria-pressed', aiOn ? 'true' : 'false');
+    };
+    const showDefault = () => {
+      readout.classList.remove('is-detail');
+      det.setAttribute('aria-hidden', 'true');
+      tip.classList.remove('is-on');
+    };
+    const readoutSet = (kicker, name, desc) => {
+      elDomain.textContent = kicker;
+      elName.textContent = name;
+      elDesc.textContent = desc || '';
+      readout.classList.add('is-detail');
+      det.setAttribute('aria-hidden', 'false');
+    };
 
     const lightDomain = (di) => {
+      clearMarks();
       stage.classList.add('is-dim');
-      stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
       stage.querySelectorAll('.cp__seg--d' + di).forEach((n) => n.classList.add('is-on'));
     };
-
-    const setActive = (idx) => {
-      capTiles.forEach((t, i) => t.classList.toggle('is-active', i === idx));
+    /* The AI filter is the visual proof of "AI across everything": it lights
+       every AI capability at once, in every domain. */
+    const lightAi = () => {
+      clearMarks();
+      stage.classList.add('is-dim');
+      capTiles.forEach((t) => {
+        if (t.classList.contains('is-ai')) { t.classList.add('is-on', 'is-active'); }
+      });
+      tip.classList.remove('is-on');
+      readoutSet('AI POWERED', aiChip.querySelector('b').textContent + ' capabilities',
+                 'Working across every domain');
     };
-
-    const placeTip = (ang) => {
-      const sr = svg.getBoundingClientRect();
-      const scale = sr.width / 760;
-      const cx = sr.left + sr.width / 2;
-      const cy = sr.top + sr.height / 2;
-
-      const w = tip.offsetWidth, h = tip.offsetHeight;
-      const ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang));
-      /* Push out far enough that the box's nearest edge clears the outer ring
-         at this angle, rather than just centring it outside the radius. */
-      const ringOuter = (344 + 19) * scale;
-      const d = ringOuter + (w / 2) * ca + (h / 2) * sa + 14;
-
-      let x = cx + d * Math.cos(ang);
-      let y = cy + d * Math.sin(ang);
-
-      /* Clamp to the viewport, never to the wheel — clamping to the wheel is
-         what dragged it back over the labels. */
-      x = Math.max(w / 2 + 8, Math.min(window.innerWidth - w / 2 - 8, x));
-      y = Math.max(h / 2 + 8, Math.min(window.innerHeight - h / 2 - 8, y));
-
-      tip.style.left = x + 'px';
-      tip.style.top = y + 'px';
-    };
-
-    const paintCap = (hit) => {
-      lightDomain(hit.getAttribute('data-di'));
-      setActive(Number(hit.getAttribute('data-idx')));
-
+    const lightCap = (hit) => {
+      const di = hit.getAttribute('data-di');
+      lightDomain(di);
+      const idx = Number(hit.getAttribute('data-idx'));
+      capTiles.forEach((t, n) => t.classList.toggle('is-active', n === idx));
       const isAi = hit.getAttribute('data-ai') === '1';
       tipName.textContent = hit.getAttribute('data-name');
       tipVal.textContent = hit.getAttribute('data-desc');
       tip.classList.toggle('is-ai', isAi);
       placeTip(parseFloat(hit.getAttribute('data-ang')));
       tip.classList.add('is-on');
-
-      /* Centre holds context only; the tooltip carries the detail. */
-      elDomain.textContent = isAi ? 'AI POWERED' : '';
-      elName.textContent = hit.getAttribute('data-domain-name');
-      elDesc.textContent = '';
-      readout.classList.add('is-detail');
-      det.setAttribute('aria-hidden', 'false');
+      readoutSet(isAi ? 'AI POWERED' : '', hit.getAttribute('data-domain-name'), '');
     };
 
-    const paintDomain = (hit) => {
-      lightDomain(hit.getAttribute('data-di'));
-      setActive(-1);
-      tip.classList.remove('is-on');
-      readout.classList.remove('is-detail');
-      det.setAttribute('aria-hidden', 'true');
+    /* Whatever is locked is what we fall back to. */
+    const restore = () => {
+      activeHit = null;
+      if (!locked) { clearMarks(); showDefault(); setChips(); return; }
+      if (locked.kind === 'ai') { lightAi(); }
+      else if (locked.kind === 'domain') {
+        lightDomain(locked.di);
+        showDefault();
+        readoutSet('', DOMAIN_NAMES[locked.di], '');
+      } else if (locked.kind === 'cap' && locked.hit) {
+        lightCap(locked.hit);
+      }
+      setChips();
     };
+    const DOMAIN_NAMES = [...section.querySelectorAll('.cp__lg[data-domain]')]
+      .map((b) => b.textContent.replace(/\d+$/, '').trim());
 
-    const reset = () => {
-      activeSeg = null;
-      stage.classList.remove('is-dim');
-      stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
-      setActive(-1);
-      tip.classList.remove('is-on');
-      readout.classList.remove('is-detail');
-      det.setAttribute('aria-hidden', 'true');
-    };
-
-    const clear = () => {
+    const scheduleRestore = () => {
       clearTimeout(leaveTimer);
-      leaveTimer = setTimeout(reset, 120);
+      leaveTimer = setTimeout(restore, 120);
     };
 
     svg.addEventListener('pointermove', (e) => {
       const hit = e.target.closest ? e.target.closest('.cp__hit-cap, .cp__hit-dom') : null;
-      if (!hit) { if (activeSeg) clear(); return; }
+      if (!hit) { if (activeHit) scheduleRestore(); return; }
       clearTimeout(leaveTimer);
-      if (hit === activeSeg) return;
-      activeSeg = hit;
-      if (hit.classList.contains('cp__hit-cap')) paintCap(hit);
-      else paintDomain(hit);
+      if (hit === activeHit) return;
+      activeHit = hit;
+      if (hit.classList.contains('cp__hit-cap')) lightCap(hit);
+      else { lightDomain(hit.getAttribute('data-di')); showDefault(); }
     }, { passive: true });
 
-    svg.addEventListener('pointerleave', clear, { passive: true });
+    svg.addEventListener('pointerleave', scheduleRestore, { passive: true });
 
-    section.querySelectorAll('.cp__lg[data-domain]').forEach((btn) => {
-      const on = () => {
-        clearTimeout(leaveTimer);
-        activeSeg = null;
-        setActive(-1);
-        tip.classList.remove('is-on');
-        lightDomain(btn.getAttribute('data-domain'));
-      };
-      btn.addEventListener('mouseenter', on);
-      btn.addEventListener('focus', on);
-      btn.addEventListener('mouseleave', clear);
-      btn.addEventListener('blur', clear);
+    /* Click a tile to keep it. */
+    svg.addEventListener('click', (e) => {
+      const hit = e.target.closest ? e.target.closest('.cp__hit-cap, .cp__hit-dom') : null;
+      if (!hit) return;
+      if (hit.classList.contains('cp__hit-cap')) {
+        const idx = Number(hit.getAttribute('data-idx'));
+        locked = (locked && locked.kind === 'cap' && locked.idx === idx) ? null : { kind: 'cap', idx, hit };
+      } else {
+        const di = hit.getAttribute('data-di');
+        locked = (locked && locked.kind === 'domain' && locked.di === di) ? null : { kind: 'domain', di };
+      }
+      restore();
     });
+
+    chips.forEach((btn) => {
+      const di = btn.getAttribute('data-domain');
+      btn.addEventListener('mouseenter', () => {
+        clearTimeout(leaveTimer);
+        activeHit = null;
+        lightDomain(di); showDefault();
+      });
+      btn.addEventListener('mouseleave', scheduleRestore);
+      btn.addEventListener('focus', () => { lightDomain(di); showDefault(); });
+      btn.addEventListener('blur', scheduleRestore);
+      btn.addEventListener('click', () => {
+        locked = (locked && locked.kind === 'domain' && locked.di === di) ? null : { kind: 'domain', di };
+        restore();
+      });
+    });
+
+    aiChip.addEventListener('mouseenter', () => { clearTimeout(leaveTimer); activeHit = null; lightAi(); });
+    aiChip.addEventListener('mouseleave', scheduleRestore);
+    aiChip.addEventListener('focus', lightAi);
+    aiChip.addEventListener('blur', scheduleRestore);
+    aiChip.addEventListener('click', () => {
+      locked = (locked && locked.kind === 'ai') ? null : { kind: 'ai' };
+      restore();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && locked) { locked = null; restore(); }
+    });
+
   })();
 </script>

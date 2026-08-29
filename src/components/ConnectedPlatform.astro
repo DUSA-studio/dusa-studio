@@ -106,6 +106,7 @@ DOMAINS.forEach((d, di) => {
   domainSegs.push({
     di, d: roundedSector(R_D0, R_D1, a0 + GAP, a1 - GAP, 7),
     label: d.name, color: d.color,
+    hit: arc(R_D0, R_D1, a0, a1),
     nextColor: DOMAINS[(di + 1) % DOMAINS.length].color,
     gx1, gy1, gx2, gy2,
     textPath: arcPath(rLabel, a0 + GAP, a1 - GAP, flip),
@@ -121,6 +122,7 @@ DOMAINS.forEach((d, di) => {
       di, i: capIndex++, d: roundedSector(R_C0, R_C1, b0 + GAP, b1 - GAP, 6),
       fill: it.ai ? 'url(#cpCai)' : `url(#cpC${di})`,
       stroke: it.ai ? AQUA : rgba(d.color, 0.85),
+      hit: arc(R_C0 - 6, R_C1 + 6, b0, b1),
       label: it.l, plain: it.l.replace('\n', ' '), desc: it.d,
       domain: d.name, lx: ix, ly: iy, ai: !!it.ai,
       rot: dg > 90 && dg < 270 ? dg + 180 : dg,
@@ -217,9 +219,8 @@ const STATS = [
 
         {capSegs.map((s) => (
           <path class={`cp__seg cp__cap cp__seg--d${s.di} ${s.ai ? 'is-ai' : ''}`}
-                style={`--i:${s.i + 7};--glow:${s.ai ? AQUA : s.stroke}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
-                data-di={s.di} data-name={s.plain} data-desc={s.desc}
-                data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
+                style={`--i:${s.i + 7};--glow:${s.ai ? AQUA : s.stroke}`} d={s.d} fill={s.fill}
+                stroke={s.stroke} stroke-width="1.4" />
         ))}
 
         <g filter="url(#cpDrop)">
@@ -263,6 +264,20 @@ const STATS = [
             </text>
           </g>
         ))}
+
+        <!-- Gapless hit layer. The gaps between tiles are decoration only;
+             if they were real holes the pointer would fall through them and the
+             wheel would reset every time you crossed from one tile to the next. -->
+        <g class="cp__hit">
+          {domainSegs.map((s) => (
+            <path class="cp__hit-dom" data-di={s.di} d={s.hit} fill="none" pointer-events="all" />
+          ))}
+          {capSegs.map((s) => (
+            <path class="cp__hit-cap" d={s.hit} fill="none" pointer-events="all"
+                  data-di={s.di} data-idx={s.i} data-name={s.plain} data-desc={s.desc}
+                  data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
+          ))}
+        </g>
 
         <circle class="cp__sheen" cx={CX} cy={CY} r={R_C1} fill="url(#cpSheen)"
                 pointer-events="none" aria-hidden="true" />
@@ -376,13 +391,17 @@ const STATS = [
   .cp__ai-dash { transform-origin: center; animation: cpSpin 50s linear infinite; }
   @keyframes cpSpin { to { transform: rotate(360deg); } }
 
-  .cp__cap { cursor: pointer; }
+  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen { pointer-events: none; }
+  .cp__hit { cursor: pointer; }
+  /* The individually hovered tile reads brighter than its domain siblings, so
+     moving along the ring feels like stepping item to item. */
+  .cp__stage.is-dim .cp__cap.is-active {
+    filter: brightness(1.45) drop-shadow(0 0 12px var(--glow, #4ED8C2));
+  }
   /* Selected segments light up in their own colour rather than just brightening. */
-  .cp__cap:hover, .cp__dom:hover,
   .cp__stage.is-dim .cp__seg.is-on {
     filter: brightness(1.22) drop-shadow(0 0 7px var(--glow, #4ED8C2));
   }
-  .cp__cap.is-ai:hover,
   .cp__stage.is-dim .cp__cap.is-ai.is-on {
     filter: brightness(1.3) drop-shadow(0 0 11px #4ED8C2);
   }
@@ -642,25 +661,42 @@ const STATS = [
     let activeSeg = null;
     let leaveTimer = null;
 
-    const paint = (seg) => {
-      const di = seg.getAttribute('data-di');
+    const capTiles = [...svg.querySelectorAll('.cp__cap')];
+
+    const lightDomain = (di) => {
       stage.classList.add('is-dim');
       stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
       stage.querySelectorAll('.cp__seg--d' + di).forEach((n) => n.classList.add('is-on'));
+    };
 
-      elDomain.textContent = seg.getAttribute('data-ai') === '1'
-        ? 'AI · ' + seg.getAttribute('data-domain-name')
-        : seg.getAttribute('data-domain-name');
-      elName.textContent = seg.getAttribute('data-name');
-      elDesc.textContent = seg.getAttribute('data-desc');
+    const setActive = (idx) => {
+      capTiles.forEach((t, i) => t.classList.toggle('is-active', i === idx));
+    };
+
+    const paintCap = (hit) => {
+      lightDomain(hit.getAttribute('data-di'));
+      setActive(Number(hit.getAttribute('data-idx')));
+      elDomain.textContent = hit.getAttribute('data-ai') === '1'
+        ? 'AI · ' + hit.getAttribute('data-domain-name')
+        : hit.getAttribute('data-domain-name');
+      elName.textContent = hit.getAttribute('data-name');
+      elDesc.textContent = hit.getAttribute('data-desc');
       readout.classList.add('is-detail');
       det.setAttribute('aria-hidden', 'false');
+    };
+
+    const paintDomain = (hit) => {
+      lightDomain(hit.getAttribute('data-di'));
+      setActive(-1);
+      readout.classList.remove('is-detail');
+      det.setAttribute('aria-hidden', 'true');
     };
 
     const reset = () => {
       activeSeg = null;
       stage.classList.remove('is-dim');
       stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
+      setActive(-1);
       readout.classList.remove('is-detail');
       det.setAttribute('aria-hidden', 'true');
     };
@@ -671,13 +707,13 @@ const STATS = [
     };
 
     svg.addEventListener('pointermove', (e) => {
-      const seg = e.target.closest ? e.target.closest('.cp__cap') : null;
-      if (seg) {
-        clearTimeout(leaveTimer);
-        if (seg !== activeSeg) { activeSeg = seg; paint(seg); }
-      } else if (activeSeg) {
-        clear();
-      }
+      const hit = e.target.closest ? e.target.closest('.cp__hit-cap, .cp__hit-dom') : null;
+      if (!hit) { if (activeSeg) clear(); return; }
+      clearTimeout(leaveTimer);
+      if (hit === activeSeg) return;
+      activeSeg = hit;
+      if (hit.classList.contains('cp__hit-cap')) paintCap(hit);
+      else paintDomain(hit);
     }, { passive: true });
 
     svg.addEventListener('pointerleave', clear, { passive: true });
@@ -686,10 +722,8 @@ const STATS = [
       const on = () => {
         clearTimeout(leaveTimer);
         activeSeg = null;
-        stage.classList.add('is-dim');
-        stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
-        stage.querySelectorAll('.cp__seg--d' + btn.getAttribute('data-domain'))
-             .forEach((n) => n.classList.add('is-on'));
+        setActive(-1);
+        lightDomain(btn.getAttribute('data-domain'));
       };
       btn.addEventListener('mouseenter', on);
       btn.addEventListener('focus', on);

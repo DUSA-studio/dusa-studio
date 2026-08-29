@@ -870,13 +870,13 @@ const STATS = [
   .cp__chip-dot {
     width: 17px; height: 17px; flex-shrink: 0; border-radius: 999px;
     display: block; position: relative;
-    background: color-mix(in srgb, var(--brand) 22%, transparent);
-    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
+    background: color-mix(in srgb, var(--brand) 13%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 28%, transparent);
     transition: background var(--duration-fast), border-color var(--duration-fast);
   }
   .cp__chip-dot::after {
     content: ''; position: absolute; inset: 4px; border-radius: 999px;
-    background: color-mix(in srgb, var(--brand) 70%, transparent);
+    background: color-mix(in srgb, var(--brand) 42%, transparent);
     transition: background var(--duration-fast);
   }
   .cp__chip:hover .cp__chip-dot {
@@ -884,7 +884,7 @@ const STATS = [
     border-color: var(--brand);
   }
   .cp__chip:hover .cp__chip-dot::after { background: var(--brand); }
-  .cp__chip--word > span { font-weight: 600; color: rgba(247, 244, 239, 0.72); }
+  .cp__chip--word > span { font-weight: 500; }
 
   .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); margin: var(--space-md) auto 0; text-align: center; max-width: none; }
   .cp__cta {

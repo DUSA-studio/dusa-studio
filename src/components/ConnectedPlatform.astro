@@ -348,7 +348,12 @@ const STATS = [
     content: ''; position: absolute; left: 0; top: 18%; height: 64%; width: 1px;
     background: rgba(247, 244, 239, 0.12);
   }
-  .cp__stat dt { font-family: var(--font-headline); font-size: 1.75rem; font-weight: 700; color: var(--warm-white); line-height: 1.1; }
+  .cp__stat dt {
+    font-family: var(--font-headline); font-size: 1.875rem; font-weight: 700; line-height: 1.1;
+    background: linear-gradient(150deg, var(--warm-white) 0%, var(--mist-blue) 70%, var(--reef-aqua) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
   .cp__stat dd {
     margin: 2px 0 0; font-family: var(--font-mono); font-size: 0.625rem;
     letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247, 244, 239, 0.42);
@@ -423,10 +428,18 @@ const STATS = [
     display: inline-flex; align-items: center; gap: 0.45rem; font-family: inherit; font-size: 0.75rem;
     color: rgba(247, 244, 239, 0.66); background: rgba(247, 244, 239, 0.04);
     border: 1px solid rgba(247, 244, 239, 0.1); border-radius: 999px;
-    padding: 0.4rem 0.5rem 0.4rem 0.8rem; cursor: pointer;
+    padding: 0.45rem 0.55rem 0.45rem 0.85rem; cursor: pointer;
     transition: color var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast);
   }
-  .cp__lg i { width: 8px; height: 8px; border-radius: 50%; background: var(--lg, var(--mist-blue)); flex-shrink: 0; }
+  .cp__lg i {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--lg, var(--mist-blue));
+    flex-shrink: 0; box-shadow: 0 0 0 3px color-mix(in srgb, var(--lg, #6AAACF) 18%, transparent);
+    transition: box-shadow var(--duration-fast);
+  }
+  .cp__lg:hover i, .cp__lg:focus-visible i {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--lg, #6AAACF) 32%, transparent),
+                0 0 10px color-mix(in srgb, var(--lg, #6AAACF) 80%, transparent);
+  }
   .cp__lg b {
     font-family: var(--font-mono); font-size: 0.625rem; font-weight: 400; color: rgba(247, 244, 239, 0.5);
     background: rgba(247, 244, 239, 0.07); border-radius: 999px; padding: 1px 6px; margin-left: 0.15rem;
@@ -449,6 +462,9 @@ const STATS = [
 
   .cp__marquee {
     display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden;
+    padding: var(--space-sm) 0;
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+    border-bottom: 1px solid rgba(247, 244, 239, 0.06);
     width: 100vw; max-width: 100vw;
     margin-left: 50%; transform: translateX(-50%);
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -465,7 +481,7 @@ const STATS = [
     background: rgba(247, 244, 239, 0.045);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(247, 244, 239, 0.09); border-radius: 999px;
-    padding: 0.55rem 1rem;
+    padding: 0.5rem 0.9rem;
     transition: border-color var(--duration-fast), background var(--duration-fast);
   }
   .cp__chip:hover {
@@ -475,17 +491,25 @@ const STATS = [
   .cp__chip svg { width: 17px; height: 17px; flex-shrink: 0; }
   .cp__chip svg path { fill: rgba(247, 244, 239, 0.7); transition: fill var(--duration-fast); }
   .cp__chip:hover svg path { fill: var(--brand); }
-  .cp__chip > span { font-size: 0.75rem; color: rgba(247, 244, 239, 0.62); white-space: nowrap; }
+  .cp__chip > span { font-size: 0.7188rem; color: rgba(247, 244, 239, 0.62); white-space: nowrap; }
   .cp__chip:hover > span { color: var(--warm-white); }
   .cp__chip--word > span { font-weight: 600; }
 
   .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); margin: var(--space-md) auto 0; text-align: center; max-width: none; }
   .cp__cta {
-    display: block; text-align: center; margin-top: var(--space-xs);
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    margin: var(--space-sm) auto 0; padding: 0.6rem 1.4rem;
     font-size: 0.875rem; font-weight: 500; color: var(--reef-aqua);
-    text-decoration: none; transition: opacity var(--duration-fast);
+    text-decoration: none; border-radius: 999px;
+    border: 1px solid rgba(78, 216, 194, 0.32);
+    transition: background var(--duration-fast), border-color var(--duration-fast), gap var(--duration-fast);
   }
-  .cp__cta:hover { opacity: 0.75; }
+  .cp__cta:hover {
+    background: rgba(78, 216, 194, 0.09);
+    border-color: rgba(78, 216, 194, 0.6);
+    gap: 0.7rem;
+  }
+  .cp__cta-wrap { display: flex; justify-content: center; }
 
   /* ─── Responsive ─── */
   @media (max-width: 700px) {

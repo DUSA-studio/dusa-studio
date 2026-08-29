@@ -1,0 +1,410 @@
+---
+// DIRECTION D — "The glass funnel"
+//
+// ONE funnel, two acts, rather than two funnels side by side. Act 1 drops the
+// eight priced tools in and almost nothing comes out, because none of them talk
+// to each other. Act 2 drops DUSA in — carrying the integrations as orbiting
+// glass moons — and the spout runs with money. Same vessel both times, so the
+// only variable is what you put in it.
+//
+// Built in SVG + CSS 3D, not WebGL. The chips are real DOM so the type stays
+// crisp and readable, the bundle cost is zero, and it degrades to a static
+// readable state under prefers-reduced-motion.
+//
+// Note on logos: there is no redistributable mark for Birdeye, Skool,
+// ClickFunnels, Mailchimp, HubSpot or Calendly, so Act 1 chips are typographic.
+// The moons in Act 2 use the real integration marks, which is where they
+// actually belong anyway.
+import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../../config/stack-compare';
+import { BRAND_MARKS } from '../../config/brand-marks';
+
+const MOONS = BRAND_MARKS.slice(0, 8);
+
+/* Deterministic entry lanes, so the fall reads as scattered but reviews the
+   same on every build. Values are % offsets from the funnel's centre line. */
+const LANES = [-30, 14, -8, 32, -22, 4, 26, -14];
+---
+
+<div class="gf" data-glass-funnel>
+
+  <div class="gf__stage">
+
+    <!-- ── The vessel ─────────────────────────────────────────────────── -->
+    <svg class="gf__vessel" viewBox="0 0 600 640" aria-hidden="true">
+      <defs>
+        <linearGradient id="gfBody" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#8FE9DC" stop-opacity="0.30"/>
+          <stop offset="18%"  stop-color="#FFFFFF" stop-opacity="0.10"/>
+          <stop offset="42%"  stop-color="#4ED8C2" stop-opacity="0.05"/>
+          <stop offset="72%"  stop-color="#FFFFFF" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.26"/>
+        </linearGradient>
+        <linearGradient id="gfRim" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#4ED8C2" stop-opacity="0.75"/>
+          <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.75"/>
+        </linearGradient>
+        <linearGradient id="gfSheen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.34"/>
+          <stop offset="60%"  stop-color="#FFFFFF" stop-opacity="0.06"/>
+          <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+        </linearGradient>
+        <!-- Clips anything falling to the inside of the glass. -->
+        <clipPath id="gfInside">
+          <path d="M92,150 L508,150 L332,470 L268,470 Z"/>
+        </clipPath>
+      </defs>
+
+      <!-- Cone body -->
+      <path class="gf__body"
+            d="M92,150 L508,150 L332,470 Q300,486 268,470 Z"
+            fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
+
+      <!-- One committed light source: a specular band down the left shoulder. -->
+      <path class="gf__sheen" d="M126,158 L188,158 L268,452 L240,452 Z"
+            fill="url(#gfSheen)"/>
+
+      <!-- Top rim: the ellipse is what sells it as a 3D vessel rather than a
+           flat triangle. Back half dimmer than the front. -->
+      <ellipse cx="300" cy="150" rx="208" ry="46"
+               fill="rgba(78,216,194,0.05)"
+               stroke="url(#gfRim)" stroke-width="2"/>
+      <path d="M92,150 A208,46 0 0 0 508,150" fill="none"
+            stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2.5"/>
+
+      <!-- Spout -->
+      <path class="gf__spout" d="M268,470 L268,556 Q300,572 332,556 L332,470"
+            fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
+      <ellipse cx="300" cy="556" rx="32" ry="11"
+               fill="rgba(12,14,20,0.6)" stroke="url(#gfRim)" stroke-width="1.5"/>
+    </svg>
+
+    <!-- ── ACT 1: eight priced tools fall in ──────────────────────────── -->
+    <div class="gf__drop gf__drop--tools">
+      {STACK.map((tool, i) => (
+        <span class="gf__chip" style={`--lane:${LANES[i]}%;--i:${i}`}>
+          <span class="gf__chip-name">{tool.name}</span>
+          <span class="gf__chip-job">{tool.job}</span>
+          <span class="gf__tag">{money(tool.cost)}</span>
+        </span>
+      ))}
+    </div>
+
+    <!-- ── ACT 2: DUSA descends carrying its integrations ─────────────── -->
+    <div class="gf__drop gf__drop--dusa">
+      <span class="gf__orb">
+        <span class="gf__orb-core">
+          <b>DUSA</b>
+          <i>{money(DUSA_COST)}/mo</i>
+        </span>
+        <span class="gf__orbit">
+          {MOONS.map((m, i) => (
+            <span class="gf__moon-arm" style={`--a:${(360 / MOONS.length) * i}deg`}>
+              <span class="gf__moon" style={`--brand:${m.hex}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d={m.path}/></svg>
+              </span>
+            </span>
+          ))}
+        </span>
+      </span>
+    </div>
+
+    <!-- ── Output: a sad trickle, then a torrent ──────────────────────── -->
+    <div class="gf__out">
+      <div class="gf__trickle">
+        {[0, 1, 2].map((n) => (
+          <span class="gf__coin gf__coin--dud" style={`--n:${n}`}>$</span>
+        ))}
+      </div>
+      <div class="gf__pour">
+        {Array.from({ length: 18 }).map((_, n) => (
+          <span class="gf__coin gf__coin--good" style={`--n:${n}`}>$</span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Verdict sits under the spout, swapping with the act. -->
+    <div class="gf__verdict">
+      <p class="gf__v gf__v--1">
+        <b>{money(STACK_TOTAL)} a month in.</b>
+        <span>Eight tools that cannot see each other. Most of it leaks out.</span>
+      </p>
+      <p class="gf__v gf__v--2">
+        <b>{money(DUSA_COST)} a month in.</b>
+        <span>One connected platform. You keep the other {money(SAVING)}.</span>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="gf__controls">
+    <button class="gf__btn" type="button" data-replay>
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M13 8a5 5 0 1 1-1.6-3.7M13 2v3h-3" fill="none"
+              stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Replay
+    </button>
+    <span class="gf__act" data-act-label>Act 1 &middot; Eight tools</span>
+  </div>
+</div>
+
+<style>
+  .gf { container-type: inline-size; }
+
+  .gf__stage {
+    position: relative; width: 100%; max-width: 600px; margin: 0 auto;
+    aspect-ratio: 600 / 760;
+    perspective: 1100px;
+  }
+  .gf__vessel {
+    position: absolute; inset: 0 0 auto; width: 100%; height: auto;
+    filter: drop-shadow(0 24px 60px rgba(78, 216, 194, 0.14));
+  }
+  /* A gentle tilt is what makes it read as a vessel you are looking INTO
+     rather than a flat cone. The rim ellipse does the rest. */
+  .gf__body, .gf__spout, .gf__sheen { transform-origin: 300px 320px; }
+
+  /* ── Falling things ─────────────────────────────────────────────────── */
+  .gf__drop {
+    position: absolute; inset: 0; pointer-events: none;
+    /* Everything inside the glass is clipped by the cone silhouette. */
+  }
+
+  .gf__chip {
+    position: absolute; left: calc(50% + var(--lane)); top: 0;
+    transform: translate(-50%, -140%);
+    display: grid; justify-items: center; gap: 0.1rem;
+    padding: 0.55rem 0.9rem 0.75rem; border-radius: 12px;
+    background: linear-gradient(150deg, rgba(255,255,255,0.16), rgba(232,82,78,0.08));
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4),
+                0 10px 24px rgba(4, 8, 14, 0.5);
+    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+    opacity: 0;
+  }
+  .gf__chip-name { font-size: 0.8125rem; font-weight: 600; color: rgba(247,244,239,0.95); }
+  .gf__chip-job {
+    font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.4);
+  }
+  /* The price tag hangs off the chip on a notch, so cost is attached to the
+     tool rather than floating near it. */
+  .gf__tag {
+    position: absolute; right: -0.5rem; bottom: -0.7rem;
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
+    color: #2A0B0B; background: rgba(232, 122, 118, 0.95);
+    padding: 0.1rem 0.4rem; border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(4, 8, 14, 0.5);
+  }
+  .gf__tag::before {
+    content: ''; position: absolute; left: 0.28rem; top: -0.34rem;
+    width: 1px; height: 0.34rem; background: rgba(255, 255, 255, 0.4);
+  }
+
+  .gf__orb {
+    position: absolute; left: 50%; top: 0;
+    transform: translate(-50%, -150%);
+    width: 148px; height: 148px; display: grid; place-items: center;
+    opacity: 0;
+  }
+  .gf__orb-core {
+    grid-area: 1 / 1; display: grid; justify-items: center; gap: 0.1rem;
+    width: 96px; height: 96px; border-radius: 50%;
+    align-content: center;
+    background: radial-gradient(circle at 34% 28%,
+      rgba(255,255,255,0.5), rgba(78,216,194,0.34) 44%, rgba(46,130,182,0.3) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 2px 10px rgba(255,255,255,0.4),
+                0 0 40px rgba(78, 216, 194, 0.45);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .gf__orb-core b {
+    font-family: var(--font-headline); font-weight: 700; font-size: 1rem;
+    letter-spacing: 0.06em; color: #06303C;
+  }
+  .gf__orb-core i {
+    font-style: normal; font-family: var(--font-mono); font-size: 0.625rem;
+    color: rgba(6, 48, 60, 0.75);
+  }
+
+  .gf__orbit {
+    grid-area: 1 / 1; width: 100%; height: 100%; position: relative;
+    animation: gfSpin 13s linear infinite;
+  }
+  .gf__moon-arm {
+    position: absolute; inset: 0;
+    transform: rotate(var(--a));
+  }
+  .gf__moon {
+    position: absolute; left: 50%; top: -9px;
+    width: 26px; height: 26px; margin-left: -13px;
+    display: grid; place-items: center; border-radius: 50%;
+    background: linear-gradient(150deg, rgba(255,255,255,0.34), rgba(255,255,255,0.06));
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 4px 10px rgba(4,8,14,0.45);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    /* Counter-spin at the same duration keeps every mark upright. */
+    animation: gfSpin 13s linear infinite reverse;
+  }
+  .gf__moon svg { width: 13px; height: 13px; }
+  .gf__moon svg path { fill: rgba(247, 244, 239, 0.85); }
+
+  @keyframes gfSpin { to { transform: rotate(360deg); } }
+
+  /* ── Output ─────────────────────────────────────────────────────────── */
+  .gf__out {
+    position: absolute; left: 50%; top: 74%; transform: translateX(-50%);
+    width: 190px; height: 26%; pointer-events: none;
+  }
+  .gf__coin {
+    position: absolute; left: 50%; top: 0; opacity: 0;
+    font-family: var(--font-mono); font-weight: 700;
+  }
+  .gf__coin--dud { font-size: 0.875rem; color: rgba(232, 82, 78, 0.75); }
+  .gf__coin--good { font-size: 1.0625rem; color: var(--reef-aqua); }
+
+  /* ── Verdict ────────────────────────────────────────────────────────── */
+  .gf__verdict { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; }
+  .gf__v {
+    margin: 0; max-width: none; opacity: 0;
+    transition: opacity 0.5s var(--ease-out);
+    position: absolute; left: 0; right: 0; bottom: 0;
+  }
+  .gf__v b {
+    display: block; font-family: var(--font-mono); font-weight: 700;
+    font-size: 1.5rem; line-height: 1.2;
+  }
+  .gf__v span { display: block; margin-top: 0.25rem; font-size: 0.875rem; color: rgba(247,244,239,0.45); }
+  .gf__v--1 b { color: rgba(232, 82, 78, 0.95); }
+  .gf__v--2 b { color: var(--reef-aqua); }
+
+  /* ── Act orchestration ──────────────────────────────────────────────── */
+  .gf[data-act="1"] .gf__chip {
+    animation: gfFall 3.4s cubic-bezier(0.45, 0, 0.7, 1) forwards;
+    animation-delay: calc(var(--i) * 200ms);
+  }
+  .gf[data-act="1"] .gf__coin--dud {
+    animation: gfDud 2.4s ease-in forwards;
+    animation-delay: calc(2.4s + var(--n) * 700ms);
+  }
+  .gf[data-act="1"] .gf__v--1 { opacity: 1; transition-delay: 3s; }
+
+  .gf[data-act="2"] .gf__orb {
+    animation: gfOrbFall 3s cubic-bezier(0.45, 0, 0.7, 1) forwards;
+  }
+  .gf[data-act="2"] .gf__coin--good {
+    animation: gfPour 1.9s ease-in forwards;
+    animation-delay: calc(2.5s + var(--n) * 105ms);
+  }
+  .gf[data-act="2"] .gf__v--2 { opacity: 1; transition-delay: 3s; }
+
+  /* Falls in, narrows as the cone narrows, then slips out of the spout. */
+  @keyframes gfFall {
+    0%   { opacity: 0; transform: translate(-50%, -140%) scale(1) rotate(0deg); }
+    12%  { opacity: 1; }
+    55%  { opacity: 1; transform: translate(-50%, 190%) scale(0.72) rotate(8deg); }
+    78%  { opacity: 0.9; transform: translate(calc(-50% - var(--lane)), 340%) scale(0.42) rotate(-6deg); }
+    100% { opacity: 0; transform: translate(calc(-50% - var(--lane)), 430%) scale(0.3) rotate(4deg); }
+  }
+  @keyframes gfOrbFall {
+    0%   { opacity: 0; transform: translate(-50%, -150%) scale(1); }
+    14%  { opacity: 1; }
+    58%  { opacity: 1; transform: translate(-50%, 130%) scale(0.86); }
+    88%  { opacity: 1; transform: translate(-50%, 300%) scale(0.44); }
+    100% { opacity: 0; transform: translate(-50%, 360%) scale(0.32); }
+  }
+  @keyframes gfDud {
+    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.8); }
+    20%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(-50% + 6px), 90px) scale(0.7); }
+  }
+  @keyframes gfPour {
+    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
+    15%  { opacity: 1; transform: translate(calc(-50% + (var(--n) - 9) * 5px), 22px) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + (var(--n) - 9) * 12px), 130px) scale(0.9); }
+  }
+
+  /* ── Controls ───────────────────────────────────────────────────────── */
+  .gf__controls {
+    display: flex; align-items: center; justify-content: center; gap: 0.9rem;
+    margin-top: var(--space-md);
+  }
+  .gf__btn {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.65);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.16);
+    border-radius: 999px; padding: 0.45rem 0.9rem; cursor: pointer;
+    transition: border-color var(--duration-fast), color var(--duration-fast);
+  }
+  .gf__btn:hover { color: var(--reef-aqua); border-color: rgba(78, 216, 194, 0.5); }
+  .gf__btn svg { width: 13px; height: 13px; }
+  .gf__act {
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.32);
+  }
+
+  @container (max-width: 620px) {
+    .gf__chip { padding: 0.4rem 0.6rem 0.6rem; }
+    .gf__chip-name { font-size: 0.6875rem; }
+    .gf__v b { font-size: 1.2rem; }
+  }
+
+  /* Motion is the entire mechanism here, so without it show the end state of
+     both acts as a plain statement rather than an empty vessel. */
+  @media (prefers-reduced-motion: reduce) {
+    .gf__chip, .gf__orb, .gf__coin { animation: none !important; }
+    .gf__orbit, .gf__moon { animation: none !important; }
+    .gf__orb { opacity: 1; transform: translate(-50%, 40%); }
+    .gf__v--1, .gf__v--2 { position: static; opacity: 1; transition: none; }
+    .gf__verdict { position: static; display: grid; gap: 0.9rem; margin-top: 1rem; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-glass-funnel]').forEach((root) => {
+    const label = root.querySelector('[data-act-label]');
+    const replay = root.querySelector('[data-replay]');
+    const ACTS = [
+      { n: '1', text: 'Act 1 · Eight tools', ms: 7000 },
+      { n: '2', text: 'Act 2 · One platform', ms: 7000 },
+    ];
+    let idx = 0, timer = null, running = false;
+
+    /* Re-setting the attribute alone will not restart a CSS animation, because
+       the element never leaves the animating state. Clearing it and forcing a
+       reflow between the two writes is what actually replays it. */
+    const play = (i) => {
+      idx = i;
+      root.removeAttribute('data-act');
+      void root.offsetWidth;
+      root.setAttribute('data-act', ACTS[i].n);
+      if (label) label.textContent = ACTS[i].text;
+    };
+    const advance = () => {
+      play((idx + 1) % ACTS.length);
+      timer = setTimeout(advance, ACTS[idx].ms);
+    };
+    const start = () => {
+      if (running) return;
+      running = true;
+      play(idx);
+      timer = setTimeout(advance, ACTS[idx].ms);
+    };
+    const stop = () => { running = false; clearTimeout(timer); };
+
+    replay?.addEventListener('click', () => {
+      stop(); idx = 0; start();
+    });
+
+    /* Only animate while on screen: off-screen it is wasted work, and a user
+       arriving mid-cycle would otherwise catch it halfway through. */
+    if (!('IntersectionObserver' in window)) { start(); return; }
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => { e.isIntersecting ? start() : stop(); });
+    }, { threshold: 0.3 }).observe(root);
+  });
+</script>

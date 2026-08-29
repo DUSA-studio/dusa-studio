@@ -6,6 +6,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FunnelReceipt from '../../components/staging/FunnelReceipt.astro';
 import FunnelScale from '../../components/staging/FunnelScale.astro';
 import FunnelCollapse from '../../components/staging/FunnelCollapse.astro';
+import FunnelGlass from '../../components/staging/FunnelGlass.astro';
 import FunnelComparison from '../../components/FunnelComparison.astro';
 import { STACK, STACK_TOTAL } from '../../config/stack-compare';
 import t from '../../i18n/translations/en.json';
@@ -20,6 +21,9 @@ const options = [
   { n: 'C', id: 'collapse', title: 'The Collapse',
     pitch: 'Eight scattered tools fall into one platform on scroll. Sells the consolidation story; money is the payoff line, not the whole point.',
     best: 'Strongest for feel and memorability. Leans on motion.' },
+  { n: 'D', id: 'glass', title: 'The Glass Funnel',
+    pitch: 'One vessel, two acts. Eight priced tools drop in and barely anything comes out. Then DUSA drops in carrying its integrations as orbiting glass moons, and the spout runs with money.',
+    best: 'Strongest as a story. Same funnel both times, so the only variable is what you put in it.' },
 ];
 ---
 
@@ -48,7 +52,7 @@ const options = [
       </div>
     </header>
 
-    {options.map((o) => (
+    {[...options].sort((a, b) => (a.id === 'glass' ? -1 : b.id === 'glass' ? 1 : 0)).map((o) => (
       <section class="stg__block" id={o.id}>
         <div class="stg__meta">
           <span class="stg__badge">Direction {o.n}</span>
@@ -65,6 +69,7 @@ const options = [
           {o.id === 'receipt'  && <FunnelReceipt />}
           {o.id === 'scale'    && <FunnelScale />}
           {o.id === 'collapse' && <FunnelCollapse />}
+          {o.id === 'glass'    && <FunnelGlass />}
         </div>
       </section>
     ))}

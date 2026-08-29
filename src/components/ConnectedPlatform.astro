@@ -225,6 +225,7 @@ const STATS = [
       <span class="cp__aura" aria-hidden="true"></span>
 
       <svg class="cp__wheel" viewBox={`0 0 ${VB} ${VB}`} role="img"
+           data-vb={VB} data-cx={CX} data-cy={CY} data-r-out={R_C1}
            aria-label="What DUSA does: six capability domains with AI running through them">
 
         <defs>
@@ -1063,6 +1064,28 @@ const STATS = [
       elDesc.textContent = desc || '';
       readout.classList.add('is-detail');
       det.setAttribute('aria-hidden', 'false');
+    };
+
+    /* Park the tooltip just outside the wheel, on the radius of the tile being
+       described. Centring it on that radius still overlaps the ring with its
+       inner half, so it is pushed out by its own extent along that direction
+       (the support function of an axis-aligned box) and only then clamped to
+       the viewport — clamping to the stage used to drag it back over the wheel. */
+    const placeTip = (ang) => {
+      const sr = svg.getBoundingClientRect();
+      const scale = sr.width / Number(svg.dataset.vb || 760);
+      const cx = sr.left + Number(svg.dataset.cx || 380) * scale;
+      const cy = sr.top + Number(svg.dataset.cy || 380) * scale;
+      const rOut = Number(svg.dataset.rOut || 344) * scale;
+      const ux = Math.cos(ang), uy = Math.sin(ang);
+      const tr = tip.getBoundingClientRect();
+      const w = tr.width, h = tr.height;
+      const reach = rOut + 14 + Math.abs(ux) * (w / 2) + Math.abs(uy) * (h / 2);
+      const m = 12;
+      const x = Math.min(Math.max(cx + ux * reach, w / 2 + m), window.innerWidth - w / 2 - m);
+      const y = Math.min(Math.max(cy + uy * reach, h / 2 + m), window.innerHeight - h / 2 - m);
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
     };
 
     const lightDomain = (di) => {

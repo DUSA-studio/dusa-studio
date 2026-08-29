@@ -122,7 +122,7 @@ DOMAINS.forEach((d, di) => {
       di, i: capIndex++, d: roundedSector(R_C0, R_C1, b0 + GAP, b1 - GAP, 6),
       fill: it.ai ? 'url(#cpCai)' : `url(#cpC${di})`,
       stroke: it.ai ? AQUA : rgba(d.color, 0.85),
-      hit: arc(R_C0 - 6, R_C1 + 6, b0, b1),
+      hit: arc(R_C0 - 6, R_C1 + 6, b0, b1), ang: m2,
       label: it.l, plain: it.l.replace('\n', ' '), desc: it.d,
       domain: d.name, lx: ix, ly: iy, ai: !!it.ai,
       rot: dg > 90 && dg < 270 ? dg + 180 : dg,
@@ -158,8 +158,8 @@ const STATS = [
     <div class="cp__stage reveal">
       <span class="cp__aura" aria-hidden="true"></span>
 
-      <svg class="cp__wheel" viewBox={`0 0 ${VB} ${VB}`} role="img" aria-labelledby="cp-title">
-        <title id="cp-title">What DUSA does: six capability domains with AI running through them</title>
+      <svg class="cp__wheel" viewBox={`0 0 ${VB} ${VB}`} role="img"
+           aria-label="What DUSA does: six capability domains with AI running through them">
 
         <defs>
           <radialGradient id="cpAura" cx="50%" cy="50%" r="50%">
@@ -275,6 +275,7 @@ const STATS = [
           {capSegs.map((s) => (
             <path class="cp__hit-cap" d={s.hit} fill="none" pointer-events="all"
                   data-di={s.di} data-idx={s.i} data-name={s.plain} data-desc={s.desc}
+                  data-ang={s.ang.toFixed(4)}
                   data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
           ))}
         </g>
@@ -285,6 +286,12 @@ const STATS = [
         <circle cx={CX} cy={CY} r={R_HUB} fill="url(#cpHubWell)" stroke={rgba(AQUA, 0.45)} stroke-width="1" />
         <circle cx={CX} cy={CY} r={R_HUB - 8} fill="none" stroke="rgba(247,244,239,0.08)" stroke-width="1" />
       </svg>
+
+      <div class="cp__tip" aria-hidden="true">
+        <span class="cp__tip-ai">AI</span>
+        <span class="cp__tip-name"></span>
+        <span class="cp__tip-val"></span>
+      </div>
 
       <!-- Hub readout: HTML rather than SVG text so descriptions can wrap. -->
       <div class="cp__readout" aria-live="polite">
@@ -446,6 +453,49 @@ const STATS = [
   .cp__readout-name { font-family: var(--font-headline); font-size: 2.5cqw; font-weight: 700; color: var(--warm-white); line-height: 1.15; }
   .cp__readout-desc { font-size: 1.6cqw; line-height: 1.35; color: rgba(247, 244, 239, 0.62); margin-top: 0.2rem; }
 
+
+  /* ─── Item tooltip ───
+     Sits beside the tile it describes, because that is where the eye already
+     is. The hub therefore shows only the domain while hovering, so the two are
+     not saying the same thing twice. */
+  .cp__tip {
+    position: absolute; z-index: 4; left: 0; top: 0;
+    display: grid; gap: 0.15rem; justify-items: start;
+    max-width: 15rem; padding: 0.7rem 0.9rem;
+    background: rgba(10, 14, 22, 0.82);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border: 1px solid rgba(78, 216, 194, 0.28);
+    border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(4, 8, 14, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    opacity: 0; pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.96);
+    transition: opacity 0.16s var(--ease-out), transform 0.18s var(--ease-out);
+    will-change: transform, opacity;
+  }
+  .cp__tip.is-on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .cp__tip-ai {
+    display: none; font-family: var(--font-mono); font-size: 0.5625rem;
+    letter-spacing: 0.14em; color: #0C0E14; background: var(--reef-aqua);
+    border-radius: 999px; padding: 0.1rem 0.4rem; margin-bottom: 0.1rem;
+  }
+  .cp__tip.is-ai .cp__tip-ai { display: inline-block; }
+  .cp__tip-name {
+    font-family: var(--font-headline); font-size: 0.9375rem; font-weight: 700;
+    color: var(--warm-white); line-height: 1.2;
+  }
+  .cp__tip-val { font-size: 0.75rem; line-height: 1.4; color: rgba(247, 244, 239, 0.66); }
+
+  :global(html[data-theme="light"]) .cp__tip {
+    background: rgba(247, 244, 239, 0.92);
+    border-color: rgba(26, 58, 92, 0.18);
+    box-shadow: 0 12px 30px rgba(12, 14, 20, 0.16);
+  }
+  :global(html[data-theme="light"]) .cp__tip-name { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .cp__tip-val { color: rgba(12, 14, 20, 0.65); }
+
+  @media (max-width: 700px) { .cp__tip { display: none; } }
+
   /* ─── Legend ─── */
   .cp__legend { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: var(--space-lg); }
   .cp__lg {
@@ -585,6 +635,9 @@ const STATS = [
     if (!stage || !svg || !readout) return;
 
     const det = readout.querySelector('.cp__readout-detail');
+    const tip = section.querySelector('.cp__tip');
+    const tipName = tip.querySelector('.cp__tip-name');
+    const tipVal = tip.querySelector('.cp__tip-val');
     const elDomain = readout.querySelector('.cp__readout-domain');
     const elName = readout.querySelector('.cp__readout-name');
     const elDesc = readout.querySelector('.cp__readout-desc');
@@ -673,14 +726,39 @@ const STATS = [
       capTiles.forEach((t, i) => t.classList.toggle('is-active', i === idx));
     };
 
+    const placeTip = (ang) => {
+      const sr = svg.getBoundingClientRect();
+      const gr = stage.getBoundingClientRect();
+      const scale = sr.width / 760;
+      const cx = sr.left - gr.left + sr.width / 2;
+      const cy = sr.top - gr.top + sr.height / 2;
+      const r = (344 + 58) * scale;
+      let x = cx + r * Math.cos(ang);
+      let y = cy + r * Math.sin(ang);
+      /* Keep it inside the stage so it never hangs off the edge. */
+      const halfW = tip.offsetWidth / 2 + 6;
+      const halfH = tip.offsetHeight / 2 + 6;
+      x = Math.max(halfW, Math.min(gr.width - halfW, x));
+      y = Math.max(halfH, Math.min(gr.height - halfH, y));
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+    };
+
     const paintCap = (hit) => {
       lightDomain(hit.getAttribute('data-di'));
       setActive(Number(hit.getAttribute('data-idx')));
-      elDomain.textContent = hit.getAttribute('data-ai') === '1'
-        ? 'AI · ' + hit.getAttribute('data-domain-name')
-        : hit.getAttribute('data-domain-name');
-      elName.textContent = hit.getAttribute('data-name');
-      elDesc.textContent = hit.getAttribute('data-desc');
+
+      const isAi = hit.getAttribute('data-ai') === '1';
+      tipName.textContent = hit.getAttribute('data-name');
+      tipVal.textContent = hit.getAttribute('data-desc');
+      tip.classList.toggle('is-ai', isAi);
+      placeTip(parseFloat(hit.getAttribute('data-ang')));
+      tip.classList.add('is-on');
+
+      /* Centre holds context only; the tooltip carries the detail. */
+      elDomain.textContent = isAi ? 'AI POWERED' : '';
+      elName.textContent = hit.getAttribute('data-domain-name');
+      elDesc.textContent = '';
       readout.classList.add('is-detail');
       det.setAttribute('aria-hidden', 'false');
     };
@@ -688,6 +766,7 @@ const STATS = [
     const paintDomain = (hit) => {
       lightDomain(hit.getAttribute('data-di'));
       setActive(-1);
+      tip.classList.remove('is-on');
       readout.classList.remove('is-detail');
       det.setAttribute('aria-hidden', 'true');
     };
@@ -697,6 +776,7 @@ const STATS = [
       stage.classList.remove('is-dim');
       stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
       setActive(-1);
+      tip.classList.remove('is-on');
       readout.classList.remove('is-detail');
       det.setAttribute('aria-hidden', 'true');
     };
@@ -723,6 +803,7 @@ const STATS = [
         clearTimeout(leaveTimer);
         activeSeg = null;
         setActive(-1);
+        tip.classList.remove('is-on');
         lightDomain(btn.getAttribute('data-domain'));
       };
       btn.addEventListener('mouseenter', on);

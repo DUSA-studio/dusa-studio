@@ -243,6 +243,11 @@ const STATS = [
             <stop offset="0%" stop-color={AQUA} stop-opacity="0.16" />
             <stop offset="100%" stop-color={AQUA} stop-opacity="0" />
           </linearGradient>
+          <linearGradient id="cpRim" x1="0%" y1="0%" x2="12%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55" />
+            <stop offset="45%" stop-color="#FFFFFF" stop-opacity="0.12" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.02" />
+          </linearGradient>
           <radialGradient id="cpCoreGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color={AQUA} stop-opacity="0.14" />
             <stop offset="60%" stop-color={AQUA} stop-opacity="0.04" />
@@ -356,6 +361,19 @@ const STATS = [
           ))}
         </g>
 
+        <!-- Glass rim light. One pass over every tile so each surface has a
+             lit top edge falling away to nothing, which is what sells glass. -->
+        <g class="cp__rims" aria-hidden="true">
+          {capSegs.map((s2) => (
+            <path class={`cp__seg cp__seg--d${s2.di}`} style={`--i:${s2.i + 7}`}
+                  d={s2.d} fill="none" stroke="url(#cpRim)" stroke-width="1.1" />
+          ))}
+          {domainSegs.map((s2) => (
+            <path class={`cp__seg cp__seg--d${s2.di}`} style={`--i:${s2.di}`}
+                  d={s2.d} fill="none" stroke="url(#cpRim)" stroke-width="1.4" />
+          ))}
+        </g>
+
         <!-- Agent journeys along the channels between tiles. -->
         <g class="cp__flows" aria-hidden="true">
           {FLOWS.map((f) => (
@@ -406,7 +424,6 @@ const STATS = [
         <div class="cp__readout-default cp__readout-pane">
           <span class="cp__readout-brand">DUSA</span>
           <span class="cp__readout-sub">ONE LOGIN</span>
-          <span class="cp__readout-hint"><i aria-hidden="true"></i>{hubHint}</span>
         </div>
         <div class="cp__readout-detail cp__readout-pane" aria-hidden="true">
           <span class="cp__readout-domain"></span>
@@ -421,6 +438,8 @@ const STATS = [
         <span class="cp__tip-name"></span>
         <span class="cp__tip-val"></span>
       </div>
+
+    <p class="cp__hint"><i aria-hidden="true"></i>{hubHint}</p>
 
     <div class="cp__legend reveal">
       {DOMAINS.map((d, i) => (
@@ -480,11 +499,55 @@ const STATS = [
 </section>
 
 <style>
+  /* ─── Glass system ───
+     Every surface uses the same recipe: frosted backdrop, hairline edge, and a
+     1px inset highlight along the top so the light source stays consistent. */
+  .cp {
+    --glass-bg: rgba(247, 244, 239, 0.045);
+    --glass-edge: rgba(247, 244, 239, 0.11);
+    --glass-lip: inset 0 1px 0 rgba(255, 255, 255, 0.13);
+    --glass-blur: blur(16px) saturate(1.35);
+  }
+  :global(html[data-theme="light"]) .cp {
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-edge: rgba(12, 14, 20, 0.09);
+    --glass-lip: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  }
+
+  /* ─── Hover hint: mint, and under the graphic where it can be read ─── */
+  .cp__hint {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    width: fit-content; margin: var(--space-md) auto 0; padding: 0.4rem 0.95rem;
+    font-size: 0.75rem; color: #8FF2E1; max-width: none;
+    background: rgba(78, 216, 194, 0.07);
+    border: 1px solid rgba(78, 216, 194, 0.28);
+    border-radius: 999px;
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-lip);
+  }
+  .cp__hint i {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--reef-aqua);
+    box-shadow: 0 0 8px rgba(78, 216, 194, 0.9);
+    animation: cpPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes cpPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  :global(html[data-theme="light"]) .cp__hint {
+    color: #0B5F55; background: rgba(78, 216, 194, 0.14);
+    border-color: rgba(27, 156, 139, 0.4);
+  }
+
   .cp__head { text-align: center; max-width: 680px; margin: 0 auto var(--space-md); }
   .cp__head h2 { font-weight: 600; margin-top: var(--space-xs); }
   .cp__sub { color: rgba(247, 244, 239, 0.55); margin: var(--space-sm) auto 0; font-size: 1.0625rem; max-width: 52ch; }
 
-  .cp__stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 var(--space-lg); margin: var(--space-lg) 0 0; }
+  .cp__stats {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 0 var(--space-lg);
+    margin: var(--space-lg) auto 0; width: fit-content;
+    padding: 0.85rem var(--space-md);
+    background: var(--glass-bg); border: 1px solid var(--glass-edge);
+    border-radius: 16px; box-shadow: var(--glass-lip);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  }
   .cp__stat { text-align: center; position: relative; padding: 0 var(--space-sm); }
   .cp__stat + .cp__stat::before {
     content: ''; position: absolute; left: 0; top: 18%; height: 64%; width: 1px;
@@ -544,7 +607,7 @@ const STATS = [
   @keyframes cpBreathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
   @keyframes cpSpin { to { transform: rotate(360deg); } }
 
-  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__flows, .cp__sweep { pointer-events: none; }
+  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__flows, .cp__sweep, .cp__rims { pointer-events: none; }
   .cp__hit { cursor: pointer; }
   /* The individually hovered tile reads brighter than its domain siblings, so
      moving along the ring feels like stepping item to item. */
@@ -652,8 +715,10 @@ const STATS = [
   .cp__legend { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: var(--space-lg); }
   .cp__lg {
     display: inline-flex; align-items: center; gap: 0.45rem; font-family: inherit; font-size: 0.75rem;
-    color: rgba(247, 244, 239, 0.66); background: rgba(247, 244, 239, 0.04);
-    border: 1px solid rgba(247, 244, 239, 0.1); border-radius: 999px;
+    color: rgba(247, 244, 239, 0.66); background: var(--glass-bg);
+    border: 1px solid var(--glass-edge); border-radius: 999px;
+    box-shadow: var(--glass-lip);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
     padding: 0.45rem 0.55rem 0.45rem 0.85rem; cursor: pointer;
     transition: color var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast);
   }
@@ -717,9 +782,10 @@ const STATS = [
 
   .cp__chip {
     display: inline-flex; align-items: center; gap: 0.5rem; flex-shrink: 0;
-    background: rgba(247, 244, 239, 0.045);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(247, 244, 239, 0.09); border-radius: 999px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-edge); border-radius: 999px;
+    box-shadow: var(--glass-lip);
     padding: 0.5rem 0.9rem;
     transition: border-color var(--duration-fast), background var(--duration-fast);
   }
@@ -741,6 +807,9 @@ const STATS = [
     font-size: 0.875rem; font-weight: 500; color: var(--reef-aqua);
     text-decoration: none; border-radius: 999px;
     border: 1px solid rgba(78, 216, 194, 0.32);
+    background: rgba(78, 216, 194, 0.05);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-lip);
     transition: background var(--duration-fast), border-color var(--duration-fast), gap var(--duration-fast);
   }
   .cp__cta:hover {

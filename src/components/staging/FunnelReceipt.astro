@@ -1,184 +1,193 @@
 ---
-// DIRECTION A — "The Receipt"
+// DIRECTION A — "The Receipt" (v2)
 //
-// Argument: the original funnels are decorative. They do not encode the
-// numbers, so the reader has to take the total on trust. A receipt IS the
-// evidence: ruled line items, a subtotal that visibly adds up, and one line
-// underneath that replaces the lot. It leans on the mono type already in the
-// brand and reads as a document rather than a marketing graphic.
-import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../../config/stack-compare';
+// v1 put two receipts side by side, which meant the reader had to cross-
+// reference two cards to work out that DUSA covers the same jobs. v2 is a
+// SINGLE ledger with aligned rows: one scan left to right per line, from the
+// job, to what you pay for it today, to "included". Nothing to hold in memory.
+//
+// The job column leads rather than the brand name, because the argument is
+// "you are paying eight times for eight jobs", not "we have heard of Birdeye".
+import { STACK, DUSA_COST, STACK_TOTAL, SAVING, MULTIPLE, money } from '../../config/stack-compare';
 ---
 
 <div class="rc">
-  <div class="rc__grid">
+  <div class="rc__sheet">
 
-    <div class="rc__paper">
-      <div class="rc__head">
-        <span class="rc__tag">Your stack, monthly</span>
-        <span class="rc__count">{STACK.length} subscriptions</span>
-      </div>
+    <div class="rc__cols" role="presentation">
+      <span class="rc__col">What it does</span>
+      <span class="rc__col">What you pay today</span>
+      <span class="rc__col rc__col--aqua">With DUSA</span>
+    </div>
 
-      <ul class="rc__lines">
-        {STACK.map((tool, i) => (
-          <li class="rc__line" style={`--i:${i}`}>
-            <span class="rc__name">{tool.name}</span>
-            <span class="rc__job">{tool.job}</span>
+    <ul class="rc__rows">
+      {STACK.map((tool, i) => (
+        <li class="rc__row" style={`--i:${i}`}>
+          <span class="rc__job">{tool.job}</span>
+          <span class="rc__today">
+            <span class="rc__brand">{tool.name}</span>
             <span class="rc__dots" aria-hidden="true"></span>
             <span class="rc__cost">{money(tool.cost)}</span>
-          </li>
-        ))}
-      </ul>
+          </span>
+          <span class="rc__inc">
+            <svg viewBox="0 0 16 16" aria-hidden="true" class="rc__tick">
+              <path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Included
+          </span>
+        </li>
+      ))}
 
-      <div class="rc__rule" aria-hidden="true"></div>
-      <div class="rc__total">
-        <span class="rc__total-label">Total every month</span>
-        <span class="rc__total-value">{money(STACK_TOTAL)}</span>
-      </div>
-      <p class="rc__foot">{STACK.length} logins. {STACK.length} bills. None of them talk to each other.</p>
-    </div>
+      <!-- The one row that is not a swap. It is what the stack cannot buy. -->
+      <li class="rc__row rc__row--bonus">
+        <span class="rc__job">AI</span>
+        <span class="rc__today rc__today--none">
+          <span class="rc__brand">Not available</span>
+          <span class="rc__dots" aria-hidden="true"></span>
+          <span class="rc__cost rc__cost--none">&mdash;</span>
+        </span>
+        <span class="rc__inc">
+          <svg viewBox="0 0 16 16" aria-hidden="true" class="rc__tick">
+            <path d="M3 8.5l3.2 3.2L13 5" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Answers, books, follows up
+        </span>
+      </li>
+    </ul>
 
-    <div class="rc__swap" aria-hidden="true">
-      <span>replaced by</span>
-    </div>
+    <div class="rc__rule" aria-hidden="true"></div>
 
-    <div class="rc__paper rc__paper--dusa">
-      <div class="rc__head">
-        <span class="rc__tag rc__tag--aqua">With DUSA</span>
-        <span class="rc__count">1 subscription</span>
-      </div>
-
-      <div class="rc__line rc__line--dusa">
-        <span class="rc__name">DUSA . studio</span>
-        <span class="rc__job">Everything above, plus AI</span>
-        <span class="rc__dots" aria-hidden="true"></span>
-        <span class="rc__cost">{money(DUSA_COST)}</span>
-      </div>
-
-      <div class="rc__rule" aria-hidden="true"></div>
-      <div class="rc__total rc__total--aqua">
-        <span class="rc__total-label">Total every month</span>
-        <span class="rc__total-value">{money(DUSA_COST)}</span>
-      </div>
-
-      <div class="rc__stamp">
-        <span class="rc__stamp-value">{money(SAVING)}</span>
-        <span class="rc__stamp-label">back in your pocket, every month</span>
-      </div>
-      <p class="rc__foot">One login. One bill. Everything sees everything.</p>
+    <div class="rc__totals">
+      <span class="rc__job rc__job--total">Every month</span>
+      <span class="rc__total rc__total--red">
+        <b>{money(STACK_TOTAL)}</b>
+        <em>{STACK.length} logins, {STACK.length} bills</em>
+      </span>
+      <span class="rc__total rc__total--aqua">
+        <b>{money(DUSA_COST)}</b>
+        <em>One login, one bill</em>
+      </span>
     </div>
 
   </div>
+
+  <p class="rc__payoff">
+    You keep <b>{money(SAVING)}</b> a month.
+    <span>The scattered stack costs {MULTIPLE}x more and still does less.</span>
+  </p>
 </div>
 
 <style>
   .rc { container-type: inline-size; }
-  .rc__grid {
-    display: grid; gap: var(--space-md);
-    grid-template-columns: 1fr auto 1fr; align-items: start;
-  }
 
-  .rc__paper {
+  .rc__sheet {
     background: rgba(247, 244, 239, 0.02);
     border: 1px solid rgba(247, 244, 239, 0.1);
-    border-radius: 14px; padding: 1.6rem 1.5rem 1.4rem;
-    position: relative;
-  }
-  .rc__paper--dusa {
-    border-color: rgba(78, 216, 194, 0.32);
-    background: linear-gradient(180deg, rgba(78, 216, 194, 0.06), rgba(78, 216, 194, 0.015));
+    border-radius: 14px; padding: 1.5rem 1.6rem 1.4rem;
   }
 
-  .rc__head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 1rem; margin-bottom: 1.1rem;
-  }
-  .rc__tag {
-    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: rgba(232, 82, 78, 0.9);
-  }
-  .rc__tag--aqua { color: var(--reef-aqua); }
-  .rc__count {
-    font-family: var(--font-mono); font-size: 0.6875rem;
-    color: rgba(247, 244, 239, 0.35);
+  /* One grid definition drives the headers, every row and the totals, so the
+     three columns cannot drift out of alignment. Alignment IS the clarity. */
+  .rc__cols, .rc__row, .rc__totals {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) 14rem;
+    gap: 1.4rem; align-items: center;
   }
 
-  .rc__lines { list-style: none; padding: 0; margin: 0; }
-  .rc__line {
-    display: grid; grid-template-columns: auto auto 1fr auto;
-    align-items: baseline; gap: 0.5rem;
-    padding: 0.42rem 0; font-family: var(--font-mono); font-size: 0.8125rem;
+  .rc__cols {
+    padding-bottom: 0.7rem; margin-bottom: 0.3rem;
+    border-bottom: 1px solid rgba(247, 244, 239, 0.1);
   }
-  .rc__name { color: rgba(247, 244, 239, 0.82); }
+  .rc__col {
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.38);
+  }
+  .rc__col--aqua { color: rgba(78, 216, 194, 0.8); }
+
+  .rc__rows { list-style: none; padding: 0; margin: 0; }
+  .rc__row {
+    padding: 0.5rem 0; border-bottom: 1px solid rgba(247, 244, 239, 0.05);
+  }
+  .rc__row:last-child { border-bottom: 0; }
+
   .rc__job {
-    font-size: 0.6875rem; color: rgba(247, 244, 239, 0.3);
-    text-transform: uppercase; letter-spacing: 0.1em;
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.72);
   }
-  /* A leader line is what makes it read as a bill rather than a table. */
+
+  .rc__today { display: grid; grid-template-columns: auto 1fr auto; gap: 0.6rem; align-items: baseline; }
+  .rc__brand { font-size: 0.875rem; color: rgba(247, 244, 239, 0.6); }
+  /* A leader line is what makes a row read as a bill rather than a table. */
   .rc__dots {
-    border-bottom: 1px dotted rgba(247, 244, 239, 0.16);
-    transform: translateY(-0.2em);
+    border-bottom: 1px dotted rgba(247, 244, 239, 0.18);
+    transform: translateY(-0.25em);
   }
-  .rc__cost { color: rgba(247, 244, 239, 0.6); font-variant-numeric: tabular-nums; }
-
-  .rc__line--dusa { padding: 0.42rem 0 0; }
-  .rc__line--dusa .rc__name { color: var(--warm-white); }
-  .rc__line--dusa .rc__cost { color: var(--reef-aqua); }
-  .rc__paper--dusa .rc__job { color: rgba(78, 216, 194, 0.55); }
-
-  .rc__rule {
-    height: 1px; margin: 0.85rem 0 0.7rem;
-    background: repeating-linear-gradient(90deg,
-      rgba(247, 244, 239, 0.22) 0 6px, transparent 6px 12px);
-  }
-  .rc__paper--dusa .rc__rule {
-    background: repeating-linear-gradient(90deg,
-      rgba(78, 216, 194, 0.4) 0 6px, transparent 6px 12px);
-  }
-
-  .rc__total { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-  .rc__total-label {
-    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.4);
-  }
-  .rc__total-value {
-    font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem;
+  .rc__cost {
+    font-family: var(--font-mono); font-size: 0.9375rem;
     color: rgba(232, 82, 78, 0.95); font-variant-numeric: tabular-nums;
   }
-  .rc__total--aqua .rc__total-value { color: var(--reef-aqua); }
+  .rc__today--none .rc__brand { color: rgba(232, 82, 78, 0.7); font-style: italic; }
+  .rc__cost--none { color: rgba(247, 244, 239, 0.25); }
 
-  .rc__stamp {
-    margin-top: 1.1rem; padding: 0.85rem 1rem; border-radius: 10px;
-    background: rgba(78, 216, 194, 0.1);
-    border: 1px dashed rgba(78, 216, 194, 0.45);
-    display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+  .rc__inc {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-size: 0.8125rem; color: var(--reef-aqua);
   }
-  .rc__stamp-value {
-    font-family: var(--font-mono); font-weight: 700; font-size: 1.6rem;
-    color: var(--reef-aqua); letter-spacing: 0.02em;
-  }
-  .rc__stamp-label {
-    font-size: 0.75rem; color: rgba(166, 245, 231, 0.75); text-align: center;
-  }
+  .rc__tick { width: 15px; height: 15px; flex-shrink: 0; }
 
-  .rc__foot {
-    margin: 0.9rem 0 0; font-size: 0.8125rem;
-    color: rgba(247, 244, 239, 0.4); max-width: none;
+  .rc__row--bonus { background: rgba(78, 216, 194, 0.045); }
+
+  .rc__rule {
+    height: 1px; margin: 0.9rem 0 0.9rem;
+    background: repeating-linear-gradient(90deg,
+      rgba(247, 244, 239, 0.28) 0 6px, transparent 6px 12px);
   }
 
-  .rc__swap {
-    align-self: center; display: grid; place-items: center;
-    padding: 0 0.2rem;
+  .rc__job--total { color: rgba(247, 244, 239, 0.5); }
+  .rc__total { display: grid; gap: 0.1rem; }
+  .rc__total b {
+    font-family: var(--font-mono); font-weight: 700; font-size: 2rem;
+    line-height: 1; font-variant-numeric: tabular-nums;
   }
-  .rc__swap span {
-    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.3);
-    writing-mode: vertical-rl; white-space: nowrap;
+  .rc__total em {
+    font-style: normal; font-size: 0.75rem; color: rgba(247, 244, 239, 0.4);
+  }
+  .rc__total--red b { color: rgba(232, 82, 78, 0.95); }
+  .rc__total--aqua b { color: var(--reef-aqua); }
+  .rc__total--aqua em { color: rgba(166, 245, 231, 0.65); }
+
+  .rc__payoff {
+    margin: 1.6rem auto 0; text-align: center; max-width: none;
+    font-size: 1.375rem; color: rgba(247, 244, 239, 0.8);
+  }
+  .rc__payoff b {
+    font-family: var(--font-mono); font-weight: 700; font-size: 2.4rem;
+    color: var(--reef-aqua); display: block; line-height: 1.15;
+  }
+  .rc__payoff span {
+    display: block; margin-top: 0.35rem; font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.45);
   }
 
-  /* Two receipts side by side stop being comparable long before they stop
-     fitting, so stack them while each is still wide enough to read. */
-  @container (max-width: 860px) {
-    .rc__grid { grid-template-columns: 1fr; }
-    .rc__swap span { writing-mode: horizontal-tb; }
+  /* Below this the three columns stop being scannable across, so each row
+     becomes its own small block with the labels carried inline. */
+  @container (max-width: 720px) {
+    .rc__cols { display: none; }
+    .rc__row, .rc__totals {
+      grid-template-columns: 1fr; gap: 0.3rem;
+      padding: 0.8rem 0;
+    }
+    .rc__job { color: rgba(247, 244, 239, 0.85); }
+    .rc__inc::before {
+      content: 'With DUSA:';
+      font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(247, 244, 239, 0.35);
+      margin-right: 0.1rem;
+    }
+    .rc__totals { gap: 0.9rem; }
+    .rc__total b { font-size: 1.75rem; }
+    .rc__payoff b { font-size: 2rem; }
   }
 </style>

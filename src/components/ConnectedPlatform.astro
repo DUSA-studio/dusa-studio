@@ -218,7 +218,8 @@ const STATS = [
         {capSegs.map((s) => (
           <path class={`cp__seg cp__cap cp__seg--d${s.di} ${s.ai ? 'is-ai' : ''}`}
                 style={`--i:${s.i + 7};--glow:${s.ai ? AQUA : s.stroke}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
-                data-name={s.plain} data-desc={s.desc} data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
+                data-di={s.di} data-name={s.plain} data-desc={s.desc}
+                data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
         ))}
 
         <g filter="url(#cpDrop)">
@@ -272,13 +273,12 @@ const STATS = [
 
       <!-- Hub readout: HTML rather than SVG text so descriptions can wrap. -->
       <div class="cp__readout" aria-live="polite">
-        <div class="cp__readout-default">
-          <span class="cp__lotus" aria-hidden="true"></span>
+        <div class="cp__readout-default cp__readout-pane">
           <span class="cp__readout-brand">DUSA</span>
           <span class="cp__readout-sub">ONE LOGIN</span>
           <span class="cp__readout-hint"><i aria-hidden="true"></i>{hubHint}</span>
         </div>
-        <div class="cp__readout-detail" hidden>
+        <div class="cp__readout-detail cp__readout-pane" aria-hidden="true">
           <span class="cp__readout-domain"></span>
           <span class="cp__readout-name"></span>
           <span class="cp__readout-desc"></span>
@@ -386,7 +386,7 @@ const STATS = [
   .cp__stage.is-dim .cp__cap.is-ai.is-on {
     filter: brightness(1.3) drop-shadow(0 0 11px #4ED8C2);
   }
-  .cp__seg { transition: opacity var(--duration-normal) var(--ease-out), filter var(--duration-normal) var(--ease-out); }
+  .cp__seg { transition: opacity 0.22s var(--ease-out); }
   .cp--anim .cp__seg { opacity: 0; transform: scale(0.965); transform-origin: 380px 380px; }
   .cp--anim.is-in .cp__seg {
     opacity: 1; transform: scale(1);
@@ -400,14 +400,19 @@ const STATS = [
     position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
     width: 26%; text-align: center; pointer-events: none;
   }
-  .cp__readout > div { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
-  .cp__readout > div[hidden] { display: none; }
-  .cp__lotus {
-    width: 7.5cqw; height: 7.5cqw; display: block; margin-bottom: 0.35rem;
-    background: var(--warm-white);
-    -webkit-mask: url('/favicon-512x512.png') center / contain no-repeat;
-    mask: url('/favicon-512x512.png') center / contain no-repeat;
+  /* Both panes occupy the same grid cell, so swapping them cannot reflow the
+     hub. Only opacity changes, which is why hovering across segments no longer
+     jumps. */
+  .cp__readout { display: grid; }
+  .cp__readout-pane {
+    grid-area: 1 / 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.15rem;
+    transition: opacity 0.16s var(--ease-out);
   }
+  .cp__readout-detail { opacity: 0; }
+  .cp__readout.is-detail .cp__readout-default { opacity: 0; }
+  .cp__readout.is-detail .cp__readout-detail { opacity: 1; }
   .cp__readout-brand { font-family: var(--font-headline); font-size: 4cqw; font-weight: 700; color: var(--warm-white); letter-spacing: 0.02em; line-height: 1; }
   .cp__readout-sub { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
   .cp__readout-hint {
@@ -560,7 +565,6 @@ const STATS = [
     const readout = section.querySelector('.cp__readout');
     if (!stage || !svg || !readout) return;
 
-    const def = readout.querySelector('.cp__readout-default');
     const det = readout.querySelector('.cp__readout-detail');
     const elDomain = readout.querySelector('.cp__readout-domain');
     const elName = readout.querySelector('.cp__readout-name');
@@ -629,37 +633,64 @@ const STATS = [
       fitTimer = setTimeout(fitLabels, 150);
     });
 
-    const clear = () => {
-      stage.classList.remove('is-dim');
-      stage.querySelectorAll('.cp__seg').forEach((s) => s.classList.remove('is-on'));
-      def.hidden = false;
-      det.hidden = true;
-    };
+    /* Hover handling is delegated and hysteretic on purpose.
+       Per-element mouseenter/mouseleave fired leave-then-enter every time the
+       pointer crossed between two adjacent segments, which cleared and rebuilt
+       the readout mid-move — that was the jitter. Now: one listener, ignore
+       repeats for the segment already active, and wait a beat before clearing
+       so travelling across the ring is continuous. */
+    let activeSeg = null;
+    let leaveTimer = null;
 
-    const focusDomain = (di) => {
+    const paint = (seg) => {
+      const di = seg.getAttribute('data-di');
       stage.classList.add('is-dim');
-      stage.querySelectorAll('.cp__seg').forEach((s) => s.classList.remove('is-on'));
-      stage.querySelectorAll('.cp__seg--d' + di).forEach((s) => s.classList.add('is-on'));
+      stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
+      stage.querySelectorAll('.cp__seg--d' + di).forEach((n) => n.classList.add('is-on'));
+
+      elDomain.textContent = seg.getAttribute('data-ai') === '1'
+        ? 'AI · ' + seg.getAttribute('data-domain-name')
+        : seg.getAttribute('data-domain-name');
+      elName.textContent = seg.getAttribute('data-name');
+      elDesc.textContent = seg.getAttribute('data-desc');
+      readout.classList.add('is-detail');
+      det.setAttribute('aria-hidden', 'false');
     };
 
-    /* Hovering a capability turns the hub into a readout for it. */
-    section.querySelectorAll('.cp__cap').forEach((seg) => {
-      const show = () => {
-        focusDomain(seg.className.baseVal.match(/cp__seg--d(\d+)/)[1]);
-        elDomain.textContent = seg.getAttribute('data-ai') === '1'
-          ? 'AI · ' + seg.getAttribute('data-domain-name')
-          : seg.getAttribute('data-domain-name');
-        elName.textContent = seg.getAttribute('data-name');
-        elDesc.textContent = seg.getAttribute('data-desc');
-        def.hidden = true;
-        det.hidden = false;
-      };
-      seg.addEventListener('mouseenter', show);
-      seg.addEventListener('mouseleave', clear);
-    });
+    const reset = () => {
+      activeSeg = null;
+      stage.classList.remove('is-dim');
+      stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
+      readout.classList.remove('is-detail');
+      det.setAttribute('aria-hidden', 'true');
+    };
+
+    const clear = () => {
+      clearTimeout(leaveTimer);
+      leaveTimer = setTimeout(reset, 120);
+    };
+
+    svg.addEventListener('pointermove', (e) => {
+      const seg = e.target.closest ? e.target.closest('.cp__cap') : null;
+      if (seg) {
+        clearTimeout(leaveTimer);
+        if (seg !== activeSeg) { activeSeg = seg; paint(seg); }
+      } else if (activeSeg) {
+        clear();
+      }
+    }, { passive: true });
+
+    svg.addEventListener('pointerleave', clear, { passive: true });
 
     section.querySelectorAll('.cp__lg[data-domain]').forEach((btn) => {
-      const on = () => focusDomain(btn.getAttribute('data-domain'));
+      const on = () => {
+        clearTimeout(leaveTimer);
+        activeSeg = null;
+        stage.classList.add('is-dim');
+        stage.querySelectorAll('.cp__seg.is-on').forEach((n) => n.classList.remove('is-on'));
+        stage.querySelectorAll('.cp__seg--d' + btn.getAttribute('data-domain'))
+             .forEach((n) => n.classList.add('is-on'));
+      };
       btn.addEventListener('mouseenter', on);
       btn.addEventListener('focus', on);
       btn.addEventListener('mouseleave', clear);

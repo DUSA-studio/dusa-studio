@@ -136,16 +136,32 @@ DOMAINS.forEach((d, di) => {
 const aiMidR = (R_AI0 + R_AI1) / 2 + 2;
 const aiTextPath = `M ${CX - aiMidR},${CY} A ${aiMidR},${aiMidR} 0 0 1 ${CX + aiMidR},${CY}`;
 
-/* Signals fired from the AI ring out to capabilities: staggered so they read
-   as an agent working, not a synchronised light show. */
-const PULSES = capSegs
-  .filter((_, i) => i % 3 === 0)
-  .map((c2, n) => ({
-    deg: (c2.ang * 180) / Math.PI,
-    dur: (2.6 + (n % 4) * 0.55).toFixed(2),
-    delay: (n * 0.73 % 4.2).toFixed(2),
-    ai: c2.ai,
-  }));
+/* Agent journeys. A signal runs INWARD along the channel between two tiles,
+   is routed around the core, then leaves along a different channel to wherever
+   the data is needed. That is the "one connected platform" idea made literal,
+   and it is why the paths follow the gaps rather than crossing the tiles. */
+function boundary(i: number) {
+  return -Math.PI / 2 + (i / totalCaps) * Math.PI * 2;
+}
+function flowPath(i0: number, i1: number) {
+  const rOut = R_C1 - 3, rIn = R_AI1 + 5;
+  const t0 = boundary(i0), t1 = boundary(i1);
+  const P = (r: number, a: number) => pol(r, a).map((n) => n.toFixed(2)).join(',');
+  let delta = t1 - t0;
+  while (delta <= -Math.PI) delta += Math.PI * 2;
+  while (delta > Math.PI) delta -= Math.PI * 2;
+  const sweep = delta > 0 ? 1 : 0;
+  return `M${P(rOut, t0)}L${P(rIn, t0)}` +
+         `A${rIn},${rIn} 0 0 ${sweep} ${P(rIn, t1)}` +
+         `L${P(rOut, t1)}`;
+}
+const FLOWS = [
+  [0, 9], [5, 18], [12, 24], [20, 3], [15, 7], [23, 11], [8, 16],
+].map(([a, b], n) => ({
+  d: flowPath(a, b),
+  dur: (5.4 + (n % 4) * 1.1).toFixed(2),
+  delay: ((n * 1.27) % 6).toFixed(2),
+}));
 
 const STATS = [
   { n: '6', l: 'core domains' },
@@ -190,6 +206,11 @@ const STATS = [
             <stop offset="0%" stop-color={AQUA} stop-opacity="0.16" />
             <stop offset="100%" stop-color={AQUA} stop-opacity="0" />
           </linearGradient>
+          <radialGradient id="cpCoreGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color={AQUA} stop-opacity="0.14" />
+            <stop offset="60%" stop-color={AQUA} stop-opacity="0.04" />
+            <stop offset="100%" stop-color={AQUA} stop-opacity="0" />
+          </radialGradient>
           <radialGradient id="cpHubWell" cx="50%" cy="38%" r="72%">
             <stop offset="0%" stop-color="#16202E" />
             <stop offset="70%" stop-color="#0C0E14" />
@@ -298,14 +319,16 @@ const STATS = [
           ))}
         </g>
 
-        <!-- Agent signals: dots run from the AI ring out to a capability. -->
-        <g class="cp__signals" aria-hidden="true">
-          {PULSES.map((p2) => (
-            <g transform={`rotate(${p2.deg.toFixed(2)} ${CX} ${CY})`}>
-              <g class="cp__pulse" style={`--dur:${p2.dur}s;--delay:${p2.delay}s`}>
-                <circle cx="0" cy={CY} r="6" fill={AQUA} opacity="0.22" />
-                <circle cx="0" cy={CY} r="2.4" fill="#B9FBEF" />
-              </g>
+        <!-- Agent journeys along the channels between tiles. -->
+        <g class="cp__flows" aria-hidden="true">
+          {FLOWS.map((f) => (
+            <path class="cp__flow-line" d={f.d} fill="none"
+                  stroke={rgba(AQUA, 0.12)} stroke-width="1" />
+          ))}
+          {FLOWS.map((f) => (
+            <g class="cp__flow" style={`offset-path:path('${f.d}');--dur:${f.dur}s;--delay:${f.delay}s`}>
+              <circle r="7" fill={AQUA} opacity="0.18" />
+              <circle r="2.6" fill="#CFFFF6" />
             </g>
           ))}
         </g>
@@ -313,7 +336,7 @@ const STATS = [
         <circle class="cp__sheen" cx={CX} cy={CY} r={R_C1} fill="url(#cpSheen)"
                 pointer-events="none" aria-hidden="true" />
 
-        <!-- Slow radar sweep so the core reads as live rather than static. -->
+        <!-- Core: layered so it reads as live machinery, not an empty disc. -->
         <g clip-path="url(#cpHubClip)" aria-hidden="true">
           <circle cx={CX} cy={CY} r={R_HUB} fill="url(#cpHubWell)" />
           <g class="cp__sweep">
@@ -321,8 +344,24 @@ const STATS = [
                   fill="url(#cpSweep)" />
           </g>
         </g>
-        <circle cx={CX} cy={CY} r={R_HUB} fill="none" stroke={rgba(AQUA, 0.45)} stroke-width="1" />
-        <circle cx={CX} cy={CY} r={R_HUB - 8} fill="none" stroke="rgba(247,244,239,0.08)" stroke-width="1" />
+        <circle class="cp__core-glow" cx={CX} cy={CY} r={R_HUB - 14}
+                fill="url(#cpCoreGlow)" aria-hidden="true" />
+        <circle cx={CX} cy={CY} r={R_HUB} fill="none"
+                stroke={rgba(AQUA, 0.5)} stroke-width="1" />
+        <circle cx={CX} cy={CY} r={R_HUB - 9} fill="none"
+                stroke="rgba(247,244,239,0.09)" stroke-width="1" />
+        <circle class="cp__core-dash" cx={CX} cy={CY} r={R_HUB - 18} fill="none"
+                stroke={rgba(AQUA, 0.3)} stroke-width="1"
+                stroke-dasharray="1.5 12" stroke-linecap="round" />
+        <g aria-hidden="true">
+          {[0, 90, 180, 270].map((deg) => {
+            const a = (deg * Math.PI) / 180;
+            const [x1, y1] = pol(R_HUB - 6, a);
+            const [x2, y2] = pol(R_HUB - 1, a);
+            return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={rgba(AQUA, 0.75)} stroke-width="1.5" />;
+          })}
+        </g>
+
       </svg>
 
       <!-- Hub readout: HTML rather than SVG text so descriptions can wrap. -->
@@ -441,26 +480,34 @@ const STATS = [
   .cp__ai-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; fill: #8FF2E1; }
   .cp__ai-dash { transform-origin: center; animation: cpSpin 50s linear infinite; }
 
-  /* ─── Agent signals ───
-     Each dot leaves the AI ring, runs out to a capability and fades as it
-     arrives, so the ring reads as dispatching work rather than decorating. */
-  .cp__signals { pointer-events: none; }
-  .cp__pulse {
-    animation: cpTravel var(--dur, 3s) cubic-bezier(0.4, 0, 0.5, 1) var(--delay, 0s) infinite;
-    opacity: 0;
+  /* ─── Agent journeys ───
+     The dot follows the channel between tiles, slows as it is routed at the
+     core, then continues out to its destination. */
+  .cp__flows { pointer-events: none; }
+  .cp__flow {
+    offset-rotate: 0deg; opacity: 0;
+    animation: cpFlow var(--dur, 6s) linear var(--delay, 0s) infinite;
   }
-  @keyframes cpTravel {
-    0%   { transform: translateX(150px); opacity: 0; }
-    12%  { opacity: 1; }
-    70%  { opacity: 1; }
-    100% { transform: translateX(268px); opacity: 0; }
+  @keyframes cpFlow {
+    0%   { offset-distance: 0%;   opacity: 0; }
+    7%   { opacity: 1; }
+    38%  { offset-distance: 44%; }
+    54%  { offset-distance: 56%; }
+    93%  { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
   }
+  /* Without motion-path support the dots would stack at the SVG origin. */
+  @supports not (offset-path: path('M0,0 L1,1')) { .cp__flows { display: none; } }
 
-  /* Slow sweep in the core. */
-  .cp__sweep { transform-origin: 380px 380px; animation: cpSpin 9s linear infinite; }
+  /* Core motion: a slow sweep, a counter-rotating inner ring, and a glow that
+     breathes, so the middle has depth without competing with the readout. */
+  .cp__sweep { transform-origin: 380px 380px; animation: cpSpin 14s linear infinite; }
+  .cp__core-dash { transform-origin: 380px 380px; animation: cpSpin 26s linear infinite reverse; }
+  .cp__core-glow { animation: cpBreathe 5.5s ease-in-out infinite; }
+  @keyframes cpBreathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
   @keyframes cpSpin { to { transform: rotate(360deg); } }
 
-  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__signals, .cp__sweep { pointer-events: none; }
+  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__flows, .cp__sweep { pointer-events: none; }
   .cp__hit { cursor: pointer; }
   /* The individually hovered tile reads brighter than its domain siblings, so
      moving along the ring feels like stepping item to item. */
@@ -501,7 +548,13 @@ const STATS = [
   .cp__readout-detail { opacity: 0; }
   .cp__readout.is-detail .cp__readout-default { opacity: 0; }
   .cp__readout.is-detail .cp__readout-detail { opacity: 1; }
-  .cp__readout-brand { font-family: var(--font-headline); font-size: 4cqw; font-weight: 700; color: var(--warm-white); letter-spacing: 0.02em; line-height: 1; }
+  .cp__readout-brand {
+    font-family: var(--font-headline); font-size: 4cqw; font-weight: 700;
+    letter-spacing: 0.02em; line-height: 1;
+    background: linear-gradient(150deg, var(--warm-white) 0%, var(--mist-blue) 72%, var(--reef-aqua) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
   .cp__readout-sub { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
   .cp__readout-hint {
     display: inline-flex; align-items: center; gap: 0.4em; opacity: 0.75;
@@ -675,8 +728,8 @@ const STATS = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cp__ai-dash, .cp__track, .cp__pulse, .cp__sweep { animation: none; }
-    .cp__pulse { opacity: 0; }
+    .cp__ai-dash, .cp__track, .cp__flow, .cp__sweep, .cp__core-dash, .cp__core-glow { animation: none; }
+    .cp__flows { display: none; }
     .cp--anim .cp__seg { opacity: 1; transform: none; }
   }
 

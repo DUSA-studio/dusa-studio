@@ -325,12 +325,6 @@ const STATS = [
         <circle cx={CX} cy={CY} r={R_HUB - 8} fill="none" stroke="rgba(247,244,239,0.08)" stroke-width="1" />
       </svg>
 
-      <div class="cp__tip" aria-hidden="true">
-        <span class="cp__tip-ai">AI</span>
-        <span class="cp__tip-name"></span>
-        <span class="cp__tip-val"></span>
-      </div>
-
       <!-- Hub readout: HTML rather than SVG text so descriptions can wrap. -->
       <div class="cp__readout" aria-live="polite">
         <div class="cp__readout-default cp__readout-pane">
@@ -345,6 +339,12 @@ const STATS = [
         </div>
       </div>
     </div>
+
+      <div class="cp__tip" aria-hidden="true">
+        <span class="cp__tip-ai">AI</span>
+        <span class="cp__tip-name"></span>
+        <span class="cp__tip-val"></span>
+      </div>
 
     <div class="cp__legend reveal">
       {DOMAINS.map((d, i) => (
@@ -521,7 +521,7 @@ const STATS = [
      is. The hub therefore shows only the domain while hovering, so the two are
      not saying the same thing twice. */
   .cp__tip {
-    position: absolute; z-index: 4; left: 0; top: 0;
+    position: fixed; z-index: 40; left: 0; top: 0;
     display: grid; gap: 0.15rem; justify-items: start;
     max-width: 13.5rem; padding: 0.7rem 0.9rem;
     background: rgba(10, 14, 22, 0.82);
@@ -804,27 +804,24 @@ const STATS = [
 
     const placeTip = (ang) => {
       const sr = svg.getBoundingClientRect();
-      const gr = stage.getBoundingClientRect();
       const scale = sr.width / 760;
-      const cx = sr.left - gr.left + sr.width / 2;
-      const cy = sr.top - gr.top + sr.height / 2;
+      const cx = sr.left + sr.width / 2;
+      const cy = sr.top + sr.height / 2;
 
       const w = tip.offsetWidth, h = tip.offsetHeight;
       const ca = Math.abs(Math.cos(ang)), sa = Math.abs(Math.sin(ang));
-      /* Distance from centre at which the box's nearest edge clears the ring. */
+      /* Push out far enough that the box's nearest edge clears the outer ring
+         at this angle, rather than just centring it outside the radius. */
       const ringOuter = (344 + 19) * scale;
-      const d = ringOuter + (w / 2) * ca + (h / 2) * sa + 16;
+      const d = ringOuter + (w / 2) * ca + (h / 2) * sa + 14;
 
       let x = cx + d * Math.cos(ang);
       let y = cy + d * Math.sin(ang);
 
-      /* It may sit outside the wheel's own box, so clamp to the section, not
-         the stage, otherwise clamping would drag it back over the diagram. */
-      const host = stage.parentElement.getBoundingClientRect();
-      const minX = host.left - gr.left + w / 2 + 4;
-      const maxX = host.right - gr.left - w / 2 - 4;
-      x = Math.max(minX, Math.min(maxX, x));
-      y = Math.max(h / 2 + 4, Math.min(gr.height - h / 2 - 4, y));
+      /* Clamp to the viewport, never to the wheel — clamping to the wheel is
+         what dragged it back over the labels. */
+      x = Math.max(w / 2 + 8, Math.min(window.innerWidth - w / 2 - 8, x));
+      y = Math.max(h / 2 + 8, Math.min(window.innerHeight - h / 2 - 8, y));
 
       tip.style.left = x + 'px';
       tip.style.top = y + 'px';

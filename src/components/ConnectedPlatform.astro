@@ -84,7 +84,7 @@ const rgba = (hex: string, a: number) => {
 const totalCaps = DOMAINS.reduce((s, d) => s + d.items.length, 0);
 const aiCount = DOMAINS.reduce((s, d) => s + d.items.filter((i) => i.ai).length, 0);
 const allApps = [...BRAND_MARKS.map((b) => ({ name: b.name, hex: b.hex, path: b.path })),
-                 ...WORDMARK_ONLY.map((n) => ({ name: n, hex: '', path: '' }))];
+                 ...WORDMARK_ONLY.map((w) => ({ name: w.name, hex: w.hex, path: '' }))];
 const appCount = allApps.length;
 /* Two marquee rows travelling in opposite directions. */
 const rowA = allApps.filter((_, i) => i % 2 === 0);
@@ -505,7 +505,9 @@ const STATS = [
             <div class="cp__track">
               {[...row, ...row, ...row, ...row].map((a) => (
                 <span class={`cp__chip ${a.path ? '' : 'cp__chip--word'}`} style={`--brand:${a.hex || '#4ED8C2'}`}>
-                  {a.path && <svg viewBox="0 0 24 24" aria-hidden="true"><path d={a.path} /></svg>}
+                  {a.path
+                    ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={a.path} /></svg>
+                    : <i class="cp__chip-dot" aria-hidden="true"></i>}
                   <span>{a.name}</span>
                 </span>
               ))}
@@ -863,7 +865,26 @@ const STATS = [
   .cp__chip:hover svg path { fill: var(--brand); }
   .cp__chip > span { font-size: 0.7188rem; color: rgba(247, 244, 239, 0.62); white-space: nowrap; }
   .cp__chip:hover > span { color: var(--warm-white); }
-  .cp__chip--word > span { font-weight: 600; }
+  /* Occupies the same 17px the glyphs occupy, so a named chip sits on the identical
+     rhythm instead of looking like a logo failed to load. */
+  .cp__chip-dot {
+    width: 17px; height: 17px; flex-shrink: 0; border-radius: 999px;
+    display: block; position: relative;
+    background: color-mix(in srgb, var(--brand) 22%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
+    transition: background var(--duration-fast), border-color var(--duration-fast);
+  }
+  .cp__chip-dot::after {
+    content: ''; position: absolute; inset: 4px; border-radius: 999px;
+    background: color-mix(in srgb, var(--brand) 70%, transparent);
+    transition: background var(--duration-fast);
+  }
+  .cp__chip:hover .cp__chip-dot {
+    background: color-mix(in srgb, var(--brand) 34%, transparent);
+    border-color: var(--brand);
+  }
+  .cp__chip:hover .cp__chip-dot::after { background: var(--brand); }
+  .cp__chip--word > span { font-weight: 600; color: rgba(247, 244, 239, 0.72); }
 
   .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); margin: var(--space-md) auto 0; text-align: center; max-width: none; }
   .cp__cta {

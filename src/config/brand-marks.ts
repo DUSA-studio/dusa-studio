@@ -28,7 +28,18 @@ export const BRAND_MARKS: BrandMark[] = [
   { name: "Make", hex: '#6D00CC', path: 'M13.38 3.498c-.27 0-.511.19-.566.465L9.85 18.986a.578.578 0 0 0 .453.678l4.095.826a.58.58 0 0 0 .682-.455l2.963-15.021a.578.578 0 0 0-.453-.678l-4.096-.826a.589.589 0 0 0-.113-.012zm-5.876.098a.576.576 0 0 0-.516.318L.062 17.697a.575.575 0 0 0 .256.774l3.733 1.877a.578.578 0 0 0 .775-.258l6.926-13.781a.577.577 0 0 0-.256-.776L7.762 3.658a.571.571 0 0 0-.258-.062zm11.74.115a.576.576 0 0 0-.576.576v15.426c0 .318.258.578.576.578h4.178a.58.58 0 0 0 .578-.578V4.287a.578.578 0 0 0-.578-.576Z' }
 ];
 
-/** Integrations with no freely redistributable mark — rendered as text. */
-export const WORDMARK_ONLY: string[] = [
-  'Google Business Profile', 'Outlook', 'LinkedIn', 'Twilio', 'Slack',
+/**
+ * Integrations whose marks are not freely redistributable. LinkedIn, Microsoft,
+ * Slack, Twilio and Google all gate their logo files behind a brand agreement,
+ * so these render as a named chip with a brand-coloured dot instead of a glyph.
+ * The dot is deliberately abstract — it keeps the row's rhythm without
+ * reproducing anyone's trademark.
+ */
+export interface WordMark { name: string; hex: string; }
+export const WORDMARK_ONLY: WordMark[] = [
+  { name: 'Google Business Profile', hex: '#4285F4' },
+  { name: 'Outlook',                 hex: '#0F6CBD' },
+  { name: 'LinkedIn',                hex: '#0A66C2' },
+  { name: 'Twilio',                  hex: '#F22F46' },
+  { name: 'Slack',                   hex: '#E01E5A' },
 ];

@@ -13,10 +13,10 @@ import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../../config/stack
 /* Scatter is deterministic, not random, so the layout is identical on every
    build and can actually be design-reviewed. */
 const SCATTER = [
-  { x: -38, y: -30, r: -7 }, { x: 6,   y: -40, r: 4 },
-  { x: 44,  y: -26, r: 8 },  { x: -50, y: 6,   r: 5 },
-  { x: 40,  y: 12,  r: -6 }, { x: -30, y: 40,  r: 6 },
-  { x: 10,  y: 48,  r: -4 }, { x: 46,  y: 44,  r: 7 },
+  { x: -34, y: -32, r: -7 }, { x: -2,  y: -38, r: 4 },
+  { x: 32,  y: -30, r: 8 },  { x: -38, y: -4,  r: 5 },
+  { x: 36,  y: 2,   r: -6 }, { x: -30, y: 30,  r: 6 },
+  { x: 2,   y: 36,  r: -4 }, { x: 34,  y: 32,  r: 7 },
 ];
 ---
 
@@ -65,13 +65,15 @@ const SCATTER = [
   .cl__scatter { position: absolute; inset: 0; }
 
   .cl__card {
-    position: absolute; left: 50%; top: 50%;
+    position: absolute;
+    left: calc(50% + var(--x)); top: calc(50% + var(--y));
     display: grid; gap: 0.1rem; padding: 0.6rem 0.85rem; border-radius: 10px;
     background: rgba(20, 24, 32, 0.92);
     border: 1px solid rgba(232, 82, 78, 0.28);
     box-shadow: 0 10px 26px rgba(4, 8, 14, 0.5);
-    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r));
-    transition: transform 0.8s var(--ease-out), opacity 0.55s var(--ease-out);
+    transform: translate(-50%, -50%) rotate(var(--r));
+    transition: left 0.8s var(--ease-out), top 0.8s var(--ease-out),
+                transform 0.8s var(--ease-out), opacity 0.55s var(--ease-out);
     transition-delay: calc(var(--i) * 45ms);
   }
   .cl__card b { font-size: 0.8125rem; color: rgba(247, 244, 239, 0.9); }
@@ -87,6 +89,7 @@ const SCATTER = [
 
   /* Collapsed: every card converges on the centre and fades under the target. */
   .cl.is-in .cl__card {
+    left: 50%; top: 50%;
     transform: translate(-50%, -50%) rotate(0deg) scale(0.6);
     opacity: 0;
   }
@@ -161,7 +164,9 @@ const SCATTER = [
       entries.forEach((e) => {
         if (e.isIntersecting) { el.classList.add('is-in'); io.disconnect(); }
       });
-    }, { threshold: 0.45 });
-    io.observe(el);
+    }, { threshold: 0.15 });
+    /* Watch the stage, not the whole block: the block includes the ledger and
+       is tall enough that a meaningful threshold never fires. */
+    io.observe(el.querySelector('.cl__stage') || el);
   });
 </script>

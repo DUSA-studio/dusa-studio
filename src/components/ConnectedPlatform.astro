@@ -26,7 +26,7 @@ const gridHeading = c.gridHeading || 'Connects with';
 const note = c.note || 'Plus 1,000+ more through Zapier and Make.';
 const ctaLabel = c.cta || 'See everything included';
 const aiBandLabel = c.aiBand || 'AI · ACROSS EVERYTHING';
-const hubHint = c.hubHint || 'Hover the ring';
+const hubHint = c.hubHint || 'Hover to explore';
 
 const AQUA = '#4ED8C2';
 
@@ -119,7 +119,7 @@ DOMAINS.forEach((d, di) => {
     const dg = (m2 * 180) / Math.PI;
     capSegs.push({
       di, i: capIndex++, d: roundedSector(R_C0, R_C1, b0 + GAP, b1 - GAP, 6),
-      fill: it.ai ? rgba(AQUA, 0.26) : rgba(d.color, 0.15),
+      fill: it.ai ? 'url(#cpCai)' : `url(#cpC${di})`,
       stroke: it.ai ? AQUA : rgba(d.color, 0.85),
       label: it.l, plain: it.l.replace('\n', ' '), desc: it.d,
       domain: d.name, lx: ix, ly: iy, ai: !!it.ai,
@@ -182,6 +182,17 @@ const STATS = [
             <feGaussianBlur stdDeviation="2.6" result="b" />
             <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
+          {DOMAINS.map((d, i) => (
+            <radialGradient id={`cpC${i}`} gradientUnits="userSpaceOnUse"
+                            cx={CX} cy={CY} r={R_C1}>
+              <stop offset={`${(R_C0 / R_C1) * 100}%`} stop-color={d.color} stop-opacity="0.30" />
+              <stop offset="100%" stop-color={d.color} stop-opacity="0.08" />
+            </radialGradient>
+          ))}
+          <radialGradient id="cpCai" gradientUnits="userSpaceOnUse" cx={CX} cy={CY} r={R_C1}>
+            <stop offset={`${(R_C0 / R_C1) * 100}%`} stop-color={AQUA} stop-opacity="0.42" />
+            <stop offset="100%" stop-color={AQUA} stop-opacity="0.14" />
+          </radialGradient>
           {domainSegs.map((s2, i) => (
             <linearGradient id={`cpD${i}`} gradientUnits="userSpaceOnUse"
                             x1={s2.gx1} y1={s2.gy1} x2={s2.gx2} y2={s2.gy2}>
@@ -194,18 +205,19 @@ const STATS = [
         <circle cx={CX} cy={CY} r={R_C1 + 26} fill="url(#cpAura)" />
 
         <g class="cp__ticks" aria-hidden="true">
-          {capSegs.map((_, i) => {
-            const a = -Math.PI / 2 + (i / capSegs.length) * Math.PI * 2;
-            const [x1, y1] = pol(R_C1 + 9, a);
-            const [x2, y2] = pol(R_C1 + 15, a);
-            return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={rgba(AQUA, 0.3)} stroke-width="1" />;
+          {DOMAINS.map((_, i) => {
+            const before = DOMAINS.slice(0, i).reduce((n, dd) => n + dd.items.length, 0);
+            const a = -Math.PI / 2 + (before / totalCaps) * Math.PI * 2;
+            const [x1, y1] = pol(R_C1 + 8, a);
+            const [x2, y2] = pol(R_C1 + 18, a);
+            return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={rgba(AQUA, 0.5)} stroke-width="1.25" />;
           })}
         </g>
         <circle cx={CX} cy={CY} r={R_C1 + 19} fill="none" stroke="rgba(247,244,239,0.08)" stroke-width="1" />
 
         {capSegs.map((s) => (
           <path class={`cp__seg cp__cap cp__seg--d${s.di} ${s.ai ? 'is-ai' : ''}`}
-                style={`--i:${s.i};--glow:${s.ai ? AQUA : s.stroke}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
+                style={`--i:${s.i + 7};--glow:${s.ai ? AQUA : s.stroke}`} d={s.d} fill={s.fill} stroke={s.stroke} stroke-width="1.4"
                 data-name={s.plain} data-desc={s.desc} data-domain-name={s.domain} data-ai={s.ai ? '1' : '0'} />
         ))}
 
@@ -218,7 +230,7 @@ const STATS = [
 
         <g class="cp__ai">
           <circle cx={CX} cy={CY} r={(R_AI0 + R_AI1) / 2} fill="none"
-                  stroke={rgba(AQUA, 0.17)} stroke-width={R_AI1 - R_AI0} />
+                  stroke={rgba(AQUA, 0.08)} stroke-width={R_AI1 - R_AI0} />
           <circle cx={CX} cy={CY} r={R_AI0} fill="none" stroke={rgba(AQUA, 0.8)}
                   stroke-width="1.25" filter="url(#cpSoftGlow)" />
           <circle cx={CX} cy={CY} r={R_AI1} fill="none" stroke={rgba(AQUA, 0.8)}
@@ -264,7 +276,7 @@ const STATS = [
           <span class="cp__lotus" aria-hidden="true"></span>
           <span class="cp__readout-brand">DUSA</span>
           <span class="cp__readout-sub">ONE LOGIN</span>
-          <span class="cp__readout-hint">{hubHint}</span>
+          <span class="cp__readout-hint"><i aria-hidden="true"></i>{hubHint}</span>
         </div>
         <div class="cp__readout-detail" hidden>
           <span class="cp__readout-domain"></span>
@@ -326,7 +338,7 @@ const STATS = [
 </section>
 
 <style>
-  .cp__head { text-align: center; max-width: 680px; margin: 0 auto var(--space-lg); }
+  .cp__head { text-align: center; max-width: 680px; margin: 0 auto var(--space-md); }
   .cp__head h2 { font-weight: 600; margin-top: var(--space-xs); }
   .cp__sub { color: rgba(247, 244, 239, 0.55); margin: var(--space-sm) auto 0; font-size: 1.0625rem; max-width: 52ch; }
 
@@ -352,8 +364,8 @@ const STATS = [
   }
   .cp__wheel { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
 
-  .cp__dom-text { font-family: var(--font-headline); font-size: 15px; font-weight: 700; fill: #0C0E14; letter-spacing: 0.01em; }
-  .cp__cap-text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; fill: rgba(247, 244, 239, 0.94); }
+  .cp__dom-text { font-family: var(--font-headline); font-size: 15px; font-weight: 700; fill: #0C0E14; letter-spacing: 0.05em; }
+  .cp__cap-text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; fill: rgba(247, 244, 239, 0.86); }
   .cp__cap-text.is-ai-text { fill: #A6F5E7; }
   .cp__ai-label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; fill: #8FF2E1; }
   .cp__ai-dash { transform-origin: center; animation: cpSpin 50s linear infinite; }
@@ -393,7 +405,14 @@ const STATS = [
   }
   .cp__readout-brand { font-family: var(--font-headline); font-size: 4cqw; font-weight: 700; color: var(--warm-white); letter-spacing: 0.02em; line-height: 1; }
   .cp__readout-sub { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
-  .cp__readout-hint { font-size: 1.15cqw; color: rgba(247, 244, 239, 0.3); margin-top: 0.35rem; }
+  .cp__readout-hint {
+    display: inline-flex; align-items: center; gap: 0.4em; opacity: 0.75;
+    font-size: 1.15cqw; color: rgba(247, 244, 239, 0.3); margin-top: 0.35rem; }
+  .cp__readout-hint i {
+    width: 0.45em; height: 0.45em; border-radius: 50%; background: var(--reef-aqua);
+    animation: cpPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes cpPulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
   .cp__readout-domain { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(78, 216, 194, 0.9); }
   .cp__readout-name { font-family: var(--font-headline); font-size: 2.5cqw; font-weight: 700; color: var(--warm-white); line-height: 1.15; }
   .cp__readout-desc { font-size: 1.6cqw; line-height: 1.35; color: rgba(247, 244, 239, 0.62); margin-top: 0.2rem; }

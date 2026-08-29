@@ -136,31 +136,68 @@ DOMAINS.forEach((d, di) => {
 const aiMidR = (R_AI0 + R_AI1) / 2 + 2;
 const aiTextPath = `M ${CX - aiMidR},${CY} A ${aiMidR},${aiMidR} 0 0 1 ${CX + aiMidR},${CY}`;
 
-/* Agent journeys. A signal runs INWARD along the channel between two tiles,
-   is routed around the core, then leaves along a different channel to wherever
-   the data is needed. That is the "one connected platform" idea made literal,
-   and it is why the paths follow the gaps rather than crossing the tiles. */
-function boundary(i: number) {
-  return -Math.PI / 2 + (i / totalCaps) * Math.PI * 2;
-}
+/* Agent journeys.
+   The wheel is treated as a road network. A signal may only travel where there
+   is actually a gap: down a channel between two capability tiles, around the
+   ring-to-ring channel, then in through a DOMAIN boundary. Diving straight in
+   at a capability boundary would drive it through the middle of a domain tile
+   like Reputation, which is what it used to do. */
+const CAP_BOUNDS = capSegs.length;
+/* Capability index at which each domain starts — these are the only angles
+   where the domain ring actually has a gap to pass through. */
+const DOMAIN_BOUNDS: number[] = [];
+DOMAINS.reduce((acc, d) => { DOMAIN_BOUNDS.push(acc); return acc + d.items.length; }, 0);
+
+const R_LANE = (R_D1 + R_C0) / 2;   /* channel between the two outer rings */
+const R_CORE = (R_AI1 + R_D0) / 2;  /* channel just outside the AI band */
+const R_EDGE = R_C1 - 4;
+
+const angAt = (i: number) => -Math.PI / 2 + (i / CAP_BOUNDS) * Math.PI * 2;
+const pt = (r: number, a: number) => pol(r, a).map((n) => n.toFixed(2)).join(',');
+const norm = (d: number) => {
+  while (d <= -Math.PI) d += Math.PI * 2;
+  while (d > Math.PI) d -= Math.PI * 2;
+  return d;
+};
+/* Sweep along a channel, shortest way round. Zero-length arcs are skipped
+   because SVG treats identical start/end points as a no-op. */
+const along = (r: number, from: number, to: number) => {
+  const d = norm(to - from);
+  if (Math.abs(d) < 1e-4) return '';
+  return `A${r},${r} 0 0 ${d > 0 ? 1 : 0} ${pt(r, to)}`;
+};
+/* Nearest domain gap to a given capability boundary. */
+const nearestDomainGap = (i: number) => {
+  const a = angAt(i);
+  let best = DOMAIN_BOUNDS[0], bestD = Infinity;
+  for (const b of DOMAIN_BOUNDS) {
+    const d = Math.abs(norm(angAt(b) - a));
+    if (d < bestD) { bestD = d; best = b; }
+  }
+  return angAt(best);
+};
+
 function flowPath(i0: number, i1: number) {
-  const rOut = R_C1 - 3, rIn = R_AI1 + 5;
-  const t0 = boundary(i0), t1 = boundary(i1);
-  const P = (r: number, a: number) => pol(r, a).map((n) => n.toFixed(2)).join(',');
-  let delta = t1 - t0;
-  while (delta <= -Math.PI) delta += Math.PI * 2;
-  while (delta > Math.PI) delta -= Math.PI * 2;
-  const sweep = delta > 0 ? 1 : 0;
-  return `M${P(rOut, t0)}L${P(rIn, t0)}` +
-         `A${rIn},${rIn} 0 0 ${sweep} ${P(rIn, t1)}` +
-         `L${P(rOut, t1)}`;
+  const t0 = angAt(i0), t1 = angAt(i1);
+  const g0 = nearestDomainGap(i0), g1 = nearestDomainGap(i1);
+  return [
+    `M${pt(R_EDGE, t0)}`,
+    `L${pt(R_LANE, t0)}`,          /* in through the capability gap */
+    along(R_LANE, t0, g0),          /* along the channel to a domain gap */
+    `L${pt(R_CORE, g0)}`,          /* in through the domain gap */
+    along(R_CORE, g0, g1),          /* routed around the core */
+    `L${pt(R_LANE, g1)}`,          /* out through the destination domain gap */
+    along(R_LANE, g1, t1),          /* along the channel */
+    `L${pt(R_EDGE, t1)}`,          /* out through the capability gap */
+  ].join('');
 }
+
 const FLOWS = [
-  [0, 9], [5, 18], [12, 24], [20, 3], [15, 7], [23, 11], [8, 16],
+  [2, 21], [7, 14], [11, 25], [17, 4], [24, 9], [13, 1], [19, 6],
 ].map(([a, b], n) => ({
   d: flowPath(a, b),
-  dur: (5.4 + (n % 4) * 1.1).toFixed(2),
-  delay: ((n * 1.27) % 6).toFixed(2),
+  dur: (6.2 + (n % 4) * 1.3).toFixed(2),
+  delay: ((n * 1.41) % 7).toFixed(2),
 }));
 
 const STATS = [

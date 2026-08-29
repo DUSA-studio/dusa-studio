@@ -662,15 +662,14 @@ const STATS = [
   .cp__stage.is-dim .cp__seg.is-on .cp__cap-text,
   .cp__stage.is-dim .cp__seg.is-on .cp__cap-text.is-ai-text {
     fill: #FFFFFF;
-    font-weight: 700;
-    paint-order: stroke fill;
-    stroke: rgba(4, 10, 14, 0.92);
-    stroke-width: 3.4px;
-    stroke-linejoin: round;
+    /* A stroked halo turned these into stickers. White alone already measures
+       5.4:1 on the lit tile; a soft shadow just holds it off the aqua glow
+       bleeding out of the tile underneath. */
+    filter: drop-shadow(0 0 2.5px rgba(4, 10, 14, 0.95));
   }
   :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text,
   :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text.is-ai-text {
-    fill: #FFFFFF; stroke: rgba(6, 24, 34, 0.9);
+    fill: #FFFFFF; filter: drop-shadow(0 0 2.5px rgba(6, 24, 34, 0.85));
   }
   .cp__seg { transition: opacity 0.22s var(--ease-out); }
   .cp--anim .cp__seg { opacity: 0; transform: scale(0.965); transform-origin: 380px 380px; }

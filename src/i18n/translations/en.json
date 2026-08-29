@@ -498,5 +498,18 @@
     "minRead": "min read",
     "featuredLabel": "Featured",
     "backToBlog": "Back to News"
+  },
+  "connected": {
+    "eyebrow": "The Platform",
+    "heading": "Everything",
+    "headingAccent": "connects.",
+    "sub": "Six systems, one login. Every part of your business in one place, with AI running through all of it.",
+    "gridHeading": "Connects with",
+    "appsLede": "Run your favourite apps from one screen.",
+    "appsSub": "Socials, email, invoices and calendars, without switching tabs.",
+    "note": "Plus 1,000+ more through Zapier, Make and custom integrations.",
+    "cta": "See everything included",
+    "aiBand": "AI · ACROSS EVERYTHING",
+    "hubHint": "Hover to explore, click to keep it"
   }
 }

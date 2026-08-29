@@ -1,0 +1,29 @@
+---
+// Banked design: the circuit-board "Everything connects." section that the
+// capability wheel replaced on the English home page (2026-08-29).
+// Still live on the five locale home pages until their translations land.
+// noindex + excluded from the sitemap (see astro.config.mjs).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Features from '../../components/Features.astro';
+import t from '../../i18n/translations/en.json';
+---
+
+<BaseLayout
+  t={t}
+  noindex={true}
+  title="Banked: Circuit board platform section | DUSA . studio"
+  description="Internal archive of a retired website section."
+>
+  <div class="preview-pad">
+    <h1 class="sr-only">Banked: circuit board platform section</h1>
+    <Features t={t} />
+  </div>
+</BaseLayout>
+
+<style>
+  .preview-pad { padding-top: var(--nav-height); }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+</style>

@@ -23,7 +23,9 @@ const heading = c.heading || 'Everything';
 const headingAccent = c.headingAccent || 'connected';
 const sub = c.sub || 'The systems that run your business, and the apps they plug into.';
 const gridHeading = c.gridHeading || 'Connects with';
-const note = c.note || 'Plus 1,000+ more through Zapier and Make.';
+const appsLede = c.appsLede || 'Run your favourite apps from one screen.';
+const appsSub = c.appsSub || 'Socials, email, invoices and calendars, without switching tabs.';
+const note = c.note || 'Plus 1,000+ more through Zapier, Make and custom integrations.';
 const ctaLabel = c.cta || 'See everything included';
 const aiBandLabel = c.aiBand || 'AI · ACROSS EVERYTHING';
 const hubHint = c.hubHint || 'Hover to explore';
@@ -338,6 +340,10 @@ const STATS = [
         <span class="cp__apps-line" aria-hidden="true"></span>
       </div>
 
+      <p class="cp__apps-lede">
+        {appsLede}<span>{appsSub}</span>
+      </p>
+
       <div class="cp__marquee">
         {[rowA, rowB].map((row, ri) => (
           <div class={`cp__row cp__row--${ri}`}>
@@ -533,6 +539,19 @@ const STATS = [
     text-transform: uppercase; color: rgba(247, 244, 239, 0.45); white-space: nowrap;
   }
   .cp__apps-title b { color: var(--reef-aqua); font-weight: 400; }
+
+  .cp__apps-lede {
+    max-width: 42ch; margin: 0 auto var(--space-md); text-align: center;
+    font-family: var(--font-headline); font-size: 1.125rem; font-weight: 600;
+    color: var(--warm-white); line-height: 1.4;
+  }
+  .cp__apps-lede span {
+    display: block; margin-top: 0.35rem;
+    font-family: var(--font-body); font-size: 0.875rem; font-weight: 400;
+    color: rgba(247, 244, 239, 0.55);
+  }
+  :global(html[data-theme="light"]) .cp__apps-lede { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .cp__apps-lede span { color: rgba(12, 14, 20, 0.6); }
 
   .cp__marquee {
     display: flex; flex-direction: column; gap: 0.5rem; overflow: hidden;

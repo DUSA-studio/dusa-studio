@@ -1,97 +1,105 @@
 ---
-// DIRECTION D — "The glass funnel"
+// DIRECTION D — "The glass funnel" (v2)
 //
-// ONE funnel, two acts, rather than two funnels side by side. Act 1 drops the
-// eight priced tools in and almost nothing comes out, because none of them talk
-// to each other. Act 2 drops DUSA in — carrying the integrations as orbiting
-// glass moons — and the spout runs with money. Same vessel both times, so the
-// only variable is what you put in it.
+// v1 had the tools fall straight through and dribble out. v2 changes the
+// argument: they JAM. Disconnected tools do not leak money, they clog — eight
+// things that cannot talk to each other pile up in the neck and only a trickle
+// escapes. That is a truer and more uncomfortable picture than a leak, and it
+// sets up Act 2, where one connected thing passes straight through and bursts
+// into money at the spout.
 //
-// Built in SVG + CSS 3D, not WebGL. The chips are real DOM so the type stays
-// crisp and readable, the bundle cost is zero, and it degrades to a static
-// readable state under prefers-reduced-motion.
+// SVG + CSS only. No WebGL: the chips stay crisp DOM text, the bundle cost is
+// zero, and it degrades to a readable static state under prefers-reduced-motion.
 //
-// Note on logos: there is no redistributable mark for Birdeye, Skool,
-// ClickFunnels, Mailchimp, HubSpot or Calendly, so Act 1 chips are typographic.
-// The moons in Act 2 use the real integration marks, which is where they
-// actually belong anyway.
-import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../../config/stack-compare';
+// Logos: there is no redistributable mark for Birdeye, Skool, ClickFunnels,
+// Mailchimp, HubSpot or Calendly, so Act 1 chips are typographic. The moons in
+// Act 2 use the real integration marks, which is where they belong anyway.
+import { STACK, DUSA_COST, STACK_TOTAL, SAVING, MULTIPLE, money } from '../../config/stack-compare';
 import { BRAND_MARKS } from '../../config/brand-marks';
 
 const MOONS = BRAND_MARKS.slice(0, 8);
 
-/* Deterministic entry lanes, so the fall reads as scattered but reviews the
-   same on every build. Values are % offsets from the funnel's centre line. */
-const LANES = [-30, 14, -8, 32, -22, 4, 26, -14];
+/* Entry lane, and where each chip comes to rest once the neck is blocked.
+   Deterministic so the jam looks designed rather than accidental, and so it
+   reviews identically on every build. */
+const FALL = [
+  { lane: -30, jamX: -13, jamY: 47, rot: -14 },
+  { lane:  14, jamX:  12, jamY: 46, rot:  11 },
+  { lane:  -8, jamX:  -2, jamY: 52, rot:   5 },
+  { lane:  32, jamX:  15, jamY: 39, rot:  17 },
+  { lane: -22, jamX: -16, jamY: 39, rot: -20 },
+  { lane:   4, jamX:   1, jamY: 43, rot:  -6 },
+  { lane:  26, jamX:   9, jamY: 33, rot:   9 },
+  { lane: -14, jamX:  -9, jamY: 32, rot: -10 },
+];
 ---
 
 <div class="gf" data-glass-funnel>
 
   <div class="gf__stage">
 
+    <!-- Light pooling under the vessel. Sells it as an object standing in a
+         space rather than a shape pasted on the background. -->
+    <span class="gf__pool" aria-hidden="true"></span>
+
     <!-- ── The vessel ─────────────────────────────────────────────────── -->
-    <svg class="gf__vessel" viewBox="0 0 600 470" aria-hidden="true">
+    <svg class="gf__vessel" viewBox="0 0 620 440" aria-hidden="true">
       <defs>
         <linearGradient id="gfBody" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"   stop-color="#8FE9DC" stop-opacity="0.30"/>
-          <stop offset="18%"  stop-color="#FFFFFF" stop-opacity="0.10"/>
-          <stop offset="42%"  stop-color="#4ED8C2" stop-opacity="0.05"/>
-          <stop offset="72%"  stop-color="#FFFFFF" stop-opacity="0.14"/>
-          <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.26"/>
+          <stop offset="0%"   stop-color="#8FE9DC" stop-opacity="0.34"/>
+          <stop offset="14%"  stop-color="#FFFFFF" stop-opacity="0.12"/>
+          <stop offset="40%"  stop-color="#4ED8C2" stop-opacity="0.045"/>
+          <stop offset="74%"  stop-color="#FFFFFF" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.30"/>
         </linearGradient>
         <linearGradient id="gfRim" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"   stop-color="#4ED8C2" stop-opacity="0.75"/>
-          <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.75"/>
+          <stop offset="0%"   stop-color="#4ED8C2" stop-opacity="0.8"/>
+          <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.8"/>
         </linearGradient>
         <linearGradient id="gfSheen" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.34"/>
-          <stop offset="60%"  stop-color="#FFFFFF" stop-opacity="0.06"/>
+          <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.4"/>
+          <stop offset="55%"  stop-color="#FFFFFF" stop-opacity="0.07"/>
           <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
         </linearGradient>
-        <!-- Clips anything falling to the inside of the glass. -->
-        <clipPath id="gfInside">
-          <path d="M110,120 L490,120 L330,330 L270,330 Z"/>
-        </clipPath>
       </defs>
 
-      <!-- Cone body -->
-      <path class="gf__body"
-            d="M110,120 L490,120 L330,330 Q300,344 270,330 Z"
+      <path class="gf__body" d="M96,104 L524,104 L338,304 Q310,318 282,304 Z"
             fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
 
-      <!-- One committed light source: a specular band down the left shoulder. -->
-      <path class="gf__sheen" d="M140,128 L196,128 L272,318 L248,318 Z"
-            fill="url(#gfSheen)"/>
+      <!-- One committed light source: specular band down the left shoulder,
+           and a thin bounce highlight up the right. -->
+      <path class="gf__sheen" d="M132,112 L196,112 L288,292 L262,292 Z" fill="url(#gfSheen)"/>
+      <path d="M488,112 L462,112 L338,292 L352,292 Z" fill="#FFFFFF" fill-opacity="0.05"/>
 
-      <!-- Top rim: the ellipse is what sells it as a 3D vessel rather than a
-           flat triangle. Back half dimmer than the front. -->
-      <ellipse cx="300" cy="120" rx="190" ry="40"
-               fill="rgba(78,216,194,0.05)"
+      <!-- The rim ellipse is what makes it a vessel you look INTO. -->
+      <ellipse cx="310" cy="104" rx="214" ry="44" fill="rgba(78,216,194,0.05)"
                stroke="url(#gfRim)" stroke-width="2"/>
-      <path d="M110,120 A190,40 0 0 0 490,120" fill="none"
-            stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2.5"/>
+      <path d="M96,104 A214,44 0 0 0 524,104" fill="none"
+            stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2.5"/>
 
-      <!-- Spout -->
-      <path class="gf__spout" d="M270,330 L270,398 Q300,412 330,398 L330,330"
+      <path class="gf__spout" d="M282,304 L282,378 Q310,392 338,378 L338,304"
             fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
-      <ellipse cx="300" cy="398" rx="30" ry="10"
-               fill="rgba(12,14,20,0.6)" stroke="url(#gfRim)" stroke-width="1.5"/>
+      <ellipse cx="310" cy="378" rx="28" ry="9"
+               fill="rgba(12,14,20,0.65)" stroke="url(#gfRim)" stroke-width="1.5"/>
     </svg>
 
-    <!-- ── ACT 1: eight priced tools fall in ──────────────────────────── -->
-    <div class="gf__drop gf__drop--tools">
+    <!-- ── ACT 1 ──────────────────────────────────────────────────────── -->
+    <div class="gf__layer">
       {STACK.map((tool, i) => (
-        <span class="gf__chip" style={`--lane:${LANES[i]}%;--i:${i}`}>
+        <span class="gf__chip"
+              style={`--lane:${FALL[i].lane}%;--jx:${FALL[i].jamX}%;--jy:${FALL[i].jamY}%;--rot:${FALL[i].rot}deg;--i:${i}`}>
           <span class="gf__chip-name">{tool.name}</span>
           <span class="gf__chip-job">{tool.job}</span>
           <span class="gf__tag">{money(tool.cost)}</span>
         </span>
       ))}
+      <!-- Reads the jam out loud, so nobody has to interpret the picture. -->
+      <span class="gf__jam-note">Blocked. Nothing here talks to anything else.</span>
     </div>
 
-    <!-- ── ACT 2: DUSA descends carrying its integrations ─────────────── -->
-    <div class="gf__drop gf__drop--dusa">
+    <!-- ── ACT 2 ──────────────────────────────────────────────────────── -->
+    <div class="gf__layer">
       <span class="gf__orb">
         <span class="gf__orb-core">
           <b>DUSA</b>
@@ -100,53 +108,49 @@ const LANES = [-30, 14, -8, 32, -22, 4, 26, -14];
         <span class="gf__orbit">
           {MOONS.map((m, i) => (
             <span class="gf__moon-arm" style={`--a:${(360 / MOONS.length) * i}deg`}>
-              <span class="gf__moon" style={`--brand:${m.hex}`}>
+              <span class="gf__moon">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d={m.path}/></svg>
               </span>
             </span>
           ))}
         </span>
       </span>
+      <!-- The moment of conversion, at the neck. -->
+      <span class="gf__burst" aria-hidden="true"></span>
     </div>
 
-    <!-- ── Output: a sad trickle, then a torrent ──────────────────────── -->
+    <!-- ── Output ─────────────────────────────────────────────────────── -->
     <div class="gf__out">
-      <div class="gf__trickle">
-        {[0, 1, 2].map((n) => (
-          <span class="gf__coin gf__coin--dud" style={`--n:${n}`}>$</span>
-        ))}
-      </div>
-      <div class="gf__pour">
-        {Array.from({ length: 18 }).map((_, n) => (
-          <span class="gf__coin gf__coin--good" style={`--n:${n}`}>$</span>
-        ))}
-      </div>
+      {[0, 1, 2].map((n) => (
+        <span class="gf__coin gf__coin--dud" style={`--n:${n}`}>$</span>
+      ))}
+      {Array.from({ length: 22 }).map((_, n) => (
+        <span class="gf__coin gf__coin--good" style={`--n:${n}`}>$</span>
+      ))}
     </div>
 
-    <!-- Verdict sits under the spout, swapping with the act. -->
     <div class="gf__verdict">
       <p class="gf__v gf__v--1">
-        <b>{money(STACK_TOTAL)} a month in.</b>
-        <span>Eight tools that cannot see each other. Most of it leaks out.</span>
+        <b>{money(STACK_TOTAL)} in. A trickle out.</b>
+        <span>Eight tools, eight logins, none of them connected. The work jams before it reaches you.</span>
       </p>
       <p class="gf__v gf__v--2">
-        <b>{money(DUSA_COST)} a month in.</b>
-        <span>One connected platform. You keep the other {money(SAVING)}.</span>
+        <b>{money(DUSA_COST)} in. All of it out.</b>
+        <span>One connected platform, and the other {money(SAVING)} a month stays yours.</span>
       </p>
     </div>
 
   </div>
 
+  <!-- ── Controls ─────────────────────────────────────────────────────── -->
   <div class="gf__controls">
-    <button class="gf__btn" type="button" data-replay>
-      <svg viewBox="0 0 16 16" aria-hidden="true">
-        <path d="M13 8a5 5 0 1 1-1.6-3.7M13 2v3h-3" fill="none"
-              stroke="currentColor" stroke-width="1.6"
-              stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Replay
+    <button class="gf__tab" type="button" data-goto="1" aria-pressed="true">
+      <i></i>Eight tools
     </button>
-    <span class="gf__act" data-act-label>Act 1 &middot; Eight tools</span>
+    <button class="gf__tab" type="button" data-goto="2" aria-pressed="false">
+      <i></i>One platform
+    </button>
+    <span class="gf__bar" aria-hidden="true"><span class="gf__bar-fill"></span></span>
   </div>
 </div>
 
@@ -154,259 +158,285 @@ const LANES = [-30, 14, -8, 32, -22, 4, 26, -14];
   .gf { container-type: inline-size; }
 
   .gf__stage {
-    position: relative; width: 100%; max-width: 600px; margin: 0 auto;
-    aspect-ratio: 600 / 620;
-    perspective: 1100px;
+    position: relative; width: 100%; max-width: 660px; margin: 0 auto;
+    aspect-ratio: 620 / 560;
   }
   .gf__vessel {
     position: absolute; inset: 0 0 auto; width: 100%; height: auto;
-    filter: drop-shadow(0 24px 60px rgba(78, 216, 194, 0.14));
+    filter: drop-shadow(0 20px 50px rgba(78, 216, 194, 0.16));
   }
-  /* A gentle tilt is what makes it read as a vessel you are looking INTO
-     rather than a flat cone. The rim ellipse does the rest. */
-  .gf__body, .gf__spout, .gf__sheen { transform-origin: 300px 230px; }
-
-  /* ── Falling things ─────────────────────────────────────────────────── */
-  .gf__drop {
-    position: absolute; inset: 0; pointer-events: none;
-    /* Everything inside the glass is clipped by the cone silhouette. */
+  .gf__pool {
+    position: absolute; left: 50%; top: 78%; width: 46%; height: 12%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center,
+      rgba(78, 216, 194, 0.22), rgba(78, 216, 194, 0) 70%);
+    filter: blur(12px); opacity: 0.4;
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
   }
+  .gf[data-act="2"] .gf__pool { opacity: 1; transform: translateX(-50%) scale(1.25); }
 
+  .gf__layer { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ── Act 1: the chips ───────────────────────────────────────────────── */
   .gf__chip {
-    position: absolute; left: calc(50% + var(--lane)); top: 2%;
-    transform: translate(-50%, -50%) scale(1);
-    display: grid; justify-items: center; gap: 0.1rem;
-    padding: 0.55rem 0.9rem 0.75rem; border-radius: 12px;
-    background: linear-gradient(150deg, rgba(255,255,255,0.16), rgba(232,82,78,0.08));
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4),
-                0 10px 24px rgba(4, 8, 14, 0.5);
+    position: absolute; left: calc(50% + var(--lane)); top: 1%;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    display: grid; justify-items: center; gap: 0.05rem;
+    padding: 0.5rem 0.85rem 0.7rem; border-radius: 11px;
+    background: linear-gradient(150deg, rgba(255,255,255,0.2), rgba(232,82,78,0.1));
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 8px 20px rgba(4, 8, 14, 0.55);
     backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
     opacity: 0;
   }
-  .gf__chip-name { font-size: 0.8125rem; font-weight: 600; color: rgba(247,244,239,0.95); }
+  .gf__chip-name { font-size: 0.8125rem; font-weight: 600; color: rgba(247,244,239,0.96); }
   .gf__chip-job {
     font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.4);
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.42);
   }
-  /* The price tag hangs off the chip on a notch, so cost is attached to the
-     tool rather than floating near it. */
+  /* The price hangs off the chip on a notch, so cost is attached to the tool. */
   .gf__tag {
-    position: absolute; right: -0.5rem; bottom: -0.7rem;
+    position: absolute; right: -0.45rem; bottom: -0.6rem;
     font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
-    color: #2A0B0B; background: rgba(232, 122, 118, 0.95);
-    padding: 0.1rem 0.4rem; border-radius: 4px;
-    box-shadow: 0 3px 8px rgba(4, 8, 14, 0.5);
+    color: #2A0B0B; background: rgba(236, 132, 128, 0.96);
+    padding: 0.08rem 0.38rem; border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(4, 8, 14, 0.55);
   }
   .gf__tag::before {
-    content: ''; position: absolute; left: 0.28rem; top: -0.34rem;
-    width: 1px; height: 0.34rem; background: rgba(255, 255, 255, 0.4);
+    content: ''; position: absolute; left: 0.26rem; top: -0.3rem;
+    width: 1px; height: 0.3rem; background: rgba(255, 255, 255, 0.45);
   }
 
+  .gf__jam-note {
+    position: absolute; left: 50%; top: 62%; transform: translate(-50%, 0);
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(236, 132, 128, 0.9);
+    white-space: nowrap; opacity: 0;
+  }
+
+  /* ── Act 2: the orb ─────────────────────────────────────────────────── */
   .gf__orb {
-    position: absolute; left: 50%; top: 2%;
+    position: absolute; left: 50%; top: 1%;
     transform: translate(-50%, -50%) scale(1);
-    width: 148px; height: 148px; display: grid; place-items: center;
+    width: 190px; height: 190px; display: grid; place-items: center;
     opacity: 0;
   }
   .gf__orb-core {
-    grid-area: 1 / 1; display: grid; justify-items: center; gap: 0.1rem;
-    width: 96px; height: 96px; border-radius: 50%;
-    align-content: center;
-    background: radial-gradient(circle at 34% 28%,
-      rgba(255,255,255,0.5), rgba(78,216,194,0.34) 44%, rgba(46,130,182,0.3) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: inset 0 2px 10px rgba(255,255,255,0.4),
-                0 0 40px rgba(78, 216, 194, 0.45);
+    grid-area: 1 / 1; display: grid; justify-items: center; align-content: center;
+    gap: 0.1rem; width: 118px; height: 118px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 26%,
+      rgba(255,255,255,0.6), rgba(78,216,194,0.4) 42%, rgba(46,130,182,0.34) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0 3px 14px rgba(255,255,255,0.45), 0 0 54px rgba(78, 216, 194, 0.5);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
   .gf__orb-core b {
-    font-family: var(--font-headline); font-weight: 700; font-size: 1rem;
+    font-family: var(--font-headline); font-weight: 700; font-size: 1.25rem;
     letter-spacing: 0.06em; color: #06303C;
   }
   .gf__orb-core i {
-    font-style: normal; font-family: var(--font-mono); font-size: 0.625rem;
-    color: rgba(6, 48, 60, 0.75);
+    font-style: normal; font-family: var(--font-mono); font-size: 0.6875rem;
+    color: rgba(6, 48, 60, 0.8);
   }
 
   .gf__orbit {
     grid-area: 1 / 1; width: 100%; height: 100%; position: relative;
-    animation: gfSpin 13s linear infinite;
+    animation: gfSpin 15s linear infinite;
   }
-  .gf__moon-arm {
-    position: absolute; inset: 0;
-    transform: rotate(var(--a));
-  }
+  .gf__moon-arm { position: absolute; inset: 0; transform: rotate(var(--a)); }
   .gf__moon {
-    position: absolute; left: 50%; top: -9px;
-    width: 26px; height: 26px; margin-left: -13px;
+    position: absolute; left: 50%; top: -11px;
+    width: 30px; height: 30px; margin-left: -15px;
     display: grid; place-items: center; border-radius: 50%;
-    background: linear-gradient(150deg, rgba(255,255,255,0.34), rgba(255,255,255,0.06));
-    border: 1px solid rgba(255, 255, 255, 0.34);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 4px 10px rgba(4,8,14,0.45);
+    background: linear-gradient(150deg, rgba(255,255,255,0.4), rgba(255,255,255,0.08));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 4px 12px rgba(4,8,14,0.5);
     backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-    /* Counter-spin at the same duration keeps every mark upright. */
-    animation: gfSpin 13s linear infinite reverse;
+    /* Counter-spin at the parent's duration is the only way pure CSS keeps
+       each mark upright while the ring turns. */
+    animation: gfSpin 15s linear infinite reverse;
   }
-  .gf__moon svg { width: 13px; height: 13px; }
-  .gf__moon svg path { fill: rgba(247, 244, 239, 0.85); }
-
+  .gf__moon svg { width: 15px; height: 15px; }
+  .gf__moon svg path { fill: rgba(247, 244, 239, 0.9); }
   @keyframes gfSpin { to { transform: rotate(360deg); } }
+
+  .gf__burst {
+    position: absolute; left: 50%; top: 68%; width: 150px; height: 150px;
+    margin: -75px 0 0 -75px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(78,216,194,0.5) 40%, transparent 70%);
+    opacity: 0; transform: scale(0.2);
+  }
 
   /* ── Output ─────────────────────────────────────────────────────────── */
   .gf__out {
-    position: absolute; left: 50%; top: 66%; transform: translateX(-50%);
-    width: 200px; height: 22%; pointer-events: none;
+    position: absolute; left: 50%; top: 70%; transform: translateX(-50%);
+    width: 240px; height: 26%; pointer-events: none;
   }
   .gf__coin {
     position: absolute; left: 50%; top: 0; opacity: 0;
     font-family: var(--font-mono); font-weight: 700;
   }
-  .gf__coin--dud { font-size: 0.875rem; color: rgba(232, 82, 78, 0.75); }
-  .gf__coin--good { font-size: 1.0625rem; color: var(--reef-aqua); }
+  .gf__coin--dud { font-size: 0.875rem; color: rgba(236, 132, 128, 0.8); }
+  .gf__coin--good { font-size: 1.125rem; color: var(--reef-aqua); text-shadow: 0 0 12px rgba(78,216,194,0.6); }
 
   /* ── Verdict ────────────────────────────────────────────────────────── */
-  .gf__verdict { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; }
+  .gf__verdict { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; min-height: 5.5rem; }
   .gf__v {
     margin: 0; max-width: none; opacity: 0;
-    transition: opacity 0.5s var(--ease-out);
     position: absolute; left: 0; right: 0; bottom: 0;
+    transition: opacity 0.6s var(--ease-out);
   }
-  .gf__v b {
-    display: block; font-family: var(--font-mono); font-weight: 700;
-    font-size: 1.5rem; line-height: 1.2;
-  }
-  .gf__v span { display: block; margin-top: 0.25rem; font-size: 0.875rem; color: rgba(247,244,239,0.45); }
-  .gf__v--1 b { color: rgba(232, 82, 78, 0.95); }
+  .gf__v b { display: block; font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
+  .gf__v span { display: block; margin: 0.3rem auto 0; max-width: 46ch; font-size: 0.875rem; color: rgba(247,244,239,0.45); }
+  .gf__v--1 b { color: rgba(236, 132, 128, 0.95); }
   .gf__v--2 b { color: var(--reef-aqua); }
 
   /* ── Act orchestration ──────────────────────────────────────────────── */
   .gf[data-act="1"] .gf__chip {
-    animation: gfFall 3.4s cubic-bezier(0.45, 0, 0.7, 1) forwards;
-    animation-delay: calc(var(--i) * 200ms);
+    animation: gfJam 4.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    animation-delay: calc(var(--i) * 260ms);
   }
+  .gf[data-act="1"] .gf__jam-note { animation: gfNote 5s ease-out 2.9s forwards; }
   .gf[data-act="1"] .gf__coin--dud {
-    animation: gfDud 2.4s ease-in forwards;
-    animation-delay: calc(2.4s + var(--n) * 700ms);
+    animation: gfDud 2.6s ease-in forwards;
+    animation-delay: calc(3.4s + var(--n) * 900ms);
   }
-  .gf[data-act="1"] .gf__v--1 { opacity: 1; transition-delay: 3s; }
+  .gf[data-act="1"] .gf__v--1 { opacity: 1; transition-delay: 3.2s; }
 
-  .gf[data-act="2"] .gf__orb {
-    animation: gfOrbFall 3s cubic-bezier(0.45, 0, 0.7, 1) forwards;
-  }
+  .gf[data-act="2"] .gf__orb { animation: gfOrbFall 3.4s cubic-bezier(0.4, 0, 0.6, 1) forwards; }
+  .gf[data-act="2"] .gf__burst { animation: gfBurst 1.1s ease-out 2.9s forwards; }
   .gf[data-act="2"] .gf__coin--good {
-    animation: gfPour 1.9s ease-in forwards;
-    animation-delay: calc(2.5s + var(--n) * 105ms);
+    animation: gfPour 2.1s ease-in forwards;
+    animation-delay: calc(3.1s + var(--n) * 95ms);
   }
-  .gf[data-act="2"] .gf__v--2 { opacity: 1; transition-delay: 3s; }
+  .gf[data-act="2"] .gf__v--2 { opacity: 1; transition-delay: 3.6s; }
 
-  /* Falls in, narrows as the cone narrows, then slips out of the spout. */
-  /* Rim sits at 19% of the stage, spout mouth at 64%. The chip enters above
-     the rim, narrows as the cone narrows, and converges on the centre line. */
-  @keyframes gfFall {
-    0%   { opacity: 0; top: 2%;  left: calc(50% + var(--lane)); transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-    10%  { opacity: 1; }
-    45%  { opacity: 1; top: 34%; left: calc(50% + var(--lane) * 0.55); transform: translate(-50%, -50%) scale(0.82) rotate(7deg); }
-    72%  { opacity: 1; top: 56%; left: 50%; transform: translate(-50%, -50%) scale(0.5) rotate(-5deg); }
-    100% { opacity: 0; top: 66%; left: 50%; transform: translate(-50%, -50%) scale(0.34) rotate(3deg); }
+  /* Falls, hits the narrowing wall, then stalls where the neck blocks it.
+     top/left drive the path: percentages inside translate() would resolve
+     against the chip's own box, not the stage. */
+  @keyframes gfJam {
+    0%   { opacity: 0; top: 1%;  left: calc(50% + var(--lane)); transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+    9%   { opacity: 1; }
+    46%  { opacity: 1; top: 30%; left: calc(50% + var(--lane) * 0.6); transform: translate(-50%,-50%) scale(0.86) rotate(calc(var(--rot) * 0.4)); }
+    72%  { top: calc(var(--jy) * 1%); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
+    /* The small kick back is what makes it read as blocked rather than landed. */
+    82%  { top: calc(var(--jy) * 1% - 1.5%); }
+    100% { opacity: 1; top: calc(var(--jy) * 1%); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
   }
+  @keyframes gfNote { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 1; } }
+
   @keyframes gfOrbFall {
-    0%   { opacity: 0; top: 2%;  transform: translate(-50%, -50%) scale(1); }
-    12%  { opacity: 1; }
-    50%  { opacity: 1; top: 32%; transform: translate(-50%, -50%) scale(0.9); }
-    82%  { opacity: 1; top: 56%; transform: translate(-50%, -50%) scale(0.5); }
-    100% { opacity: 0; top: 65%; transform: translate(-50%, -50%) scale(0.36); }
+    0%   { opacity: 0; top: 1%;  transform: translate(-50%,-50%) scale(1); }
+    10%  { opacity: 1; }
+    52%  { opacity: 1; top: 34%; transform: translate(-50%,-50%) scale(0.92); }
+    84%  { opacity: 1; top: 62%; transform: translate(-50%,-50%) scale(0.46); }
+    100% { opacity: 0; top: 70%; transform: translate(-50%,-50%) scale(0.24); }
+  }
+  @keyframes gfBurst {
+    0%   { opacity: 0; transform: scale(0.2); }
+    35%  { opacity: 0.9; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.6); }
   }
   @keyframes gfDud {
     0%   { opacity: 0; transform: translate(-50%, 0) scale(0.8); }
-    20%  { opacity: 1; }
-    100% { opacity: 0; transform: translate(calc(-50% + 6px), 74px) scale(0.7); }
+    18%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(-50% + 5px), 76px) scale(0.7); }
   }
   @keyframes gfPour {
-    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.7); }
-    15%  { opacity: 1; transform: translate(calc(-50% + (var(--n) - 9) * 5px), 22px) scale(1); }
-    100% { opacity: 0; transform: translate(calc(-50% + (var(--n) - 9) * 12px), 104px) scale(0.9); }
+    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+    14%  { opacity: 1; transform: translate(calc(-50% + (var(--n) - 11) * 5px), 20px) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + (var(--n) - 11) * 14px), 116px) scale(0.85); }
   }
 
   /* ── Controls ───────────────────────────────────────────────────────── */
   .gf__controls {
-    display: flex; align-items: center; justify-content: center; gap: 0.9rem;
-    margin-top: var(--space-md);
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    margin-top: var(--space-md); flex-wrap: wrap;
   }
-  .gf__btn {
-    display: inline-flex; align-items: center; gap: 0.45rem;
+  .gf__tab {
+    display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer;
     font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.65);
-    background: rgba(247, 244, 239, 0.04);
-    border: 1px solid rgba(247, 244, 239, 0.16);
-    border-radius: 999px; padding: 0.45rem 0.9rem; cursor: pointer;
-    transition: border-color var(--duration-fast), color var(--duration-fast);
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.5);
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    border-radius: 999px; padding: 0.42rem 0.9rem;
+    transition: color var(--duration-fast), border-color var(--duration-fast);
   }
-  .gf__btn:hover { color: var(--reef-aqua); border-color: rgba(78, 216, 194, 0.5); }
-  .gf__btn svg { width: 13px; height: 13px; }
-  .gf__act {
-    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.32);
+  .gf__tab i {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(247, 244, 239, 0.3);
+    transition: background var(--duration-fast);
   }
+  .gf__tab[aria-pressed="true"] { color: var(--warm-white); border-color: rgba(78,216,194,0.55); }
+  .gf__tab[data-goto="1"][aria-pressed="true"] i { background: rgba(236, 132, 128, 0.95); }
+  .gf__tab[data-goto="2"][aria-pressed="true"] i { background: var(--reef-aqua); }
+  .gf__tab:hover { color: var(--warm-white); }
+
+  .gf__bar {
+    width: 90px; height: 2px; border-radius: 2px;
+    background: rgba(247, 244, 239, 0.1); overflow: hidden;
+  }
+  .gf__bar-fill { display: block; width: 0; height: 100%; background: var(--reef-aqua); }
+  .gf[data-act] .gf__bar-fill { animation: gfBar 9s linear forwards; }
+  @keyframes gfBar { to { width: 100%; } }
 
   @container (max-width: 620px) {
-    .gf__chip { padding: 0.4rem 0.6rem 0.6rem; }
+    .gf__chip { padding: 0.35rem 0.55rem 0.55rem; }
     .gf__chip-name { font-size: 0.6875rem; }
+    .gf__orb { width: 150px; height: 150px; }
+    .gf__orb-core { width: 96px; height: 96px; }
     .gf__v b { font-size: 1.2rem; }
+    .gf__jam-note { font-size: 0.5625rem; }
   }
 
-  /* Motion is the entire mechanism here, so without it show the end state of
-     both acts as a plain statement rather than an empty vessel. */
+  /* Motion is the whole mechanism, so without it state both outcomes plainly
+     rather than showing an empty vessel. */
   @media (prefers-reduced-motion: reduce) {
-    .gf__chip, .gf__orb, .gf__coin { animation: none !important; }
-    .gf__orbit, .gf__moon { animation: none !important; }
-    .gf__orb { opacity: 1; transform: translate(-50%, 40%); }
-    .gf__v--1, .gf__v--2 { position: static; opacity: 1; transition: none; }
-    .gf__verdict { position: static; display: grid; gap: 0.9rem; margin-top: 1rem; }
+    .gf__chip, .gf__orb, .gf__coin, .gf__burst, .gf__orbit, .gf__moon,
+    .gf__bar-fill, .gf__jam-note { animation: none !important; }
+    .gf__chip { opacity: 1; top: calc(var(--jy) * 1%); left: calc(50% + var(--jx)); }
+    .gf__jam-note { opacity: 1; }
+    .gf__orb { display: none; }
+    .gf__verdict { position: static; display: grid; gap: 0.9rem; margin-top: 1rem; min-height: 0; }
+    .gf__v { position: static; opacity: 1; transition: none; }
   }
 </style>
 
 <script>
   document.querySelectorAll('[data-glass-funnel]').forEach((root) => {
-    const label = root.querySelector('[data-act-label]');
-    const replay = root.querySelector('[data-replay]');
-    const ACTS = [
-      { n: '1', text: 'Act 1 · Eight tools', ms: 7000 },
-      { n: '2', text: 'Act 2 · One platform', ms: 7000 },
-    ];
-    let idx = 0, timer = null, running = false;
+    const tabs = [...root.querySelectorAll('[data-goto]')];
+    const ACT_MS = 9000;
+    let act = 1, timer = null, running = false;
 
-    /* Re-setting the attribute alone will not restart a CSS animation, because
-       the element never leaves the animating state. Clearing it and forcing a
-       reflow between the two writes is what actually replays it. */
-    const play = (i) => {
-      idx = i;
+    /* Re-setting the same attribute will not restart a CSS animation, because
+       the element never leaves the animating state. Clear it, force a reflow,
+       then set it — that is what actually replays. */
+    const play = (n) => {
+      act = n;
       root.removeAttribute('data-act');
       void root.offsetWidth;
-      root.setAttribute('data-act', ACTS[i].n);
-      if (label) label.textContent = ACTS[i].text;
+      root.setAttribute('data-act', String(n));
+      tabs.forEach((t) => t.setAttribute('aria-pressed',
+        t.getAttribute('data-goto') === String(n) ? 'true' : 'false'));
     };
-    const advance = () => {
-      play((idx + 1) % ACTS.length);
-      timer = setTimeout(advance, ACTS[idx].ms);
+    const queue = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { play(act === 1 ? 2 : 1); queue(); }, ACT_MS);
     };
-    const start = () => {
-      if (running) return;
-      running = true;
-      play(idx);
-      timer = setTimeout(advance, ACTS[idx].ms);
-    };
+    const start = () => { if (running) return; running = true; play(act); queue(); };
     const stop = () => { running = false; clearTimeout(timer); };
 
-    replay?.addEventListener('click', () => {
-      stop(); idx = 0; start();
-    });
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      running = true;
+      play(Number(t.getAttribute('data-goto')));
+      queue();
+    }));
 
-    /* Only animate while on screen: off-screen it is wasted work, and a user
-       arriving mid-cycle would otherwise catch it halfway through. */
+    /* Only run while on screen. Off screen it is wasted work, and someone
+       arriving mid-cycle would otherwise catch an act halfway through. */
     if (!('IntersectionObserver' in window)) { start(); return; }
     new IntersectionObserver((entries) => {
       entries.forEach((e) => { e.isIntersecting ? start() : stop(); });
-    }, { threshold: 0.3 }).observe(root);
+    }, { threshold: 0.25 }).observe(root);
   });
 </script>

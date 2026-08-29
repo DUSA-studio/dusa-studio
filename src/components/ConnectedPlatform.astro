@@ -398,14 +398,14 @@ const STATS = [
   /* ─── Hub readout ─── */
   .cp__readout {
     position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    width: 26%; text-align: center; pointer-events: none;
+    width: 24%; height: 14cqw; text-align: center; pointer-events: none;
   }
   /* Both panes occupy the same grid cell, so swapping them cannot reflow the
      hub. Only opacity changes, which is why hovering across segments no longer
      jumps. */
-  .cp__readout { display: grid; }
+  .cp__readout { display: grid; place-items: center; }
   .cp__readout-pane {
-    grid-area: 1 / 1;
+    grid-area: 1 / 1; width: 100%;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 0.15rem;
     transition: opacity 0.16s var(--ease-out);

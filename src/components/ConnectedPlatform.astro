@@ -133,7 +133,7 @@ DOMAINS.forEach((d, di) => {
   cursor = a1;
 });
 
-const aiMidR = (R_AI0 + R_AI1) / 2 + 2;
+const aiMidR = (R_AI0 + R_AI1) / 2;
 const aiTextPath = `M ${CX - aiMidR},${CY} A ${aiMidR},${aiMidR} 0 0 1 ${CX + aiMidR},${CY}`;
 
 /* Agent journeys.
@@ -243,13 +243,18 @@ const STATS = [
             <stop offset="0%" stop-color={AQUA} stop-opacity="0.16" />
             <stop offset="100%" stop-color={AQUA} stop-opacity="0" />
           </linearGradient>
+          <linearGradient id="cpAiBand" x1="0%" y1="0%" x2="18%" y2="100%">
+            <stop offset="0%" stop-color="#7FEBD9" />
+            <stop offset="50%" stop-color={AQUA} />
+            <stop offset="100%" stop-color="#37B7A2" />
+          </linearGradient>
           <linearGradient id="cpAiGrad" gradientUnits="userSpaceOnUse"
                           x1={CX - aiMidR} y1={CY - aiMidR} x2={CX + aiMidR} y2={CY + aiMidR}>
-            <stop offset="0%" stop-color={AQUA} stop-opacity="0.05" />
-            <stop offset="28%" stop-color={AQUA} stop-opacity="0.4" />
-            <stop offset="47%" stop-color="#D8FFF7" stop-opacity="0.95" />
-            <stop offset="66%" stop-color={AQUA} stop-opacity="0.4" />
-            <stop offset="100%" stop-color={AQUA} stop-opacity="0.05" />
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
+            <stop offset="28%" stop-color="#FFFFFF" stop-opacity="0.1" />
+            <stop offset="47%" stop-color="#FFFFFF" stop-opacity="0.5" />
+            <stop offset="66%" stop-color="#FFFFFF" stop-opacity="0.1" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
           </linearGradient>
           <filter id="cpAiGlow" x="-70%" y="-70%" width="240%" height="240%">
             <feGaussianBlur stdDeviation="6" result="b" />
@@ -325,7 +330,7 @@ const STATS = [
 
         <g class="cp__ai">
           <circle cx={CX} cy={CY} r={(R_AI0 + R_AI1) / 2} fill="none"
-                  stroke={rgba(AQUA, 0.13)} stroke-width={R_AI1 - R_AI0} />
+                  stroke="url(#cpAiBand)" stroke-width={R_AI1 - R_AI0} />
           <g class="cp__ai-sweep">
             <circle cx={CX} cy={CY} r={(R_AI0 + R_AI1) / 2} fill="none"
                     stroke="url(#cpAiGrad)" stroke-width={R_AI1 - R_AI0}
@@ -338,9 +343,9 @@ const STATS = [
           <circle class="cp__ai-dash" cx={CX} cy={CY} r={R_AI1 - 1} fill="none"
                   stroke={rgba(AQUA, 0.45)} stroke-width="1" stroke-dasharray="2 10" stroke-linecap="round" />
           <path id="cpAiPath" d={aiTextPath} fill="none" />
-          <text class="cp__ai-label" filter="url(#cpSoftGlow)">
+          <text class="cp__ai-label" dominant-baseline="central">
             <textPath href="#cpAiPath" startOffset="50%" text-anchor="middle"
-                      textLength={(Math.PI * aiMidR * 0.72).toFixed(1)} lengthAdjust="spacing">
+                      textLength={(Math.PI * aiMidR * 0.78).toFixed(1)} lengthAdjust="spacing">
               {aiBandLabel}
             </textPath>
           </text>
@@ -594,11 +599,11 @@ const STATS = [
   .cp__cap-text { font-family: var(--font-body); font-size: 11.5px; font-weight: 500; fill: rgba(247, 244, 239, 0.86); }
   .cp__cap-text.is-ai-text { fill: #A6F5E7; }
   .cp__ai-label {
-    font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
-    letter-spacing: 1.8px; fill: #DFFFF8;
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+    letter-spacing: 2.2px; fill: #06303C;
     animation: cpLabelPulse 4.5s ease-in-out infinite;
   }
-  @keyframes cpLabelPulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+  @keyframes cpLabelPulse { 0%, 100% { opacity: 0.9; } 50% { opacity: 1; } }
   /* A circle looks identical when rotated, so spinning the group makes only
      the gradient appear to travel around the band. */
   .cp__ai-sweep { transform-origin: 380px 380px; animation: cpSpin 7s linear infinite; }
@@ -912,6 +917,15 @@ const STATS = [
       }, { threshold: 0.15 });
       io.observe(svg);
       setTimeout(() => svg.classList.add('is-in'), 2500);
+      /* Once the entrance has played, remove its classes. Leaving them on kept
+         a per-segment transition-delay of up to ~700ms applied to every later
+         hover, which made some domains feel far slower than others. */
+      const settle = () => svg.classList.remove('cp--anim', 'is-in');
+      svg.addEventListener('transitionend', function once() {
+        setTimeout(settle, 400);
+        svg.removeEventListener('transitionend', once);
+      });
+      setTimeout(settle, 4200);
     }
 
 

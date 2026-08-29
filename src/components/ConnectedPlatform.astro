@@ -239,10 +239,6 @@ const STATS = [
             <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
           </radialGradient>
           <clipPath id="cpHubClip"><circle cx={CX} cy={CY} r={R_HUB - 1} /></clipPath>
-          <linearGradient id="cpSweep" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color={AQUA} stop-opacity="0.16" />
-            <stop offset="100%" stop-color={AQUA} stop-opacity="0" />
-          </linearGradient>
           <linearGradient id="cpAiBand" x1="0%" y1="0%" x2="18%" y2="100%">
             <stop offset="0%" stop-color="#7FEBD9" />
             <stop offset="50%" stop-color={AQUA} />
@@ -415,10 +411,6 @@ const STATS = [
         <!-- Core: layered so it reads as live machinery, not an empty disc. -->
         <g clip-path="url(#cpHubClip)" aria-hidden="true">
           <circle cx={CX} cy={CY} r={R_HUB} fill="url(#cpHubWell)" />
-          <g class="cp__sweep">
-            <path d={`M${CX},${CY} L${CX + R_HUB},${CY} A${R_HUB},${R_HUB} 0 0 0 ${CX + R_HUB * Math.cos(-0.9)},${CY + R_HUB * Math.sin(-0.9)} Z`}
-                  fill="url(#cpSweep)" />
-          </g>
         </g>
         <circle class="cp__core-glow" cx={CX} cy={CY} r={R_HUB - 14}
                 fill="url(#cpCoreGlow)" aria-hidden="true" />
@@ -635,13 +627,12 @@ const STATS = [
 
   /* Core motion: a slow sweep, a counter-rotating inner ring, and a glow that
      breathes, so the middle has depth without competing with the readout. */
-  .cp__sweep { transform-origin: 380px 380px; animation: cpSpin 14s linear infinite; }
   .cp__core-dash { transform-origin: 380px 380px; animation: cpSpin 26s linear infinite reverse; }
   .cp__core-glow { animation: cpBreathe 5.5s ease-in-out infinite; }
   @keyframes cpBreathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
   @keyframes cpSpin { to { transform: rotate(360deg); } }
 
-  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__flows, .cp__sweep, .cp__rims { pointer-events: none; }
+  .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__flows, .cp__rims { pointer-events: none; }
   .cp__hit { cursor: pointer; }
   /* The individually hovered tile reads brighter than its domain siblings, so
      moving along the ring feels like stepping item to item. */
@@ -685,7 +676,7 @@ const STATS = [
   /* ─── Hub readout ─── */
   .cp__readout {
     position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    width: 24%; height: 14cqw; text-align: center; pointer-events: none;
+    width: 26%; height: 14.5cqw; text-align: center; pointer-events: none;
   }
   /* Both panes occupy the same grid cell, so swapping them cannot reflow the
      hub. Only opacity changes, which is why hovering across segments no longer
@@ -701,13 +692,13 @@ const STATS = [
   .cp__readout.is-detail .cp__readout-default { opacity: 0; }
   .cp__readout.is-detail .cp__readout-detail { opacity: 1; }
   .cp__readout-brand {
-    font-family: var(--font-headline); font-size: 4cqw; font-weight: 700;
+    font-family: var(--font-headline); font-size: 5.3cqw; font-weight: 700;
     letter-spacing: 0.02em; line-height: 1;
     background: linear-gradient(150deg, var(--warm-white) 0%, var(--mist-blue) 72%, var(--reef-aqua) 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; color: transparent;
   }
-  .cp__readout-sub { font-family: var(--font-mono); font-size: 1.2cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
+  .cp__readout-sub { font-family: var(--font-mono); font-size: 1.55cqw; letter-spacing: 0.22em; color: rgba(78, 216, 194, 0.95); }
   .cp__readout-hint {
     display: inline-flex; align-items: center; gap: 0.4em; opacity: 0.75;
     font-size: 1.15cqw; color: rgba(247, 244, 239, 0.3); margin-top: 0.35rem; }
@@ -920,7 +911,7 @@ const STATS = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .cp__ai-dash, .cp__track, .cp__flow, .cp__sweep, .cp__core-dash,
+    .cp__ai-dash, .cp__track, .cp__flow, .cp__core-dash,
     .cp__core-glow, .cp__ai-sweep, .cp__ai-label { animation: none; }
     .cp__flows { display: none; }
     .cp--anim .cp__seg { opacity: 1; transform: none; }

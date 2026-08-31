@@ -35,15 +35,18 @@ export const PLANS: Plan[] = [
 ];
 
 /**
- * Default monthly churn used by the three-year projection.
+ * Retention assumption behind the five-year projection.
  *
- * Exposed as an input on the page rather than buried, because a compounding
- * model with no churn is fantasy: it implies every client stays forever and
- * produces numbers nobody will ever see. 4% a month is a realistic small
- * business SaaS assumption, not a DUSA measurement — we do not have enough
- * history yet to claim a real figure.
+ * Kept in the model but out of the spotlight: it sits behind an "assumptions"
+ * disclosure rather than as a headline input. A compounding projection with no
+ * attrition at all would overstate the numbers, and the people worth hiring
+ * will do the maths and notice. 3% a month is a reasonable small business SaaS
+ * assumption, not a DUSA measurement — we do not have the history to claim one.
  */
-export const DEFAULT_CHURN = 0.04;
+export const DEFAULT_CHURN = 0.03;
+
+/** How many years the compounding projection runs. */
+export const PROJECTION_YEARS = 5;
 
 /** What a contractor needs in place before they can invoice us, by region. */
 export interface Requirement { region: string; needs: string }

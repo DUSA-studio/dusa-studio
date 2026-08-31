@@ -12,7 +12,7 @@
 // phrase carries in commission recruiting.
 import {
   PLANS, SHARE, ANNUAL_MONTHS_CHARGED, QUOTA_PER_QUARTER,
-  DEFAULT_CHURN, REQUIREMENTS, money, monthly, upfront,
+  DEFAULT_CHURN, PROJECTION_YEARS, REQUIREMENTS, money, monthly, upfront,
 } from '../config/careers';
 
 const APPLY = 'https://link.dusa.studio/widget/form/LbZWlJIZhj18dhmE4vID';
@@ -32,7 +32,7 @@ const pct = Math.round(SHARE * 100);
     </p>
     <div class="cr-hero__cta">
       <a class="btn btn--primary" href={APPLY} target="_blank" rel="noopener">Apply to sell DUSA</a>
-      <a class="btn btn--outline" href="#maths">Run the numbers first</a>
+      <a class="btn btn--outline" href="#compounding">See what it builds to</a>
     </div>
   </div>
 </section>
@@ -72,6 +72,104 @@ const pct = Math.round(SHARE * 100);
           public yet. Ask us and we'll walk you through it.
         </p>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── The compounding story. Sits high on purpose: it is the strongest
+     argument for the role and it is the one nobody sees coming. ────────── -->
+<section class="cr section section--dark" id="compounding">
+  <div class="container">
+    <div class="cr__head">
+      <span class="label">The bit worth understanding</span>
+      <h2>Year one you're building it.<br/><span class="gradient-text">Year five it's still paying you.</span></h2>
+      <p class="cr__sub">
+        Year one is the graft. You start at zero and every client is one you
+        had to go and win. Here's the difference: none of them disappear in
+        January. Year two opens with everything year one built, and you're
+        adding on top of that. It keeps going like that.
+      </p>
+    </div>
+
+    <div class="grow" data-grow>
+      <div class="grow__inputs">
+        <label class="calc__row">
+          <span class="calc__row-name">New clients a month<i>a pace you could hold</i></span>
+          <span class="calc__row-ctrl">
+            <button type="button" data-g-step="rate:-1" aria-label="One fewer sale a month">&minus;</button>
+            <input type="number" min="1" max="50" value="2" data-g="rate" aria-label="New clients a month" />
+            <button type="button" data-g-step="rate:1" aria-label="One more sale a month">+</button>
+          </span>
+        </label>
+
+        <div class="grow__plans" role="group" aria-label="Which plan you mostly sell">
+          <span class="grow__plans-label">Mostly selling</span>
+          {PLANS.map((p, i) => (
+            <button type="button" class={i === 1 ? 'is-on' : ''} data-g-plan={p.price}>{p.name}</button>
+          ))}
+        </div>
+
+        <div class="grow__jump">
+          <span>Year 2 alone is</span>
+          <b data-g-mult>2.4x</b>
+          <span>what you earn in year 1</span>
+        </div>
+
+        <!-- Kept available and disclosed, but not the headline. -->
+        <details class="grow__adv">
+          <summary>Assumptions</summary>
+          <label class="calc__row">
+            <span class="calc__row-name">Clients staying each month<i>the rest move on</i></span>
+            <span class="calc__row-ctrl">
+              <button type="button" data-g-step="churn:1" aria-label="Lower retention">&minus;</button>
+              <input type="number" min="85" max="100" value={100 - Math.round(DEFAULT_CHURN * 100)} data-g="retention" aria-label="Percent of clients staying each month" />
+              <span class="calc__row-unit">%</span>
+              <button type="button" data-g-step="churn:-1" aria-label="Higher retention">+</button>
+            </span>
+          </label>
+          <p>
+            Nothing here assumes clients stay forever. Turn this up or down and
+            watch what happens.
+          </p>
+        </details>
+      </div>
+
+      <div class="grow__out">
+        <div class="grow__chart">
+          {Array.from({ length: PROJECTION_YEARS }).map((_, i) => (
+            <div class={`grow__col ${i === PROJECTION_YEARS - 1 ? 'is-hero' : ''}`}>
+              <b data-g-val={i + 1}>$0</b>
+              <i data-g-bar={i + 1}></i>
+              <span>Yr {i + 1}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="grow__totals">
+          <div>
+            <span>Earned across {PROJECTION_YEARS} years</span>
+            <b data-g-total>$0</b>
+          </div>
+          <div>
+            <span>Month 60 run rate</span>
+            <b><span data-g-run>$0</span>/mo</b>
+          </div>
+        </div>
+        <p class="grow__run">
+          from <b data-g-clients>0</b> clients still paying you, most of whom
+          you signed years earlier.
+        </p>
+      </div>
+    </div>
+
+    <p class="grow__note">
+      A model on our real prices, not a prediction. It assumes you hold that
+      pace every month for five years. Some clients will leave, which the
+      assumptions above account for.
+    </p>
+
+    <div class="grow__cta">
+      <a class="btn btn--primary" href={APPLY} target="_blank" rel="noopener">Start building it</a>
     </div>
   </div>
 </section>
@@ -175,70 +273,6 @@ const pct = Math.round(SHARE * 100);
         <p class="calc__out-note" data-out-note>
           Arrives each time their payments land, for as long as those licences
           stay active.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Calculator 2: three years of building ────────────────────────────── -->
-<section class="cr section section--dark" id="three-years">
-  <div class="container">
-    <div class="cr__head">
-      <span class="label">The long game</span>
-      <h2>What it looks like <span class="gradient-text">three years in</span></h2>
-      <p class="cr__sub">
-        Here's the part that's hard to see at the start. Keep signing a couple
-        of clients a month and the ones you signed ages ago are still paying.
-        It stacks. Some clients leave, so this counts that too.
-      </p>
-    </div>
-
-    <div class="grow" data-grow>
-      <div class="grow__inputs">
-        <label class="calc__row">
-          <span class="calc__row-name">New clients a month<i>your steady pace</i></span>
-          <span class="calc__row-ctrl">
-            <button type="button" data-g-step="rate:-1" aria-label="One fewer sale a month">&minus;</button>
-            <input type="number" min="1" max="50" value="2" data-g="rate" aria-label="New clients a month" />
-            <button type="button" data-g-step="rate:1" aria-label="One more sale a month">+</button>
-          </span>
-        </label>
-
-        <label class="calc__row">
-          <span class="calc__row-name">Clients leaving each month<i>be honest with yourself</i></span>
-          <span class="calc__row-ctrl">
-            <button type="button" data-g-step="churn:-1" aria-label="Lower churn">&minus;</button>
-            <input type="number" min="0" max="15" value={Math.round(DEFAULT_CHURN * 100)} data-g="churn" aria-label="Percent of clients leaving each month" />
-            <span class="calc__row-unit">%</span>
-            <button type="button" data-g-step="churn:1" aria-label="Higher churn">+</button>
-          </span>
-        </label>
-
-        <div class="grow__plans" role="group" aria-label="Which plan you mostly sell">
-          <span class="grow__plans-label">Mostly selling</span>
-          {PLANS.map((p, i) => (
-            <button type="button" class={i === 1 ? 'is-on' : ''} data-g-plan={p.price}>{p.name}</button>
-          ))}
-        </div>
-      </div>
-
-      <div class="grow__out">
-        <div class="grow__years">
-          <div><span>Year 1</span><b data-g-y1>$0</b></div>
-          <div><span>Year 2</span><b data-g-y2>$0</b></div>
-          <div class="is-hero"><span>Year 3</span><b data-g-y3>$0</b></div>
-        </div>
-        <div class="grow__bars" aria-hidden="true">
-          <i data-g-bar="1"></i><i data-g-bar="2"></i><i data-g-bar="3"></i>
-        </div>
-        <p class="grow__run">
-          By month 36 you'd be on <b data-g-run>$0</b> a month from
-          <b data-g-clients>0</b> active clients.
-        </p>
-        <p class="grow__note">
-          A model, not a prediction. It assumes you keep up that pace every
-          month for three years and that clients leave at the rate you set.
         </p>
       </div>
     </div>
@@ -473,29 +507,69 @@ const pct = Math.round(SHARE * 100);
   .calc__out-year b { font-family: var(--font-mono); font-size: 1.25rem; color: var(--warm-white); }
   .calc__out-note { margin-top: var(--space-sm); font-size: 0.75rem; line-height: 1.5; color: rgba(247,244,239,0.35); max-width: 34ch; }
 
-  /* Three-year view */
+  /* Five-year chart. The ramp has to be visible before any number is read. */
   .grow__out { display: grid; align-content: center; }
-  .grow__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; text-align: center; }
-  .grow__years span {
-    display: block; font-family: var(--font-mono); font-size: 0.625rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,239,0.4);
+  .grow__chart {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;
+    align-items: end; margin-bottom: var(--space-md);
   }
-  .grow__years b {
-    display: block; margin-top: 0.25rem; font-family: var(--font-mono); font-weight: 700;
-    font-size: 1.25rem; color: rgba(247,244,239,0.75);
+  .grow__col { display: grid; justify-items: center; gap: 0.35rem; align-content: end; }
+  .grow__col b {
+    font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+    color: rgba(247,244,239,0.6); white-space: nowrap;
   }
-  .grow__years .is-hero b { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--reef-aqua); }
-  /* Bars make the stacking obvious before any number is read. */
-  .grow__bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; align-items: end; height: 76px; margin: var(--space-sm) 0; }
-  .grow__bars i {
-    display: block; border-radius: 6px 6px 0 0; min-height: 4px;
-    background: linear-gradient(180deg, rgba(78,216,194,0.85), rgba(46,130,182,0.5));
-    transition: height 0.4s var(--ease-out);
+  .grow__col i {
+    display: block; width: 100%; border-radius: 6px 6px 0 0; min-height: 6px;
+    background: linear-gradient(180deg, rgba(247,244,239,0.26), rgba(247,244,239,0.08));
+    transition: height 0.45s var(--ease-out);
   }
-  .grow__bars i:nth-child(1), .grow__bars i:nth-child(2) { background: linear-gradient(180deg, rgba(247,244,239,0.3), rgba(247,244,239,0.1)); }
-  .grow__run { text-align: center; font-size: 0.9375rem; color: rgba(247,244,239,0.6); max-width: none; }
+  .grow__col span {
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(247,244,239,0.35);
+  }
+  .grow__col.is-hero b { font-size: 1rem; color: var(--reef-aqua); }
+  .grow__col.is-hero i {
+    background: linear-gradient(180deg, rgba(78,216,194,0.9), rgba(46,130,182,0.55));
+    box-shadow: 0 0 26px rgba(78,216,194,0.3);
+  }
+  .grow__col.is-hero span { color: var(--reef-aqua); }
+
+  .grow__totals {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    padding-top: var(--space-sm); border-top: 1px solid rgba(247,244,239,0.1);
+  }
+  .grow__totals div { display: grid; gap: 0.15rem; text-align: center; }
+  .grow__totals span {
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(247,244,239,0.4);
+  }
+  .grow__totals b { font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; color: var(--warm-white); }
+  .grow__totals div:first-child b { font-size: clamp(1.6rem, 3.4vw, 2.1rem); color: var(--reef-aqua); }
+
+  .grow__run { margin-top: var(--space-sm); text-align: center; font-size: 0.875rem; color: rgba(247,244,239,0.5); max-width: none; }
   .grow__run b { color: var(--warm-white); font-family: var(--font-mono); }
-  .grow__note { margin-top: var(--space-sm); text-align: center; font-size: 0.75rem; line-height: 1.5; color: rgba(247,244,239,0.35); max-width: none; }
+
+  /* The year-two jump, called out where the inputs are so it moves as they play. */
+  .grow__jump {
+    margin-top: var(--space-sm); padding: 0.8rem 1rem; border-radius: 12px;
+    background: rgba(78,216,194,0.07); border: 1px solid rgba(78,216,194,0.25);
+    display: flex; align-items: baseline; justify-content: center; gap: 0.5rem;
+    flex-wrap: wrap; text-align: center;
+  }
+  .grow__jump span { font-size: 0.875rem; color: rgba(247,244,239,0.6); }
+  .grow__jump b { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--reef-aqua); }
+
+  .grow__adv { margin-top: var(--space-sm); }
+  .grow__adv summary {
+    cursor: pointer; font-family: var(--font-mono); font-size: 0.625rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,239,0.35);
+    padding: 0.4rem 0;
+  }
+  .grow__adv summary:hover { color: var(--reef-aqua); }
+  .grow__adv p { margin-top: 0.6rem; font-size: 0.75rem; color: rgba(247,244,239,0.35); max-width: none; }
+
+  .grow__note { margin: var(--space-md) auto 0; max-width: 68ch; text-align: center; font-size: 0.75rem; line-height: 1.6; color: rgba(247,244,239,0.35); }
+  .grow__cta { text-align: center; margin-top: var(--space-md); }
 
   .cr__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
   .cr__grid article {
@@ -624,51 +698,58 @@ const pct = Math.round(SHARE * 100);
     render();
   });
 
-  /* ── Calculator 2: three years of compounding ──
-     A month-by-month cohort model. Active clients carry forward at the
-     retention rate and new sales are added on top:
-         active(m) = active(m-1) * (1 - churn) + salesPerMonth
-     Earnings for a month are active(m) * price * SHARE. Annual figures are the
-     sum of that month's earnings across the year, which is what someone
-     actually banks — not the year-end run rate, which would overstate it. */
+  /* ── The five-year projection ──
+     Month-by-month cohort model. Clients you already have carry forward at
+     the retention rate, and the month's new sales are added on top:
+         active(m) = active(m-1) * retention + salesPerMonth
+     A year's figure is the SUM of that year's monthly earnings, which is what
+     someone actually banks. Using the year-end run rate instead would flatter
+     every number on the page. */
   document.querySelectorAll('[data-grow]').forEach((root) => {
     const el = (s: string) => root.querySelector(s) as HTMLElement;
     const rateEl = root.querySelector('[data-g="rate"]') as HTMLInputElement;
-    const churnEl = root.querySelector('[data-g="churn"]') as HTMLInputElement;
+    const retEl = root.querySelector('[data-g="retention"]') as HTMLInputElement;
     const planBtns = [...root.querySelectorAll('[data-g-plan]')] as HTMLButtonElement[];
+    const YEARS = 5;
     let price = Number(planBtns.find((b) => b.classList.contains('is-on'))?.dataset.gPlan ?? 149);
 
     function render() {
       const perMonth = Math.max(1, Math.min(50, Math.round(Number(rateEl.value)) || 1));
-      const churn = Math.max(0, Math.min(15, Math.round(Number(churnEl.value)) || 0)) / 100;
+      const retPct = Math.max(85, Math.min(100, Math.round(Number(retEl.value)) || 97));
       rateEl.value = String(perMonth);
-      churnEl.value = String(Math.round(churn * 100));
+      retEl.value = String(retPct);
+      const keep = retPct / 100;
 
-      const years = [0, 0, 0];
-      let active = 0;
-      for (let m = 1; m <= 36; m++) {
-        active = active * (1 - churn) + perMonth;
-        years[Math.ceil(m / 12) - 1] += active * price * SHARE;
+      const years = new Array(YEARS).fill(0);
+      let active = 0, total = 0;
+      for (let m = 1; m <= YEARS * 12; m++) {
+        active = active * keep + perMonth;
+        const earned = active * price * SHARE;
+        years[Math.ceil(m / 12) - 1] += earned;
+        total += earned;
       }
-      const runRate = active * price * SHARE;
 
-      el('[data-g-y1]').textContent = money(Math.round(years[0]));
-      el('[data-g-y2]').textContent = money(Math.round(years[1]));
-      el('[data-g-y3]').textContent = money(Math.round(years[2]));
-      el('[data-g-run]').textContent = money(Math.round(runRate));
+      years.forEach((v, i) => {
+        const val = root.querySelector(`[data-g-val="${i + 1}"]`) as HTMLElement;
+        if (val) val.textContent = money(Math.round(v));
+      });
+      el('[data-g-total]').textContent = money(Math.round(total));
+      el('[data-g-run]').textContent = money(Math.round(active * price * SHARE));
       el('[data-g-clients]').textContent = String(Math.round(active));
+      el('[data-g-mult]').textContent =
+        (years[0] > 0 ? (years[1] / years[0]).toFixed(1) : '0') + 'x';
 
       const peak = Math.max(...years, 1);
       years.forEach((v, i) => {
         const bar = root.querySelector(`[data-g-bar="${i + 1}"]`) as HTMLElement;
-        if (bar) bar.style.height = Math.max(4, Math.round((v / peak) * 76)) + 'px';
+        if (bar) bar.style.height = Math.max(6, Math.round((v / peak) * 130)) + 'px';
       });
     }
 
-    [rateEl, churnEl].forEach((i) => i.addEventListener('input', render));
+    [rateEl, retEl].forEach((i) => i.addEventListener('input', render));
     root.querySelectorAll('[data-g-step]').forEach((b) => b.addEventListener('click', () => {
       const [which, d] = (b as HTMLElement).dataset.gStep!.split(':');
-      const input = which === 'rate' ? rateEl : churnEl;
+      const input = which === 'rate' ? rateEl : retEl;
       input.value = String(Number(input.value) + Number(d));
       render();
     }));

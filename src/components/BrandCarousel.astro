@@ -20,7 +20,7 @@ const brands = [
   { name: "RayWhite", file: "RayWhite.png" },
   { name: "Ottimo", file: "Ottimo.webp" },
   { name: "Kin Cacao", file: "Kin-Cacao.webp" },
-  { name: "SmashX", file: "SmashX.v2.webp" },
+  { name: "SmashX", wordmark: true },
 ];
 
 interface Props {
@@ -47,14 +47,18 @@ const bcHeadingAccent = s.headingAccent || 'bloom';
       {/* Triple for seamless infinite loop */}
       {[...brands, ...brands, ...brands].map((b) => (
         <div class="brands__logo-wrap">
-          <img
-            class="brands__logo"
-            src={`/images/brands/${b.file}`}
-            alt={b.name}
-            loading="lazy"
-            width="220"
-            height="100"
-          />
+          {b.wordmark ? (
+            <span class="brands__wordmark">{b.name}</span>
+          ) : (
+            <img
+              class="brands__logo"
+              src={`/images/brands/${b.file}`}
+              alt={b.name}
+              loading="lazy"
+              width="220"
+              height="100"
+            />
+          )}
         </div>
       ))}
     </div>
@@ -145,6 +149,21 @@ const bcHeadingAccent = s.headingAccent || 'bloom';
   .brands__logo:hover {
     opacity: 0.85;
   }
+
+  /* Typeset stand-in for a brand with no usable logo file. Matched to the
+     optical weight and opacity of the real logos so the row stays even. */
+  .brands__wordmark {
+    font-family: var(--font-headline);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    color: var(--warm-white);
+    opacity: 0.45;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+  .brands__wordmark:hover { opacity: 0.85; }
+  :global(html[data-theme="light"]) .brands__wordmark { color: var(--deep-black); }
 
   /* Reserve for logos with opaque backgrounds if needed later */
 

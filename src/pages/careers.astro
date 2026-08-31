@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CareersSales from '../components/CareersSales.astro';
+import { PLANS, SHARE, QUOTA_PER_QUARTER } from '../config/careers';
+import t from '../i18n/translations/en.json';
+
+const pct = Math.round(SHARE * 100);
+const from = Math.min(...PLANS.map((p) => p.price));
+
+/* JobPosting so the role can surface in Google's job results. Commission-only
+   is declared honestly rather than dressed up as a salary band. */
+const jobLd = {
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: 'Sales Contractor',
+  description:
+    `Commission-only sales contractor selling the DUSA growth platform to small businesses. `
+    + `Earn ${pct}% of the license revenue on every client you bring in, paid for as long as `
+    + `that client's license stays active and you continue contracting with DUSA. `
+    + `Minimum ${QUOTA_PER_QUARTER} new sales per quarter to remain an active seller. `
+    + `Remote, self-managed, NDA and non-compete apply.`,
+  employmentType: 'CONTRACTOR',
+  hiringOrganization: {
+    '@type': 'Organization',
+    name: 'DUSA . studio',
+    sameAs: 'https://dusa.studio',
+    logo: 'https://dusa.studio/favicon.png',
+  },
+  jobLocationType: 'TELECOMMUTE',
+  applicantLocationRequirements: { '@type': 'Country', name: 'Australia' },
+  datePosted: '2026-08-31',
+  directApply: false,
+  baseSalary: {
+    '@type': 'MonetaryAmount',
+    currency: 'AUD',
+    value: { '@type': 'QuantitativeValue', value: 0, unitText: 'MONTH' },
+  },
+  jobBenefits: `${pct}% of license revenue, paid on an ongoing basis while the client's license remains active.`,
+};
+---
+
+<BaseLayout
+  t={t}
+  title="Careers | Sell DUSA and earn 40% of the license | DUSA . studio"
+  description={`Sales contractor roles at DUSA . studio. Earn ${pct}% of the license revenue on every small business you sign, ongoing for as long as they stay. Remote, commission only, plans from $${from}/mo AUD.`}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jobLd)} />
+  <CareersSales />
+</BaseLayout>

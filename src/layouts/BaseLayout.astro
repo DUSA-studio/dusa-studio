@@ -118,11 +118,21 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     <!-- Theme detection — runs before paint to prevent flash -->
     <script is:inline>
       (function() {
+        /* An explicit choice always wins. Otherwise follow the operating
+           system, so a visitor in Light mode is not ambushed by a dark site.
+           Runs inline in <head>, before paint, so there is no flash — moving
+           it any later reintroduces one. */
         var saved = localStorage.getItem('dusa-theme');
-        if (saved === 'light') {
+        var wantsLight = saved === 'light' ||
+          (saved !== 'dark' &&
+           window.matchMedia &&
+           window.matchMedia('(prefers-color-scheme: light)').matches);
+        var mc = document.querySelector('meta[name="theme-color"]');
+        if (wantsLight) {
           document.documentElement.setAttribute('data-theme', 'light');
-          var mc = document.querySelector('meta[name="theme-color"]');
           if (mc) mc.setAttribute('content', '#F7F4EF');
+        } else if (mc) {
+          mc.setAttribute('content', '#0C0E14');
         }
       })();
     </script>

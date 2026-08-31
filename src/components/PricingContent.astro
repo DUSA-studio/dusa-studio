@@ -812,17 +812,6 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     align-items: stretch;
   }
 
-  @supports (grid-template-rows: subgrid) {
-    .pricing-card {
-      display: grid;
-      grid-row: span 5;
-      grid-template-rows: subgrid;
-      row-gap: 0;
-    }
-    /* margin-bottom already spaces these; the parent's gap must not apply
-       again inside the card. */
-    .pricing-card__cta { margin-top: 0; }
-  }
 
   /* ─── PRICING CARD ─── */
   .pricing-card {
@@ -1093,6 +1082,18 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     width: 100%;
     text-align: center;
     margin-top: auto;
+  }
+
+  @supports (grid-template-rows: subgrid) {
+    .pricing-card {
+      display: grid;
+      grid-row: span 5;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    /* Each child already carries its own margin-bottom; the parent grid's gap
+       must not apply a second time inside the card. */
+    .pricing-card__cta { margin-top: 0; }
   }
 
   /* ─── TOOL REPLACEMENT ─── */

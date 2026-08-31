@@ -1,11 +1,19 @@
 ---
 // Careers — sales contractor role.
 //
-// The whole page turns on one idea: this is recurring revenue, not a bounty.
-// A commission-only role only attracts good people if the maths is shown
-// honestly and the conditions are stated plainly, so the calculator does the
-// persuading and the terms section does not hide behind small print.
-import { PLANS, SHARE, ANNUAL_MONTHS_CHARGED, QUOTA_PER_QUARTER, money, monthly, upfront } from '../config/careers';
+// Copy note: written to sound like Eliah talking, not like a job ad. Short
+// sentences, contractions, second person, concrete detail. Avoid the tidy
+// three-part lists and balanced clauses that make marketing copy read as
+// machine-written.
+//
+// The word "passive income" is used sparingly and never as a promise. The
+// honest version of that idea is "sell it once, get paid every month it
+// stays", which is true and says the same thing without the baggage the
+// phrase carries in commission recruiting.
+import {
+  PLANS, SHARE, ANNUAL_MONTHS_CHARGED, QUOTA_PER_QUARTER,
+  DEFAULT_CHURN, REQUIREMENTS, money, monthly, upfront,
+} from '../config/careers';
 
 const APPLY = 'https://link.dusa.studio/widget/form/LbZWlJIZhj18dhmE4vID';
 const pct = Math.round(SHARE * 100);
@@ -15,22 +23,55 @@ const pct = Math.round(SHARE * 100);
 <section class="cr-hero section section--dark">
   <div class="container">
     <span class="label">Careers at DUSA</span>
-    <h1>Sell software that<br/><span class="gradient-text">pays you every month.</span></h1>
+    <h1>Sell it once.<br/><span class="gradient-text">Get paid every month.</span></h1>
     <p class="cr-hero__sub">
-      We are looking for sales contractors to put DUSA in front of small
-      businesses. You earn <b>{pct}% of the license revenue</b> on every client
-      you bring in, and you keep earning it for as long as that client stays.
+      We're looking for people who can sit down with a small business owner and
+      show them what DUSA does. Sign one client and you take {pct}% of what they
+      pay us. Not as a one-off. Every month they stay, that money keeps landing
+      in your account.
     </p>
-
-    <div class="cr-hero__stats">
-      <div><b>{pct}%</b><span>of license revenue</span></div>
-      <div><b>Ongoing</b><span>not a one-off bounty</span></div>
-      <div><b>Remote</b><span>your hours, your patch</span></div>
-    </div>
-
     <div class="cr-hero__cta">
       <a class="btn btn--primary" href={APPLY} target="_blank" rel="noopener">Apply to sell DUSA</a>
-      <a class="btn btn--outline" href="#maths">See the numbers</a>
+      <a class="btn btn--outline" href="#maths">Run the numbers first</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why people do this ───────────────────────────────────────────────── -->
+<section class="cr section section--dark">
+  <div class="container">
+    <div class="cr__pillars">
+      <article>
+        <h3>The money doesn't reset</h3>
+        <p>
+          Most sales jobs put you back on zero every month. This one doesn't.
+          A client you signed last March is still paying you this March, and
+          you haven't had to do anything about it.
+        </p>
+      </article>
+      <article>
+        <h3>Do it around everything else</h3>
+        <p>
+          Some of our people sell DUSA full time. Others have a job and fit a
+          few conversations into their week. Nobody is checking your hours.
+          What matters is that clients sign and clients stay.
+        </p>
+      </article>
+      <article>
+        <h3>Work wherever you want</h3>
+        <p>
+          Kitchen table, a cafe, a different country. We've never met most of
+          the people we work with in person. It has not been a problem.
+        </p>
+      </article>
+      <article>
+        <h3>Or build a team under you</h3>
+        <p>
+          If you'd rather bring in your own sellers than only sell yourself,
+          there's a way to do that and earn from what they close. It's not
+          public yet. Ask us and we'll walk you through it.
+        </p>
+      </article>
     </div>
   </div>
 </section>
@@ -40,37 +81,41 @@ const pct = Math.round(SHARE * 100);
   <div class="container">
     <div class="cr__head">
       <span class="label">How you get paid</span>
-      <h2>Two ways a sale pays,<br/><span class="gradient-text">both of them yours.</span></h2>
+      <h2>Two ways a sale pays you</h2>
+      <p class="cr__sub">
+        Clients pick how they want to pay. Either way your cut is {pct}%, and
+        either way it's sent once their money reaches us. No 60 day terms.
+      </p>
     </div>
 
     <div class="cr__ways">
       <article class="cr__way">
-        <span class="cr__way-tag">Client pays monthly</span>
-        <h3>{pct}% every month, for as long as they stay</h3>
+        <span class="cr__way-tag">They pay monthly</span>
+        <h3>{pct}% lands every month they stay</h3>
         <p>
-          Each time that client's payment lands with DUSA, your {pct}% follows.
-          There is no cap and no end date while the license is active and you
-          are still selling with us. Ten clients on Growth is
-          {money(monthly(PLANS[2]) * 10)} a month before you sell anything new.
+          Their payment goes through, your cut follows. There's no cap on it
+          and no expiry date while the licence is live and you're still
+          selling with us. Ten clients on Growth is
+          {money(monthly(PLANS[2]) * 10)} a month arriving whether you sold
+          anything that month or not.
         </p>
       </article>
 
       <article class="cr__way">
-        <span class="cr__way-tag">Client pays 12 months upfront</span>
-        <h3>{pct}% of the whole year, paid as soon as it lands</h3>
+        <span class="cr__way-tag">They pay a year upfront</span>
+        <h3>{pct}% of the whole year, in one go</h3>
         <p>
-          Annual customers pay a discounted rate worth {ANNUAL_MONTHS_CHARGED}
-          months instead of 12. Your {pct}% is calculated on what they actually
-          pay and is sent as soon as their payment reaches DUSA. One Growth
-          client on annual is {money(upfront(PLANS[2]))} in a single payment.
+          Annual clients get a discount, so they're charged the equivalent of
+          {ANNUAL_MONTHS_CHARGED} months rather than 12. Your {pct}% comes off
+          what they actually pay. One Growth client signing annually is
+          {money(upfront(PLANS[2]))} in a single hit.
         </p>
       </article>
     </div>
 
-    <!-- Rate card straight off the real price list -->
     <div class="cr__rates">
       <div class="cr__rates-head">
-        <span>Plan</span><span>Client pays</span><span>You earn monthly</span><span>Or annual upfront</span>
+        <span>Plan</span><span>They pay</span><span>You earn monthly</span><span>Or upfront on annual</span>
       </div>
       {PLANS.map((p) => (
         <div class="cr__rate">
@@ -81,22 +126,22 @@ const pct = Math.round(SHARE * 100);
         </div>
       ))}
       <p class="cr__rates-note">
-        Prices in AUD. Usage such as SMS, calls and AI is billed to the client
-        separately and is not part of the license revenue share.
+        AUD. Usage like SMS, calls and AI is billed to the client on top and
+        isn't part of the licence revenue, so it isn't part of your share.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ── Calculator ───────────────────────────────────────────────────────── -->
+<!-- ── Calculator 1: what a book is worth today ─────────────────────────── -->
 <section class="cr section section--dark" id="maths">
   <div class="container">
     <div class="cr__head">
       <span class="label">Run your own numbers</span>
-      <h2>What would <span class="gradient-text">your book</span> be worth?</h2>
+      <h2>What would <span class="gradient-text">your clients</span> be worth?</h2>
       <p class="cr__sub">
-        Set how many clients you would sign on each plan. This is arithmetic on
-        our real prices, not a projection or an earnings promise.
+        Put in what you think you could sign. This is just arithmetic on our
+        real prices. It isn't a forecast and it isn't a promise.
       </p>
     </div>
 
@@ -108,30 +153,92 @@ const pct = Math.round(SHARE * 100);
             <span class="calc__row-ctrl">
               <button type="button" data-step={`${p.id}:-1`} aria-label={`One fewer ${p.name} client`}>&minus;</button>
               <input type="number" min="0" max="999" value={p.id === 'starter' ? 5 : 0}
-                     data-plan={p.id} data-price={p.price}
-                     aria-label={`${p.name} clients`} />
+                     data-plan={p.id} data-price={p.price} aria-label={`${p.name} clients`} />
               <button type="button" data-step={`${p.id}:1`} aria-label={`One more ${p.name} client`}>+</button>
             </span>
           </label>
         ))}
-
         <div class="calc__mode" role="group" aria-label="How your clients pay">
           <button type="button" class="is-on" data-mode="monthly">They pay monthly</button>
-          <button type="button" data-mode="annual">They pay 12 months upfront</button>
+          <button type="button" data-mode="annual">They pay a year upfront</button>
         </div>
       </div>
 
       <div class="calc__out">
-        <span class="calc__out-label" data-out-label>Recurring, every month</span>
+        <span class="calc__out-label" data-out-label>Every month</span>
         <strong class="calc__out-value" data-out-value>$298</strong>
         <span class="calc__out-sub" data-out-sub>from 5 clients</span>
         <div class="calc__out-year">
-          <span data-out-year-label>Across 12 months</span>
+          <span data-out-year-label>Over 12 months</span>
           <b data-out-year>$3,576</b>
         </div>
         <p class="calc__out-note" data-out-note>
-          Paid to you each time their payments land, for as long as those
-          licenses stay active.
+          Arrives each time their payments land, for as long as those licences
+          stay active.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Calculator 2: three years of building ────────────────────────────── -->
+<section class="cr section section--dark" id="three-years">
+  <div class="container">
+    <div class="cr__head">
+      <span class="label">The long game</span>
+      <h2>What it looks like <span class="gradient-text">three years in</span></h2>
+      <p class="cr__sub">
+        Here's the part that's hard to see at the start. Keep signing a couple
+        of clients a month and the ones you signed ages ago are still paying.
+        It stacks. Some clients leave, so this counts that too.
+      </p>
+    </div>
+
+    <div class="grow" data-grow>
+      <div class="grow__inputs">
+        <label class="calc__row">
+          <span class="calc__row-name">New clients a month<i>your steady pace</i></span>
+          <span class="calc__row-ctrl">
+            <button type="button" data-g-step="rate:-1" aria-label="One fewer sale a month">&minus;</button>
+            <input type="number" min="1" max="50" value="2" data-g="rate" aria-label="New clients a month" />
+            <button type="button" data-g-step="rate:1" aria-label="One more sale a month">+</button>
+          </span>
+        </label>
+
+        <label class="calc__row">
+          <span class="calc__row-name">Clients leaving each month<i>be honest with yourself</i></span>
+          <span class="calc__row-ctrl">
+            <button type="button" data-g-step="churn:-1" aria-label="Lower churn">&minus;</button>
+            <input type="number" min="0" max="15" value={Math.round(DEFAULT_CHURN * 100)} data-g="churn" aria-label="Percent of clients leaving each month" />
+            <span class="calc__row-unit">%</span>
+            <button type="button" data-g-step="churn:1" aria-label="Higher churn">+</button>
+          </span>
+        </label>
+
+        <div class="grow__plans" role="group" aria-label="Which plan you mostly sell">
+          <span class="grow__plans-label">Mostly selling</span>
+          {PLANS.map((p, i) => (
+            <button type="button" class={i === 1 ? 'is-on' : ''} data-g-plan={p.price}>{p.name}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="grow__out">
+        <div class="grow__years">
+          <div><span>Year 1</span><b data-g-y1>$0</b></div>
+          <div><span>Year 2</span><b data-g-y2>$0</b></div>
+          <div class="is-hero"><span>Year 3</span><b data-g-y3>$0</b></div>
+        </div>
+        <div class="grow__bars" aria-hidden="true">
+          <i data-g-bar="1"></i><i data-g-bar="2"></i><i data-g-bar="3"></i>
+        </div>
+        <p class="grow__run">
+          By month 36 you'd be on <b data-g-run>$0</b> a month from
+          <b data-g-clients>0</b> active clients.
+        </p>
+        <p class="grow__note">
+          A model, not a prediction. It assumes you keep up that pace every
+          month for three years and that clients leave at the rate you set.
         </p>
       </div>
     </div>
@@ -142,17 +249,44 @@ const pct = Math.round(SHARE * 100);
 <section class="cr section section--dark">
   <div class="container">
     <div class="cr__head">
-      <span class="label">What DUSA gives you</span>
-      <h2>You sell. <span class="gradient-text">We do the rest.</span></h2>
+      <span class="label">What we do</span>
+      <h2>You sell it. We look after the rest.</h2>
     </div>
     <div class="cr__grid">
-      <article><h3>A product that demos itself</h3><p>One platform replacing eight tools. The saving is the pitch, and the numbers hold up on a whiteboard.</p></article>
-      <article><h3>Onboarding handled</h3><p>You are not responsible for setup, migration or training. We take the client from signed to live.</p></article>
-      <article><h3>Support that keeps them</h3><p>Your commission depends on clients staying. So does ours. We are on the same side of that.</p></article>
-      <article><h3>Your own license</h3><p>Run your own pipeline on DUSA, so you sell something you actually use every day.</p></article>
-      <article><h3>Collateral and pricing</h3><p>Decks, comparison pages and live pricing you can send mid-conversation.</p></article>
-      <article><h3>Paid on landing, not on invoice</h3><p>Your share goes out once the client's payment reaches DUSA. No 60 day terms.</p></article>
+      <article><h3>The pitch is a number</h3><p>Eight tools replaced by one, for less than they're paying now. You can do the maths on a napkin and it still works.</p></article>
+      <article><h3>Setup isn't your job</h3><p>Once they sign, we take over. Migration, setup, training. You go back to selling.</p></article>
+      <article><h3>We want them to stay as much as you do</h3><p>Your income depends on retention. So does ours. Nobody here is going to let a client drift.</p></article>
+      <article><h3>Your own licence</h3><p>Run your pipeline on DUSA. Easier to sell something when you use it every day.</p></article>
+      <article><h3>Something to send them</h3><p>Decks, comparison pages, live pricing. Whatever you need mid-conversation.</p></article>
+      <article><h3>Paid when they pay</h3><p>Their money lands, yours goes out. We're not sitting on it for a month.</p></article>
     </div>
+  </div>
+</section>
+
+<!-- ── What you need in place ───────────────────────────────────────────── -->
+<section class="cr section section--dark">
+  <div class="container">
+    <div class="cr__head">
+      <span class="label">Before you can invoice us</span>
+      <h2>The paperwork side</h2>
+      <p class="cr__sub">
+        You're a contractor, so you send us invoices and you sort out your own
+        tax. What you need to do that depends on where you are.
+      </p>
+    </div>
+    <div class="cr__reqs">
+      {REQUIREMENTS.map((r) => (
+        <div class="cr__req">
+          <span class="cr__req-region">{r.region}</span>
+          <span class="cr__req-needs">{r.needs}</span>
+        </div>
+      ))}
+    </div>
+    <p class="cr__reqs-note">
+      We don't withhold tax, pay super, or provide insurance. If you're not
+      sure what applies to you, check with an accountant in your country
+      before you apply. Not sure yet? Apply anyway and ask us.
+    </p>
   </div>
 </section>
 
@@ -161,60 +295,58 @@ const pct = Math.round(SHARE * 100);
   <div class="container">
     <div class="cr__head">
       <span class="label">Before you apply</span>
-      <h2>The parts most ads<br/><span class="gradient-text">leave out.</span></h2>
-      <p class="cr__sub">
-        Better you know all of this now than three months in.
-      </p>
+      <h2>The bits other ads leave out</h2>
+      <p class="cr__sub">Rather you find out now than three months in.</p>
     </div>
 
     <div class="cr__terms">
       <article>
-        <h3>Commission only</h3>
-        <p>There is no retainer, base or draw. You earn when clients pay. If you need guaranteed income from day one, this is the wrong role.</p>
+        <h3>There's no base</h3>
+        <p>No retainer, no draw, no safety net. You get paid when clients pay. If you need money landing from week one, don't take this on.</p>
       </article>
       <article>
-        <h3>An activity minimum</h3>
-        <p>{QUOTA_PER_QUARTER} new sales a quarter, roughly one a month, to stay an active seller and keep receiving your {pct}% share.</p>
+        <h3>You have to keep selling</h3>
+        <p>{QUOTA_PER_QUARTER} new clients a quarter, so around one a month, to stay active and keep your {pct}%.</p>
       </article>
       <article>
-        <h3>Your share is tied to selling with us</h3>
-        <p>The ongoing {pct}% runs while the license is active and while you are still contracting with DUSA. It is not a royalty you keep after leaving.</p>
+        <h3>It stops when you stop</h3>
+        <p>The ongoing {pct}% runs while the licence is live and while you're still selling with us. It isn't a royalty you keep after you leave.</p>
       </article>
       <article>
-        <h3>NDA and non-compete</h3>
-        <p>You sign an NDA covering DUSA's IP, and a non-compete running six months from the end of your engagement.</p>
+        <h3>You'll sign an NDA and a non-compete</h3>
+        <p>The NDA covers our IP. The non-compete runs six months from the end of your engagement.</p>
       </article>
       <article>
-        <h3>Contractor, not employee</h3>
-        <p>You invoice us. You manage your own tax, hours and expenses, and work where you like.</p>
+        <h3>The first few months are slow</h3>
+        <p>Recurring income is brilliant later and thin at the start. Month one is one client's worth. Go in expecting that.</p>
       </article>
       <article>
-        <h3>A code of conduct</h3>
-        <p>You represent DUSA to people trusting us with their business. Overselling or misrepresenting the platform ends the engagement.</p>
+        <h3>You're representing us</h3>
+        <p>These are people trusting us with their business. Overpromise to close a deal and we'll end the engagement.</p>
       </article>
     </div>
     <p class="cr__legal">
-      Figures on this page are arithmetic on current AUD list prices, shown to
-      explain how commission is calculated. They are not a forecast, a
-      guarantee, or a representation of what any contractor will earn. Full
-      terms are in the contractor agreement.
+      Every figure here is arithmetic on our current AUD list prices, shown so
+      you can see how commission is worked out. None of it is a forecast, a
+      guarantee, or a statement of what any contractor has earned or will earn.
+      The contractor agreement is what counts.
     </p>
   </div>
 </section>
 
-<!-- ── Who does well ────────────────────────────────────────────────────── -->
+<!-- ── Fit ──────────────────────────────────────────────────────────────── -->
 <section class="cr section section--dark">
   <div class="container">
     <div class="cr__head">
-      <span class="label">Who this suits</span>
-      <h2>You will do well here if <span class="gradient-text">this sounds like you.</span></h2>
+      <span class="label">Who this actually suits</span>
+      <h2>You'll do well here if</h2>
     </div>
     <ul class="cr__fit">
-      <li>You have sold to small business owners and are comfortable talking about their money.</li>
-      <li>You would rather build a book that pays every month than chase one-off commissions.</li>
-      <li>You already have a network, a patch, or a niche you understand.</li>
-      <li>You can run your own week without anyone assigning you activity.</li>
-      <li>You are happy being measured on clients who stay, not just deals closed.</li>
+      <li>You've sold to small business owners and you're not squeamish about talking money.</li>
+      <li>You'd rather build something that pays every month than chase the next commission.</li>
+      <li>You already know people, or you know an industry well enough to get in the door.</li>
+      <li>Nobody needs to tell you what to do on a Tuesday.</li>
+      <li>You're fine being judged on clients who stick around, not just deals signed.</li>
     </ul>
   </div>
 </section>
@@ -222,11 +354,12 @@ const pct = Math.round(SHARE * 100);
 <!-- ── CTA ──────────────────────────────────────────────────────────────── -->
 <section class="cr-cta section section--dark">
   <div class="container">
-    <h2>Ready to build <span class="gradient-text">a book of your own?</span></h2>
-    <p>Tell us about your patch and how you sell. We will come back to you.</p>
+    <h2>Think this is you?</h2>
+    <p>Tell us who you'd sell to and how you'd go about it. We read everything that comes in.</p>
     <a class="btn btn--primary" href={APPLY} target="_blank" rel="noopener">Apply to sell DUSA</a>
     <p class="cr-cta__alt">
-      Questions first? <a href="/contact" data-page="contact">Talk to us</a>.
+      Want to ask something first, or hear about running your own team?
+      <a href="/contact" data-page="contact">Get in touch</a>.
     </p>
   </div>
 </section>
@@ -234,26 +367,21 @@ const pct = Math.round(SHARE * 100);
 <style>
   .cr-hero { padding-top: calc(var(--nav-height) + var(--space-xl)); text-align: center; }
   .cr-hero h1 { margin: var(--space-xs) 0 var(--space-sm); }
-  .cr-hero__sub { max-width: 58ch; margin: 0 auto; color: rgba(247,244,239,0.6); font-size: 1.0625rem; }
-  .cr-hero__sub b { color: var(--warm-white); font-weight: 600; }
-
-  .cr-hero__stats {
-    display: flex; justify-content: center; flex-wrap: wrap; gap: var(--space-lg);
-    margin: var(--space-lg) 0;
-  }
-  .cr-hero__stats div { display: grid; gap: 0.15rem; }
-  .cr-hero__stats b {
-    font-family: var(--font-headline); font-size: 1.75rem; font-weight: 700;
-    color: var(--reef-aqua);
-  }
-  .cr-hero__stats span { font-size: 0.8125rem; color: rgba(247,244,239,0.45); }
+  .cr-hero__sub { max-width: 56ch; margin: 0 auto var(--space-lg); color: rgba(247,244,239,0.6); font-size: 1.0625rem; }
   .cr-hero__cta { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; }
+
+  .cr__pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
+  .cr__pillars article {
+    padding: var(--space-md); border-radius: var(--radius-lg);
+    background: rgba(78,216,194,0.04); border: 1px solid rgba(78,216,194,0.18);
+  }
+  .cr__pillars h3 { font-size: 1.0625rem; margin-bottom: 0.45rem; color: var(--warm-white); }
+  .cr__pillars p { font-size: 0.9375rem; color: rgba(247,244,239,0.58); max-width: none; }
 
   .cr__head { text-align: center; max-width: 720px; margin: 0 auto var(--space-lg); }
   .cr__head h2 { margin-top: var(--space-xs); }
   .cr__sub { color: rgba(247,244,239,0.5); margin: var(--space-sm) auto 0; }
 
-  /* Two ways to get paid */
   .cr__ways { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
   .cr__way {
     padding: var(--space-md); border-radius: var(--radius-lg);
@@ -266,11 +394,9 @@ const pct = Math.round(SHARE * 100);
   .cr__way h3 { font-size: 1.25rem; margin: 0.5rem 0 0.6rem; }
   .cr__way p { color: rgba(247,244,239,0.55); font-size: 0.9375rem; max-width: none; }
 
-  /* Rate card. One shared grid so every row lines up. */
   .cr__rates { margin-top: var(--space-lg); }
   .cr__rates-head, .cr__rate {
-    display: grid; grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr;
-    gap: 1rem; align-items: center;
+    display: grid; grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr; gap: 1rem; align-items: center;
   }
   .cr__rates-head {
     font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
@@ -279,20 +405,15 @@ const pct = Math.round(SHARE * 100);
   }
   .cr__rate { padding: 0.85rem 0; border-bottom: 1px solid rgba(247,244,239,0.05); }
   .cr__rate span { display: grid; gap: 0.1rem; }
-  .cr__rate i {
-    font-style: normal; font-size: 0.6875rem; color: rgba(247,244,239,0.35);
-  }
+  .cr__rate i { font-style: normal; font-size: 0.6875rem; color: rgba(247,244,239,0.35); }
   .cr__rate-name { font-weight: 600; color: var(--warm-white); }
   .cr__rate-price { font-family: var(--font-mono); color: rgba(247,244,239,0.7); }
   .cr__rate-you { font-family: var(--font-mono); font-weight: 700; color: var(--reef-aqua); }
   .cr__rates-note { margin-top: var(--space-sm); font-size: 0.8125rem; color: rgba(247,244,239,0.4); max-width: none; }
 
-  /* Calculator */
-  .calc {
-    display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-md);
-    align-items: stretch;
-  }
-  .calc__inputs, .calc__out {
+  /* Calculators share the input styling. */
+  .calc, .grow { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-md); }
+  .calc__inputs, .calc__out, .grow__inputs, .grow__out {
     padding: var(--space-md); border-radius: var(--radius-lg);
     background: rgba(247,244,239,0.03); border: 1px solid rgba(247,244,239,0.08);
   }
@@ -303,8 +424,9 @@ const pct = Math.round(SHARE * 100);
   .calc__row-name { display: grid; gap: 0.1rem; font-weight: 600; }
   .calc__row-name i { font-style: normal; font-family: var(--font-mono); font-size: 0.6875rem; color: rgba(247,244,239,0.4); }
   .calc__row-ctrl { display: flex; align-items: center; gap: 0.4rem; }
+  .calc__row-unit { font-family: var(--font-mono); color: rgba(247,244,239,0.45); font-size: 0.875rem; }
   .calc__row-ctrl button {
-    width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
+    width: 32px; height: 32px; border-radius: 8px; cursor: pointer; flex-shrink: 0;
     background: rgba(247,244,239,0.05); border: 1px solid rgba(247,244,239,0.14);
     color: var(--warm-white); font-size: 1rem; line-height: 1;
     transition: border-color var(--duration-fast), color var(--duration-fast);
@@ -313,19 +435,23 @@ const pct = Math.round(SHARE * 100);
   .calc__row-ctrl input {
     width: 60px; text-align: center; padding: 0.4rem;
     font-family: var(--font-mono); font-size: 1rem; color: var(--warm-white);
-    background: rgba(12,14,20,0.5); border: 1px solid rgba(247,244,239,0.14);
-    border-radius: 8px;
+    background: rgba(12,14,20,0.5); border: 1px solid rgba(247,244,239,0.14); border-radius: 8px;
   }
-  .calc__mode { display: flex; gap: 0.5rem; margin-top: var(--space-sm); flex-wrap: wrap; }
-  .calc__mode button {
-    flex: 1; min-width: 150px; cursor: pointer; padding: 0.55rem 0.8rem;
+  .calc__mode, .grow__plans { display: flex; gap: 0.5rem; margin-top: var(--space-sm); flex-wrap: wrap; align-items: center; }
+  .calc__mode button, .grow__plans button {
+    cursor: pointer; padding: 0.55rem 0.8rem;
     font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
     text-transform: uppercase; border-radius: 999px;
     background: rgba(247,244,239,0.03); border: 1px solid rgba(247,244,239,0.14);
     color: rgba(247,244,239,0.5);
     transition: border-color var(--duration-fast), color var(--duration-fast);
   }
-  .calc__mode button.is-on { color: var(--reef-aqua); border-color: rgba(78,216,194,0.55); }
+  .calc__mode button { flex: 1; min-width: 150px; }
+  .calc__mode button.is-on, .grow__plans button.is-on { color: var(--reef-aqua); border-color: rgba(78,216,194,0.55); }
+  .grow__plans-label {
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(247,244,239,0.35); width: 100%;
+  }
 
   .calc__out { display: grid; align-content: center; justify-items: center; text-align: center; }
   .calc__out-label {
@@ -345,12 +471,32 @@ const pct = Math.round(SHARE * 100);
   }
   .calc__out-year span { font-size: 0.8125rem; color: rgba(247,244,239,0.45); }
   .calc__out-year b { font-family: var(--font-mono); font-size: 1.25rem; color: var(--warm-white); }
-  .calc__out-note {
-    margin-top: var(--space-sm); font-size: 0.75rem; line-height: 1.5;
-    color: rgba(247,244,239,0.35); max-width: 34ch;
-  }
+  .calc__out-note { margin-top: var(--space-sm); font-size: 0.75rem; line-height: 1.5; color: rgba(247,244,239,0.35); max-width: 34ch; }
 
-  /* What you get */
+  /* Three-year view */
+  .grow__out { display: grid; align-content: center; }
+  .grow__years { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; text-align: center; }
+  .grow__years span {
+    display: block; font-family: var(--font-mono); font-size: 0.625rem;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,239,0.4);
+  }
+  .grow__years b {
+    display: block; margin-top: 0.25rem; font-family: var(--font-mono); font-weight: 700;
+    font-size: 1.25rem; color: rgba(247,244,239,0.75);
+  }
+  .grow__years .is-hero b { font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--reef-aqua); }
+  /* Bars make the stacking obvious before any number is read. */
+  .grow__bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; align-items: end; height: 76px; margin: var(--space-sm) 0; }
+  .grow__bars i {
+    display: block; border-radius: 6px 6px 0 0; min-height: 4px;
+    background: linear-gradient(180deg, rgba(78,216,194,0.85), rgba(46,130,182,0.5));
+    transition: height 0.4s var(--ease-out);
+  }
+  .grow__bars i:nth-child(1), .grow__bars i:nth-child(2) { background: linear-gradient(180deg, rgba(247,244,239,0.3), rgba(247,244,239,0.1)); }
+  .grow__run { text-align: center; font-size: 0.9375rem; color: rgba(247,244,239,0.6); max-width: none; }
+  .grow__run b { color: var(--warm-white); font-family: var(--font-mono); }
+  .grow__note { margin-top: var(--space-sm); text-align: center; font-size: 0.75rem; line-height: 1.5; color: rgba(247,244,239,0.35); max-width: none; }
+
   .cr__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
   .cr__grid article {
     padding: var(--space-md); border-radius: var(--radius-lg);
@@ -359,7 +505,19 @@ const pct = Math.round(SHARE * 100);
   .cr__grid h3 { font-size: 1.0625rem; margin-bottom: 0.4rem; }
   .cr__grid p { font-size: 0.9375rem; color: rgba(247,244,239,0.55); max-width: none; }
 
-  /* Terms — deliberately styled as plainly as the rest, not as fine print. */
+  /* Requirements read as a reference table, not a sales pitch. */
+  .cr__reqs { max-width: 860px; margin: 0 auto; }
+  .cr__req {
+    display: grid; grid-template-columns: 12rem 1fr; gap: 1.2rem;
+    padding: 0.9rem 0; border-bottom: 1px solid rgba(247,244,239,0.07);
+  }
+  .cr__req-region {
+    font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--reef-aqua);
+  }
+  .cr__req-needs { color: rgba(247,244,239,0.6); font-size: 0.9375rem; }
+  .cr__reqs-note { max-width: 860px; margin: var(--space-md) auto 0; font-size: 0.8125rem; color: rgba(247,244,239,0.4); }
+
   .cr__terms { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
   .cr__terms article {
     padding: var(--space-md); border-radius: var(--radius-lg);
@@ -367,16 +525,10 @@ const pct = Math.round(SHARE * 100);
   }
   .cr__terms h3 { font-size: 1rem; margin-bottom: 0.4rem; color: rgba(240,200,140,0.95); }
   .cr__terms p { font-size: 0.9375rem; color: rgba(247,244,239,0.6); max-width: none; }
-  .cr__legal {
-    margin: var(--space-md) auto 0; max-width: 76ch; text-align: center;
-    font-size: 0.75rem; line-height: 1.6; color: rgba(247,244,239,0.35);
-  }
+  .cr__legal { margin: var(--space-md) auto 0; max-width: 76ch; text-align: center; font-size: 0.75rem; line-height: 1.6; color: rgba(247,244,239,0.35); }
 
   .cr__fit { max-width: 720px; margin: 0 auto; display: grid; gap: 0.7rem; list-style: none; padding: 0; }
-  .cr__fit li {
-    padding-left: 1.6rem; position: relative;
-    color: rgba(247,244,239,0.65); font-size: 1rem;
-  }
+  .cr__fit li { padding-left: 1.6rem; position: relative; color: rgba(247,244,239,0.65); font-size: 1rem; }
   .cr__fit li::before {
     content: ''; position: absolute; left: 0; top: 0.55em;
     width: 8px; height: 8px; border-radius: 50%; background: var(--reef-aqua);
@@ -387,97 +539,144 @@ const pct = Math.round(SHARE * 100);
   .cr-cta__alt { font-size: 0.875rem; margin-top: var(--space-sm); }
   .cr-cta__alt a { color: var(--reef-aqua); }
 
+  @media (max-width: 1024px) { .cr__pillars { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 900px) {
-    .cr__ways, .calc { grid-template-columns: 1fr; }
+    .cr__ways, .calc, .grow { grid-template-columns: 1fr; }
     .cr__grid, .cr__terms { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 640px) {
-    .cr__grid, .cr__terms { grid-template-columns: 1fr; }
-    .cr-hero__stats { gap: var(--space-md); }
-    /* The rate card stops being scannable across, so each plan becomes a block
-       with its labels carried inline. */
+    .cr__pillars, .cr__grid, .cr__terms { grid-template-columns: 1fr; }
     .cr__rates-head { display: none; }
     .cr__rate { grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; }
     .cr__rate-name { grid-column: 1 / -1; }
+    .cr__req { grid-template-columns: 1fr; gap: 0.3rem; }
   }
 
   :global(html[data-theme="light"]) .cr-hero__sub,
   :global(html[data-theme="light"]) .cr__way p,
   :global(html[data-theme="light"]) .cr__grid p,
   :global(html[data-theme="light"]) .cr__terms p,
+  :global(html[data-theme="light"]) .cr__pillars p,
+  :global(html[data-theme="light"]) .cr__req-needs,
   :global(html[data-theme="light"]) .cr__fit li { color: rgba(12,14,20,0.65); }
   :global(html[data-theme="light"]) .cr__way,
   :global(html[data-theme="light"]) .cr__grid article,
   :global(html[data-theme="light"]) .calc__inputs,
-  :global(html[data-theme="light"]) .calc__out {
+  :global(html[data-theme="light"]) .calc__out,
+  :global(html[data-theme="light"]) .grow__inputs,
+  :global(html[data-theme="light"]) .grow__out {
     background: rgba(12,14,20,0.02); border-color: rgba(12,14,20,0.1);
   }
   :global(html[data-theme="light"]) .calc__row-ctrl input { background: #fff; color: var(--deep-black); }
 </style>
 
 <script>
-  import { PLANS, SHARE, ANNUAL_MONTHS_CHARGED, money } from '../config/careers';
+  import { SHARE, ANNUAL_MONTHS_CHARGED, money } from '../config/careers';
 
+  /* ── Calculator 1: a book as it stands today ── */
   document.querySelectorAll('[data-calc]').forEach((root) => {
     const inputs = [...root.querySelectorAll('input[data-plan]')] as HTMLInputElement[];
     const modes = [...root.querySelectorAll('[data-mode]')] as HTMLButtonElement[];
     const el = (s: string) => root.querySelector(s) as HTMLElement;
     let mode: 'monthly' | 'annual' = 'monthly';
-
     const clamp = (n: number) => Math.max(0, Math.min(999, Math.round(n) || 0));
 
     function render() {
       let clients = 0, perMonth = 0;
       inputs.forEach((i) => {
         const n = clamp(Number(i.value));
-        const price = Number(i.dataset.price);
         clients += n;
-        perMonth += n * price * SHARE;
+        perMonth += n * Number(i.dataset.price) * SHARE;
       });
-
       const plural = clients === 1 ? 'client' : 'clients';
       if (mode === 'monthly') {
-        el('[data-out-label]').textContent = 'Recurring, every month';
+        el('[data-out-label]').textContent = 'Every month';
         el('[data-out-value]').textContent = money(perMonth);
         el('[data-out-sub]').textContent = `from ${clients} ${plural}`;
-        el('[data-out-year-label]').textContent = 'Across 12 months';
+        el('[data-out-year-label]').textContent = 'Over 12 months';
         el('[data-out-year]').textContent = money(perMonth * 12);
         el('[data-out-note]').textContent =
-          'Paid to you each time their payments land, for as long as those licenses stay active.';
+          'Arrives each time their payments land, for as long as those licences stay active.';
       } else {
-        /* Annual customers are charged ANNUAL_MONTHS_CHARGED months, so the
-           share is calculated on what they actually pay, not on 12. */
         const total = perMonth * ANNUAL_MONTHS_CHARGED;
         el('[data-out-label]').textContent = 'Paid to you upfront';
         el('[data-out-value]').textContent = money(total);
-        el('[data-out-sub]').textContent = `from ${clients} ${plural} paying annually`;
-        el('[data-out-year-label]').textContent = 'Averaged per month';
+        el('[data-out-sub]').textContent = `from ${clients} ${plural} paying for a year`;
+        el('[data-out-year-label]').textContent = 'Works out monthly at';
         el('[data-out-year]').textContent = money(total / 12);
         el('[data-out-note]').textContent =
-          `Annual clients pay a discounted rate worth ${ANNUAL_MONTHS_CHARGED} months. Your share lands once their payment reaches DUSA.`;
+          `Annual clients are charged the equivalent of ${ANNUAL_MONTHS_CHARGED} months. Your cut lands once their payment reaches us.`;
       }
     }
+    inputs.forEach((i) => i.addEventListener('input', () => { i.value = String(clamp(Number(i.value))); render(); }));
+    root.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => {
+      const [id, d] = (b as HTMLElement).dataset.step!.split(':');
+      const input = inputs.find((i) => i.dataset.plan === id);
+      if (!input) return;
+      input.value = String(clamp(Number(input.value) + Number(d)));
+      render();
+    }));
+    modes.forEach((b) => b.addEventListener('click', () => {
+      mode = b.dataset.mode as 'monthly' | 'annual';
+      modes.forEach((m) => m.classList.toggle('is-on', m === b));
+      render();
+    }));
+    render();
+  });
 
-    inputs.forEach((i) => {
-      i.addEventListener('input', () => { i.value = String(clamp(Number(i.value))); render(); });
-    });
-    root.querySelectorAll('[data-step]').forEach((b) => {
-      b.addEventListener('click', () => {
-        const [id, d] = (b as HTMLElement).dataset.step!.split(':');
-        const input = inputs.find((i) => i.dataset.plan === id);
-        if (!input) return;
-        input.value = String(clamp(Number(input.value) + Number(d)));
-        render();
-      });
-    });
-    modes.forEach((b) => {
-      b.addEventListener('click', () => {
-        mode = b.dataset.mode as 'monthly' | 'annual';
-        modes.forEach((m) => m.classList.toggle('is-on', m === b));
-        render();
-      });
-    });
+  /* ── Calculator 2: three years of compounding ──
+     A month-by-month cohort model. Active clients carry forward at the
+     retention rate and new sales are added on top:
+         active(m) = active(m-1) * (1 - churn) + salesPerMonth
+     Earnings for a month are active(m) * price * SHARE. Annual figures are the
+     sum of that month's earnings across the year, which is what someone
+     actually banks — not the year-end run rate, which would overstate it. */
+  document.querySelectorAll('[data-grow]').forEach((root) => {
+    const el = (s: string) => root.querySelector(s) as HTMLElement;
+    const rateEl = root.querySelector('[data-g="rate"]') as HTMLInputElement;
+    const churnEl = root.querySelector('[data-g="churn"]') as HTMLInputElement;
+    const planBtns = [...root.querySelectorAll('[data-g-plan]')] as HTMLButtonElement[];
+    let price = Number(planBtns.find((b) => b.classList.contains('is-on'))?.dataset.gPlan ?? 149);
 
+    function render() {
+      const perMonth = Math.max(1, Math.min(50, Math.round(Number(rateEl.value)) || 1));
+      const churn = Math.max(0, Math.min(15, Math.round(Number(churnEl.value)) || 0)) / 100;
+      rateEl.value = String(perMonth);
+      churnEl.value = String(Math.round(churn * 100));
+
+      const years = [0, 0, 0];
+      let active = 0;
+      for (let m = 1; m <= 36; m++) {
+        active = active * (1 - churn) + perMonth;
+        years[Math.ceil(m / 12) - 1] += active * price * SHARE;
+      }
+      const runRate = active * price * SHARE;
+
+      el('[data-g-y1]').textContent = money(Math.round(years[0]));
+      el('[data-g-y2]').textContent = money(Math.round(years[1]));
+      el('[data-g-y3]').textContent = money(Math.round(years[2]));
+      el('[data-g-run]').textContent = money(Math.round(runRate));
+      el('[data-g-clients]').textContent = String(Math.round(active));
+
+      const peak = Math.max(...years, 1);
+      years.forEach((v, i) => {
+        const bar = root.querySelector(`[data-g-bar="${i + 1}"]`) as HTMLElement;
+        if (bar) bar.style.height = Math.max(4, Math.round((v / peak) * 76)) + 'px';
+      });
+    }
+
+    [rateEl, churnEl].forEach((i) => i.addEventListener('input', render));
+    root.querySelectorAll('[data-g-step]').forEach((b) => b.addEventListener('click', () => {
+      const [which, d] = (b as HTMLElement).dataset.gStep!.split(':');
+      const input = which === 'rate' ? rateEl : churnEl;
+      input.value = String(Number(input.value) + Number(d));
+      render();
+    }));
+    planBtns.forEach((b) => b.addEventListener('click', () => {
+      price = Number(b.dataset.gPlan);
+      planBtns.forEach((x) => x.classList.toggle('is-on', x === b));
+      render();
+    }));
     render();
   });
 </script>

@@ -34,6 +34,30 @@ export const PLANS: Plan[] = [
   { id: 'growth',    name: 'Growth',    price: 297, blurb: 'Unlimited plus AI' },
 ];
 
+/**
+ * Default monthly churn used by the three-year projection.
+ *
+ * Exposed as an input on the page rather than buried, because a compounding
+ * model with no churn is fantasy: it implies every client stays forever and
+ * produces numbers nobody will ever see. 4% a month is a realistic small
+ * business SaaS assumption, not a DUSA measurement — we do not have enough
+ * history yet to claim a real figure.
+ */
+export const DEFAULT_CHURN = 0.04;
+
+/** What a contractor needs in place before they can invoice us, by region. */
+export interface Requirement { region: string; needs: string }
+export const REQUIREMENTS: Requirement[] = [
+  { region: 'Australia',
+    needs: 'An active ABN. You invoice us, so you need to be able to raise one. Register for GST if your turnover puts you over the threshold.' },
+  { region: 'New Zealand',
+    needs: 'An IRD number and a registered sole trader or company setup that can invoice an Australian business.' },
+  { region: 'United Kingdom',
+    needs: 'Registered as a sole trader with HMRC, or an incorporated company, with a UTR.' },
+  { region: 'Anywhere else',
+    needs: 'Whatever your country calls its version: a registered business or sole trader arrangement that can legally invoice an Australian company, plus the right to work where you live.' },
+];
+
 export const money = (n: number) =>
   '$' + n.toLocaleString('en-AU', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
 

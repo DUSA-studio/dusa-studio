@@ -111,7 +111,7 @@ const pct = Math.round(SHARE * 100);
 
         <div class="grow__jump">
           <span>Year 2 alone is</span>
-          <b data-g-mult>2.8x</b>
+          <b data-g-mult>2.4x</b>
           <span>what you earn in year 1</span>
         </div>
 
@@ -119,7 +119,7 @@ const pct = Math.round(SHARE * 100);
         <details class="grow__adv">
           <summary>Assumptions</summary>
           <label class="calc__row">
-            <span class="calc__row-name">Clients staying each month<i>the rest move on</i></span>
+            <span class="calc__row-name">Clients staying each month<i>set at 97%</i></span>
             <span class="calc__row-ctrl">
               <button type="button" data-g-step="churn:1" aria-label="Lower retention">&minus;</button>
               <input type="number" min="85" max="100" value={100 - Math.round(DEFAULT_CHURN * 100)} data-g="retention" aria-label="Percent of clients staying each month" />
@@ -128,9 +128,11 @@ const pct = Math.round(SHARE * 100);
             </span>
           </label>
           <p>
-            Set to 100%, so the numbers above assume every client you sign is
-            still with you in year five. Drop it and see how the picture
-            changes.
+            We set this high on purpose. When a client does leave, it's almost
+            always because the business itself has closed, not because they
+            found something better. Once a business is running its enquiries,
+            bookings and invoicing through DUSA, leaving means rebuilding all
+            of it somewhere else. Move the number and see it either way.
           </p>
         </details>
       </div>
@@ -164,11 +166,10 @@ const pct = Math.round(SHARE * 100);
     </div>
 
     <p class="grow__note">
-      A model on our real prices, not a prediction, and not what any
-      contractor has earned. It assumes you sign that many every month for five
-      straight years and that every one of them stays. Real books lose some
-      clients along the way. Change the retention figure under Assumptions to
-      see it either way.
+      A model on our real prices, not a prediction, and not what any contractor
+      has earned. It assumes you keep signing at that pace every month for five
+      years, and that 97% of your clients stay put each month. Both are
+      assumptions you can change under Assumptions.
     </p>
 
     <div class="grow__cta">
@@ -221,9 +222,9 @@ const pct = Math.round(SHARE * 100);
       {PLANS.map((p) => (
         <div class="cr__rate">
           <span class="cr__rate-name">{p.name}<i>{p.blurb}</i></span>
-          <span class="cr__rate-price">{money(p.price)}<i>/mo</i></span>
-          <span class="cr__rate-you">{money(monthly(p))}<i>/mo, ongoing</i></span>
-          <span class="cr__rate-you">{money(upfront(p))}<i>one payment</i></span>
+          <span class="cr__rate-price" data-l="They pay"><em>{money(p.price)}<i>/mo</i></em></span>
+          <span class="cr__rate-you" data-l="You earn"><em>{money(monthly(p))}<i>/mo, ongoing</i></em></span>
+          <span class="cr__rate-you" data-l="Or upfront"><em>{money(upfront(p))}<i>one payment</i></em></span>
         </div>
       ))}
       <p class="cr__rates-note">
@@ -441,7 +442,7 @@ const pct = Math.round(SHARE * 100);
     padding-bottom: 0.6rem; border-bottom: 1px solid rgba(247,244,239,0.1);
   }
   .cr__rate { padding: 0.85rem 0; border-bottom: 1px solid rgba(247,244,239,0.05); }
-  .cr__rate span { display: grid; gap: 0.1rem; }
+  .cr__rate em { font-style: normal; display: grid; gap: 0.1rem; }
   .cr__rate i { font-style: normal; font-size: 0.6875rem; color: rgba(247,244,239,0.35); }
   .cr__rate-name { font-weight: 600; color: var(--warm-white); }
   .cr__rate-price { font-family: var(--font-mono); color: rgba(247,244,239,0.7); }
@@ -624,8 +625,24 @@ const pct = Math.round(SHARE * 100);
   @media (max-width: 640px) {
     .cr__pillars, .cr__grid, .cr__terms { grid-template-columns: 1fr; }
     .cr__rates-head { display: none; }
-    .cr__rate { grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; }
-    .cr__rate-name { grid-column: 1 / -1; }
+    /* Becomes a small card per plan: name, then one labelled line per figure,
+       label left and value right. Reads cleanly at a glance. */
+    .cr__rate {
+      grid-template-columns: 1fr; gap: 0;
+      padding: 1.1rem 0;
+    }
+    .cr__rate-name { font-size: 1.0625rem; margin-bottom: 0.5rem; }
+    .cr__rate > span:not(.cr__rate-name) {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 1rem; padding: 0.3rem 0;
+    }
+    .cr__rate > span:not(.cr__rate-name)::before {
+      content: attr(data-l);
+      font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(247,244,239,0.38); flex-shrink: 0;
+    }
+    /* Value and unit sit on one line here rather than stacked. */
+    .cr__rate em { display: flex; align-items: baseline; gap: 0.35rem; text-align: right; }
     .cr__req { grid-template-columns: 1fr; gap: 0.3rem; }
   }
 

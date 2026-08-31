@@ -35,16 +35,16 @@ export const PLANS: Plan[] = [
 ];
 
 /**
- * Retention assumption behind the five-year projection.
+ * Retention assumption behind the five-year projection: 97% of clients staying
+ * each month.
  *
- * Set to zero churn on Eliah's call (2026-08-31): the model also holds the
- * sales rate flat for five years, and in practice a seller's pace tends to
- * climb as referrals build, so the two simplifications pull in opposite
- * directions. It stays an adjustable, disclosed input rather than a hidden
- * constant, and the on-page note states plainly that the default assumes
- * every client stays.
+ * Deliberately optimistic and defensible rather than zero. Note the page does
+ * NOT claim a measured retention figure — DUSA has not been running long
+ * enough to have one, and an unsubstantiated stat is the sort of claim that
+ * gets challenged. It makes the qualitative point instead: clients who leave
+ * are usually businesses that closed, not businesses that switched.
  */
-export const DEFAULT_CHURN = 0;
+export const DEFAULT_CHURN = 0.03;
 
 /** Sales-per-month the projection opens on: a strong seller, not a typical one. */
 export const DEFAULT_SALES_PER_MONTH = 10;

@@ -12,7 +12,7 @@
 // phrase carries in commission recruiting.
 import {
   PLANS, SHARE, ANNUAL_MONTHS_CHARGED, QUOTA_PER_QUARTER,
-  DEFAULT_CHURN, PROJECTION_YEARS, REQUIREMENTS, money, monthly, upfront,
+  DEFAULT_CHURN, DEFAULT_SALES_PER_MONTH, PROJECTION_YEARS, REQUIREMENTS, money, monthly, upfront,
 } from '../config/careers';
 
 const APPLY = 'https://link.dusa.studio/widget/form/LbZWlJIZhj18dhmE4vID';
@@ -94,10 +94,10 @@ const pct = Math.round(SHARE * 100);
     <div class="grow" data-grow>
       <div class="grow__inputs">
         <label class="calc__row">
-          <span class="calc__row-name">New clients a month<i>a pace you could hold</i></span>
+          <span class="calc__row-name">New clients a month<i>what a strong month looks like</i></span>
           <span class="calc__row-ctrl">
             <button type="button" data-g-step="rate:-1" aria-label="One fewer sale a month">&minus;</button>
-            <input type="number" min="1" max="50" value="2" data-g="rate" aria-label="New clients a month" />
+            <input type="number" min="1" max="50" value={DEFAULT_SALES_PER_MONTH} data-g="rate" aria-label="New clients a month" />
             <button type="button" data-g-step="rate:1" aria-label="One more sale a month">+</button>
           </span>
         </label>
@@ -111,7 +111,7 @@ const pct = Math.round(SHARE * 100);
 
         <div class="grow__jump">
           <span>Year 2 alone is</span>
-          <b data-g-mult>2.4x</b>
+          <b data-g-mult>2.8x</b>
           <span>what you earn in year 1</span>
         </div>
 
@@ -128,8 +128,9 @@ const pct = Math.round(SHARE * 100);
             </span>
           </label>
           <p>
-            Nothing here assumes clients stay forever. Turn this up or down and
-            watch what happens.
+            Set to 100%, so the numbers above assume every client you sign is
+            still with you in year five. Drop it and see how the picture
+            changes.
           </p>
         </details>
       </div>
@@ -163,9 +164,11 @@ const pct = Math.round(SHARE * 100);
     </div>
 
     <p class="grow__note">
-      A model on our real prices, not a prediction. It assumes you hold that
-      pace every month for five years. Some clients will leave, which the
-      assumptions above account for.
+      A model on our real prices, not a prediction, and not what any
+      contractor has earned. It assumes you sign that many every month for five
+      straight years and that every one of them stays. Real books lose some
+      clients along the way. Change the retention figure under Assumptions to
+      see it either way.
     </p>
 
     <div class="grow__cta">

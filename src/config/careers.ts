@@ -37,13 +37,17 @@ export const PLANS: Plan[] = [
 /**
  * Retention assumption behind the five-year projection.
  *
- * Kept in the model but out of the spotlight: it sits behind an "assumptions"
- * disclosure rather than as a headline input. A compounding projection with no
- * attrition at all would overstate the numbers, and the people worth hiring
- * will do the maths and notice. 3% a month is a reasonable small business SaaS
- * assumption, not a DUSA measurement — we do not have the history to claim one.
+ * Set to zero churn on Eliah's call (2026-08-31): the model also holds the
+ * sales rate flat for five years, and in practice a seller's pace tends to
+ * climb as referrals build, so the two simplifications pull in opposite
+ * directions. It stays an adjustable, disclosed input rather than a hidden
+ * constant, and the on-page note states plainly that the default assumes
+ * every client stays.
  */
-export const DEFAULT_CHURN = 0.03;
+export const DEFAULT_CHURN = 0;
+
+/** Sales-per-month the projection opens on: a strong seller, not a typical one. */
+export const DEFAULT_SALES_PER_MONTH = 10;
 
 /** How many years the compounding projection runs. */
 export const PROJECTION_YEARS = 5;

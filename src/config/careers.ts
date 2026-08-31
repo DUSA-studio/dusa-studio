@@ -46,8 +46,28 @@ export const PLANS: Plan[] = [
  */
 export const DEFAULT_CHURN = 0.03;
 
-/** Sales-per-month the projection opens on: a strong seller, not a typical one. */
-export const DEFAULT_SALES_PER_MONTH = 10;
+/**
+ * Sales-per-month the projection opens on. Four is roughly one a week, which
+ * is a realistic pace for someone doing this alongside other work. Ten was a
+ * full-time figure on a page selling a side income, which did not add up.
+ */
+export const DEFAULT_SALES_PER_MONTH = 4;
+
+/**
+ * Share of clients who take the 12-months-upfront deal.
+ *
+ * Published benchmarks: where monthly is the default choice under 20% of
+ * customers pick annual; where annual is the default it is 40-60%. DUSA sits
+ * in between because a seller pitches it directly rather than leaving it to a
+ * pricing page, so 30% is the defensible middle. Adjustable on the page.
+ */
+export const DEFAULT_ANNUAL_SHARE = 0.30;
+
+/**
+ * Annual clients churn slower than monthly ones. Published SaaS cohort data
+ * puts the suppression at 40-60%; we model the conservative end.
+ */
+export const ANNUAL_CHURN_FACTOR = 0.5;
 
 /** How many years the compounding projection runs. */
 export const PROJECTION_YEARS = 5;

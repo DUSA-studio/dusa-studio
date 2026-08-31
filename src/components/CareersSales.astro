@@ -12,7 +12,8 @@
 // phrase carries in commission recruiting.
 import {
   PLANS, SHARE, ANNUAL_MONTHS_CHARGED, QUOTA_PER_QUARTER,
-  DEFAULT_CHURN, DEFAULT_SALES_PER_MONTH, PROJECTION_YEARS, REQUIREMENTS, money, monthly, upfront,
+  DEFAULT_CHURN, DEFAULT_SALES_PER_MONTH, DEFAULT_ANNUAL_SHARE, ANNUAL_CHURN_FACTOR,
+  PROJECTION_YEARS, REQUIREMENTS, money, monthly, upfront,
 } from '../config/careers';
 
 const APPLY = 'https://link.dusa.studio/widget/form/LbZWlJIZhj18dhmE4vID';
@@ -23,12 +24,13 @@ const pct = Math.round(SHARE * 100);
 <section class="cr-hero section section--dark">
   <div class="container">
     <span class="label">Careers at DUSA</span>
-    <h1>Sell it once.<br/><span class="gradient-text">Get paid every month.</span></h1>
+    <h1>One sale a week.<br/><span class="gradient-text">Paid every month after.</span></h1>
     <p class="cr-hero__sub">
-      We're looking for people who can sit down with a small business owner and
-      show them what DUSA does. Sign one client and you take {pct}% of what they
-      pay us. Not as a one-off. Every month they stay, that money keeps landing
-      in your account.
+      This isn't a job and we're not asking you to leave the one you've got.
+      Show DUSA to a small business owner, sign them up, and you take {pct}% of
+      what they pay us for as long as they stay. Do that four times a month
+      around everything else you're doing and you're building something that
+      pays you whether you worked that week or not.
     </p>
     <div class="cr-hero__cta">
       <a class="btn btn--primary" href={APPLY} target="_blank" rel="noopener">Apply to sell DUSA</a>
@@ -42,34 +44,35 @@ const pct = Math.round(SHARE * 100);
   <div class="container">
     <div class="cr__pillars">
       <article>
-        <h3>The money doesn't reset</h3>
+        <h3>Start it without quitting anything</h3>
         <p>
-          Most sales jobs put you back on zero every month. This one doesn't.
-          A client you signed last March is still paying you this March, and
-          you haven't had to do anything about it.
+          Four sales a month is roughly one conversation a week. People do this
+          around a job, around a business, around kids. Nobody here is counting
+          your hours or asking where you were on Tuesday.
         </p>
       </article>
       <article>
-        <h3>Do it around everything else</h3>
+        <h3>The effort is front-loaded</h3>
         <p>
-          Some of our people sell DUSA full time. Others have a job and fit a
-          few conversations into their week. Nobody is checking your hours.
-          What matters is that clients sign and clients stay.
+          You work hardest at the start, when you're going from nothing. The
+          clients you sign in year one are still paying you in year three
+          without you touching them. That's the whole appeal.
         </p>
       </article>
       <article>
-        <h3>Work wherever you want</h3>
+        <h3>Anywhere, genuinely</h3>
         <p>
-          Kitchen table, a cafe, a different country. We've never met most of
-          the people we work with in person. It has not been a problem.
+          Kitchen table, a cafe, another country. We've never met most of the
+          people we work with. Sell in the mornings, sell on weekends, sell in
+          bursts. It's your patch and your calendar.
         </p>
       </article>
       <article>
-        <h3>Or build a team under you</h3>
+        <h3>Room to go much bigger</h3>
         <p>
-          If you'd rather bring in your own sellers than only sell yourself,
-          there's a way to do that and earn from what they close. It's not
-          public yet. Ask us and we'll walk you through it.
+          Four a month is the comfortable version. If you want to run at this
+          properly, or bring in your own sellers and earn from what they close,
+          there's a path for that. Ask us and we'll talk it through.
         </p>
       </article>
     </div>
@@ -82,12 +85,12 @@ const pct = Math.round(SHARE * 100);
   <div class="container">
     <div class="cr__head">
       <span class="label">The bit worth understanding</span>
-      <h2>Year one you're building it.<br/><span class="gradient-text">Year five it's still paying you.</span></h2>
+      <h2>Put the work in early.<br/><span class="gradient-text">Get paid for years after.</span></h2>
       <p class="cr__sub">
-        Year one is the graft. You start at zero and every client is one you
-        had to go and win. Here's the difference: none of them disappear in
-        January. Year two opens with everything year one built, and you're
-        adding on top of that. It keeps going like that.
+        Year one is the hard bit, because you're starting from nothing. But the
+        clients you sign don't go anywhere in January. Year two opens with
+        everything year one built and you add on top of it. Keep that up and by
+        year five most of your income is coming from work you did ages ago.
       </p>
     </div>
 
@@ -109,6 +112,17 @@ const pct = Math.round(SHARE * 100);
           ))}
         </div>
 
+        <label class="calc__row">
+          <span class="calc__row-name">Paying a year upfront<i>the rest go month to month</i></span>
+          <span class="calc__row-ctrl">
+            <button type="button" data-g-step="annual:-5" aria-label="Fewer paying annually">&minus;</button>
+            <input type="number" min="0" max="100" step="5" value={Math.round(DEFAULT_ANNUAL_SHARE * 100)}
+                   data-g="annual" aria-label="Percent of clients paying a year upfront" />
+            <span class="calc__row-unit">%</span>
+            <button type="button" data-g-step="annual:5" aria-label="More paying annually">+</button>
+          </span>
+        </label>
+
         <div class="grow__jump">
           <span>Year 2 alone is</span>
           <b data-g-mult>2.4x</b>
@@ -128,11 +142,14 @@ const pct = Math.round(SHARE * 100);
             </span>
           </label>
           <p>
-            We set this high on purpose. When a client does leave, it's almost
-            always because the business itself has closed, not because they
-            found something better. Once a business is running its enquiries,
-            bookings and invoicing through DUSA, leaving means rebuilding all
-            of it somewhere else. Move the number and see it either way.
+            When a client does leave it's almost always because the business
+            itself closed, not because they found something better. Once
+            someone runs their enquiries, bookings and invoicing through DUSA,
+            moving off it means rebuilding the lot somewhere else. Industry
+            figures for small business software sit between 3% and 7% leaving
+            each month; we've modelled the good end and you can move it.
+            Clients on annual plans are modelled as leaving at half that rate,
+            which matches how annual contracts behave everywhere.
           </p>
         </details>
       </div>
@@ -154,7 +171,7 @@ const pct = Math.round(SHARE * 100);
             <b data-g-total>$0</b>
           </div>
           <div>
-            <span>Month 60 run rate</span>
+            <span>Year 5, per month</span>
             <b><span data-g-run>$0</span>/mo</b>
           </div>
         </div>
@@ -167,9 +184,10 @@ const pct = Math.round(SHARE * 100);
 
     <p class="grow__note">
       A model on our real prices, not a prediction, and not what any contractor
-      has earned. It assumes you keep signing at that pace every month for five
-      years, and that 97% of your clients stay put each month. Both are
-      assumptions you can change under Assumptions.
+      has earned. It assumes you hold that pace every month for five years.
+      Annual clients pay {ANNUAL_MONTHS_CHARGED} months upfront, so their share
+      reaches you at signing and again each time they renew. Every assumption
+      here is yours to change.
     </p>
 
     <div class="grow__cta">
@@ -694,7 +712,7 @@ const pct = Math.round(SHARE * 100);
 </style>
 
 <script>
-  import { SHARE, ANNUAL_MONTHS_CHARGED, money } from '../config/careers';
+  import { SHARE, ANNUAL_MONTHS_CHARGED, ANNUAL_CHURN_FACTOR, money } from '../config/careers';
 
   /* ── Calculator 1: a book as it stands today ── */
   document.querySelectorAll('[data-calc]').forEach((root) => {
@@ -748,42 +766,69 @@ const pct = Math.round(SHARE * 100);
   });
 
   /* ── The five-year projection ──
-     Month-by-month cohort model. Clients you already have carry forward at
-     the retention rate, and the month's new sales are added on top:
-         active(m) = active(m-1) * retention + salesPerMonth
-     A year's figure is the SUM of that year's monthly earnings, which is what
-     someone actually banks. Using the year-end run rate instead would flatter
-     every number on the page. */
+     Two cohorts, because the two payment types behave completely differently.
+
+     Month-to-month clients pay you a slice every month while they stay:
+         monthlyActive(m) = monthlyActive(m-1) * (1 - churn) + newMonthly
+
+     Annual clients pay ANNUAL_MONTHS_CHARGED months upfront, so their whole
+     share arrives at signing and again on each anniversary. They are tracked
+     as dated cohorts rather than a running total, and they churn at half the
+     monthly rate, which is how annual contracts behave in published data.
+
+     A year's figure is the SUM of that year's earnings, which is what actually
+     reaches a bank account, rather than the year-end run rate. */
   document.querySelectorAll('[data-grow]').forEach((root) => {
     const el = (s: string) => root.querySelector(s) as HTMLElement;
     const rateEl = root.querySelector('[data-g="rate"]') as HTMLInputElement;
     const retEl = root.querySelector('[data-g="retention"]') as HTMLInputElement;
+    const annEl = root.querySelector('[data-g="annual"]') as HTMLInputElement;
     const planBtns = [...root.querySelectorAll('[data-g-plan]')] as HTMLButtonElement[];
     const YEARS = 5;
     let price = Number(planBtns.find((b) => b.classList.contains('is-on'))?.dataset.gPlan ?? 149);
 
+    const clamp = (v: number, lo: number, hi: number, fb: number) =>
+      Math.max(lo, Math.min(hi, Math.round(v) || fb));
+
     function render() {
-      const perMonth = Math.max(1, Math.min(50, Math.round(Number(rateEl.value)) || 1));
-      const retPct = Math.max(85, Math.min(100, Math.round(Number(retEl.value)) || 97));
+      const perMonth = clamp(Number(rateEl.value), 1, 50, 4);
+      const retPct = clamp(Number(retEl.value), 85, 100, 97);
+      const annPct = Math.max(0, Math.min(100, Math.round(Number(annEl.value) / 5) * 5 || 0));
       rateEl.value = String(perMonth);
       retEl.value = String(retPct);
-      const keep = retPct / 100;
+      annEl.value = String(annPct);
+
+      const churnM = (100 - retPct) / 100;
+      const churnA = churnM * ANNUAL_CHURN_FACTOR;
+      const annShare = annPct / 100;
 
       const years = new Array(YEARS).fill(0);
-      let active = 0, total = 0;
+      let monthlyActive = 0, total = 0;
+      const cohorts: { c: number; signed: number }[] = [];
+
       for (let m = 1; m <= YEARS * 12; m++) {
-        active = active * keep + perMonth;
-        const earned = active * price * SHARE;
+        monthlyActive = monthlyActive * (1 - churnM) + perMonth * (1 - annShare);
+        cohorts.forEach((co) => { co.c *= (1 - churnA); });
+        cohorts.push({ c: perMonth * annShare, signed: m });
+
+        let earned = monthlyActive * price * SHARE;
+        cohorts.forEach((co) => {
+          if ((m - co.signed) % 12 === 0) earned += co.c * price * ANNUAL_MONTHS_CHARGED * SHARE;
+        });
         years[Math.ceil(m / 12) - 1] += earned;
         total += earned;
       }
+      const active = monthlyActive + cohorts.reduce((s, c) => s + c.c, 0);
+      /* Year-five earnings spread over twelve months: a fairer "what am I on"
+         than the December figure, which an annual renewal spikes. */
+      const runRate = years[YEARS - 1] / 12;
 
       years.forEach((v, i) => {
         const val = root.querySelector(`[data-g-val="${i + 1}"]`) as HTMLElement;
         if (val) val.textContent = money(Math.round(v));
       });
       el('[data-g-total]').textContent = money(Math.round(total));
-      el('[data-g-run]').textContent = money(Math.round(active * price * SHARE));
+      el('[data-g-run]').textContent = money(Math.round(runRate));
       el('[data-g-clients]').textContent = String(Math.round(active));
       el('[data-g-mult]').textContent =
         (years[0] > 0 ? (years[1] / years[0]).toFixed(1) : '0') + 'x';
@@ -795,10 +840,10 @@ const pct = Math.round(SHARE * 100);
       });
     }
 
-    [rateEl, retEl].forEach((i) => i.addEventListener('input', render));
+    [rateEl, retEl, annEl].forEach((i) => i.addEventListener('input', render));
     root.querySelectorAll('[data-g-step]').forEach((b) => b.addEventListener('click', () => {
       const [which, d] = (b as HTMLElement).dataset.gStep!.split(':');
-      const input = which === 'rate' ? rateEl : retEl;
+      const input = which === 'rate' ? rateEl : which === 'annual' ? annEl : retEl;
       input.value = String(Number(input.value) + Number(d));
       render();
     }));

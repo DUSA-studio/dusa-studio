@@ -807,8 +807,21 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto 1fr auto;
     gap: var(--space-md);
     align-items: stretch;
+  }
+
+  @supports (grid-template-rows: subgrid) {
+    .pricing-card {
+      display: grid;
+      grid-row: span 5;
+      grid-template-rows: subgrid;
+      row-gap: 0;
+    }
+    /* margin-bottom already spaces these; the parent's gap must not apply
+       again inside the card. */
+    .pricing-card__cta { margin-top: 0; }
   }
 
   /* ─── PRICING CARD ─── */
@@ -990,6 +1003,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     font-size: 1rem;
     color: rgba(247, 244, 239, 0.4);
     font-style: italic;
+  }
+  /* Fallback only: subgrid handles this properly where it is supported. */
+  @supports not (grid-template-rows: subgrid) {
+    .pricing-card__tagline { min-height: 3.2em; }
   }
 
   /* Price */

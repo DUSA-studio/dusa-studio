@@ -1,0 +1,333 @@
+<!--
+  DUSA . studio — New SaaS Client welcome / activation email
+  ==========================================================
+  Replaces the default LeadConnector "New SaaS Client email (Location)" template.
+
+  MERGE FIELDS USED (all carried over from the original template, do not rename):
+    DUSA . studio        hello@dusa.studio
+    Tianna    Rivera    tianna@thetoxteth.com.au
+    https://app.dusa.studio/   <- the activation / set-password link
+
+  BUILD NOTES
+  - Table-based with inline styles on every element. The <style> block only
+    adds mobile stacking and dark-mode hints, so stripping it changes nothing
+    structural. Outlook ignores it entirely and still renders correctly.
+  - Space Grotesk will not load in email clients. The stack degrades to the
+    system UI sans, which is why nothing depends on its exact metrics.
+  - The lotus is a hosted PNG, not WebP: Outlook on Windows cannot decode WebP.
+    It is recoloured light because the standard charcoal mark disappears
+    against the deep-black hero band.
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="color-scheme" content="light" />
+  <meta name="supported-color-schemes" content="light" />
+  <title>Welcome to DUSA . studio</title>
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <![endif]-->
+  <style>
+    /* Belt and braces: some clients ignore height/width attributes on images. */
+    img { border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+    table { border-collapse: collapse !important; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    a { text-decoration: none; }
+
+    /* Outlook.com and Gmail like to linkify and restyle addresses. */
+    .no-touch a { color: inherit !important; text-decoration: none !important; }
+
+    @media only screen and (max-width: 620px) {
+      .wrap        { width: 100% !important; }
+      .pad-x       { padding-left: 24px !important; padding-right: 24px !important; }
+      .h1          { font-size: 28px !important; line-height: 34px !important; }
+      .stack       { display: block !important; width: 100% !important; }
+      .stack-gap   { height: 14px !important; line-height: 14px !important; }
+      .btn a       { display: block !important; }
+    }
+
+    /* Dark-mode clients invert light backgrounds unevenly. Pinning the two
+       surfaces keeps the hero band and the body card from swapping places. */
+    @media (prefers-color-scheme: dark) {
+      .surface-dark  { background-color: #0C0E14 !important; }
+      .surface-light { background-color: #F7F4EF !important; }
+      .ink           { color: #1A3A5C !important; }
+      .ink-body      { color: #3F4A57 !important; }
+    }
+  </style>
+</head>
+
+<body style="margin:0; padding:0; background-color:#EDE9E3;">
+
+  <!-- Inbox preview line. Hidden in the body, shown next to the subject. -->
+  <div style="display:none; font-size:1px; color:#EDE9E3; line-height:1px; max-height:0; max-width:0; opacity:0; overflow:hidden;">
+    Your platform is ready. One login, every lead, all your follow-up running on its own.
+    &#8203;&#847;&#8203;&#847;&#8203;&#847;&#8203;&#847;&#8203;&#847;&#8203;&#847;&#8203;&#847;&#8203;&#847;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EDE9E3;">
+    <tr>
+      <td align="center" style="padding:32px 12px;">
+
+        <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px;">
+
+          <!-- ══════════════ HERO ══════════════ -->
+          <tr>
+            <td class="surface-dark pad-x" align="center" bgcolor="#0C0E14"
+                style="background-color:#0C0E14; padding:44px 48px 40px 48px;">
+
+              <img src="https://dusa.studio/email/dusa-lotus-light.png"
+                   width="64" height="64" alt=""
+                   style="display:block; width:64px; height:64px; margin:0 auto 18px auto;" />
+
+              <div style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                          font-size:15px; font-weight:700; letter-spacing:2.4px;
+                          color:#F7F4EF; text-transform:uppercase; margin-bottom:28px;">
+                DUSA <span style="color:#4ED8C2;">.</span> STUDIO
+              </div>
+
+              <div style="font-family:'Space Mono','SF Mono',Consolas,monospace; font-size:11px;
+                          letter-spacing:1.6px; color:#4ED8C2; text-transform:uppercase; padding-bottom:12px;">
+                Your account is ready
+              </div>
+
+              <h1 class="h1" style="margin:0 0 14px 0; font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                         font-size:34px; line-height:40px; font-weight:700; color:#F7F4EF;">
+                Welcome, Tianna.<br />
+                <span style="color:#4ED8C2;">Let's grow this thing.</span>
+              </h1>
+
+              <p style="margin:0 0 30px 0; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                        font-size:16px; line-height:26px; color:rgba(247,244,239,0.72);">
+                Everything you use to win customers now lives behind one login.
+                Switch it on and it starts working for you today.
+              </p>
+
+              <!-- Bulletproof button: table for Outlook, padded anchor for the rest. -->
+              <table role="presentation" class="btn" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
+                <tr>
+                  <td align="center" bgcolor="#4ED8C2" style="background-color:#4ED8C2; border-radius:8px;">
+                    <a href="https://app.dusa.studio/" target="_blank"
+                       style="display:inline-block; padding:17px 40px; border-radius:8px;
+                              font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                              font-size:16px; font-weight:700; letter-spacing:0.2px;
+                              color:#0C0E14; background-color:#4ED8C2; mso-padding-alt:0;">
+                      <!--[if mso]><i style="mso-font-width:150%; mso-text-raise:34px;" hidden>&nbsp;</i><![endif]-->
+                      <span style="mso-text-raise:17px;">Activate my account</span>
+                      <!--[if mso]><i style="mso-font-width:150%;" hidden>&nbsp;</i><![endif]-->
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:16px 0 0 0; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                        font-size:13px; line-height:20px; color:rgba(247,244,239,0.42);">
+                Takes about a minute. You will set your own password.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Aqua hairline: the seam between the two surfaces. -->
+          <tr>
+            <td bgcolor="#4ED8C2" height="3" style="background-color:#4ED8C2; height:3px; line-height:3px; font-size:0;">&nbsp;</td>
+          </tr>
+
+          <!-- ══════════════ BODY ══════════════ -->
+          <tr>
+            <td class="surface-light pad-x" bgcolor="#F7F4EF"
+                style="background-color:#F7F4EF; padding:44px 48px 8px 48px;">
+
+              <h2 class="ink" style="margin:0 0 8px 0; font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                         font-size:22px; line-height:29px; font-weight:700; color:#1A3A5C;">
+                What changes from here
+              </h2>
+              <p class="ink-body" style="margin:0 0 30px 0; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                        font-size:15px; line-height:25px; color:#3F4A57;">
+                Three things you will notice in the first week.
+              </p>
+
+              <!-- Numbered growth points -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td width="42" valign="top" style="padding-bottom:24px;">
+                    <div style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:20px; font-weight:700; color:#4ED8C2;">01</div>
+                  </td>
+                  <td valign="top" style="padding-bottom:24px;">
+                    <div class="ink" style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:16px; font-weight:700; color:#1A3A5C; padding-bottom:5px;">
+                      Every enquiry lands in one place
+                    </div>
+                    <div class="ink-body" style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:15px; line-height:24px; color:#3F4A57;">
+                      Calls, forms, socials, messages. You stop hunting through five apps
+                      to work out who actually wants to buy from you.
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="42" valign="top" style="padding-bottom:24px;">
+                    <div style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:20px; font-weight:700; color:#4ED8C2;">02</div>
+                  </td>
+                  <td valign="top" style="padding-bottom:24px;">
+                    <div class="ink" style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:16px; font-weight:700; color:#1A3A5C; padding-bottom:5px;">
+                      Follow-up happens without you
+                    </div>
+                    <div class="ink-body" style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:15px; line-height:24px; color:#3F4A57;">
+                      The person who enquires at 9pm gets a reply at 9pm. That is usually
+                      the difference between a booking and a competitor.
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="42" valign="top" style="padding-bottom:8px;">
+                    <div style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:20px; font-weight:700; color:#4ED8C2;">03</div>
+                  </td>
+                  <td valign="top" style="padding-bottom:8px;">
+                    <div class="ink" style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:16px; font-weight:700; color:#1A3A5C; padding-bottom:5px;">
+                      You can finally see what is working
+                    </div>
+                    <div class="ink-body" style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                                font-size:15px; line-height:24px; color:#3F4A57;">
+                      Which channel brings customers, which one just brings noise, and
+                      where your money is genuinely coming from.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ══════════════ FIRST STEPS ══════════════ -->
+          <tr>
+            <td class="surface-light pad-x" bgcolor="#F7F4EF" style="background-color:#F7F4EF; padding:24px 48px 0 48px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="background-color:#EDE9E3; border-radius:10px;">
+                <tr>
+                  <td style="padding:26px 28px;">
+                    <div style="font-family:'Space Mono','SF Mono',Consolas,monospace; font-size:11px;
+                                letter-spacing:1.6px; color:#1A3A5C; text-transform:uppercase; padding-bottom:14px;">
+                      Your first fifteen minutes
+                    </div>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td valign="top" width="20" style="padding-bottom:10px; font-family:-apple-system,Helvetica,Arial,sans-serif; font-size:15px; color:#4ED8C2; font-weight:700;">&#8594;</td>
+                        <td valign="top" style="padding-bottom:10px; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; color:#3F4A57;">
+                          Activate your login and set a password
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top" width="20" style="padding-bottom:10px; font-family:-apple-system,Helvetica,Arial,sans-serif; font-size:15px; color:#4ED8C2; font-weight:700;">&#8594;</td>
+                        <td valign="top" style="padding-bottom:10px; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; color:#3F4A57;">
+                          Connect your inbox, your number and your socials
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top" width="20" style="font-family:-apple-system,Helvetica,Arial,sans-serif; font-size:15px; color:#4ED8C2; font-weight:700;">&#8594;</td>
+                        <td valign="top" style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; color:#3F4A57;">
+                          Switch on your first automation and let it run
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ══════════════ ACCOUNT DETAILS ══════════════ -->
+          <tr>
+            <td class="surface-light pad-x" bgcolor="#F7F4EF" style="background-color:#F7F4EF; padding:28px 48px 0 48px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                     style="border:1px solid rgba(26,58,92,0.14); border-radius:10px;">
+                <tr>
+                  <td style="padding:22px 26px;">
+                    <div style="font-family:'Space Mono','SF Mono',Consolas,monospace; font-size:11px;
+                                letter-spacing:1.6px; color:rgba(26,58,92,0.6); text-transform:uppercase; padding-bottom:14px;">
+                      Account details
+                    </div>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="no-touch">
+                      <tr>
+                        <td width="86" valign="top" style="padding-bottom:8px; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:rgba(26,58,92,0.6);">Name</td>
+                        <td valign="top" style="padding-bottom:8px; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:#1A3A5C; font-weight:600;">Tianna Rivera</td>
+                      </tr>
+                      <tr>
+                        <td width="86" valign="top" style="padding-bottom:8px; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:rgba(26,58,92,0.6);">Login</td>
+                        <td valign="top" style="padding-bottom:8px; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:#1A3A5C; font-weight:600;">tianna@thetoxteth.com.au</td>
+                      </tr>
+                      <tr>
+                        <td width="86" valign="top" style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:rgba(26,58,92,0.6);">Platform</td>
+                        <td valign="top" style="font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; font-size:14px; line-height:22px; color:#1A3A5C; font-weight:600;">DUSA . studio</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ══════════════ SECOND CTA + SIGN OFF ══════════════ -->
+          <tr>
+            <td class="surface-light pad-x" bgcolor="#F7F4EF" align="center" style="background-color:#F7F4EF; padding:34px 48px 44px 48px;">
+
+              <table role="presentation" class="btn" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto 26px auto;">
+                <tr>
+                  <td align="center" bgcolor="#0C0E14" style="background-color:#0C0E14; border-radius:8px;">
+                    <a href="https://app.dusa.studio/" target="_blank"
+                       style="display:inline-block; padding:16px 38px; border-radius:8px;
+                              font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                              font-size:15px; font-weight:700; color:#F7F4EF; background-color:#0C0E14; mso-padding-alt:0;">
+                      <!--[if mso]><i style="mso-font-width:150%; mso-text-raise:32px;" hidden>&nbsp;</i><![endif]-->
+                      <span style="mso-text-raise:16px;">Take me to my platform</span>
+                      <!--[if mso]><i style="mso-font-width:150%;" hidden>&nbsp;</i><![endif]-->
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p class="ink-body" style="margin:0; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                        font-size:15px; line-height:25px; color:#3F4A57;">
+                Stuck on anything at all, just reply to this email. A real person reads it.
+              </p>
+            </td>
+          </tr>
+
+          <!-- ══════════════ FOOTER ══════════════ -->
+          <tr>
+            <td class="surface-dark pad-x" bgcolor="#0C0E14" align="center"
+                style="background-color:#0C0E14; padding:30px 48px;">
+
+              <div style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                          font-size:12px; font-weight:700; letter-spacing:2px;
+                          color:rgba(247,244,239,0.75); text-transform:uppercase; padding-bottom:12px;">
+                DUSA <span style="color:#4ED8C2;">.</span> STUDIO
+              </div>
+
+              <p style="margin:0 0 8px 0; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                        font-size:13px; line-height:21px; color:rgba(247,244,239,0.5);">
+                Peace and party. Calm systems, real growth.
+              </p>
+
+              <p style="margin:0; font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+                        font-size:12px; line-height:20px; color:rgba(247,244,239,0.34);">
+                &copy; DUSA . studio. All rights reserved.<br />
+                <a href="mailto:hello@dusa.studio" style="color:rgba(78,216,194,0.85); text-decoration:none;">hello@dusa.studio</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

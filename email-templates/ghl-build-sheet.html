@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DUSA SaaS welcome email — GHL build sheet</title>
+<style>
+  :root{
+    --black:#0C0E14; --white:#F7F4EF; --sand:#EDE9E3;
+    --aqua:#4ED8C2; --ocean:#1A3A5C; --body:#3F4A57;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--sand);color:var(--body);
+       font:15px/1.6 -apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  .page{max-width:940px;margin:0 auto;padding:40px 24px 90px}
+  h1{font-size:30px;line-height:1.2;color:var(--ocean);margin:0 0 6px}
+  h2{font-size:20px;color:var(--ocean);margin:44px 0 4px;
+     padding-top:22px;border-top:2px solid rgba(26,58,92,.14)}
+  h3{font-size:15px;color:var(--ocean);margin:22px 0 8px;
+     text-transform:uppercase;letter-spacing:1.4px}
+  .lede{font-size:16px;margin:0 0 8px}
+  .note{background:#fff;border-left:3px solid var(--aqua);
+        padding:14px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+  .warn{border-left-color:#C98A2E}
+  table{width:100%;border-collapse:collapse;margin:10px 0 6px;background:#fff;
+        border-radius:8px;overflow:hidden}
+  th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--sand);
+        font-size:14px;vertical-align:top}
+  th{background:var(--ocean);color:var(--white);font-weight:600;
+     text-transform:uppercase;letter-spacing:1px;font-size:11px}
+  tr:last-child td{border-bottom:0}
+  code{font:13px/1.5 'SF Mono',Consolas,monospace;background:var(--sand);
+       padding:1px 6px;border-radius:4px;color:var(--ocean)}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:3px;
+      margin-right:6px;vertical-align:-1px;border:1px solid rgba(0,0,0,.15)}
+  .copy{position:relative;background:var(--black);color:var(--white);
+        border-radius:10px;padding:16px 18px;margin:10px 0 16px;
+        font:13px/1.65 'SF Mono',Consolas,monospace;white-space:pre-wrap;
+        word-break:break-word}
+  .copy button{position:absolute;top:10px;right:10px;background:var(--aqua);
+        color:var(--black);border:0;border-radius:6px;padding:5px 11px;
+        font:600 12px/1 -apple-system,sans-serif;cursor:pointer}
+  .copy button:active{transform:translateY(1px)}
+  ol{padding-left:20px} ol li{margin-bottom:5px}
+  .blocks{counter-reset:b;list-style:none;padding:0;margin:14px 0}
+  .blocks li{counter-increment:b;background:#fff;border-radius:9px;
+       padding:14px 16px 14px 52px;margin-bottom:9px;position:relative}
+  .blocks li::before{content:counter(b,decimal-leading-zero);position:absolute;
+       left:16px;top:14px;font:700 15px/1 'SF Mono',monospace;color:var(--aqua)}
+  .bt{font-weight:700;color:var(--ocean)}
+  .hero-band{background:var(--black);color:var(--white);border-radius:12px;
+       padding:22px 24px;margin:14px 0}
+  .hero-band code{background:rgba(247,244,239,.12);color:var(--aqua)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>SaaS welcome email — build sheet</h1>
+<p class="lede">Rebuilding <strong>New SaaS Client email (Location)</strong> in DUSA branding,
+by hand in the GHL builder.</p>
+<p style="margin:0 0 6px">Finished article to work from:
+<a href="https://dusa.studio/email/saas-welcome-preview.html">dusa.studio/email/saas-welcome-preview.html</a></p>
+
+<div class="note warn">
+  <strong>Read this before you start.</strong> Your template is MJML output, and it carries
+  only four CSS classes across the whole document. There are no per-block hooks, so
+  Custom CSS cannot colour block 4 differently from block 7. It can only do global things
+  and section-level things.
+  <br /><br />
+  So the split is: <strong>set every colour, size and padding in each block's own panel</strong>
+  (reliable, and it survives you reordering things later), and use the Custom CSS below only
+  for the two things the panels do not expose. Do not try to do the whole design in CSS.
+</div>
+
+<h2>Step 1 — Paste the Custom CSS</h2>
+<p>Styles panel &rarr; Custom CSS. Replace the empty <code>&lt;style&gt;</code> with this.
+I tested these selectors against your actual template markup, so they land.</p>
+
+<div class="copy"><button onclick="cp(this)">Copy</button>&lt;style&gt;
+/* DUSA . studio — SaaS welcome email
+   Only the bits the block panels cannot do. Everything else is set per block. */
+
+/* Letter-spacing is not exposed in the builder panels. These two selectors give
+   the wordmark and the small uppercase eyebrows their brand tracking. */
+.dusa-wordmark, .dusa-wordmark * {
+  letter-spacing: 2.4px !important;
+  text-transform: uppercase !important;
+}
+.dusa-eyebrow, .dusa-eyebrow * {
+  letter-spacing: 1.6px !important;
+  text-transform: uppercase !important;
+}
+
+/* Frame colour behind the 600px email body. */
+.email-content { background-color: #EDE9E3 !important; }
+
+/* Stop Gmail and Outlook.com recolouring the address in the footer. */
+.email-content a[href^="mailto"] { color: #4ED8C2 !important; text-decoration: none !important; }
+
+/* Tighten the side padding on phones so the copy is not a narrow ribbon. */
+@media only screen and (max-width: 480px) {
+  .email-content td { padding-left: 22px !important; padding-right: 22px !important; }
+}
+&lt;/style&gt;</div>
+
+<div class="note">
+  <strong>The two class names above need attaching.</strong> If your text blocks have an
+  advanced or custom-class field, put <code>dusa-wordmark</code> on the two DUSA . STUDIO
+  blocks and <code>dusa-eyebrow</code> on the two small uppercase lines. If there is no such
+  field, skip it. You lose only the letter-spacing, and you can fake it by typing the
+  wordmark with spaces: <code>D U S A . S T U D I O</code>.
+</div>
+
+<h2>Step 2 — The palette</h2>
+<p>Every colour you will need. Paste the hex straight into the picker.</p>
+<table>
+  <tr><th>Use</th><th>Hex</th><th>Where</th></tr>
+  <tr><td><span class="sw" style="background:#0C0E14"></span>Deep black</td><td><code>#0C0E14</code></td><td>Hero background, footer background, second button</td></tr>
+  <tr><td><span class="sw" style="background:#F7F4EF"></span>Warm white</td><td><code>#F7F4EF</code></td><td>Body background, text on dark</td></tr>
+  <tr><td><span class="sw" style="background:#EDE9E3"></span>Sandstone</td><td><code>#EDE9E3</code></td><td>Page frame, the checklist panel</td></tr>
+  <tr><td><span class="sw" style="background:#4ED8C2"></span>Reef aqua</td><td><code>#4ED8C2</code></td><td>Main button, numerals, eyebrow text, the hairline</td></tr>
+  <tr><td><span class="sw" style="background:#1A3A5C"></span>Deep ocean</td><td><code>#1A3A5C</code></td><td>Headings on the light background</td></tr>
+  <tr><td><span class="sw" style="background:#3F4A57"></span>Body grey</td><td><code>#3F4A57</code></td><td>Body copy on the light background</td></tr>
+  <tr><td><span class="sw" style="background:#B5B4B2"></span>Muted on dark</td><td><code>#B5B4B2</code></td><td>The hero sub-paragraph</td></tr>
+  <tr><td><span class="sw" style="background:#6E6F70"></span>Fine print on dark</td><td><code>#6E6F70</code></td><td>"Takes about a minute"</td></tr>
+  <tr><td><span class="sw" style="background:#828182"></span>Footer body</td><td><code>#828182</code></td><td>Peace and party line</td></tr>
+  <tr><td><span class="sw" style="background:#5C5C5F"></span>Footer fine print</td><td><code>#5C5C5F</code></td><td>Copyright line</td></tr>
+  <tr><td><span class="sw" style="background:#728497"></span>Label grey</td><td><code>#728497</code></td><td>Account detail labels</td></tr>
+</table>
+<p>Fonts: headings <code>Space Grotesk</code> if the picker offers it, otherwise
+<code>Poppins</code> or <code>Montserrat</code>. Body <code>Inter</code>, otherwise
+<code>Open Sans</code>. Nothing breaks if neither exists, the fallbacks are fine.</p>
+
+<h2>Step 3 — Section by section</h2>
+
+<h3>Section 1 &middot; Hero</h3>
+<p>Section background <code>#0C0E14</code>, padding <strong>44px top / 40px bottom / 48px sides</strong>, all content centred.</p>
+<ul class="blocks">
+  <li><span class="bt">Image</span> — replace the grey lotus. Width <strong>64px</strong>, centred, alt text empty.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>https://dusa.studio/email/dusa-lotus-light.png</div>
+    <p style="margin:8px 0 0;font-size:13px">This is a light PNG I made for the dark band. Do not use
+    <code>/dusa-logo.webp</code>: it is charcoal so it vanishes here, and Outlook on Windows cannot
+    decode WebP at all.</p></li>
+
+  <li><span class="bt">Text</span> — wordmark. 15px, bold, <code>#F7F4EF</code>, class <code>dusa-wordmark</code>.
+    The full stop is aqua.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>DUSA . STUDIO</div></li>
+
+  <li><span class="bt">Text</span> — eyebrow. 11px, <code>#4ED8C2</code>, class <code>dusa-eyebrow</code>. 28px above it, 12px below.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>YOUR ACCOUNT IS READY</div></li>
+
+  <li><span class="bt">Text</span> — headline. 34px, bold, line height 40px. First line <code>#F7F4EF</code>,
+    second line <code>#4ED8C2</code>.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>Welcome, {{user.first_name}}.
+Let's grow this thing.</div></li>
+
+  <li><span class="bt">Text</span> — sub. 16px, line height 26px, <code>#B5B4B2</code>, 30px below.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>Everything you use to win customers now lives behind one login. Switch it on and it starts working for you today.</div></li>
+
+  <li><span class="bt">Button</span> — background <code>#4ED8C2</code>, text <code>#0C0E14</code>, 16px bold,
+    radius 8px, padding 17px / 40px.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>Activate my account</div>
+    <p style="margin:8px 0 0;font-size:13px">URL must stay <code>{{user.passwordUrl}}</code>. This is the activation
+    link. Change it and nobody can get in.</p></li>
+
+  <li><span class="bt">Text</span> — reassurance. 13px, <code>#6E6F70</code>, 16px above.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>Takes about a minute. You will set your own password.</div></li>
+</ul>
+
+<h3>Section 2 &middot; The aqua seam</h3>
+<p>A Divider block. Height <strong>3px</strong>, colour <code>#4ED8C2</code>, style solid,
+<strong>all padding zero</strong>. It is the join between the dark half and the light half,
+so any padding around it shows as a gap and kills the effect.</p>
+
+<h3>Section 3 &middot; What changes from here</h3>
+<p>Section background <code>#F7F4EF</code>, padding <strong>44px top / 48px sides</strong>, left aligned.</p>
+<ul class="blocks">
+  <li><span class="bt">Text</span> — heading 22px bold <code>#1A3A5C</code>, then the line under it 15px <code>#3F4A57</code>.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>What changes from here
+Three things you will notice in the first week.</div></li>
+
+  <li><span class="bt">Text</span> — the three points, as one rich text block. Numerals bold
+    <code>#4ED8C2</code>, the bold line <code>#1A3A5C</code>, the sentence <code>#3F4A57</code> at 15px / 24px.
+    Leave a blank line between each.
+    <div class="copy" style="margin-bottom:0"><button onclick="cp(this)">Copy</button>01  Every enquiry lands in one place
+Calls, forms, socials, messages. You stop hunting through five apps to work out who actually wants to buy from you.
+
+02  Follow-up happens without you
+The person who enquires at 9pm gets a reply at 9pm. That is usually the difference between a booking and a competitor.
+
+03  You can finally see what is working
+Which channel brings customers, which one just brings noise, and where your money is genuinely coming from.</div></li>
+</ul>
+
+<h3>Section 4 &middot; First fifteen minutes</h3>
+<p>Section background <code>#F7F4EF</code>. Inside it, one Text block with its own
+background <code>#EDE9E3</code>, radius 10px, inner padding 26px / 28px.
+Heading class <code>dusa-eyebrow</code>, 11px, <code>#1A3A5C</code>. Arrows aqua, lines 15px <code>#3F4A57</code>.</p>
+<div class="copy"><button onclick="cp(this)">Copy</button>YOUR FIRST FIFTEEN MINUTES
+→  Activate your login and set a password
+→  Connect your inbox, your number and your socials
+→  Switch on your first automation and let it run</div>
+
+<h3>Section 5 &middot; Account details</h3>
+<p>Same warm white section. Text block with <strong>no fill</strong>, a 1px border
+<code>#D8DDE4</code>, radius 10px, padding 22px / 26px. Labels <code>#728497</code>,
+values <code>#1A3A5C</code> semibold, both 14px.</p>
+<div class="copy"><button onclick="cp(this)">Copy</button>ACCOUNT DETAILS
+Name       {{user.first_name}} {{user.last_name}}
+Login      {{user.email}}
+Platform   {{agency.name}}</div>
+<p style="font-size:13px">A two-column table block gives you cleaner alignment than spaces if
+the builder offers one.</p>
+
+<h3>Section 6 &middot; Second call to action</h3>
+<p>Same warm white section, centred, 34px top / 44px bottom.
+Button background <code>#0C0E14</code>, text <code>#F7F4EF</code>, 15px bold, radius 8px,
+padding 16px / 38px, URL <code>{{user.passwordUrl}}</code> again.</p>
+<div class="copy"><button onclick="cp(this)">Copy</button>Take me to my platform</div>
+<div class="copy"><button onclick="cp(this)">Copy</button>Stuck on anything at all, just reply to this email. A real person reads it.</div>
+<p style="font-size:13px">That last line 15px <code>#3F4A57</code>, 26px under the button.</p>
+
+<h3>Section 7 &middot; Footer</h3>
+<p>Section background <code>#0C0E14</code>, padding 30px / 48px, centred.
+Wordmark 12px bold <code>#BCBBB8</code> class <code>dusa-wordmark</code>.
+Tagline 13px <code>#828182</code>. Copyright 12px <code>#5C5C5F</code>. Address aqua.</p>
+<div class="copy"><button onclick="cp(this)">Copy</button>DUSA . STUDIO
+Peace and party. Calm systems, real growth.
+© {{right_now.year}} {{agency.name}}. All rights reserved.
+{{agency.email}}</div>
+
+<h2>Step 4 — Before you save</h2>
+<div class="hero-band">
+  <strong>The merge fields are load-bearing.</strong> Check every one of these survived,
+  spelled exactly like this. A typo here does not throw an error, it just silently sends
+  a broken email.
+  <ul style="margin:10px 0 0">
+    <li><code>{{user.passwordUrl}}</code> on <em>both</em> buttons</li>
+    <li><code>{{user.first_name}}</code> in the headline and the account panel</li>
+    <li><code>{{user.last_name}}</code> and <code>{{user.email}}</code> in the account panel</li>
+    <li><code>{{agency.name}}</code> in the account panel and the footer</li>
+    <li><code>{{agency.email}}</code> and <code>{{right_now.year}}</code> in the footer</li>
+  </ul>
+</div>
+<ol>
+  <li>Hit Preview and check the desktop and mobile toggles.</li>
+  <li>Send yourself a test. Open it on a phone, and in Outlook if you have it.</li>
+  <li>Click the button in the test to confirm the activation link resolves.</li>
+</ol>
+<div class="note">
+  <strong>What will not survive Outlook on Windows.</strong> It uses the Word rendering engine,
+  so rounded corners go square and some of the Custom CSS is ignored. Nothing breaks,
+  it just looks plainer. Every colour and all the copy still come through, because those
+  are set per block rather than in CSS. That is exactly why the split above is worth keeping.
+</div>
+
+</div>
+<script>
+  function cp(btn){
+    const t = btn.parentElement.textContent.replace(/^Copy/, '');
+    navigator.clipboard.writeText(t.trim()).then(()=>{
+      const o = btn.textContent; btn.textContent = 'Copied';
+      setTimeout(()=>btn.textContent = o, 1200);
+    });
+  }
+</script>
+</body>
+</html>

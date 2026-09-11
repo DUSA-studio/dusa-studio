@@ -14,7 +14,7 @@
     structural. Outlook ignores it entirely and still renders correctly.
   - Space Grotesk will not load in email clients. The stack degrades to the
     system UI sans, which is why nothing depends on its exact metrics.
-  - The lotus is a hosted PNG, not WebP: Outlook on Windows cannot decode WebP.
+  - The lotus is a hosted GIF, not WebP: Outlook on Windows cannot decode WebP.
     It is recoloured light because the standard charcoal mark disappears
     against the deep-black hero band.
 -->
@@ -79,9 +79,16 @@
             <td class="surface-dark pad-x" align="center" bgcolor="#0C0E14"
                 style="background-color:#0C0E14; padding:44px 48px 40px 48px;">
 
-              <img src="https://dusa.studio/email/dusa-lotus-light.png"
-                   width="64" height="64" alt=""
-                   style="display:block; width:64px; height:64px; margin:0 auto 18px auto;" />
+              <!-- Animated lotus: the brand mint-to-blue sweep, 30 frames, seamless loop.
+                   FLATTENED onto #0C0E14 because GIF has only 1-bit transparency and
+                   soft edges would otherwise go jagged. That means the hero band must
+                   stay #0C0E14 or this shows as a dark square.
+                   Outlook on Windows renders frame 1 only, which is a deliberately
+                   balanced state, so it degrades to a still rather than to nothing.
+                   Swap to dusa-lotus-light.png for a static version. -->
+              <img src="https://dusa.studio/email/dusa-lotus.gif"
+                   width="80" height="80" alt=""
+                   style="display:block; width:80px; height:80px; margin:0 auto 18px auto;" />
 
               <div style="font-family:'Space Grotesk',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
                           font-size:15px; font-weight:700; letter-spacing:2.4px;

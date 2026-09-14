@@ -1,0 +1,315 @@
+/* ============================================================
+   DUSA . studio — GHL Platform Custom JS  v12
+   ============================================================
+   PASTE TARGET: Settings > Company > White Label > Custom JS
+
+   ** THE <script> TAGS ABOVE AND BELOW ARE LOAD-BEARING. **
+   GHL injects this field into the page as HTML, not as code. Without the
+   tags the browser treats the whole thing as text and nothing runs, which
+   is exactly what v11 was doing: it sat in a <div> on every page, inert,
+   for its entire life. Every '<' in the code (depth < 5, i < len) was also
+   being parsed as the start of an HTML tag, which shredded it.
+
+   WHAT CHANGED FROM v11
+   ---------------------
+   v11 tried to re-colour the whole application from JavaScript. It does not
+   need to: the Custom CSS already does that job, and does it better, because
+   CSS applies before first paint instead of after. So this version only does
+   the three things CSS genuinely cannot:
+
+     1. Re-colour dashboard charts. They are bare SVG with colours written as
+        fill="#875BF7" attributes. There is no ApexCharts, Chart.js or ECharts
+        on the page, so neither a CSS class rule nor a Chart.js hook can reach
+        them, and a chart's colours are set per series so a blanket swap would
+        flatten the revenue donut to one ring.
+     2. Push the brand CSS into same-origin iframes, which the parent
+        stylesheet cannot cross into.
+
+   The header icons used to need JavaScript, because GHL writes
+   style="background: rgb(24,139,246) !important" straight onto the help icon
+   and an inline !important outranks any stylesheet. They no longer do: the
+   Custom CSS now paints each button's gradient on a ::before layer, which is
+   a positioned layer and therefore covers whatever colour GHL left beneath
+   it. Verified live, with GHL's inline blue still present on the element.
+
+   Everything else v11 attempted has been removed on purpose. See NOTES at
+   the bottom for what went and why, so nobody re-adds it by accident.
+   ============================================================ */
+(function DUSA_GHL_Bridge_v12() {
+  'use strict';
+
+  var BRAND = {
+    deepBlack: '#0C0E14',
+    deepOcean: '#1A3A5C',
+    navy:      '#002F5F',
+    mistBlue:  '#6AAACF',
+    reefAqua:  '#4ED8C2',
+    warmWhite: '#F7F4EF',
+    red:       '#E8524E'
+  };
+
+  function isDark() {
+    return !!document.body && document.body.getAttribute('data-theme') === 'default-dark-v1';
+  }
+
+  /* Ordered palette handed out to chart series, one distinct colour each.
+     Order matters: the first slice of a donut gets the first colour.
+
+     The two lists are NOT the same colours reordered. Deep ocean reads well
+     on a light card and almost vanishes on a #0C0E14 one, so the dark list
+     starts from the lit end of the brand range instead. */
+  var PALETTE_LIGHT = [BRAND.deepOcean, BRAND.mistBlue, BRAND.reefAqua, BRAND.navy, '#3fc4af', '#8AEBD9'];
+  var PALETTE_DARK  = [BRAND.reefAqua, BRAND.mistBlue, '#8AEBD9', '#3A6A93', '#3fc4af', '#B3F1E8'];
+  function palette() { return isDark() ? PALETTE_DARK : PALETTE_LIGHT; }
+
+  /* ─────────────────────────────────────────────────────────
+     1. DASHBOARD CHARTS
+     GHL paints these with fill="#875BF7" / "#6172F3" / "#528BFF" written
+     directly on the SVG shapes.
+
+     The important detail: colours are assigned PER CHART, so each series
+     keeps a distinct colour. A blanket "any off-brand colour becomes mint"
+     would collapse the revenue donut into one flat ring with no visible
+     split between SaaS, Reselling and Rebilling.
+     ───────────────────────────────────────────────────────── */
+  function isOffBrand(hex) {
+    var c = toRGB(hex);
+    if (!c) return false;
+    var r = c.r, g = c.g, b = c.b;
+    /* Blue-through-violet, and only reasonably saturated ones, so greys,
+       whites and the chart's own axis lines are never touched. */
+    if (b < 150) return false;
+    if (b <= r || b <= g) return false;
+    return (b - Math.min(r, g)) > 60;
+  }
+
+  /* Chart tracks and gridlines ship as near-white greys, which is correct on a
+     white card and glaring on a dark one. Only touched in dark mode, and only
+     for true greys, so a real data series is never caught by this. */
+  function toRGB(v) {
+    if (!v) return null;
+    var t = String(v).trim().toLowerCase();
+    if (t === 'white') return { r: 255, g: 255, b: 255 };
+    /* Three-character hex matters here: the dashboard's progress rings are
+       written as #fff, and a six-only test walks straight past them. */
+    var h3 = /^#([0-9a-f]{3})$/i.exec(t);
+    if (h3) { var q = h3[1]; return { r: parseInt(q[0] + q[0], 16), g: parseInt(q[1] + q[1], 16), b: parseInt(q[2] + q[2], 16) }; }
+    var h6 = /^#([0-9a-f]{6})$/i.exec(t);
+    if (h6) { var n = parseInt(h6[1], 16); return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 }; }
+    var p = /rgba?\((\d+)[,\s]+(\d+)[,\s]+(\d+)/.exec(t);
+    return p ? { r: +p[1], g: +p[2], b: +p[3] } : null;
+  }
+
+  function isLightGrey(v) {
+    var c = toRGB(v);
+    if (!c) return false;
+    var spread = Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b);
+    return spread < 18 && (c.r + c.g + c.b) / 3 > 200;
+  }
+
+  function recolourCharts(root) {
+    (root || document).querySelectorAll('svg').forEach(function (svg) {
+      /* Charts only. Header, sidebar and button icons are the CSS's job and
+         must keep their own colours. */
+      if (svg.closest('header, .hl_header, #sidebar-v2, button, a')) return;
+      if (svg.getBoundingClientRect().width < 120) return;
+
+      var nodes = svg.querySelectorAll('[fill], [stroke]');
+      if (!nodes.length) return;
+
+      var assigned = {};
+      var next = 0;
+      var pal = palette();
+
+      nodes.forEach(function (n) {
+        ['fill', 'stroke'].forEach(function (attr) {
+          /* Remember what GHL originally painted. Without this, switching
+             theme cannot re-map: our own colours are on-brand, so the
+             off-brand test would never fire a second time and the chart
+             would keep the light palette on a dark card. */
+          var memo = 'dusaOrig' + attr;
+          var v = n.dataset[memo] || n.getAttribute(attr);
+          if (!v) return;
+
+          if (isLightGrey(v)) {
+            if (!n.dataset[memo]) n.dataset[memo] = v;
+            var want = isDark() ? 'rgba(247,244,239,0.12)' : v;
+            if (n.getAttribute(attr) !== want) n.setAttribute(attr, want);
+            return;
+          }
+          if (!isOffBrand(v)) return;
+          if (!n.dataset[memo]) n.dataset[memo] = v;
+          var key = v.toLowerCase();
+          if (!(key in assigned)) {
+            assigned[key] = pal[next % pal.length];
+            next++;
+          }
+          if (n.getAttribute(attr) !== assigned[key]) {
+            n.setAttribute(attr, assigned[key]);
+          }
+        });
+      });
+
+      /* Legend swatches and any gradient stops in the same chart. */
+      svg.querySelectorAll('linearGradient stop, radialGradient stop').forEach(function (s) {
+        var c = s.getAttribute('stop-color');
+        if (!isOffBrand(c)) return;
+        var key = String(c).toLowerCase();
+        if (!(key in assigned)) { assigned[key] = pal[next % pal.length]; next++; }
+        s.setAttribute('stop-color', assigned[key]);
+      });
+    });
+
+    /* Legend dots outside the SVG are plain divs with an inline background.
+       Keyed by their ORIGINAL colour, in document order, using the same
+       palette order the chart itself received, so a three-series legend keeps
+       three colours and each one lines up with its slice. */
+    var dotMap = {}, dotNext = 0, dotPal = palette();
+    document.querySelectorAll('[style*="background"]').forEach(function (el) {
+      if (el.closest('header, .hl_header, #sidebar-v2')) return;
+      var r = el.getBoundingClientRect();
+      if (r.width > 16 || r.width < 4) return;          /* dots only */
+      var orig = el.dataset.dusaDotOrig || getComputedStyle(el).backgroundColor;
+      if (!isOffBrand(orig)) return;
+      if (!el.dataset.dusaDotOrig) el.dataset.dusaDotOrig = orig;
+      var key = orig.toLowerCase();
+      if (!(key in dotMap)) { dotMap[key] = dotPal[dotNext % dotPal.length]; dotNext++; }
+      if (el.style.backgroundColor !== dotMap[key]) {
+        el.style.setProperty('background-color', dotMap[key], 'important');
+      }
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     2. SAME-ORIGIN IFRAMES
+     The parent stylesheet cannot reach inside an iframe, so the brand
+     variables are copied in. Cross-origin frames throw on access and are
+     simply skipped: there is no way in, and v11's postMessage attempts were
+     speculative and never had a listener on the other end.
+     ───────────────────────────────────────────────────────── */
+  var IFRAME_CSS = [
+    ':root{',
+    '--primary-500:#4ED8C2!important;--primary-600:#3fc4af!important;--primary-700:#1A3A5C!important;',
+    '--indigo-500:#4ED8C2!important;--indigo-600:#3fc4af!important;',
+    '--purple-500:#4ED8C2!important;--purple-600:#3fc4af!important;',
+    '--blue-500:#6AAACF!important;--blue-600:#1A3A5C!important;',
+    '--tw-ring-color:rgba(78,216,194,.4)!important;}',
+    'body{font-family:Inter,system-ui,sans-serif!important;}',
+    'h1,h2,h3,h4,h5,h6{font-family:"Space Grotesk",system-ui,sans-serif!important;letter-spacing:-.02em;}',
+    '.btn-primary,[class*="btn-primary"]{background:linear-gradient(135deg,#4ED8C2,#3fc4af 25%,#6AAACF 50%,#4ED8C2 75%)!important;color:#0C0E14!important;border:none!important;}',
+    '#nprogress .bar{background:#4ED8C2!important;}',
+    '[class*="spinner"],svg.animate-spin{color:#4ED8C2!important;}'
+  ].join('');
+
+  var IFRAME_DARK = [
+    'body{background-color:#0C0E14!important;color:rgba(247,244,239,.85)!important;}',
+    'input,textarea,select{background-color:rgba(247,244,239,.06)!important;color:#F7F4EF!important;border-color:rgba(247,244,239,.14)!important;}',
+    '.card,[class*="card"]{background-color:rgba(247,244,239,.045)!important;border-color:rgba(247,244,239,.10)!important;}',
+    'table th{color:rgba(247,244,239,.5)!important;}table td{color:rgba(247,244,239,.66)!important;}'
+  ].join('');
+
+  function injectIntoIframes() {
+    var wantDark = isDark();
+    document.querySelectorAll('iframe').forEach(function (f) {
+      var doc;
+      try { doc = f.contentDocument; } catch (e) { return; }   /* cross-origin */
+      if (!doc || !doc.head) return;
+      var s = doc.getElementById('dusa-brand');
+      /* Re-issue when the theme flips, otherwise a frame opened in light
+         mode stays light after the parent goes dark. */
+      if (s && s.dataset.theme === String(wantDark)) return;
+      if (!s) { s = doc.createElement('style'); s.id = 'dusa-brand'; doc.head.appendChild(s); }
+      s.dataset.theme = String(wantDark);
+      s.textContent = IFRAME_CSS + (wantDark ? IFRAME_DARK : '');
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     RUN LOOP
+     One debounced observer instead of v11's stack of intervals, timers and
+     three separate observers. v11 also restarted its scanning loop on every
+     SPA navigation without clearing the previous one, so the loops piled up
+     the longer you used the app.
+     ───────────────────────────────────────────────────────── */
+  var pending = null;
+  function run() {
+    pending = null;
+    try { recolourCharts(); } catch (e) {}
+    try { injectIntoIframes(); } catch (e) {}
+  }
+  function schedule() {
+    if (pending) return;
+    pending = setTimeout(run, 180);
+  }
+
+  function start() {
+    run();
+    /* Charts mount well after first paint. */
+    [400, 1200, 3000, 6000].forEach(function (ms) { setTimeout(run, ms); });
+
+    new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+
+    /* Flipping light/dark is not a navigation, so nothing else would catch it. */
+    new MutationObserver(function () {
+      [0, 250, 900].forEach(function (ms) { setTimeout(run, ms); });
+    }).observe(document.body, { attributes: true, attributeFilter: ['data-theme'] });
+
+    /* GHL is a single page app, so a route change is not a page load. */
+    var lastUrl = location.href;
+    setInterval(function () {
+      if (location.href === lastUrl) return;
+      lastUrl = location.href;
+      [200, 900, 2500].forEach(function (ms) { setTimeout(run, ms); });
+    }, 600);
+
+    console.log('%c DUSA.studio %c Brand Bridge v12 active',
+      'background:linear-gradient(135deg,#4ED8C2,#6AAACF);color:#0C0E14;padding:4px 8px;border-radius:4px 0 0 4px;font-weight:bold;',
+      'background:#0C0E14;color:#4ED8C2;padding:4px 8px;border-radius:0 4px 4px 0;');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+
+  /* ============================================================
+     NOTES — what was removed from v11, and why. Please read before
+     adding any of it back.
+
+     * scanAndFixColors / scanDarkModeText / nuclearDarkTextFix /
+       nuclearDarkBackgroundFix.
+       These called getComputedStyle on thousands of elements every cycle and
+       then walked up ten ancestors per element doing it again. Beyond the
+       cost, the ancestor walk was checking backgroundColor to decide whether
+       text sat on a light surface, and getComputedStyle reports a GRADIENT as
+       rgba(0,0,0,0). Every DUSA gradient is therefore invisible to it. In dark
+       mode that forced the active sidebar item's #002F5F label to warm white
+       on mint: 1.61:1 contrast, unreadable. Dark mode is handled entirely by
+       the Custom CSS, which knows where its own gradients are.
+
+     * The nuclear functions were also declared inside init() while being
+       called from fullScan() outside it, so they threw a ReferenceError that
+       aborted every scan in dark mode before the iframe pass ever ran.
+
+     * fixAskAIButton / applyDUSAGradientToButton.
+       Referenced BRAND.darkBlue, which was never defined, so it wrote
+       stop-color="undefined". Its own "do I need to re-apply?" check then
+       never matched, so it re-applied forever, and because the header observer
+       watched the style attribute it retriggered itself on its own writes. The
+       Ask AI header button is styled correctly by CSS alone.
+
+     * fixCharts (Chart.js).
+       There is no Chart.js on the dashboard. Confirmed: window.Chart is
+       undefined and there are no canvas elements. Charts are plain SVG and are
+       handled above.
+
+     * tryCrossOriginInjection (postMessage).
+       Fired three guessed message shapes at frames with no listener.
+
+     * fixHeaderIcons colour-guessing pass.
+       It never consulted isProtectedHeaderIcon, and DUSA's own mist blue
+       #6AAACF passes its "is this an off-brand blue" test, so it stripped the
+       gradient off the phone/call button the CSS deliberately gives it.
+     ============================================================ */
+})();

@@ -1,0 +1,451 @@
+/* ============================================================
+   DUSA . studio — Custom CSS corrections + header system
+   ============================================================
+   PASTE TARGET: Settings > Company > White Label > Custom CSS
+
+   Paste this at the VERY BOTTOM of your existing Custom CSS, after
+   everything else. Change nothing above it. Where these rules overlap an
+   earlier one they are meant to win, and in CSS the last matching rule of
+   equal weight is the one that applies.
+
+   Tested live in both the agency view and inside a sub-account.
+   ============================================================ */
+
+@keyframes dusa-drift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HEADER ACTION ICONS
+   Every one a circle, every one a brand gradient, drifting slowly.
+
+   Two things make this work, and both are worth understanding before
+   anyone edits it:
+
+   1. THE GRADIENT SITS ON A ::before LAYER, NOT ON THE BUTTON.
+      GHL writes background with !important on several of these buttons,
+      both from TopBar.css and, on the help icon, as an inline style
+      directly on the element. An !important declaration outranks a CSS
+      animation, so a gradient painted on the button itself simply
+      refuses to move. The ::before is ours alone, so nothing competes
+      with it, and because it is a positioned layer it also paints over
+      whatever colour GHL left underneath. That is why the help icon no
+      longer needs any JavaScript.
+
+   2. EVERY GRADIENT HAS THREE STOPS, A to B to A.
+      The animation slides background-position from one end to the other
+      and back. With only two stops the midpoint of the loop is a hard
+      colour flip. Returning to the first colour makes the cycle seamless.
+
+   Brightness follows importance: phone and Ask AI lead, changelog and
+   help step back, the bell stays alert red and deliberately does NOT
+   animate, and the avatar is darkest so initials read against it.
+   ════════════════════════════════════════════════════════════ */
+
+/* ── the shared shape ── */
+header a#hl_header--copilot-icon,
+header #canny_logs-toggle,
+header .btn-changelog,
+header a#hl_header--help-icon,
+header #recent_activities-toggle,
+.hl_header--call-widget .rounded-full[class*="bg-success"],
+header .rounded-full[class*="bg-success-6"] {
+    position: relative !important;
+    border: none !important;
+    border-radius: 50% !important;
+    box-shadow: none !important;
+    background-image: none !important;
+    background-color: transparent !important;
+    transition: filter .25s ease, transform .25s ease !important;
+}
+
+/* ── the gradient layer ── */
+header a#hl_header--copilot-icon::before,
+header #canny_logs-toggle::before,
+header .btn-changelog::before,
+header a#hl_header--help-icon::before,
+header #recent_activities-toggle::before,
+.hl_header--call-widget .rounded-full[class*="bg-success"]::before,
+header .rounded-full[class*="bg-success-6"]::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    border-radius: 50% !important;
+    background-size: 200% 200% !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Lift the glyphs above that layer. Without this the icons vanish behind
+   it, because a positioned pseudo element paints over static children. */
+header a#hl_header--copilot-icon > *,
+header #canny_logs-toggle > *,
+header .btn-changelog > *,
+header a#hl_header--help-icon > *,
+header #recent_activities-toggle > *,
+.hl_header--call-widget .rounded-full[class*="bg-success"] > *,
+header .rounded-full[class*="bg-success-6"] > * {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* ── Ask AI: the exact gradient the sidebar item uses, same 7s cycle,
+      so the two read as one feature wherever you are ── */
+header a#hl_header--copilot-icon::before {
+    background-image: linear-gradient(135deg, #6AAACF 0%, #002F5F 50%, #6AAACF 100%) !important;
+    animation: dusa-drift 7s ease-in-out infinite !important;
+}
+header a#hl_header--copilot-icon svg { background: none !important; border-radius: 0 !important; }
+header a#hl_header--copilot-icon svg path { fill: #FFFFFF !important; }
+
+/* ── Phone: unchanged, this one was already right ── */
+.hl_header--call-widget .rounded-full[class*="bg-success"]::before,
+header .rounded-full[class*="bg-success-6"]::before {
+    background-image: linear-gradient(135deg, #6AAACF 0%, #4ED8C2 50%, #6AAACF 100%) !important;
+    animation: dusa-drift 10s ease-in-out infinite !important;
+}
+
+/* ── Changelog and help: the quiet utility pair, slowest drift ── */
+header #canny_logs-toggle::before,
+header .btn-changelog::before,
+header a#hl_header--help-icon::before {
+    background-image: linear-gradient(135deg, #8AB8D6 0%, #3A6A93 50%, #8AB8D6 100%) !important;
+    animation: dusa-drift 12s ease-in-out infinite !important;
+}
+header a#hl_header--help-icon,
+header a#hl_header--help-icon * { color: #F7F4EF !important; }
+
+/* ── Notifications: alert red, and deliberately still. A shimmering
+      alert reads as decoration rather than as something to look at ── */
+header #recent_activities-toggle::before {
+    background-image: linear-gradient(135deg, #E8524E 0%, #C23E3A 100%) !important;
+    animation: none !important;
+}
+
+/* ── Reach for one and it lifts ── */
+header a#hl_header--copilot-icon:hover,
+header #canny_logs-toggle:hover,
+header .btn-changelog:hover,
+header a#hl_header--help-icon:hover,
+header #recent_activities-toggle:hover,
+.hl_header--call-widget .rounded-full[class*="bg-success"]:hover,
+header .rounded-full[class*="bg-success-6"]:hover {
+    filter: brightness(1.12) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ── Changelog dot ──
+   The button's real ID is "canny_logs-toggle" (logs, plural). Both files
+   previously said "canny_logo-toggle", so every rule aimed at something
+   inside it has always missed. The dot itself is Canny's own element and
+   is called Canny_Badge with a capital B, and CSS attribute matching is
+   case sensitive, so [class*="badge"] never matched either. Hence the
+   "i" flag below. It also needs to sit above the gradient layer. */
+#canny_logs-toggle .Canny_BadgeContainer { position: relative !important; z-index: 3 !important; }
+#canny_logs-toggle .Canny_Badge,
+#canny_logs-toggle [class*="badge" i],
+#canny_logs-toggle [class*="dot" i],
+#canny_logs-toggle [class*="indicator" i] {
+    background: #4ED8C2 !important;
+    background-color: #4ED8C2 !important;
+    border-color: #4ED8C2 !important;
+    background-image: none !important;
+    z-index: 3 !important;
+}
+
+/* ── USER AVATAR / LOG OUT ──
+   Sub-account users reported nothing to click in the top right.
+
+   Cause: the existing rule
+       .hl_header--avatar, header [class*="avatar"] { background-color: transparent !important }
+   also matches the INNER circle, whose class is "avatar_img". With a
+   profile photo you never notice, because the photo covers the circle.
+   Without one, GHL draws the user's initials in WHITE on a now
+   transparent circle over a WHITE header. Invisible. Most client users
+   never upload a photo, so most of them saw nothing at all.
+   Initials on this circle measure 10.61:1. */
+.hl_header--avatar .avatar_img,
+header [class*="avatar"] .avatar_img,
+.hl_header [class*="avatar"] .avatar_img {
+    background: linear-gradient(135deg, #1A3A5C 0%, #0C0E14 100%) !important;
+    background-color: #1A3A5C !important;
+    color: #F7F4EF !important;
+    font-family: 'Space Grotesk', system-ui, sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SIDEBAR ASK AI
+   Symptom: the sparkle was invisible next to AI Suite, and the item had
+   no gradient at all.
+
+   Cause: the sidebar link's real id is "sb_ask-ai". The old rules
+   excluded :not([id*="sb_"]), written to spare the Settings item "Ask AI
+   Configuration" but catching the main nav link too. So the link lost its
+   gradient, while a separate rule still forced the icon white. That icon
+   is a CSS mask tinted by background-color, so white ink on the cream
+   sidebar renders nothing whatsoever.
+
+   Fix: exclude the Settings item by name instead of by the "sb_" prefix.
+   Nothing here sets background with !important, so the gradient can
+   animate directly without needing a ::before layer.
+   ════════════════════════════════════════════════════════════ */
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]):not(.active):not(.router-link-exact-active):not(.exact-active),
+#sidebar-v2 nav a[href*="ask_ai"]:not([id*="configuration"]):not(.active):not(.router-link-exact-active):not(.exact-active) {
+    position: relative !important;
+    background-image: linear-gradient(135deg, #6AAACF 0%, #002F5F 50%, #6AAACF 100%) !important;
+    background-size: 200% 200% !important;
+    animation: dusa-drift 7s ease-in-out infinite !important;   /* in step with the header twin */
+    border: none !important;
+    border-radius: 6px !important;
+    opacity: 1 !important;
+}
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]):not(.active):not(.router-link-exact-active) .nav-title {
+    color: #FFFFFF !important;
+    background: transparent !important;
+}
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]):not(.active):not(.router-link-exact-active) span.ask-ai-sparkle-icon {
+    background-color: #FFFFFF !important;   /* a mask, so this IS the icon's ink */
+}
+
+/* Selected: the same mint gradient every other active nav item wears */
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).active,
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).router-link-exact-active,
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).exact-active {
+    background-image: linear-gradient(to right, #4ED8C2, #6AAACF) !important;
+    animation: none !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(78, 216, 194, 0.25) !important;
+}
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).active .nav-title,
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).router-link-exact-active .nav-title,
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).exact-active .nav-title {
+    color: #002F5F !important;
+    background: transparent !important;
+}
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).active span.ask-ai-sparkle-icon,
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).router-link-exact-active span.ask-ai-sparkle-icon,
+#sidebar-v2 nav a[href*="ask-ai"]:not([id*="configuration"]).exact-active span.ask-ai-sparkle-icon {
+    background-color: #002F5F !important;
+}
+
+/* ── Respect the system setting. Anyone who has asked their machine to
+      reduce motion gets the gradients, held still. ── */
+@media (prefers-reduced-motion: reduce) {
+    header a#hl_header--copilot-icon::before,
+    header #canny_logs-toggle::before,
+    header .btn-changelog::before,
+    header a#hl_header--help-icon::before,
+    .hl_header--call-widget .rounded-full[class*="bg-success"]::before,
+    header .rounded-full[class*="bg-success-6"]::before,
+    #sidebar-v2 nav a[href*="ask-ai"] { animation: none !important; }
+}
+
+/* ── KNOWN TRAPS, LEFT ALONE ON PURPOSE ─────────────────────
+   Not patched here because they need a decision from you, not a fix:
+
+   a) [class*="select"] { color:#002F5F !important } is very broad. It
+      matches .selected, .multiselect, .select-all and anything else with
+      "select" anywhere in a class name. In dark mode that paints navy
+      text onto a navy surface.
+
+   b) --warning-600, --yellow-500 and --yellow-600 are all the same
+      #E8524E as errors, so a "heads up" and a "this failed" look
+      identical to the user.
+
+   c) .text-primary-500 is declared twice with different values (#4ED8C2
+      then #002F5F) and two separate :root blocks fight over --blue-500
+      and --blue-600. The later always wins, so the earlier is dead weight
+      that makes the file misleading to read.
+   ───────────────────────────────────────────────────────────── */
+
+/* ════════════════════════════════════════════════════════════
+   DARK MODE
+   ════════════════════════════════════════════════════════════
+   GHL's dark theme leaves a lot of its own component library on light
+   surfaces. The worst case measured 1.08:1: every hr- select box keeps a
+   hard white background while the existing global rule paints its label
+   warm white. "All pipelines" was white text on a white box.
+
+   Everything below is scoped to body[data-theme="default-dark-v1"], so
+   light mode is untouched.
+
+   Four surface levels rather than one flat black, because a single colour
+   everywhere is what makes a dark UI feel muddy:
+     canvas   #0C0E14   the page itself
+     chrome   #10141C   header and sidebar, lifted just enough to read as chrome
+     surface  4.5% warm white   cards and panels, sitting on the canvas
+     raised   #161B26   menus, popovers, modals, things that float
+   ════════════════════════════════════════════════════════════ */
+
+body[data-theme="default-dark-v1"] {
+    --dusa-chrome:     #10141C;
+    --dusa-surface:    rgba(247, 244, 239, 0.045);
+    --dusa-raised:     #161B26;
+    --dusa-edge:       rgba(247, 244, 239, 0.10);
+    --dusa-ink:        #F7F4EF;
+    --dusa-ink-2:      rgba(247, 244, 239, 0.66);
+    --dusa-ink-3:      rgba(247, 244, 239, 0.50);
+    --dusa-field:      rgba(247, 244, 239, 0.06);
+    --dusa-field-edge: rgba(247, 244, 239, 0.14);
+}
+
+/* Chrome lifts off the canvas so the workspace has an edge */
+body[data-theme="default-dark-v1"] header.hl_header,
+body[data-theme="default-dark-v1"] #sidebar-v2 {
+    background-color: var(--dusa-chrome) !important;
+    border-color: var(--dusa-edge) !important;
+}
+
+/* ── FORM CONTROLS. The single biggest dark-mode failure. ── */
+body[data-theme="default-dark-v1"] .hr-base-selection-label,
+body[data-theme="default-dark-v1"] .n-base-selection-label,
+body[data-theme="default-dark-v1"] [class*="selection-label"],
+body[data-theme="default-dark-v1"] .hr-input,
+body[data-theme="default-dark-v1"] .hr-input-wrapper,
+body[data-theme="default-dark-v1"] .n-input,
+body[data-theme="default-dark-v1"] .n-input-wrapper,
+body[data-theme="default-dark-v1"] .hr-select-wrapper,
+body[data-theme="default-dark-v1"] input,
+body[data-theme="default-dark-v1"] textarea,
+body[data-theme="default-dark-v1"] select,
+body[data-theme="default-dark-v1"] .form-control,
+body[data-theme="default-dark-v1"] [class*="date-picker"],
+body[data-theme="default-dark-v1"] [class*="datepicker"] {
+    background-color: var(--dusa-field) !important;
+    background-image: none !important;
+    border-color: var(--dusa-field-edge) !important;
+    color: var(--dusa-ink) !important;
+}
+body[data-theme="default-dark-v1"] [class*="selection-label"] *,
+body[data-theme="default-dark-v1"] .hr-input *,
+body[data-theme="default-dark-v1"] .n-input * {
+    background-color: transparent !important;
+    color: var(--dusa-ink) !important;
+}
+body[data-theme="default-dark-v1"] ::placeholder,
+body[data-theme="default-dark-v1"] [class*="placeholder"] { color: var(--dusa-ink-3) !important; }
+body[data-theme="default-dark-v1"] input:focus,
+body[data-theme="default-dark-v1"] textarea:focus,
+body[data-theme="default-dark-v1"] .hr-base-selection--focus .hr-base-selection-label {
+    border-color: #4ED8C2 !important;
+    box-shadow: 0 0 0 3px rgba(78, 216, 194, 0.14) !important;
+}
+body[data-theme="default-dark-v1"] .hr-base-suffix,
+body[data-theme="default-dark-v1"] .n-base-suffix,
+body[data-theme="default-dark-v1"] [class*="suffix"] svg { color: var(--dusa-ink-2) !important; fill: var(--dusa-ink-2) !important; }
+
+/* ── SECONDARY BUTTONS. .hr-button--default-type ships pure white. ── */
+body[data-theme="default-dark-v1"] .hr-button.hr-button--default-type,
+body[data-theme="default-dark-v1"] .hr-button--default-type,
+body[data-theme="default-dark-v1"] .n-button--default-type,
+body[data-theme="default-dark-v1"] .btn-secondary,
+body[data-theme="default-dark-v1"] .btn-default {
+    background-color: var(--dusa-field) !important;
+    background-image: none !important;
+    color: var(--dusa-ink) !important;
+    border-color: var(--dusa-field-edge) !important;
+}
+body[data-theme="default-dark-v1"] .hr-button--default-type:hover,
+body[data-theme="default-dark-v1"] .n-button--default-type:hover {
+    background-color: rgba(78, 216, 194, 0.10) !important;
+    border-color: #4ED8C2 !important;
+}
+
+/* GHL labels those buttons with .text-primary-700, which the light theme
+   maps to deep ocean. On a dark pill that is near-invisible, which is why
+   "Dashboard" and "New" were ghosts. */
+body[data-theme="default-dark-v1"] .text-primary-700,
+body[data-theme="default-dark-v1"] [class*="text-primary-7"],
+body[data-theme="default-dark-v1"] .hr-button *,
+body[data-theme="default-dark-v1"] [class*="hr-button"] p { color: var(--dusa-ink) !important; }
+body[data-theme="default-dark-v1"] [class*="text-primary-4"],
+body[data-theme="default-dark-v1"] [class*="text-primary-5"],
+body[data-theme="default-dark-v1"] [class*="text-primary-6"] { color: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] .hr-button--primary-type,
+body[data-theme="default-dark-v1"] .hr-button--primary-type * { color: #0C0E14 !important; }
+
+/* ── FLOATING SURFACES ── */
+body[data-theme="default-dark-v1"] .hr-select-menu,
+body[data-theme="default-dark-v1"] .n-base-select-menu,
+body[data-theme="default-dark-v1"] .hr-dropdown-menu,
+body[data-theme="default-dark-v1"] .n-dropdown-menu,
+body[data-theme="default-dark-v1"] .hr-popover,
+body[data-theme="default-dark-v1"] .n-popover,
+body[data-theme="default-dark-v1"] .hr-tooltip,
+body[data-theme="default-dark-v1"] .n-tooltip,
+body[data-theme="default-dark-v1"] [class*="date-panel"],
+body[data-theme="default-dark-v1"] .dropdown-menu,
+body[data-theme="default-dark-v1"] .modal-content,
+body[data-theme="default-dark-v1"] .hr-modal,
+body[data-theme="default-dark-v1"] .n-modal,
+body[data-theme="default-dark-v1"] .hr-drawer,
+body[data-theme="default-dark-v1"] .n-drawer {
+    background-color: var(--dusa-raised) !important;
+    border-color: var(--dusa-edge) !important;
+    color: var(--dusa-ink) !important;
+}
+body[data-theme="default-dark-v1"] [class*="select-menu"] [class*="option"]:hover,
+body[data-theme="default-dark-v1"] .dropdown-item:hover { background-color: rgba(78, 216, 194, 0.10) !important; }
+body[data-theme="default-dark-v1"] [class*="option"][class*="selected"] { background-color: rgba(78, 216, 194, 0.16) !important; color: #4ED8C2 !important; }
+
+/* ── CARDS ── */
+body[data-theme="default-dark-v1"] .hr-card,
+body[data-theme="default-dark-v1"] .n-card,
+body[data-theme="default-dark-v1"] [class*="card-header"],
+body[data-theme="default-dark-v1"] .chart-container,
+body[data-theme="default-dark-v1"] [class*="dashboard-widget"] {
+    background-color: var(--dusa-surface) !important;
+    border-color: var(--dusa-edge) !important;
+}
+
+/* ── CHART LABELS ──
+   SVG <text> carries its fill as a presentation attribute, so none of the
+   colour rules above reach it and every axis label stayed near-black. */
+body[data-theme="default-dark-v1"] svg text { fill: var(--dusa-ink-2) !important; }
+
+/* ── SIDEBAR ICONS ──
+   These are dark <img> SVGs, so on a dark sidebar they simply vanish.
+   Inverting them to warm white is the only way, since the file itself
+   carries the colour. The Ask AI sparkle is a CSS mask, so its ink is
+   background-color rather than fill. */
+body[data-theme="default-dark-v1"] #sidebar-v2 nav a:not(.active):not(.router-link-exact-active) img {
+    filter: brightness(0) invert(1) !important;
+    opacity: 0.65 !important;
+}
+body[data-theme="default-dark-v1"] #sidebar-v2 nav a:not(.active):not(.router-link-exact-active) svg { color: var(--dusa-ink-2) !important; }
+body[data-theme="default-dark-v1"] #sidebar-v2 nav a:hover img { opacity: 1 !important; }
+body[data-theme="default-dark-v1"] #sidebar-v2 nav a:not(.active) .nav-title { color: var(--dusa-ink-2) !important; }
+body[data-theme="default-dark-v1"] #sidebar-v2 nav a:hover .nav-title { color: var(--dusa-ink) !important; }
+
+/* ── AVATAR. Navy on near-black is a disc you cannot see, so it gets a
+      lighter gradient and a hairline ring in dark. ── */
+body[data-theme="default-dark-v1"] .hl_header--avatar .avatar_img,
+body[data-theme="default-dark-v1"] header [class*="avatar"] .avatar_img {
+    background: linear-gradient(135deg, #3A6A93 0%, #1A3A5C 100%) !important;
+    box-shadow: 0 0 0 1px rgba(247, 244, 239, 0.22) !important;
+    color: #F7F4EF !important;
+}
+
+/* ── TABLES ── */
+body[data-theme="default-dark-v1"] table th { background-color: rgba(247,244,239,.03) !important; color: var(--dusa-ink-3) !important; border-color: var(--dusa-edge) !important; }
+body[data-theme="default-dark-v1"] table td { color: var(--dusa-ink-2) !important; border-color: rgba(247,244,239,.06) !important; }
+body[data-theme="default-dark-v1"] table tr:hover td { background-color: rgba(78,216,194,.06) !important; }
+
+/* ── Neutralises trap (a) from the list above, but only in dark, where
+      [class*="select"] { color:#002F5F } paints navy onto navy. ── */
+body[data-theme="default-dark-v1"] [class*="select"] { color: var(--dusa-ink) !important; }
+
+/* ── Progress rails and dividers ── */
+body[data-theme="default-dark-v1"] #sidebar-v2 hr,
+body[data-theme="default-dark-v1"] [class*="divider"],
+body[data-theme="default-dark-v1"] .hr-progress-graph-line-rail { background-color: rgba(247,244,239,.08) !important; border-color: rgba(247,244,239,.08) !important; }
+
+/* Ring-shaped progress tracks are SVG strokes rather than backgrounds, and
+   some are painted from a stylesheet rather than an attribute, so the
+   JavaScript pass cannot see them. Handled here instead. */
+body[data-theme="default-dark-v1"] .hr-progress-graph-circle-rail,
+body[data-theme="default-dark-v1"] [class*="progress"] circle[class*="rail"],
+body[data-theme="default-dark-v1"] [class*="gauge"] circle:first-of-type { stroke: rgba(247, 244, 239, 0.12) !important; }

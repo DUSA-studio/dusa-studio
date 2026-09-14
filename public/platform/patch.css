@@ -710,3 +710,20 @@ body[data-theme="default-dark-v1"] .pipeline-ribbon .count, body[data-theme="def
    #nprogress rules never touched it, so it has been GHL blue all along. */
 .n-loading-bar-container { --n-color-loading: #4ED8C2 !important; --n-color-error: #E8524E !important; --n-height: 3px !important; }
 .n-loading-bar-container .n-loading-bar { background-color: #4ED8C2 !important; }
+
+/* ── SETTINGS SIDEBAR section headings in dark ──
+   An existing dark rule paints every #sidebar-v2 .default-bg-color #0C0E14,
+   which turned the heading label into a black block sitting on top of the
+   gradient pill. The label must stay transparent so the pill shows. */
+body[data-theme="default-dark-v1"] #sidebar-v2 .default-bg-color.uppercase,
+body[data-theme="default-dark-v1"] #sidebar-v2 p.border-b .default-bg-color,
+body[data-theme="default-dark-v1"] #sidebar-v2 .text-gray-300 .default-bg-color { background: transparent !important; background-color: transparent !important; color: #F7F4EF !important; }
+
+/* ══════════════════════════════════════════════════════════════
+   KNOWN LIMIT, NOT A BUG
+   Sub-account Settings pages (Business Profile, My Profile, Billing and so
+   on) are a cross-origin iframe served from client-app-crm-settings.
+   leadconnectorhq.com. Nothing in the whitelabel CSS or JS can reach inside
+   another origin, so those pages keep GHL's light theme in dark mode. Only
+   GHL can change that.
+   ══════════════════════════════════════════════════════════════ */

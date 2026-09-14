@@ -645,3 +645,68 @@ body[data-theme="default-dark-v1"] ._pendo-step-container-styles .bb-text,
 body[data-theme="default-dark-v1"] ._pendo-step-container-styles p,
 body[data-theme="default-dark-v1"] ._pendo-step-container-styles strong { color: #F7F4EF !important; }
 body[data-theme="default-dark-v1"] ._pendo-step-container-styles button { background-color: rgba(247,244,239,.08) !important; color: #F7F4EF !important; border-color: rgba(247,244,239,.14) !important; }
+
+/* ── CONTACTS: Tabulator grid inside .hl_wrapper ──
+   A third library again (Tabulator), white throughout in dark mode, so the
+   entire contact list was warm white text on a white grid. */
+body[data-theme="default-dark-v1"] .hl_wrapper, body[data-theme="default-dark-v1"] .new-smartlist-ui,
+body[data-theme="default-dark-v1"] #table-container, body[data-theme="default-dark-v1"] .table-container,
+body[data-theme="default-dark-v1"] .my-table { background-color: #0C0E14 !important; color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .tabulator, body[data-theme="default-dark-v1"] .tabulator-tableholder,
+body[data-theme="default-dark-v1"] .tabulator-table, body[data-theme="default-dark-v1"] .tabulator-row,
+body[data-theme="default-dark-v1"] .tabulator-row.tabulator-row-even, body[data-theme="default-dark-v1"] .tabulator-row.tabulator-row-odd { background-color: transparent !important; color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .tabulator-row { border-bottom: 1px solid rgba(247,244,239,.07) !important; }
+body[data-theme="default-dark-v1"] .tabulator-row:hover, body[data-theme="default-dark-v1"] .tabulator-row.tabulator-selectable:hover { background-color: rgba(78,216,194,.06) !important; }
+body[data-theme="default-dark-v1"] .tabulator-row.tabulator-selected { background-color: rgba(78,216,194,.12) !important; }
+body[data-theme="default-dark-v1"] .tabulator-header, body[data-theme="default-dark-v1"] .tabulator-col,
+body[data-theme="default-dark-v1"] .tabulator-col-content, body[data-theme="default-dark-v1"] .tabulator-frozen,
+body[data-theme="default-dark-v1"] .tabulator-frozen-left, body[data-theme="default-dark-v1"] .tabulator-frozen-right,
+body[data-theme="default-dark-v1"] .tabulator-footer, body[data-theme="default-dark-v1"] .tabulator-calcs-holder { background-color: #10141C !important; color: rgba(247,244,239,.55) !important; border-color: rgba(247,244,239,.08) !important; }
+body[data-theme="default-dark-v1"] .tabulator-col-title { color: rgba(247,244,239,.55) !important; }
+body[data-theme="default-dark-v1"] .tabulator-cell { color: rgba(247,244,239,.8) !important; border-color: rgba(247,244,239,.06) !important; background-color: transparent !important; }
+body[data-theme="default-dark-v1"] .tabulator-cell .text-gray-900, body[data-theme="default-dark-v1"] .tabulator-cell a { color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .tabulator-row .tabulator-frozen { background-color: #0C0E14 !important; }
+body[data-theme="default-dark-v1"] .tabulator-row:hover .tabulator-frozen { background-color: #121820 !important; }
+body[data-theme="default-dark-v1"] .tabulator-paginator, body[data-theme="default-dark-v1"] .tabulator-page,
+body[data-theme="default-dark-v1"] .tabulator-page-size { background-color: transparent !important; color: rgba(247,244,239,.7) !important; border-color: rgba(247,244,239,.14) !important; }
+body[data-theme="default-dark-v1"] .tabulator-page.active { background-color: #4ED8C2 !important; color: #0C0E14 !important; border-color: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] .tabulator-page:disabled { opacity: .4 !important; }
+body[data-theme="default-dark-v1"] .tabulator-page-size { background-color: rgba(247,244,239,.06) !important; color: #F7F4EF !important; }
+/* the toolbar around the grid */
+body[data-theme="default-dark-v1"] #import-btn, body[data-theme="default-dark-v1"] #list-view-advance-filter-btn,
+body[data-theme="default-dark-v1"] #list-view-sort-btn, body[data-theme="default-dark-v1"] .hl_wrapper .hr-button--default-type,
+body[data-theme="default-dark-v1"] .hl_wrapper .hr-button--small-type { background-color: rgba(247,244,239,.06) !important; color: #F7F4EF !important; border-color: rgba(247,244,239,.14) !important; }
+body[data-theme="default-dark-v1"] #list-view-advance-filter-btn *, body[data-theme="default-dark-v1"] #list-view-sort-btn *,
+body[data-theme="default-dark-v1"] #import-btn * { color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .hl_wrapper .smartlist-title, body[data-theme="default-dark-v1"] .hl_wrapper .view-label,
+body[data-theme="default-dark-v1"] .hl_wrapper .view, body[data-theme="default-dark-v1"] .hl_wrapper .button,
+body[data-theme="default-dark-v1"] .hl_wrapper .left-box { color: #F7F4EF !important; opacity: 1 !important; }
+body[data-theme="default-dark-v1"] .hl_wrapper .view:not(.active) .view-label { color: rgba(247,244,239,.6) !important; }
+body[data-theme="default-dark-v1"] .hl_wrapper .view.active { border-bottom-color: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] .hl_wrapper .view.active .view-label { color: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] .hl_wrapper .search-box, body[data-theme="default-dark-v1"] .hl_wrapper .search-box input { background-color: rgba(247,244,239,.06) !important; border-color: rgba(247,244,239,.14) !important; color: #F7F4EF !important; }
+/* header announcement pill ("Contact updates") */
+body[data-theme="default-dark-v1"] header [class*="rounded-full"][class*="bg-"]:not([class*="bg-success"]):not(#recent_activities-toggle) { background-color: rgba(247,244,239,.08) !important; color: #F7F4EF !important; }
+
+/* ── OPPORTUNITIES board ──
+   The cards were already dark; the PAGE WRAPPER behind them was light grey,
+   which is what made the whole board read as white. */
+body[data-theme="default-dark-v1"] .crm-opportunities-content, body[data-theme="default-dark-v1"] .opportunityPage,
+body[data-theme="default-dark-v1"] [class*="crm-"][class*="content"] { background-color: #0C0E14 !important; color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .hr-base-selection, body[data-theme="default-dark-v1"] .n-base-selection { background-color: transparent !important; }
+body[data-theme="default-dark-v1"] .search-box { background-color: rgba(247,244,239,.06) !important; border-color: rgba(247,244,239,.14) !important; }
+body[data-theme="default-dark-v1"] .search-box input, body[data-theme="default-dark-v1"] input.search { background-color: transparent !important; color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .opportunitiesCard, body[data-theme="default-dark-v1"] .ui-card-content { background-color: rgba(247,244,239,.05) !important; border-color: rgba(247,244,239,.10) !important; }
+body[data-theme="default-dark-v1"] [class*="pipeline-stage"], body[data-theme="default-dark-v1"] [class*="stage-header"],
+body[data-theme="default-dark-v1"] [class*="kanban-column"] { background-color: rgba(247,244,239,.035) !important; color: #F7F4EF !important; border-color: rgba(247,244,239,.10) !important; }
+body[data-theme="default-dark-v1"] .d-flex.button { color: #F7F4EF !important; background-color: rgba(247,244,239,.06) !important; border-color: rgba(247,244,239,.14) !important; }
+body[data-theme="default-dark-v1"] .d-flex.button.active { border-color: #4ED8C2 !important; color: #4ED8C2 !important; }
+/* the count pill inherits navy text from the light rules: mint on mint in dark */
+body[data-theme="default-dark-v1"] .pipeline-ribbon .count, body[data-theme="default-dark-v1"] .crm-opportunities-top-bar .count { color: #0C0E14 !important; background-color: #4ED8C2 !important; }
+
+/* ── PAGE LOADING BAR (both modes) ──
+   The thin bar across the very top on every navigation is Naive UI's
+   loading bar, coloured by an inline --n-color-loading. The existing
+   #nprogress rules never touched it, so it has been GHL blue all along. */
+.n-loading-bar-container { --n-color-loading: #4ED8C2 !important; --n-color-error: #E8524E !important; --n-height: 3px !important; }
+.n-loading-bar-container .n-loading-bar { background-color: #4ED8C2 !important; }

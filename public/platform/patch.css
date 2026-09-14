@@ -821,3 +821,16 @@ body[data-theme="default-dark-v1"] svg [stroke="#84CAFF" i] { stroke: #8AEBD9 !i
 body[data-theme="default-dark-v1"] #sidebar-v2 nav p.border-b:not(:has(span)) {
     border-bottom-color: rgba(247, 244, 239, 0.10) !important;
 }
+
+/* ── AGENCY DASHBOARD stat cards and the Processing chip, dark ──
+   The stat icons are dark SVG <img> files inside a .bg-gray-100 circle. The
+   dark rules turned the circle black, leaving a black icon on a black disc.
+   The chip is .processing-stats with its own light blue baked in. */
+body[data-theme="default-dark-v1"] .rounded-full.bg-gray-100,
+body[data-theme="default-dark-v1"] .rounded-full.bg-gray-50,
+body[data-theme="default-dark-v1"] .rounded-full.bg-gray-200 { background-color: rgba(247, 244, 239, 0.08) !important; }
+body[data-theme="default-dark-v1"] .rounded-full.bg-gray-100 img,
+body[data-theme="default-dark-v1"] .rounded-full.bg-gray-50 img,
+body[data-theme="default-dark-v1"] .rounded-full.bg-gray-200 img { filter: brightness(0) invert(1) !important; opacity: 0.8 !important; }
+body[data-theme="default-dark-v1"] .processing-stats { background-color: rgba(247, 244, 239, 0.08) !important; color: #F7F4EF !important; border-color: rgba(247, 244, 239, 0.12) !important; }
+body[data-theme="default-dark-v1"] .processing-stats * { color: #F7F4EF !important; }

@@ -62,6 +62,35 @@
   var PALETTE_DARK  = [BRAND.reefAqua, BRAND.mistBlue, '#8AEBD9', '#3A6A93', '#3fc4af', '#B3F1E8'];
   function palette() { return isDark() ? PALETTE_DARK : PALETTE_LIGHT; }
 
+  /* GHL's own chart palette, mapped by VALUE. The Custom CSS carries the same
+     table as attribute selectors, so these colours are correct from first
+     paint and this script merely confirms them. Anything not in the table
+     falls back to the ordered palette above. If this table changes, change
+     the CSS block titled "CHART COLOURS, INSTANT" to match, or charts will
+     flicker between two different answers. */
+  var KNOWN = {
+    '#53B1FD': [BRAND.deepOcean, BRAND.reefAqua],
+    '#528BFF': [BRAND.deepOcean, BRAND.reefAqua],
+    '#2970FF': [BRAND.deepOcean, BRAND.reefAqua],
+    '#1570EF': [BRAND.deepOcean, BRAND.reefAqua],
+    '#155EEF': [BRAND.deepOcean, BRAND.reefAqua],
+    '#004EEB': [BRAND.deepOcean, BRAND.reefAqua],
+    '#2E90FA': [BRAND.deepOcean, BRAND.reefAqua],
+    '#875BF7': [BRAND.mistBlue,  BRAND.mistBlue],
+    '#7A5AF8': [BRAND.mistBlue,  BRAND.mistBlue],
+    '#6938EF': [BRAND.mistBlue,  BRAND.mistBlue],
+    '#6172F3': [BRAND.reefAqua,  '#8AEBD9'],
+    '#9E77ED': [BRAND.reefAqua,  '#8AEBD9'],
+    '#B692F6': [BRAND.reefAqua,  '#8AEBD9'],
+    '#A4BCFD': [BRAND.reefAqua,  '#8AEBD9'],
+    '#84CAFF': [BRAND.reefAqua,  '#8AEBD9']
+  };
+  function knownFor(v) {
+    var c = toRGB(v); if (!c) return null;
+    var hex = '#' + [c.r, c.g, c.b].map(function (n) { return ('0' + n.toString(16)).slice(-2); }).join('').toUpperCase();
+    return KNOWN[hex] ? KNOWN[hex][isDark() ? 1 : 0] : null;
+  }
+
   /* ─────────────────────────────────────────────────────────
      1. DASHBOARD CHARTS
      GHL paints these with fill="#875BF7" / "#6172F3" / "#528BFF" written
@@ -141,8 +170,8 @@
           if (!n.dataset[memo]) n.dataset[memo] = v;
           var key = v.toLowerCase();
           if (!(key in assigned)) {
-            assigned[key] = pal[next % pal.length];
-            next++;
+            assigned[key] = knownFor(v) || pal[next % pal.length];
+            if (!knownFor(v)) next++;
           }
           if (n.getAttribute(attr) !== assigned[key]) {
             n.setAttribute(attr, assigned[key]);
@@ -155,7 +184,7 @@
         var c = s.getAttribute('stop-color');
         if (!isOffBrand(c)) return;
         var key = String(c).toLowerCase();
-        if (!(key in assigned)) { assigned[key] = pal[next % pal.length]; next++; }
+        if (!(key in assigned)) { assigned[key] = knownFor(c) || pal[next % pal.length]; if (!knownFor(c)) next++; }
         s.setAttribute('stop-color', assigned[key]);
       });
     });
@@ -173,7 +202,7 @@
       if (!isOffBrand(orig)) return;
       if (!el.dataset.dusaDotOrig) el.dataset.dusaDotOrig = orig;
       var key = orig.toLowerCase();
-      if (!(key in dotMap)) { dotMap[key] = dotPal[dotNext % dotPal.length]; dotNext++; }
+      if (!(key in dotMap)) { dotMap[key] = knownFor(orig) || dotPal[dotNext % dotPal.length]; if (!knownFor(orig)) dotNext++; }
       if (el.style.backgroundColor !== dotMap[key]) {
         el.style.setProperty('background-color', dotMap[key], 'important');
       }

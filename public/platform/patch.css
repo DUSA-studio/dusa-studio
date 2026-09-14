@@ -730,3 +730,94 @@ body[data-theme="default-dark-v1"] #sidebar-v2 .text-gray-300 .default-bg-color 
    another origin, so those pages keep GHL's light theme in dark mode. Only
    GHL can change that.
    ══════════════════════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════════════════════
+   CHART COLOURS, INSTANT
+   The dashboard charts are SVG with GHL's palette written as fill
+   attributes. The script re-colours them, but only after they mount, which
+   left a visible flash of GHL blue on every load. These attribute selectors
+   paint the right colour from first paint. The table is IDENTICAL to KNOWN
+   in the Custom JS; keep them in step or the two will disagree and flicker.
+   ══════════════════════════════════════════════════════════════ */
+svg [fill="#53B1FD" i],
+svg [fill="#528BFF" i],
+svg [fill="#2970FF" i],
+svg [fill="#1570EF" i],
+svg [fill="#155EEF" i],
+svg [fill="#004EEB" i],
+svg [fill="#2E90FA" i] { fill: #1A3A5C !important; }
+svg [stroke="#53B1FD" i],
+svg [stroke="#528BFF" i],
+svg [stroke="#2970FF" i],
+svg [stroke="#1570EF" i],
+svg [stroke="#155EEF" i],
+svg [stroke="#004EEB" i],
+svg [stroke="#2E90FA" i] { stroke: #1A3A5C !important; }
+svg [fill="#875BF7" i],
+svg [fill="#7A5AF8" i],
+svg [fill="#6938EF" i] { fill: #6AAACF !important; }
+svg [stroke="#875BF7" i],
+svg [stroke="#7A5AF8" i],
+svg [stroke="#6938EF" i] { stroke: #6AAACF !important; }
+svg [fill="#6172F3" i],
+svg [fill="#9E77ED" i],
+svg [fill="#B692F6" i],
+svg [fill="#A4BCFD" i],
+svg [fill="#84CAFF" i] { fill: #4ED8C2 !important; }
+svg [stroke="#6172F3" i],
+svg [stroke="#9E77ED" i],
+svg [stroke="#B692F6" i],
+svg [stroke="#A4BCFD" i],
+svg [stroke="#84CAFF" i] { stroke: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] svg [fill="#53B1FD" i],
+body[data-theme="default-dark-v1"] svg [fill="#528BFF" i],
+body[data-theme="default-dark-v1"] svg [fill="#2970FF" i],
+body[data-theme="default-dark-v1"] svg [fill="#1570EF" i],
+body[data-theme="default-dark-v1"] svg [fill="#155EEF" i],
+body[data-theme="default-dark-v1"] svg [fill="#004EEB" i],
+body[data-theme="default-dark-v1"] svg [fill="#2E90FA" i] { fill: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] svg [stroke="#53B1FD" i],
+body[data-theme="default-dark-v1"] svg [stroke="#528BFF" i],
+body[data-theme="default-dark-v1"] svg [stroke="#2970FF" i],
+body[data-theme="default-dark-v1"] svg [stroke="#1570EF" i],
+body[data-theme="default-dark-v1"] svg [stroke="#155EEF" i],
+body[data-theme="default-dark-v1"] svg [stroke="#004EEB" i],
+body[data-theme="default-dark-v1"] svg [stroke="#2E90FA" i] { stroke: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] svg [fill="#875BF7" i],
+body[data-theme="default-dark-v1"] svg [fill="#7A5AF8" i],
+body[data-theme="default-dark-v1"] svg [fill="#6938EF" i] { fill: #6AAACF !important; }
+body[data-theme="default-dark-v1"] svg [stroke="#875BF7" i],
+body[data-theme="default-dark-v1"] svg [stroke="#7A5AF8" i],
+body[data-theme="default-dark-v1"] svg [stroke="#6938EF" i] { stroke: #6AAACF !important; }
+body[data-theme="default-dark-v1"] svg [fill="#6172F3" i],
+body[data-theme="default-dark-v1"] svg [fill="#9E77ED" i],
+body[data-theme="default-dark-v1"] svg [fill="#B692F6" i],
+body[data-theme="default-dark-v1"] svg [fill="#A4BCFD" i],
+body[data-theme="default-dark-v1"] svg [fill="#84CAFF" i] { fill: #8AEBD9 !important; }
+body[data-theme="default-dark-v1"] svg [stroke="#6172F3" i],
+body[data-theme="default-dark-v1"] svg [stroke="#9E77ED" i],
+body[data-theme="default-dark-v1"] svg [stroke="#B692F6" i],
+body[data-theme="default-dark-v1"] svg [stroke="#A4BCFD" i],
+body[data-theme="default-dark-v1"] svg [stroke="#84CAFF" i] { stroke: #8AEBD9 !important; }
+
+/* ── SIDEBAR DIVIDERS ──
+   The main nav uses empty <p class="border-b my-3"> elements as separators.
+   The existing rule for settings-sidebar section headings (.text-gray-300
+   p.border-b) also matches them, so an empty divider rendered as a solid
+   blue gradient bar under Payments. Headings keep the pill; empty dividers
+   go back to being a hairline. */
+#sidebar-v2 .hl_nav-header nav p.border-b:not(:has(span)),
+#sidebar-v2 .hl_nav-header-without-footer nav p.border-b:not(:has(span)),
+#sidebar-v2 nav p.border-b.my-3:not(:has(span)) {
+    background: none !important;
+    background-image: none !important;
+    padding: 0 !important;
+    margin: 10px 0 !important;
+    height: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 1px solid rgba(12, 14, 20, 0.08) !important;
+}
+body[data-theme="default-dark-v1"] #sidebar-v2 nav p.border-b:not(:has(span)) {
+    border-bottom-color: rgba(247, 244, 239, 0.10) !important;
+}

@@ -891,3 +891,22 @@ span[style*="2, 106, 162"] { border-color: #1A3A5C !important; background-color:
    Anything served from another origin keeps GHL's own look. This is a
    platform boundary, not a gap in the CSS.
    ══════════════════════════════════════════════════════════════ */
+
+/* ── Agency dashboard "Processing" chip, light ── */
+.processing-stats { background-color: rgba(78,216,194,.14) !important; color: #002F5F !important; border-color: rgba(78,216,194,.45) !important; }
+.processing-stats * { color: #002F5F !important; }
+.processing-stats__indicator { background-color: #4ED8C2 !important; }
+
+/* ── Affiliate Portal (agency only). Bare browser-default links, a blue tab
+      underline, an icon disc on GHL's primary-100, and one label. ── */
+.bg-primary-100 { background-color: rgba(78,216,194,.18) !important; }
+.bg-primary-50  { background-color: rgba(78,216,194,.10) !important; }
+#affiliate-gamification, a[id^="affiliate-"] { border-bottom-color: #4ED8C2 !important; }
+.viewachivement { color: #002F5F !important; }
+/* Anchors with no class and no id are unstyled by GHL and fall back to the
+   browser's #0000FF. No !important here on purpose: anything GHL styles
+   explicitly still wins. */
+a:not([class]):not([id]) { color: #002F5F; }
+
+/* Cross-origin iframes confirmed on the agency side as well:
+     Prospecting   prod.analyzemy.business   (cannot be themed from here) */

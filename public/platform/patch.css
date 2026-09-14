@@ -834,3 +834,60 @@ body[data-theme="default-dark-v1"] .rounded-full.bg-gray-50 img,
 body[data-theme="default-dark-v1"] .rounded-full.bg-gray-200 img { filter: brightness(0) invert(1) !important; opacity: 0.8 !important; }
 body[data-theme="default-dark-v1"] .processing-stats { background-color: rgba(247, 244, 239, 0.08) !important; color: #F7F4EF !important; border-color: rgba(247, 244, 239, 0.12) !important; }
 body[data-theme="default-dark-v1"] .processing-stats * { color: #F7F4EF !important; }
+
+/* ══════════════════════════════════════════════════════════════
+   LIGHT MODE SWEEP, 2026-09-14
+   Found by an automated scan for any visible element still painting a
+   GHL blue, indigo or purple, run on every main sub-account page.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Conversations: the selected row had a 1px GHL-blue frame; the channel
+   badges on the avatars were GHL primary; the "New" divider label uses a
+   Tailwind arbitrary colour. */
+#conversations-content .flex.flex-col.transition-colors.cursor-pointer { border-color: #4ED8C2 !important; }
+#conversations-content div.absolute > svg { color: #1A3A5C !important; }
+.text-\[\#2970FF\], [class*="text-[#2970FF]"], [class*="text-[#2970ff]"] { color: #002F5F !important; }
+/* the contact panel's default avatar was GHL's pastel purple */
+#avatar-default.hr-avatar, .hr-avatar#avatar-default { --n-color: rgba(78,216,194,.22) !important; --n-text-color: #002F5F !important; background-color: rgba(78,216,194,.22) !important; color: #002F5F !important; }
+
+/* Calendar: the "Manage view" button, and the purple AI tab on the right edge */
+#customizations-button { border-color: #4ED8C2 !important; color: #002F5F !important; }
+#customizations-button * { color: #002F5F !important; }
+.calendar-ai-edge-tab {
+    background: linear-gradient(135deg, #6AAACF 0%, #002F5F 100%) !important;
+    background-image: linear-gradient(135deg, #6AAACF 0%, #002F5F 100%) !important;
+    box-shadow: 0 4px 14px rgba(0, 47, 95, 0.28) !important;
+}
+.calendar-ai-edge-tab * { color: #FFFFFF !important; fill: #FFFFFF !important; }
+/* GHL's default calendar colour (#026AA2) on events and swatches. Calendars
+   given their own colour in Calendar Settings keep it; only the default moves. */
+section[style*="2, 106, 162"] { border-left-color: #1A3A5C !important; }
+span[style*="2, 106, 162"] { border-color: #1A3A5C !important; background-color: #1A3A5C !important; }
+
+/* The page-level loading spinner (vue-loading "moon") was GHL blue */
+.v-moon, .v-moon1, .v-moon2, .v-moon3 { border-color: #4ED8C2 !important; border-top-color: transparent !important; }
+
+/* Naive UI form accents in LIGHT mode. Radios, checkboxes and switches read
+   these inline variables; the dark block already covers dark. */
+.hr-radio, .n-radio {
+    --n-dot-color-active: #4ED8C2 !important; --n-border-active: 1px solid #4ED8C2 !important;
+    --n-border-focus: 1px solid #4ED8C2 !important; --n-box-shadow-focus: 0 0 0 2px rgba(78,216,194,.3) !important;
+}
+.hr-checkbox, .n-checkbox {
+    --n-color-checked: #4ED8C2 !important; --n-border-checked: 1px solid #4ED8C2 !important;
+    --n-check-mark-color: #0C0E14 !important; --n-border-focus: 1px solid #4ED8C2 !important;
+    --n-box-shadow-focus: 0 0 0 2px rgba(78,216,194,.3) !important;
+}
+.hr-switch, .n-switch { --n-rail-color-active: #4ED8C2 !important; --n-box-shadow-focus: 0 0 0 2px rgba(78,216,194,.3) !important; }
+.hr-tag--info, .hr-tag--primary, .n-tag--info, .n-tag--primary {
+    --n-color: rgba(78,216,194,.14) !important; --n-text-color: #002F5F !important; --n-border: 1px solid rgba(78,216,194,.45) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODULES THAT ARE CROSS-ORIGIN IFRAMES (cannot be themed from here)
+   Confirmed on this account:
+     Settings pages          client-app-crm-settings.leadconnectorhq.com
+     Automation > Workflows  client-app-automation-workflows.leadconnectorhq.com
+   Anything served from another origin keeps GHL's own look. This is a
+   platform boundary, not a gap in the CSS.
+   ══════════════════════════════════════════════════════════════ */

@@ -449,3 +449,199 @@ body[data-theme="default-dark-v1"] .hr-progress-graph-line-rail { background-col
 body[data-theme="default-dark-v1"] .hr-progress-graph-circle-rail,
 body[data-theme="default-dark-v1"] [class*="progress"] circle[class*="rail"],
 body[data-theme="default-dark-v1"] [class*="gauge"] circle:first-of-type { stroke: rgba(247, 244, 239, 0.12) !important; }
+
+/* ════════════════════════════════════════════════════════════
+   DARK MODE, PART 2: GHL'S COMPONENT LIBRARY
+   ════════════════════════════════════════════════════════════
+   Found on the Conversations screen, the most used page in the platform.
+   The conversation list and message panel stayed white and light grey in
+   dark mode, so most of the text on the page vanished.
+
+   GHL's own components (every class starting hr- or n-) are Naive UI, and
+   Naive UI reads all of its colours from --n-* custom properties that GHL
+   writes INLINE on each component root. Those inline values carry no
+   priority, so a stylesheet declaration with !important wins. One block of
+   variable overrides per component therefore re-themes every instance,
+   every state, on every page, without chasing individual class names.
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Tailwind arbitrary light backgrounds: bg-[#ECEEF2], bg-[#F7F9FD] ──
+   Any arbitrary hex beginning E or F is a light neutral in GHL's usage. */
+body[data-theme="default-dark-v1"] [class*="bg-[#E"],
+body[data-theme="default-dark-v1"] [class*="bg-[#e"],
+body[data-theme="default-dark-v1"] [class*="bg-[#F"],
+body[data-theme="default-dark-v1"] [class*="bg-[#f"],
+body[data-theme="default-dark-v1"] .bg-gray-25,
+body[data-theme="default-dark-v1"] .bg-slate-50,
+body[data-theme="default-dark-v1"] .bg-neutral-50,
+body[data-theme="default-dark-v1"] .bg-inherit,
+body[data-theme="default-dark-v1"] #conversations-layout,
+body[data-theme="default-dark-v1"] #conversations-content { background-color: #0C0E14 !important; }
+body[data-theme="default-dark-v1"] #conv-mail-thread-header { background-color: rgba(247,244,239,.045) !important; }
+
+/* ── Naive UI variable overrides ── */
+body[data-theme="default-dark-v1"] .hr-input,
+body[data-theme="default-dark-v1"] .n-input {
+    --n-text-color: #F7F4EF !important; --n-text-color-disabled: rgba(247,244,239,.5) !important;
+    --n-placeholder-color: rgba(247,244,239,.45) !important;
+    --n-color: rgba(247,244,239,.06) !important; --n-color-focus: rgba(247,244,239,.06) !important;
+    --n-color-disabled: rgba(247,244,239,.03) !important;
+    --n-border: 1px solid rgba(247,244,239,.14) !important;
+    --n-border-hover: 1px solid #4ED8C2 !important; --n-border-focus: 1px solid #4ED8C2 !important;
+    --n-box-shadow-focus: 0 0 0 3px rgba(78,216,194,.14) !important;
+    --n-icon-color: rgba(247,244,239,.66) !important;
+    --n-suffix-text-color: rgba(247,244,239,.66) !important; --n-prefix-text-color: rgba(247,244,239,.66) !important;
+}
+body[data-theme="default-dark-v1"] .hr-base-selection,
+body[data-theme="default-dark-v1"] .n-base-selection {
+    --n-text-color: #F7F4EF !important; --n-placeholder-color: rgba(247,244,239,.45) !important;
+    --n-color: rgba(247,244,239,.06) !important; --n-color-active: rgba(247,244,239,.06) !important;
+    --n-border: 1px solid rgba(247,244,239,.14) !important;
+    --n-border-hover: 1px solid #4ED8C2 !important; --n-border-active: 1px solid #4ED8C2 !important; --n-border-focus: 1px solid #4ED8C2 !important;
+    --n-arrow-color: rgba(247,244,239,.66) !important; --n-clear-color: rgba(247,244,239,.66) !important;
+}
+body[data-theme="default-dark-v1"] .hr-tabs,
+body[data-theme="default-dark-v1"] .n-tabs {
+    --n-tab-text-color: rgba(247,244,239,.66) !important; --n-tab-text-color-active: #4ED8C2 !important;
+    --n-tab-text-color-hover: #F7F4EF !important; --n-bar-color: #4ED8C2 !important;
+    --n-color-segment: #161B26 !important; --n-tab-color-segment: rgba(247,244,239,.08) !important;
+    --n-tab-border-color: rgba(247,244,239,.10) !important; --n-pane-text-color: #F7F4EF !important;
+}
+body[data-theme="default-dark-v1"] .hr-tabs-nav,
+body[data-theme="default-dark-v1"] .hr-tabs-rail { background-color: #10141C !important; }
+body[data-theme="default-dark-v1"] .hr-tabs-capsule { background-color: #161B26 !important; }
+body[data-theme="default-dark-v1"] .hr-tabs-tab-wrapper { background-color: rgba(247,244,239,.06) !important; }
+/* The segment label carries its own colour, and GHL's rule for it is both
+   specific and !important, so this has to outrank it outright. */
+body[data-theme="default-dark-v1"] .hr-tabs .hr-tabs-nav .hr-tabs-tab .hr-tabs-tab__label,
+body[data-theme="default-dark-v1"] .hr-tabs-nav .hr-tabs-tab__label { color: rgba(247,244,239,.7) !important; }
+body[data-theme="default-dark-v1"] .hr-tabs .hr-tabs-nav .hr-tabs-tab--active .hr-tabs-tab__label,
+body[data-theme="default-dark-v1"] .hr-tabs-nav .hr-tabs-tab--active .hr-tabs-tab__label,
+body[data-theme="default-dark-v1"] .hr-tabs-tab-wrapper .hr-tabs-tab--active .hr-tabs-tab__label { color: #4ED8C2 !important; }
+
+body[data-theme="default-dark-v1"] .hr-button--default-type,
+body[data-theme="default-dark-v1"] .n-button--default-type,
+body[data-theme="default-dark-v1"] .hr-button--tertiary-type,
+body[data-theme="default-dark-v1"] .n-button--tertiary-type {
+    --n-text-color: #F7F4EF !important; --n-text-color-hover: #F7F4EF !important;
+    --n-text-color-pressed: #F7F4EF !important; --n-text-color-focus: #F7F4EF !important;
+    --n-color: rgba(247,244,239,.06) !important; --n-color-hover: rgba(78,216,194,.10) !important;
+    --n-color-pressed: rgba(78,216,194,.14) !important; --n-color-focus: rgba(247,244,239,.06) !important;
+    --n-border: 1px solid rgba(247,244,239,.14) !important; --n-border-hover: 1px solid #4ED8C2 !important;
+    --n-border-pressed: 1px solid #4ED8C2 !important; --n-border-focus: 1px solid #4ED8C2 !important;
+}
+body[data-theme="default-dark-v1"] .hr-collapse,
+body[data-theme="default-dark-v1"] .n-collapse {
+    --n-title-text-color: #F7F4EF !important; --n-text-color: rgba(247,244,239,.66) !important;
+    --n-arrow-color: rgba(247,244,239,.66) !important; --n-divider-color: rgba(247,244,239,.10) !important;
+}
+body[data-theme="default-dark-v1"] .hr-collapse-item__header { background-color: rgba(247,244,239,.045) !important; color: #F7F4EF !important; border-color: rgba(247,244,239,.10) !important; }
+body[data-theme="default-dark-v1"] .hr-collapse-item__content-inner { background-color: transparent !important; }
+body[data-theme="default-dark-v1"] .hr-tag,
+body[data-theme="default-dark-v1"] .n-tag {
+    --n-text-color: rgba(247,244,239,.75) !important; --n-color: rgba(247,244,239,.08) !important;
+    --n-border: 1px solid rgba(247,244,239,.12) !important; --n-close-icon-color: rgba(247,244,239,.66) !important;
+    background-color: rgba(247,244,239,.08) !important; color: rgba(247,244,239,.75) !important; border-color: rgba(247,244,239,.12) !important;
+}
+body[data-theme="default-dark-v1"] .hr-card,
+body[data-theme="default-dark-v1"] .n-card {
+    --n-color: rgba(247,244,239,.045) !important; --n-color-modal: #161B26 !important;
+    --n-text-color: #F7F4EF !important; --n-title-text-color: #F7F4EF !important;
+    --n-border-color: rgba(247,244,239,.10) !important;
+}
+body[data-theme="default-dark-v1"] .hr-checkbox,
+body[data-theme="default-dark-v1"] .n-checkbox {
+    --n-label-text-color: rgba(247,244,239,.66) !important; --n-color: rgba(247,244,239,.06) !important;
+    --n-border: 1px solid rgba(247,244,239,.14) !important; --n-color-checked: #4ED8C2 !important;
+    --n-border-checked: 1px solid #4ED8C2 !important; --n-check-mark-color: #0C0E14 !important;
+}
+body[data-theme="default-dark-v1"] .hr-radio,
+body[data-theme="default-dark-v1"] .n-radio {
+    --n-text-color: rgba(247,244,239,.66) !important; --n-color: rgba(247,244,239,.06) !important;
+    --n-border: 1px solid rgba(247,244,239,.14) !important; --n-dot-color-active: #4ED8C2 !important;
+    --n-border-active: 1px solid #4ED8C2 !important;
+}
+body[data-theme="default-dark-v1"] .hr-switch,
+body[data-theme="default-dark-v1"] .n-switch {
+    --n-rail-color: rgba(247,244,239,.14) !important; --n-rail-color-active: #4ED8C2 !important; --n-button-color: #F7F4EF !important;
+}
+body[data-theme="default-dark-v1"] .hr-data-table,
+body[data-theme="default-dark-v1"] .n-data-table {
+    --n-th-color: rgba(247,244,239,.03) !important; --n-td-color: transparent !important;
+    --n-th-text-color: rgba(247,244,239,.5) !important; --n-td-text-color: rgba(247,244,239,.66) !important;
+    --n-border-color: rgba(247,244,239,.08) !important;
+    --n-merged-th-color: rgba(247,244,239,.03) !important; --n-merged-td-color: transparent !important;
+    --n-td-color-hover: rgba(78,216,194,.06) !important; --n-merged-td-color-hover: rgba(78,216,194,.06) !important;
+    --n-th-color-hover: rgba(247,244,239,.05) !important;
+}
+body[data-theme="default-dark-v1"] .hr-modal, body[data-theme="default-dark-v1"] .n-modal,
+body[data-theme="default-dark-v1"] .hr-dialog, body[data-theme="default-dark-v1"] .n-dialog,
+body[data-theme="default-dark-v1"] .hr-drawer, body[data-theme="default-dark-v1"] .n-drawer {
+    --n-color: #161B26 !important; --n-text-color: #F7F4EF !important; --n-title-text-color: #F7F4EF !important;
+    --n-header-border-bottom: 1px solid rgba(247,244,239,.10) !important; --n-footer-border-top: 1px solid rgba(247,244,239,.10) !important;
+    --n-close-icon-color: rgba(247,244,239,.66) !important;
+}
+body[data-theme="default-dark-v1"] .hr-popover, body[data-theme="default-dark-v1"] .n-popover,
+body[data-theme="default-dark-v1"] .hr-tooltip, body[data-theme="default-dark-v1"] .n-tooltip { --n-color: #161B26 !important; --n-text-color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .hr-dropdown-menu, body[data-theme="default-dark-v1"] .n-dropdown-menu,
+body[data-theme="default-dark-v1"] .hr-base-select-menu, body[data-theme="default-dark-v1"] .n-base-select-menu {
+    --n-color: #161B26 !important; --n-option-text-color: #F7F4EF !important; --n-option-text-color-hover: #F7F4EF !important;
+    --n-option-text-color-active: #4ED8C2 !important; --n-option-text-color-pressed: #4ED8C2 !important;
+    --n-option-color-hover: rgba(78,216,194,.10) !important; --n-option-color-active: rgba(78,216,194,.16) !important;
+    --n-option-color-pending: rgba(78,216,194,.10) !important; --n-divider-color: rgba(247,244,239,.10) !important;
+    --n-group-header-text-color: rgba(247,244,239,.5) !important;
+}
+body[data-theme="default-dark-v1"] .hr-menu, body[data-theme="default-dark-v1"] .n-menu {
+    --n-item-text-color: rgba(247,244,239,.66) !important; --n-item-text-color-hover: #F7F4EF !important;
+    --n-item-text-color-active: #4ED8C2 !important; --n-item-color-hover: rgba(78,216,194,.08) !important;
+    --n-item-color-active: rgba(78,216,194,.12) !important; --n-item-icon-color: rgba(247,244,239,.66) !important;
+    --n-item-icon-color-active: #4ED8C2 !important; --n-group-text-color: rgba(247,244,239,.5) !important;
+}
+body[data-theme="default-dark-v1"] .hr-form-item, body[data-theme="default-dark-v1"] .n-form-item { --n-label-text-color: rgba(247,244,239,.66) !important; --n-feedback-text-color: rgba(247,244,239,.5) !important; }
+body[data-theme="default-dark-v1"] .hr-date-picker, body[data-theme="default-dark-v1"] .n-date-picker,
+body[data-theme="default-dark-v1"] .hr-date-panel, body[data-theme="default-dark-v1"] .n-date-panel {
+    --n-panel-color: #161B26 !important; --n-panel-text-color: #F7F4EF !important; --n-item-text-color: rgba(247,244,239,.66) !important;
+    --n-item-color-hover: rgba(78,216,194,.10) !important; --n-item-color-active: #4ED8C2 !important; --n-item-text-color-active: #0C0E14 !important;
+    --n-panel-header-divider-color: rgba(247,244,239,.10) !important; --n-calendar-title-text-color: #F7F4EF !important;
+    --n-calendar-days-text-color: rgba(247,244,239,.5) !important;
+}
+body[data-theme="default-dark-v1"] .hr-pagination, body[data-theme="default-dark-v1"] .n-pagination {
+    --n-item-text-color: rgba(247,244,239,.66) !important; --n-item-text-color-active: #0C0E14 !important;
+    --n-item-color-active: #4ED8C2 !important; --n-item-color-hover: rgba(78,216,194,.10) !important; --n-item-border: 1px solid rgba(247,244,239,.14) !important;
+}
+body[data-theme="default-dark-v1"] .hr-alert, body[data-theme="default-dark-v1"] .n-alert { --n-color: rgba(247,244,239,.045) !important; --n-text-color: #F7F4EF !important; --n-title-text-color: #F7F4EF !important; --n-border: 1px solid rgba(247,244,239,.10) !important; }
+body[data-theme="default-dark-v1"] .hr-divider, body[data-theme="default-dark-v1"] .n-divider { --n-color: rgba(247,244,239,.10) !important; --n-text-color: rgba(247,244,239,.5) !important; }
+body[data-theme="default-dark-v1"] .hr-empty, body[data-theme="default-dark-v1"] .n-empty { --n-text-color: rgba(247,244,239,.5) !important; --n-icon-color: rgba(247,244,239,.5) !important; }
+body[data-theme="default-dark-v1"] .hr-skeleton, body[data-theme="default-dark-v1"] .n-skeleton { --n-color-start: rgba(247,244,239,.05) !important; --n-color-end: rgba(247,244,239,.10) !important; }
+
+/* ── Input text: Chrome paints form text with -webkit-text-fill-color,
+      which color alone does not override. This is why input VALUES stayed
+      near-black after every other rule had landed. ── */
+body[data-theme="default-dark-v1"] .hr-input__input-el, body[data-theme="default-dark-v1"] .hr-input__textarea-el,
+body[data-theme="default-dark-v1"] .n-input__input-el, body[data-theme="default-dark-v1"] .n-input__textarea-el,
+body[data-theme="default-dark-v1"] input, body[data-theme="default-dark-v1"] textarea {
+    color: #F7F4EF !important; -webkit-text-fill-color: #F7F4EF !important; caret-color: #4ED8C2 !important;
+}
+body[data-theme="default-dark-v1"] input:disabled,
+body[data-theme="default-dark-v1"] .hr-input--disabled .hr-input__input-el { -webkit-text-fill-color: rgba(247,244,239,.5) !important; }
+body[data-theme="default-dark-v1"] input::placeholder,
+body[data-theme="default-dark-v1"] textarea::placeholder { -webkit-text-fill-color: rgba(247,244,239,.45) !important; color: rgba(247,244,239,.45) !important; }
+
+/* ── Text and border utilities GHL uses inside these modules ── */
+body[data-theme="default-dark-v1"] .text-gray-900, body[data-theme="default-dark-v1"] .text-gray-800 { color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] .text-gray-600, body[data-theme="default-dark-v1"] .text-gray-500 { color: rgba(247,244,239,.6) !important; }
+body[data-theme="default-dark-v1"] [class*="border-gray-"] { border-color: rgba(247,244,239,.10) !important; }
+body[data-theme="default-dark-v1"] [class*="border-b-blue"] { border-color: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] .hr-form-item-label, body[data-theme="default-dark-v1"] .hr-input__label,
+body[data-theme="default-dark-v1"] label { color: rgba(247,244,239,.66) !important; background-color: transparent !important; }
+body[data-theme="default-dark-v1"] .hr-list, body[data-theme="default-dark-v1"] .hr-list-item,
+body[data-theme="default-dark-v1"] .hr-card__content { background-color: transparent !important; color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] [class*="composer"], body[data-theme="default-dark-v1"] [class*="message-input"] { background-color: rgba(247,244,239,.06) !important; color: #F7F4EF !important; }
+
+/* ── Pendo in-app surveys (the "Tell us how your experience has been" card).
+      Third party, white container. In dark it gets the raised surface. ── */
+body[data-theme="default-dark-v1"] ._pendo-step-container-styles { background-color: #161B26 !important; color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] ._pendo-step-container-styles .bb-text,
+body[data-theme="default-dark-v1"] ._pendo-step-container-styles p,
+body[data-theme="default-dark-v1"] ._pendo-step-container-styles strong { color: #F7F4EF !important; }
+body[data-theme="default-dark-v1"] ._pendo-step-container-styles button { background-color: rgba(247,244,239,.08) !important; color: #F7F4EF !important; border-color: rgba(247,244,239,.14) !important; }

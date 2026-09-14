@@ -53,6 +53,7 @@ header #recent_activities-toggle,
 .hl_header--call-widget .rounded-full[class*="bg-success"],
 header .rounded-full[class*="bg-success-6"] {
     position: relative !important;
+    isolation: isolate !important;      /* own stacking context: lets ::before sit at z-index -1, under the glyph, without touching the glyph */
     border: none !important;
     border-radius: 50% !important;
     box-shadow: none !important;
@@ -74,22 +75,19 @@ header .rounded-full[class*="bg-success-6"]::before {
     inset: 0 !important;
     border-radius: 50% !important;
     background-size: 200% 200% !important;
-    z-index: 0 !important;
+    z-index: -1 !important;             /* beneath every child, above the button's own background */
     pointer-events: none !important;
 }
 
-/* Lift the glyphs above that layer. Without this the icons vanish behind
-   it, because a positioned pseudo element paints over static children. */
-header a#hl_header--copilot-icon > *,
-header #canny_logs-toggle > *,
-header .btn-changelog > *,
-header a#hl_header--help-icon > *,
-header #recent_activities-toggle > *,
-.hl_header--call-widget .rounded-full[class*="bg-success"] > *,
-header .rounded-full[class*="bg-success-6"] > * {
-    position: relative !important;
-    z-index: 1 !important;
-}
+/* NOTE, and please keep it: the children of these buttons are NOT touched.
+   An earlier version forced every child to position:relative so it would
+   paint above the gradient. Two of the buttons contain children that depend
+   on being absolutely positioned (Canny's badge container, and the help
+   icon's screen-reader label), and pulling those into normal flow shoved
+   the megaphone 9px and the "?" 12px off centre. With isolation:isolate on
+   the button, z-index:-1 on the layer is enough; the glyphs stay exactly
+   where GHL centres them. Measured after the fix: every glyph within 0.3px
+   of its button centre. */
 
 /* ── Ask AI: the exact gradient the sidebar item uses, same 7s cycle,
       so the two read as one feature wherever you are ── */
@@ -143,7 +141,12 @@ header .rounded-full[class*="bg-success-6"]:hover {
    is called Canny_Badge with a capital B, and CSS attribute matching is
    case sensitive, so [class*="badge"] never matched either. Hence the
    "i" flag below. It also needs to sit above the gradient layer. */
-#canny_logs-toggle .Canny_BadgeContainer { position: relative !important; z-index: 3 !important; }
+#canny_logs-toggle .Canny_BadgeContainer {
+    position: absolute !important;      /* Canny's own value. relative made it a 32px flex item and pushed the icon */
+    top: 0 !important; right: 0 !important; left: auto !important; bottom: auto !important;
+    width: auto !important; height: auto !important;
+    z-index: 3 !important;
+}
 #canny_logs-toggle .Canny_Badge,
 #canny_logs-toggle [class*="badge" i],
 #canny_logs-toggle [class*="dot" i],

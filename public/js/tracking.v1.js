@@ -7,7 +7,7 @@
  */
 (function () {
   var GA4_ID = 'G-ZSNGSMWBSM';
-  var META_PIXEL_ID = ''; // set once the pixel exists in Meta Events Manager
+  var META_PIXEL_ID = '1588257102789659'; // "DUSA . studio Pixel" dataset, Meta Events Manager
   var LINK_DOMAINS = ['dusa.studio', 'app.dusa.studio', 'link.dusa.studio'];
 
   var host = location.hostname;

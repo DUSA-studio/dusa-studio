@@ -2,6 +2,11 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { stripRegion, urlFor, navRoutesByRegion, REGION_PREFIXES } from '../i18n/routes';
+import enDict from '../i18n/translations/en.json';
+import esDict from '../i18n/translations/es.json';
+import ptDict from '../i18n/translations/pt.json';
+import frDict from '../i18n/translations/fr.json';
+import deDict from '../i18n/translations/de.json';
 import '../styles/global.css';
 
 interface Props {
@@ -25,6 +30,11 @@ const {
   slug,
   ogImage = '/og-default.jpg',
 } = Astro.props;
+
+// Locale blog posts get a localised nav and footer (see BaseLayout).
+const DICTS: Record<string, Record<string, any>> = { es: esDict, mx: esDict, br: ptDict, fr: frDict, de: deDict };
+const urlRegion = (Astro.url.pathname.match(/^\/(es|mx|br|fr|de)(\/|$)/) || [])[1];
+const t: Record<string, any> = DICTS[urlRegion] || enDict;
 
 const siteBase = 'https://dusa.studio';
 
@@ -245,7 +255,7 @@ const jsonLd = JSON.stringify({
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Nav regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
+    <Nav t={t} regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
     <main id="main" tabindex="-1">
       <article class="blog-post section section--dark">
         <div class="container">
@@ -292,7 +302,7 @@ const jsonLd = JSON.stringify({
         </div>
       </article>
     </main>
-    <Footer />
+    <Footer t={t} />
 
     <!-- Analytics: GA4 + Meta Pixel + conversion events (IDs live in the file) -->
     <script src="/js/tracking.v1.js" defer></script>

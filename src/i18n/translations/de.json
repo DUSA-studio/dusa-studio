@@ -54,7 +54,17 @@
     "hipaaNote": "*HIPAA-Konformität als Zusatzmodul für Unternehmen im Gesundheitswesen erhältlich.",
     "copyright": "2026 DUSA . studio. Alle Rechte vorbehalten.",
     "privacyPolicy": "Datenschutzrichtlinie",
-    "termsOfService": "Nutzungsbedingungen"
+    "termsOfService": "Nutzungsbedingungen",
+    "industriesHeading": "Branchen",
+    "industries": "Alle Branchen",
+    "realEstate": "Immobilien",
+    "gyms": "Fitnessstudios",
+    "restaurants": "Restaurants",
+    "salons": "Friseur- und Kosmetiksalons",
+    "tradies": "Handwerker",
+    "dentists": "Zahnärzte",
+    "coaches": "Coaches",
+    "careers": "Karriere"
   },
   "hero": {
     "label": "Das KI-gestützte Wachstumssystem",

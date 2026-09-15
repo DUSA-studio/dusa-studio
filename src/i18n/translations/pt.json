@@ -54,7 +54,17 @@
     "hipaaNote": "*A certificação HIPAA está disponível como um complemento para empresas do setor de saúde.",
     "copyright": "2026 DUSA . studio. Todos os direitos reservados.",
     "privacyPolicy": "Política de privacidade",
-    "termsOfService": "Termos de serviço"
+    "termsOfService": "Termos de serviço",
+    "industriesHeading": "Setores",
+    "industries": "Todos os setores",
+    "realEstate": "Imobiliárias",
+    "gyms": "Academias",
+    "restaurants": "Restaurantes",
+    "salons": "Salões de beleza",
+    "tradies": "Prestadores de serviços",
+    "dentists": "Dentistas",
+    "coaches": "Coaches",
+    "careers": "Carreiras"
   },
   "hero": {
     "label": "O sistema de crescimento com IA",

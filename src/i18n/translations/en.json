@@ -54,7 +54,17 @@
     "hipaaNote": "*HIPAA compliance available as an add-on for healthcare businesses.",
     "copyright": "2026 DUSA . studio. All rights reserved.",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "industriesHeading": "Industries",
+    "industries": "All Industries",
+    "realEstate": "Real Estate",
+    "gyms": "Gyms",
+    "restaurants": "Restaurants",
+    "salons": "Salons",
+    "tradies": "Tradies",
+    "dentists": "Dentists",
+    "coaches": "Coaches",
+    "careers": "Careers"
   },
   "hero": {
     "label": "The AI-Powered Growth System",

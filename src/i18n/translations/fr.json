@@ -54,7 +54,17 @@
     "hipaaNote": "*La certification HIPAA est disponible en option pour les entreprises du secteur de la santé.",
     "copyright": "2026 DUSA . studio. Tous droits réservés.",
     "privacyPolicy": "Politique de confidentialité",
-    "termsOfService": "Conditions d'utilisation"
+    "termsOfService": "Conditions d'utilisation",
+    "industriesHeading": "Secteurs",
+    "industries": "Tous les secteurs",
+    "realEstate": "Immobilier",
+    "gyms": "Salles de sport",
+    "restaurants": "Restaurants",
+    "salons": "Salons de beauté",
+    "tradies": "Artisans",
+    "dentists": "Dentistes",
+    "coaches": "Coachs",
+    "careers": "Carrières"
   },
   "hero": {
     "label": "Le système de croissance IA",

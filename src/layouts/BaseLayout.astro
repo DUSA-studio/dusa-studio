@@ -2,6 +2,11 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { stripRegion, urlFor, navRoutesByRegion, REGION_PREFIXES } from '../i18n/routes';
+import enDict from '../i18n/translations/en.json';
+import esDict from '../i18n/translations/es.json';
+import ptDict from '../i18n/translations/pt.json';
+import frDict from '../i18n/translations/fr.json';
+import deDict from '../i18n/translations/de.json';
 import '../styles/global.css';
 
 interface Props {
@@ -21,8 +26,16 @@ const {
   lang = 'en-AU',
   ogLocale = 'en_AU',
   region,
-  t = {},
+  t: tProp = {},
 } = Astro.props;
+
+// Nav and Footer read their labels from `t`. 119 locale pages (contact,
+// terms, privacy, thank-you, industries, blog) never passed it and so rendered
+// an English nav and footer on a German page. Resolve it from the URL when a
+// page does not supply one.
+const DICTS: Record<string, Record<string, any>> = { es: esDict, mx: esDict, br: ptDict, fr: frDict, de: deDict };
+const urlRegion = (Astro.url.pathname.match(/^\/(es|mx|br|fr|de)(\/|$)/) || [])[1];
+const t: Record<string, any> = Object.keys(tProp).length ? tProp : (DICTS[urlRegion] || enDict);
 
 // Clamp meta descriptions to 160 chars at a word boundary (SERP hygiene).
 const seoDescription = description.length <= 160

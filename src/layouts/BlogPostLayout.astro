@@ -745,6 +745,18 @@ const jsonLd = JSON.stringify({
     color: var(--deep-black);
   }
 
+  /* Aqua as text on cream is ~1.6:1; use the deepened ink token in light mode. */
+  :global(html[data-theme="light"]) .blog-post__category,
+  :global(html[data-theme="light"]) .related-posts__category,
+  :global(html[data-theme="light"]) .blog-post__body :global(a),
+  :global(html[data-theme="light"]) .blog-post__body :global(em),
+  :global(html[data-theme="light"]) .blog-post__body :global(.divider) {
+    color: var(--aqua-ink);
+  }
+  :global(html[data-theme="light"]) .blog-post__category,
+  :global(html[data-theme="light"]) .related-posts__category {
+    border-color: rgba(11, 111, 98, 0.35);
+  }
   :global(html[data-theme="light"]) .related-posts__meta {
     color: rgba(12, 14, 20, 0.62);
   }

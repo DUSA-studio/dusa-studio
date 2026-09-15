@@ -49,7 +49,7 @@ export const ROUTES: Set<string> = new Set(
       .replace(/\/index$/, '')
       .replace(/^index$/, '');
     return path === '/' || path === '' ? '/' : path;
-  })
+  }).filter((p) => !/(^|\/)404$/.test(p))
 );
 
 /** Region prefixes in nav order. `au` is the unprefixed root site. */

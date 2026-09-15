@@ -9,16 +9,46 @@
 // Deriving the routes from the filesystem at build time means the lists can
 // never drift again.
 
-const pageModules = import.meta.glob('/src/pages/**/*.astro');
+// This runs at build time only (it is imported from .astro frontmatter), so
+// read the filesystem directly. It used to be `import.meta.glob('/src/pages/**/*.astro')`,
+// which made Vite treat every page as a lazy import of every layout: the CSS of
+// all 320+ pages was then linked from every single page (145 stylesheet requests
+// on the homepage). Plain fs has no module graph and no such side effect.
+import { readdirSync, existsSync } from 'node:fs';
+import { join, relative, sep, dirname } from 'node:path';
+// import.meta.url points at the bundled chunk once Vite has processed this
+// file, so resolve from the project root (Astro runs with cwd there).
+function findPagesDir(): string {
+  let dir = process.cwd();
+  for (let i = 0; i < 6; i++) {
+    const candidate = join(dir, 'src', 'pages');
+    if (existsSync(candidate)) return candidate;
+    const parent = dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  // Fail the build loudly rather than shipping empty hreflang and a dead switcher.
+  throw new Error('[i18n/routes] Could not locate src/pages from ' + process.cwd());
+}
+const PAGES_DIR = findPagesDir();
+
+function walk(dir: string, out: string[] = []): string[] {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, out);
+    else if (entry.isFile() && entry.name.endsWith('.astro')) out.push(full);
+  }
+  return out;
+}
 
 /** Every route the site actually builds, normalised: '/', '/pricing', '/es/blog/foo'. */
 export const ROUTES: Set<string> = new Set(
-  Object.keys(pageModules).map((file) => {
-    const path = file
-      .replace(/^\/src\/pages/, '')
+  walk(PAGES_DIR).map((file) => {
+    const path = '/' + relative(PAGES_DIR, file).split(sep).join('/')
       .replace(/\.astro$/, '')
-      .replace(/\/index$/, '');
-    return path === '' ? '/' : path;
+      .replace(/\/index$/, '')
+      .replace(/^index$/, '');
+    return path === '/' || path === '' ? '/' : path;
   })
 );
 

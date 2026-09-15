@@ -36,7 +36,7 @@
    Everything else v11 attempted has been removed on purpose. See NOTES at
    the bottom for what went and why, so nobody re-adds it by accident.
    ============================================================ */
-(function DUSA_GHL_Bridge_v12() {
+(function DUSA_GHL_Bridge_v13() {
   'use strict';
 
   var BRAND = {
@@ -84,12 +84,39 @@
     '#9E77ED': [BRAND.reefAqua,  '#8AEBD9'],
     '#B692F6': [BRAND.reefAqua,  '#8AEBD9'],
     '#A4BCFD': [BRAND.reefAqua,  '#8AEBD9'],
-    '#84CAFF': [BRAND.reefAqua,  '#8AEBD9']
+    '#84CAFF': [BRAND.reefAqua,  '#8AEBD9'],
+    '#22CCEE': [BRAND.reefAqua,  '#8AEBD9']
   };
   function knownFor(v) {
     var c = toRGB(v); if (!c) return null;
     var hex = '#' + [c.r, c.g, c.b].map(function (n) { return ('0' + n.toString(16)).slice(-2); }).join('').toUpperCase();
     return KNOWN[hex] ? KNOWN[hex][isDark() ? 1 : 0] : null;
+  }
+
+  var DARK_FILLS = { '#1A3A5C': 1, '#002F5F': 1, '#3A6A93': 1 };
+  function fixLabelsOnDarkBars(svg) {
+    var shapes = [];
+    svg.querySelectorAll('path[fill], rect[fill]').forEach(function (sh) {
+      var f = String(sh.getAttribute('fill') || '').toUpperCase();
+      if (!DARK_FILLS[f]) return;
+      var r = sh.getBoundingClientRect();
+      if (r.width < 40 || r.height < 12) return;
+      shapes.push(r);
+    });
+    svg.querySelectorAll('text').forEach(function (t) {
+      var r = t.getBoundingClientRect();
+      if (!r.width) return;
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var onDark = shapes.some(function (b) { return cx >= b.left && cx <= b.right && cy >= b.top && cy <= b.bottom; });
+      var memo = t.dataset.dusaOriglabel;
+      if (onDark) {
+        if (!memo) t.dataset.dusaOriglabel = t.getAttribute('fill') || (t.style && t.style.fill) || '#101828';
+        if (t.getAttribute('fill') !== '#F7F4EF') { t.setAttribute('fill', '#F7F4EF'); if (t.style) t.style.fill = '#F7F4EF'; }
+      } else if (memo) {
+        t.setAttribute('fill', memo); if (t.style) t.style.fill = memo;
+        delete t.dataset.dusaOriglabel;
+      }
+    });
   }
 
   /* ─────────────────────────────────────────────────────────
@@ -179,6 +206,13 @@
           }
         });
       });
+
+      /* Labels drawn ON the bars (the dashboard Funnel widget writes
+         "New Lead / A$0" over each bar). GHL's bars were light blue, so its
+         dark label ink read fine; on a deep-ocean bar it vanished. Any text
+         whose centre sits inside a dark shape gets warm-white ink; the
+         original is memoised so a re-render (or a bar going grey) restores it. */
+      try { fixLabelsOnDarkBars(svg); } catch (e) {}
 
       /* Legend swatches and any gradient stops in the same chart. */
       svg.querySelectorAll('linearGradient stop, radialGradient stop').forEach(function (s) {
@@ -292,7 +326,7 @@
       [200, 900, 2500].forEach(function (ms) { setTimeout(run, ms); });
     }, 600);
 
-    console.log('%c DUSA.studio %c Brand Bridge v12 active',
+    console.log('%c DUSA.studio %c Brand Bridge v13 active',
       'background:linear-gradient(135deg,#4ED8C2,#6AAACF);color:#0C0E14;padding:4px 8px;border-radius:4px 0 0 4px;font-weight:bold;',
       'background:#0C0E14;color:#4ED8C2;padding:4px 8px;border-radius:0 4px 4px 0;');
   }

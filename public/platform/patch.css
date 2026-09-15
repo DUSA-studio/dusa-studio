@@ -952,3 +952,9 @@ header #recent_activities-toggle.-notification::after {
 body[data-theme="default-dark-v1"] header #recent_activities-toggle.-notification::after {
     border-color: #10141C !important;
 }
+
+/* Funnel widget cyan (#22CCEE) joins the mint group; keep in step with KNOWN in the JS. */
+svg [fill="#22CCEE" i] { fill: #4ED8C2 !important; }
+svg [stroke="#22CCEE" i] { stroke: #4ED8C2 !important; }
+body[data-theme="default-dark-v1"] svg [fill="#22CCEE" i] { fill: #8AEBD9 !important; }
+body[data-theme="default-dark-v1"] svg [stroke="#22CCEE" i] { stroke: #8AEBD9 !important; }

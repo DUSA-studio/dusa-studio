@@ -12,6 +12,7 @@
   --deep-ocean: #1A3A5C;
   --mist-blue: #6AAACF;
   --reef-aqua: #4ED8C2;
+  --aqua-ink: #4ED8C2; /* aqua as TEXT; deepened in light mode for contrast */
   --sandstone: #EDE9E3;
   --warm-white: #F7F4EF;
 
@@ -579,6 +580,7 @@ html[data-theme="light"] .gradient-text {
 /* --- Base --- */
 html[data-theme="light"] {
   background-color: var(--warm-white);
+  --aqua-ink: #0B6F62;
 }
 
 html[data-theme="light"] body {
@@ -791,7 +793,7 @@ html[data-theme="light"] .footer .footer__logo {
 html[data-theme="light"] .footer h4,
 html[data-theme="light"] .footer h3,
 html[data-theme="light"] .footer h2 {
-  color: rgba(247, 244, 239, 0.4);
+  color: rgba(247, 244, 239, 0.58);
 }
 
 /* --- Elements inside dark cards that should STAY light --- */

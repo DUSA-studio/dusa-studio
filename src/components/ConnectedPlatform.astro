@@ -1006,7 +1006,7 @@ const STATS = [
     /* cqw sizes shrink with the stage; hold them above legibility. */
     .cp__readout { width: 30%; }
     .cp__readout-brand { font-size: max(5.3cqw, 1.25rem); }
-    .cp__readout-sub { font-size: max(1.55cqw, 0.5625rem); letter-spacing: 0.16em; }
+    .cp__readout-sub { font-size: max(1.55cqw, 0.625rem); letter-spacing: 0.16em; }
     .cp__readout-domain { font-size: max(1.2cqw, 0.5rem); }
     .cp__readout-name { font-size: max(2.5cqw, 0.8125rem); }
     .cp__readout-desc { font-size: max(1.6cqw, 0.6875rem); }
@@ -1032,12 +1032,16 @@ const STATS = [
   /* ─── LIGHT MODE ─── */
   :global(html[data-theme="light"]) .cp__sub { color: rgba(12, 14, 20, 0.6); }
   :global(html[data-theme="light"]) .cp__stat dt { color: var(--deep-black); }
-  :global(html[data-theme="light"]) .cp__stat dd { color: rgba(12, 14, 20, 0.45); }
+  :global(html[data-theme="light"]) .cp__stat dd { color: rgba(12, 14, 20, 0.62); }
   :global(html[data-theme="light"]) .cp__stat + .cp__stat::before { background: rgba(12, 14, 20, 0.14); }
   :global(html[data-theme="light"]) .cp__cap-text { fill: rgba(12, 14, 20, 0.85); }
   :global(html[data-theme="light"]) .cp__cap-text.is-ai-text { fill: #0B5F55; }
   :global(html[data-theme="light"]) .cp__cap.is-ai { fill: rgba(78, 216, 194, 0.42) !important; stroke: #1B9C8B !important; }
   :global(html[data-theme="light"]) .cp__ai-label { fill: #0E7568; }
+  :global(html[data-theme="light"]) .cp__readout-sub { color: var(--aqua-ink); }
+  :global(html[data-theme="light"]) .cp__apps-title b { color: var(--aqua-ink); }
+  :global(html[data-theme="light"]) .cp__cta { color: var(--aqua-ink); border-color: rgba(11, 111, 98, 0.4); background: rgba(11, 111, 98, 0.06); }
+  :global(html[data-theme="light"]) .cp__cta:hover { border-color: rgba(11, 111, 98, 0.7); background: rgba(11, 111, 98, 0.1); }
   :global(html[data-theme="light"]) .cp__aura { opacity: 0.5; }
   :global(html[data-theme="light"]) .cp__chip { background: rgba(12, 14, 20, 0.03); border-color: rgba(12, 14, 20, 0.1); }
   :global(html[data-theme="light"]) .cp__chip svg path { fill: rgba(12, 14, 20, 0.7); }

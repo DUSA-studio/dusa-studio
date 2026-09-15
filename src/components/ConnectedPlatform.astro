@@ -727,6 +727,7 @@ const STATS = [
 
   .cp__seg, .cp__ai, .cp__ticks, .cp__sheen, .cp__flows, .cp__rims { pointer-events: none; }
   .cp__hit { cursor: pointer; }
+  .cp__wheel, .cp__lg { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   /* The individually hovered tile reads brighter than its domain siblings, so
      moving along the ring feels like stepping item to item. */
   .cp__stage.is-dim .cp__cap.is-active {
@@ -753,10 +754,26 @@ const STATS = [
        bleeding out of the tile underneath. */
     filter: drop-shadow(0 0 2.5px rgba(4, 10, 14, 0.95));
   }
-  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text,
-  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text.is-ai-text {
-    fill: #FFFFFF; filter: drop-shadow(0 0 2.5px rgba(6, 24, 34, 0.85));
+  /* Light mode: the lit tiles are pale, so white labels vanished into them
+     ("CRM & pipelines" white on #bfe3f2). Lit tiles deepen instead of
+     brightening, and the labels stay ink. */
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on {
+    filter: saturate(1.45) brightness(0.96) drop-shadow(0 0 7px var(--glow, #4ED8C2));
   }
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__cap.is-active {
+    filter: saturate(1.6) brightness(0.92) drop-shadow(0 0 12px var(--glow, #4ED8C2));
+  }
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__cap.is-ai.is-on {
+    filter: saturate(1.5) brightness(0.94) drop-shadow(0 0 12px #4ED8C2);
+  }
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text {
+    fill: #0C0E14; filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  }
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg.is-on .cp__cap-text.is-ai-text {
+    fill: #06443C; filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  }
+  /* Unselected segments at 0.1 disappear into cream; keep the wheel legible. */
+  :global(html[data-theme="light"]) .cp__stage.is-dim .cp__seg:not(.is-on) { opacity: 0.28; }
   .cp__seg { transition: opacity 0.22s var(--ease-out); }
   .cp--anim .cp__seg { opacity: 0; transform: scale(0.965); transform-origin: 380px 380px; }
   .cp--anim.is-in .cp__seg {
@@ -1016,6 +1033,7 @@ const STATS = [
     .cp__chip { padding: 0.45rem 0.8rem; }
     .cp__chip > span { font-size: 0.6875rem; }
     .cp__mpanels { display: block; }
+    .cp__stage.is-dim .cp__seg:not(.is-on) { opacity: 0.3; }
     .cp__legend { margin-top: var(--space-md); }
     .cp__lg { min-height: 44px; padding: 0.55rem 0.7rem 0.55rem 0.95rem; font-size: 0.8125rem; }
     .cp__note { color: rgba(247, 244, 239, 0.6); }
@@ -1150,6 +1168,7 @@ const STATS = [
     /* Hover is a preview; a click locks the view so it can be read at leisure
        (and so the whole thing works on touch, where hover does not exist). */
     let locked = null;   // {kind:'domain'|'ai'|'cap', ...}
+    const touchUI = window.matchMedia('(hover: none)').matches;
     let leaveTimer = null;
     let activeHit = null;
 
@@ -1254,6 +1273,14 @@ const STATS = [
         if (on) shown = p;
       });
       if (panelEmpty) panelEmpty.hidden = !!shown;
+      /* On a phone the panel opens under the wheel; bring it into view if the
+         tap left it below the fold. */
+      if (shown && touchUI) {
+        const r = shown.getBoundingClientRect();
+        if (r.top > window.innerHeight - 160 || r.bottom < 0) {
+          window.scrollBy({ top: r.top - Math.max(80, window.innerHeight * 0.18), behavior: 'smooth' });
+        }
+      }
       /* A locked capability gets its row emphasised inside the domain panel. */
       panels.forEach((p) => p.querySelectorAll('li.is-here').forEach((li) => li.classList.remove('is-here')));
       if (shown && locked && locked.kind === 'cap' && locked.hit) {
@@ -1281,7 +1308,7 @@ const STATS = [
       setChips();
     };
     const DOMAIN_NAMES = [...section.querySelectorAll('.cp__lg[data-domain]')]
-      .map((b) => b.textContent.replace(/\d+$/, '').trim());
+      .map((b) => b.textContent.replace(/\s*\d+\s*$/, '').trim());
 
     const scheduleRestore = () => {
       clearTimeout(leaveTimer);
@@ -1289,6 +1316,10 @@ const STATS = [
     };
 
     svg.addEventListener('pointermove', (e) => {
+      /* A finger dragging across the wheel (scrolling) is not a hover: it
+         used to leave a random tile lit and the wheel dimmed. Touch only
+         talks to the wheel through taps. */
+      if (e.pointerType === 'touch') return;
       const hit = e.target.closest ? e.target.closest('.cp__hit-cap, .cp__hit-dom') : null;
       if (!hit) { if (activeHit) scheduleRestore(); return; }
       clearTimeout(leaveTimer);
@@ -1299,6 +1330,7 @@ const STATS = [
     }, { passive: true });
 
     svg.addEventListener('pointerleave', scheduleRestore, { passive: true });
+    svg.addEventListener('pointercancel', scheduleRestore, { passive: true });
 
     /* Click a tile to keep it. */
     svg.addEventListener('click', (e) => {
@@ -1317,12 +1349,13 @@ const STATS = [
     chips.forEach((btn) => {
       const di = btn.getAttribute('data-domain');
       btn.addEventListener('mouseenter', () => {
+        if (touchUI) return;
         clearTimeout(leaveTimer);
         activeHit = null;
         lightDomain(di); showDefault();
       });
       btn.addEventListener('mouseleave', scheduleRestore);
-      btn.addEventListener('focus', () => { lightDomain(di); showDefault(); });
+      btn.addEventListener('focus', () => { if (touchUI) return; lightDomain(di); showDefault(); });
       btn.addEventListener('blur', scheduleRestore);
       btn.addEventListener('click', () => {
         locked = (locked && locked.kind === 'domain' && locked.di === di) ? null : { kind: 'domain', di };
@@ -1330,9 +1363,9 @@ const STATS = [
       });
     });
 
-    aiChip.addEventListener('mouseenter', () => { clearTimeout(leaveTimer); activeHit = null; lightAi(); });
+    aiChip.addEventListener('mouseenter', () => { if (touchUI) return; clearTimeout(leaveTimer); activeHit = null; lightAi(); });
     aiChip.addEventListener('mouseleave', scheduleRestore);
-    aiChip.addEventListener('focus', lightAi);
+    aiChip.addEventListener('focus', () => { if (!touchUI) lightAi(); });
     aiChip.addEventListener('blur', scheduleRestore);
     aiChip.addEventListener('click', () => {
       locked = (locked && locked.kind === 'ai') ? null : { kind: 'ai' };

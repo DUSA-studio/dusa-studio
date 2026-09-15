@@ -786,6 +786,14 @@ html[data-theme="light"] .footer {
   color: var(--warm-white);
 }
 
+/* Aqua used as TEXT on light surfaces: deepen for contrast (aqua on cream is ~1.6:1) */
+html[data-theme="light"] :is(.ind-card__link, .ind-cta__link, .ob-hero__eyebrow, .ob-phase__badge, .ig-carousel__type, .blog-social__desc a, .blog-hero__social-link:hover, .activate__toggle-badge, .activate__assist a, .services-process__num, .cr-cta__alt a, .trial-cta__text a) {
+  color: var(--aqua-ink);
+}
+html[data-theme="light"] .ob-phase__badge--ongoing {
+  color: var(--deep-ocean);
+}
+
 html[data-theme="light"] .footer .footer__logo {
   color: var(--warm-white);
 }

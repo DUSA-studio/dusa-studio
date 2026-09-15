@@ -333,7 +333,7 @@ const faqs = [
               </span>
             )}
             <div class="pricing-card__head">
-              <h3 class="pricing-card__name">{tier.name}</h3>
+              <h2 class="pricing-card__name">{tier.name}</h2>
               <p class="pricing-card__tagline">{tier.tagline}</p>
             </div>
             <div class="pricing-card__price-row">
@@ -474,7 +474,7 @@ const faqs = [
               <path d="M10 21h4"/>
             </svg>
           </div>
-          <h4 class="support__card-title">AI assistant, phone & chat</h4>
+          <h3 class="support__card-title">AI assistant, phone & chat</h3>
           <p class="support__card-desc">Call or chat with your AI assistant anytime. It will walk you through anything DUSA-related, from setup to strategy. If you hit a blocker, we book you in with a growth specialist. Growth plans and above get priority access to consultants.</p>
           <span class="support__card-plans">All plans</span>
         </div>
@@ -487,7 +487,7 @@ const faqs = [
               <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
-          <h4 class="support__card-title">DUSA community</h4>
+          <h3 class="support__card-title">DUSA community</h3>
           <p class="support__card-desc">Connect with other business owners, share strategies, and learn from people growing their businesses with DUSA. Real conversations, not just help tickets.</p>
           <span class="support__card-plans">All plans</span>
         </div>
@@ -499,7 +499,7 @@ const faqs = [
               <path d="M12 17v4"/>
             </svg>
           </div>
-          <h4 class="support__card-title">Members portal</h4>
+          <h3 class="support__card-title">Members portal</h3>
           <p class="support__card-desc">Your private hub for guides, tutorials, templates, and support. Everything you need to get the most out of your DUSA platform, all in one place.</p>
           <span class="support__card-plans">All plans</span>
         </div>
@@ -509,7 +509,7 @@ const faqs = [
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
             </svg>
           </div>
-          <h4 class="support__card-title">Priority & dedicated</h4>
+          <h3 class="support__card-title">Priority & dedicated</h3>
           <p class="support__card-desc">Growth plans jump the queue with priority support. Bespoke clients get a dedicated account manager, phone line, and monthly strategy reviews.</p>
           <span class="support__card-plans">Growth & Bespoke</span>
         </div>
@@ -562,11 +562,11 @@ const faqs = [
                       {['launchpad', 'starter', 'growth', 'bespoke'].map((plan) => (
                         <td class={`compare__cell compare__cell--${plan}`}>
                           {f[plan] === true ? (
-                            <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Included">
                               <path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                           ) : f[plan] === false ? (
-                            <span class="compare__dash">—</span>
+                            <span class="compare__dash" role="img" aria-label="Not included">—</span>
                           ) : (
                             <span class="compare__text">{f[plan]}</span>
                           )}

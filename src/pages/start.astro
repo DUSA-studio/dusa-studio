@@ -48,7 +48,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
         {SAAS_PLANS.map((plan) => (
           <div class={`activate__card${plan.highlight ? ' activate__card--highlight' : ''}`} data-plan={plan.id}>
             {plan.highlight && <span class="activate__popular">Most popular</span>}
-            <h3 class="activate__name">{plan.name}</h3>
+            <h2 class="activate__name">{plan.name}</h2>
             <p class="activate__blurb">{plan.blurb}</p>
             <div class="activate__price">
               <span class="activate__price-num" data-monthly={`$${plan.monthlyPrice}`} data-annual={`$${plan.annualPrice}`}>${plan.monthlyPrice}</span>
@@ -123,7 +123,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
             </div>
             <div>
-              <h4 class="trial__value-title">All 6 core systems included</h4>
+              <h3 class="trial__value-title">All 6 core systems included</h3>
               <p class="trial__value-text">CRM, marketing, funnels, booking, reputation, and AI chat in one place.</p>
             </div>
           </div>
@@ -133,7 +133,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 2l1.09 3.26L16 6l-2.18 2.18L14.36 12 12 10.09 9.64 12l.54-3.82L8 6l2.91-.74z"/><path d="M5 18l1.09-3.26L3 13l2.91-.74L5 9"/><path d="M19 18l-1.09-3.26L21 13l-2.91-.74L19 9"/></svg>
             </div>
             <div>
-              <h4 class="trial__value-title">AI-powered automations from day one</h4>
+              <h3 class="trial__value-title">AI-powered automations from day one</h3>
               <p class="trial__value-text">Smart workflows that save you hours every week, active the moment you sign up.</p>
             </div>
           </div>
@@ -143,7 +143,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
             </div>
             <div>
-              <h4 class="trial__value-title">Guided onboarding to get you results fast</h4>
+              <h3 class="trial__value-title">Guided onboarding to get you results fast</h3>
               <p class="trial__value-text">We walk you through setup so you see value within your first week.</p>
             </div>
           </div>
@@ -153,7 +153,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div>
-              <h4 class="trial__value-title">Cancel anytime, no questions asked</h4>
+              <h3 class="trial__value-title">Cancel anytime, no questions asked</h3>
               <p class="trial__value-text">Zero lock-in. If it's not the right fit, walk away with no strings attached.</p>
             </div>
           </div>

@@ -244,8 +244,9 @@ const jsonLd = JSON.stringify({
     </noscript>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <Nav regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
-    <main>
+    <main id="main" tabindex="-1">
       <article class="blog-post section section--dark">
         <div class="container">
           <header class="blog-post__header">

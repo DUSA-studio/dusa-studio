@@ -813,6 +813,36 @@ html[data-theme="light"] .problem__solution-desc {
   color: rgba(247, 244, 239, 0.55);
 }
 
+/* ── Keyboard access: a visible, on-brand focus ring, and a skip link ── */
+:focus-visible {
+  outline: 2px solid var(--aqua-ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+main:focus { outline: none; }
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 2147483001;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--reef-aqua);
+  color: var(--deep-black);
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transform: translateY(-200%);
+  opacity: 0;
+  transition: transform 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
+  outline-offset: 2px;
+}
+
 /* ── Mobile hardening: never allow horizontal scroll/clipping ── */
 @media (max-width: 768px) {
   html,

@@ -393,7 +393,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
               </span>
             )}
             <div class="pricing-card__head">
-              <h3 class="pricing-card__name">{tier.name}</h3>
+              <h2 class="pricing-card__name">{tier.name}</h2>
               <p class="pricing-card__tagline">{tier.tagline}</p>
             </div>
             <div class="pricing-card__price-row">
@@ -567,7 +567,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
               <path d="M10 21h4"/>
             </svg>
           </div>
-          <h4 class="support__card-title">{p.supportAiTitle}</h4>
+          <h3 class="support__card-title">{p.supportAiTitle}</h3>
           <p class="support__card-desc">{p.supportAiDesc}</p>
           <span class="support__card-plans">{p.allPlans}</span>
         </div>
@@ -580,7 +580,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
               <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
-          <h4 class="support__card-title">{p.supportCommunityTitle}</h4>
+          <h3 class="support__card-title">{p.supportCommunityTitle}</h3>
           <p class="support__card-desc">{p.supportCommunityDesc}</p>
           <span class="support__card-plans">{p.allPlans}</span>
         </div>
@@ -592,7 +592,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
               <path d="M12 17v4"/>
             </svg>
           </div>
-          <h4 class="support__card-title">{p.supportPortalTitle}</h4>
+          <h3 class="support__card-title">{p.supportPortalTitle}</h3>
           <p class="support__card-desc">{p.supportPortalDesc}</p>
           <span class="support__card-plans">{p.allPlans}</span>
         </div>
@@ -602,7 +602,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
             </svg>
           </div>
-          <h4 class="support__card-title">{p.supportPriorityTitle}</h4>
+          <h3 class="support__card-title">{p.supportPriorityTitle}</h3>
           <p class="support__card-desc">{p.supportPriorityDesc}</p>
           <span class="support__card-plans">{p.growthAndBespoke}</span>
         </div>
@@ -655,11 +655,11 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
                       {['launchpad', 'starter', 'growth', 'bespoke'].map((plan) => (
                         <td class={`compare__cell compare__cell--${plan}`}>
                           {f[plan] === true ? (
-                            <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={(p as any).included || 'Included'}>
                               <path d="M5 10l3.5 3.5L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                           ) : f[plan] === false ? (
-                            <span class="compare__dash">&mdash;</span>
+                            <span class="compare__dash" role="img" aria-label={(p as any).notIncluded || 'Not included'}>&mdash;</span>
                           ) : (
                             <span class="compare__text">{f[plan]}</span>
                           )}

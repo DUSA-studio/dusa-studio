@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title = 'DUSA . studio | Growth Platform for Small Business',
-  description = 'Run your marketing, sales, and customer engagement from one platform. DUSA is the all-in-one growth system built for businesses that want to scale without the complexity.',
+  description = 'Marketing, sales and customer engagement from one login. DUSA is the all-in-one growth platform for small businesses that want to scale without the complexity.',
   noindex = false,
   lang = 'en-AU',
   ogLocale = 'en_AU',
@@ -181,8 +181,9 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     </noscript>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <Nav t={t} regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
-    <main>
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer t={t} />

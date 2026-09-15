@@ -508,6 +508,7 @@ const r = getRegion(region);
       });
 
       if (res.ok) {
+        if (window.dusaTrack) window.dusaTrack('lead', { form: 'contact' });
         successMsg.style.display = 'flex';
         contactForm.reset();
       } else {

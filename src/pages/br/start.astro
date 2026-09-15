@@ -921,6 +921,7 @@ const region = 'br';
       });
 
       if (res.ok) {
+        if (window.dusaTrack) window.dusaTrack('trial_signup', { plan: (data && (data.plan || data.selected_plan)) || '' });
         window.location.href = '/br/thank-you';
       } else {
         trialError.style.display = 'flex';

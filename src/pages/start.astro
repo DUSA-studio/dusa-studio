@@ -1233,6 +1233,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
       });
 
       if (res.ok) {
+        if (window.dusaTrack) window.dusaTrack('trial_signup', { plan: (data && (data.plan || data.selected_plan)) || '' });
         window.location.href = '/thank-you';
       } else {
         trialError.style.display = 'flex';

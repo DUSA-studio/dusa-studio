@@ -294,6 +294,11 @@ const jsonLd = JSON.stringify({
     </main>
     <Footer />
 
+    <!-- Analytics: GA4 + Meta Pixel + conversion events (IDs live in the file) -->
+    <script src="/js/tracking.v1.js" defer></script>
+    <!-- DUSA (GHL) External Tracking: page views + form fills into the DUSA dashboard -->
+    <script src="https://link.dusa.studio/js/external-tracking.js" data-tracking-id="tk_5247d5a164e240a49f5c69e043fac41e" defer></script>
+
     <!-- LeadConnector Chat Widget -->
     <script defer src="/_vercel/insights/script.js"></script>
     <script src="https://widgets.leadconnectorhq.com/loader.js"

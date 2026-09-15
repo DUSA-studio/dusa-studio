@@ -510,6 +510,7 @@ import t from '../i18n/translations/en.json';
       });
 
       if (res.ok) {
+        if (window.dusaTrack) window.dusaTrack('lead', { form: 'contact' });
         successMsg.style.display = 'flex';
         contactForm.reset();
       } else {

@@ -1919,6 +1919,34 @@ const notifJson = JSON.stringify(notifTranslations);
   }
 
   /* ─── LIGHT MODE ─── */
+  /* ── Short viewports: the 2026 iPhone Duo is 466x678 folded and 890x626
+     unfolded, so the opening statement has to fit in ~600px under the nav.
+     Tighten the intro card rather than letting the CTAs fall below the fold. */
+  @media (max-height: 740px) {
+    .hero__intro {
+      min-height: auto;
+      padding-top: var(--space-sm);
+      padding-bottom: calc(var(--space-md) + 44px);
+    }
+    .hero__intro-content {
+      padding: var(--space-md) var(--space-lg);
+    }
+    .hero__intro-label { margin-bottom: 8px; }
+    .hero__intro-headline {
+      font-size: clamp(1.75rem, 4.2vw, 2.6rem);
+      margin-bottom: 8px;
+    }
+    .hero__intro-sub {
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+      margin-bottom: 12px;
+    }
+    .hero__intro-stats { gap: 8px 0; margin-bottom: 6px; }
+    .hero__intro-stat-num { font-size: 1.35rem; }
+    .hero__intro-statnote { display: none; }
+    .hero__intro-ctas { margin-bottom: 6px; }
+    .hero__intro-scroll { display: none; }
+  }
+
   :global(html[data-theme="light"]) .hero {
     background: linear-gradient(180deg, #b8d8e8 0%, #d0e6ef 40%, #e4eff4 100%);
   }

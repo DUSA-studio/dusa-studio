@@ -677,6 +677,11 @@ const STATS = [
 
   /* ─── Wheel ─── */
   .cp__stage { position: relative; max-width: 780px; margin: 0 auto; container-type: inline-size; }
+  /* A wide, short viewport (iPhone Duo unfolded is 890x626) must still show
+     the whole wheel: cap it to the viewport height above the mobile breakpoint. */
+  @media (min-width: 701px) and (max-height: 820px) {
+    .cp__stage { max-width: min(780px, calc(100svh - 150px)); }
+  }
   .cp__aura {
     position: absolute; inset: -12%;
     background: radial-gradient(circle at 50% 50%,

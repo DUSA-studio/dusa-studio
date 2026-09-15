@@ -282,6 +282,11 @@ const industryLinks = [
     position: relative;
     white-space: nowrap;
   }
+  /* Wide touch screens (iPhone Duo unfolded, iPad) get the desktop nav; make
+     each link a 44px tap target without changing the visual layout. */
+  @media (hover: none) and (min-width: 769px) {
+    .nav__link, .nav__login { padding-block: 11px; margin-block: -11px; }
+  }
 
   .nav__link::after {
     content: '';

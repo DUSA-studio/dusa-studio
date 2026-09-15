@@ -682,6 +682,14 @@ const STATS = [
   @media (min-width: 701px) and (max-height: 820px) {
     .cp__stage { max-width: min(780px, calc(100svh - 150px)); }
   }
+  /* Once the wheel is capped under ~600px the outer-ring labels are below
+     legibility, so use the phone treatment: quiet outer ring + panels. */
+  @media (min-width: 701px) and (max-height: 720px) {
+    .cp__cap-text { display: none; }
+    .cp__mpanels { display: block; }
+    .cp__tip { display: none; }
+    .cp__dom-text { font-size: 21px; letter-spacing: 0.02em; }
+  }
   .cp__aura {
     position: absolute; inset: -12%;
     background: radial-gradient(circle at 50% 50%,

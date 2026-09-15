@@ -196,5 +196,23 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
       data-widget-id="6880d1b3b785852440a39d69"
       defer>
     </script>
+    <script is:inline>
+      // Mobile: the chat prompt bubble stacks on top of the sticky CTA bar and
+      // eats ~130px of a phone viewport. Keep the launcher, drop the bubble.
+      (function () {
+        if (!window.matchMedia('(max-width: 768px)').matches) return;
+        var tries = 0;
+        var t = setInterval(function () {
+          var cw = document.querySelector('chat-widget');
+          var root = cw && cw.shadowRoot;
+          if (root) {
+            var s = document.createElement('style');
+            s.textContent = '.lc_text-widget--prompt{display:none!important}';
+            root.appendChild(s);
+            clearInterval(t);
+          } else if (++tries > 120) { clearInterval(t); }
+        }, 500);
+      })();
+    </script>
   </body>
 </html>

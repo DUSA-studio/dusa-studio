@@ -1398,7 +1398,7 @@ const notifJson = JSON.stringify(notifTranslations);
     }
 
     .hero__stats-ticker {
-      font-size: 0.5625rem;
+      font-size: 0.6875rem;
       padding: 5px 8px;
     }
 
@@ -1709,10 +1709,10 @@ const notifJson = JSON.stringify(notifTranslations);
 
   .hero__intro-statnote {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
+    font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(247, 244, 239, 0.35);
+    color: rgba(247, 244, 239, 0.58);
     margin: 0 0 var(--space-md);
   }
 
@@ -1726,10 +1726,10 @@ const notifJson = JSON.stringify(notifTranslations);
 
   .hero__intro-note {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(247, 244, 239, 0.42);
+    color: rgba(247, 244, 239, 0.6);
     margin: 0;
   }
 
@@ -2217,7 +2217,7 @@ const notifJson = JSON.stringify(notifTranslations);
   }
 
   :global(html[data-theme="light"]) .hero__intro-statnote {
-    color: rgba(12, 14, 20, 0.35);
+    color: rgba(12, 14, 20, 0.62);
   }
 
   :global(html[data-theme="light"]) .hero__intro-stat + .hero__intro-stat::before {
@@ -2225,7 +2225,7 @@ const notifJson = JSON.stringify(notifTranslations);
   }
 
   :global(html[data-theme="light"]) .hero__intro-note {
-    color: rgba(12, 14, 20, 0.4);
+    color: rgba(12, 14, 20, 0.64);
   }
 
   :global(html[data-theme="light"]) .hero__intro-scroll {
@@ -2478,9 +2478,9 @@ const notifJson = JSON.stringify(notifTranslations);
         <div class="hero__notif-body" style="flex:1;min-width:0;">
           <div class="hero__notif-row" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;">
             <span class="hero__notif-title" style="font-weight:600;font-size:0.8125rem;color:#F7F4EF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${notif.title}</span>
-            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(247,244,239,0.3);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">${displayTime}</span>
+            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(247,244,239,0.55);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">${displayTime}</span>
           </div>
-          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(247,244,239,0.45);line-height:1.4;margin:0;">${notif.text}</p>
+          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(247,244,239,0.62);line-height:1.4;margin:0;">${notif.text}</p>
         </div>
       `;
       // Force SVG sizing (scoped styles don't apply to dynamic elements)
@@ -2562,9 +2562,9 @@ const notifJson = JSON.stringify(notifTranslations);
         <div class="hero__notif-body" style="flex:1;min-width:0;">
           <div class="hero__notif-row" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;">
             <span class="hero__notif-title" style="font-weight:600;font-size:0.8125rem;color:var(--reef-aqua);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Quiet Hours Summary</span>
-            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(78,216,194,0.4);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">6am</span>
+            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(78,216,194,0.7);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">6am</span>
           </div>
-          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(78,216,194,0.55);line-height:1.4;margin:0;">${msg.text}</p>
+          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(78,216,194,0.8);line-height:1.4;margin:0;">${msg.text}</p>
         </div>
       `;
       // Mint left bar

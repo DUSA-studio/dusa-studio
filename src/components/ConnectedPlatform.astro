@@ -29,6 +29,9 @@ const note = c.note || 'Plus 1,000+ more through Zapier, Make and custom integra
 const ctaLabel = c.cta || 'See everything included';
 const aiBandLabel = c.aiBand || 'AI · ACROSS EVERYTHING';
 const hubHint = c.hubHint || 'Hover to explore, click to keep it';
+const hubHintTap = c.hubHintTap || 'Tap a segment to explore';
+const panelEmpty = c.panelEmpty || 'Tap a domain on the wheel, or a chip below, to see what is inside.';
+const aiPanelTitle = c.aiPanelTitle || 'AI powered';
 
 const AQUA = '#4ED8C2';
 
@@ -453,7 +456,39 @@ const STATS = [
         <span class="cp__tip-val"></span>
       </div>
 
-    <p class="cp__hint"><i aria-hidden="true"></i>{hubHint}</p>
+    <p class="cp__hint"><i aria-hidden="true"></i><span class="cp__hint-hover">{hubHint}</span><span class="cp__hint-tap">{hubHintTap}</span></p>
+
+    <!-- Touch readout. On a phone the wheel is too small to carry labels and
+         there is no hover, so whatever is selected is spelled out here, under
+         the graphic, where a thumb has just been. Hidden on pointer devices,
+         which use the in-hub readout and the tooltip instead. -->
+    <div class="cp__mpanels" aria-live="polite">
+      <p class="cp__mpanel-empty">{panelEmpty}</p>
+      {DOMAINS.map((d, i) => (
+        <div class="cp__mpanel" data-domain={i} hidden style={`--lg:${d.color}`}>
+          <div class="cp__mpanel-head"><i aria-hidden="true"></i><h3>{d.name}</h3><b>{d.items.length}</b></div>
+          <ul>
+            {d.items.map((it) => (
+              <li class={it.ai ? 'is-ai' : ''}>
+                <strong>{it.l.replace('\n', ' ')}{it.ai && <em>AI</em>}</strong>
+                <span>{it.d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <div class="cp__mpanel cp__mpanel--ai" data-ai hidden>
+        <div class="cp__mpanel-head"><i aria-hidden="true"></i><h3>{aiPanelTitle}</h3><b>{aiCount}</b></div>
+        <ul>
+          {DOMAINS.map((d) => d.items.filter((it) => it.ai).map((it) => (
+            <li class="is-ai">
+              <strong>{it.l.replace('\n', ' ')}<em>AI</em></strong>
+              <span>{it.d} · {d.name}</span>
+            </li>
+          )))}
+        </ul>
+      </div>
+    </div>
 
     <div class="cp__legend reveal">
       {DOMAINS.map((d, i) => (
@@ -554,6 +589,63 @@ const STATS = [
     color: #0B5F55; background: rgba(78, 216, 194, 0.14);
     border-color: rgba(27, 156, 139, 0.4);
   }
+  /* Say "tap" to thumbs and "hover" to mice. */
+  .cp__hint-tap { display: none; }
+  @media (hover: none) {
+    .cp__hint-hover { display: none; }
+    .cp__hint-tap { display: inline; }
+  }
+
+  /* ─── Touch readout panels (phones only, see media block below) ─── */
+  .cp__mpanels { display: none; }
+  .cp__mpanel-empty {
+    margin: var(--space-md) auto 0; max-width: 32ch; text-align: center;
+    font-size: 0.875rem; line-height: 1.5; color: rgba(247, 244, 239, 0.62);
+  }
+  .cp__mpanel {
+    margin: var(--space-md) auto 0; max-width: 480px;
+    padding: 1rem 1.1rem 1.1rem;
+    background: var(--glass-bg); border: 1px solid var(--glass-edge);
+    border-left: 3px solid var(--lg, var(--reef-aqua));
+    border-radius: 16px; box-shadow: var(--glass-lip);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  }
+  .cp__mpanel[hidden] { display: none; }
+  .cp__mpanel-head { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.65rem; }
+  .cp__mpanel-head i {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--lg, var(--reef-aqua));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--lg, #4ED8C2) 22%, transparent);
+  }
+  .cp__mpanel-head h3 {
+    margin: 0; font-family: var(--font-headline); font-size: 1.0625rem; font-weight: 700;
+    color: var(--warm-white); line-height: 1.2;
+  }
+  .cp__mpanel-head b {
+    margin-left: auto; font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 400;
+    color: rgba(247, 244, 239, 0.6); background: rgba(247, 244, 239, 0.08);
+    border-radius: 999px; padding: 2px 8px;
+  }
+  .cp__mpanel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .cp__mpanel li { display: grid; gap: 0.1rem; padding: 0.55rem 0 0; border-top: 1px solid rgba(247, 244, 239, 0.08); }
+  .cp__mpanel li:first-child { border-top: 0; padding-top: 0; }
+  .cp__mpanel strong {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-family: var(--font-headline); font-size: 0.9375rem; font-weight: 600; color: var(--warm-white);
+  }
+  .cp__mpanel strong em {
+    font-style: normal; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+    color: #0C0E14; background: var(--reef-aqua); border-radius: 999px; padding: 0.1rem 0.4rem;
+  }
+  .cp__mpanel span { font-size: 0.8125rem; line-height: 1.45; color: rgba(247, 244, 239, 0.68); }
+  .cp__mpanel--ai { --lg: var(--reef-aqua); }
+  .cp__mpanel li.is-here { background: rgba(78, 216, 194, 0.08); margin: 0 -0.6rem; padding: 0.55rem 0.6rem; border-radius: 10px; border-top-color: transparent; }
+  .cp__mpanel li.is-here + li { border-top-color: transparent; }
+  :global(html[data-theme="light"]) .cp__mpanel-empty { color: rgba(12, 14, 20, 0.62); }
+  :global(html[data-theme="light"]) .cp__mpanel-head h3,
+  :global(html[data-theme="light"]) .cp__mpanel strong { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .cp__mpanel-head b { color: rgba(12, 14, 20, 0.6); background: rgba(12, 14, 20, 0.07); }
+  :global(html[data-theme="light"]) .cp__mpanel span { color: rgba(12, 14, 20, 0.68); }
+  :global(html[data-theme="light"]) .cp__mpanel li { border-top-color: rgba(12, 14, 20, 0.08); }
 
   .cp__head { text-align: center; max-width: 680px; margin: 0 auto var(--space-md); }
   .cp__head h2 { font-weight: 600; margin-top: var(--space-xs); }
@@ -878,7 +970,7 @@ const STATS = [
   .cp__chip:hover .cp__chip-dot::after { background: var(--brand); }
   .cp__chip--word > span { font-weight: 500; }
 
-  .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.38); margin: var(--space-md) auto 0; text-align: center; max-width: none; }
+  .cp__note { font-size: 0.75rem; color: rgba(247, 244, 239, 0.58); margin: var(--space-md) auto 0; text-align: center; max-width: none; }
   .cp__cta {
     display: inline-flex; align-items: center; gap: 0.45rem;
     margin: var(--space-sm) auto 0; padding: 0.6rem 1.4rem;
@@ -900,16 +992,35 @@ const STATS = [
   /* ─── Responsive ─── */
   @media (max-width: 700px) {
     /* Rotated capability labels stop being legible here, so the outer ring
-       becomes a quiet colour band and the legend carries the detail. */
-    .cp__stage { max-width: 400px; }
+       becomes a quiet colour band and the touch panels under the wheel carry
+       the detail. The wheel itself runs edge to edge: at 375px every extra
+       pixel of radius is label size. */
+    .cp__stage { max-width: none; margin-left: calc(var(--space-md) * -1 + 4px); margin-right: calc(var(--space-md) * -1 + 4px); }
     .cp__cap-text { display: none; }
-    .cp__dom-text { font-size: 15px; }
+    /* Domain names are the one thing the wheel must say on a phone. 21px in
+       the 760 viewBox is ~10.5px on screen; fitLabels() still shrinks the
+       long ones (Marketing & Social) to whatever their arc allows. */
+    .cp__dom-text { font-size: 21px; letter-spacing: 0.02em; }
+    .cp__ai-label { font-size: 13px; letter-spacing: 1.6px; }
     .cp__readout-hint { display: none; }
+    /* cqw sizes shrink with the stage; hold them above legibility. */
+    .cp__readout { width: 30%; }
+    .cp__readout-brand { font-size: max(5.3cqw, 1.25rem); }
+    .cp__readout-sub { font-size: max(1.55cqw, 0.5625rem); letter-spacing: 0.16em; }
+    .cp__readout-domain { font-size: max(1.2cqw, 0.5rem); }
+    .cp__readout-name { font-size: max(2.5cqw, 0.8125rem); }
+    .cp__readout-desc { font-size: max(1.6cqw, 0.6875rem); }
     .cp__stats { gap: 0 var(--space-sm); }
     .cp__stat dt { font-size: 1.375rem; }
+    .cp__stat dd { font-size: 0.6875rem; color: rgba(247, 244, 239, 0.62); }
     .cp__chip { padding: 0.45rem 0.8rem; }
     .cp__chip > span { font-size: 0.6875rem; }
+    .cp__mpanels { display: block; }
+    .cp__legend { margin-top: var(--space-md); }
+    .cp__lg { min-height: 44px; padding: 0.55rem 0.7rem 0.55rem 0.95rem; font-size: 0.8125rem; }
+    .cp__note { color: rgba(247, 244, 239, 0.6); }
   }
+  :global(html[data-theme="light"]) .cp__stat dd { color: rgba(12, 14, 20, 0.62); }
 
   @media (prefers-reduced-motion: reduce) {
     .cp__ai-dash, .cp__track, .cp__flow, .cp__core-dash,
@@ -1125,9 +1236,35 @@ const STATS = [
       readoutSet(isAi ? 'AI POWERED' : '', hit.getAttribute('data-domain-name'), '');
     };
 
+    /* Touch panels under the wheel mirror whatever is locked. */
+    const panels = [...section.querySelectorAll('.cp__mpanel')];
+    const panelEmpty = section.querySelector('.cp__mpanel-empty');
+    const syncPanels = () => {
+      let shown = null;
+      panels.forEach((p) => {
+        const on = !!locked && (
+          (locked.kind === 'ai' && p.hasAttribute('data-ai')) ||
+          (locked.kind === 'domain' && p.getAttribute('data-domain') === String(locked.di)) ||
+          (locked.kind === 'cap' && locked.hit && p.getAttribute('data-domain') === locked.hit.getAttribute('data-di')));
+        p.hidden = !on;
+        if (on) shown = p;
+      });
+      if (panelEmpty) panelEmpty.hidden = !!shown;
+      /* A locked capability gets its row emphasised inside the domain panel. */
+      panels.forEach((p) => p.querySelectorAll('li.is-here').forEach((li) => li.classList.remove('is-here')));
+      if (shown && locked && locked.kind === 'cap' && locked.hit) {
+        const name = locked.hit.getAttribute('data-name');
+        shown.querySelectorAll('li').forEach((li) => {
+          const s = li.querySelector('strong');
+          if (s && s.firstChild && s.firstChild.textContent.trim() === name) li.classList.add('is-here');
+        });
+      }
+    };
+
     /* Whatever is locked is what we fall back to. */
     const restore = () => {
       activeHit = null;
+      syncPanels();
       if (!locked) { clearMarks(); showDefault(); setChips(); return; }
       if (locked.kind === 'ai') { lightAi(); }
       else if (locked.kind === 'domain') {

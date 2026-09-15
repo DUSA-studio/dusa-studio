@@ -510,6 +510,9 @@
     "note": "Plus 1,000+ more through Zapier, Make and custom integrations.",
     "cta": "See everything included",
     "aiBand": "AI · ACROSS EVERYTHING",
-    "hubHint": "Hover to explore, click to keep it"
+    "hubHint": "Hover to explore, click to keep it",
+    "hubHintTap": "Tap a segment to explore",
+    "panelEmpty": "Tap a domain on the wheel, or a chip below, to see what is inside.",
+    "aiPanelTitle": "AI powered"
   }
 }

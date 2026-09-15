@@ -1946,6 +1946,13 @@ const notifJson = JSON.stringify(notifTranslations);
     .hero__intro-ctas { margin-bottom: 6px; }
     .hero__intro-scroll { display: none; }
   }
+  /* Folded Duo (466x678) and small phones held landscape: one more notch. */
+  @media (max-height: 700px) and (max-width: 520px) {
+    .hero__intro-content { padding: var(--space-sm) var(--space-md); }
+    .hero__intro-sub { font-size: 0.9rem; line-height: 1.45; margin-bottom: 10px; }
+    .hero__intro-stat-num { font-size: 1.2rem; }
+    .hero__intro-note { display: none; }
+  }
 
   :global(html[data-theme="light"]) .hero {
     background: linear-gradient(180deg, #b8d8e8 0%, #d0e6ef 40%, #e4eff4 100%);

@@ -430,9 +430,9 @@ const pct = Math.round(SHARE * 100);
   .cr, .cr-hero, .cr-cta {
     --ink: var(--warm-white);
     --ink-soft: rgba(247, 244, 239, 0.62);
-    --ink-mid: rgba(247, 244, 239, 0.5);
-    --ink-faint: rgba(247, 244, 239, 0.4);
-    --ink-dim: rgba(247, 244, 239, 0.34);
+    --ink-mid: rgba(247, 244, 239, 0.62);
+    --ink-faint: rgba(247, 244, 239, 0.58);
+    --ink-dim: rgba(247, 244, 239, 0.55);
     --panel: rgba(247, 244, 239, 0.03);
     --panel-edge: rgba(247, 244, 239, 0.09);
     --rule: rgba(247, 244, 239, 0.07);
@@ -451,8 +451,8 @@ const pct = Math.round(SHARE * 100);
     --ink: var(--deep-black);
     --ink-soft: rgba(12, 14, 20, 0.7);
     --ink-mid: rgba(12, 14, 20, 0.62);
-    --ink-faint: rgba(12, 14, 20, 0.55);
-    --ink-dim: rgba(12, 14, 20, 0.5);
+    --ink-faint: rgba(12, 14, 20, 0.64);
+    --ink-dim: rgba(12, 14, 20, 0.62);
     --panel: rgba(12, 14, 20, 0.028);
     --panel-edge: rgba(12, 14, 20, 0.12);
     --rule: rgba(12, 14, 20, 0.09);
@@ -500,7 +500,7 @@ const pct = Math.round(SHARE * 100);
     display: grid; grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr; gap: 1rem; align-items: center;
   }
   .cr__rates-head {
-    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--ink-dim);
     padding-bottom: 0.6rem; border-bottom: 1px solid var(--panel-edge);
   }
@@ -550,7 +550,7 @@ const pct = Math.round(SHARE * 100);
   .calc__mode button { flex: 1; min-width: 150px; }
   .calc__mode button.is-on, .grow__plans button.is-on { color: var(--accent); border-color: var(--accent-soft); }
   .grow__plans-label {
-    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--ink-dim); width: 100%;
   }
 
@@ -591,7 +591,7 @@ const pct = Math.round(SHARE * 100);
     transition: height 0.45s var(--ease-out);
   }
   .grow__col span {
-    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em;
     text-transform: uppercase; color: var(--ink-dim);
   }
   .grow__col.is-hero b { font-size: 1rem; color: var(--accent); }
@@ -607,7 +607,7 @@ const pct = Math.round(SHARE * 100);
   }
   .grow__totals div { display: grid; gap: 0.15rem; text-align: center; }
   .grow__totals span {
-    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--ink-faint);
   }
   .grow__totals b { font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; color: var(--ink); }
@@ -628,7 +628,7 @@ const pct = Math.round(SHARE * 100);
 
   .grow__adv { margin-top: var(--space-sm); }
   .grow__adv summary {
-    cursor: pointer; font-family: var(--font-mono); font-size: 0.625rem;
+    cursor: pointer; font-family: var(--font-mono); font-size: 0.6875rem;
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-dim);
     padding: 0.4rem 0;
   }
@@ -678,7 +678,7 @@ const pct = Math.round(SHARE * 100);
   .cr-cta { text-align: center; }
   .cr-cta p { color: var(--ink-mid); margin: var(--space-sm) auto var(--space-md); }
   .cr-cta__alt { font-size: 0.875rem; margin-top: var(--space-sm); }
-  .cr-cta__alt a { color: var(--accent); }
+  .cr-cta__alt a { color: var(--accent); display: inline-block; padding: 0.5rem 0.15rem; margin: -0.5rem -0.15rem; }
 
   @media (max-width: 1024px) { .cr__pillars { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 900px) {
@@ -701,7 +701,7 @@ const pct = Math.round(SHARE * 100);
     }
     .cr__rate > span:not(.cr__rate-name)::before {
       content: attr(data-l);
-      font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em;
+      font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--ink-dim); flex-shrink: 0;
     }
     /* Value and unit sit on one line here rather than stacked. */

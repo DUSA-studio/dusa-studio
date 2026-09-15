@@ -1439,9 +1439,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     background:rgba(78,216,194,0.15); box-shadow:none; transition:all 0.8s; margin-right:10px;
   }
   .dusa-base--active .dusa-base__led { background:var(--reef-aqua); box-shadow:0 0 8px rgba(78,216,194,0.5); }
-  .dusa-base__label { font-family:var(--font-headline); font-size:0.75rem; font-weight:700; color:rgba(78,216,194,0.25); transition:color 0.8s; }
+  .dusa-base__label { font-family:var(--font-headline); font-size:0.75rem; font-weight:700; color:rgba(78,216,194,0.45); transition:color 0.8s; }
   .dusa-base--active .dusa-base__label { color:var(--reef-aqua); }
-  .dusa-base__sub { font-family:var(--font-body); font-size:0.5rem; color:rgba(78,216,194,0.15); transition:color 0.8s; }
+  .dusa-base__sub { font-family:var(--font-body); font-size:0.5625rem; color:rgba(78,216,194,0.3); transition:color 0.8s; }
   .dusa-base--active .dusa-base__sub { color:rgba(78,216,194,0.4); }
   .dusa-base__battery { position:absolute; bottom:4px; left:12px; right:12px; height:6px; display:flex; gap:2px; }
   .rack-bbar {
@@ -1458,8 +1458,8 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
 
   .rack-status {
     margin-top: 16px; text-align:center;
-    font-family:var(--font-mono); font-size:0.625rem;
-    color:rgba(247,244,239,0.3); min-height:18px; transition:all 0.8s;
+    font-family:var(--font-mono); font-size:0.6875rem;
+    color:rgba(247,244,239,0.6); min-height:18px; transition:all 0.8s;
   }
   .rack-status--active { color:rgba(78,216,194,0.6); }
   .rack-status--done { color:var(--reef-aqua); font-weight:700; font-size:0.75rem; font-family:var(--font-headline); }
@@ -1516,7 +1516,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   /* ─── REGIONAL COMPETITOR COMPARISON ─── */
   .regional { border-top: 1px solid rgba(247, 244, 239, 0.06); }
   .regional__header { max-width: 600px; margin-bottom: var(--space-xl); }
-  .regional__sub { font-size: 1.125rem; color: rgba(247, 244, 239, 0.5); line-height: 1.7; margin-top: var(--space-sm); }
+  .regional__sub { font-size: 1.125rem; color: rgba(247, 244, 239, 0.62); line-height: 1.7; margin-top: var(--space-sm); }
   .regional__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
   .regional__card { background: rgba(247, 244, 239, 0.03); border: 1px solid rgba(247, 244, 239, 0.08); border-radius: var(--radius-md); padding: var(--space-lg); transition: all var(--duration-normal) var(--ease-out); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; flex-direction: column; gap: var(--space-sm); position: relative; overflow: hidden; }
   .regional__card:hover { border-color: rgba(78, 216, 194, 0.2); background: rgba(247, 244, 239, 0.05); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
@@ -1527,9 +1527,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .regional__card-badge { font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--reef-aqua); background: rgba(78, 216, 194, 0.1); border: 1px solid rgba(78, 216, 194, 0.2); border-radius: 100px; padding: 0.125rem 0.5rem; white-space: nowrap; }
   .regional__card-price { display: flex; align-items: baseline; gap: 0.25rem; }
   .regional__card-cost { font-size: 1.5rem; font-weight: 700; color: rgba(247, 244, 239, 0.7); }
-  .regional__card-period { font-size: 0.875rem; color: rgba(247, 244, 239, 0.4); }
+  .regional__card-period { font-size: 0.875rem; color: rgba(247, 244, 239, 0.6); }
   .regional__card-vs { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem; background: rgba(78, 216, 194, 0.05); border-radius: var(--radius-sm); border: 1px solid rgba(78, 216, 194, 0.1); }
-  .regional__vs-label { font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(247, 244, 239, 0.3); }
+  .regional__vs-label { font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(247, 244, 239, 0.55); }
   .regional__vs-dusa { font-size: 0.875rem; font-weight: 600; color: var(--reef-aqua); }
   .regional__vs-price { font-size: 0.875rem; font-weight: 600; color: var(--warm-white); margin-left: auto; }
   .regional__card-link { font-size: 0.875rem; color: var(--mist-blue); text-decoration: none; transition: color 0.2s; margin-top: auto; }
@@ -1543,18 +1543,18 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .support__card:hover { border-color: rgba(78, 216, 194, 0.15); background: rgba(247, 244, 239, 0.05); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(78, 216, 194, 0.04), inset 0 1px 0 rgba(247, 244, 239, 0.04); }
   .support__icon { color: var(--reef-aqua); margin-bottom: var(--space-sm); }
   .support__card-title { font-size: 1.0625rem; font-weight: 600; color: var(--warm-white); margin-bottom: 0.5rem; }
-  .support__card-desc { font-size: 1rem; color: rgba(247, 244, 239, 0.5); line-height: 1.6; margin-bottom: var(--space-sm); }
+  .support__card-desc { font-size: 1rem; color: rgba(247, 244, 239, 0.62); line-height: 1.6; margin-bottom: var(--space-sm); }
   .support__card-plans { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--reef-aqua); opacity: 0.8; margin-top: auto; }
 
   /* ─── FEATURE COMPARISON ─── */
   .compare { border-top: 1px solid rgba(247, 244, 239, 0.06); }
   .compare__header { max-width: 600px; margin-bottom: var(--space-xl); }
-  .compare__sub { font-size: 1.125rem; color: rgba(247, 244, 239, 0.5); line-height: 1.7; margin-top: var(--space-sm); }
+  .compare__sub { font-size: 1.125rem; color: rgba(247, 244, 239, 0.62); line-height: 1.7; margin-top: var(--space-sm); }
   .compare__table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: var(--space-lg); }
   .compare__table { width: 100%; min-width: 700px; border-collapse: collapse; table-layout: fixed; }
   .compare__feature-col { width: 35%; }
   .compare__plan-col { width: 16.25%; text-align: center; font-family: var(--font-headline); font-weight: 600; font-size: 1.0625rem; color: var(--warm-white); padding: var(--space-sm) 0.5rem; }
-  .compare__plan-price { text-align: center; font-family: var(--font-mono); font-size: 0.875rem; color: rgba(247, 244, 239, 0.4); padding-bottom: var(--space-md); letter-spacing: 0.05em; }
+  .compare__plan-price { text-align: center; font-family: var(--font-mono); font-size: 0.875rem; color: rgba(247, 244, 239, 0.58); padding-bottom: var(--space-md); letter-spacing: 0.05em; }
   .compare__category-row td { font-family: var(--font-mono); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--reef-aqua); padding: var(--space-md) 0 var(--space-xs); border-bottom: 1px solid rgba(78, 216, 194, 0.15); font-weight: 400; }
   .compare__feature-row td { padding: 0.625rem 0.5rem; border-bottom: 1px solid rgba(247, 244, 239, 0.04); }
   .compare__feature-name { font-size: 1rem; color: rgba(247, 244, 239, 0.7); }
@@ -1600,12 +1600,12 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .pricing-cta__actions { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; }
 
   /* ─── TOOL SELECTOR BUTTONS ─── */
-  .replace__tool-btn { font-family: var(--font-headline); font-size: 0.75rem; font-weight: 500; color: rgba(247, 244, 239, 0.3); background: none; border: 1px solid rgba(247, 244, 239, 0.06); border-radius: var(--radius-full); padding: 0.2rem 0.5rem; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+  .replace__tool-btn { font-family: var(--font-headline); font-size: 0.75rem; font-weight: 500; color: rgba(247, 244, 239, 0.55); background: none; border: 1px solid rgba(247, 244, 239, 0.06); border-radius: var(--radius-full); padding: 0.2rem 0.5rem; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
   .replace__tool-btn:hover { color: rgba(247, 244, 239, 0.7); border-color: rgba(247, 244, 239, 0.15); background: rgba(247, 244, 239, 0.04); }
   .replace__tool-btn--active { color: var(--warm-white); border-color: rgba(232, 82, 78, 0.4); background: rgba(232, 82, 78, 0.1); text-decoration: line-through; text-decoration-color: rgba(232, 82, 78, 0.5); }
   .replace__tool-btn--active:hover { border-color: rgba(232, 82, 78, 0.5); background: rgba(232, 82, 78, 0.15); }
   .replace__tool-btn--na { font-style: italic; font-size: 0.6875rem; opacity: 0.5; }
-  .replace__tool-btn--na.replace__tool-btn--active { color: rgba(247, 244, 239, 0.5); border-color: rgba(247, 244, 239, 0.15); background: rgba(247, 244, 239, 0.04); text-decoration: none; opacity: 1; }
+  .replace__tool-btn--na.replace__tool-btn--active { color: rgba(247, 244, 239, 0.62); border-color: rgba(247, 244, 239, 0.15); background: rgba(247, 244, 239, 0.04); text-decoration: none; opacity: 1; }
 
   /* ─── EXPANDABLE COMPARISON ROWS ─── */
   .compare__feature-row { cursor: pointer; transition: background 0.2s ease; }
@@ -1618,18 +1618,18 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .compare__desc-row { display: none; }
   .compare__desc-row--open { display: table-row; }
   .compare__desc-cell { padding: 0 0.5rem var(--space-md) 0.5rem !important; border-bottom: 1px solid rgba(78, 216, 194, 0.08) !important; }
-  .compare__desc-text { font-size: 0.9375rem; color: rgba(247, 244, 239, 0.45); line-height: 1.6; max-width: 500px; animation: descFadeIn 0.3s ease; }
+  .compare__desc-text { font-size: 0.9375rem; color: rgba(247, 244, 239, 0.62); line-height: 1.6; max-width: 500px; animation: descFadeIn 0.3s ease; }
   @keyframes descFadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
   /* ═══ MOBILE PLAN SELECTOR ═══ */
   .mps { display: none; }
   .mps__tabs { display: flex; gap: 4px; background: rgba(247, 244, 239, 0.06); border-radius: var(--radius-full); padding: 4px; position: sticky; top: calc(var(--nav-height) + 12px); z-index: 20; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(247, 244, 239, 0.08); }
-  .mps__tab { flex: 1; padding: 0.625rem 0.25rem; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s var(--ease-out); background: transparent; color: rgba(247, 244, 239, 0.45); white-space: nowrap; }
+  .mps__tab { flex: 1; padding: 0.625rem 0.25rem; border-radius: var(--radius-full); font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s var(--ease-out); background: transparent; color: rgba(247, 244, 239, 0.6); white-space: nowrap; }
   .mps__tab--active { background: var(--reef-aqua); color: var(--deep-black); box-shadow: 0 2px 12px rgba(78, 216, 194, 0.3); }
   .mps__tab:not(.mps__tab--active):hover { color: rgba(247, 244, 239, 0.7); }
   .mps__price { text-align: center; padding: var(--space-md) 0 var(--space-sm); }
   .mps__price-amount { font-family: var(--font-headline); font-size: 2.25rem; font-weight: 700; color: var(--warm-white); }
-  .mps__price-period { font-size: 0.9375rem; color: rgba(247, 244, 239, 0.45); margin-left: 0.25rem; }
+  .mps__price-period { font-size: 0.9375rem; color: rgba(247, 244, 239, 0.6); margin-left: 0.25rem; }
   .mps__cat-label { font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--reef-aqua); font-weight: 500; padding: var(--space-sm) 0 0.5rem; border-bottom: 1px solid rgba(78, 216, 194, 0.15); margin-top: var(--space-md); }
   .mps__row { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid rgba(247, 244, 239, 0.06); transition: opacity 0.25s var(--ease-out); }
   .mps__row--off { opacity: 0.3; }
@@ -1638,24 +1638,24 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .mps__row-icon--check { color: var(--reef-aqua); }
   .mps__row-icon--dash { color: rgba(247, 244, 239, 0.2); }
   .mps__row-label { font-size: 0.9375rem; color: var(--warm-white); }
-  .mps__row--off .mps__row-label { color: rgba(247, 244, 239, 0.35); }
+  .mps__row--off .mps__row-label { color: rgba(247, 244, 239, 0.55); }
   .mps__row-badge { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; color: var(--reef-aqua); background: rgba(78, 216, 194, 0.12); border: 1px solid rgba(78, 216, 194, 0.3); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); white-space: nowrap; }
   .mps__cta { padding: var(--space-lg) 0 var(--space-sm); }
   .mps__cta-btn { width: 100%; text-align: center; font-size: 1.0625rem; padding: 1rem 2rem; }
 
   /* ─── LIGHT MODE MPS ─── */
   html[data-theme="light"] .mps__tabs { background: rgba(12, 14, 20, 0.04); border-color: rgba(12, 14, 20, 0.08); }
-  html[data-theme="light"] .mps__tab { color: rgba(12, 14, 20, 0.4); }
+  html[data-theme="light"] .mps__tab { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .mps__tab--active { background: var(--deep-ocean); color: var(--warm-white); box-shadow: 0 2px 12px rgba(26, 58, 92, 0.25); }
   html[data-theme="light"] .mps__tab:not(.mps__tab--active):hover { color: rgba(12, 14, 20, 0.6); }
   html[data-theme="light"] .mps__price-amount { color: var(--deep-black); }
-  html[data-theme="light"] .mps__price-period { color: rgba(12, 14, 20, 0.45); }
+  html[data-theme="light"] .mps__price-period { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .mps__cat-label { color: var(--deep-ocean); border-bottom-color: rgba(26, 58, 92, 0.15); }
   html[data-theme="light"] .mps__row { border-bottom-color: rgba(12, 14, 20, 0.06); }
   html[data-theme="light"] .mps__row-icon--check { color: var(--deep-ocean); }
   html[data-theme="light"] .mps__row-icon--dash { color: rgba(12, 14, 20, 0.15); }
   html[data-theme="light"] .mps__row-label { color: var(--deep-black); }
-  html[data-theme="light"] .mps__row--off .mps__row-label { color: rgba(12, 14, 20, 0.3); }
+  html[data-theme="light"] .mps__row--off .mps__row-label { color: rgba(12, 14, 20, 0.6); }
   html[data-theme="light"] .mps__row-badge { color: var(--deep-ocean); background: rgba(26, 58, 92, 0.08); border-color: rgba(26, 58, 92, 0.2); }
 
   /* ─── RESPONSIVE ─── */
@@ -1706,7 +1706,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   /* ═══════════════════════════════════════════
      LIGHT MODE OVERRIDES
      ═══════════════════════════════════════════ */
-  html[data-theme="light"] .pricing-hero__sub { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] .pricing-hero__sub { color: rgba(12, 14, 20, 0.66); }
   html[data-theme="light"] .pricing-card { background: rgba(12, 14, 20, 0.02); border-color: rgba(12, 14, 20, 0.1); box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04); }
   html[data-theme="light"] .pricing-card:hover { border-color: rgba(26, 58, 92, 0.3); background: rgba(12, 14, 20, 0.03); box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08), 0 0 0 1px rgba(26, 58, 92, 0.15); }
   html[data-theme="light"] .pricing-card--pop { border-color: var(--deep-ocean); background: rgba(26, 58, 92, 0.06); box-shadow: 0 4px 20px rgba(26, 58, 92, 0.1); }
@@ -1718,11 +1718,11 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .pricing-card--premium { border-color: rgba(26, 58, 92, 0.4); background: rgba(26, 58, 92, 0.05); }
   html[data-theme="light"] .pricing-card--premium:hover { border-color: rgba(26, 58, 92, 0.6); background: rgba(26, 58, 92, 0.08); box-shadow: 0 12px 40px rgba(26, 58, 92, 0.1); }
   html[data-theme="light"] .pricing-card__name { color: var(--deep-black); }
-  html[data-theme="light"] .pricing-card__tagline { color: rgba(12, 14, 20, 0.45); }
+  html[data-theme="light"] .pricing-card__tagline { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .pricing-card__amount { color: var(--deep-black); }
-  html[data-theme="light"] .pricing-card__period { color: rgba(12, 14, 20, 0.45); }
+  html[data-theme="light"] .pricing-card__period { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .pricing-card__custom { color: var(--deep-black); }
-  html[data-theme="light"] .pricing-card__desc { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] .pricing-card__desc { color: rgba(12, 14, 20, 0.66); }
   html[data-theme="light"] .pricing-card__feature { color: rgba(12, 14, 20, 0.7); }
   html[data-theme="light"] .pricing-card__badge--entry { background: #ebe7e1; color: var(--deep-black); border-color: rgba(12, 14, 20, 0.15); }
   html[data-theme="light"] .pricing-card__badge--entry:hover { background: var(--deep-ocean); color: var(--warm-white); border-color: var(--deep-ocean); box-shadow: 0 0 24px rgba(26, 58, 92, 0.5), 0 0 60px rgba(26, 58, 92, 0.15); transform: translateX(-50%) translateY(-2px) scale(1.05); }
@@ -1733,7 +1733,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .pricing-card__badge--premium:hover { background: var(--deep-ocean); color: var(--warm-white); border-color: var(--deep-ocean); box-shadow: 0 0 24px rgba(26, 58, 92, 0.5), 0 0 60px rgba(26, 58, 92, 0.2); transform: translateX(-50%) translateY(-2px) scale(1.05); }
   html[data-theme="light"] .replace { border-top-color: rgba(12, 14, 20, 0.08); }
   html[data-theme="light"] .regional { border-top-color: rgba(12, 14, 20, 0.08); }
-  html[data-theme="light"] .regional__sub { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] .regional__sub { color: rgba(12, 14, 20, 0.66); }
   html[data-theme="light"] .regional__card { background: rgba(12, 14, 20, 0.02); border-color: rgba(12, 14, 20, 0.08); }
   html[data-theme="light"] .regional__card:hover { border-color: rgba(26, 58, 92, 0.25); background: rgba(12, 14, 20, 0.03); box-shadow: 0 8px 30px rgba(12, 14, 20, 0.06); }
   html[data-theme="light"] .regional__card--local { border-color: rgba(26, 58, 92, 0.15); }
@@ -1741,21 +1741,21 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .regional__card-name { color: var(--deep-black); }
   html[data-theme="light"] .regional__card-badge { color: var(--deep-ocean); background: rgba(26, 58, 92, 0.08); border-color: rgba(26, 58, 92, 0.2); }
   html[data-theme="light"] .regional__card-cost { color: rgba(12, 14, 20, 0.7); }
-  html[data-theme="light"] .regional__card-period { color: rgba(12, 14, 20, 0.4); }
+  html[data-theme="light"] .regional__card-period { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .regional__card-vs { background: rgba(26, 58, 92, 0.04); border-color: rgba(26, 58, 92, 0.1); }
-  html[data-theme="light"] .regional__vs-label { color: rgba(12, 14, 20, 0.3); }
+  html[data-theme="light"] .regional__vs-label { color: rgba(12, 14, 20, 0.6); }
   html[data-theme="light"] .regional__vs-dusa { color: var(--deep-ocean); }
   html[data-theme="light"] .regional__vs-price { color: var(--deep-black); }
   html[data-theme="light"] .regional__card-link { color: var(--deep-ocean); }
   html[data-theme="light"] .regional__card-link:hover { color: var(--mist-blue); }
   html[data-theme="light"] .support { border-top-color: rgba(12, 14, 20, 0.08); }
   html[data-theme="light"] .compare { border-top-color: rgba(12, 14, 20, 0.08); }
-  html[data-theme="light"] .replace__sub { color: rgba(12, 14, 20, 0.55); }
-  html[data-theme="light"] .replace__tool-btn { color: rgba(12, 14, 20, 0.4); border-color: rgba(12, 14, 20, 0.1); }
+  html[data-theme="light"] .replace__sub { color: rgba(12, 14, 20, 0.66); }
+  html[data-theme="light"] .replace__tool-btn { color: rgba(12, 14, 20, 0.62); border-color: rgba(12, 14, 20, 0.1); }
   html[data-theme="light"] .replace__tool-btn:hover { color: rgba(12, 14, 20, 0.7); border-color: rgba(12, 14, 20, 0.2); background: rgba(12, 14, 20, 0.03); }
   html[data-theme="light"] .replace__tool-btn--active { color: rgba(12, 14, 20, 0.75); border-color: rgba(232, 82, 78, 0.35); background: rgba(232, 82, 78, 0.06); }
   html[data-theme="light"] .replace__tool-btn--active:hover { border-color: rgba(232, 82, 78, 0.5); background: rgba(232, 82, 78, 0.1); }
-  html[data-theme="light"] .replace__tool-btn--na.replace__tool-btn--active { color: rgba(12, 14, 20, 0.45); border-color: rgba(12, 14, 20, 0.12); background: rgba(12, 14, 20, 0.03); }
+  html[data-theme="light"] .replace__tool-btn--na.replace__tool-btn--active { color: rgba(12, 14, 20, 0.62); border-color: rgba(12, 14, 20, 0.12); background: rgba(12, 14, 20, 0.03); }
   html[data-theme="light"] .rack-frame { background: transparent; border: none; box-shadow: none; }
   html[data-theme="light"] .rack-frame::before { display: none; }
   html[data-theme="light"] .rack-frame--calm { border: none; box-shadow: none; }
@@ -1805,7 +1805,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .rack-cable-svg path { stroke: rgba(26, 58, 92, 0.25) !important; }
   html[data-theme="light"] .rack-bbar { background: rgba(26, 58, 92, 0.06); border-color: rgba(26, 58, 92, 0.1); }
   html[data-theme="light"] .rack-bbar--lit { background: rgba(26, 58, 92, 0.25); border-color: rgba(26, 58, 92, 0.4); box-shadow: 0 0 4px rgba(26, 58, 92, 0.2); }
-  html[data-theme="light"] .rack-row__selector .replace__tool-btn { color: rgba(12, 14, 20, 0.4); border-color: rgba(12, 14, 20, 0.08); }
+  html[data-theme="light"] .rack-row__selector .replace__tool-btn { color: rgba(12, 14, 20, 0.62); border-color: rgba(12, 14, 20, 0.08); }
   html[data-theme="light"] .rack-row__selector .replace__tool-btn--active { color: rgba(12, 14, 20, 0.75); border-color: rgba(232, 82, 78, 0.3); background: rgba(232, 82, 78, 0.06); }
   html[data-theme="light"] .replace__savings-callout { color: var(--deep-black); background: linear-gradient(145deg, rgba(26, 58, 92, 0.06), rgba(78, 216, 194, 0.06)); border-color: rgba(26, 58, 92, 0.2); animation-name: savingsGlowLight; }
   @keyframes savingsGlowLight {
@@ -1813,15 +1813,15 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     50% { box-shadow: 0 0 25px rgba(26, 58, 92, 0.12), 0 0 60px rgba(26, 58, 92, 0.06); border-color: rgba(26, 58, 92, 0.35); }
   }
   html[data-theme="light"] .replace__savings-callout strong { color: var(--deep-ocean); font-size: 1.5rem; }
-  html[data-theme="light"] .rack-status { color: rgba(12, 14, 20, 0.35); }
+  html[data-theme="light"] .rack-status { color: rgba(12, 14, 20, 0.6); }
   html[data-theme="light"] .rack-status--active { color: rgba(26, 58, 92, 0.7); }
   html[data-theme="light"] .rack-status--done { color: var(--deep-ocean); }
   html[data-theme="light"] .support__card { background: rgba(12, 14, 20, 0.02); border-color: rgba(12, 14, 20, 0.08); }
   html[data-theme="light"] .support__card:hover { border-color: rgba(26, 58, 92, 0.25); background: rgba(12, 14, 20, 0.03); box-shadow: 0 8px 30px rgba(12, 14, 20, 0.06); }
   html[data-theme="light"] .support__card-title { color: var(--deep-black); }
-  html[data-theme="light"] .support__card-desc { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] .support__card-desc { color: rgba(12, 14, 20, 0.66); }
   html[data-theme="light"] .support__card-plans { color: var(--deep-ocean); opacity: 0.7; }
-  html[data-theme="light"] .compare__sub { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] .compare__sub { color: rgba(12, 14, 20, 0.66); }
   html[data-theme="light"] .compare__plan-col { color: var(--deep-black); }
   html[data-theme="light"] .compare__plan-col--growth { color: var(--deep-ocean); }
   html[data-theme="light"] .compare__plan-price.compare__cell--growth { color: var(--deep-ocean); }
@@ -1829,14 +1829,14 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .compare__plan-col--starter { background: rgba(106, 170, 207, 0.08); }
   html[data-theme="light"] .compare__plan-col--growth { background: rgba(78, 216, 194, 0.09); }
   html[data-theme="light"] .compare__plan-col--bespoke { background: rgba(26, 58, 92, 0.05); }
-  html[data-theme="light"] .compare__plan-price { color: rgba(12, 14, 20, 0.45); }
+  html[data-theme="light"] .compare__plan-price { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .compare__feature-name { color: rgba(12, 14, 20, 0.7); }
   html[data-theme="light"] .compare__feature-row td { border-bottom-color: rgba(12, 14, 20, 0.06); }
   html[data-theme="light"] .compare__feature-row:hover { background: rgba(26, 58, 92, 0.04); }
   html[data-theme="light"] .compare__feature-row:hover .compare__feature-name { color: var(--deep-black); }
   html[data-theme="light"] .compare__dash { color: rgba(12, 14, 20, 0.2); }
   html[data-theme="light"] .compare__text { color: var(--deep-ocean); opacity: 0.85; }
-  html[data-theme="light"] .compare__expand-icon { color: rgba(12, 14, 20, 0.3); }
+  html[data-theme="light"] .compare__expand-icon { color: rgba(12, 14, 20, 0.6); }
   html[data-theme="light"] .compare__cell--launchpad { background: rgba(237, 233, 227, 0.4); }
   html[data-theme="light"] .compare__cell--starter { background: rgba(106, 170, 207, 0.06); }
   html[data-theme="light"] .compare__cell--growth { background: rgba(78, 216, 194, 0.07); }
@@ -1844,8 +1844,8 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .faq__item:hover { background: rgba(26, 58, 92, 0.04); }
   html[data-theme="light"] .faq__item[open] { background: rgba(26, 58, 92, 0.04); }
   html[data-theme="light"] .compare__desc-cell { border-bottom-color: rgba(26, 58, 92, 0.12) !important; }
-  html[data-theme="light"] .compare__desc-text { color: rgba(12, 14, 20, 0.5); }
-  html[data-theme="light"] .pricing-cta__desc { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] .compare__desc-text { color: rgba(12, 14, 20, 0.64); }
+  html[data-theme="light"] .pricing-cta__desc { color: rgba(12, 14, 20, 0.66); }
   html[data-theme="light"] .pricing-hero__currency { color: var(--deep-ocean); }
   html[data-theme="light"] .pricing-card__dollar { color: var(--deep-ocean); }
   html[data-theme="light"] .pricing-card__check { color: var(--deep-ocean); }
@@ -1886,7 +1886,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     text-align: center;
     font-size: 0.8125rem;
     line-height: 1.65;
-    color: rgba(247, 244, 239, 0.42);
+    color: rgba(247, 244, 239, 0.6);
   }
 
   .usage-note--table {
@@ -1901,7 +1901,8 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   }
 
   .usage-note a {
-    color: rgba(247, 244, 239, 0.62);
+    color: rgba(247, 244, 239, 0.7);
+    display: inline-block; padding: 0.4rem 0; margin: -0.4rem 0;
     text-decoration: underline;
     text-underline-offset: 2px;
     text-decoration-color: rgba(78, 216, 194, 0.35);

@@ -893,7 +893,8 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
     font-family: var(--font-body);
     font-size: 0.9rem;
     font-weight: 600;
-    padding: 0.5rem 1.1rem;
+    padding: 0.6rem 1.1rem;
+    min-height: 40px;
     border-radius: 100px;
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
@@ -952,7 +953,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-mono);
-    font-size: 0.66rem;
+    font-size: 0.6875rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     color: var(--deep-black);
@@ -1041,6 +1042,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
   }
 
   .activate__assist a {
+    display: inline-block; padding: 0.45rem 0.1rem; margin: -0.45rem -0.1rem;
     color: var(--reef-aqua);
     text-decoration: underline;
     text-underline-offset: 3px;

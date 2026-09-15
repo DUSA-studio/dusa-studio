@@ -87,7 +87,12 @@
       "permanent": true
     },
     {
-      "source": "/case-studies/:path*",
+      "source": "/case-studies/",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/(.*)",
       "destination": "/about",
       "permanent": true
     },
@@ -97,7 +102,12 @@
       "permanent": true
     },
     {
-      "source": "/digital-marketing-services/:path*",
+      "source": "/digital-marketing-services/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-services/(.*)",
       "destination": "/services",
       "permanent": true
     },
@@ -107,7 +117,12 @@
       "permanent": true
     },
     {
-      "source": "/business-growth-services/:path*",
+      "source": "/business-growth-services/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/business-growth-services/(.*)",
       "destination": "/services",
       "permanent": true
     },
@@ -117,7 +132,12 @@
       "permanent": true
     },
     {
-      "source": "/it-service-and-support/:path*",
+      "source": "/it-service-and-support/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/it-service-and-support/(.*)",
       "destination": "/services",
       "permanent": true
     },
@@ -167,7 +187,17 @@
       "permanent": true
     },
     {
+      "source": "/us/start/",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
       "source": "/uk/start",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
+      "source": "/uk/start/",
       "destination": "/start",
       "permanent": true
     },

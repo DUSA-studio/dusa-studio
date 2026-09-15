@@ -1,42 +1,1268 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/platform",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/platform/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/coming-soon",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/coming-soon/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/support",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/support/",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/cookie-policy",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/cookie-policy/",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms-conditions",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/terms-conditions/",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies/:path*",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-services",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-services/:path*",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/business-growth-services",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/business-growth-services/:path*",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/it-service-and-support",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/it-service-and-support/:path*",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/search-engine-optimisation",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/search-engine-optimisation/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/ui-ux-design",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/ui-ux-design/",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/us",
+      "destination": "/us/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/us/",
+      "destination": "/us/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/uk",
+      "destination": "/uk/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/uk/",
+      "destination": "/uk/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/us/start",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
+      "source": "/uk/start",
+      "destination": "/start",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-accountants",
+      "destination": "/blog/crm-for-accountants",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-cleaning-services",
+      "destination": "/blog/crm-for-cleaning-services",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-coaches",
+      "destination": "/blog/crm-for-coaches",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-construction",
+      "destination": "/blog/crm-for-construction",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-property-managers",
+      "destination": "/blog/crm-for-property-managers",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-real-estate",
+      "destination": "/blog/crm-for-real-estate",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/crm-for-tradies",
+      "destination": "/blog/crm-for-tradies",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/dental-practice-marketing",
+      "destination": "/blog/dental-practice-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-automate-invoice-follow-ups",
+      "destination": "/blog/how-to-automate-invoice-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-automate-review-requests",
+      "destination": "/blog/how-to-automate-review-requests",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-automate-social-media",
+      "destination": "/blog/how-to-automate-social-media",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-build-customer-loyalty-program",
+      "destination": "/blog/how-to-build-customer-loyalty-program",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-build-high-converting-landing-page",
+      "destination": "/blog/how-to-build-high-converting-landing-page",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-build-referral-program",
+      "destination": "/blog/how-to-build-referral-program",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-build-sales-pipeline",
+      "destination": "/blog/how-to-build-sales-pipeline",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-create-client-onboarding-workflow",
+      "destination": "/blog/how-to-create-client-onboarding-workflow",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-create-email-drip-campaign",
+      "destination": "/blog/how-to-create-email-drip-campaign",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-create-sms-campaigns",
+      "destination": "/blog/how-to-create-sms-campaigns",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-run-a-webinar-funnel",
+      "destination": "/blog/how-to-run-a-webinar-funnel",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-set-up-automated-follow-ups",
+      "destination": "/blog/how-to-set-up-automated-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-set-up-lead-scoring",
+      "destination": "/blog/how-to-set-up-lead-scoring",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-set-up-online-booking",
+      "destination": "/blog/how-to-set-up-online-booking",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-set-up-payment-processing",
+      "destination": "/blog/how-to-set-up-payment-processing",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/how-to-track-marketing-roi",
+      "destination": "/blog/how-to-track-marketing-roi",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/marketing-automation-for-gyms",
+      "destination": "/blog/marketing-automation-for-gyms",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/marketing-for-auto-repair",
+      "destination": "/blog/marketing-for-auto-repair",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/marketing-for-ecommerce",
+      "destination": "/blog/marketing-for-ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/marketing-for-law-firms",
+      "destination": "/blog/marketing-for-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/marketing-for-personal-trainers",
+      "destination": "/blog/marketing-for-personal-trainers",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/photographer-client-management",
+      "destination": "/blog/photographer-client-management",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/restaurant-customer-engagement",
+      "destination": "/blog/restaurant-customer-engagement",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/salon-booking-automation",
+      "destination": "/blog/salon-booking-automation",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-accountants",
+      "destination": "/blog/crm-for-accountants",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-cleaning-services",
+      "destination": "/blog/crm-for-cleaning-services",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-coaches",
+      "destination": "/blog/crm-for-coaches",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-construction",
+      "destination": "/blog/crm-for-construction",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-property-managers",
+      "destination": "/blog/crm-for-property-managers",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-real-estate",
+      "destination": "/blog/crm-for-real-estate",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/crm-for-tradies",
+      "destination": "/blog/crm-for-tradies",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/dental-practice-marketing",
+      "destination": "/blog/dental-practice-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-automate-invoice-follow-ups",
+      "destination": "/blog/how-to-automate-invoice-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-automate-review-requests",
+      "destination": "/blog/how-to-automate-review-requests",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-automate-social-media",
+      "destination": "/blog/how-to-automate-social-media",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-build-customer-loyalty-program",
+      "destination": "/blog/how-to-build-customer-loyalty-program",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-build-high-converting-landing-page",
+      "destination": "/blog/how-to-build-high-converting-landing-page",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-build-referral-program",
+      "destination": "/blog/how-to-build-referral-program",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-build-sales-pipeline",
+      "destination": "/blog/how-to-build-sales-pipeline",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-create-client-onboarding-workflow",
+      "destination": "/blog/how-to-create-client-onboarding-workflow",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-create-email-drip-campaign",
+      "destination": "/blog/how-to-create-email-drip-campaign",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-create-sms-campaigns",
+      "destination": "/blog/how-to-create-sms-campaigns",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-run-a-webinar-funnel",
+      "destination": "/blog/how-to-run-a-webinar-funnel",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-set-up-automated-follow-ups",
+      "destination": "/blog/how-to-set-up-automated-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-set-up-lead-scoring",
+      "destination": "/blog/how-to-set-up-lead-scoring",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-set-up-online-booking",
+      "destination": "/blog/how-to-set-up-online-booking",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-set-up-payment-processing",
+      "destination": "/blog/how-to-set-up-payment-processing",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/how-to-track-marketing-roi",
+      "destination": "/blog/how-to-track-marketing-roi",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/marketing-automation-for-gyms",
+      "destination": "/blog/marketing-automation-for-gyms",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/marketing-for-auto-repair",
+      "destination": "/blog/marketing-for-auto-repair",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/marketing-for-ecommerce",
+      "destination": "/blog/marketing-for-ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/marketing-for-law-firms",
+      "destination": "/blog/marketing-for-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/marketing-for-personal-trainers",
+      "destination": "/blog/marketing-for-personal-trainers",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/photographer-client-management",
+      "destination": "/blog/photographer-client-management",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/restaurant-customer-engagement",
+      "destination": "/blog/restaurant-customer-engagement",
+      "permanent": true
+    },
+    {
+      "source": "/mx/blog/salon-booking-automation",
+      "destination": "/blog/salon-booking-automation",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-accountants",
+      "destination": "/blog/crm-for-accountants",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-cleaning-services",
+      "destination": "/blog/crm-for-cleaning-services",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-coaches",
+      "destination": "/blog/crm-for-coaches",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-construction",
+      "destination": "/blog/crm-for-construction",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-property-managers",
+      "destination": "/blog/crm-for-property-managers",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-real-estate",
+      "destination": "/blog/crm-for-real-estate",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/crm-for-tradies",
+      "destination": "/blog/crm-for-tradies",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/dental-practice-marketing",
+      "destination": "/blog/dental-practice-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-automate-invoice-follow-ups",
+      "destination": "/blog/how-to-automate-invoice-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-automate-review-requests",
+      "destination": "/blog/how-to-automate-review-requests",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-automate-social-media",
+      "destination": "/blog/how-to-automate-social-media",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-build-customer-loyalty-program",
+      "destination": "/blog/how-to-build-customer-loyalty-program",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-build-high-converting-landing-page",
+      "destination": "/blog/how-to-build-high-converting-landing-page",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-build-referral-program",
+      "destination": "/blog/how-to-build-referral-program",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-build-sales-pipeline",
+      "destination": "/blog/how-to-build-sales-pipeline",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-create-client-onboarding-workflow",
+      "destination": "/blog/how-to-create-client-onboarding-workflow",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-create-email-drip-campaign",
+      "destination": "/blog/how-to-create-email-drip-campaign",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-create-sms-campaigns",
+      "destination": "/blog/how-to-create-sms-campaigns",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-run-a-webinar-funnel",
+      "destination": "/blog/how-to-run-a-webinar-funnel",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-set-up-automated-follow-ups",
+      "destination": "/blog/how-to-set-up-automated-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-set-up-lead-scoring",
+      "destination": "/blog/how-to-set-up-lead-scoring",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-set-up-online-booking",
+      "destination": "/blog/how-to-set-up-online-booking",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-set-up-payment-processing",
+      "destination": "/blog/how-to-set-up-payment-processing",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/how-to-track-marketing-roi",
+      "destination": "/blog/how-to-track-marketing-roi",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/marketing-automation-for-gyms",
+      "destination": "/blog/marketing-automation-for-gyms",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/marketing-for-auto-repair",
+      "destination": "/blog/marketing-for-auto-repair",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/marketing-for-ecommerce",
+      "destination": "/blog/marketing-for-ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/marketing-for-law-firms",
+      "destination": "/blog/marketing-for-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/marketing-for-personal-trainers",
+      "destination": "/blog/marketing-for-personal-trainers",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/photographer-client-management",
+      "destination": "/blog/photographer-client-management",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/restaurant-customer-engagement",
+      "destination": "/blog/restaurant-customer-engagement",
+      "permanent": true
+    },
+    {
+      "source": "/br/blog/salon-booking-automation",
+      "destination": "/blog/salon-booking-automation",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/5-tools-to-replace",
+      "destination": "/blog/5-tools-to-replace",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/ai-powered-small-business",
+      "destination": "/blog/ai-powered-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/automate-follow-up",
+      "destination": "/blog/automate-follow-up",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/booking-systems-that-convert",
+      "destination": "/blog/booking-systems-that-convert",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-accountants",
+      "destination": "/blog/crm-for-accountants",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-cleaning-services",
+      "destination": "/blog/crm-for-cleaning-services",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-coaches",
+      "destination": "/blog/crm-for-coaches",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-construction",
+      "destination": "/blog/crm-for-construction",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-property-managers",
+      "destination": "/blog/crm-for-property-managers",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-real-estate",
+      "destination": "/blog/crm-for-real-estate",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/crm-for-tradies",
+      "destination": "/blog/crm-for-tradies",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/customer-follow-up-system",
+      "destination": "/blog/customer-follow-up-system",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/dental-practice-marketing",
+      "destination": "/blog/dental-practice-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/get-more-google-reviews",
+      "destination": "/blog/get-more-google-reviews",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-automate-invoice-follow-ups",
+      "destination": "/blog/how-to-automate-invoice-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-automate-review-requests",
+      "destination": "/blog/how-to-automate-review-requests",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-automate-social-media",
+      "destination": "/blog/how-to-automate-social-media",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-build-customer-loyalty-program",
+      "destination": "/blog/how-to-build-customer-loyalty-program",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-build-high-converting-landing-page",
+      "destination": "/blog/how-to-build-high-converting-landing-page",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-build-referral-program",
+      "destination": "/blog/how-to-build-referral-program",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-build-sales-pipeline",
+      "destination": "/blog/how-to-build-sales-pipeline",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-create-client-onboarding-workflow",
+      "destination": "/blog/how-to-create-client-onboarding-workflow",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-create-email-drip-campaign",
+      "destination": "/blog/how-to-create-email-drip-campaign",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-create-sms-campaigns",
+      "destination": "/blog/how-to-create-sms-campaigns",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-run-a-webinar-funnel",
+      "destination": "/blog/how-to-run-a-webinar-funnel",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-set-up-automated-follow-ups",
+      "destination": "/blog/how-to-set-up-automated-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-set-up-lead-scoring",
+      "destination": "/blog/how-to-set-up-lead-scoring",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-set-up-online-booking",
+      "destination": "/blog/how-to-set-up-online-booking",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-set-up-payment-processing",
+      "destination": "/blog/how-to-set-up-payment-processing",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/how-to-track-marketing-roi",
+      "destination": "/blog/how-to-track-marketing-roi",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/landing-pages-that-convert",
+      "destination": "/blog/landing-pages-that-convert",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/lead-generation-service-business",
+      "destination": "/blog/lead-generation-service-business",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/marketing-automation-for-gyms",
+      "destination": "/blog/marketing-automation-for-gyms",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/marketing-automation-getting-started",
+      "destination": "/blog/marketing-automation-getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/marketing-for-auto-repair",
+      "destination": "/blog/marketing-for-auto-repair",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/marketing-for-ecommerce",
+      "destination": "/blog/marketing-for-ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/marketing-for-law-firms",
+      "destination": "/blog/marketing-for-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/marketing-for-personal-trainers",
+      "destination": "/blog/marketing-for-personal-trainers",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/peace-and-party",
+      "destination": "/blog/peace-and-party",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/photographer-client-management",
+      "destination": "/blog/photographer-client-management",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/real-cost-of-disconnected-tools",
+      "destination": "/blog/real-cost-of-disconnected-tools",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/reclaim-your-evenings",
+      "destination": "/blog/reclaim-your-evenings",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/reduce-no-shows",
+      "destination": "/blog/reduce-no-shows",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/reputation-management",
+      "destination": "/blog/reputation-management",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/restaurant-customer-engagement",
+      "destination": "/blog/restaurant-customer-engagement",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/sales-funnel-small-business",
+      "destination": "/blog/sales-funnel-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/salon-booking-automation",
+      "destination": "/blog/salon-booking-automation",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/sms-marketing-small-business",
+      "destination": "/blog/sms-marketing-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/social-media-scheduling",
+      "destination": "/blog/social-media-scheduling",
+      "permanent": true
+    },
+    {
+      "source": "/fr/blog/website-vs-funnel",
+      "destination": "/blog/website-vs-funnel",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/5-tools-to-replace",
+      "destination": "/blog/5-tools-to-replace",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/ai-powered-small-business",
+      "destination": "/blog/ai-powered-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/all-in-one-vs-separate-tools",
+      "destination": "/blog/all-in-one-vs-separate-tools",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/automate-follow-up",
+      "destination": "/blog/automate-follow-up",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/best-all-in-one-platform-small-business",
+      "destination": "/blog/best-all-in-one-platform-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/booking-systems-that-convert",
+      "destination": "/blog/booking-systems-that-convert",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-accountants",
+      "destination": "/blog/crm-for-accountants",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-cleaning-services",
+      "destination": "/blog/crm-for-cleaning-services",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-coaches",
+      "destination": "/blog/crm-for-coaches",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-construction",
+      "destination": "/blog/crm-for-construction",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-property-managers",
+      "destination": "/blog/crm-for-property-managers",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-real-estate",
+      "destination": "/blog/crm-for-real-estate",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-for-tradies",
+      "destination": "/blog/crm-for-tradies",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/crm-small-business",
+      "destination": "/blog/crm-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/customer-follow-up-system",
+      "destination": "/blog/customer-follow-up-system",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/dental-practice-marketing",
+      "destination": "/blog/dental-practice-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/dusa-vs-activecampaign",
+      "destination": "/blog/dusa-vs-activecampaign",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/dusa-vs-clickfunnels",
+      "destination": "/blog/dusa-vs-clickfunnels",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/dusa-vs-hubspot",
+      "destination": "/blog/dusa-vs-hubspot",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/dusa-vs-keap",
+      "destination": "/blog/dusa-vs-keap",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/dusa-vs-mailchimp",
+      "destination": "/blog/dusa-vs-mailchimp",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/email-marketing-small-business",
+      "destination": "/blog/email-marketing-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/get-more-google-reviews",
+      "destination": "/blog/get-more-google-reviews",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/getting-started-with-dusa",
+      "destination": "/blog/getting-started-with-dusa",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-automate-invoice-follow-ups",
+      "destination": "/blog/how-to-automate-invoice-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-automate-review-requests",
+      "destination": "/blog/how-to-automate-review-requests",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-automate-social-media",
+      "destination": "/blog/how-to-automate-social-media",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-build-customer-loyalty-program",
+      "destination": "/blog/how-to-build-customer-loyalty-program",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-build-high-converting-landing-page",
+      "destination": "/blog/how-to-build-high-converting-landing-page",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-build-referral-program",
+      "destination": "/blog/how-to-build-referral-program",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-build-sales-pipeline",
+      "destination": "/blog/how-to-build-sales-pipeline",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-create-client-onboarding-workflow",
+      "destination": "/blog/how-to-create-client-onboarding-workflow",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-create-email-drip-campaign",
+      "destination": "/blog/how-to-create-email-drip-campaign",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-create-sms-campaigns",
+      "destination": "/blog/how-to-create-sms-campaigns",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-run-a-webinar-funnel",
+      "destination": "/blog/how-to-run-a-webinar-funnel",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-set-up-automated-follow-ups",
+      "destination": "/blog/how-to-set-up-automated-follow-ups",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-set-up-lead-scoring",
+      "destination": "/blog/how-to-set-up-lead-scoring",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-set-up-online-booking",
+      "destination": "/blog/how-to-set-up-online-booking",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-set-up-payment-processing",
+      "destination": "/blog/how-to-set-up-payment-processing",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/how-to-track-marketing-roi",
+      "destination": "/blog/how-to-track-marketing-roi",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/landing-pages-that-convert",
+      "destination": "/blog/landing-pages-that-convert",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/lead-generation-service-business",
+      "destination": "/blog/lead-generation-service-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/marketing-automation-for-gyms",
+      "destination": "/blog/marketing-automation-for-gyms",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/marketing-automation-getting-started",
+      "destination": "/blog/marketing-automation-getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/marketing-for-auto-repair",
+      "destination": "/blog/marketing-for-auto-repair",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/marketing-for-ecommerce",
+      "destination": "/blog/marketing-for-ecommerce",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/marketing-for-law-firms",
+      "destination": "/blog/marketing-for-law-firms",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/marketing-for-personal-trainers",
+      "destination": "/blog/marketing-for-personal-trainers",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/peace-and-party",
+      "destination": "/blog/peace-and-party",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/photographer-client-management",
+      "destination": "/blog/photographer-client-management",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/real-cost-of-disconnected-tools",
+      "destination": "/blog/real-cost-of-disconnected-tools",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/reclaim-your-evenings",
+      "destination": "/blog/reclaim-your-evenings",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/reduce-no-shows",
+      "destination": "/blog/reduce-no-shows",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/reputation-management",
+      "destination": "/blog/reputation-management",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/restaurant-customer-engagement",
+      "destination": "/blog/restaurant-customer-engagement",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/sales-funnel-small-business",
+      "destination": "/blog/sales-funnel-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/salon-booking-automation",
+      "destination": "/blog/salon-booking-automation",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/sms-marketing-small-business",
+      "destination": "/blog/sms-marketing-small-business",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/social-media-scheduling",
+      "destination": "/blog/social-media-scheduling",
+      "permanent": true
+    },
+    {
+      "source": "/de/blog/website-vs-funnel",
+      "destination": "/blog/website-vs-funnel",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/_astro/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/fonts/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/js/vendor/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/js/((?!vendor/).*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/images/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
         {
           "key": "Permissions-Policy",
           "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"

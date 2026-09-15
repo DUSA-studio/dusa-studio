@@ -1092,6 +1092,9 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
   :global(html[data-theme="light"]) .activate__assist {
     color: rgba(12, 14, 20, 0.6);
   }
+  :global(html[data-theme="light"]) .activate__assist a {
+    color: var(--aqua-ink);
+  }
 
   :global(html[data-theme="light"]) .activate__toggle {
     border-color: rgba(12, 14, 20, 0.12);
@@ -1104,7 +1107,7 @@ const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
 
   :global(html[data-theme="light"]) .activate__toggle-btn.is-active {
     background: rgba(78, 216, 194, 0.2);
-    color: #0d7a68;
+    color: var(--aqua-ink);
   }
 </style>
 

@@ -1,0 +1,1223 @@
+{
+  "common": {
+    "getStarted": "Kom igång",
+    "bookDemo": "Boka en demo",
+    "bookFreeDemo": "Boka din kostnadsfria demo",
+    "learnMore": "Läs mer",
+    "viewPricing": "Se priser",
+    "getInTouch": "Kontakta oss",
+    "sendMessage": "Skicka meddelande",
+    "logIn": "Logga in",
+    "demo": "Demo",
+    "readMore": "Läs mer",
+    "minRead": "min läsning",
+    "allRightsReserved": "Alla rättigheter förbehållna.",
+    "privacyPolicy": "Integritetspolicy",
+    "termsOfService": "Användarvillkor",
+    "region": "Region",
+    "theme": "Tema",
+    "seeThePlatform": "Se plattformen",
+    "skipToContent": "Hoppa till innehåll"
+  },
+  "nav": {
+    "pricing": "Priser",
+    "services": "Tjänster",
+    "industries": "Branscher",
+    "about": "Om oss",
+    "news": "Nyheter",
+    "contact": "Kontakt",
+    "getStarted": "Kom igång",
+    "logIn": "Logga in",
+    "demo": "Demo",
+    "region": "Region",
+    "theme": "Tema",
+    "selectRegion": "Välj region och språk",
+    "viewAllIndustries": "Se alla branscher",
+    "viewAll": "Se alla",
+    "industryLabels": {
+      "real-estate": "Fastighetsmäklare",
+      "gyms": "Gym och träning",
+      "tradies": "Hantverkare",
+      "restaurants": "Restauranger",
+      "salons": "Salonger och spa",
+      "accountants": "Redovisningsbyråer",
+      "dentists": "Tandläkarmottagningar",
+      "photographers": "Fotografer",
+      "construction": "Bygg",
+      "personal-trainers": "Personliga tränare",
+      "cleaning-services": "Städfirmor",
+      "law-firms": "Advokatbyråer",
+      "property-managers": "Fastighetsförvaltare",
+      "auto-repair": "Bilverkstäder",
+      "coaches": "Coacher och konsulter",
+      "ecommerce": "E-handel"
+    }
+  },
+  "footer": {
+    "tagline": "Varumärken som blomstrar.",
+    "desc": "Digital Utility for Sales and Automation. Den AI-drivna tillväxtplattformen för små företag.",
+    "platformHeading": "Plattform",
+    "companyHeading": "Företaget",
+    "getInTouchHeading": "Kontakta oss",
+    "features": "Funktioner",
+    "howItWorks": "Så fungerar det",
+    "onboarding": "Onboarding",
+    "pricing": "Priser",
+    "about": "Om oss",
+    "services": "Tjänster",
+    "contact": "Kontakt",
+    "news": "Nyheter",
+    "location": "Sydney, Australien",
+    "soc2Title": "SOC 2 Type II",
+    "soc2Sub": "Certifierad",
+    "hipaaTitle": "HIPAA",
+    "hipaaSubCompliant": "Certifierad*",
+    "hipaaNote": "*HIPAA-efterlevnad finns som tillval för företag inom hälso- och sjukvård.",
+    "copyright": "2026 DUSA . studio. Alla rättigheter förbehållna.",
+    "privacyPolicy": "Integritetspolicy",
+    "termsOfService": "Användarvillkor",
+    "industriesHeading": "Branscher",
+    "industries": "Alla branscher",
+    "realEstate": "Fastighetsmäklare",
+    "gyms": "Gym",
+    "restaurants": "Restauranger",
+    "salons": "Salonger",
+    "tradies": "Hantverkare",
+    "dentists": "Tandläkare",
+    "coaches": "Coacher",
+    "careers": "Jobba hos oss",
+    "askAi": "Fråga AI om DUSA:",
+    "shareThis": "Dela:"
+  },
+  "hero": {
+    "label": "Det AI-drivna tillväxtsystemet",
+    "title": "Allt du behöver.",
+    "titleAccent": "En inloggning.",
+    "subtitle": "AI-driven marknadsföring, försäljning och kundkontakt. Allt sammankopplat. Så att du kan driva ditt företag, inte dina program.",
+    "getStarted": "Kom igång",
+    "bookDemo": "Boka en demo",
+    "phoneApp": "DUSA . studio",
+    "statLeads": "leads",
+    "statTracked": "spårade",
+    "statRating": "betyg",
+    "capCrmTitle": "CRM och kontakter",
+    "capCrmSub": "Håll koll på varje lead",
+    "capEmailTitle": "E-post och SMS",
+    "capEmailSub": "Kampanjer på autopilot",
+    "capFunnelsTitle": "Funnels och automationer",
+    "capFunnelsSub": "Konvertera medan du sover",
+    "capAiTitle": "Inbyggd AI",
+    "capAiSub": "Smartare samtal, snabbare tillväxt",
+    "scrollExplore": "Utforska",
+    "introLabel": "Tillväxt, fixad åt dig",
+    "introH1": "Vi hjälper ditt företag att",
+    "introH1Accent": "växa",
+    "introSub": "Att driva företag i dag betyder ett dussin appar som inte pratar med varandra, och du sitter fast i mitten. DUSA ersätter röran med ett enda system som följer upp varje lead, bokar jobben och ser till att du får betalt. Automatiskt.",
+    "introStat1n": "12+ appar",
+    "introStat1l": "för många appar för att driva ett företag",
+    "introStat2n": "1 inloggning",
+    "introStat2l": "är allt som krävs med DUSA",
+    "introStat3n": "10+ tim",
+    "introStat3l": "rutinarbete som AI tar hand om, varje vecka",
+    "introStat4n": "+32%",
+    "introStat4l": "mer intäkter under ditt första år",
+    "introNote": "Mindre kaos. Fler kunder. Det är hela idén.",
+    "introSee": "Se vad som ingår",
+    "introFreeDemo": "Boka en kostnadsfri demo",
+    "introFreeDemoShort": "Gratis demo",
+    "introSetupNote": "Vi sköter uppsättningen &middot; Drivs av AI &middot; Avsluta när du vill",
+    "platformPhone": "Mobil",
+    "platformTablet": "Surfplatta",
+    "platformDesktop": "Dator",
+    "platformWeb": "Webb",
+    "platformPhoneAria": "Mobil. Klicka igen för att växla mellan iPhone och Android",
+    "platformPhoneTitle": "Klicka igen för att växla iPhone / Android"
+  },
+  "whatIsDusa": {
+    "eyebrow": "Digital Utility for Sales and Automation",
+    "heading": "DUSA är allt-i-ett-plattformen för tillväxt",
+    "headingAccent": "byggd för små företag.",
+    "sub": "Vi ersätter lapptäcket av frånkopplade verktyg med ett enda AI-drivet system som sköter din marknadsföring, försäljning och kundkontakt. Färre tekniska huvudvärk, mer tillväxt.",
+    "pillar1Title": "En plattform, inte nio abonnemang",
+    "pillar1Desc": "CRM, e-post, SMS, funnels, webbplatser, betalningar, bokning och recensionshantering. Allt under ett tak med en inloggning.",
+    "pillar2Title": "AI som jobbar medan du sover",
+    "pillar2Desc": "Automatiska uppföljningar, smart leadbedömning, recensionsförfrågningar och kampanjutlösare. Ditt företag fortsätter framåt, även när du är ledig.",
+    "pillar3Title": "Byggd för företag som vill växa",
+    "pillar3Desc": "Oavsett om du är egenföretagare eller har ett litet team växer DUSA med dig. Börja enkelt och lägg till funktioner när du behöver dem."
+  },
+  "problem": {
+    "label": "Problemet",
+    "heading": "Små företag",
+    "headingLine2": "ska inte behöva",
+    "headingTools": "olika verktyg",
+    "subtitle": "Du betalar för ett dussin appar som inte pratar med varandra. Varje nytt verktyg innebär ännu en inloggning, ännu en faktura och ännu en sak att lära sig.",
+    "pain1Title": "Inget hänger ihop",
+    "pain1Desc": "Ditt e-postverktyg ser inte ditt CRM. Din bokningskalender vet inte vem som har betalat. Datan lever i silos.",
+    "pain2Title": "Storföretagspriser",
+    "pain2Desc": "Plattformarna som faktiskt fungerar tar betalt som för storföretag. Du får tejpa ihop gratisversioner så gott det går.",
+    "pain3Title": "Ingen tid att lista ut det",
+    "pain3Desc": "Du driver ett företag, inte en marknadsföringsbyrå. Att sätta upp automationer ska inte kräva en utvecklare.",
+    "solutionLabel": "Lösningen",
+    "solutionTitle": "DUSA samlar allt på ett ställe.",
+    "solutionTitleAccent": "AI-drivet. En plattform. Ett pris.",
+    "solutionDesc": "Allt du behöver för att attrahera, konvertera och behålla kunder. AI sköter det tunga arbetet. Inget mer app-jonglerande. Inget mer gissande. Bara tillväxt.",
+    "seeThePlatform": "Se plattformen",
+    "totalCostLabel": "Total månadskostnad"
+  },
+  "underwaterDive": {
+    "label": "Känns det igen?",
+    "heading": "För många verktyg.",
+    "headingAccent": "En enkel lösning.",
+    "description": "De flesta små företag jonglerar 10+ plattformar som inte pratar med varandra. DUSA samlar allt på ett ställe, så att du kan fokusera på det som räknas: att växa.",
+    "answer1Title": "En plattform",
+    "answer1Desc": "ersätter de 10+ verktyg som dränerar din budget",
+    "answer2Title": "Allt hänger ihop",
+    "answer2Desc": "CRM, e-post, SMS, funnels och betalningar, allt i synk",
+    "answer3Title": "Byggd för att växa",
+    "answer3Desc": "AI-drivna automationer som skalar med dig"
+  },
+  "features": {
+    "label": "Plattformen",
+    "heading": "Allt",
+    "headingAccent": "hänger ihop.",
+    "sub": "Sex system. En processor. DUSA kopplar samman varje del av ditt företag på ett enda kretskort.",
+    "crmPipeline": "CRM och pipelinehantering",
+    "emailMarketing": "E-postmarknadsföring",
+    "smsMarketing": "SMS-marknadsföring",
+    "funnelWebsite": "Funnel- och webbplatsbyggare",
+    "bookingCalendar": "Bokning och kalender",
+    "workflowAutomation": "Arbetsflödesautomationer",
+    "reputationMgmt": "Recensionshantering",
+    "analytics": "Analys och rapportering",
+    "socialMedia": "Planering för sociala medier",
+    "invoicing": "Fakturering och betalningar",
+    "formsSurveys": "Formulär och enkäter",
+    "community": "Community-plattform",
+    "callTracking": "Samtalsspårning",
+    "node1Title": "CRM och kontakter",
+    "node1Desc": "AI bedömer dina leads. Du stänger affärerna.",
+    "node2Title": "AI-automationer",
+    "node2Desc": "Ställ in en gång. AI sköter resten.",
+    "node3Title": "E-post och SMS",
+    "node3Desc": "AI skriver, skickar och optimerar.",
+    "node4Title": "Funnels och sidor",
+    "node4Desc": "Sidor som konverterar. Ingen utvecklare behövs.",
+    "node5Title": "Bokning",
+    "node5Desc": "Kunderna bokar. AI sköter resten.",
+    "node6Title": "Betalningar",
+    "node6Desc": "Få betalt snabbare. AI jagar resten.",
+    "footerText": "En plattform. Ingen tejp. Inget flikväxlande. Bara tillväxt.",
+    "ctaText": "Se det i praktiken"
+  },
+  "howItWorks": {
+    "label": "Så fungerar det",
+    "heading": "Igång",
+    "headingAccent": "i tre steg.",
+    "step1Title": "Boka en demo",
+    "step1Desc": "Se plattformen i praktiken. Vi visar hur DUSA passar just ditt företag. Ingen press, inget krångel.",
+    "step1Label": "DEMO",
+    "step2Title": "Bli uppsatt",
+    "step2Desc": "Vi sköter migreringen och uppsättningen. Ditt CRM, dina AI-automationer och funnels, konfigurerade och redo inom några dagar.",
+    "step2Label": "UPPSÄTTNING",
+    "step3Title": "Börja växa",
+    "step3Desc": "Starta kampanjer, fånga leads och låt AI sköta uppföljningarna från dag ett. Se din pipeline fyllas.",
+    "step3Label": "TILLVÄXT",
+    "bookFreeDemo": "Boka din kostnadsfria demo"
+  },
+  "onboarding": {
+    "component": {
+      "eyebrow": "Din onboarding-resa",
+      "title": "Från registrering till",
+      "titleAccent": "lansering",
+      "titleEnd": "på två veckor.",
+      "sub": "Du behöver inte lista ut allt själv. Vi sköter uppsättning, migrering och utbildning så att du kan fokusera på att driva ditt företag.",
+      "step1Title": "Boka din demo",
+      "step1Desc": "Ett snabbt 15-minuterssamtal för att förstå ditt företag. Vi tar reda på vad du behöver, visar plattformen och svarar på alla frågor.",
+      "step1Time": "15 min",
+      "step2Title": "Uppsättning",
+      "step2Desc": "Vi konfigurerar din DUSA-arbetsyta. CRM, automationer, e-postmallar, funnels och integrationer, allt uppsatt åt dig under den första veckan.",
+      "step2Time": "Vecka 1",
+      "step3Title": "Migrering och utbildning",
+      "step3Desc": "Vi flyttar dina kontakter, kampanjer och data från dina gamla verktyg. Sedan går vi igenom allt med ditt team så att ni känner er trygga från dag ett.",
+      "step3Time": "Vecka 2",
+      "step4Title": "Lansera och väx",
+      "step4Desc": "Du är live. AI-support finns alltid tillgänglig, och vårt team stämmer av för att se till att allt rullar på. Dags att växa.",
+      "step4Time": "Löpande",
+      "supportAiTitle": "AI-support",
+      "supportAiDesc": "Ingår i alla planer, dygnet runt.",
+      "supportManagerTitle": "Dedikerad kundansvarig",
+      "supportManagerDesc": "För kunder på Growth och Bespoke.",
+      "ctaBookDemo": "Boka din kostnadsfria demo",
+      "ctaLearnMore": "Läs mer om onboarding"
+    },
+    "page": {
+      "metaTitle": "Onboarding | DUSA . studio",
+      "metaDesc": "Se exakt vad som händer när du blir kund hos DUSA. Från första demosamtalet till full lansering sköter vi uppsättningen så att du kan fokusera på att växa.",
+      "eyebrow": "Onboarding",
+      "title": "Vi sätter upp allt.",
+      "titleAccent": "Du växer.",
+      "sub": "De flesta plattformar ger dig en inloggning och önskar lycka till. Vi gör tvärtom. Din DUSA-arbetsyta är konfigurerad, ifylld och redo att användas innan du rör ett finger.",
+      "phase1Badge": "Dag 1",
+      "phase1Title": "Behovsanalys och demo",
+      "phase1Desc": "Allt börjar med ett 15-minuterssamtal. Vi lär oss om ditt företag, verktygen du använder i dag, problemen du vill lösa och hur framgång ser ut för dig.",
+      "phase1Detail1Title": "Vad vi går igenom",
+      "phase1Detail1Desc": "Din affärsmodell, nuvarande verktyg, utmaningar, tillväxtmål och vilka DUSA-funktioner som passar dina behov.",
+      "phase1Detail2Title": "Vad du får",
+      "phase1Detail2Desc": "En live-genomgång av plattformen anpassad efter ditt företag. Verkliga exempel, inte en generisk presentation.",
+      "phase2Badge": "Vecka 1",
+      "phase2Title": "Uppsättning av plattformen",
+      "phase2Desc": "När du är med sätter vårt team igång med att konfigurera din DUSA-arbetsyta. Vi sköter den tekniska uppsättningen så att du slipper lägga timmar på inställningsmenyer.",
+      "phase2Detail1Title": "CRM-konfiguration",
+      "phase2Detail1Desc": "Anpassade fält, pipelines, taggar och kontaktsteg byggda kring din säljprocess.",
+      "phase2Detail2Title": "Automationssekvenser",
+      "phase2Detail2Desc": "Uppföljningsmejl, SMS-påminnelser och flöden för leadbearbetning. Konfigurerade och redo att köra.",
+      "phase2Detail3Title": "Funnels och formulär",
+      "phase2Detail3Desc": "Landningssidor, bokningsformulär och funnels för leadinsamling, byggda efter ditt varumärke.",
+      "phase2Detail4Title": "Integrationer",
+      "phase2Detail4Desc": "Kopplade till din kalender, e-post, betalningslösning och alla andra verktyg du behöver.",
+      "phase3Badge": "Vecka 2",
+      "phase3Title": "Migrering och utbildning",
+      "phase3Desc": "Byter du från en annan plattform? Vi flyttar dina kontakter, kampanjer, mallar och historik. Sedan går vi igenom allt med ditt team så att ni känner er trygga med systemet.",
+      "phase3Detail1Title": "Datamigrering",
+      "phase3Detail1Desc": "Kontakter, affärer, e-postmallar och kampanjhistorik, allt rensat och inlagt i DUSA.",
+      "phase3Detail2Title": "Teamutbildning",
+      "phase3Detail2Desc": "En praktisk genomgång för dig och ditt team. Inte ett inspelat webbinarium. Live-vägledning anpassad efter er uppsättning.",
+      "phase4Badge": "Löpande",
+      "phase4Title": "Lansering och support",
+      "phase4Desc": "Du är live. Härifrån finns vår AI-supportassistent tillgänglig dygnet runt. Kunder på Growth och Bespoke får dessutom en dedikerad kundansvarig som stämmer av regelbundet för att optimera din uppsättning och hjälpa dig få ut mesta möjliga av plattformen.",
+      "phase4Detail1Title": "AI-support, dygnet runt",
+      "phase4Detail1Desc": "Få svar direkt. Vår AI-assistent är tränad på hela DUSA-plattformen och hjälper till med uppsättning, felsökning och bästa praxis.",
+      "phase4Detail2Title": "Dedikerad kundansvarig",
+      "phase4Detail2Desc": "För kunder på Growth och Bespoke. Månatliga avstämningar, proaktiv optimering och en direktlinje till någon som känner ditt företag.",
+      "ctaTitle": "Redo att komma igång?",
+      "ctaDesc": "Boka en kostnadsfri demo och se exakt hur DUSA passar ditt företag.",
+      "ctaBookDemo": "Boka din kostnadsfria demo",
+      "ctaViewPricing": "Se priser"
+    }
+  },
+  "socialProof": {
+    "testimonialsLabel": "Vad våra kunder säger",
+    "resultsLabel": "Resultat som talar för sig själva",
+    "heading": "Företag växer snabbare med",
+    "headingAccent": "AI och allt sammankopplat",
+    "stat1Value": "5+",
+    "stat1Label": "Verktyg ersatta",
+    "stat2Value": "2x",
+    "stat2Label": "Snabbare uppföljning",
+    "stat3Value": "100%",
+    "stat3Label": "AI-automatiserat",
+    "stat4Value": "800+ AUD",
+    "stat4Label": "Sparat per månad",
+    "stat5Value": "< 48 tim",
+    "stat5Label": "Uppsättningstid",
+    "testimonials": [
+      {
+        "quote": "Innan det här använde jag så många olika verktyg för varje kund. Tiden jag lägger på att lära mig och sätta upp marknadsföringssystem har minskat drastiskt. De automatiserade arbetsflödena är min favoritdel.",
+        "role": "Webbutvecklare"
+      },
+      {
+        "quote": "En allt-i-ett-lösning som sparar tid, energi och pengar. Funnelbyggare, smarta automationer, e-postmarknadsföring, telefoni och AI inbyggt i allt. Gränssnittet är väldigt användarvänligt.",
+        "role": "Marknadsföringskonsult"
+      },
+      {
+        "quote": "Allt kommunicerades tydligt genom hela processen och problemet löstes. Supportteamet bryr sig verkligen om att du kommer igång ordentligt.",
+        "role": "Företagare"
+      },
+      {
+        "quote": "Onboardingen var utan tvekan den bästa jag någonsin har upplevt. Professionalismen och lugnet är helt oslagbara. Jag kände mig vägledd hela vägen.",
+        "role": "Byråägare"
+      },
+      {
+        "quote": "Vi ersatte fem separata verktyg och mer än halverade våra månatliga mjukvarukostnader. Uppsättningen tog dagar, inte månader. Nu hänger allt faktiskt ihop.",
+        "role": "Fastighetsförvaltare"
+      },
+      {
+        "quote": "De automatiska omdömesförfrågningarna har varit värda det i sig. Vi gick från 12 Google-omdömen till över 80 på tre månader utan att lyfta ett finger.",
+        "role": "Ägare av tandläkarklinik"
+      },
+      {
+        "quote": "Tålmodiga, professionella och tog sig tid att förstå problemen. Supporten är den bästa jag har upplevt på någon plattform.",
+        "role": "Småföretagare"
+      },
+      {
+        "quote": "AI-bokningsassistenten sköter tidsbokningen, skickar påminnelser och följer upp uteblivna besök automatiskt. Jag har halverat min administrationstid.",
+        "role": "Ägare av fysioterapiklinik"
+      },
+      {
+        "quote": "Vi testade tre andra plattformar innan den här. Ingen av dem hade samma djup i automationerna i kombination med enkelhet. Det här är den som blev kvar.",
+        "role": "VD för digital byrå"
+      },
+      {
+        "quote": "Bara SMS-marknadsföringen har förändrat allt för vår restaurang. Vi skickar ett lunch-erbjudande och ser en topp i beställningarna inom en timme.",
+        "role": "Restaurangchef"
+      },
+      {
+        "quote": "Jag driver tre verksamheter och sköter alla från en enda dashboard. Stödet för flera verksamhetsställen gjorde att jag slapp anställa en virtuell assistent på heltid.",
+        "role": "Ägare av flera företag"
+      },
+      {
+        "quote": "Vår medlemscommunity lanserades på en helg. Kurser, drip-innehåll, communitychatt. Allt i samma plattform som vi använder för CRM.",
+        "role": "Skapare av onlinekurser"
+      },
+      {
+        "quote": "Min öppningsfrekvens för mejl hoppade från 18 % till 42 % efter bytet. De inbyggda mallarna och AI-verktygen för copy är seriöst underskattade.",
+        "role": "Marknadsansvarig"
+      },
+      {
+        "quote": "Det ersatte helt vårt gamla CRM och vår landningssidebyggare. Vi får en sjukt bra teknikstack för en bråkdel av vad vi brukade betala.",
+        "role": "Byrågrundare"
+      },
+      {
+        "quote": "Jag var skeptisk till en allt-i-ett-plattform, men djupet här är på riktigt. Funnels, e-postsekvenser, omdömeshantering. Det bara funkar.",
+        "role": "Ägare av konsultbolag"
+      },
+      {
+        "quote": "Supportteamet gick verkligen den extra milen. De tog sig tid att faktiskt förstå min uppsättning och guidade mig genom varje ändring. Extremt noggranna.",
+        "role": "Grundare av kreativ byrå"
+      }
+    ]
+  },
+  "brandCarousel": {
+    "label": "Driver tillväxt för",
+    "heading": "Varumärken som",
+    "headingAccent": "blomstrar"
+  },
+  "funnelComparison": {
+    "label": "Den verkliga kostnaden för spridda verktyg",
+    "heading": "Vart tar dina",
+    "headingAccent": "pengar egentligen vägen?",
+    "withoutDusa": "Utan DUSA",
+    "withDusa": "Med DUSA",
+    "scatteredSpend": "Spridda utgifter",
+    "scatteredSub": "8 inloggningar, 8 fakturor, ingen samlad överblick",
+    "allInOneLabel": "Allt-i-ett för tillväxt",
+    "platformSub": "CRM, funnels, e-post, SMS, AI, recensioner, bokning, kurser",
+    "unifiedGrowth": "Samlad tillväxt",
+    "unifiedSub": "En inloggning, en faktura, full överblick",
+    "goingIn": "IN",
+    "aiPowered": "AI-DRIVET",
+    "vs": "VS"
+  },
+  "cta": {
+    "label": "Redo?",
+    "heading": "Sluta jonglera verktyg.",
+    "headingAccent": "Börja växa.",
+    "desc": "Testa DUSA:s AI-drivna plattform gratis i 14 dagar. Ersätt din spridda verktygslåda med ett intelligent system. Avsluta när du vill.",
+    "getStarted": "Kom igång",
+    "bookDemo": "Boka en demo",
+    "beyondLabel": "Bortom plattformen",
+    "beyondText": "Skräddarsydda AI-lösningar, hantering av sociala medier, avancerade integrationer och dedikerad IT-support.",
+    "beyondStrong": "Vi har din rygg."
+  },
+  "pricing": {
+    "metaTitle": "Priser | DUSA . studio",
+    "metaDesc": "Enkla, transparenta priser för varje tillväxtfas. CRM, e-post, SMS, funnels, bokning och recensionshantering i en plattform.",
+    "metaDescription": "Enkla, transparenta priser för varje tillväxtfas. CRM, e-post, SMS, funnels, bokning och recensionshantering i en plattform. Inga bindande avtal.",
+    "heroLabel": "Priser",
+    "heroTitle": "En plattform.",
+    "heroTitleAccent": "Ditt pris.",
+    "heroSub": "Börja med det du behöver. Skala upp när du är redo. Ingen bindningstid, inga dolda avgifter.",
+    "currencyNote": "Alla priser i {currency}",
+    "usageNoteShort": "Planpriset täcker tillgången till plattformen. Meddelanden, samtal, e-post och AI-användning faktureras separat i takt med att du använder dem, i USD.",
+    "usageNoteLink": "Så fungerar förbrukningsfakturering",
+    "tierLaunchpad": "Launchpad",
+    "tierStarter": "Starter",
+    "tierGrowth": "Growth",
+    "tierBespoke": "Bespoke",
+    "launchpadTagline": "Börja med ett. Skala upp när du är redo.",
+    "launchpadDesc": "Välj ett valfritt kärnsystem och kom igång i dag. Det enklaste sättet att se vad DUSA kan göra för ditt företag.",
+    "starterTagline": "Allt sammankopplat.",
+    "starterDesc": "Alla 9 kärnsystem som jobbar tillsammans. Hela DUSA-plattformen till en bråkdel av vad det kostar att köpa verktygen separat.",
+    "growthTagline": "Byggd för fart.",
+    "growthDesc": "Obegränsat av allt plus avancerade automationer, AI-verktyg och prioriterad support som snabbar på din tillväxt.",
+    "bespokeTagline": "Skräddarsydda lösningar för växande team.",
+    "bespokeDesc": "Flera platser, teamåtkomst, anpassade integrationer och dedikerad kundansvarig. Byggd kring ditt företag.",
+    "perMonth": "/mån",
+    "custom": "Offert",
+    "getStarted": "Kom igång",
+    "letsTalk": "Låt oss prata",
+    "badgeEntry": "Instegserbjudande",
+    "badgeBestValue": "Bäst värde",
+    "badgeCustom": "Skräddarsytt",
+    "replaceLabel": "Vad betalar du för i dag?",
+    "replaceTitle": "Välj dina nuvarande verktyg.",
+    "replaceTitleAccent": "Se vad du sparar.",
+    "replaceSub": "Klicka på de verktyg du faktiskt använder just nu. Vi visar den verkliga kostnaden för din verktygslåda, och exakt hur mycket DUSA sparar åt dig. När du bokar en demo kommer vi förberedda med en migreringsplan anpassad efter din uppsättning.",
+    "activateDusa": "Aktivera DUSA",
+    "savingsPrefix": "Spara",
+    "savingsWith": "med DUSA",
+    "savingsAt": "på",
+    "regionalLabel": "Populärt på din marknad",
+    "regionalTitle": "Så står sig DUSA",
+    "regionalTitleAccent": "i din region",
+    "regionalSub": "Se hur DUSA står sig mot de verktyg som företag i ditt område redan använder.",
+    "regionalLocal": "Lokalt",
+    "regionalReadComparison": "Läs hela jämförelsen",
+    "supportLabel": "Support i varje plan",
+    "supportTitle": "Du står aldrig",
+    "supportTitleAccent": "ensam",
+    "supportAiTitle": "AI-assistent, telefon och chatt",
+    "supportAiDesc": "Ring eller chatta med din AI-assistent när som helst. Den guidar dig genom allt som rör DUSA, från uppsättning till strategi. Kör du fast bokar vi in dig med en tillväxtspecialist. Growth-planer och uppåt får prioriterad tillgång till konsulter.",
+    "supportCommunityTitle": "DUSA-communityn",
+    "supportCommunityDesc": "Träffa andra företagare, dela strategier och lär av människor som växer med DUSA. Riktiga samtal, inte bara supportärenden.",
+    "supportPortalTitle": "Medlemsportal",
+    "supportPortalDesc": "Din privata hubb för guider, handledningar, mallar och support. Allt du behöver för att få ut mesta möjliga av din DUSA-plattform, samlat på ett ställe.",
+    "supportPriorityTitle": "Prioriterad och dedikerad",
+    "supportPriorityDesc": "Growth-planer går före i kön med prioriterad support. Bespoke-kunder får en dedikerad kundansvarig, egen telefonlinje och månatliga strategigenomgångar.",
+    "allPlans": "Alla planer",
+    "growthAndBespoke": "Growth och Bespoke",
+    "compareLabel": "Fullständig jämförelse",
+    "compareTitle": "Allt ingår,",
+    "compareTitleAccent": "inget är dolt",
+    "compareSub": "Se exakt vad du får i varje plan. Inga asterisker, inga överraskningar.",
+    "startFor": "Börja för",
+    "getStarter": "Välj Starter",
+    "scaleFaster": "Skala snabbare",
+    "faqLabel": "Vanliga frågor",
+    "faqTitle": "Vanliga frågor,",
+    "faqTitleAccent": "raka svar",
+    "ctaLabel": "Redo att växa?",
+    "ctaTitle": "Börja med Launchpad.",
+    "ctaTitleAccent": "Skala upp därifrån.",
+    "ctaDesc": "Testa hela plattformen gratis i 14 dagar. Gratis i 14 dagar, avsluta när du vill. Eller boka en demo så guidar vi dig igenom allt.",
+    "ctaGetStarted": "Kom igång",
+    "ctaBookDemo": "Boka en demo",
+    "included": "Ingår",
+    "data": {
+      "tierHighlights": {
+        "launchpad": [
+          "1 kärnsystem som du väljer själv",
+          "9 system att välja mellan",
+          "Full tillgång till dashboarden",
+          "Grundläggande analys",
+          "AI-chattsupport",
+          "Tillgång till communityn"
+        ],
+        "starter": [
+          "Alla 9 kärnsystem ingår",
+          "CRM + pipelinehantering",
+          "E-post- och SMS-marknadsföring",
+          "Funnel- och webbplatsbyggare",
+          "Bokning, sociala medier och omdömen",
+          "Fakturering, formulär och enkäter",
+          "Automatiserade arbetsflöden",
+          "AI-chattsupport"
+        ],
+        "growth": [
+          "Allt i Starter",
+          "Obegränsat antal kontakter och arbetsflöden",
+          "Avancerad automationsbyggare",
+          "AI-drivna svar",
+          "Anpassade rapportdashboards",
+          "Prioriterad support",
+          "Strategisession vid onboarding",
+          "Egen communitykanal"
+        ],
+        "bespoke": [
+          "Allt i Growth",
+          "Stöd för flera verksamhetsställen",
+          "Användarkonton för teamet",
+          "Skräddarsydda integrationer",
+          "Dedikerad kundansvarig",
+          "Månatliga strategigenomgångar",
+          "Skräddarsydda automationer",
+          "Telefonsupport"
+        ]
+      },
+      "replacementFeatures": [
+        "CRM och pipelinehantering",
+        "E-postmarknadsföring",
+        "SMS-marknadsföring",
+        "Funnel- och webbplatsbyggare",
+        "Bokning och kalender",
+        "Automatiserade arbetsflöden",
+        "Omdömeshantering",
+        "Analys och rapportering",
+        "Planering för sociala medier",
+        "Fakturering och betalningar",
+        "Formulär och enkäter",
+        "Communityplattform",
+        "Samtalsspårning"
+      ],
+      "cellPick1": "Välj 1",
+      "cellUnlimited": "Obegränsat",
+      "cellWorkflows5": "5 arbetsflöden",
+      "featureCategories": [
+        {
+          "name": "Kärnplattform",
+          "rows": [
+            [
+              "CRM och pipelinehantering",
+              "Samla alla leads, kunder och konversationer på ett ställe. Visuella pipelines med dra och släpp för att följa affärer, prognostisera intäkter och aldrig tappa en möjlighet."
+            ],
+            [
+              "Funnel- och webbplatsbyggare",
+              "Bygg landningssidor som konverterar, opt-in-funnels och en komplett företagswebbplats med dra och släpp. Egen domän, SEO-verktyg och SSL ingår."
+            ],
+            [
+              "E-postmarknadsföring",
+              "Skicka snygga mejl i din grafiska profil, bygg automatiserade nurture-sekvenser och följ öppningar, klick och konverteringar. Inga avgifter per utskick på någon plan."
+            ],
+            [
+              "SMS-marknadsföring",
+              "Nå kunderna direkt med sms-kampanjer, bokningspåminnelser och tvåvägskonversationer. Meddelandeanvändning faktureras separat i takt med att du använder den."
+            ],
+            [
+              "Boknings- och kalendersystem",
+              "Låt kunderna boka tider direkt från din webbplats eller via länkar. Synkar med Google Calendar, skickar automatiska påminnelser och minskar antalet uteblivna besök."
+            ],
+            [
+              "Planering för sociala medier",
+              "Schemalägg och publicera inlägg på Facebook, Instagram, Google och fler kanaler. Planera din innehållskalender och följ engagemanget från ett och samma ställe."
+            ],
+            [
+              "Omdömeshantering",
+              "Be nöjda kunder om omdömen automatiskt, håll koll på ditt rykte online och svara på recensioner från en enda dashboard."
+            ],
+            [
+              "Fakturering och betalningar",
+              "Skicka professionella fakturor, ta emot betalningar online och se vem som har betalat. Integrerat med Stripe för smidiga transaktioner."
+            ],
+            [
+              "Formulär och enkäter",
+              "Fånga leads med egna formulär och samla in feedback med enkäter. Bädda in var som helst och trigga automationer när någon svarar."
+            ]
+          ]
+        },
+        {
+          "name": "Automation och AI",
+          "rows": [
+            [
+              "Grundläggande arbetsflöden",
+              "Sätt upp enkla om-detta-så-det-här-automationer, som att skicka ett välkomstmejl när någon fyller i ett formulär eller tagga kontakter utifrån vad de gör."
+            ],
+            [
+              "Flerstegsbyggare för automationer",
+              "Bygg avancerade arbetsflöden i flera steg med fördröjningar, villkor och flera åtgärder. Automatisera hela din uppföljning från första kontakt till avslut."
+            ],
+            [
+              "Triggerbaserade sekvenser",
+              "Starta sekvenser automatiskt när kontakter gör något specifikt, som att besöka en sida, öppna ett mejl eller boka en tid."
+            ],
+            [
+              "AI-drivna autosvar",
+              "Låt AI ta hand om första förfrågningarna, kvalificera leads och svara på vanliga frågor direkt via chatt, SMS eller e-post medan du fokuserar på verksamheten."
+            ],
+            [
+              "AI-innehållsassistent",
+              "Skapa mejltexter, inlägg för sociala medier och marknadsföringsinnehåll med AI som är tränad på din tonalitet. Spara timmar på innehållsproduktion."
+            ],
+            [
+              "Villkorslogik och förgreningar",
+              "Skapa smarta arbetsflöden som förgrenar sig utifrån kontaktens beteende, affärsvärde eller egna fältvärden. Olika vägar för olika scenarier."
+            ],
+            [
+              "Skräddarsydda automationer",
+              "Vårt team bygger automationer anpassade exakt efter dina affärsprocesser. Komplexa integrationer och egen logik, byggda åt dig."
+            ]
+          ]
+        },
+        {
+          "name": "Kontakter och data",
+          "rows": [
+            [
+              "Kontaktkort",
+              "Lagra och hantera dina leads och kunder med detaljerade profiler, aktivitetshistorik, anteckningar och egna datafält."
+            ],
+            [
+              "Egna fält",
+              "Lägg till egna datafält på kontakter, affärer och poster. Följ exakt den information som betyder något för din verksamhet."
+            ],
+            [
+              "Taggar och segment",
+              "Organisera kontakter med taggar och skapa dynamiska segment utifrån beteende, demografi eller egna kriterier för riktade kampanjer."
+            ],
+            [
+              "Importera / exportera kontakter",
+              "Ta enkelt med dig dina befintliga kontakter via CSV-uppladdning, eller exportera din data när du vill. Din data är alltid din."
+            ],
+            [
+              "Lead scoring",
+              "Poängsätt leads automatiskt utifrån engagemang, beteende och hur väl de passar. Lägg din tid på de kontakter som mest sannolikt blir kunder."
+            ],
+            [
+              "Smarta listor och filter",
+              "Skapa dynamiska listor som uppdateras automatiskt utifrån kontaktaktivitet, taggar eller fältvärden. Ha alltid rätt målgrupp redo."
+            ]
+          ]
+        },
+        {
+          "name": "Rapportering och analys",
+          "rows": [
+            [
+              "Grundläggande dashboard",
+              "Se dina viktigaste nyckeltal på ett ögonblick, som nya leads, pågående affärer, bokningar och intäkter, i en ren och tydlig översikt."
+            ],
+            [
+              "Kampanjrapporter",
+              "Följ öppningsfrekvens, klickfrekvens, SMS-leverans och konverteringsgrad för alla dina marknadsföringskampanjer."
+            ],
+            [
+              "Pipeline- och intäktsrapporter",
+              "Visualisera värdet i din säljpipeline, konverteringsgrad per steg och intäktsprognoser för att fatta beslut baserade på data."
+            ],
+            [
+              "Anpassade rapportdashboards",
+              "Bygg egna dashboards med exakt de nyckeltal och visualiseringar du behöver. Dra och släpp widgets för att skapa din perfekta vy."
+            ],
+            [
+              "Attributionsspårning",
+              "Se exakt vilka kanaler och kampanjer som ger leads och intäkter. Vet var du ska lägga din marknadsföringsbudget."
+            ],
+            [
+              "Schemalagda rapportmejl",
+              "Få dina viktigaste rapporter automatiskt via e-post dagligen, veckovis eller månadsvis. Håll dig uppdaterad utan att logga in."
+            ]
+          ]
+        },
+        {
+          "name": "Support och community",
+          "rows": [
+            [
+              "Kunskapsbank och guider",
+              "Få tillgång till steg-för-steg-guider, videotutorials och dokumentation med bästa praxis för att få ut det mesta av varje funktion i DUSA."
+            ],
+            [
+              "AI-assistent (dygnet runt)",
+              "Ring eller chatta med din AI-assistent när som helst. Den guidar dig genom allt som rör DUSA, från uppsättning till strategi. Kör du fast bokar vi in dig med en tillväxtspecialist."
+            ],
+            [
+              "Tillgång till DUSA-communityn",
+              "Gå med i en privat community av företagare som använder DUSA. Dela strategier, ställ frågor och lär av verkliga resultat."
+            ],
+            [
+              "E-postsupport",
+              "Nå vårt supportteam via e-post för tekniska frågor, felsökning och kontohjälp under kontorstid."
+            ],
+            [
+              "Prioriterad supportkö",
+              "Gå före i kön och få snabbare svar från vårt supportteam. Dina ärenden hanteras först och med extra omsorg."
+            ],
+            [
+              "Strategisession vid onboarding",
+              "En personlig session med en tillväxtkonsult för att planera din DUSA-uppsättning, flytta över din data och bygga dina första automationer."
+            ],
+            [
+              "Dedikerad kundansvarig",
+              "En namngiven kundansvarig som kan din verksamhet utan och innan. Din enda kontaktpunkt för allt som rör DUSA."
+            ],
+            [
+              "Telefonsupport",
+              "Direkt telefonkontakt med vårt supportteam för brådskande problem eller komplexa frågor som kräver ett riktigt samtal."
+            ],
+            [
+              "Månatliga strategigenomgångar",
+              "Regelbundna avstämningar med din kundansvarige för att gå igenom resultat, optimera din uppsättning och planera nästa steg i tillväxten."
+            ]
+          ]
+        },
+        {
+          "name": "Plattform och integrationer",
+          "rows": [
+            [
+              "Tillgång till medlemsportalen",
+              "Din privata portal för att hantera ditt konto, ta del av utbildningar och skicka supportärenden, allt på ett ställe."
+            ],
+            [
+              "Mobilapp",
+              "Hantera leads, svara på meddelanden, kolla din pipeline och följ aktiviteten från mobilen med DUSA-appen."
+            ],
+            [
+              "Zapier-integration",
+              "Koppla DUSA till tusentals andra appar via Zapier. Synka data, trigga åtgärder och bygg egna arbetsflöden mellan dina verktyg."
+            ],
+            [
+              "API-åtkomst",
+              "Full tillgång till REST API för egna integrationer, datasynk och för att bygga vidare på DUSA-plattformen."
+            ],
+            [
+              "Egen domän",
+              "Publicera din webbplats, dina funnels och portaler byggda i DUSA på din egen domän, med SSL inkluderat."
+            ],
+            [
+              "White label-kundportal",
+              "Ta bort DUSA-varumärket och presentera plattformen som din egen för dina kunder. Perfekt för byråer och konsulter."
+            ],
+            [
+              "Hantering av flera verksamhetsställen",
+              "Hantera flera verksamhetsställen från ett enda konto, med separata pipelines, kontakter och rapporter för varje ställe."
+            ],
+            [
+              "Användarkonton för teamet",
+              "Lägg till teammedlemmar med rollbaserade behörigheter. Styr vem som får se, redigera och hantera olika delar av ditt konto."
+            ],
+            [
+              "Skräddarsydda integrationer",
+              "Vårt team bygger integrationer som kopplar DUSA till dina befintliga verktyg, databaser och interna system."
+            ]
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Vad är DUSA och hur hjälper det små företag?",
+          "a": "DUSA är en komplett tillväxtplattform som ersätter alla utspridda verktyg som små företag använder för CRM, e-postmarknadsföring, SMS, funnels, bokning och omdömeshantering. I stället för att betala för fem eller sex separata prenumerationer finns allt i ett enda sammankopplat system."
+        },
+        {
+          "q": "Vad kostar DUSA-plattformen per månad?",
+          "a": "Planerna börjar på {launchpad} {currency} per månad för ett kärnverktyg med vår Launchpad-plan. Starter-planen inkluderar alla 9 kärnsystem för {starter}/mån, och Growth låser upp obegränsat antal kontakter, avancerade automationer och prioriterad support för {growth}/mån. Alla priser anges i {currency} utan dolda avgifter."
+        },
+        {
+          "q": "Vad ingår i Launchpad-planen?",
+          "a": "Med Launchpad får du tillgång till ett kärnsystem som du själv väljer bland nio alternativ: CRM och pipeline, funnels och webbplats, e-postmarknadsföring, SMS-marknadsföring, bokning och kalender, planering för sociala medier, omdömeshantering, fakturering och betalningar, eller formulär och enkäter. Full tillgång till dashboarden, grundläggande analys, AI-chattsupport och tillgång till communityn ingår. Planen är gjord för soloföretagare som vill börja smått och växa i sin egen takt."
+        },
+        {
+          "q": "Kan jag uppgradera min plan när som helst?",
+          "a": "Ja. Du kan uppgradera eller byta plan när du vill. Ändringar träder i kraft vid nästa faktureringsperiod. Det finns ingen bindningstid, och du kan byta mellan planerna i takt med att verksamhetens behov förändras."
+        },
+        {
+          "q": "Finns det några startavgifter eller dolda kostnader?",
+          "a": "Det finns inga startavgifter på någon plan. Priset för din plan täcker tillgången till plattformen. Användning av meddelanden, samtal, e-post och AI faktureras separat i takt med att du använder det, och dras från ett förbetalt saldo på ditt konto. Ditt kort debiteras en mindre påfyllning första gången du aktiverar de funktionerna, och sedan automatiskt när saldot börjar ta slut. Du bestämmer själv påfyllningsbeloppet och kan fylla på saldot när som helst. Användningen faktureras i USD eftersom leverantörerna av telefoni, e-post och AI bakom plattformen är amerikanska. De flesta kunder ligger på ungefär 15 till 25 US-dollar per månad beroende på volym. Det finns inga andra dolda avgifter."
+        },
+        {
+          "q": "Vilken typ av support erbjuder DUSA?",
+          "a": "Alla planer inkluderar obegränsad AI-chattsupport dygnet runt via din medlemsportal, plus tillgång till DUSA-communityn. Starter och uppåt inkluderar e-postsupport. Growth-planer får prioriterad support och en strategisession vid onboarding. Bespoke-kunder får en dedikerad kundansvarig, telefonsupport och månatliga strategigenomgångar."
+        },
+        {
+          "q": "Passar DUSA soloföretagare och frilansare?",
+          "a": "Absolut. DUSA-plattformen är byggd för soloföretagare, frilansare och småföretagare som behöver professionella verktyg utan komplexiteten hos stora företagssystem. Launchpad-planen för {launchpad}/mån är utformad just som en enkel ingång med lågt åtagande, så att du kan testa ett verktyg och bygga ut i takt med att du växer."
+        },
+        {
+          "q": "Vad är DUSA-communityn?",
+          "a": "DUSA-communityn är en plats bara för medlemmar där företagare delar strategier, ställer frågor och får stöd från andra DUSA-användare och DUSA-teamet. Den ingår i alla planer och är en fantastisk resurs för att lära dig få ut det mesta av plattformen."
+        },
+        {
+          "q": "Ersätter DUSA verktyg som Mailchimp, Calendly och HubSpot?",
+          "a": "Ja. DUSA inkluderar e-postmarknadsföring (ersätter Mailchimp), bokning och schemaläggning (ersätter Calendly), CRM och pipelinehantering (ersätter HubSpot), plus SMS-marknadsföring, funnel- och webbplatsbyggare, planering för sociala medier, omdömeshantering, fakturering och formulär. Allt i en plattform, för en bråkdel av den sammanlagda kostnaden."
+        },
+        {
+          "q": "Hur lång tid tar det att komma igång med DUSA?",
+          "a": "De flesta företag är igång inom 48 timmar. Vår Launchpad-plan kan vara live på under en timme. Growth- och Bespoke-planerna inkluderar en strategisession vid onboarding där vi hjälper dig att konfigurera allt för just din verksamhet."
+        },
+        {
+          "q": "Är alla priser i {currency}?",
+          "a": "Ja. Alla DUSA-priser på den här sidan anges i {currency} ({regionLabel}). Inga valutaomräkningar och inga överraskningar på fakturan."
+        }
+      ]
+    },
+    "toggleDusa": "Slå på DUSA för den här funktionen"
+  },
+  "services": {
+    "metaTitle": "Tjänster | DUSA . studio",
+    "metaDesc": "Anpassade integrationer, komplexa automationer, datamigrering och skräddarsydd utveckling. DUSA:s tjänster utökar plattformen efter exakt dina behov.",
+    "eyebrow": "DUSA-tjänster",
+    "title": "Byggd för ditt",
+    "titleAccent": "företag",
+    "titleEnd": "inte efter en mall.",
+    "sub": "Varje företag fungerar på sitt sätt. När plattformen behöver gå längre bygger vårt team av ingenjörer och automationsexperter exakt det du behöver. Anpassade integrationer, komplexa arbetsflöden, datamigrering och skräddarsydd utveckling, allt levererat under DUSA:s paraply.",
+    "service1Title": "Anpassade integrationer",
+    "service1Desc": "Koppla DUSA till dina befintliga verktyg, tredjeparts-API:er och egna system. Vi bygger säkra integrationer i produktionsklass som håller din data flytande mellan plattformarna utan manuellt arbete.",
+    "service1Ex1": "REST- och webhook-API-kopplingar",
+    "service1Ex2": "Bryggor till affärs- och ekonomisystem",
+    "service1Ex3": "Kassa- och lagersynkning",
+    "service1Ex4": "Integrationer med betalväxlar",
+    "service1Ex5": "Anpassade dataflöden",
+    "service2Title": "Komplexa automationer",
+    "service2Desc": "Gå bortom enkla utlösare. Vi designar flerstegs, villkorsstyrda automationssekvenser som hanterar de arbetsflöden som är unika för ditt företag, från leadkvalificering till leverans till eftervård.",
+    "service2Ex1": "Leadrouting med flera förgreningar",
+    "service2Ex2": "Villkorsstyrda uppföljningssekvenser",
+    "service2Ex3": "Automatisk generering av offerter och förslag",
+    "service2Ex4": "Händelsestyrd orkestrering av arbetsflöden",
+    "service2Ex5": "Åtgärdskedjor över flera plattformar",
+    "service3Title": "Datamigrering",
+    "service3Desc": "Byter du från en annan plattform? Vi sköter det tunga lyftet. Dina kontakter, affärer, kampanjer och din historik flyttas över rent och snyggt så att inget går förlorat på vägen.",
+    "service3Ex1": "Migrering av CRM-kontakter och affärer",
+    "service3Ex2": "Överföring av e-postkampanjer och mallar",
+    "service3Ex3": "Mappning och rensning av historisk data",
+    "service3Ex4": "Återskapande av automationer och arbetsflöden",
+    "service3Ex5": "Bevarande av anpassade fält och taggar",
+    "service4Title": "Anpassad rapportering och dashboards",
+    "service4Desc": "Få den överblick du faktiskt behöver. Vi bygger skräddarsydda rapportdashboards som lyfter fram de nyckeltal som betyder något för ditt företag, kopplade till din live-data i DUSA.",
+    "service4Ex1": "Dashboards för KPI-uppföljning",
+    "service4Ex2": "Analys av säljpipeline och konvertering",
+    "service4Ex3": "Attributionsrapporter för marknadsföring",
+    "service4Ex4": "Analys av kundlojalitet och kundbortfall",
+    "service4Ex5": "Anpassade datavisualiseringar",
+    "service5Title": "Skräddarsydd plattformsutveckling",
+    "service5Desc": "När standard inte räcker. Vårt ingenjörsteam bygger anpassade funktioner, moduler och verktyg som utökar DUSA-plattformen efter exakt dina krav.",
+    "service5Ex1": "Anpassade portaler och kundappar",
+    "service5Ex2": "Egna arbetsflödesmoduler",
+    "service5Ex3": "Avancerad formulärlogik och kalkylatorer",
+    "service5Ex4": "White label-lösningar för byråer",
+    "service5Ex5": "Medlems- och kursplattformar",
+    "service6Title": "Löpande förvaltad support",
+    "service6Desc": "För företag som vill ha en dedikerad teknisk partner. Vi erbjuder löpande support, optimering och strategisk vägledning så att din DUSA-uppsättning fortsätter leverera i takt med att ditt företag utvecklas.",
+    "service6Ex1": "Dedikerad kundansvarig",
+    "service6Ex2": "Månatliga strategi- och optimeringsgenomgångar",
+    "service6Ex3": "Prioriterad problemlösning",
+    "service6Ex4": "Proaktiv övervakning av systemets hälsa",
+    "service6Ex5": "Utbildning och onboarding för ditt team",
+    "processTitle": "Så fungerar det",
+    "process1Num": "01",
+    "process1Title": "Behovssamtal",
+    "process1Desc": "Vi lär oss om ditt företag, dina nuvarande verktyg och var luckorna finns. Inget krångel, ingen press.",
+    "process2Num": "02",
+    "process2Title": "Omfattning och offert",
+    "process2Desc": "Vi tar fram en tydlig arbetsbeskrivning med fast pris. Du vet exakt vad du får och vad det kostar innan något arbete påbörjas.",
+    "process3Num": "03",
+    "process3Title": "Bygg och test",
+    "process3Desc": "Vårt team bygger, testar och validerar allt i en testmiljö. Du granskar vid varje milstolpe.",
+    "process4Num": "04",
+    "process4Title": "Driftsättning och support",
+    "process4Desc": "När allt är godkänt driftsätter vi i produktion och ger löpande support så att allt rullar på som det ska.",
+    "ctaTitle": "Har du något specifikt i tankarna?",
+    "ctaDesc": "Berätta vad du behöver. Vi återkommer med hur vi kan hjälpa till och vad som krävs.",
+    "ctaBtn": "Kontakta oss"
+  },
+  "about": {
+    "metaTitle": "Om oss | DUSA . studio",
+    "metaDesc": "Lär känna DUSA.studio, allt-i-ett-plattformen för tillväxt byggd för små företag i Australien och resten av världen.",
+    "heroLabel": "Vår historia",
+    "heroTitle": "Byggd av företagare,",
+    "heroTitleAccent": "för företagare.",
+    "heroSub": "DUSA byggdes av människor som själva drivit små företag och tröttnat på att betala för tio verktyg som aldrig pratade med varandra. Så vi byggde plattformen vi önskade hade funnits.",
+    "missionLabel": "Vårt uppdrag",
+    "missionTitle": "Jämna ut spelplanen.",
+    "missionDesc": "Företagsprogramvara har alltid gett de stora bolagen en orättvis fördel. Det ändrar vi på. DUSA ger varje litet företag samma AI-drivna, fullt sammankopplade tillväxtinfrastruktur, till ett pris som är rimligt.",
+    "valuesLabel": "Vad vi står för",
+    "value1Title": "Enkelhet först",
+    "value1Desc": "Små företag ska inte behöva en IT-avdelning. Varje funktion vi bygger måste klara ett test: kan en egenföretagare sätta upp den på en eftermiddag?",
+    "value2Title": "Sammankopplat från start",
+    "value2Desc": "Verktyg som inte pratar med varandra skapar mer jobb. DUSA kopplar ihop ditt CRM, din marknadsföring, försäljning och drift i ett system från dag ett.",
+    "value3Title": "Ärliga priser",
+    "value3Desc": "Inga dolda avgifter, inga oväntade prishöjningar, inga kostnader för funktioner du redan betalat för. Det du ser är det du betalar.",
+    "value4Title": "Väx i din takt",
+    "value4Desc": "Börja med ett verktyg. Lägg till fler när du behöver dem. Uppgradera när det känns rätt. Ingen press, ingen bindningstid, inga påtvingade uppgraderingar.",
+    "teamLabel": "Global räckvidd",
+    "teamTitle": "Byggd för företag",
+    "teamTitleAccent": "överallt",
+    "teamDesc": "DUSA används av företag i olika länder, branscher och tidszoner. Plattformen finns på ditt språk, med support i din valuta och priser som är rimliga för din marknad.",
+    "teamSub": "Vi jobbar med egenföretagare, växande team, kreativa byråer och lokala företag som vill skala upp utan att drunkna i teknik.",
+    "ctaTitle": "Redo att växa med oss?",
+    "ctaDesc": "Gör som tusentals små företag som redan kör på DUSA.",
+    "ctaBtn": "Kom igång"
+  },
+  "contact": {
+    "metaTitle": "Kontakt | DUSA . studio",
+    "metaDesc": "Kontakta DUSA . studio. Boka en kostnadsfri demo, ställ en fråga eller påbörja din tillväxtresa i dag.",
+    "label": "Kontakt",
+    "title": "Låt oss prata",
+    "titleAccent": "tillväxt",
+    "sub": "Oavsett om du är redo att börja eller bara nyfiken vill vi gärna höra från dig. Inga säljmanus, bara ett riktigt samtal om ditt företag.",
+    "formNameLabel": "Namn *",
+    "formNamePlaceholder": "Ditt namn",
+    "formEmailLabel": "E-post *",
+    "formEmailPlaceholder": "du@exempel.se",
+    "formPhoneLabel": "Telefon",
+    "formPhonePlaceholder": "+46 70 123 45 67",
+    "formBusinessLabel": "Företag *",
+    "formBusinessPlaceholder": "Ditt företagsnamn",
+    "formMessageLabel": "Meddelande *",
+    "formMessagePlaceholder": "Berätta lite om ditt företag och vad du letar efter...",
+    "formSubmit": "Skicka meddelande",
+    "formSuccess": "Tack! Vi hör av oss inom kort.",
+    "formError": "Något gick fel. Mejla oss på contact@dusa.studio i stället.",
+    "infoEmailTitle": "E-post",
+    "infoPhoneTitle": "Telefon",
+    "infoLocationTitle": "Plats",
+    "infoLocation": "Sydney, Australien",
+    "infoCtaTitle": "Föredrar du en live-genomgång?",
+    "infoCtaDesc": "Boka en kostnadsfri demo så visar vi DUSA-plattformen med ditt eget företag som exempel.",
+    "infoCtaBtn": "Boka en kostnadsfri demo"
+  },
+  "blog": {
+    "metaTitle": "Nyheter och insikter | DUSA . studio",
+    "metaDesc": "Tillväxtstrategier, plattformsnyheter och insikter för små företag från DUSA-teamet.",
+    "hubLabel": "Tillväxtinsikter",
+    "hubTitle": "Nyheter och",
+    "hubTitleAccent": "resurser.",
+    "hubSub": "Praktiska guider, tillväxtstrategier och DUSA-nyheter för småföretagare.",
+    "latestLabel": "Senaste",
+    "categoriesLabel": "Bläddra efter kategori",
+    "readMore": "Läs mer",
+    "minRead": "min läsning",
+    "featuredLabel": "Utvalt",
+    "backToBlog": "Tillbaka till nyheter"
+  },
+  "connected": {
+    "eyebrow": "Plattformen",
+    "heading": "Allt",
+    "headingAccent": "hänger ihop.",
+    "sub": "Sex system, en inloggning. Varje del av ditt företag på ett ställe, med AI som löper genom allt.",
+    "gridHeading": "Kopplas till",
+    "appsLede": "Kör dina favoritappar från en skärm.",
+    "appsSub": "Sociala medier, e-post, fakturor och kalendrar, utan att växla flik.",
+    "note": "Plus 1 000+ fler via Zapier, Make och anpassade integrationer.",
+    "cta": "Se allt som ingår",
+    "aiBand": "AI · GENOM ALLT",
+    "hubHint": "Hovra för att utforska, klicka för att låsa",
+    "hubHintTap": "Tryck på ett segment för att utforska",
+    "panelEmpty": "Tryck på ett område i hjulet, eller en knapp nedan, för att se vad som ingår.",
+    "aiPanelTitle": "AI-drivet"
+  },
+  "start": {
+    "metaTitle": "Starta din gratis provperiod | DUSA . studio",
+    "metaDesc": "Få full tillgång till DUSA:s allt-i-ett-plattform gratis i 14 dagar. Avsluta när du vill. CRM, e-post, SMS, funnels, bokning och recensionshantering.",
+    "label": "14 dagars gratis provperiod",
+    "h1": "Börja växa",
+    "h1Accent": "i dag",
+    "sub": "Välj en plan, aktivera din provperiod och var inne i din plattform på några minuter. {zero} i dag. Avsluta när som helst före dag 14 och betala ingenting.",
+    "badgeZero": "{zero} i dag",
+    "badgeCancel": "Avsluta när du vill",
+    "badgeAccess": "Full tillgång",
+    "billingCycle": "Faktureringsperiod",
+    "monthly": "Månadsvis",
+    "annual": "Årsvis",
+    "annualBadge": "2 månader gratis",
+    "mostPopular": "Populärast",
+    "perMonth": "/månad {cur}",
+    "perYear": "/år {cur}",
+    "startTrial": "Starta gratis provperiod",
+    "noteMonthly": "14 dagar gratis · sedan {price}/mån · avsluta när du vill",
+    "noteAnnual": "14 dagar gratis · sedan {price}/år · avsluta när du vill",
+    "assist": "Osäker på vilken plan?",
+    "assistDemo": "Boka en kostnadsfri demo",
+    "assistTail": "eller lämna dina uppgifter nedan så sätter vi upp allt tillsammans med dig.",
+    "formHeading": "Vill du hellre sätta upp det",
+    "formHeadingAccent": "tillsammans med oss?",
+    "formSub": "Lämna dina uppgifter så guidar vi dig genom plattformen och sätter upp din provperiod tillsammans.",
+    "firstName": "Förnamn *",
+    "firstNamePh": "Ditt förnamn",
+    "email": "E-post *",
+    "emailPh": "du@exempel.se",
+    "business": "Företagsnamn *",
+    "businessPh": "Ditt företagsnamn",
+    "phone": "Telefon",
+    "phonePh": "+46 70 123 45 67",
+    "submit": "Kom igång",
+    "submitting": "Sätter upp ditt konto...",
+    "success": "Du är inne! Kolla din e-post för inloggningsuppgifter.",
+    "errorPrefix": "Något gick fel. Mejla oss på",
+    "errorSuffix": "i stället.",
+    "value1Title": "Alla 6 kärnsystem ingår",
+    "value1Text": "CRM, marknadsföring, funnels, bokning, recensioner och AI-chatt på ett ställe.",
+    "value2Title": "AI-drivna automationer från dag ett",
+    "value2Text": "Smarta arbetsflöden som sparar dig timmar varje vecka, aktiva från det ögonblick du registrerar dig.",
+    "value3Title": "Guidad onboarding för snabba resultat",
+    "value3Text": "Vi guidar dig genom uppsättningen så att du ser värdet redan första veckan.",
+    "value4Title": "Avsluta när du vill, inga frågor",
+    "value4Text": "Noll bindningstid. Passar det inte kan du gå vidare utan förpliktelser.",
+    "t1Quote": "Redan första veckan hade vi automatiska uppföljningar igång och bokade tre nya kunder. DUSA betalade sig självt innan provperioden ens var över.",
+    "t1Name": "Sarah M.",
+    "t1Role": "Skönhets- och hälsostudio",
+    "t2Quote": "Vi brukade lägga timmar på att jaga fakturor och missade samtal. Nu sköter systemet allt. Jag tar faktiskt ledigt på helgerna igen.",
+    "t2Name": "James T.",
+    "t2Role": "VVS-firma",
+    "t3Quote": "Våra Google-recensioner gick från 12 till över 80 på tre månader. De automatiska recensionsförfrågningarna förändrade allt för vår lokala synlighet.",
+    "t3Name": "Priya K.",
+    "t3Role": "Boutique-träningsstudio",
+    "t4Quote": "Jag ersatte fyra separata abonnemang med DUSA. En inloggning, en faktura, och allt pratar faktiskt med varandra nu.",
+    "t4Name": "Marcus D.",
+    "t4Role": "Oberoende finansiell rådgivare",
+    "t5Quote": "AI-chatten fångade leads medan jag var på fotografering. Jag kom tillbaka till tre nya bokningar. Det hade aldrig hänt förut.",
+    "t5Name": "Lena R.",
+    "t5Role": "Foto- och kreativ studio",
+    "t6Quote": "Att bygga funnels tog oss veckor med en utvecklare. Vi byggde en på en eftermiddag och den konverterade bättre än något tidigare.",
+    "t6Name": "Tom H.",
+    "t6Role": "Ägare av e-handelsvarumärke",
+    "testimonialAria": "Kundomdöme",
+    "legalPrefix": "Genom att registrera dig godkänner du våra",
+    "legalTerms": "villkor",
+    "legalAnd": "och vår",
+    "legalPrivacy": "integritetspolicy",
+    "featuresLabel": "Det här får du",
+    "featuresH2": "Allt du behöver för att växa,",
+    "featuresH2Accent": "samlat på ett ställe",
+    "f1Title": "CRM och pipelinehantering",
+    "f1Desc": "Följ varje lead, affär och kundkontakt från en och samma dashboard.",
+    "f2Title": "E-post- och SMS-marknadsföring",
+    "f2Desc": "Skicka riktade kampanjer som gör leads till lojala kunder.",
+    "f3Title": "Bokning och kalender",
+    "f3Desc": "Låt kunderna boka online, synka kalendrar och automatisera påminnelser.",
+    "f4Title": "Funnel- och webbplatsbyggare",
+    "f4Desc": "Bygg landningssidor och säljfunnels som konverterar, utan kod.",
+    "f5Title": "Recensionshantering",
+    "f5Desc": "Samla recensioner, följ upp feedback och bygg förtroende på autopilot.",
+    "f6Title": "AI-chatt och automationer",
+    "f6Desc": "Svara leads direkt med AI och ta över sömlöst när du är redo.",
+    "ctaH2": "Fortfarande",
+    "ctaH2Accent": "osäker?",
+    "ctaText": "Vill du hellre ha en guidad genomgång? Boka en kostnadsfri demo så visar vi plattformen med ditt företag som exempel.",
+    "ctaBtn": "Boka en demo",
+    "plans": {
+      "launchpad": {
+        "name": "Launchpad",
+        "blurb": "Välj ett valfritt kärnsystem och kom igång i dag.",
+        "features": [
+          "1 kärnsystem som du väljer själv",
+          "Full tillgång till dashboarden",
+          "AI-chattsupport",
+          "Grundläggande analys"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "blurb": "Allt sammankopplat. Alla 9 kärnsystem under en inloggning.",
+        "features": [
+          "Alla 9 kärnsystem",
+          "CRM, e-post, SMS, funnels och bokning",
+          "AI-automationer ingår",
+          "Support via e-post"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "blurb": "Byggd för fart. Obegränsat antal kontakter och prioriterad support.",
+        "features": [
+          "Allt i Starter",
+          "Obegränsat antal kontakter och användare",
+          "Avancerade automationer",
+          "Prioriterad support + kundansvarig"
+        ]
+      }
+    }
+  },
+  "thankYou": {
+    "metaTitle": "Välkommen till DUSA | DUSA . studio",
+    "metaDesc": "Din gratis provperiod sätts upp just nu. Kolla din e-post för inloggningsuppgifter och kom igång med DUSA-plattformen.",
+    "label": "Du är inne",
+    "h1": "Välkommen till",
+    "h1Accent": "DUSA",
+    "sub": "Din 14 dagars gratis provperiod sätts upp just nu. Så här går det till härifrån.",
+    "step1Title": "Kolla din e-post",
+    "step1Text": "Vi skickar dina inloggningsuppgifter till e-postadressen du just angav. Det bör komma fram inom några minuter.",
+    "step2Title": "Följ länken för att logga in",
+    "step2Text": "Klicka på länken i mejlet för att välja lösenord och komma in i plattformen. Du kan också logga in när som helst via knappen uppe till höger på den här sidan.",
+    "step3Title": "Börja bygga",
+    "step3Text": "Följ den guidade onboardingen för att koppla din kalender, sätta upp ditt första arbetsflöde och börja fånga leads från dag ett.",
+    "login": "Logga in på DUSA",
+    "home": "Tillbaka till startsidan",
+    "helpPrefix": "Fick du inget mejl? Kolla skräpposten eller hör av dig till",
+    "helpSuffix": "så löser vi det."
+  },
+  "industriesIndex": {
+    "metaTitle": "Branscher | DUSA . studio",
+    "metaDesc": "DUSA är byggd för din bransch. Se hur vår tillväxtplattform fungerar för fastighetsmäklare, hantverkare, gym, restauranger, salonger, tandläkare med flera.",
+    "label": "Branscher",
+    "h1": "Byggd för",
+    "h1Accent": "din",
+    "h1Tail": "bransch",
+    "sub": "Alla företag är olika. Därför anpassar sig DUSA efter hur du jobbar, med pipelines, automationer och arbetsflöden utformade för just din bransch. Hitta din nedan.",
+    "learnMore": "Läs mer",
+    "ctaTitle": "Hittar du inte din bransch?",
+    "ctaDesc": "DUSA fungerar för alla tjänsteföretag. Hör av dig så visar vi hur det passar ditt arbetsflöde.",
+    "ctaStart": "Kom igång",
+    "ctaTalk": "Prata med oss",
+    "cards": {
+      "real-estate": [
+        "Fastighetsmäklare",
+        "Pipelinehantering, automatiska uppföljningar efter visningar och köparmatchning för mäklare som vill stänga fler affärer."
+      ],
+      "gyms": [
+        "Gym och träning",
+        "Medlemsonboarding, passpåminnelser, återvinningskampanjer och referensspårning för att minska avhopp och fylla passen."
+      ],
+      "tradies": [
+        "Hantverkare",
+        "Automatiskt SMS vid missade samtal, offertpipelines, jobbschemaläggning och fakturapåminnelser för hantverkare som har fullt upp ute på jobb."
+      ],
+      "restaurants": [
+        "Restauranger",
+        "Bokningspåminnelser, recensionsförfrågningar efter besöket, födelsedagskampanjer och digitala lojalitetsprogram."
+      ],
+      "salons": [
+        "Salonger och spa",
+        "Onlinebokning, automatiska påminnelser, ombokningskampanjer och spårning av kundpreferenser för att fylla varje stol."
+      ],
+      "accountants": [
+        "Redovisningsbyråer",
+        "Automatisk insamling av underlag, deadlinepåminnelser och kundkontakt året runt, inte bara under deklarationstider."
+      ],
+      "dentists": [
+        "Tandläkarmottagningar",
+        "Kallelsepåminnelser, nya patienter, recensionsinsamling och uppföljning av behandlingsplaner på autopilot."
+      ],
+      "photographers": [
+        "Fotografer",
+        "Autosvar på förfrågningar, avtalsflöden, påminnelser inför fotograferingar, leverans av gallerier och merförsäljning av tryck."
+      ],
+      "construction": [
+        "Bygg",
+        "Leadspårning, offertuppföljningar, kommunikation vid projektmilstolpar och betalningsinsamling för byggföretag."
+      ],
+      "personal-trainers": [
+        "Personliga tränare",
+        "Funnels med lead magnets, bokning av konsultationer, före- och efterresultat och automatiska avstämningar med klienter."
+      ],
+      "cleaning-services": [
+        "Städfirmor",
+        "Hantering av återkommande bokningar, kvalitetsuppföljningar, schemaläggning av personal och merförsäljningskampanjer för städföretag."
+      ],
+      "law-firms": [
+        "Advokatbyråer",
+        "Automatiserade intagsformulär, statusuppdateringar i ärenden, referensspårning och expertinnehåll inom regelverkets ramar."
+      ],
+      "property-managers": [
+        "Fastighetsförvaltare",
+        "Automatisering av hyresgästresan, pipelines för felanmälningar, hyrespåminnelser och kampanjer för kontraktsförnyelse."
+      ],
+      "auto-repair": [
+        "Bilverkstäder",
+        "Automatiska servicepåminnelser, säsongskampanjer, recensionsinsamling och lojalitetsprogram för verkstäder."
+      ],
+      "coaches": [
+        "Coacher och konsulter",
+        "Funnels för introsamtal, onboardingsekvenser, schemaläggning av sessioner och insamling av kundomdömen för att skala din verksamhet."
+      ],
+      "ecommerce": [
+        "E-handel",
+        "Sekvenser efter köp, automatiserade recensioner, korsförsäljningsflöden, VIP-segmentering och födelsedagsbelöningar."
+      ]
+    }
+  },
+  "home": {
+    "metaTitle": "DUSA . studio | Tillväxtplattform för små företag",
+    "metaDesc": "Marknadsföring, försäljning och kundkontakt från en inloggning. DUSA är allt-i-ett-plattformen för små företag som vill växa utan krångel.",
+    "schemaDesc": "Allt-i-ett-plattform för tillväxt för små företag. CRM, marknadsföringsautomation, säljpipelines och kundkontakt från en inloggning."
+  },
+  "faq": {
+    "eyebrow": "Frågor? Besvarade.",
+    "heading": "Allt du kan tänkas",
+    "headingAccent": "vilja fråga.",
+    "items": [
+      {
+        "q": "Vad gör DUSA egentligen?",
+        "a": "DUSA ersätter de 10+ frånkopplade appar som de flesta företag jonglerar med en enda plattform. CRM, e-post, SMS, funnels, bokning, betalningar, recensioner och AI-automationer, allt under en inloggning. Varje lead följs upp, varje bokning bekräftas och varje uppföljning sker automatiskt."
+      },
+      {
+        "q": "Vad kostar det?",
+        "a": "Planerna börjar på 149 AUD per månad (se priser i kronor på prissidan). De flesta företag vi tar ombord betalar i dag 800 till 1 100 AUD per månad för separata verktyg, så bytet betalar sig oftast flera gånger om redan första månaden."
+      },
+      {
+        "q": "Behöver jag vara tekniskt kunnig?",
+        "a": "Inte alls. Vi sköter uppsättningen åt dig. Ditt CRM, dina automationer, funnels och integrationer konfigureras av vårt team under den första veckan. Kan du använda e-post kan du använda DUSA."
+      },
+      {
+        "q": "Vad händer med mina befintliga kontakter och verktyg?",
+        "a": "Vi migrerar allt. Kontakter, kampanjer och data flyttas över från dina gamla verktyg som en del av onboardingen, och vi utbildar dig och ditt team innan ni går live. Inget går förlorat i bytet."
+      },
+      {
+        "q": "Är jag bunden till ett avtal?",
+        "a": "Nej. Du kan avsluta när som helst. Vi behåller våra kunder genom att vara användbara, inte genom att låsa dörren."
+      },
+      {
+        "q": "Hur snabbt kan jag vara igång?",
+        "a": "Din arbetsyta är uppsatt inom några dagar, och de flesta företag är helt live, med migrerad data och utbildat team, inom två veckor."
+      },
+      {
+        "q": "Vad händer om jag kör fast?",
+        "a": "AI-support finns dygnet runt i alla planer, med riktiga människor som backar upp. Growth och Bespoke får dessutom en dedikerad kundansvarig som stämmer av med dig proaktivt."
+      }
+    ]
+  }
+}

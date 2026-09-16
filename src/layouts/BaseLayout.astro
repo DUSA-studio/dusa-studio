@@ -7,6 +7,12 @@ import esDict from '../i18n/translations/es.json';
 import ptDict from '../i18n/translations/pt.json';
 import frDict from '../i18n/translations/fr.json';
 import deDict from '../i18n/translations/de.json';
+import itDict from '../i18n/translations/it.json';
+import nlDict from '../i18n/translations/nl.json';
+import svDict from '../i18n/translations/sv.json';
+import daDict from '../i18n/translations/da.json';
+import fiDict from '../i18n/translations/fi.json';
+import nbDict from '../i18n/translations/nb.json';
 import '../styles/global.css';
 
 interface Props {
@@ -33,8 +39,8 @@ const {
 // terms, privacy, thank-you, industries, blog) never passed it and so rendered
 // an English nav and footer on a German page. Resolve it from the URL when a
 // page does not supply one.
-const DICTS: Record<string, Record<string, any>> = { es: esDict, mx: esDict, br: ptDict, fr: frDict, de: deDict };
-const urlRegion = (Astro.url.pathname.match(/^\/(es|mx|br|fr|de)(\/|$)/) || [])[1];
+const DICTS: Record<string, Record<string, any>> = { es: esDict, mx: esDict, br: ptDict, fr: frDict, de: deDict, it: itDict, nl: nlDict, se: svDict, dk: daDict, fi: fiDict, no: nbDict };
+const urlRegion = (Astro.url.pathname.match(/^\/(es|mx|br|fr|de|it|nl|se|dk|fi|no)(\/|$)/) || [])[1];
 const t: Record<string, any> = Object.keys(tProp).length ? tProp : (DICTS[urlRegion] || enDict);
 
 // Clamp meta descriptions to 160 chars at a word boundary (SERP hygiene).
@@ -48,7 +54,7 @@ const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const canonicalUrl = new URL(rawPath === '/' ? '/' : rawPath, siteBase).href;
 
 // Strip locale prefix to get the base page path
-const localePattern = /^\/(es|mx|br|fr|de|us|uk)(\/|$)/;
+const localePattern = /^\/(es|mx|br|fr|de|us|uk|it|nl|se|dk|fi|no)(\/|$)/;
 const localeMatch = rawPath.match(localePattern);
 const basePath = localeMatch ? rawPath.replace(localePattern, '/').replace(/^\/$/, '') : rawPath;
 const pagePath = basePath === '/' ? '' : basePath;
@@ -60,6 +66,7 @@ const pagePath = basePath === '/' ? '' : basePath;
 const HREFLANG_BY_REGION: Record<string, string> = {
   au: 'en-au', us: 'en-us', uk: 'en-gb', es: 'es-es',
   mx: 'es-mx', br: 'pt-br', fr: 'fr-fr', de: 'de-de',
+  it: 'it-it', nl: 'nl-nl', se: 'sv-se', dk: 'da-dk', fi: 'fi-fi', no: 'nb-no',
 };
 
 const { basePath: hreflangBasePath } = stripRegion(rawPath);
@@ -194,7 +201,7 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
     </noscript>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{t?.common?.skipToContent || 'Skip to content'}</a>
     <Nav t={t} regionAlternates={regionAlternates} regionHomes={regionHomes} regionRoutes={regionRoutes} />
     <main id="main" tabindex="-1">
       <slot />

@@ -1,0 +1,1223 @@
+{
+  "common": {
+    "getStarted": "Aloita nyt",
+    "bookDemo": "Varaa esittely",
+    "bookFreeDemo": "Varaa ilmainen esittely",
+    "learnMore": "Lue lisää",
+    "viewPricing": "Katso hinnat",
+    "getInTouch": "Ota yhteyttä",
+    "sendMessage": "Lähetä viesti",
+    "logIn": "Kirjaudu",
+    "demo": "Esittely",
+    "readMore": "Lue lisää",
+    "minRead": "min lukuaika",
+    "allRightsReserved": "Kaikki oikeudet pidätetään.",
+    "privacyPolicy": "Tietosuojakäytäntö",
+    "termsOfService": "Käyttöehdot",
+    "region": "Alue",
+    "theme": "Teema",
+    "seeThePlatform": "Tutustu alustaan",
+    "skipToContent": "Siirry sisältöön"
+  },
+  "nav": {
+    "pricing": "Hinnat",
+    "services": "Palvelut",
+    "industries": "Toimialat",
+    "about": "Meistä",
+    "news": "Ajankohtaista",
+    "contact": "Yhteystiedot",
+    "getStarted": "Aloita nyt",
+    "logIn": "Kirjaudu",
+    "demo": "Esittely",
+    "region": "Alue",
+    "theme": "Teema",
+    "selectRegion": "Valitse alue ja kieli",
+    "viewAllIndustries": "Katso kaikki toimialat",
+    "viewAll": "Katso kaikki",
+    "industryLabels": {
+      "real-estate": "Kiinteistönvälitys",
+      "gyms": "Kuntosalit ja fitness",
+      "tradies": "Rakennus- ja asennusala",
+      "restaurants": "Ravintolat",
+      "salons": "Kampaamot ja kauneushoitolat",
+      "accountants": "Tilitoimistot",
+      "dentists": "Hammaslääkäriasemat",
+      "photographers": "Valokuvaajat",
+      "construction": "Rakennusyritykset",
+      "personal-trainers": "Personal trainerit",
+      "cleaning-services": "Siivouspalvelut",
+      "law-firms": "Asianajotoimistot",
+      "property-managers": "Vuokranhallinta ja isännöinti",
+      "auto-repair": "Autokorjaamot",
+      "coaches": "Valmentajat ja konsultit",
+      "ecommerce": "Verkkokauppa"
+    }
+  },
+  "footer": {
+    "tagline": "Brändejä, jotka kukoistavat.",
+    "desc": "Digital Utility for Sales and Automation. Tekoälyllä toimiva kasvualusta pienyrityksille.",
+    "platformHeading": "Alusta",
+    "companyHeading": "Yritys",
+    "getInTouchHeading": "Ota yhteyttä",
+    "features": "Ominaisuudet",
+    "howItWorks": "Näin se toimii",
+    "onboarding": "Käyttöönotto",
+    "pricing": "Hinnat",
+    "about": "Meistä",
+    "services": "Palvelut",
+    "contact": "Yhteystiedot",
+    "news": "Ajankohtaista",
+    "location": "Sydney, Australia",
+    "soc2Title": "SOC 2 Type II",
+    "soc2Sub": "Vaatimusten mukainen",
+    "hipaaTitle": "HIPAA",
+    "hipaaSubCompliant": "Vaatimusten mukainen*",
+    "hipaaNote": "*HIPAA-vaatimustenmukaisuus on saatavilla lisäpalveluna terveydenhuoltoalan yrityksille.",
+    "copyright": "2026 DUSA . studio. Kaikki oikeudet pidätetään.",
+    "privacyPolicy": "Tietosuojakäytäntö",
+    "termsOfService": "Käyttöehdot",
+    "industriesHeading": "Toimialat",
+    "industries": "Kaikki toimialat",
+    "realEstate": "Kiinteistönvälitys",
+    "gyms": "Kuntosalit",
+    "restaurants": "Ravintolat",
+    "salons": "Kampaamot ja salongit",
+    "tradies": "Rakennus- ja asennusala",
+    "dentists": "Hammaslääkärit",
+    "coaches": "Valmentajat",
+    "careers": "Avoimet työpaikat",
+    "askAi": "Kysy tekoälyltä DUSAsta:",
+    "shareThis": "Jaa:"
+  },
+  "hero": {
+    "label": "Tekoälyllä toimiva kasvujärjestelmä",
+    "title": "Kaikki mitä tarvitset.",
+    "titleAccent": "Yksi kirjautuminen.",
+    "subtitle": "Tekoälyllä toimiva markkinointi, myynti ja asiakasviestintä. Kaikki yhdessä. Jotta voit keskittyä yritykseesi, et tekniikkaan.",
+    "getStarted": "Aloita nyt",
+    "bookDemo": "Varaa esittely",
+    "phoneApp": "DUSA . studio",
+    "statLeads": "liidiä",
+    "statTracked": "seurattu",
+    "statRating": "arvosana",
+    "capCrmTitle": "CRM ja kontaktit",
+    "capCrmSub": "Seuraa jokaista liidiä",
+    "capEmailTitle": "Sähköposti ja SMS",
+    "capEmailSub": "Kampanjat automaattiohjauksella",
+    "capFunnelsTitle": "Funnelit ja automaatiot",
+    "capFunnelsSub": "Konvertoi, kun sinä nukut",
+    "capAiTitle": "Tekoäly sisäänrakennettuna",
+    "capAiSub": "Fiksumpia keskusteluja, nopeampaa kasvua",
+    "scrollExplore": "Tutustu",
+    "introLabel": "Kasvua, valmiiksi tehtynä",
+    "introH1": "Autamme yritystäsi",
+    "introH1Accent": "kasvamaan",
+    "introSub": "Yrityksen pyörittäminen tarkoittaa tänään kymmentä sovellusta, jotka eivät keskustele keskenään, ja sinua niiden välissä. DUSA korvaa sekasotkun yhdellä järjestelmällä, joka hoitaa jokaisen liidin, varaa työt ja huolehtii, että saat maksusi. Automaattisesti.",
+    "introStat1n": "12+ sovellusta",
+    "introStat1l": "liian monta sovellusta yhden yrityksen pyörittämiseen",
+    "introStat2n": "1 kirjautuminen",
+    "introStat2l": "riittää DUSAn kanssa",
+    "introStat3n": "10+ tuntia",
+    "introStat3l": "rutiinitöitä tekoälylle joka viikko",
+    "introStat4n": "+32%",
+    "introStat4l": "enemmän liikevaihtoa ensimmäisenä vuonna",
+    "introNote": "Vähemmän kaaosta. Enemmän asiakkaita. Siinä koko idea.",
+    "introSee": "Katso, mitä sisältä löytyy",
+    "introFreeDemo": "Varaa ilmainen esittely",
+    "introFreeDemoShort": "Ilmainen esittely",
+    "introSetupNote": "Käyttöönotto tehdään puolestasi &middot; Tekoälyn voimalla &middot; Peruuta milloin vain",
+    "platformPhone": "Puhelin",
+    "platformTablet": "Tabletti",
+    "platformDesktop": "Tietokone",
+    "platformWeb": "Verkko",
+    "platformPhoneAria": "Puhelin. Napauta uudelleen vaihtaaksesi iPhonen ja Androidin välillä",
+    "platformPhoneTitle": "Napauta uudelleen vaihtaaksesi iPhone / Android"
+  },
+  "whatIsDusa": {
+    "eyebrow": "Digital Utility for Sales and Automation",
+    "heading": "DUSA on kaiken kattava kasvualusta,",
+    "headingAccent": "joka on rakennettu pienyrityksille.",
+    "sub": "Korvaamme irrallisten työkalujen tilkkutäkin yhdellä tekoälyllä toimivalla järjestelmällä, joka hoitaa markkinointisi, myyntisi ja asiakasviestintäsi. Vähemmän teknistä päänvaivaa, enemmän kasvua.",
+    "pillar1Title": "Yksi alusta, ei yhdeksää tilausta",
+    "pillar1Desc": "CRM, sähköposti, SMS, funnelit, verkkosivut, maksut, ajanvaraus ja maineenhallinta. Kaikki saman katon alla, yhdellä kirjautumisella.",
+    "pillar2Title": "Tekoäly, joka työskentelee, kun sinä nukut",
+    "pillar2Desc": "Automaattiset seurantaviestit, älykäs liidien pisteytys, arvostelupyynnöt ja kampanjoiden käynnistys. Yrityksesi pyörii, vaikka sinä pitäisit taukoa.",
+    "pillar3Title": "Yrityksille, jotka haluavat kasvaa",
+    "pillar3Desc": "Olitpa yksinyrittäjä tai pieni tiimi, DUSA kasvaa mukanasi. Aloita yksinkertaisesti ja lisää ominaisuuksia tarpeen mukaan."
+  },
+  "problem": {
+    "label": "Ongelma",
+    "heading": "Pienyritysten",
+    "headingLine2": "ei pitäisi tarvita",
+    "headingTools": "eri työkalua",
+    "subtitle": "Maksat kymmenestä sovelluksesta, jotka eivät keskustele keskenään. Jokainen uusi työkalu tarkoittaa uutta kirjautumista, uutta laskua ja uutta opeteltavaa.",
+    "pain1Title": "Mikään ei ole yhteydessä",
+    "pain1Desc": "Sähköpostityökalusi ei näe CRM:ääsi. Ajanvarauksesi ei tiedä, kuka on maksanut. Tieto elää siiloissa.",
+    "pain2Title": "Suuryrityshinnat",
+    "pain2Desc": "Toimivat alustat veloittavat suuryrityshintoja. Sinä jäät paikkailemaan ilmaisversioita teipillä.",
+    "pain3Title": "Ei aikaa opetella",
+    "pain3Desc": "Sinä pyörität yritystä, et markkinointitoimistoa. Automaatioiden rakentamiseen ei pitäisi tarvita kehittäjää.",
+    "solutionLabel": "Ratkaisu",
+    "solutionTitle": "DUSA kokoaa kaiken yhteen.",
+    "solutionTitleAccent": "Tekoälyllä. Yksi alusta. Yksi hinta.",
+    "solutionDesc": "Kaikki mitä tarvitset asiakkaiden hankkimiseen, konvertointiin ja pitämiseen. Tekoäly hoitaa raskaan työn. Ei enää sovellusten välillä hyppimistä. Ei enää arvailua. Pelkkää kasvua.",
+    "seeThePlatform": "Tutustu alustaan",
+    "totalCostLabel": "Kuukausikustannus yhteensä"
+  },
+  "underwaterDive": {
+    "label": "Kuulostaako tutulta?",
+    "heading": "Liian monta työkalua.",
+    "headingAccent": "Yksi yksinkertainen ratkaisu.",
+    "description": "Useimmat pienyritykset tasapainoilevat yli 10 alustan kanssa, jotka eivät keskustele keskenään. DUSA tuo kaiken yhteen paikkaan, jotta voit keskittyä olennaiseen: kasvuun.",
+    "answer1Title": "Yksi alusta",
+    "answer1Desc": "korvaa yli 10 työkalua, jotka syövät budjettiasi",
+    "answer2Title": "Kaikki yhdessä",
+    "answer2Desc": "CRM, sähköposti, SMS, funnelit ja maksut, kaikki synkronissa",
+    "answer3Title": "Rakennettu kasvamaan",
+    "answer3Desc": "tekoälyautomaatiot, jotka skaalautuvat mukanasi"
+  },
+  "features": {
+    "label": "Alusta",
+    "heading": "Kaikki",
+    "headingAccent": "yhdistyy.",
+    "sub": "Kuusi järjestelmää. Yksi prosessori. DUSA yhdistää yrityksesi jokaisen osan yhdelle piirilevylle.",
+    "crmPipeline": "CRM ja myyntiputken hallinta",
+    "emailMarketing": "Sähköpostimarkkinointi",
+    "smsMarketing": "SMS-markkinointi",
+    "funnelWebsite": "Funneli- ja verkkosivueditori",
+    "bookingCalendar": "Ajanvaraus ja kalenteri",
+    "workflowAutomation": "Työnkulkuautomaatiot",
+    "reputationMgmt": "Maineenhallinta",
+    "analytics": "Analytiikka ja raportointi",
+    "socialMedia": "Somesuunnittelija",
+    "invoicing": "Laskutus ja maksut",
+    "formsSurveys": "Lomakkeet ja kyselyt",
+    "community": "Yhteisöalusta",
+    "callTracking": "Puheluiden seuranta",
+    "node1Title": "CRM ja kontaktit",
+    "node1Desc": "Tekoäly pisteyttää liidit. Sinä klousaat kaupat.",
+    "node2Title": "Tekoälyautomaatiot",
+    "node2Desc": "Aseta kerran. Tekoäly hoitaa loput.",
+    "node3Title": "Sähköposti ja SMS",
+    "node3Desc": "Tekoäly kirjoittaa, lähettää ja optimoi.",
+    "node4Title": "Funnelit ja sivut",
+    "node4Desc": "Sivuja, jotka konvertoivat. Ilman kehittäjää.",
+    "node5Title": "Ajanvaraus",
+    "node5Desc": "Asiakkaat varaavat. Tekoäly hoitaa loput.",
+    "node6Title": "Maksut",
+    "node6Desc": "Saat rahasi nopeammin. Tekoäly karhuaa loput.",
+    "footerText": "Yksi alusta. Ei teippiä. Ei välilehtien vaihtelua. Pelkkää kasvua.",
+    "ctaText": "Katso se toiminnassa"
+  },
+  "howItWorks": {
+    "label": "Näin se toimii",
+    "heading": "Käyttövalmis",
+    "headingAccent": "kolmessa vaiheessa.",
+    "step1Title": "Varaa esittely",
+    "step1Desc": "Näe alusta toiminnassa. Käymme läpi, miten DUSA sopii yrityksellesi. Ei painostusta, ei jargonia.",
+    "step1Label": "ESITTELY",
+    "step2Title": "Käyttöönotto",
+    "step2Desc": "Hoidamme siirron ja asennuksen. CRM, tekoälyautomaatiot ja funnelit on määritetty ja valmiina muutamassa päivässä.",
+    "step2Label": "ASENNUS",
+    "step3Title": "Ala kasvaa",
+    "step3Desc": "Käynnistä kampanjat, kerää liidejä ja anna tekoälyn hoitaa seuranta ensimmäisestä päivästä alkaen. Katso, kuinka myyntiputkesi täyttyy.",
+    "step3Label": "KASVU",
+    "bookFreeDemo": "Varaa ilmainen esittely"
+  },
+  "onboarding": {
+    "component": {
+      "eyebrow": "Käyttöönottopolkusi",
+      "title": "Rekisteröitymisestä",
+      "titleAccent": "käyttöön",
+      "titleEnd": "kahdessa viikossa.",
+      "sub": "Sinun ei tarvitse selvittää kaikkea yksin. Me hoidamme asennuksen, siirron ja koulutuksen, jotta voit keskittyä yrityksesi pyörittämiseen.",
+      "step1Title": "Varaa esittely",
+      "step1Desc": "Nopea 15 minuutin puhelu, jossa tutustumme yritykseesi. Selvitämme tarpeesi, näytämme alustan ja vastaamme jokaiseen kysymykseen.",
+      "step1Time": "15 min",
+      "step2Title": "Käyttöönotto",
+      "step2Desc": "Määritämme DUSA-työtilasi. CRM, automaatiot, sähköpostipohjat, funnelit ja integraatiot, kaikki valmiina ensimmäisen viikon aikana.",
+      "step2Time": "Viikko 1",
+      "step3Title": "Siirto ja koulutus",
+      "step3Desc": "Siirrämme kontaktisi, kampanjasi ja tietosi vanhoista työkaluista. Sitten käymme kaiken läpi tiimisi kanssa, jotta olette varmoja ensimmäisestä päivästä alkaen.",
+      "step3Time": "Viikko 2",
+      "step4Title": "Käynnistä ja kasva",
+      "step4Desc": "Olet livenä. Tekoälytuki on aina käytettävissä, ja tiimimme tarkistaa säännöllisesti, että kaikki sujuu. On aika kasvaa.",
+      "step4Time": "Jatkuva",
+      "supportAiTitle": "Tekoälytuki",
+      "supportAiDesc": "Kaikissa paketeissa, 24/7.",
+      "supportManagerTitle": "Oma asiakasvastaava",
+      "supportManagerDesc": "Growth- ja Bespoke-pakettien asiakkaille.",
+      "ctaBookDemo": "Varaa ilmainen esittely",
+      "ctaLearnMore": "Lue lisää käyttöönotosta"
+    },
+    "page": {
+      "metaTitle": "Käyttöönotto | DUSA.studio",
+      "metaDesc": "Näe tarkalleen, mitä tapahtuu, kun liityt DUSAan. Ensimmäisestä esittelypuhelusta täyteen käyttöön: me hoidamme asennuksen, sinä keskityt kasvuun.",
+      "eyebrow": "Käyttöönotto",
+      "title": "Me asennamme.",
+      "titleAccent": "Sinä kasvat.",
+      "sub": "Useimmat alustat antavat sinulle tunnukset ja toivottavat onnea. Me teemme päinvastoin. DUSA-työtilasi on määritetty, täytetty ja käyttövalmis ennen kuin kosket mihinkään.",
+      "phase1Badge": "Päivä 1",
+      "phase1Title": "Kartoitus ja esittely",
+      "phase1Desc": "Kaikki alkaa 15 minuutin puhelulla. Tutustumme yritykseesi, nykyisiin työkaluihisi, ratkaistaviin ongelmiin ja siihen, miltä onnistuminen sinusta näyttää.",
+      "phase1Detail1Title": "Mitä käymme läpi",
+      "phase1Detail1Desc": "Liiketoimintamallisi, nykyiset työkalusi, kipupisteesi, kasvutavoitteesi ja se, mitkä DUSAn ominaisuudet vastaavat tarpeitasi.",
+      "phase1Detail2Title": "Mitä saat",
+      "phase1Detail2Desc": "Yrityksellesi räätälöidyn live-esittelyn alustasta. Oikeita esimerkkejä, ei geneeristä diaesitystä.",
+      "phase2Badge": "Viikko 1",
+      "phase2Title": "Alustan asennus",
+      "phase2Desc": "Kun olet mukana, tiimimme ryhtyy määrittämään DUSA-työtilaasi. Hoidamme teknisen asennuksen, jotta sinun ei tarvitse käyttää tunteja asetusvalikoiden parissa.",
+      "phase2Detail1Title": "CRM:n määritys",
+      "phase2Detail1Desc": "Mukautetut kentät, myyntiputket, tagit ja kontaktien vaiheet rakennettuna myyntiprosessisi ympärille.",
+      "phase2Detail2Title": "Automaatiosarjat",
+      "phase2Detail2Desc": "Seurantasähköpostit, SMS-muistutukset ja liidien hoitopolut. Määritetty ja valmiina käyttöön.",
+      "phase2Detail3Title": "Funnelit ja lomakkeet",
+      "phase2Detail3Desc": "Laskeutumissivut, varauslomakkeet ja liidien keräysfunnelit brändisi ilmeellä.",
+      "phase2Detail4Title": "Integraatiot",
+      "phase2Detail4Desc": "Yhdistetty kalenteriisi, sähköpostiisi, maksupalveluusi ja muihin tarvitsemiisi työkaluihin.",
+      "phase3Badge": "Viikko 2",
+      "phase3Title": "Siirto ja koulutus",
+      "phase3Desc": "Siirrytkö toiselta alustalta? Siirrämme kontaktisi, kampanjasi, pohjasi ja historiatietosi. Sitten käymme kaiken läpi tiimisi kanssa, jotta käytätte järjestelmää varmoin ottein.",
+      "phase3Detail1Title": "Tietojen siirto",
+      "phase3Detail1Desc": "Kontaktit, kaupat, sähköpostipohjat ja kampanjahistoria, kaikki siivottuna ja tuotuna DUSAan.",
+      "phase3Detail2Title": "Tiimin koulutus",
+      "phase3Detail2Desc": "Käytännönläheinen läpikäynti sinulle ja tiimillesi. Ei nauhoitettua webinaaria, vaan live-opastusta juuri sinun asennuksellesi.",
+      "phase4Badge": "Jatkuva",
+      "phase4Title": "Käynnistys ja tuki",
+      "phase4Desc": "Olet livenä. Tästä eteenpäin tekoälytukemme on käytettävissä ympäri vuorokauden. Growth- ja Bespoke-pakettien asiakkaille oma asiakasvastaava ottaa säännöllisesti yhteyttä, optimoi asetuksiasi ja auttaa saamaan alustasta kaiken irti.",
+      "phase4Detail1Title": "Tekoälytuki 24/7",
+      "phase4Detail1Desc": "Saat vastaukset heti. Tekoälyavustajamme tuntee koko DUSA-alustan ja auttaa asennuksessa, ongelmatilanteissa ja parhaissa käytännöissä.",
+      "phase4Detail2Title": "Oma asiakasvastaava",
+      "phase4Detail2Desc": "Growth- ja Bespoke-pakettien asiakkaille. Kuukausittaiset tapaamiset, ennakoiva optimointi ja suora linja henkilöön, joka tuntee yrityksesi.",
+      "ctaTitle": "Valmis aloittamaan?",
+      "ctaDesc": "Varaa ilmainen esittely ja näe tarkalleen, miten DUSA sopii yrityksellesi.",
+      "ctaBookDemo": "Varaa ilmainen esittely",
+      "ctaViewPricing": "Katso hinnat"
+    }
+  },
+  "socialProof": {
+    "testimonialsLabel": "Mitä asiakkaamme sanovat",
+    "resultsLabel": "Tulokset puhuvat puolestaan",
+    "heading": "Yritykset kasvavat nopeammin, kun",
+    "headingAccent": "tekoäly ja kaikki on yhdistetty",
+    "stat1Value": "5+",
+    "stat1Label": "työkalua korvattu",
+    "stat2Value": "2x",
+    "stat2Label": "nopeampi seuranta",
+    "stat3Value": "100%",
+    "stat3Label": "tekoälyautomatisoitu",
+    "stat4Value": "800+ AUD",
+    "stat4Label": "säästöä kuukaudessa",
+    "stat5Value": "< 48 h",
+    "stat5Label": "asennusaika",
+    "testimonials": [
+      {
+        "quote": "Ennen tätä käytin jokaiselle asiakkaalle valtavasti eri työkaluja. Markkinointijärjestelmien opetteluun ja pystyttämiseen kuluva aika on vähentynyt rajusti. Automaatiotyönkulut ovat suosikkiosani.",
+        "role": "Web-kehittäjä"
+      },
+      {
+        "quote": "Kaiken kattava ratkaisu, joka säästää aikaa, vaivaa ja rahaa. Suppilorakentaja, älykkäät automaatiot, sähköpostimarkkinointi, puhelut ja tekoäly kaikessa mukana. Käyttöliittymä on todella käyttäjäystävällinen.",
+        "role": "Markkinointikonsultti"
+      },
+      {
+        "quote": "Kaikesta viestittiin selkeästi koko prosessin ajan ja ongelma ratkaistiin. Tukitiimi välittää aidosti siitä, että käyttöönotto tehdään kunnolla.",
+        "role": "Yrittäjä"
+      },
+      {
+        "quote": "Käyttöönottokokemus oli ylivoimaisesti paras, jonka olen koskaan nähnyt. Ammattimaisuus ja rauhallinen ote ovat aivan omaa luokkaansa. Tunsin, että minua opastettiin joka askeleella.",
+        "role": "Toimiston omistaja"
+      },
+      {
+        "quote": "Korvasimme viisi erillistä työkalua ja leikkasimme kuukausittaiset ohjelmistokulumme yli puoleen. Käyttöönotto vei päiviä, ei kuukausia. Nyt kaikki oikeasti toimii yhdessä.",
+        "role": "Kiinteistöpäällikkö"
+      },
+      {
+        "quote": "Pelkästään automaattiset arvostelupyynnöt ovat olleet hintansa arvoisia. Google-arvostelumme nousivat 12:sta yli 80:een kolmessa kuukaudessa ilman, että nostimme sormeakaan.",
+        "role": "Hammaslääkäriaseman omistaja"
+      },
+      {
+        "quote": "Kärsivällistä, ammattimaista ja aikaa käytettiin ongelmien ymmärtämiseen. Tuki on parasta, mitä olen millään alustalla kokenut.",
+        "role": "Pienyrittäjä"
+      },
+      {
+        "quote": "Tekoälyn ajanvarausavustaja hoitaa aikataulutuksen, lähettää muistutukset ja seuraa poisjääneitä automaattisesti. Hallintotyöni aika on puolittunut.",
+        "role": "Fysioterapiaklinikan omistaja"
+      },
+      {
+        "quote": "Kokeilimme kolmea muuta alustaa ennen tätä. Yhdessäkään ei ollut yhtä syvällistä automaatiota yhdistettynä yksinkertaisuuteen. Tämä on se, joka jäi käyttöön.",
+        "role": "Digitoimiston toimitusjohtaja"
+      },
+      {
+        "quote": "Pelkkä SMS-markkinointi on mullistanut ravintolamme. Lähetämme lounastarjouksen ja näemme tilauspiikin tunnin sisällä.",
+        "role": "Ravintolapäällikkö"
+      },
+      {
+        "quote": "Pyöritän kolmea yritystä ja hallitsen niitä kaikkia yhdestä näkymästä. Usean toimipisteen tuki säästi minut kokoaikaisen virtuaaliassistentin palkkaamiselta.",
+        "role": "Usean yrityksen omistaja"
+      },
+      {
+        "quote": "Jäsenyhteisömme lanseerattiin yhdessä viikonlopussa. Kurssien hostaus, ajastettu sisältö, yhteisöchat. Kaikki samalla alustalla, jota käytämme CRM:nä.",
+        "role": "Verkkokurssien tekijä"
+      },
+      {
+        "quote": "Sähköpostieni avausprosentti nousi 18 %:sta 42 %:iin vaihdon jälkeen. Valmiit pohjat ja tekoälyn tekstityökalut ovat vakavasti aliarvostettuja.",
+        "role": "Markkinointivastaava"
+      },
+      {
+        "quote": "Se korvasi täysin vanhan CRM:mme ja laskeutumissivurakentajamme. Saamme järjettömän hyvän teknologiapinon murto-osalla siitä, mitä ennen maksoimme.",
+        "role": "Toimiston perustaja"
+      },
+      {
+        "quote": "Suhtauduin epäilevästi kaiken kattavaan alustaan, mutta syvyys on täällä todellista. Myyntisuppilot, sähköpostisarjat, maineenhallinta. Se vain toimii.",
+        "role": "Konsulttiyrityksen omistaja"
+      },
+      {
+        "quote": "Tukitiimi ylitti kaikki odotukset. He käyttivät aikaa ymmärtääkseen aidosti minun asetukseni ja opastivat minut jokaisen muutoksen läpi. Äärimmäisen perusteellista.",
+        "role": "Luovan toimiston perustaja"
+      }
+    ]
+  },
+  "brandCarousel": {
+    "label": "Kasvun moottorina",
+    "heading": "Brändejä, jotka",
+    "headingAccent": "kukoistavat"
+  },
+  "funnelComparison": {
+    "label": "Hajallaan olevien työkalujen todellinen hinta",
+    "heading": "Mihin rahasi",
+    "headingAccent": "oikeasti menevät?",
+    "withoutDusa": "Ilman DUSAa",
+    "withDusa": "DUSAn kanssa",
+    "scatteredSpend": "Hajautetut kulut",
+    "scatteredSub": "8 kirjautumista, 8 laskua, ei kokonaiskuvaa",
+    "allInOneLabel": "Kaiken kattava kasvupaketti",
+    "platformSub": "CRM, funnelit, sähköposti, SMS, tekoäly, arvostelut, ajanvaraus, kurssit",
+    "unifiedGrowth": "Yhtenäinen kasvu",
+    "unifiedSub": "Yksi kirjautuminen, yksi lasku, täysi näkyvyys",
+    "goingIn": "SISÄÄN",
+    "aiPowered": "TEKOÄLYLLÄ",
+    "vs": "VS"
+  },
+  "cta": {
+    "label": "Valmis?",
+    "heading": "Lopeta työkalujen jonglööraus.",
+    "headingAccent": "Ala kasvaa.",
+    "desc": "Kokeile DUSAn tekoälyalustaa ilmaiseksi 14 päivää. Korvaa hajanaiset työkalusi yhdellä älykkäällä järjestelmällä. Peruuta milloin vain.",
+    "getStarted": "Aloita nyt",
+    "bookDemo": "Varaa esittely",
+    "beyondLabel": "Alustan lisäksi",
+    "beyondText": "Räätälöidyt tekoälyratkaisut, somen hallinta, edistyneet integraatiot ja oma IT-tuki.",
+    "beyondStrong": "Me hoidamme sen."
+  },
+  "pricing": {
+    "metaTitle": "Hinnat | DUSA . studio",
+    "metaDesc": "Selkeä ja läpinäkyvä hinnoittelu kasvun jokaiseen vaiheeseen. CRM, sähköposti, SMS, funnelit, ajanvaraus ja maineenhallinta yhdellä alustalla.",
+    "metaDescription": "Selkeä hinnoittelu kasvun jokaiseen vaiheeseen. CRM, sähköposti, SMS, funnelit, ajanvaraus ja maineenhallinta yhdellä alustalla. Ei sitovia sopimuksia.",
+    "heroLabel": "Hinnat",
+    "heroTitle": "Yksi alusta.",
+    "heroTitleAccent": "Sinun hintasi.",
+    "heroSub": "Aloita siitä, mitä tarvitset. Skaalaa, kun olet valmis. Ei sitoutumista, ei piilokuluja.",
+    "currencyNote": "Kaikki hinnat valuutassa {currency}",
+    "usageNoteShort": "Paketin hinta kattaa alustan käytön. Viestit, puhelut, sähköpostit ja tekoälyn käyttö laskutetaan erikseen käytön mukaan, Yhdysvaltain dollareina.",
+    "usageNoteLink": "Näin käyttöpohjainen laskutus toimii",
+    "tierLaunchpad": "Launchpad",
+    "tierStarter": "Starter",
+    "tierGrowth": "Growth",
+    "tierBespoke": "Bespoke",
+    "launchpadTagline": "Aloita yhdellä. Skaalaa, kun olet valmis.",
+    "launchpadDesc": "Valitse mikä tahansa yksi ydinjärjestelmä ja aloita jo tänään. Helpoin tapa nähdä, mitä DUSA voi tehdä yrityksellesi.",
+    "starterTagline": "Kaikki yhdistettynä.",
+    "starterDesc": "Kaikki 9 ydinjärjestelmää toimivat yhdessä. Koko DUSA-alusta murto-osalla siitä, mitä erilliset työkalut maksaisivat.",
+    "growthTagline": "Rakennettu vauhtiin.",
+    "growthDesc": "Rajaton kaikki sekä edistyneet automaatiot, tekoälytyökalut ja prioriteettituki kasvusi vauhdittamiseen.",
+    "bespokeTagline": "Räätälöidyt ratkaisut kasvaville tiimeille.",
+    "bespokeDesc": "Useita toimipisteitä, tiimikäyttö, mukautetut integraatiot ja oma asiakasvastaava. Rakennettu yrityksesi ympärille.",
+    "perMonth": "/kk",
+    "custom": "Räätälöity",
+    "getStarted": "Aloita nyt",
+    "letsTalk": "Jutellaan",
+    "badgeEntry": "Aloitustarjous",
+    "badgeBestValue": "Paras hinta-laatu",
+    "badgeCustom": "Räätälöity",
+    "replaceLabel": "Mistä sinä maksat?",
+    "replaceTitle": "Valitse nykyiset työkalusi.",
+    "replaceTitleAccent": "Katso, mitä säästät.",
+    "replaceSub": "Napauta työkaluja, joita oikeasti käytät juuri nyt. Näytämme, mitä työkalupakkisi todella maksaa ja tarkalleen kuinka paljon DUSA säästää sinulle. Kun varaat esittelyn, tulemme paikalle valmiin, sinun asennukseesi räätälöidyn siirtosuunnitelman kanssa.",
+    "activateDusa": "Aktivoi DUSA",
+    "savingsPrefix": "Säästä",
+    "savingsWith": "DUSAn kanssa",
+    "savingsAt": "hintaan",
+    "regionalLabel": "Suosittuja markkinallasi",
+    "regionalTitle": "Näin DUSA vertautuu",
+    "regionalTitleAccent": "omalla alueellasi",
+    "regionalSub": "Katso, miten DUSA pärjää työkaluille, joita alueesi yritykset jo käyttävät.",
+    "regionalLocal": "Paikallinen",
+    "regionalReadComparison": "Lue koko vertailu",
+    "supportLabel": "Tuki jokaisessa paketissa",
+    "supportTitle": "Et ole koskaan",
+    "supportTitleAccent": "yksin",
+    "supportAiTitle": "Tekoälyavustaja, puhelin ja chat",
+    "supportAiDesc": "Soita tai chattaa tekoälyavustajasi kanssa milloin vain. Se opastaa sinut läpi kaiken DUSAan liittyvän, asennuksesta strategiaan. Jos törmäät esteeseen, varaamme sinulle ajan kasvuasiantuntijalle. Growth-paketista ylöspäin saat etusijan konsulttien kalentereihin.",
+    "supportCommunityTitle": "DUSA-yhteisö",
+    "supportCommunityDesc": "Verkostoidu muiden yrittäjien kanssa, jaa strategioita ja opi ihmisiltä, jotka kasvattavat yritystään DUSAn avulla. Aitoja keskusteluja, ei pelkkiä tukipyyntöjä.",
+    "supportPortalTitle": "Jäsenportaali",
+    "supportPortalDesc": "Yksityinen keskuksesi oppaille, tutoriaaleille, pohjille ja tuelle. Kaikki, mitä tarvitset saadaksesi DUSA-alustasta kaiken irti, yhdessä paikassa.",
+    "supportPriorityTitle": "Prioriteetti ja oma vastaava",
+    "supportPriorityDesc": "Growth-paketit ohittavat jonon prioriteettituella. Bespoke-asiakkaat saavat oman asiakasvastaavan, puhelinlinjan ja kuukausittaiset strategiakatsaukset.",
+    "allPlans": "Kaikki paketit",
+    "growthAndBespoke": "Growth ja Bespoke",
+    "compareLabel": "Täysi vertailu",
+    "compareTitle": "Kaikki mukana,",
+    "compareTitleAccent": "mitään ei piiloteta",
+    "compareSub": "Näe tarkalleen, mitä saat jokaisessa paketissa. Ei tähtimerkintöjä, ei yllätyksiä.",
+    "startFor": "Aloita hintaan",
+    "getStarter": "Valitse Starter",
+    "scaleFaster": "Skaalaa nopeammin",
+    "faqLabel": "UKK",
+    "faqTitle": "Yleisiä kysymyksiä,",
+    "faqTitleAccent": "suoria vastauksia",
+    "ctaLabel": "Valmis kasvamaan?",
+    "ctaTitle": "Aloita Launchpadilla.",
+    "ctaTitleAccent": "Skaalaa siitä eteenpäin.",
+    "ctaDesc": "Kokeile koko alustaa ilmaiseksi 14 päivää. Peruuta milloin vain. Tai varaa esittely, niin käymme sen läpi yhdessä.",
+    "ctaGetStarted": "Aloita nyt",
+    "ctaBookDemo": "Varaa esittely",
+    "included": "Sisältyy",
+    "data": {
+      "tierHighlights": {
+        "launchpad": [
+          "1 ydinjärjestelmä valintasi mukaan",
+          "9 järjestelmää, joista valita",
+          "Täysi pääsy hallintapaneeliin",
+          "Perusanalytiikka",
+          "Tekoälychat-tuki",
+          "Pääsy yhteisöön"
+        ],
+        "starter": [
+          "Kaikki 9 ydinjärjestelmää mukana",
+          "CRM ja myyntiputken hallinta",
+          "Sähköposti- ja SMS-markkinointi",
+          "Myyntisuppilo- ja verkkosivurakentaja",
+          "Ajanvaraus, some ja maineenhallinta",
+          "Laskutus, lomakkeet ja kyselyt",
+          "Työnkulkuautomaatiot",
+          "Tekoälychat-tuki"
+        ],
+        "growth": [
+          "Kaikki Starter-paketin ominaisuudet",
+          "Rajattomasti kontakteja ja työnkulkuja",
+          "Edistynyt automaatiorakentaja",
+          "Tekoälyn tuottamat vastaukset",
+          "Mukautetut raportointinäkymät",
+          "Prioriteettituki",
+          "Käyttöönoton strategiasessio",
+          "Oma yhteisökanava"
+        ],
+        "bespoke": [
+          "Kaikki Growth-paketin ominaisuudet",
+          "Tuki useille toimipisteille",
+          "Käyttäjätilit tiimille",
+          "Räätälöidyt integraatiot",
+          "Oma asiakasvastaava",
+          "Kuukausittaiset strategiakatsaukset",
+          "Räätälöidyt automaatiot",
+          "Puhelintuki"
+        ]
+      },
+      "replacementFeatures": [
+        "CRM ja myyntiputken hallinta",
+        "Sähköpostimarkkinointi",
+        "SMS-markkinointi",
+        "Myyntisuppilo- ja verkkosivurakentaja",
+        "Ajanvaraus ja kalenteri",
+        "Työnkulkuautomaatiot",
+        "Maineenhallinta",
+        "Analytiikka ja raportointi",
+        "Some-suunnittelutyökalu",
+        "Laskutus ja maksut",
+        "Lomakkeet ja kyselyt",
+        "Yhteisöalusta",
+        "Puheluiden seuranta"
+      ],
+      "cellPick1": "Valitse 1",
+      "cellUnlimited": "Rajaton",
+      "cellWorkflows5": "5 työnkulkua",
+      "featureCategories": [
+        {
+          "name": "Ydinalusta",
+          "rows": [
+            [
+              "CRM ja myyntiputken hallinta",
+              "Pidä jokainen liidi, asiakas ja keskustelu yhdessä paikassa. Visuaaliset vedä ja pudota -myyntiputket auttavat seuraamaan kauppoja, ennustamaan liikevaihtoa ja varmistamaan, ettei yksikään mahdollisuus pääse lipsahtamaan ohi."
+            ],
+            [
+              "Myyntisuppilo- ja verkkosivurakentaja",
+              "Rakenna tehokkaasti konvertoivia laskeutumissivuja, liidisuppiloita ja kokonainen yrityksesi verkkosivusto vetämällä ja pudottamalla. Oma verkkotunnus, SEO-työkalut ja SSL sisältyvät hintaan."
+            ],
+            [
+              "Sähköpostimarkkinointi",
+              "Lähetä brändisi näköisiä sähköposteja, rakenna automaattisia hoivasarjoja ja seuraa avauksia, klikkauksia ja konversioita. Lähetyskohtaisia maksuja ei ole missään paketissa."
+            ],
+            [
+              "SMS-markkinointi",
+              "Tavoita asiakkaat suoraan tekstiviestikampanjoilla, ajanvarausmuistutuksilla ja kaksisuuntaisilla keskusteluilla. Viestien käyttö laskutetaan erikseen käytön mukaan."
+            ],
+            [
+              "Ajanvaraus- ja kalenterijärjestelmä",
+              "Anna asiakkaiden varata aikoja suoraan verkkosivuiltasi tai linkeistä. Synkronoituu Google Calendarin kanssa, lähettää automaattiset muistutukset ja vähentää peruuttamattomia poisjääntejä."
+            ],
+            [
+              "Some-suunnittelutyökalu",
+              "Ajasta ja julkaise postauksia Facebookiin, Instagramiin, Googleen ja muihin kanaviin. Suunnittele sisältökalenterisi ja seuraa sitoutumista yhdestä paikasta."
+            ],
+            [
+              "Maineenhallinta",
+              "Pyydä arvosteluja tyytyväisiltä asiakkailta automaattisesti, seuraa mainettasi verkossa ja vastaa arvosteluihin yhdestä näkymästä."
+            ],
+            [
+              "Laskutus ja maksut",
+              "Lähetä ammattimaisia laskuja, vastaanota maksuja verkossa ja seuraa, kuka on maksanut. Stripe-integraatio tekee maksutapahtumista sujuvia."
+            ],
+            [
+              "Lomakkeet ja kyselyt",
+              "Kerää liidejä mukautetuilla lomakkeilla ja palautetta kyselyillä. Upota minne tahansa ja käynnistä automaatioita vastauksista."
+            ]
+          ]
+        },
+        {
+          "name": "Automaatio ja tekoäly",
+          "rows": [
+            [
+              "Perusautomaatiot",
+              "Luo yksinkertaisia jos tämä, niin tuo -automaatioita, kuten tervetuloviestin lähetys lomakkeen täytön jälkeen tai kontaktien tägääminen toimintojen perusteella."
+            ],
+            [
+              "Monivaiheinen automaatiorakentaja",
+              "Rakenna monimutkaisia monivaiheisia työnkulkuja viiveillä, ehdoilla ja useilla toiminnoilla. Automatisoi koko seurantaprosessisi ensikontaktista kauppaan."
+            ],
+            [
+              "Laukaisimiin perustuvat sarjat",
+              "Käynnistä sarjat automaattisesti, kun kontakti tekee jotain tiettyä: vierailee sivulla, avaa sähköpostin tai varaa ajan."
+            ],
+            [
+              "Tekoälyn automaattivastaukset",
+              "Anna tekoälyn hoitaa ensiyhteydenotot, karsia liidit ja vastata yleisiin kysymyksiin heti chatissa, tekstiviestillä tai sähköpostilla, kun sinä keskityt liiketoimintaasi."
+            ],
+            [
+              "Tekoälyn sisältöavustaja",
+              "Tuota sähköpostitekstejä, some-postauksia ja markkinointisisältöä tekoälyllä, joka on koulutettu brändisi äänensävyyn. Säästä tunteja sisällöntuotannossa."
+            ],
+            [
+              "Ehdollinen logiikka ja haarautuminen",
+              "Luo älykkäitä työnkulkuja, jotka haarautuvat kontaktin käyttäytymisen, kaupan arvon tai mukautettujen kenttien perusteella. Eri polut eri tilanteisiin."
+            ],
+            [
+              "Räätälöidyt automaatiot",
+              "Tiimimme rakentaa juuri sinun liiketoimintaprosesseihisi sovitetut automaatiot. Monimutkaiset integraatiot ja mukautettu logiikka tehdään puolestasi."
+            ]
+          ]
+        },
+        {
+          "name": "Kontaktit ja data",
+          "rows": [
+            [
+              "Kontaktitiedot",
+              "Tallenna ja hallitse liidejäsi ja asiakkaitasi yksityiskohtaisilla profiileilla, toimintahistorialla, muistiinpanoilla ja mukautetuilla tietokentillä."
+            ],
+            [
+              "Mukautetut kentät",
+              "Lisää omia tietokenttiä kontakteihin, kauppoihin ja tietueisiin. Seuraa juuri niitä tietoja, joilla on merkitystä yrityksellesi."
+            ],
+            [
+              "Tägit ja segmentit",
+              "Järjestä kontaktit tägeillä ja luo dynaamisia segmenttejä käyttäytymisen, demografian tai omien kriteeriesi perusteella kohdennettuja kampanjoita varten."
+            ],
+            [
+              "Kontaktien tuonti ja vienti",
+              "Tuo nykyiset kontaktisi helposti CSV-tiedostona tai vie tietosi milloin tahansa. Tietosi ovat aina sinun."
+            ],
+            [
+              "Liidien pisteytys",
+              "Pisteytä liidit automaattisesti sitoutumisen, käyttäytymisen ja sopivuuden mukaan. Käytä aikasi niihin kontakteihin, jotka todennäköisimmin ostavat."
+            ],
+            [
+              "Älykkäät listat ja suodattimet",
+              "Luo dynaamisia listoja, jotka päivittyvät itsestään kontaktien toiminnan, tägien tai kenttien arvojen perusteella. Oikea yleisö on aina valmiina."
+            ]
+          ]
+        },
+        {
+          "name": "Raportointi ja analytiikka",
+          "rows": [
+            [
+              "Perusnäkymä",
+              "Näe tärkeimmät luvut yhdellä silmäyksellä: uudet liidit, aktiiviset kaupat, ajanvaraukset ja liikevaihto selkeässä yleisnäkymässä."
+            ],
+            [
+              "Kampanjaraportit",
+              "Seuraa sähköpostien avaus- ja klikkausprosentteja, tekstiviestien toimitusta ja konversioita kaikissa markkinointikampanjoissasi."
+            ],
+            [
+              "Myyntiputki- ja liikevaihtoraportit",
+              "Visualisoi myyntiputkesi arvo, konversiot vaiheittain ja liikevaihtoennusteet, jotta voit tehdä päätöksiä datan pohjalta."
+            ],
+            [
+              "Mukautetut raportointinäkymät",
+              "Rakenna omat näkymäsi juuri niillä mittareilla ja visualisoinneilla, joita tarvitset. Vedä ja pudota widgetejä ja luo täydellinen näkymä."
+            ],
+            [
+              "Attribuutioseuranta",
+              "Näe tarkalleen, mitkä kanavat ja kampanjat tuovat liidejä ja liikevaihtoa. Tiedät, mihin markkinointibudjetti kannattaa laittaa."
+            ],
+            [
+              "Ajastetut raporttisähköpostit",
+              "Saa tärkeimmät raportit automaattisesti sähköpostiisi päivittäin, viikoittain tai kuukausittain. Pysy ajan tasalla kirjautumatta sisään."
+            ]
+          ]
+        },
+        {
+          "name": "Tuki ja yhteisö",
+          "rows": [
+            [
+              "Tietopankki ja oppaat",
+              "Käytössäsi ovat vaiheittaiset oppaat, video-ohjeet ja parhaiden käytäntöjen dokumentaatio, joilla saat kaiken irti jokaisesta DUSA-ominaisuudesta."
+            ],
+            [
+              "Tekoälyavustaja (24/7)",
+              "Soita tai juttele tekoälyavustajasi kanssa milloin tahansa. Se opastaa sinua kaikessa DUSAan liittyvässä käyttöönotosta strategiaan. Jos törmäät esteeseen, varaamme sinulle ajan kasvuasiantuntijan kanssa."
+            ],
+            [
+              "Pääsy DUSA-yhteisöön",
+              "Liity yksityiseen yhteisöön, jossa yrittäjät käyttävät DUSAa. Jaa strategioita, kysy kysymyksiä ja opi oikeista tuloksista."
+            ],
+            [
+              "Sähköpostituki",
+              "Tavoita tukitiimimme sähköpostitse teknisissä kysymyksissä, ongelmatilanteissa ja tiliasioissa arkisin toimistoaikaan."
+            ],
+            [
+              "Prioriteettituki",
+              "Ohita jono ja saa nopeammat vastaukset tukitiimiltämme. Tikettisi käsitellään ensimmäisinä ja erityisellä huolella."
+            ],
+            [
+              "Käyttöönoton strategiasessio",
+              "Kahdenkeskinen sessio kasvukonsultin kanssa, jossa suunnittelette DUSA-asennuksesi, siirrätte tietosi ja rakennatte ensimmäiset automaatiosi."
+            ],
+            [
+              "Oma asiakasvastaava",
+              "Nimetty asiakasvastaava, joka tuntee yrityksesi läpikotaisin. Yksi yhteyshenkilö kaikkeen DUSAan liittyvään."
+            ],
+            [
+              "Puhelintuki",
+              "Suora puhelinyhteys tukitiimiimme kiireellisissä ongelmissa tai monimutkaisissa kysymyksissä, jotka vaativat oikean keskustelun."
+            ],
+            [
+              "Kuukausittaiset strategiakatsaukset",
+              "Säännölliset tapaamiset asiakasvastaavasi kanssa, joissa käytte läpi tulokset, hiotte asetuksia ja suunnittelette seuraavat kasvuaskeleet."
+            ]
+          ]
+        },
+        {
+          "name": "Alusta ja integraatiot",
+          "rows": [
+            [
+              "Pääsy jäsenportaaliin",
+              "Yksityinen portaalisi, jossa hallitset tiliäsi, käytät koulutusmateriaaleja ja lähetät tukipyyntöjä yhdestä paikasta."
+            ],
+            [
+              "Mobiilisovellus",
+              "Hallitse liidejä, vastaa viesteihin, tarkista myyntiputkesi ja seuraa toimintaa puhelimellasi DUSA-mobiilisovelluksella."
+            ],
+            [
+              "Zapier-integraatio",
+              "Yhdistä DUSA tuhansiin muihin sovelluksiin Zapierin kautta. Synkronoi tietoja, käynnistä toimintoja ja rakenna omia työnkulkuja työkalujesi välille."
+            ],
+            [
+              "API-käyttöoikeus",
+              "Täysi REST API -käyttöoikeus räätälöityihin integraatioihin, tietojen synkronointiin ja DUSA-alustan päälle rakentamiseen."
+            ],
+            [
+              "Oma verkkotunnus",
+              "Julkaise DUSAlla rakennetut verkkosivusi, myyntisuppilosi ja portaalisi omalla brändätyllä verkkotunnuksellasi, SSL mukana."
+            ],
+            [
+              "White label -asiakasportaali",
+              "Poista DUSA-brändäys ja esittele alusta asiakkaillesi omanasi. Täydellinen toimistoille ja konsulteille."
+            ],
+            [
+              "Useiden toimipisteiden hallinta",
+              "Hallitse useita toimipisteitä yhdeltä tililtä, jokaisella omat myyntiputket, kontaktit ja raportointi."
+            ],
+            [
+              "Käyttäjätilit tiimille",
+              "Lisää tiimin jäseniä roolipohjaisilla käyttöoikeuksilla. Päätä, kuka saa nähdä, muokata ja hallita tilisi eri osia."
+            ],
+            [
+              "Räätälöidyt integraatiot",
+              "Tiimimme rakentaa räätälöidyt integraatiot, jotka yhdistävät DUSAn nykyisiin työkaluihisi, tietokantoihisi ja sisäisiin järjestelmiisi."
+            ]
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Mikä DUSA on ja miten se auttaa pieniä yrityksiä?",
+          "a": "DUSA on kaiken kattava kasvualusta, joka korvaa pienyritysten hajallaan olevat työkalut: CRM:n, sähköpostimarkkinoinnin, SMS-viestinnän, myyntisuppilot, ajanvarauksen ja maineenhallinnan. Viiden tai kuuden erillisen tilauksen sijaan kaikki on yhdessä yhtenäisessä järjestelmässä."
+        },
+        {
+          "q": "Paljonko DUSA-alusta maksaa kuukaudessa?",
+          "a": "Hinnat alkavat {launchpad} {currency} kuukaudessa Launchpad-paketissa, joka sisältää yhden ydintyökalun. Starter-paketti sisältää kaikki 9 ydinjärjestelmää hintaan {starter}/kk, ja Growth avaa rajattomat kontaktit, edistyneet automaatiot ja prioriteettituen hintaan {growth}/kk. Kaikki hinnat ovat valuutassa {currency} ilman piilokuluja."
+        },
+        {
+          "q": "Mitä Launchpad-pakettiin sisältyy?",
+          "a": "Launchpad antaa sinulle yhden ydinjärjestelmän yhdeksästä vaihtoehdosta: CRM ja myyntiputki, myyntisuppilot ja verkkosivut, sähköpostimarkkinointi, SMS-markkinointi, ajanvaraus ja kalenteri, some-suunnittelutyökalu, maineenhallinta, laskutus ja maksut tai lomakkeet ja kyselyt. Mukana ovat täysi pääsy hallintapaneeliin, perusanalytiikka, tekoälychat-tuki ja pääsy yhteisöön. Paketti on suunniteltu yksinyrittäjille, jotka haluavat aloittaa pienesti ja kasvaa askel kerrallaan."
+        },
+        {
+          "q": "Voinko päivittää pakettiani milloin tahansa?",
+          "a": "Kyllä. Voit päivittää tai vaihtaa pakettiasi milloin tahansa. Muutokset tulevat voimaan seuraavalla laskutuskaudella. Sitovia sopimuksia ei ole, ja voit vaihtaa pakettien välillä liiketoimintasi tarpeiden mukaan."
+        },
+        {
+          "q": "Onko käyttöönottomaksuja tai piilokuluja?",
+          "a": "Käyttöönottomaksuja ei ole missään paketissa. Paketin hinta kattaa alustan käytön. Viestien, puheluiden, sähköpostien ja tekoälyn käyttö laskutetaan erikseen käytön mukaan tilisi ennakkosaldosta. Kortiltasi veloitetaan pieni lataus, kun otat nämä ominaisuudet ensimmäisen kerran käyttöön, ja sen jälkeen automaattisesti aina, kun saldo käy vähiin. Määrität lataussumman itse ja voit lisätä saldoa milloin tahansa. Käyttö laskutetaan Yhdysvaltain dollareissa, koska alustan taustalla olevat puhelin-, sähköposti- ja tekoälypalvelut ovat yhdysvaltalaisia. Useimmilla asiakkailla kulut ovat noin 15-25 US-dollaria kuukaudessa käyttömäärästä riippuen. Muita piilokuluja ei ole."
+        },
+        {
+          "q": "Millaista tukea DUSA tarjoaa?",
+          "a": "Jokaiseen pakettiin sisältyy rajaton tekoälychat-tuki 24/7 jäsenportaalisi kautta sekä pääsy DUSA-yhteisöön. Starter ja sitä laajemmat paketit sisältävät sähköpostituen. Growth-paketissa saat prioriteettituen ja käyttöönoton strategiasession. Bespoke-asiakkaat saavat oman asiakasvastaavan, puhelintuen ja kuukausittaiset strategiakatsaukset."
+        },
+        {
+          "q": "Sopiiko DUSA yksinyrittäjille ja freelancereille?",
+          "a": "Ehdottomasti. DUSA-alusta on rakennettu yksinyrittäjille, freelancereille ja pienyrittäjille, jotka tarvitsevat ammattimaiset työkalut ilman suuryritysten monimutkaisuutta. Launchpad-paketti hintaan {launchpad}/kk on suunniteltu nimenomaan matalan kynnyksen aloituspisteeksi: kokeile yhtä työkalua ja laajenna kasvun myötä."
+        },
+        {
+          "q": "Mikä DUSA-yhteisö on?",
+          "a": "DUSA-yhteisö on vain jäsenille tarkoitettu tila, jossa yrittäjät jakavat strategioita, kysyvät kysymyksiä ja saavat tukea muilta DUSAn käyttäjiltä ja DUSA-tiimiltä. Se sisältyy jokaiseen pakettiin ja on loistava tapa oppia, miten saat alustasta kaiken irti."
+        },
+        {
+          "q": "Korvaako DUSA työkalut kuten Mailchimp, Calendly ja HubSpot?",
+          "a": "Kyllä. DUSA sisältää sähköpostimarkkinoinnin (korvaa Mailchimpin), ajanvarauksen ja aikataulutuksen (korvaa Calendlyn), CRM:n ja myyntiputken hallinnan (korvaa HubSpotin) sekä SMS-markkinoinnin, myyntisuppilo- ja verkkosivurakentajan, some-suunnittelun, maineenhallinnan, laskutuksen ja lomakkeet. Kaikki yhdellä alustalla murto-osalla yhteenlasketusta hinnasta."
+        },
+        {
+          "q": "Kauanko DUSAn käyttöönotto kestää?",
+          "a": "Useimmat yritykset ovat käynnissä 48 tunnin sisällä. Launchpad-paketin saat käyttöön alle tunnissa. Growth- ja Bespoke-paketteihin sisältyy käyttöönoton strategiasessio, jossa autamme sinua määrittämään kaiken juuri sinun yrityksellesi."
+        },
+        {
+          "q": "Ovatko kaikki hinnat valuutassa {currency}?",
+          "a": "Kyllä. Kaikki tämän sivun DUSA-hinnat ovat valuutassa {currency} ({regionLabel}). Laskullasi ei ole valuutanvaihtoja eikä yllätyksiä."
+        }
+      ]
+    },
+    "toggleDusa": "Ota DUSA käyttöön tälle ominaisuudelle"
+  },
+  "services": {
+    "metaTitle": "Palvelut | DUSA.studio",
+    "metaDesc": "Räätälöidyt integraatiot, monimutkaiset automaatiot, tietojen siirto ja kehitystyö. DUSAn palvelut laajentavat kasvualustaasi yrityksesi tarpeisiin.",
+    "eyebrow": "DUSA-palvelut",
+    "title": "Rakennettu sinun",
+    "titleAccent": "yrityksellesi,",
+    "titleEnd": "ei valmiin pohjan mukaan.",
+    "sub": "Jokainen yritys toimii omalla tavallaan. Kun alustan pitää venyä pidemmälle, kehitys- ja automaatiotiimimme rakentaa juuri sen, mitä tarvitset. Räätälöidyt integraatiot, monimutkaiset työnkulut, tietojen siirto ja mittatilaustyönä tehty kehitys, kaikki DUSAn sateenvarjon alla.",
+    "service1Title": "Räätälöidyt integraatiot",
+    "service1Desc": "Yhdistä DUSA nykyisiin työkaluihisi, kolmansien osapuolten API-rajapintoihin ja omiin järjestelmiisi. Rakennamme turvallisia, tuotantotason integraatioita, jotka pitävät tiedon liikkeessä alustojen välillä ilman käsityötä.",
+    "service1Ex1": "REST- ja webhook-API-yhteydet",
+    "service1Ex2": "ERP- ja kirjanpitojärjestelmien sillat",
+    "service1Ex3": "Kassa- ja varastosynkronointi",
+    "service1Ex4": "Maksupalveluintegraatiot",
+    "service1Ex5": "Mukautetut dataputket",
+    "service2Title": "Monimutkaiset automaatiot",
+    "service2Desc": "Mene yksinkertaisia triggereitä pidemmälle. Suunnittelemme monivaiheisia, ehdollisia automaatiosarjoja, jotka hoitavat juuri sinun yrityksesi työnkulut liidien karsinnasta toimitukseen ja jälkihoitoon.",
+    "service2Ex1": "Monihaarainen liidien ohjauslogiikka",
+    "service2Ex2": "Ehdolliset seurantasarjat",
+    "service2Ex3": "Automaattinen tarjousten ja hinta-arvioiden luonti",
+    "service2Ex4": "Tapahtumapohjainen työnkulkujen orkestrointi",
+    "service2Ex5": "Alustojen väliset toimintoketjut",
+    "service3Title": "Tietojen siirto",
+    "service3Desc": "Siirrytkö toiselta alustalta? Me hoidamme raskaan työn. Kontaktisi, kauppasi, kampanjasi ja historiasi siirretään siististi, jotta mitään ei katoa matkalla.",
+    "service3Ex1": "CRM-kontaktien ja kauppojen siirto",
+    "service3Ex2": "Sähköpostikampanjoiden ja pohjien siirto",
+    "service3Ex3": "Historiatietojen mappaus ja siivous",
+    "service3Ex4": "Automaatioiden ja työnkulkujen uudelleenrakennus",
+    "service3Ex5": "Mukautettujen kenttien ja tagien säilytys",
+    "service4Title": "Räätälöity raportointi ja dashboardit",
+    "service4Desc": "Saat näkyvyyden, jota oikeasti tarvitset. Rakennamme räätälöityjä raportointinäkymiä, jotka nostavat esiin yrityksellesi tärkeät mittarit, yhdistettynä DUSAn sisällä olevaan live-dataasi.",
+    "service4Ex1": "KPI-seurantanäkymät",
+    "service4Ex2": "Myyntiputken ja konversioiden analytiikka",
+    "service4Ex3": "Markkinoinnin attribuutioraportit",
+    "service4Ex4": "Asiakaspysyvyyden ja poistuman analyysi",
+    "service4Ex5": "Mukautetut datavisualisoinnit",
+    "service5Title": "Räätälöity alustakehitys",
+    "service5Desc": "Kun valmisratkaisu ei riitä. Kehitystiimimme rakentaa mukautettuja ominaisuuksia, moduuleja ja työkaluja, jotka laajentavat DUSA-alustaa juuri sinun vaatimuksiisi.",
+    "service5Ex1": "Mukautetut portaalit ja asiakassovellukset",
+    "service5Ex2": "Omat työnkulkumoduulit",
+    "service5Ex3": "Edistynyt lomakelogiikka ja laskurit",
+    "service5Ex4": "White label -ratkaisut toimistoille",
+    "service5Ex5": "Jäsenyys- ja kurssialustat",
+    "service6Title": "Jatkuva hallinnoitu tuki",
+    "service6Desc": "Yrityksille, jotka haluavat oman teknisen kumppanin. Tarjoamme jatkuvaa tukea, optimointia ja strategista ohjausta, jotta DUSA-asennuksesi toimii, kun yrityksesi kehittyy.",
+    "service6Ex1": "Oma asiakasvastaava",
+    "service6Ex2": "Kuukausittaiset strategia- ja optimointikatsaukset",
+    "service6Ex3": "Ongelmien ratkaisu etusijalla",
+    "service6Ex4": "Ennakoiva järjestelmän kunnon valvonta",
+    "service6Ex5": "Tiimisi koulutus ja perehdytys",
+    "processTitle": "Näin se toimii",
+    "process1Num": "01",
+    "process1Title": "Kartoituspuhelu",
+    "process1Desc": "Tutustumme yritykseesi, nykyisiin työkaluihisi ja siihen, missä aukot ovat. Ei jargonia, ei painostusta.",
+    "process2Num": "02",
+    "process2Title": "Rajaus ja tarjous",
+    "process2Desc": "Laadimme selkeän työn rajauksen kiinteällä hinnalla. Tiedät tarkalleen, mitä saat ja mitä se maksaa, ennen kuin työ alkaa.",
+    "process3Num": "03",
+    "process3Title": "Rakennus ja testaus",
+    "process3Desc": "Tiimimme rakentaa, testaa ja validoi kaiken testiympäristössä. Sinä tarkistat jokaisen välietapin.",
+    "process4Num": "04",
+    "process4Title": "Julkaisu ja tuki",
+    "process4Desc": "Hyväksynnän jälkeen viemme ratkaisun tuotantoon ja tarjoamme jatkuvaa tukea, jotta kaikki toimii sujuvasti.",
+    "ctaTitle": "Onko sinulla jotain tiettyä mielessä?",
+    "ctaDesc": "Kerro, mitä tarvitset. Kerromme, miten voimme auttaa ja mitä se vaatii.",
+    "ctaBtn": "Ota yhteyttä"
+  },
+  "about": {
+    "metaTitle": "Meistä | DUSA . studio",
+    "metaDesc": "Tutustu DUSA.studioon, kaiken kattavaan kasvualustaan, joka on rakennettu pienyrityksille Australiassa ja kaikkialla maailmassa.",
+    "heroLabel": "Tarinamme",
+    "heroTitle": "Yrittäjien rakentama,",
+    "heroTitleAccent": "yrittäjille.",
+    "heroSub": "DUSAn rakensivat ihmiset, jotka pyörittivät pienyrityksiä ja kyllästyivät maksamaan kymmenestä työkalusta, jotka eivät koskaan keskustelleet keskenään. Joten rakensimme alustan, jonka olisimme itse halunneet.",
+    "missionLabel": "Missiomme",
+    "missionTitle": "Tasoitetaan pelikenttä.",
+    "missionDesc": "Yritysohjelmistot ovat aina antaneet suuryrityksille epäreilun etulyöntiaseman. Me muutamme sen. DUSA tuo saman tekoälyllä toimivan, täysin yhdistetyn kasvuinfrastruktuurin jokaisen pienyrityksen ulottuville, järkevään hintaan.",
+    "valuesLabel": "Mitä edustamme",
+    "value1Title": "Yksinkertaisuus ensin",
+    "value1Desc": "Pienyritys ei tarvitse omaa IT-tiimiä. Jokainen rakentamamme ominaisuus läpäisee yhden testin: pystyykö yksinyrittäjä ottamaan sen käyttöön yhdessä iltapäivässä?",
+    "value2Title": "Yhdistetty oletuksena",
+    "value2Desc": "Työkalut, jotka eivät keskustele keskenään, luovat lisää työtä. DUSA yhdistää CRM:n, markkinoinnin, myynnin ja operaatiot yhteen järjestelmään ensimmäisestä päivästä alkaen.",
+    "value3Title": "Rehellinen hinnoittelu",
+    "value3Desc": "Ei piilokuluja, ei yllätyskorotuksia, ei maksuja ominaisuuksista, joista jo maksoit. Näet, mitä maksat.",
+    "value4Title": "Kasva omaan tahtiisi",
+    "value4Desc": "Aloita yhdellä työkalulla. Lisää muita, kun tarvitset. Päivitä, kun se on järkevää. Ei painostusta, ei sitoutumista, ei pakotettuja päivityksiä.",
+    "teamLabel": "Maailmanlaajuisesti",
+    "teamTitle": "Rakennettu yrityksille",
+    "teamTitleAccent": "kaikkialla",
+    "teamDesc": "DUSAa käyttävät yritykset eri maissa, toimialoilla ja aikavyöhykkeillä. Alusta on saatavilla omalla kielelläsi, tuki omassa valuutassasi ja hinnoittelu, joka sopii markkinallesi.",
+    "teamSub": "Työskentelemme yksinyrittäjien, kasvavien tiimien, luovien toimistojen ja paikallisten yritysten kanssa, jotka haluavat kasvaa hukkumatta teknologiaan.",
+    "ctaTitle": "Valmis kasvamaan kanssamme?",
+    "ctaDesc": "Liity tuhansien pienyritysten joukkoon, jotka pyörivät jo DUSAlla.",
+    "ctaBtn": "Aloita nyt"
+  },
+  "contact": {
+    "metaTitle": "Yhteystiedot | DUSA . studio",
+    "metaDesc": "Ota yhteyttä DUSA . studioon. Varaa ilmainen esittely, kysy kysymys tai aloita kasvumatkasi jo tänään.",
+    "label": "Yhteystiedot",
+    "title": "Puhutaan",
+    "titleAccent": "kasvusta",
+    "sub": "Olitpa valmis aloittamaan tai vasta tutustumassa, kuulemme sinusta mielellämme. Ei myyntipuheita, vaan aito keskustelu yrityksestäsi.",
+    "formNameLabel": "Nimi *",
+    "formNamePlaceholder": "Nimesi",
+    "formEmailLabel": "Sähköposti *",
+    "formEmailPlaceholder": "nimi@esimerkki.fi",
+    "formPhoneLabel": "Puhelin",
+    "formPhonePlaceholder": "+358 40 123 4567",
+    "formBusinessLabel": "Yritys *",
+    "formBusinessPlaceholder": "Yrityksesi nimi",
+    "formMessageLabel": "Viesti *",
+    "formMessagePlaceholder": "Kerro lyhyesti yrityksestäsi ja siitä, mitä etsit...",
+    "formSubmit": "Lähetä viesti",
+    "formSuccess": "Kiitos! Olemme sinuun pian yhteydessä.",
+    "formError": "Jokin meni pieleen. Lähetä meille sähköpostia osoitteeseen contact@dusa.studio.",
+    "infoEmailTitle": "Sähköposti",
+    "infoPhoneTitle": "Puhelin",
+    "infoLocationTitle": "Sijainti",
+    "infoLocation": "Sydney, Australia",
+    "infoCtaTitle": "Haluatko mieluummin live-esittelyn?",
+    "infoCtaDesc": "Varaa ilmainen esittely, niin näytämme DUSA-alustan käyttäen esimerkkinä juuri sinun yritystäsi.",
+    "infoCtaBtn": "Varaa ilmainen esittely"
+  },
+  "blog": {
+    "metaTitle": "Ajankohtaista ja näkemyksiä | DUSA . studio",
+    "metaDesc": "Kasvustrategioita, alustapäivityksiä ja näkemyksiä pienyrittäjille DUSAn tiimiltä.",
+    "hubLabel": "Kasvunäkemyksiä",
+    "hubTitle": "Ajankohtaista ja",
+    "hubTitleAccent": "resursseja.",
+    "hubSub": "Käytännön oppaita, kasvustrategioita ja DUSA-päivityksiä pienyrittäjille.",
+    "latestLabel": "Uusimmat",
+    "categoriesLabel": "Selaa kategorioittain",
+    "readMore": "Lue lisää",
+    "minRead": "min lukuaika",
+    "featuredLabel": "Nostot",
+    "backToBlog": "Takaisin ajankohtaisiin"
+  },
+  "connected": {
+    "eyebrow": "Alusta",
+    "heading": "Kaikki",
+    "headingAccent": "yhdistyy.",
+    "sub": "Kuusi järjestelmää, yksi kirjautuminen. Yrityksesi jokainen osa yhdessä paikassa, ja tekoäly kulkee kaiken läpi.",
+    "gridHeading": "Toimii yhdessä näiden kanssa",
+    "appsLede": "Käytä suosikkisovelluksiasi yhdeltä näytöltä.",
+    "appsSub": "Some, sähköposti, laskut ja kalenterit ilman välilehtien vaihtelua.",
+    "note": "Lisäksi yli 1 000 muuta Zapierin, Maken ja mukautettujen integraatioiden kautta.",
+    "cta": "Katso kaikki, mitä sisältyy",
+    "aiBand": "TEKOÄLY · KAIKESSA MUKANA",
+    "hubHint": "Tutki viemällä hiiri päälle, lukitse klikkaamalla",
+    "hubHintTap": "Napauta lohkoa tutkiaksesi",
+    "panelEmpty": "Napauta pyörän lohkoa tai alla olevaa nappia nähdäksesi, mitä sisältä löytyy.",
+    "aiPanelTitle": "Tekoälyllä toimiva"
+  },
+  "start": {
+    "metaTitle": "Aloita ilmainen kokeilu | DUSA . studio",
+    "metaDesc": "Täysi pääsy DUSAn kasvualustaan ilmaiseksi 14 päiväksi. Peruuta milloin vain. CRM, sähköposti, SMS, funnelit, ajanvaraus ja maineenhallinta.",
+    "label": "14 päivän ilmainen kokeilu",
+    "h1": "Ala kasvaa",
+    "h1Accent": "tänään",
+    "sub": "Valitse paketti, aktivoi kokeilu ja olet alustasi sisällä minuuteissa. {zero} tänään. Peruuta ennen 14. päivää, etkä maksa mitään.",
+    "badgeZero": "{zero} tänään",
+    "badgeCancel": "Peruuta milloin vain",
+    "badgeAccess": "Täysi pääsy",
+    "billingCycle": "Laskutusjakso",
+    "monthly": "Kuukausittain",
+    "annual": "Vuosittain",
+    "annualBadge": "2 kuukautta ilmaiseksi",
+    "mostPopular": "Suosituin",
+    "perMonth": "/kk {cur}",
+    "perYear": "/vuosi {cur}",
+    "startTrial": "Aloita ilmainen kokeilu",
+    "noteMonthly": "14 päivää ilmaiseksi · sitten {price}/kk · peruuta milloin vain",
+    "noteAnnual": "14 päivää ilmaiseksi · sitten {price}/vuosi · peruuta milloin vain",
+    "assist": "Etkö ole varma, mikä paketti?",
+    "assistDemo": "Varaa ilmainen esittely",
+    "assistTail": "tai jätä tietosi alle, niin teemme asennuksen yhdessä.",
+    "formHeading": "Haluatko asennuksen",
+    "formHeadingAccent": "yhdessä kanssamme?",
+    "formSub": "Jätä tietosi, niin käymme alustan läpi ja aktivoimme kokeilusi yhdessä.",
+    "firstName": "Etunimi *",
+    "firstNamePh": "Etunimesi",
+    "email": "Sähköposti *",
+    "emailPh": "nimi@esimerkki.fi",
+    "business": "Yrityksen nimi *",
+    "businessPh": "Yrityksesi nimi",
+    "phone": "Puhelin",
+    "phonePh": "+358 40 123 4567",
+    "submit": "Aloita nyt",
+    "submitting": "Luodaan tiliäsi...",
+    "success": "Olet mukana! Kirjautumistiedot löytyvät sähköpostistasi.",
+    "errorPrefix": "Jokin meni pieleen. Lähetä meille sähköpostia osoitteeseen",
+    "errorSuffix": "niin autamme.",
+    "value1Title": "Kaikki 6 ydinjärjestelmää mukana",
+    "value1Text": "CRM, markkinointi, funnelit, ajanvaraus, maineenhallinta ja tekoälychat yhdessä paikassa.",
+    "value2Title": "Tekoälyautomaatiot ensimmäisestä päivästä",
+    "value2Text": "Älykkäät työnkulut, jotka säästävät tunteja joka viikko, aktiivisina heti rekisteröitymisestä.",
+    "value3Title": "Ohjattu käyttöönotto nopeisiin tuloksiin",
+    "value3Text": "Opastamme sinut asennuksen läpi, jotta näet hyödyn jo ensimmäisellä viikolla.",
+    "value4Title": "Peruuta milloin vain, ilman kysymyksiä",
+    "value4Text": "Nolla sitoutumista. Jos se ei ole oikea ratkaisu, voit lähteä ilman mitään velvoitteita.",
+    "t1Quote": "Ensimmäisen viikon aikana automaattiset seurantaviestit pyörivät ja saimme kolme uutta asiakasta. DUSA maksoi itsensä takaisin jo ennen kokeilujakson loppua.",
+    "t1Name": "Sarah M.",
+    "t1Role": "Kauneus- ja hyvinvointistudio",
+    "t2Quote": "Ennen käytimme tunteja laskujen karhuamiseen ja vastaamattomiin puheluihin. Nyt järjestelmä hoitaa kaiken. Pidän taas oikeasti viikonloput vapaata.",
+    "t2Name": "James T.",
+    "t2Role": "Putkiasennus",
+    "t3Quote": "Google-arvostelumme nousivat 12:sta yli 80:een kolmessa kuukaudessa. Automaattiset arvostelupyynnöt muuttivat kaiken paikallisen näkyvyytemme kannalta.",
+    "t3Name": "Priya K.",
+    "t3Role": "Boutique-kuntosali",
+    "t4Quote": "Korvasin neljä erillistä tilausta DUSAlla. Yksi kirjautuminen, yksi lasku, ja kaikki oikeasti keskustelee keskenään.",
+    "t4Name": "Marcus D.",
+    "t4Role": "Itsenäinen talousneuvoja",
+    "t5Quote": "Tekoälychat keräsi liidejä, kun olin kuvauksissa. Palasin kolmeen uuteen varaukseen. Sitä ei olisi ennen tapahtunut.",
+    "t5Name": "Lena R.",
+    "t5Role": "Valokuvaus- ja luova studio",
+    "t6Quote": "Funnelien rakentaminen kesti ennen viikkoja kehittäjän kanssa. Rakensimme yhden iltapäivässä, ja se konvertoi paremmin kuin mikään aiempi.",
+    "t6Name": "Tom H.",
+    "t6Role": "Verkkokauppayrittäjä",
+    "testimonialAria": "Asiakaskokemus",
+    "legalPrefix": "Rekisteröitymällä hyväksyt",
+    "legalTerms": "käyttöehdot",
+    "legalAnd": "ja",
+    "legalPrivacy": "tietosuojakäytännön",
+    "featuresLabel": "Mitä saat",
+    "featuresH2": "Kaikki mitä tarvitset kasvuun,",
+    "featuresH2Accent": "yhdessä paikassa",
+    "f1Title": "CRM ja myyntiputken hallinta",
+    "f1Desc": "Seuraa jokaista liidiä, kauppaa ja asiakaskohtaamista yhdestä näkymästä.",
+    "f2Title": "Sähköposti- ja SMS-markkinointi",
+    "f2Desc": "Lähetä kohdennettuja kampanjoita, jotka muuttavat liidit uskollisiksi asiakkaiksi.",
+    "f3Title": "Ajanvaraus ja kalenteri",
+    "f3Desc": "Anna asiakkaiden varata verkossa, synkronoi kalenterit ja automatisoi muistutukset.",
+    "f4Title": "Funneli- ja verkkosivueditori",
+    "f4Desc": "Rakenna tehokkaasti konvertoivia laskeutumissivuja ja myyntifunneleita ilman koodia.",
+    "f5Title": "Maineenhallinta",
+    "f5Desc": "Kerää arvosteluja, seuraa palautetta ja rakenna luottamusta automaattisesti.",
+    "f6Title": "Tekoälychat ja automaatiot",
+    "f6Desc": "Vastaa liideille heti tekoälyn avulla ja ota keskustelu itsellesi saumattomasti, kun olet valmis.",
+    "ctaH2": "Vieläkö",
+    "ctaH2Accent": "mietit?",
+    "ctaText": "Haluatko mieluummin ohjatun esittelyn? Varaa ilmainen esittely, niin näytämme alustan käyttäen esimerkkinä sinun yritystäsi.",
+    "ctaBtn": "Varaa esittely",
+    "plans": {
+      "launchpad": {
+        "name": "Launchpad",
+        "blurb": "Valitse mikä tahansa yksi ydinjärjestelmä ja aloita jo tänään.",
+        "features": [
+          "1 valitsemasi ydinjärjestelmä",
+          "Täysi pääsy hallintanäkymään",
+          "Tekoälychat-tuki",
+          "Perusanalytiikka"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "blurb": "Kaikki yhdistettynä. Kaikki 9 ydinjärjestelmää yhdellä kirjautumisella.",
+        "features": [
+          "Kaikki 9 ydinjärjestelmää",
+          "CRM, sähköposti, SMS, funnelit ja ajanvaraus",
+          "Tekoälyautomaatiot mukana",
+          "Sähköpostituki"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "blurb": "Rakennettu vauhtiin. Rajattomat kontaktit ja prioriteettituki.",
+        "features": [
+          "Kaikki Starter-paketista",
+          "Rajattomat kontaktit ja käyttäjät",
+          "Edistyneet automaatiot",
+          "Prioriteettituki + oma asiakasvastaava"
+        ]
+      }
+    }
+  },
+  "thankYou": {
+    "metaTitle": "Tervetuloa DUSAan | DUSA . studio",
+    "metaDesc": "Ilmaista kokeiluasi valmistellaan. Tarkista sähköpostistasi kirjautumistiedot ja aloita DUSA-alustan käyttö.",
+    "label": "Olet mukana",
+    "h1": "Tervetuloa",
+    "h1Accent": "DUSAan",
+    "sub": "14 päivän ilmaista kokeiluasi valmistellaan juuri nyt. Näin homma etenee.",
+    "step1Title": "Tarkista sähköpostisi",
+    "step1Text": "Lähetämme kirjautumistietosi antamaasi sähköpostiosoitteeseen. Viestin pitäisi saapua muutamassa minuutissa.",
+    "step2Title": "Kirjaudu linkin kautta",
+    "step2Text": "Klikkaa sähköpostin linkkiä, aseta salasanasi ja siirry alustalle. Voit myös kirjautua milloin vain tämän sivuston oikean yläkulman painikkeesta.",
+    "step3Title": "Ala rakentaa",
+    "step3Text": "Seuraa ohjattua käyttöönottoa: yhdistä kalenterisi, luo ensimmäinen työnkulkusi ja ala kerätä liidejä ensimmäisestä päivästä alkaen.",
+    "login": "Kirjaudu DUSAan",
+    "home": "Takaisin etusivulle",
+    "helpPrefix": "Eikö sähköpostia kuulunut? Tarkista roskapostikansio tai ota yhteyttä osoitteeseen",
+    "helpSuffix": "niin selvitämme asian."
+  },
+  "industriesIndex": {
+    "metaTitle": "Toimialat | DUSA.studio",
+    "metaDesc": "DUSA on rakennettu toimialallesi. Katso, miten kasvualustamme toimii kiinteistönvälityksessä, rakennusalalla, kuntosaleilla, ravintoloissa ja muualla.",
+    "label": "Toimialat",
+    "h1": "Rakennettu",
+    "h1Accent": "sinun",
+    "h1Tail": "toimialallesi",
+    "sub": "Jokainen yritys on erilainen. Siksi DUSA mukautuu tapaasi tehdä töitä: myyntiputket, automaatiot ja työnkulut on suunniteltu juuri sinun toimialallesi. Löydä omasi alta.",
+    "learnMore": "Lue lisää",
+    "ctaTitle": "Eikö toimialasi ole listalla?",
+    "ctaDesc": "DUSA sopii mille tahansa palveluyritykselle. Ota yhteyttä, niin näytämme, miten se istuu työnkulkuusi.",
+    "ctaStart": "Aloita nyt",
+    "ctaTalk": "Juttele kanssamme",
+    "cards": {
+      "real-estate": [
+        "Kiinteistönvälitys",
+        "Myyntiputken hallinta, automaattiset näyttöjen jälkiseurannat ja ostajien kohdennus välittäjille, jotka haluavat tehdä enemmän kauppoja."
+      ],
+      "gyms": [
+        "Kuntosalit ja fitness",
+        "Jäsenten perehdytys, tuntimuistutukset, palautuskampanjat ja suositusten seuranta, jotta poistuma pienenee ja tunnit täyttyvät."
+      ],
+      "tradies": [
+        "Rakennus- ja asennusala",
+        "Tekstiviesti vastaamattomiin puheluihin, tarjousputket, työaikataulut ja laskumuistutukset yrittäjille, joilla on kädet täynnä töitä."
+      ],
+      "restaurants": [
+        "Ravintolat",
+        "Varausmuistutukset, arvostelupyynnöt vierailun jälkeen, syntymäpäiväkampanjat ja digitaaliset kanta-asiakasohjelmat."
+      ],
+      "salons": [
+        "Kampaamot ja kauneushoitolat",
+        "Verkkoajanvaraus, automaattiset muistutukset, uudelleenvarauskampanjat ja asiakkaiden toiveiden seuranta, jotta jokainen tuoli on täynnä."
+      ],
+      "accountants": [
+        "Tilitoimistot",
+        "Automaattinen dokumenttien keruu, määräaikamuistutukset ja ympärivuotinen asiakasviestintä myös veroilmoituskauden ulkopuolella."
+      ],
+      "dentists": [
+        "Hammaslääkäriasemat",
+        "Tarkastusmuistutukset, uusien potilaiden hankinta, arvostelujen kerääminen ja hoitosuunnitelmien seuranta automaattisesti."
+      ],
+      "photographers": [
+        "Valokuvaajat",
+        "Automaattivastaukset tiedusteluihin, sopimusprosessit, kuvausmuistutukset, gallerioiden toimitus ja lisämyynti kuvatuotteille."
+      ],
+      "construction": [
+        "Rakennusyritykset",
+        "Liidien seuranta, tarjousten jälkiseuranta, viestintä projektin välietapeista ja maksujen perintä rakentajille."
+      ],
+      "personal-trainers": [
+        "Personal trainerit",
+        "Liidimagneettifunnelit, konsultaatioiden varaus, muutostarinoiden esittely ja automaattiset asiakaskuulumiset."
+      ],
+      "cleaning-services": [
+        "Siivouspalvelut",
+        "Toistuvien varausten hallinta, laatuseuranta, tiimien työvuorot ja lisämyyntikampanjat siivousyrityksille."
+      ],
+      "law-firms": [
+        "Asianajotoimistot",
+        "Automaattinen toimeksiantojen vastaanotto, tapausten tilapäivitykset, suositusten seuranta ja asiantuntijasisältö sääntelyn rajoissa."
+      ],
+      "property-managers": [
+        "Vuokranhallinta ja isännöinti",
+        "Vuokralaisen elinkaaren automaatio, huoltopyyntöjen käsittely, vuokramuistutukset ja sopimusten uusimiskampanjat."
+      ],
+      "auto-repair": [
+        "Autokorjaamot",
+        "Automaattiset huoltomuistutukset, kausikampanjat, arvostelujen kerääminen ja kanta-asiakasohjelmat korjaamoille."
+      ],
+      "coaches": [
+        "Valmentajat ja konsultit",
+        "Kartoituspuhelufunnelit, perehdytyssarjat, tapaamisten ajanvaraus ja suositusten kerääminen, jotta voit skaalata toimintaasi."
+      ],
+      "ecommerce": [
+        "Verkkokauppa",
+        "Oston jälkeiset viestisarjat, arvosteluautomaatio, ristiinmyynti, VIP-segmentointi ja syntymäpäiväedut."
+      ]
+    }
+  },
+  "home": {
+    "metaTitle": "DUSA . studio | Kasvualusta pienyrityksille",
+    "metaDesc": "Markkinointi, myynti ja asiakasviestintä yhdellä kirjautumisella. DUSA on kasvualusta pienyrityksille, jotka haluavat kasvaa ilman monimutkaisuutta.",
+    "schemaDesc": "Kaiken kattava kasvualusta pienyrityksille. CRM, markkinoinnin automaatio, myyntiputket ja asiakasviestintä yhdellä kirjautumisella."
+  },
+  "faq": {
+    "eyebrow": "Kysymyksiä? Vastattu.",
+    "heading": "Kaikki, mitä saatat",
+    "headingAccent": "haluta kysyä.",
+    "items": [
+      {
+        "q": "Mitä DUSA oikeastaan tekee?",
+        "a": "DUSA korvaa yli 10 irrallista sovellusta, joiden kanssa useimmat yritykset tasapainoilevat, yhdellä alustalla. CRM, sähköposti, SMS, funnelit, ajanvaraus, maksut, arvostelut ja tekoälyautomaatiot, kaikki yhdellä kirjautumisella. Jokainen liidi hoidetaan, jokainen varaus vahvistetaan ja jokainen seurantaviesti lähtee automaattisesti."
+      },
+      {
+        "q": "Paljonko se maksaa?",
+        "a": "Paketit alkavat 149 AUD kuukaudessa (katso hinnat euroina hinnastosivulta). Useimmat asiakkaamme maksavat siirtyessään erillisistä työkaluista 800 ja 1 100 AUD:n välillä kuukaudessa, joten vaihto maksaa itsensä takaisin yleensä moninkertaisesti jo ensimmäisen kuukauden aikana."
+      },
+      {
+        "q": "Pitääkö minun olla tekninen?",
+        "a": "Ei lainkaan. Me teemme asennuksen puolestasi. Tiimimme määrittää CRM:n, automaatiot, funnelit ja integraatiot ensimmäisen viikon aikana. Jos osaat käyttää sähköpostia, osaat käyttää DUSAa."
+      },
+      {
+        "q": "Mitä tapahtuu nykyisille kontakteilleni ja työkaluilleni?",
+        "a": "Siirrämme kaiken. Kontaktit, kampanjat ja tiedot siirtyvät vanhoista työkaluistasi osana käyttöönottoa, ja koulutamme sinut ja tiimisi ennen kuin menette liveksi. Mitään ei katoa vaihdossa."
+      },
+      {
+        "q": "Olenko sidottu sopimukseen?",
+        "a": "Et. Voit peruuttaa milloin vain. Pidämme asiakkaat olemalla hyödyllisiä, emme lukitsemalla ovea."
+      },
+      {
+        "q": "Kuinka nopeasti pääsen alkuun?",
+        "a": "Työtilasi on valmis muutamassa päivässä, ja useimmat yritykset ovat täysin livenä, tiedot siirrettynä ja tiimi koulutettuna, kahden viikon sisällä."
+      },
+      {
+        "q": "Entä jos jään jumiin?",
+        "a": "Tekoälytuki on käytettävissä 24/7 jokaisessa paketissa, ja oikeat ihmiset ovat sen takana. Growth- ja Bespoke-paketteihin kuuluu myös oma asiakasvastaava, joka ottaa sinuun yhteyttä ennakoivasti."
+      }
+    ]
+  }
+}

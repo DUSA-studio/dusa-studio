@@ -129,6 +129,11 @@ function initials(name: string) {
 }
 
 const sp = t?.socialProof || {};
+/* Translated quotes and roles come from the dictionary (socialProof.testimonials);
+   names, stars and sources stay as they are. */
+if (Array.isArray(sp.testimonials) && sp.testimonials.length === testimonials.length) {
+  testimonials.forEach((x, i) => { const l = sp.testimonials[i]; if (l && l.quote) { x.quote = l.quote; x.role = l.role || x.role; } });
+}
 const spLabel = sp.resultsLabel || 'Results That Speak';
 const spHeading = sp.heading || 'Businesses grow faster with';
 const spHeadingAccent = sp.headingAccent || 'AI and everything connected';

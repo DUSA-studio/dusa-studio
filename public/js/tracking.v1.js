@@ -126,6 +126,6 @@
   }
 
   /* Region / theme signals for segmentation. */
-  var region = (location.pathname.match(/^\/(us|uk|es|mx|br|fr|de)(\/|$)/) || [])[1] || 'au';
+  var region = (location.pathname.match(/^\/(us|uk|es|mx|br|fr|de|it|nl|se|dk|fi|no)(\/|$)/) || [])[1] || 'au';
   gtag('set', 'user_properties', { site_region: region, site_theme: document.documentElement.getAttribute('data-theme') || 'dark' });
 })();

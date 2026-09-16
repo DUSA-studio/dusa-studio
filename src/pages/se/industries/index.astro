@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import IndustriesIndexPage from '../../../components/pages/IndustriesIndexPage.astro';
+import { getRegion } from '../../../i18n/regions.js';
+import t from '../../../i18n/translations/sv.json';
+const region = getRegion('se');
+---
+
+<BaseLayout t={t} title={t.industriesIndex.metaTitle} description={t.industriesIndex.metaDesc} lang={region.htmlLang} ogLocale={region.ogLocale} region="se">
+  <IndustriesIndexPage t={t} regionKey="se" />
+</BaseLayout>

@@ -1,0 +1,1223 @@
+{
+  "common": {
+    "getStarted": "Aan de slag",
+    "bookDemo": "Demo boeken",
+    "bookFreeDemo": "Boek je gratis demo",
+    "learnMore": "Meer weten",
+    "viewPricing": "Bekijk prijzen",
+    "getInTouch": "Neem contact op",
+    "sendMessage": "Verstuur bericht",
+    "logIn": "Inloggen",
+    "demo": "Demo",
+    "readMore": "Lees verder",
+    "minRead": "min leestijd",
+    "allRightsReserved": "Alle rechten voorbehouden.",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfService": "Algemene voorwaarden",
+    "region": "Regio",
+    "theme": "Thema",
+    "seeThePlatform": "Bekijk het platform",
+    "skipToContent": "Ga naar inhoud"
+  },
+  "nav": {
+    "pricing": "Prijzen",
+    "services": "Diensten",
+    "industries": "Branches",
+    "about": "Over ons",
+    "news": "Nieuws",
+    "contact": "Contact",
+    "getStarted": "Aan de slag",
+    "logIn": "Inloggen",
+    "demo": "Demo",
+    "region": "Regio",
+    "theme": "Thema",
+    "selectRegion": "Kies regio en taal",
+    "viewAllIndustries": "Alle branches bekijken",
+    "viewAll": "Alles bekijken",
+    "industryLabels": {
+      "real-estate": "Makelaars",
+      "gyms": "Sportscholen en fitness",
+      "tradies": "Vakmensen",
+      "restaurants": "Restaurants",
+      "salons": "Salons en spa's",
+      "accountants": "Accountants",
+      "dentists": "Tandartspraktijken",
+      "photographers": "Fotografen",
+      "construction": "Bouw",
+      "personal-trainers": "Personal trainers",
+      "cleaning-services": "Schoonmaakbedrijven",
+      "law-firms": "Advocatenkantoren",
+      "property-managers": "Vastgoedbeheerders",
+      "auto-repair": "Autogarages",
+      "coaches": "Coaches en consultants",
+      "ecommerce": "E-commerce"
+    }
+  },
+  "footer": {
+    "tagline": "Merken die bloeien.",
+    "desc": "Digital Utility for Sales and Automation. Het AI-gedreven groeiplatform voor kleine bedrijven.",
+    "platformHeading": "Platform",
+    "companyHeading": "Bedrijf",
+    "getInTouchHeading": "Contact",
+    "features": "Functies",
+    "howItWorks": "Hoe het werkt",
+    "onboarding": "Onboarding",
+    "pricing": "Prijzen",
+    "about": "Over ons",
+    "services": "Diensten",
+    "contact": "Contact",
+    "news": "Nieuws",
+    "location": "Sydney, Australië",
+    "soc2Title": "SOC 2 Type II",
+    "soc2Sub": "Conform",
+    "hipaaTitle": "HIPAA",
+    "hipaaSubCompliant": "Conform*",
+    "hipaaNote": "*HIPAA-compliance is als add-on beschikbaar voor zorgbedrijven.",
+    "copyright": "2026 DUSA . studio. Alle rechten voorbehouden.",
+    "privacyPolicy": "Privacybeleid",
+    "termsOfService": "Algemene voorwaarden",
+    "industriesHeading": "Branches",
+    "industries": "Alle branches",
+    "realEstate": "Makelaars",
+    "gyms": "Sportscholen",
+    "restaurants": "Restaurants",
+    "salons": "Salons",
+    "tradies": "Vakmensen",
+    "dentists": "Tandartsen",
+    "coaches": "Coaches",
+    "careers": "Werken bij",
+    "askAi": "Vraag AI over DUSA:",
+    "shareThis": "Deel dit:"
+  },
+  "hero": {
+    "label": "Het AI-gedreven groeisysteem",
+    "title": "Alles wat je nodig hebt.",
+    "titleAccent": "Eén login.",
+    "subtitle": "AI-gedreven marketing, sales en klantcontact. Allemaal verbonden. Zodat jij je bedrijf runt, niet je software.",
+    "getStarted": "Aan de slag",
+    "bookDemo": "Demo boeken",
+    "phoneApp": "DUSA . studio",
+    "statLeads": "leads",
+    "statTracked": "gevolgd",
+    "statRating": "beoordeling",
+    "capCrmTitle": "CRM & Contacten",
+    "capCrmSub": "Volg elke lead",
+    "capEmailTitle": "E-mail & SMS",
+    "capEmailSub": "Campagnes op de automatische piloot",
+    "capFunnelsTitle": "Funnels & Automatiseringen",
+    "capFunnelsSub": "Converteer terwijl je slaapt",
+    "capAiTitle": "AI ingebouwd",
+    "capAiSub": "Slimmere gesprekken, snellere groei",
+    "scrollExplore": "Ontdek",
+    "introLabel": "Groei, voor je geregeld",
+    "introH1": "Wij helpen je bedrijf",
+    "introH1Accent": "groeien",
+    "introSub": "Een bedrijf runnen betekent tegenwoordig een dozijn apps die niet met elkaar praten, met jou ertussenin. DUSA vervangt die rommel door één systeem dat elke lead opvolgt, de klussen inplant en zorgt dat je betaald wordt. Automatisch.",
+    "introStat1n": "12+ apps",
+    "introStat1l": "te veel apps om een bedrijf te runnen",
+    "introStat2n": "1 login",
+    "introStat2l": "wat je nodig hebt met DUSA",
+    "introStat3n": "10+ uur",
+    "introStat3l": "aan rompslomp per week overgedragen aan AI",
+    "introStat4n": "+32%",
+    "introStat4l": "meer omzet in je eerste jaar",
+    "introNote": "Minder chaos. Meer klanten. Dat is het hele idee.",
+    "introSee": "Kijk wat erin zit",
+    "introFreeDemo": "Boek een gratis demo",
+    "introFreeDemoShort": "Gratis demo",
+    "introSetupNote": "Inrichting voor je geregeld &middot; Aangedreven door AI &middot; Altijd opzegbaar",
+    "platformPhone": "Telefoon",
+    "platformTablet": "Tablet",
+    "platformDesktop": "Desktop",
+    "platformWeb": "Web",
+    "platformPhoneAria": "Telefoon. Klik nogmaals om te wisselen tussen iPhone en Android",
+    "platformPhoneTitle": "Klik nogmaals om te wisselen iPhone / Android"
+  },
+  "whatIsDusa": {
+    "eyebrow": "Digital Utility for Sales and Automation",
+    "heading": "DUSA is het alles-in-één groeiplatform",
+    "headingAccent": "gebouwd voor kleine bedrijven.",
+    "sub": "Wij vervangen de lappendeken van losse tools door één AI-gedreven systeem dat je marketing, sales en klantcontact regelt. Minder technische hoofdpijn, meer groei.",
+    "pillar1Title": "Eén platform, geen negen abonnementen",
+    "pillar1Desc": "CRM, e-mail, SMS, funnels, websites, betalingen, planning, reviewbeheer. Alles onder één dak met één login.",
+    "pillar2Title": "AI die werkt terwijl je slaapt",
+    "pillar2Desc": "Automatische opvolging, slimme leadscoring, reviewverzoeken en campagnetriggers. Je bedrijf blijft draaien, ook als je even weg bent.",
+    "pillar3Title": "Gebouwd voor bedrijven die willen groeien",
+    "pillar3Desc": "Of je nu solo-ondernemer bent of een klein team hebt, DUSA groeit met je mee. Begin eenvoudig en voeg functies toe wanneer je ze nodig hebt."
+  },
+  "problem": {
+    "label": "Het probleem",
+    "heading": "Kleine bedrijven",
+    "headingLine2": "hebben geen",
+    "headingTools": "verschillende tools nodig",
+    "subtitle": "Je betaalt voor een dozijn apps die niet met elkaar praten. Elke nieuwe tool betekent nog een login, nog een factuur, nog iets om te leren.",
+    "pain1Title": "Niets is verbonden",
+    "pain1Desc": "Je e-mailtool ziet je CRM niet. Je agenda weet niet wie er betaald heeft. Data zit opgesloten in eilandjes.",
+    "pain2Title": "Enterprise-prijzen",
+    "pain2Desc": "De platforms die werken, rekenen enterprise-prijzen. Jij blijft achter met gratis versies die je aan elkaar knoopt.",
+    "pain3Title": "Geen tijd om het uit te zoeken",
+    "pain3Desc": "Je runt een bedrijf, geen marketingbureau. Automatiseringen opzetten zou geen developer moeten vereisen.",
+    "solutionLabel": "De oplossing",
+    "solutionTitle": "DUSA brengt alles samen.",
+    "solutionTitleAccent": "AI-gedreven. Eén platform. Eén prijs.",
+    "solutionDesc": "Alles wat je nodig hebt om klanten aan te trekken, te converteren en te behouden. AI doet het zware werk. Geen gejongleer met apps meer. Geen giswerk meer. Gewoon groei.",
+    "seeThePlatform": "Bekijk het platform",
+    "totalCostLabel": "Totale maandelijkse kosten"
+  },
+  "underwaterDive": {
+    "label": "Klinkt bekend?",
+    "heading": "Te veel tools.",
+    "headingAccent": "Eén simpele oplossing.",
+    "description": "De meeste kleine bedrijven jongleren met 10+ platforms die niet met elkaar praten. DUSA brengt alles op één plek, zodat jij je kunt richten op wat telt: groeien.",
+    "answer1Title": "Eén platform",
+    "answer1Desc": "vervangt de 10+ tools die je budget opslokken",
+    "answer2Title": "Alles verbonden",
+    "answer2Desc": "CRM, e-mail, SMS, funnels, betalingen, allemaal in sync",
+    "answer3Title": "Gebouwd om te groeien",
+    "answer3Desc": "AI-gedreven automatiseringen die met je meegroeien"
+  },
+  "features": {
+    "label": "Het platform",
+    "heading": "Alles",
+    "headingAccent": "verbonden.",
+    "sub": "Zes systemen. Eén processor. DUSA verbindt elk onderdeel van je bedrijf op één bord.",
+    "crmPipeline": "CRM en pipelinebeheer",
+    "emailMarketing": "E-mailmarketing",
+    "smsMarketing": "SMS-marketing",
+    "funnelWebsite": "Funnel- en websitebouwer",
+    "bookingCalendar": "Boekingen en agenda",
+    "workflowAutomation": "Workflow-automatiseringen",
+    "reputationMgmt": "Reviewbeheer",
+    "analytics": "Analytics en rapportages",
+    "socialMedia": "Socialmediaplanner",
+    "invoicing": "Facturatie en betalingen",
+    "formsSurveys": "Formulieren en enquêtes",
+    "community": "Communityplatform",
+    "callTracking": "Call tracking",
+    "node1Title": "CRM & Contacten",
+    "node1Desc": "AI scoort leads. Jij sluit deals.",
+    "node2Title": "AI-automatiseringen",
+    "node2Desc": "Eén keer instellen. AI doet de rest.",
+    "node3Title": "E-mail & SMS",
+    "node3Desc": "AI schrijft, verstuurt en optimaliseert.",
+    "node4Title": "Funnels & Pagina's",
+    "node4Desc": "Pagina's die converteren. Geen developer nodig.",
+    "node5Title": "Planning",
+    "node5Desc": "Klanten boeken. AI doet de rest.",
+    "node6Title": "Betalingen",
+    "node6Desc": "Sneller betaald. AI jaagt de rest na.",
+    "footerText": "Eén platform. Geen plakwerk. Geen tabbladen wisselen. Gewoon groei.",
+    "ctaText": "Bekijk het in actie"
+  },
+  "howItWorks": {
+    "label": "Hoe het werkt",
+    "heading": "Draaiend",
+    "headingAccent": "in drie stappen.",
+    "step1Title": "Boek een demo",
+    "step1Desc": "Zie het platform in actie. We laten je zien hoe DUSA bij je bedrijf past. Geen druk, geen jargon.",
+    "step1Label": "DEMO",
+    "step2Title": "Wij richten het in",
+    "step2Desc": "Wij regelen de migratie en de inrichting. Je CRM, AI-automatiseringen en funnels staan binnen enkele dagen klaar.",
+    "step2Label": "INRICHTING",
+    "step3Title": "Begin met groeien",
+    "step3Desc": "Lanceer campagnes, verzamel leads en laat AI vanaf dag één je opvolging doen. Kijk hoe je pipeline volloopt.",
+    "step3Label": "GROEI",
+    "bookFreeDemo": "Boek je gratis demo"
+  },
+  "onboarding": {
+    "component": {
+      "eyebrow": "Jouw onboardingtraject",
+      "title": "Van aanmelding tot",
+      "titleAccent": "lancering",
+      "titleEnd": "in twee weken.",
+      "sub": "Je hoeft het niet alleen uit te zoeken. Wij regelen de inrichting, migratie en training, zodat jij je op je bedrijf kunt richten.",
+      "step1Title": "Boek je demo",
+      "step1Desc": "Een kort gesprek van 15 minuten om je bedrijf te leren kennen. We horen wat je nodig hebt, laten het platform zien en beantwoorden al je vragen.",
+      "step1Time": "15 min",
+      "step2Title": "Inrichting",
+      "step2Desc": "Wij configureren je DUSA-werkruimte. CRM, automatiseringen, e-mailtemplates, funnels en integraties, allemaal binnen de eerste week voor je ingericht.",
+      "step2Time": "Week 1",
+      "step3Title": "Migratie en training",
+      "step3Desc": "We verhuizen je contacten, campagnes en data uit je oude tools. Daarna nemen we alles met je team door, zodat je vanaf dag één zeker van je zaak bent.",
+      "step3Time": "Week 2",
+      "step4Title": "Lanceren en groeien",
+      "step4Desc": "Je bent live. AI-support is altijd beschikbaar en ons team checkt regelmatig of alles soepel loopt. Tijd om te groeien.",
+      "step4Time": "Doorlopend",
+      "supportAiTitle": "AI-support",
+      "supportAiDesc": "Beschikbaar op alle plannen, 24/7.",
+      "supportManagerTitle": "Vaste accountmanager",
+      "supportManagerDesc": "Voor leden met een Growth- of Bespoke-plan.",
+      "ctaBookDemo": "Boek je gratis demo",
+      "ctaLearnMore": "Meer over onboarding"
+    },
+    "page": {
+      "metaTitle": "Onboarding | DUSA.studio",
+      "metaDesc": "Zie precies wat er gebeurt als je bij DUSA start. Van je eerste demogesprek tot de lancering: wij regelen de inrichting, jij richt je op groei.",
+      "eyebrow": "Onboarding",
+      "title": "Wij richten het in.",
+      "titleAccent": "Jij groeit.",
+      "sub": "De meeste platforms geven je een login en wensen je succes. Wij doen het omgekeerde. Je DUSA-werkruimte is geconfigureerd, gevuld en klaar voor gebruik voordat jij iets hoeft aan te raken.",
+      "phase1Badge": "Dag 1",
+      "phase1Title": "Kennismaking en demo",
+      "phase1Desc": "Alles begint met een gesprek van 15 minuten. We leren je bedrijf kennen, de tools die je nu gebruikt, de problemen die je wilt oplossen en hoe succes er voor jou uitziet.",
+      "phase1Detail1Title": "Wat we bespreken",
+      "phase1Detail1Desc": "Je businessmodel, huidige software, knelpunten, groeidoelen en welke DUSA-functies bij je behoeften passen.",
+      "phase1Detail2Title": "Wat je krijgt",
+      "phase1Detail2Desc": "Een live rondleiding door het platform, afgestemd op jouw bedrijf. Echte voorbeelden, geen standaardpresentatie.",
+      "phase2Badge": "Week 1",
+      "phase2Title": "Inrichting van het platform",
+      "phase2Desc": "Zodra je aan boord bent, gaat ons team aan de slag met je DUSA-werkruimte. Wij regelen de technische inrichting, zodat jij geen uren kwijt bent aan instellingenmenu's.",
+      "phase2Detail1Title": "CRM-configuratie",
+      "phase2Detail1Desc": "Aangepaste velden, pipelines, tags en contactfasen, opgebouwd rond jouw verkoopproces.",
+      "phase2Detail2Title": "Automatiseringsreeksen",
+      "phase2Detail2Desc": "Opvolgmails, SMS-herinneringen, lead-nurturing workflows. Geconfigureerd en klaar om te draaien.",
+      "phase2Detail3Title": "Funnels en formulieren",
+      "phase2Detail3Desc": "Landingspagina's, boekingsformulieren en leadfunnels, gebouwd in jouw huisstijl.",
+      "phase2Detail4Title": "Integraties",
+      "phase2Detail4Desc": "Gekoppeld aan je agenda, e-mail, betaalprovider en alle andere tools die je nodig hebt.",
+      "phase3Badge": "Week 2",
+      "phase3Title": "Migratie en training",
+      "phase3Desc": "Kom je van een ander platform? Wij verhuizen je contacten, campagnes, templates en historische data. Daarna nemen we alles met je team door, zodat iedereen het systeem met vertrouwen gebruikt.",
+      "phase3Detail1Title": "Datamigratie",
+      "phase3Detail1Desc": "Contacten, deals, e-mailtemplates en campagnegeschiedenis, allemaal opgeschoond en overgezet naar DUSA.",
+      "phase3Detail2Title": "Teamtraining",
+      "phase3Detail2Desc": "Een praktische rondleiding voor jou en je team. Geen opgenomen webinar. Live begeleiding, afgestemd op jouw inrichting.",
+      "phase4Badge": "Doorlopend",
+      "phase4Title": "Lancering en support",
+      "phase4Desc": "Je bent live. Vanaf nu staat onze AI-supportassistent dag en nacht voor je klaar. Leden met een Growth- of Bespoke-plan hebben een vaste accountmanager die regelmatig contact opneemt om je inrichting te optimaliseren en het maximale uit het platform te halen.",
+      "phase4Detail1Title": "AI-support, 24/7",
+      "phase4Detail1Desc": "Direct antwoord. Onze AI-assistent is getraind op het volledige DUSA-platform en helpt je met inrichting, problemen oplossen en best practices.",
+      "phase4Detail2Title": "Vaste accountmanager",
+      "phase4Detail2Desc": "Voor leden met een Growth- of Bespoke-plan. Maandelijkse check-ins, proactieve optimalisatie en een directe lijn naar iemand die je bedrijf kent.",
+      "ctaTitle": "Klaar om te beginnen?",
+      "ctaDesc": "Boek een gratis demo en zie precies hoe DUSA bij je bedrijf past.",
+      "ctaBookDemo": "Boek je gratis demo",
+      "ctaViewPricing": "Bekijk prijzen"
+    }
+  },
+  "socialProof": {
+    "testimonialsLabel": "Wat onze klanten zeggen",
+    "resultsLabel": "Resultaten die spreken",
+    "heading": "Bedrijven groeien sneller met",
+    "headingAccent": "AI en alles verbonden",
+    "stat1Value": "5+",
+    "stat1Label": "Tools vervangen",
+    "stat2Value": "2x",
+    "stat2Label": "Snellere opvolging",
+    "stat3Value": "100%",
+    "stat3Label": "AI-geautomatiseerd",
+    "stat4Value": "800+ AUD",
+    "stat4Label": "Bespaard per maand",
+    "stat5Value": "< 48 uur",
+    "stat5Label": "Inrichtingstijd",
+    "testimonials": [
+      {
+        "quote": "Hiervoor gebruikte ik voor elke klant een hele reeks verschillende tools. De tijd die ik kwijt was aan het leren en opzetten van marketingsystemen is drastisch afgenomen. De automatiseringsworkflows zijn mijn favoriete onderdeel.",
+        "role": "Webdeveloper"
+      },
+      {
+        "quote": "Een alles-in-één oplossing die tijd, moeite en geld bespaart. Funnelbouwer, slimme automatiseringen, e-mailmarketing, bellen, en AI verwerkt in alles. De interface is heel gebruiksvriendelijk.",
+        "role": "Marketingconsultant"
+      },
+      {
+        "quote": "Alles werd tijdens het hele proces goed gecommuniceerd en het probleem is opgelost. Het supportteam wil oprecht dat je goed van start gaat.",
+        "role": "Ondernemer"
+      },
+      {
+        "quote": "De onboarding was zonder twijfel de beste die ik ooit heb meegemaakt. De professionaliteit en de rust zijn echt ongeëvenaard. Ik voelde me bij elke stap begeleid.",
+        "role": "Bureau-eigenaar"
+      },
+      {
+        "quote": "We hebben vijf losse tools vervangen en onze maandelijkse softwarekosten meer dan gehalveerd. De inrichting kostte dagen, geen maanden. Nu is alles echt met elkaar verbonden.",
+        "role": "Vastgoedbeheerder"
+      },
+      {
+        "quote": "Alleen al de automatische reviewverzoeken zijn het waard geweest. We gingen in drie maanden van 12 naar meer dan 80 Google-reviews, zonder er iets voor te hoeven doen.",
+        "role": "Eigenaar tandartspraktijk"
+      },
+      {
+        "quote": "Geduldig, professioneel, en ze namen de tijd om de problemen echt te begrijpen. De support is de beste die ik bij welk platform dan ook heb meegemaakt.",
+        "role": "Eigenaar klein bedrijf"
+      },
+      {
+        "quote": "De AI-boekingsassistent regelt de afspraakplanning, verstuurt herinneringen en volgt no-shows automatisch op. Mijn administratietijd is gehalveerd.",
+        "role": "Eigenaar fysiotherapiepraktijk"
+      },
+      {
+        "quote": "We hebben hiervoor drie andere platforms geprobeerd. Geen van alle combineerde zo'n diepgaande automatisering met zoveel eenvoud. Dit is degene die gebleven is.",
+        "role": "CEO digitaal bureau"
+      },
+      {
+        "quote": "Alleen al de SMS-marketing is een gamechanger geweest voor ons restaurant. We sturen een lunchactie en zien binnen het uur een piek in de bestellingen.",
+        "role": "Restaurantmanager"
+      },
+      {
+        "quote": "Ik run drie bedrijven en beheer ze allemaal vanuit één dashboard. Dankzij de ondersteuning voor meerdere vestigingen had ik geen fulltime virtuele assistent meer nodig.",
+        "role": "Eigenaar van meerdere bedrijven"
+      },
+      {
+        "quote": "Onze ledencommunity stond in één weekend live. Cursussen hosten, drip-content, communitychat. Allemaal binnen hetzelfde platform dat we voor CRM gebruiken.",
+        "role": "Maker van online cursussen"
+      },
+      {
+        "quote": "Mijn e-mailopenratio's stegen na de overstap van 18% naar 42%. De ingebouwde templates en AI-schrijftools zijn echt onderschat.",
+        "role": "Marketing Lead"
+      },
+      {
+        "quote": "Het heeft ons oude CRM en onze landingspaginabouwer volledig vervangen. We krijgen een waanzinnig goede tech stack voor een fractie van wat we vroeger betaalden.",
+        "role": "Oprichter bureau"
+      },
+      {
+        "quote": "Ik was sceptisch over een alles-in-één platform, maar de diepgang is hier echt. Funnels, e-mailreeksen, reviewbeheer. Het werkt gewoon.",
+        "role": "Eigenaar adviesbureau"
+      },
+      {
+        "quote": "Het supportteam ging veel verder dan verwacht. Ze namen de tijd om mijn inrichting echt te begrijpen en begeleidden me bij elke wijziging. Ontzettend grondig.",
+        "role": "Oprichter creatief bureau"
+      }
+    ]
+  },
+  "brandCarousel": {
+    "label": "Groeimotor voor",
+    "heading": "Merken die",
+    "headingAccent": "bloeien"
+  },
+  "funnelComparison": {
+    "label": "De echte kosten van losse tools",
+    "heading": "Waar gaat je",
+    "headingAccent": "geld eigenlijk heen?",
+    "withoutDusa": "Zonder DUSA",
+    "withDusa": "Met DUSA",
+    "scatteredSpend": "Versnipperde uitgaven",
+    "scatteredSub": "8 logins, 8 facturen, geen overzicht",
+    "allInOneLabel": "Alles-in-één groeiplatform",
+    "platformSub": "CRM, funnels, e-mail, SMS, AI, reviews, planning, cursussen",
+    "unifiedGrowth": "Gebundelde groei",
+    "unifiedSub": "Eén login, één factuur, volledig overzicht",
+    "goingIn": "ERIN",
+    "aiPowered": "AI-GEDREVEN",
+    "vs": "VS"
+  },
+  "cta": {
+    "label": "Klaar?",
+    "heading": "Stop met jongleren.",
+    "headingAccent": "Begin met groeien.",
+    "desc": "Probeer het AI-gedreven platform van DUSA 14 dagen gratis. Vervang je versnipperde tools door één slim systeem. Altijd opzegbaar.",
+    "getStarted": "Aan de slag",
+    "bookDemo": "Demo boeken",
+    "beyondLabel": "Meer dan het platform",
+    "beyondText": "AI-oplossingen op maat, socialmediabeheer, geavanceerde integraties en toegewijde IT-support.",
+    "beyondStrong": "Wij regelen het voor je."
+  },
+  "pricing": {
+    "metaTitle": "Prijzen | DUSA . studio",
+    "metaDesc": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform.",
+    "metaDescription": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform. Geen vaste contracten.",
+    "heroLabel": "Prijzen",
+    "heroTitle": "Eén platform.",
+    "heroTitleAccent": "Jouw prijs.",
+    "heroSub": "Begin met wat je nodig hebt. Schaal op wanneer je er klaar voor bent. Geen vaste contracten, geen verborgen kosten.",
+    "currencyNote": "Alle prijzen in {currency}",
+    "usageNoteShort": "De planprijs dekt de toegang tot het platform. Verbruik van berichten, gesprekken, e-mail en AI wordt apart gefactureerd op basis van gebruik, in USD.",
+    "usageNoteLink": "Hoe verbruiksfacturatie werkt",
+    "tierLaunchpad": "Launchpad",
+    "tierStarter": "Starter",
+    "tierGrowth": "Growth",
+    "tierBespoke": "Bespoke",
+    "launchpadTagline": "Begin met één. Schaal op wanneer je klaar bent.",
+    "launchpadDesc": "Kies één kernsysteem en ga vandaag nog aan de slag. De makkelijkste manier om te zien wat DUSA voor je bedrijf kan doen.",
+    "starterTagline": "Alles verbonden.",
+    "starterDesc": "Alle 9 kernsystemen die samenwerken. Het volledige DUSA-platform voor een fractie van wat losse tools kosten.",
+    "growthTagline": "Gebouwd voor momentum.",
+    "growthDesc": "Onbeperkt alles, plus geavanceerde automatiseringen, AI-tools en prioriteitssupport om je groei te versnellen.",
+    "bespokeTagline": "Maatwerk voor groeiende teams.",
+    "bespokeDesc": "Meerdere vestigingen, teamtoegang, integraties op maat en een vaste accountmanager. Gebouwd rond jouw bedrijf.",
+    "perMonth": "/mnd",
+    "custom": "Op maat",
+    "getStarted": "Aan de slag",
+    "letsTalk": "Laten we praten",
+    "badgeEntry": "Instapaanbod",
+    "badgeBestValue": "Beste waarde",
+    "badgeCustom": "Op maat",
+    "replaceLabel": "Waar betaal je voor?",
+    "replaceTitle": "Selecteer je huidige tools.",
+    "replaceTitleAccent": "Zie wat je bespaart.",
+    "replaceSub": "Tik de tools aan die je nu echt gebruikt. We laten je de werkelijke kosten van je stack zien, en precies hoeveel DUSA je bespaart. Boek je een demo, dan komen we met een migratieplan op maat van jouw situatie.",
+    "activateDusa": "Activeer DUSA",
+    "savingsPrefix": "Bespaar",
+    "savingsWith": "met DUSA",
+    "savingsAt": "bij",
+    "regionalLabel": "Populair in jouw markt",
+    "regionalTitle": "Hoe DUSA zich verhoudt",
+    "regionalTitleAccent": "in jouw regio",
+    "regionalSub": "Zie hoe DUSA zich meet met de tools die bedrijven in jouw omgeving al gebruiken.",
+    "regionalLocal": "Lokaal",
+    "regionalReadComparison": "Lees de volledige vergelijking",
+    "supportLabel": "Support op elk plan",
+    "supportTitle": "Je staat er nooit",
+    "supportTitleAccent": "alleen voor",
+    "supportAiTitle": "AI-assistent, telefoon en chat",
+    "supportAiDesc": "Bel of chat wanneer je wilt met je AI-assistent. Die helpt je met alles rond DUSA, van inrichting tot strategie. Loop je vast, dan plannen we een gesprek met een groeispecialist. Growth-plannen en hoger krijgen prioriteitstoegang tot consultants.",
+    "supportCommunityTitle": "DUSA-community",
+    "supportCommunityDesc": "Kom in contact met andere ondernemers, deel strategieën en leer van mensen die hun bedrijf laten groeien met DUSA. Echte gesprekken, niet alleen supporttickets.",
+    "supportPortalTitle": "Ledenportaal",
+    "supportPortalDesc": "Je eigen plek voor handleidingen, tutorials, templates en support. Alles wat je nodig hebt om het maximale uit je DUSA-platform te halen, op één plek.",
+    "supportPriorityTitle": "Prioriteit en vaste begeleiding",
+    "supportPriorityDesc": "Growth-plannen gaan voor in de rij met prioriteitssupport. Bespoke-klanten krijgen een vaste accountmanager, een directe telefoonlijn en maandelijkse strategiesessies.",
+    "allPlans": "Alle plannen",
+    "growthAndBespoke": "Growth en Bespoke",
+    "compareLabel": "Volledige vergelijking",
+    "compareTitle": "Alles inbegrepen,",
+    "compareTitleAccent": "niets verborgen",
+    "compareSub": "Zie precies wat je op elk plan krijgt. Geen sterretjes, geen verrassingen.",
+    "startFor": "Start voor",
+    "getStarter": "Kies Starter",
+    "scaleFaster": "Sneller opschalen",
+    "faqLabel": "FAQ",
+    "faqTitle": "Veelgestelde vragen,",
+    "faqTitleAccent": "duidelijke antwoorden",
+    "ctaLabel": "Klaar om te groeien?",
+    "ctaTitle": "Begin met Launchpad.",
+    "ctaTitleAccent": "Schaal van daaruit op.",
+    "ctaDesc": "Probeer het volledige platform 14 dagen gratis. 14 dagen gratis, altijd opzegbaar. Of boek een demo en we nemen je stap voor stap mee.",
+    "ctaGetStarted": "Aan de slag",
+    "ctaBookDemo": "Demo boeken",
+    "included": "Inbegrepen",
+    "data": {
+      "tierHighlights": {
+        "launchpad": [
+          "1 kernsysteem naar keuze",
+          "Keuze uit 9 systemen",
+          "Volledige dashboardtoegang",
+          "Basisanalytics",
+          "AI-chatsupport",
+          "Toegang tot de community"
+        ],
+        "starter": [
+          "Alle 9 kernsystemen inbegrepen",
+          "CRM + pipelinebeheer",
+          "E-mail- en SMS-marketing",
+          "Funnel- en websitebouwer",
+          "Boekingen, social en reviews",
+          "Facturatie, formulieren en enquêtes",
+          "Workflow-automatiseringen",
+          "AI-chatsupport"
+        ],
+        "growth": [
+          "Alles uit Starter",
+          "Onbeperkte contacten en workflows",
+          "Geavanceerde automatiseringsbouwer",
+          "AI-gestuurde antwoorden",
+          "Rapportagedashboards op maat",
+          "Prioriteitssupport",
+          "Strategiesessie bij onboarding",
+          "Eigen communitykanaal"
+        ],
+        "bespoke": [
+          "Alles uit Growth",
+          "Ondersteuning voor meerdere vestigingen",
+          "Teamaccounts",
+          "Integraties op maat",
+          "Vaste accountmanager",
+          "Maandelijkse strategiesessies",
+          "Automatiseringen op maat gebouwd",
+          "Telefonische supportlijn"
+        ]
+      },
+      "replacementFeatures": [
+        "CRM en pipelinebeheer",
+        "E-mailmarketing",
+        "SMS-marketing",
+        "Funnel- en websitebouwer",
+        "Boekingen en agenda",
+        "Workflow-automatiseringen",
+        "Reviewbeheer",
+        "Analytics en rapportages",
+        "Socialmediaplanner",
+        "Facturatie en betalingen",
+        "Formulieren en enquêtes",
+        "Communityplatform",
+        "Call tracking"
+      ],
+      "cellPick1": "Kies er 1",
+      "cellUnlimited": "Onbeperkt",
+      "cellWorkflows5": "5 workflows",
+      "featureCategories": [
+        {
+          "name": "Kernplatform",
+          "rows": [
+            [
+              "CRM en pipelinebeheer",
+              "Bewaar elke lead, klant en conversatie op één plek. Visuele drag-and-drop pipelines om deals te volgen, omzet te voorspellen en nooit meer een kans te laten liggen."
+            ],
+            [
+              "Funnel- en websitebouwer",
+              "Bouw landingspagina's die converteren, opt-in funnels en een complete bedrijfswebsite met drag-and-drop. Eigen domein, SEO-tools en SSL inbegrepen."
+            ],
+            [
+              "E-mailmarketing",
+              "Verstuur mooie e-mails in je eigen huisstijl, bouw geautomatiseerde nurture-reeksen en volg opens, kliks en conversies. Geen kosten per verzending, op geen enkel plan."
+            ],
+            [
+              "SMS-marketing",
+              "Bereik klanten direct met sms-campagnes, afspraakherinneringen en tweerichtingsgesprekken. Berichtenverbruik wordt apart gefactureerd op basis van gebruik."
+            ],
+            [
+              "Boekingen en agenda",
+              "Laat klanten rechtstreeks via je website of links een afspraak inplannen. Synchroniseert met Google Calendar, verstuurt automatische herinneringen en vermindert no-shows."
+            ],
+            [
+              "Socialmediaplanner",
+              "Plan en publiceer posts op Facebook, Instagram, Google en meer. Beheer je contentkalender en volg de engagement vanaf één plek."
+            ],
+            [
+              "Reviewbeheer",
+              "Vraag tevreden klanten automatisch om een review, houd je online reputatie in de gaten en reageer op reviews vanuit één dashboard."
+            ],
+            [
+              "Facturatie en betalingen",
+              "Verstuur professionele facturen, ontvang online betalingen en zie wie al betaald heeft. Integreert met Stripe voor soepele transacties."
+            ],
+            [
+              "Formulieren en enquêtes",
+              "Verzamel leads met eigen formulieren en haal feedback op met enquêtes. Overal in te sluiten, en elke inzending kan een automatisering starten."
+            ]
+          ]
+        },
+        {
+          "name": "Automatisering en AI",
+          "rows": [
+            [
+              "Basis workflow-automatiseringen",
+              "Zet simpele als-dit-dan-dat automatiseringen op, zoals een welkomstmail sturen zodra iemand een formulier invult, of contacten taggen op basis van hun acties."
+            ],
+            [
+              "Meerstaps automatiseringsbouwer",
+              "Bouw complexe workflows met meerdere stappen, wachttijden, voorwaarden en acties. Automatiseer je volledige opvolging, van eerste contact tot conversie."
+            ],
+            [
+              "Trigger-gebaseerde reeksen",
+              "Start automatisch een reeks zodra een contact iets specifieks doet, zoals een pagina bezoeken, een e-mail openen of een afspraak boeken."
+            ],
+            [
+              "AI-gestuurde automatische antwoorden",
+              "Laat AI de eerste vragen afhandelen, leads kwalificeren en veelgestelde vragen direct beantwoorden via chat, SMS of e-mail, terwijl jij je op je bedrijf richt."
+            ],
+            [
+              "AI-contentassistent",
+              "Genereer e-mailteksten, social posts en marketingcontent met AI die getraind is op jouw merkstem. Bespaar uren op contentcreatie."
+            ],
+            [
+              "Voorwaardelijke logica en vertakkingen",
+              "Maak slimme workflows die vertakken op basis van contactgedrag, dealwaarde of aangepaste veldwaarden. Verschillende paden voor verschillende scenario's."
+            ],
+            [
+              "Automatiseringen op maat gebouwd",
+              "Ons team bouwt automatiseringen op maat, precies afgestemd op jouw bedrijfsprocessen. Complexe integraties en eigen logica, voor je gebouwd."
+            ]
+          ]
+        },
+        {
+          "name": "Contacten en data",
+          "rows": [
+            [
+              "Contactgegevens",
+              "Bewaar en beheer je leads en klanten met uitgebreide profielen, activiteitengeschiedenis, notities en aangepaste datavelden."
+            ],
+            [
+              "Aangepaste velden",
+              "Voeg je eigen datavelden toe aan contacten, deals en records. Volg precies de informatie die ertoe doet voor jouw bedrijf."
+            ],
+            [
+              "Tags en segmenten",
+              "Organiseer contacten met tags en maak dynamische segmenten op basis van gedrag, demografie of eigen criteria voor gerichte campagnes."
+            ],
+            [
+              "Contacten importeren / exporteren",
+              "Zet je bestaande contacten eenvoudig over via een CSV-upload of exporteer je data wanneer je maar wilt. Je data blijft altijd van jou."
+            ],
+            [
+              "Leadscoring",
+              "Scoor leads automatisch op basis van betrokkenheid, gedrag en fit. Besteed je tijd aan de contacten die het meest kansrijk zijn."
+            ],
+            [
+              "Slimme lijsten en filters",
+              "Maak dynamische lijsten die zichzelf bijwerken op basis van contactactiviteit, tags of veldwaarden. Zo heb je altijd de juiste doelgroep klaarstaan."
+            ]
+          ]
+        },
+        {
+          "name": "Rapportages en analytics",
+          "rows": [
+            [
+              "Basisdashboard",
+              "Zie je belangrijkste cijfers in één oogopslag, waaronder nieuwe leads, actieve deals, afspraken en omzet, in een overzichtelijk dashboard."
+            ],
+            [
+              "Campagneprestatierapporten",
+              "Volg e-mailopenratio's, klikratio's, SMS-aflevering en conversieratio's van al je marketingcampagnes."
+            ],
+            [
+              "Pipeline- en omzetrapportage",
+              "Visualiseer de waarde van je salespipeline, conversieratio's per fase en omzetprognoses, zodat je beslissingen neemt op basis van data."
+            ],
+            [
+              "Rapportagedashboards op maat",
+              "Bouw je eigen dashboards met precies de cijfers en visualisaties die jij nodig hebt. Sleep widgets naar de plek die je wilt en creëer je ideale overzicht."
+            ],
+            [
+              "Attributietracking",
+              "Zie precies welke kanalen en campagnes leads en omzet opleveren. Zo weet je waar je marketingbudget het meeste oplevert."
+            ],
+            [
+              "Geplande rapportmails",
+              "Ontvang je belangrijkste rapporten automatisch per e-mail, dagelijks, wekelijks of maandelijks. Blijf op de hoogte zonder in te loggen."
+            ]
+          ]
+        },
+        {
+          "name": "Support en community",
+          "rows": [
+            [
+              "Kennisbank en handleidingen",
+              "Toegang tot stapsgewijze handleidingen, videotutorials en best-practice documentatie om alles uit elke DUSA-functie te halen."
+            ],
+            [
+              "AI-assistent (24/7)",
+              "Bel of chat wanneer je wilt met je AI-assistent. Die loodst je door alles wat met DUSA te maken heeft, van installatie tot strategie. Loop je vast, dan plannen we een gesprek met een groeispecialist voor je in."
+            ],
+            [
+              "Toegang tot de DUSA-community",
+              "Word lid van een besloten community van ondernemers die met DUSA werken. Deel strategieën, stel vragen en leer van echte resultaten."
+            ],
+            [
+              "E-mailsupport",
+              "Bereik ons supportteam per e-mail voor technische vragen, probleemoplossing en hulp bij je account tijdens kantooruren."
+            ],
+            [
+              "Prioriteit in de supportwachtrij",
+              "Sla de wachtrij over en krijg sneller antwoord van ons supportteam. Jouw tickets worden als eerste en met extra aandacht opgepakt."
+            ],
+            [
+              "Strategiesessie bij onboarding",
+              "Een één-op-één sessie met een groeiconsultant om je DUSA-inrichting uit te stippelen, je data te migreren en je eerste automatiseringen te bouwen."
+            ],
+            [
+              "Vaste accountmanager",
+              "Een vaste accountmanager die jouw bedrijf door en door kent. Je enige aanspreekpunt voor alles rondom DUSA."
+            ],
+            [
+              "Telefonische support",
+              "Rechtstreeks telefonisch contact met ons supportteam voor urgente problemen of complexe vragen die om een echt gesprek vragen."
+            ],
+            [
+              "Maandelijkse strategiesessies",
+              "Vaste check-ins met je accountmanager om de resultaten te bespreken, je inrichting te optimaliseren en je volgende groeistappen te plannen."
+            ]
+          ]
+        },
+        {
+          "name": "Platform en integraties",
+          "rows": [
+            [
+              "Toegang tot het ledenportaal",
+              "Je eigen portaal om je account te beheren, trainingen te volgen en supportverzoeken in te dienen, alles op één plek."
+            ],
+            [
+              "Mobiele app",
+              "Beheer leads, beantwoord berichten, bekijk je pipeline en volg activiteit vanaf je telefoon met de DUSA mobiele app."
+            ],
+            [
+              "Zapier-integratie",
+              "Koppel DUSA via Zapier aan duizenden andere apps. Synchroniseer data, activeer acties en bouw eigen workflows over al je tools heen."
+            ],
+            [
+              "API-toegang",
+              "Volledige REST API-toegang voor eigen integraties, datasynchronisatie en bouwen bovenop het DUSA-platform."
+            ],
+            [
+              "Eigen domein",
+              "Host je in DUSA gebouwde website, funnels en portalen op je eigen merkdomein, inclusief SSL."
+            ],
+            [
+              "White-label klantportaal",
+              "Verwijder de DUSA-branding en presenteer het platform als jouw eigen product aan klanten. Ideaal voor bureaus en consultants."
+            ],
+            [
+              "Beheer van meerdere vestigingen",
+              "Beheer meerdere bedrijfslocaties vanuit één account, met aparte pipelines, contacten en rapportages per vestiging."
+            ],
+            [
+              "Teamaccounts",
+              "Voeg teamleden toe met rolgebaseerde rechten. Bepaal wie welke onderdelen van je account mag bekijken, bewerken en beheren."
+            ],
+            [
+              "Integraties op maat",
+              "Ons team bouwt integraties op maat om DUSA te koppelen aan je bestaande tools, databases en interne systemen."
+            ]
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "q": "Wat is DUSA en hoe helpt het kleine bedrijven?",
+          "a": "DUSA is een alles-in-één groeiplatform dat de losse tools vervangt die kleine bedrijven gebruiken voor CRM, e-mailmarketing, SMS, funnels, boekingen en reviewbeheer. In plaats van vijf of zes aparte abonnementen te betalen, zit alles in één verbonden systeem."
+        },
+        {
+          "q": "Wat kost het DUSA-platform per maand?",
+          "a": "Plannen beginnen bij {launchpad} {currency} per maand voor één kernsysteem op ons Launchpad-plan. Ons Starter-plan bevat alle 9 kernsystemen voor {starter} per maand, en Growth ontgrendelt onbeperkte contacten, geavanceerde automatiseringen en prioriteitssupport voor {growth} per maand. Alle prijzen zijn in {currency}, zonder verborgen kosten."
+        },
+        {
+          "q": "Wat zit er in het Launchpad-plan?",
+          "a": "Met Launchpad krijg je toegang tot één kernsysteem naar keuze uit negen opties: CRM en pipeline, funnels en website, e-mailmarketing, SMS-marketing, boekingen en agenda, socialmediaplanner, reviewbeheer, facturatie en betalingen, of formulieren en enquêtes. Inbegrepen zijn volledige dashboardtoegang, basisanalytics, AI-chatsupport en toegang tot de community. Het is gemaakt voor zelfstandigen die klein willen beginnen en later willen opschalen."
+        },
+        {
+          "q": "Kan ik mijn plan op elk moment upgraden?",
+          "a": "Ja. Je kunt je plan op elk moment upgraden of wijzigen. Wijzigingen gaan in bij je volgende factureringsperiode. Er zijn geen vaste contracten en je kunt tussen plannen wisselen zodra de behoeften van je bedrijf veranderen."
+        },
+        {
+          "q": "Zijn er installatiekosten of verborgen kosten?",
+          "a": "Er zijn geen installatiekosten, op geen enkel plan. De prijs van je plan dekt de toegang tot het platform. Het verbruik van berichten, gesprekken, e-mail en AI wordt apart gefactureerd op basis van gebruik, vanuit een vooruitbetaald saldo in je account. Bij het inschakelen van die functies wordt een klein opwaardeerbedrag van je kaart afgeschreven, en daarna automatisch opnieuw zodra het saldo laag wordt. Je bepaalt zelf het opwaardeerbedrag en kunt op elk moment zelf saldo toevoegen. Het verbruik wordt in USD gefactureerd, omdat de telefonie-, e-mail- en AI-providers achter het platform in de VS gevestigd zijn. De meeste klanten zitten rond de US$ 15 tot 25 per maand, afhankelijk van het volume. Verder zijn er geen verborgen kosten."
+        },
+        {
+          "q": "Wat voor support biedt DUSA?",
+          "a": "Elk plan bevat onbeperkte AI-chatsupport, 24/7 beschikbaar via je ledenportaal, plus toegang tot de DUSA-community. Vanaf Starter is e-mailsupport inbegrepen. Growth-plannen krijgen prioriteitssupport en een strategiesessie bij onboarding. Bespoke-klanten krijgen een vaste accountmanager, telefonische support en maandelijkse strategiesessies."
+        },
+        {
+          "q": "Is DUSA geschikt voor zelfstandigen en freelancers?",
+          "a": "Absoluut. Het DUSA-platform is gebouwd voor zelfstandigen, freelancers en eigenaren van kleine bedrijven die professionele tools nodig hebben zonder de complexiteit van enterprise-software. Het Launchpad-plan voor {launchpad} per maand is speciaal bedoeld als laagdrempelige instap, zodat je met één tool kunt starten en kunt uitbreiden terwijl je groeit."
+        },
+        {
+          "q": "Wat is de DUSA-community?",
+          "a": "De DUSA-community is een besloten plek waar ondernemers strategieën delen, vragen stellen en hulp krijgen van andere DUSA-gebruikers en het DUSA-team. Het is inbegrepen bij elk plan en een waardevolle bron om te leren hoe je het meeste uit het platform haalt."
+        },
+        {
+          "q": "Vervangt DUSA tools zoals Mailchimp, Calendly en HubSpot?",
+          "a": "Ja. DUSA bevat e-mailmarketing (ter vervanging van Mailchimp), boekingen en planning (ter vervanging van Calendly), CRM en pipelinebeheer (ter vervanging van HubSpot), plus SMS-marketing, funnel- en websitebouw, socialmediaplanning, reviewbeheer, facturatie en formulieren. Alles in één platform, voor een fractie van de gecombineerde kosten."
+        },
+        {
+          "q": "Hoe lang duurt het om DUSA in te richten?",
+          "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Ons Launchpad-plan kan binnen een uur live staan. Growth- en Bespoke-plannen bevatten een strategiesessie bij onboarding, waarin we alles samen met jou configureren voor jouw specifieke bedrijf."
+        },
+        {
+          "q": "Zijn alle prijzen in {currency}?",
+          "a": "Ja. Alle DUSA-prijzen op deze pagina zijn in {currency} ({regionLabel}). Geen valutaomrekening en geen verrassingen op je factuur."
+        }
+      ]
+    },
+    "toggleDusa": "DUSA voor deze functie inschakelen"
+  },
+  "services": {
+    "metaTitle": "Diensten | DUSA.studio",
+    "metaDesc": "Integraties op maat, complexe automatiseringen, datamigratie en maatwerk. DUSA-diensten breiden je groeiplatform uit tot precies wat jouw bedrijf nodig heeft.",
+    "eyebrow": "DUSA-diensten",
+    "title": "Gebouwd voor jouw",
+    "titleAccent": "bedrijf",
+    "titleEnd": "niet voor een template.",
+    "sub": "Elk bedrijf werkt anders. Als het platform verder moet gaan, bouwt ons engineering- en automatiseringsteam precies wat je nodig hebt. Integraties op maat, complexe workflows, datamigratie en maatwerkontwikkeling, allemaal onder de DUSA-vlag.",
+    "service1Title": "Integraties op maat",
+    "service1Desc": "Koppel DUSA aan je bestaande tools, externe API's en eigen systemen. Wij bouwen veilige, productieklare integraties die je data zonder handwerk tussen platforms laten stromen.",
+    "service1Ex1": "REST- en webhook-API-koppelingen",
+    "service1Ex2": "Bruggen naar ERP- en boekhoudsystemen",
+    "service1Ex3": "Kassa- en voorraadsynchronisatie",
+    "service1Ex4": "Betaalgateway-integraties",
+    "service1Ex5": "Datapipelines op maat",
+    "service2Title": "Complexe automatiseringen",
+    "service2Desc": "Verder dan simpele triggers. Wij ontwerpen meerstaps, voorwaardelijke automatiseringsreeksen voor de workflows die uniek zijn voor jouw bedrijf, van leadkwalificatie tot levering tot nazorg.",
+    "service2Ex1": "Leadrouting met meerdere vertakkingen",
+    "service2Ex2": "Voorwaardelijke opvolgreeksen",
+    "service2Ex3": "Automatisch voorstellen en offertes genereren",
+    "service2Ex4": "Event-gestuurde workflow-orkestratie",
+    "service2Ex5": "Actieketens over platforms heen",
+    "service3Title": "Datamigratie",
+    "service3Desc": "Kom je van een ander platform? Wij doen het zware werk. Je contacten, deals, campagnes en geschiedenis worden netjes overgezet, zodat er niets verloren gaat in de overstap.",
+    "service3Ex1": "Migratie van CRM-contacten en deals",
+    "service3Ex2": "Overzetten van e-mailcampagnes en templates",
+    "service3Ex3": "Historische data mappen en opschonen",
+    "service3Ex4": "Automatiseringen en workflows opnieuw opbouwen",
+    "service3Ex5": "Behoud van aangepaste velden en tags",
+    "service4Title": "Rapportages en dashboards op maat",
+    "service4Desc": "Krijg het overzicht dat je echt nodig hebt. Wij bouwen dashboards op maat die de cijfers tonen die ertoe doen voor jouw bedrijf, gekoppeld aan je live data in DUSA.",
+    "service4Ex1": "KPI-dashboards",
+    "service4Ex2": "Salespipeline- en conversieanalyses",
+    "service4Ex3": "Marketingattributierapporten",
+    "service4Ex4": "Klantbehoud- en churnanalyse",
+    "service4Ex5": "Datavisualisaties op maat",
+    "service5Title": "Platformontwikkeling op maat",
+    "service5Desc": "Als standaard niet genoeg is. Ons engineeringteam bouwt eigen functies, modules en tools die het DUSA-platform uitbreiden tot precies wat jij nodig hebt.",
+    "service5Ex1": "Portalen en klantgerichte apps op maat",
+    "service5Ex2": "Eigen workflowmodules",
+    "service5Ex3": "Geavanceerde formulierlogica en rekentools",
+    "service5Ex4": "White-label-oplossingen voor bureaus",
+    "service5Ex5": "Ledenplatforms en cursusomgevingen",
+    "service6Title": "Doorlopende managed support",
+    "service6Desc": "Voor bedrijven die een vaste technische partner willen. Wij bieden doorlopende support, optimalisatie en strategisch advies, zodat je DUSA-inrichting blijft presteren terwijl je bedrijf verandert.",
+    "service6Ex1": "Vaste accountmanager",
+    "service6Ex2": "Maandelijkse strategie- en optimalisatiesessies",
+    "service6Ex3": "Prioriteit bij het oplossen van problemen",
+    "service6Ex4": "Proactieve monitoring van je systeem",
+    "service6Ex5": "Training en onboarding voor je team",
+    "processTitle": "Hoe het werkt",
+    "process1Num": "01",
+    "process1Title": "Kennismakingsgesprek",
+    "process1Desc": "We leren je bedrijf kennen, je huidige tools en waar de gaten zitten. Geen jargon, geen druk.",
+    "process2Num": "02",
+    "process2Title": "Scope en offerte",
+    "process2Desc": "We stellen een heldere scope op met een vaste prijs. Je weet precies wat je krijgt en wat het kost voordat het werk begint.",
+    "process3Num": "03",
+    "process3Title": "Bouwen en testen",
+    "process3Desc": "Ons team bouwt, test en valideert alles in een testomgeving. Jij beoordeelt bij elke mijlpaal.",
+    "process4Num": "04",
+    "process4Title": "Uitrollen en ondersteunen",
+    "process4Desc": "Na jouw akkoord zetten we alles live en blijven we ondersteunen, zodat alles soepel blijft draaien.",
+    "ctaTitle": "Iets specifieks in gedachten?",
+    "ctaDesc": "Vertel ons wat je nodig hebt. We laten je weten hoe we kunnen helpen en wat ervoor nodig is.",
+    "ctaBtn": "Neem contact op"
+  },
+  "about": {
+    "metaTitle": "Over ons | DUSA . studio",
+    "metaDesc": "Maak kennis met DUSA.studio, het alles-in-één groeiplatform gebouwd voor kleine bedrijven in Australië en daarbuiten.",
+    "heroLabel": "Ons verhaal",
+    "heroTitle": "Gebouwd door ondernemers,",
+    "heroTitleAccent": "voor ondernemers.",
+    "heroSub": "DUSA is gebouwd door mensen die zelf kleine bedrijven runden en het zat waren om voor tien tools te betalen die nooit met elkaar praatten. Dus bouwden we het platform dat we zelf hadden gewild.",
+    "missionLabel": "Onze missie",
+    "missionTitle": "Gelijke kansen voor iedereen.",
+    "missionDesc": "Enterprise-software heeft grote bedrijven altijd een oneerlijk voordeel gegeven. Daar maken wij een eind aan. DUSA geeft elk klein bedrijf dezelfde AI-gedreven, volledig verbonden groei-infrastructuur, tegen een prijs die klopt.",
+    "valuesLabel": "Waar we voor staan",
+    "value1Title": "Eenvoud voorop",
+    "value1Desc": "Kleine bedrijven zouden geen IT-team nodig moeten hebben. Elke functie die we bouwen moet één test doorstaan: kan een solo-ondernemer het in een middag instellen?",
+    "value2Title": "Standaard verbonden",
+    "value2Desc": "Tools die niet met elkaar praten, zorgen voor meer werk. DUSA verbindt je CRM, marketing, sales en operatie vanaf dag één in één systeem.",
+    "value3Title": "Eerlijke prijzen",
+    "value3Desc": "Geen verborgen kosten, geen onverwachte prijsverhogingen, geen extra kosten voor functies waar je al voor betaalt. Wat je ziet, is wat je betaalt.",
+    "value4Title": "Groei in je eigen tempo",
+    "value4Desc": "Begin met één tool. Voeg er meer toe wanneer je ze nodig hebt. Upgrade wanneer het logisch is. Geen druk, geen vaste contracten, geen gedwongen upgrades.",
+    "teamLabel": "Wereldwijd bereik",
+    "teamTitle": "Gebouwd voor bedrijven",
+    "teamTitleAccent": "overal",
+    "teamDesc": "DUSA wordt gebruikt door bedrijven in verschillende landen, branches en tijdzones. Het platform is beschikbaar in jouw taal, met support in jouw valuta en prijzen die kloppen voor jouw markt.",
+    "teamSub": "We werken met solo-ondernemers, groeiende teams, creatieve bureaus en lokale bedrijven die willen opschalen zonder te verdrinken in technologie.",
+    "ctaTitle": "Klaar om met ons te groeien?",
+    "ctaDesc": "Sluit je aan bij duizenden kleine bedrijven die al op DUSA draaien.",
+    "ctaBtn": "Aan de slag"
+  },
+  "contact": {
+    "metaTitle": "Contact | DUSA . studio",
+    "metaDesc": "Neem contact op met DUSA . studio. Boek een gratis demo, stel een vraag of begin vandaag nog met groeien.",
+    "label": "Contact",
+    "title": "Laten we praten over",
+    "titleAccent": "groei",
+    "sub": "Of je nu klaar bent om te starten of je gewoon oriënteert, we horen graag van je. Geen verkooppraatjes, gewoon een echt gesprek over je bedrijf.",
+    "formNameLabel": "Naam *",
+    "formNamePlaceholder": "Je naam",
+    "formEmailLabel": "E-mail *",
+    "formEmailPlaceholder": "you@example.com",
+    "formPhoneLabel": "Telefoon",
+    "formPhonePlaceholder": "+31 6 12345678",
+    "formBusinessLabel": "Bedrijf *",
+    "formBusinessPlaceholder": "Naam van je bedrijf",
+    "formMessageLabel": "Bericht *",
+    "formMessagePlaceholder": "Vertel ons iets over je bedrijf en waar je naar op zoek bent...",
+    "formSubmit": "Verstuur bericht",
+    "formSuccess": "Bedankt! We nemen snel contact met je op.",
+    "formError": "Er ging iets mis. Mail ons dan op contact@dusa.studio.",
+    "infoEmailTitle": "E-mail",
+    "infoPhoneTitle": "Telefoon",
+    "infoLocationTitle": "Locatie",
+    "infoLocation": "Sydney, Australië",
+    "infoCtaTitle": "Liever een live rondleiding?",
+    "infoCtaDesc": "Boek een gratis demo en we laten je het DUSA-platform zien met jouw eigen bedrijf als voorbeeld.",
+    "infoCtaBtn": "Boek een gratis demo"
+  },
+  "blog": {
+    "metaTitle": "Nieuws en inzichten | DUSA . studio",
+    "metaDesc": "Groeistrategieën, platformupdates en inzichten voor kleine bedrijven van het DUSA-team.",
+    "hubLabel": "Groei-inzichten",
+    "hubTitle": "Nieuws en",
+    "hubTitleAccent": "resources.",
+    "hubSub": "Praktische gidsen, groeistrategieën en DUSA-updates voor ondernemers.",
+    "latestLabel": "Nieuwste",
+    "categoriesLabel": "Blader per categorie",
+    "readMore": "Lees verder",
+    "minRead": "min leestijd",
+    "featuredLabel": "Uitgelicht",
+    "backToBlog": "Terug naar nieuws"
+  },
+  "connected": {
+    "eyebrow": "Het platform",
+    "heading": "Alles",
+    "headingAccent": "verbonden.",
+    "sub": "Zes systemen, één login. Elk onderdeel van je bedrijf op één plek, met AI die door alles heen loopt.",
+    "gridHeading": "Werkt samen met",
+    "appsLede": "Bedien je favoriete apps vanaf één scherm.",
+    "appsSub": "Socials, e-mail, facturen en agenda's, zonder tabbladen te wisselen.",
+    "note": "Plus 1.000+ meer via Zapier, Make en integraties op maat.",
+    "cta": "Bekijk alles wat inbegrepen is",
+    "aiBand": "AI · OVERAL DOORHEEN",
+    "hubHint": "Beweeg om te ontdekken, klik om vast te zetten",
+    "hubHintTap": "Tik op een segment om te ontdekken",
+    "panelEmpty": "Tik op een onderdeel van het wiel, of op een chip hieronder, om te zien wat erin zit.",
+    "aiPanelTitle": "AI-gedreven"
+  },
+  "start": {
+    "metaTitle": "Start je gratis proefperiode | DUSA . studio",
+    "metaDesc": "14 dagen gratis volledige toegang tot het alles-in-één groeiplatform van DUSA. Altijd opzegbaar. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer.",
+    "label": "14 dagen gratis proberen",
+    "h1": "Begin vandaag",
+    "h1Accent": "met groeien",
+    "sub": "Kies een plan, activeer je proefperiode en zit binnen enkele minuten in je platform. {zero} vandaag. Zeg op vóór dag 14 en je betaalt niets.",
+    "badgeZero": "{zero} vandaag",
+    "badgeCancel": "Altijd opzegbaar",
+    "badgeAccess": "Volledige toegang",
+    "billingCycle": "Betaalcyclus",
+    "monthly": "Maandelijks",
+    "annual": "Jaarlijks",
+    "annualBadge": "2 maanden gratis",
+    "mostPopular": "Populairste keuze",
+    "perMonth": "/maand {cur}",
+    "perYear": "/jaar {cur}",
+    "startTrial": "Start gratis proefperiode",
+    "noteMonthly": "14 dagen gratis · daarna {price}/mnd · altijd opzegbaar",
+    "noteAnnual": "14 dagen gratis · daarna {price}/jaar · altijd opzegbaar",
+    "assist": "Twijfel je welk plan?",
+    "assistDemo": "Boek een gratis demo",
+    "assistTail": "of laat hieronder je gegevens achter, dan richten we het samen in.",
+    "formHeading": "Liever samen",
+    "formHeadingAccent": "ingericht?",
+    "formSub": "Laat je gegevens achter, dan leiden we je door het platform en zetten we samen je proefperiode op.",
+    "firstName": "Voornaam *",
+    "firstNamePh": "Je voornaam",
+    "email": "E-mail *",
+    "emailPh": "you@example.com",
+    "business": "Bedrijfsnaam *",
+    "businessPh": "Naam van je bedrijf",
+    "phone": "Telefoon",
+    "phonePh": "+31 6 12345678",
+    "submit": "Aan de slag",
+    "submitting": "Je account wordt aangemaakt...",
+    "success": "Je bent binnen! Check je e-mail voor je inloggegevens.",
+    "errorPrefix": "Er ging iets mis. Stuur in plaats daarvan een e-mail naar",
+    "errorSuffix": "en we helpen je verder.",
+    "value1Title": "Alle 6 kernsystemen inbegrepen",
+    "value1Text": "CRM, marketing, funnels, boekingen, reviews en AI-chat op één plek.",
+    "value2Title": "AI-automatiseringen vanaf dag één",
+    "value2Text": "Slimme workflows die je elke week uren besparen, actief vanaf het moment dat je je aanmeldt.",
+    "value3Title": "Begeleide onboarding voor snel resultaat",
+    "value3Text": "We leiden je door de inrichting, zodat je binnen je eerste week al waarde ziet.",
+    "value4Title": "Altijd opzegbaar, zonder gedoe",
+    "value4Text": "Nul binding. Past het niet, dan stap je zonder verplichtingen weer uit.",
+    "t1Quote": "Binnen de eerste week draaiden onze automatische opvolgingen en hadden we drie nieuwe klanten geboekt. DUSA had zichzelf terugverdiend voordat de proefperiode voorbij was.",
+    "t1Name": "Sarah M.",
+    "t1Role": "Beauty- & wellnessstudio",
+    "t2Quote": "Vroeger waren we uren kwijt aan het najagen van facturen en gemiste oproepen. Nu regelt het systeem alles. Ik heb mijn weekenden weer terug.",
+    "t2Name": "James T.",
+    "t2Role": "Loodgietersbedrijf",
+    "t3Quote": "Onze Google-reviews gingen in drie maanden van 12 naar meer dan 80. De automatische reviewverzoeken hebben alles veranderd voor onze lokale zichtbaarheid.",
+    "t3Name": "Priya K.",
+    "t3Role": "Boutique fitnessstudio",
+    "t4Quote": "Ik heb vier losse abonnementen vervangen door DUSA. Eén login, één factuur, en alles praat nu echt met elkaar.",
+    "t4Name": "Marcus D.",
+    "t4Role": "Onafhankelijk financieel adviseur",
+    "t5Quote": "De AI-chat ving leads op terwijl ik op de set stond. Ik kwam terug met drie nieuwe boekingen. Dat was vroeger nooit gebeurd.",
+    "t5Name": "Lena R.",
+    "t5Role": "Fotografie- & creatieve studio",
+    "t6Quote": "Funnels bouwen kostte ons vroeger weken met een developer. Nu bouwden we er een in een middag en hij converteerde beter dan ooit.",
+    "t6Name": "Tom H.",
+    "t6Role": "Eigenaar e-commercemerk",
+    "testimonialAria": "Klantervaring",
+    "legalPrefix": "Door je aan te melden ga je akkoord met onze",
+    "legalTerms": "voorwaarden",
+    "legalAnd": "en",
+    "legalPrivacy": "privacybeleid",
+    "featuresLabel": "Wat je krijgt",
+    "featuresH2": "Alles wat je nodig hebt om te groeien,",
+    "featuresH2Accent": "op één plek",
+    "f1Title": "CRM & Pipelinebeheer",
+    "f1Desc": "Volg elke lead, deal en klantinteractie vanuit één dashboard.",
+    "f2Title": "E-mail & SMS-marketing",
+    "f2Desc": "Verstuur gerichte campagnes die leads omzetten in trouwe klanten.",
+    "f3Title": "Boekingen & Agenda",
+    "f3Desc": "Laat klanten online boeken, synchroniseer agenda's en automatiseer herinneringen.",
+    "f4Title": "Funnel- & Websitebouwer",
+    "f4Desc": "Bouw landingspagina's en salesfunnels die converteren, zonder code.",
+    "f5Title": "Reviewbeheer",
+    "f5Desc": "Verzamel reviews, houd feedback in de gaten en bouw vertrouwen op de automatische piloot.",
+    "f6Title": "AI-chat & Automatiseringen",
+    "f6Desc": "Reageer direct op leads met AI en neem het naadloos over wanneer jij er klaar voor bent.",
+    "ctaH2": "Nog aan het",
+    "ctaH2Accent": "twijfelen?",
+    "ctaText": "Liever een begeleide rondleiding? Boek een gratis demo en we laten je het platform zien met jouw bedrijf als voorbeeld.",
+    "ctaBtn": "Demo boeken",
+    "plans": {
+      "launchpad": {
+        "name": "Launchpad",
+        "blurb": "Kies één kernsysteem en ga vandaag nog aan de slag.",
+        "features": [
+          "1 kernsysteem naar keuze",
+          "Volledige dashboardtoegang",
+          "AI-chatsupport",
+          "Basisanalytics"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "blurb": "Alles verbonden. Alle 9 kernsystemen onder één login.",
+        "features": [
+          "Alle 9 kernsystemen",
+          "CRM, e-mail, SMS, funnels & boekingen",
+          "AI-automatiseringen inbegrepen",
+          "E-mailsupport"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "blurb": "Gebouwd voor momentum. Onbeperkte contacten en prioriteitssupport.",
+        "features": [
+          "Alles uit Starter",
+          "Onbeperkte contacten & gebruikers",
+          "Geavanceerde automatiseringen",
+          "Prioriteitssupport + accountmanager"
+        ]
+      }
+    }
+  },
+  "thankYou": {
+    "metaTitle": "Welkom bij DUSA | DUSA . studio",
+    "metaDesc": "Je gratis proefperiode wordt ingericht. Check je e-mail voor je inloggegevens en ga aan de slag met het DUSA-platform.",
+    "label": "Je bent binnen",
+    "h1": "Welkom bij",
+    "h1Accent": "DUSA",
+    "sub": "Je gratis proefperiode van 14 dagen wordt op dit moment ingericht. Dit is wat er nu gebeurt.",
+    "step1Title": "Check je e-mail",
+    "step1Text": "We sturen je inloggegevens naar het e-mailadres dat je net hebt opgegeven. Ze komen binnen enkele minuten aan.",
+    "step2Title": "Volg de link om in te loggen",
+    "step2Text": "Klik op de link in je e-mail om je wachtwoord in te stellen en het platform te openen. Je kunt ook altijd inloggen via de knop rechtsboven op deze site.",
+    "step3Title": "Begin met bouwen",
+    "step3Text": "Volg de begeleide onboarding om je agenda te koppelen, je eerste workflow op te zetten en vanaf dag één leads te verzamelen.",
+    "login": "Inloggen bij DUSA",
+    "home": "Terug naar home",
+    "helpPrefix": "Geen e-mail ontvangen? Check je spammap, of neem contact op via",
+    "helpSuffix": "en we lossen het op."
+  },
+  "industriesIndex": {
+    "metaTitle": "Branches | DUSA.studio",
+    "metaDesc": "DUSA is gebouwd voor jouw branche. Ontdek hoe ons groeiplatform werkt voor makelaars, vakmensen, sportscholen, restaurants, salons, tandartsen en meer.",
+    "label": "Branches",
+    "h1": "Gebouwd voor",
+    "h1Accent": "jouw",
+    "h1Tail": "branche",
+    "sub": "Elk bedrijf is anders. Daarom past DUSA zich aan jouw manier van werken aan, met pipelines, automatiseringen en workflows ontworpen voor jouw specifieke branche. Vind de jouwe hieronder.",
+    "learnMore": "Meer weten",
+    "ctaTitle": "Staat jouw branche er niet bij?",
+    "ctaDesc": "DUSA werkt voor elk dienstverlenend bedrijf. Neem contact op en we laten je zien hoe het in jouw workflow past.",
+    "ctaStart": "Aan de slag",
+    "ctaTalk": "Praat met ons",
+    "cards": {
+      "real-estate": [
+        "Makelaars",
+        "Pipelinebeheer, automatische opvolging na bezichtigingen en koper-matching voor makelaars die meer deals willen sluiten."
+      ],
+      "gyms": [
+        "Sportscholen en fitness",
+        "Onboarding van leden, lesherinneringen, win-back-campagnes en referral-tracking om verloop te verminderen en lessen vol te krijgen."
+      ],
+      "tradies": [
+        "Vakmensen",
+        "Automatische sms bij gemiste oproepen, offertepipelines, klusplanning en factuurherinneringen voor vakmensen die te druk zijn op de werkvloer."
+      ],
+      "restaurants": [
+        "Restaurants",
+        "Reserveringsherinneringen, reviewverzoeken na het bezoek, verjaardagscampagnes en digitale loyaliteitsprogramma's."
+      ],
+      "salons": [
+        "Salons en spa's",
+        "Online boeken, automatische herinneringen, herboekingscampagnes en het bijhouden van klantvoorkeuren om elke stoel gevuld te houden."
+      ],
+      "accountants": [
+        "Accountants",
+        "Automatisch documenten verzamelen, deadlineherinneringen en het hele jaar door klantcontact, ook buiten het aangifteseizoen."
+      ],
+      "dentists": [
+        "Tandartspraktijken",
+        "Oproepherinneringen, nieuwe patiënten werven, reviews genereren en opvolging van behandelplannen op de automatische piloot."
+      ],
+      "photographers": [
+        "Fotografen",
+        "Automatische antwoorden op aanvragen, contractworkflows, shootherinneringen, galerijlevering en upsell-reeksen voor prints."
+      ],
+      "construction": [
+        "Bouw",
+        "Leadtracking, offerteopvolging, communicatie over projectmijlpalen en betalingsinning voor aannemers."
+      ],
+      "personal-trainers": [
+        "Personal trainers",
+        "Leadmagnet-funnels, consultboekingen, transformatie-showcases en automatische check-ins met klanten."
+      ],
+      "cleaning-services": [
+        "Schoonmaakbedrijven",
+        "Beheer van terugkerende boekingen, kwaliteitsopvolging, teamplanning en upsell-campagnes voor schoonmaakbedrijven."
+      ],
+      "law-firms": [
+        "Advocatenkantoren",
+        "Automatische intakeformulieren, updates over de dossierstatus, referral-tracking en thought-leadership-content binnen de regels."
+      ],
+      "property-managers": [
+        "Vastgoedbeheerders",
+        "Automatisering van de huurderscyclus, pipelines voor onderhoudsverzoeken, huurherinneringen en campagnes voor contractverlenging."
+      ],
+      "auto-repair": [
+        "Autogarages",
+        "Automatische onderhoudsherinneringen, seizoenscampagnes, reviews genereren en loyaliteitsprogramma's voor garages."
+      ],
+      "coaches": [
+        "Coaches en consultants",
+        "Funnels voor kennismakingsgesprekken, onboardingreeksen, sessieplanning en het verzamelen van testimonials om je praktijk te laten groeien."
+      ],
+      "ecommerce": [
+        "E-commerce",
+        "Reeksen na aankoop, reviewautomatisering, cross-sell-flows, VIP-segmentatie en verjaardagsbeloningen."
+      ]
+    }
+  },
+  "home": {
+    "metaTitle": "DUSA . studio | Groeiplatform voor kleine bedrijven",
+    "metaDesc": "Marketing, sales en klantcontact vanuit één login. DUSA is het alles-in-één groeiplatform voor kleine bedrijven die willen groeien zonder de complexiteit.",
+    "schemaDesc": "Alles-in-één groeiplatform voor kleine bedrijven. CRM, marketingautomatisering, salespipelines en klantcontact vanuit één login."
+  },
+  "faq": {
+    "eyebrow": "Vragen? Beantwoord.",
+    "heading": "Alles wat je misschien",
+    "headingAccent": "wilt weten.",
+    "items": [
+      {
+        "q": "Wat doet DUSA precies?",
+        "a": "DUSA vervangt de 10+ losse apps waarmee de meeste bedrijven jongleren door één platform. CRM, e-mail, SMS, funnels, planning, betalingen, reviews en AI-automatiseringen, allemaal onder één login. Elke lead wordt opgevolgd, elke boeking bevestigd en elke follow-up gebeurt automatisch."
+      },
+      {
+        "q": "Wat kost het?",
+        "a": "Plannen beginnen bij 149 AUD per maand (zie de prijzen in euro op de prijzenpagina). De meeste bedrijven die wij onboarden, betalen nu 800 tot 1.100 AUD per maand aan losse tools, dus overstappen verdient zich meestal al in de eerste maand meerdere keren terug."
+      },
+      {
+        "q": "Moet ik technisch zijn?",
+        "a": "Helemaal niet. Wij doen de inrichting voor je. Je CRM, automatiseringen, funnels en integraties worden binnen de eerste week door ons team geconfigureerd. Kun je e-mailen, dan kun je DUSA gebruiken."
+      },
+      {
+        "q": "Wat gebeurt er met mijn bestaande contacten en tools?",
+        "a": "Wij migreren alles. Contacten, campagnes en data verhuizen tijdens de onboarding uit je oude tools, en we trainen jou en je team voordat je live gaat. Er gaat niets verloren bij de overstap."
+      },
+      {
+        "q": "Zit ik vast aan een contract?",
+        "a": "Nee. Je kunt altijd opzeggen. Wij houden klanten door nuttig te zijn, niet door de deur op slot te doen."
+      },
+      {
+        "q": "Hoe snel kan ik draaien?",
+        "a": "Je werkruimte staat binnen enkele dagen klaar en de meeste bedrijven zijn binnen twee weken volledig live, met gemigreerde data en een getraind team."
+      },
+      {
+        "q": "Wat als ik vastloop?",
+        "a": "AI-support is 24/7 beschikbaar op elk plan, met echte mensen als back-up. Growth- en Bespoke-plannen krijgen ook een vaste accountmanager die proactief bij je checkt."
+      }
+    ]
+  }
+}

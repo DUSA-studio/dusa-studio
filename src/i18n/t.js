@@ -10,8 +10,14 @@ import es from './translations/es.json';
 import pt from './translations/pt.json';
 import fr from './translations/fr.json';
 import de from './translations/de.json';
+import it from './translations/it.json';
+import nl from './translations/nl.json';
+import sv from './translations/sv.json';
+import da from './translations/da.json';
+import fi from './translations/fi.json';
+import nb from './translations/nb.json';
 
-const translations = { en, es, pt, fr, de };
+const translations = { en, es, pt, fr, de, it, nl, sv, da, fi, nb };
 
 /**
  * Resolve a dot-notation key against a translation object.
@@ -62,6 +68,12 @@ export function getLangFromRegion(regionKey) {
     br: 'pt',
     fr: 'fr',
     de: 'de',
+    it: 'it',
+    nl: 'nl',
+    se: 'sv',
+    dk: 'da',
+    fi: 'fi',
+    no: 'nb',
   };
   return map[regionKey] || 'en';
 }

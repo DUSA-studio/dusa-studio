@@ -16,7 +16,8 @@
     "termsOfService": "Terms of Service",
     "region": "Region",
     "theme": "Theme",
-    "seeThePlatform": "See the Platform"
+    "seeThePlatform": "See the Platform",
+    "skipToContent": "Skip to content"
   },
   "nav": {
     "pricing": "Pricing",
@@ -30,7 +31,9 @@
     "demo": "Demo",
     "region": "Region",
     "theme": "Theme",
-    "selectRegion": "Select region and language"
+    "selectRegion": "Select region and language",
+    "viewAllIndustries": "View all industries",
+    "viewAll": "View all"
   },
   "footer": {
     "tagline": "Brands that bloom.",
@@ -64,7 +67,9 @@
     "tradies": "Tradies",
     "dentists": "Dentists",
     "coaches": "Coaches",
-    "careers": "Careers"
+    "careers": "Careers",
+    "askAi": "Ask AI about DUSA:",
+    "shareThis": "Share this:"
   },
   "hero": {
     "label": "The AI-Powered Growth System",
@@ -85,7 +90,30 @@
     "capFunnelsSub": "Convert while you sleep",
     "capAiTitle": "AI Built In",
     "capAiSub": "Smarter conversations, faster growth",
-    "scrollExplore": "Explore"
+    "scrollExplore": "Explore",
+    "introLabel": "Growth, done for you",
+    "introH1": "We help your business",
+    "introH1Accent": "grow",
+    "introSub": "Running a business today means a dozen apps that don't talk to each other, and you stuck in the middle. DUSA replaces the mess with one system that chases every lead, books the jobs, and gets you paid. Automatically.",
+    "introStat1n": "12+ apps",
+    "introStat1l": "too many apps to run a business",
+    "introStat2n": "1 login",
+    "introStat2l": "what it takes with DUSA",
+    "introStat3n": "10+ hrs",
+    "introStat3l": "of busywork handed to AI, every week",
+    "introStat4n": "+32%",
+    "introStat4l": "more revenue in your first year",
+    "introNote": "Less chaos. More customers. That's the whole idea.",
+    "introSee": "See what's inside",
+    "introFreeDemo": "Book a Free Demo",
+    "introFreeDemoShort": "Free Demo",
+    "introSetupNote": "Setup done for you &middot; Powered by AI &middot; Cancel anytime",
+    "platformPhone": "Phone",
+    "platformTablet": "Tablet",
+    "platformDesktop": "Desktop",
+    "platformWeb": "Web",
+    "platformPhoneAria": "Phone. Click again to switch between iPhone and Android",
+    "platformPhoneTitle": "Click again to switch iPhone / Android"
   },
   "whatIsDusa": {
     "eyebrow": "Digital Utility for Sales and Automation",
@@ -263,7 +291,73 @@
     "stat4Value": "$800+",
     "stat4Label": "Saved monthly",
     "stat5Value": "< 48hrs",
-    "stat5Label": "Setup time"
+    "stat5Label": "Setup time",
+    "testimonials": [
+      {
+        "quote": "Before this, I was using so many different tools for each client. Time spent learning and setting up marketing systems has been drastically reduced. The automation workflows are my favourite part.",
+        "role": "Web Developer"
+      },
+      {
+        "quote": "An all-in-one solution that saves time, effort, and money. Funnel builder, smart automations, email marketing, calling, and AI implemented in everything. The UI is very user friendly.",
+        "role": "Marketing Consultant"
+      },
+      {
+        "quote": "Everything was well communicated throughout the process and the issue was resolved. The support team genuinely cares about getting you set up properly.",
+        "role": "Business Owner"
+      },
+      {
+        "quote": "The onboarding experience was hands down the best I have ever seen. The professionalism and calm demeanor are truly unmatched. I felt guided every step of the way.",
+        "role": "Agency Owner"
+      },
+      {
+        "quote": "We replaced five separate tools and cut our monthly software spend by more than half. Setup took days, not months. Everything actually connects now.",
+        "role": "Property Manager"
+      },
+      {
+        "quote": "The automated review requests alone have been worth it. We went from 12 Google reviews to over 80 in three months without lifting a finger.",
+        "role": "Dental Practice Owner"
+      },
+      {
+        "quote": "Patient, professional, and took time to understand the issues. The support is the best I have experienced across any platform.",
+        "role": "Small Business Owner"
+      },
+      {
+        "quote": "The AI booking assistant handles appointment scheduling, sends reminders, and follows up with no-shows automatically. I have cut my admin time in half.",
+        "role": "Physiotherapy Clinic Owner"
+      },
+      {
+        "quote": "We tried three other platforms before this one. None of them had the depth of automation combined with simplicity. This is the one that stuck.",
+        "role": "Digital Agency CEO"
+      },
+      {
+        "quote": "The SMS marketing alone has been a game changer for our restaurant. We send a lunch promo and see a spike in orders within the hour.",
+        "role": "Restaurant Manager"
+      },
+      {
+        "quote": "I run three businesses and manage all of them from one dashboard. The multi-location support saved me from needing a full-time virtual assistant.",
+        "role": "Multi-Business Owner"
+      },
+      {
+        "quote": "Our membership community launched in a weekend. Course hosting, drip content, community chat. All inside the same platform we use for CRM.",
+        "role": "Online Course Creator"
+      },
+      {
+        "quote": "My email open rates jumped from 18% to 42% after switching. The built-in templates and AI copywriting tools are seriously underrated.",
+        "role": "Marketing Lead"
+      },
+      {
+        "quote": "It completely replaced our old CRM and landing page builder. We are getting an insanely good tech stack for a fraction of what we used to pay.",
+        "role": "Agency Founder"
+      },
+      {
+        "quote": "I was skeptical about an all-in-one platform, but the depth here is real. Funnels, email sequences, reputation management. It just works.",
+        "role": "Consulting Firm Owner"
+      },
+      {
+        "quote": "The support team went above and beyond. They took the time to actually understand my setup and guided me through every change. Extremely thorough.",
+        "role": "Creative Agency Founder"
+      }
+    ]
   },
   "brandCarousel": {
     "label": "Powering Growth For",
@@ -370,7 +464,330 @@
     "ctaDesc": "Try the full platform free for 14 days. Free for 14 days, cancel anytime. Or book a demo and we will walk you through it.",
     "ctaGetStarted": "Get Started",
     "ctaBookDemo": "Book a Demo",
-    "included": "Included"
+    "included": "Included",
+    "data": {
+      "tierHighlights": {
+        "launchpad": [
+          "1 core system of your choice",
+          "9 systems to choose from",
+          "Full dashboard access",
+          "Basic analytics",
+          "AI chat support",
+          "Community access"
+        ],
+        "starter": [
+          "All 9 core systems included",
+          "CRM + pipeline management",
+          "Email & SMS marketing",
+          "Funnel & website builder",
+          "Booking, social & reputation",
+          "Invoicing, forms & surveys",
+          "Workflow automations",
+          "AI chat support"
+        ],
+        "growth": [
+          "Everything in Starter",
+          "Unlimited contacts & workflows",
+          "Advanced automation builder",
+          "AI-powered responses",
+          "Custom reporting dashboards",
+          "Priority support",
+          "Onboarding strategy session",
+          "Dedicated community channel"
+        ],
+        "bespoke": [
+          "Everything in Growth",
+          "Multi-location support",
+          "Team user accounts",
+          "Custom integrations",
+          "Dedicated account manager",
+          "Monthly strategy reviews",
+          "Custom automation builds",
+          "Phone support line"
+        ]
+      },
+      "replacementFeatures": [
+        "CRM & pipeline management",
+        "Email marketing",
+        "SMS marketing",
+        "Funnel & website builder",
+        "Booking & calendar",
+        "Workflow automations",
+        "Reputation management",
+        "Analytics & reporting",
+        "Social media planner",
+        "Invoicing & payments",
+        "Forms & surveys",
+        "Community platform",
+        "Call tracking"
+      ],
+      "cellPick1": "Pick 1",
+      "cellUnlimited": "Unlimited",
+      "cellWorkflows5": "5 workflows",
+      "featureCategories": [
+        {
+          "name": "Core platform",
+          "rows": [
+            [
+              "CRM & pipeline management",
+              "Store every lead, customer, and conversation in one place. Visual drag-and-drop pipelines to track deals, forecast revenue, and never let an opportunity slip."
+            ],
+            [
+              "Funnel & website builder",
+              "Build high-converting landing pages, opt-in funnels, and a full business website with drag-and-drop. Custom domain, SEO tools, and SSL included."
+            ],
+            [
+              "Email marketing",
+              "Send beautiful branded emails, build automated nurture sequences, and track opens, clicks, and conversions. No per-send fees on any plan."
+            ],
+            [
+              "SMS marketing",
+              "Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Message usage is billed separately as you use it."
+            ],
+            [
+              "Booking & calendar system",
+              "Let clients book appointments directly from your website or links. Syncs with Google Calendar, sends automatic reminders, and reduces no-shows."
+            ],
+            [
+              "Social media planner",
+              "Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place."
+            ],
+            [
+              "Reputation management",
+              "Automatically request reviews from happy customers, monitor your online reputation, and respond to reviews from one dashboard."
+            ],
+            [
+              "Invoicing & payments",
+              "Send professional invoices, accept payments online, and track who has paid. Integrates with Stripe for seamless transactions."
+            ],
+            [
+              "Forms & surveys",
+              "Capture leads with custom forms and gather feedback with surveys. Embed anywhere and trigger automations from submissions."
+            ]
+          ]
+        },
+        {
+          "name": "Automation & AI",
+          "rows": [
+            [
+              "Basic workflow automations",
+              "Set up simple if-this-then-that automations like sending a welcome email when someone fills out a form, or tagging contacts based on actions."
+            ],
+            [
+              "Multi-step automation builder",
+              "Build complex multi-step workflows with delays, conditions, and multiple actions. Automate your entire follow-up process from first touch to conversion."
+            ],
+            [
+              "Trigger-based sequences",
+              "Automatically start sequences when contacts take specific actions like visiting a page, opening an email, or booking an appointment."
+            ],
+            [
+              "AI-powered auto-responses",
+              "Let AI handle initial enquiries, qualify leads, and respond to common questions instantly via chat, SMS, or email while you focus on your business."
+            ],
+            [
+              "AI content assistant",
+              "Generate email copy, social posts, and marketing content using AI trained on your brand voice. Save hours on content creation."
+            ],
+            [
+              "Conditional logic & branching",
+              "Create intelligent workflows that branch based on contact behaviour, deal value, or custom field values. Different paths for different scenarios."
+            ],
+            [
+              "Custom automation builds",
+              "Our team builds bespoke automations tailored to your exact business processes. Complex integrations and custom logic built for you."
+            ]
+          ]
+        },
+        {
+          "name": "Contacts & data",
+          "rows": [
+            [
+              "Contact records",
+              "Store and manage your leads and customers with detailed profiles, activity history, notes, and custom data fields."
+            ],
+            [
+              "Custom fields",
+              "Add your own data fields to contacts, deals, and records. Track the specific information that matters to your business."
+            ],
+            [
+              "Tags & segments",
+              "Organise contacts with tags and create dynamic segments based on behaviour, demographics, or custom criteria for targeted campaigns."
+            ],
+            [
+              "Import / export contacts",
+              "Easily bring in your existing contacts via CSV upload or export your data anytime. Your data is always yours."
+            ],
+            [
+              "Lead scoring",
+              "Automatically score leads based on engagement, behaviour, and fit. Focus your time on the contacts most likely to convert."
+            ],
+            [
+              "Smart lists & filters",
+              "Create dynamic lists that auto-update based on contact activity, tags, or field values. Always have the right audience ready."
+            ]
+          ]
+        },
+        {
+          "name": "Reporting & analytics",
+          "rows": [
+            [
+              "Basic dashboard",
+              "See your key metrics at a glance including new leads, active deals, appointments, and revenue in a clean overview dashboard."
+            ],
+            [
+              "Campaign performance reports",
+              "Track email open rates, click rates, SMS delivery, and conversion rates across all your marketing campaigns."
+            ],
+            [
+              "Pipeline & revenue reporting",
+              "Visualise your sales pipeline value, conversion rates by stage, and revenue forecasts to make data-driven decisions."
+            ],
+            [
+              "Custom reporting dashboards",
+              "Build your own dashboards with the exact metrics and visualisations you need. Drag and drop widgets to create your perfect view."
+            ],
+            [
+              "Attribution tracking",
+              "See exactly which channels and campaigns are driving leads and revenue. Know where to invest your marketing budget."
+            ],
+            [
+              "Scheduled report emails",
+              "Automatically receive your key reports by email on a daily, weekly, or monthly schedule. Stay informed without logging in."
+            ]
+          ]
+        },
+        {
+          "name": "Support & community",
+          "rows": [
+            [
+              "Knowledge base & guides",
+              "Access step-by-step guides, video tutorials, and best-practice documentation to get the most out of every DUSA feature."
+            ],
+            [
+              "AI assistant (24/7)",
+              "Call or chat with your AI assistant anytime. It walks you through anything DUSA-related, from setup to strategy. If you hit a blocker, we book you in with a growth specialist."
+            ],
+            [
+              "DUSA community access",
+              "Join a private community of business owners using DUSA. Share strategies, ask questions, and learn from real results."
+            ],
+            [
+              "Email support",
+              "Reach our support team by email for technical questions, troubleshooting, and account help during business hours."
+            ],
+            [
+              "Priority support queue",
+              "Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention."
+            ],
+            [
+              "Onboarding strategy session",
+              "A one-on-one session with a growth consultant to map out your DUSA setup, migrate your data, and build your first automations."
+            ],
+            [
+              "Dedicated account manager",
+              "A named account manager who knows your business inside and out. Your single point of contact for everything DUSA."
+            ],
+            [
+              "Phone support",
+              "Direct phone access to our support team for urgent issues or complex questions that need a real conversation."
+            ],
+            [
+              "Monthly strategy reviews",
+              "Regular check-ins with your account manager to review performance, optimise your setup, and plan your next growth moves."
+            ]
+          ]
+        },
+        {
+          "name": "Platform & integrations",
+          "rows": [
+            [
+              "Members portal access",
+              "Your private portal for managing your account, accessing training, and submitting support requests all in one place."
+            ],
+            [
+              "Mobile app",
+              "Manage leads, respond to messages, check your pipeline, and track activity from your phone with the DUSA mobile app."
+            ],
+            [
+              "Zapier integration",
+              "Connect DUSA to thousands of other apps through Zapier. Sync data, trigger actions, and build custom workflows across your tools."
+            ],
+            [
+              "API access",
+              "Full REST API access for custom integrations, data syncing, and building on top of the DUSA platform."
+            ],
+            [
+              "Custom domain",
+              "Host your DUSA-built website, funnels, and portals on your own branded domain with SSL included."
+            ],
+            [
+              "White-label client portal",
+              "Remove DUSA branding and present the platform as your own to clients. Perfect for agencies and consultants."
+            ],
+            [
+              "Multi-location management",
+              "Manage multiple business locations from a single account with separate pipelines, contacts, and reporting per location."
+            ],
+            [
+              "Team user accounts",
+              "Add team members with role-based permissions. Control who can see, edit, and manage different parts of your account."
+            ],
+            [
+              "Custom integrations",
+              "Our team builds bespoke integrations to connect DUSA with your existing tools, databases, and internal systems."
+            ]
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "q": "What is DUSA and how does it help small businesses?",
+          "a": "DUSA is an all-in-one growth platform that replaces the scattered tools small businesses use for CRM, email marketing, SMS, funnels, booking, and reputation management. Instead of paying for five or six separate subscriptions, everything lives in one connected system."
+        },
+        {
+          "q": "How much does the DUSA platform cost per month?",
+          "a": "Plans start from {launchpad} {currency} per month for a single core tool on our Launchpad plan. Our Starter plan includes all 9 core systems for {starter}/mo, and Growth unlocks unlimited contacts, advanced automations, and priority support for {growth}/mo. All prices are in {currency} with no hidden fees."
+        },
+        {
+          "q": "What is included in the Launchpad plan?",
+          "a": "Launchpad gives you access to one core system of your choice from nine options: CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, or forms and surveys. It includes full dashboard access, basic analytics, AI chat support, and community access. It is designed for sole operators who want to start small and scale up."
+        },
+        {
+          "q": "Can I upgrade my plan at any time?",
+          "a": "Yes. You can upgrade or change your plan at any time. Changes take effect on your next billing cycle. There are no lock-in contracts, and you can move between plans as your business needs change."
+        },
+        {
+          "q": "Are there any setup fees or hidden costs?",
+          "a": "There are no setup fees on any plan. Your plan price covers platform access. Message, call, email and AI usage is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees."
+        },
+        {
+          "q": "What kind of support does DUSA offer?",
+          "a": "Every plan includes unlimited AI chat support available 24/7 through your members portal, plus access to the DUSA community. Starter and above includes email support. Growth plans get priority support and an onboarding strategy session. Bespoke clients receive a dedicated account manager, phone support, and monthly strategy reviews."
+        },
+        {
+          "q": "Is DUSA suitable for sole operators and freelancers?",
+          "a": "Absolutely. The DUSA platform was built for sole operators, freelancers, and small business owners who need professional tools without enterprise complexity. The Launchpad plan at {launchpad}/mo is specifically designed as a low-commitment entry point so you can try one tool and expand as you grow."
+        },
+        {
+          "q": "What is the DUSA community?",
+          "a": "The DUSA community is a members-only space where business owners share strategies, ask questions, and get support from other DUSA users and the DUSA team. It is included with every plan and is a great resource for learning how to get the most out of the platform."
+        },
+        {
+          "q": "Does DUSA replace tools like Mailchimp, Calendly, and HubSpot?",
+          "a": "Yes. DUSA includes email marketing (replacing Mailchimp), booking and scheduling (replacing Calendly), CRM and pipeline management (replacing HubSpot), plus SMS marketing, funnel and website building, social media planning, reputation management, invoicing, and forms. All in one platform for a fraction of the combined cost."
+        },
+        {
+          "q": "How long does it take to set up DUSA?",
+          "a": "Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding strategy session where we help you configure everything for your specific business."
+        },
+        {
+          "q": "All prices are in {currency}?",
+          "a": "Yes. All DUSA pricing on this page is in {currency} ({regionLabel}). There are no currency conversions or surprises on your invoice."
+        }
+      ]
+    },
+    "toggleDusa": "Toggle DUSA for this feature"
   },
   "services": {
     "metaTitle": "Services | DUSA.studio",
@@ -524,5 +941,265 @@
     "hubHintTap": "Tap a segment to explore",
     "panelEmpty": "Tap a domain on the wheel, or a chip below, to see what is inside.",
     "aiPanelTitle": "AI powered"
+  },
+  "start": {
+    "metaTitle": "Start Your Free Trial | DUSA . studio",
+    "metaDesc": "Get full access to DUSA's all-in-one growth platform free for 14 days. Cancel anytime. CRM, email, SMS, funnels, booking, and reputation management.",
+    "label": "14-Day Free Trial",
+    "h1": "Start growing",
+    "h1Accent": "today",
+    "sub": "Pick a plan, activate your trial, and be inside your platform in minutes. {zero} today. Cancel anytime before day 14 and pay nothing.",
+    "badgeZero": "{zero} today",
+    "badgeCancel": "Cancel anytime",
+    "badgeAccess": "Full access",
+    "billingCycle": "Billing cycle",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "annualBadge": "2 months free",
+    "mostPopular": "Most popular",
+    "perMonth": "/month {cur}",
+    "perYear": "/year {cur}",
+    "startTrial": "Start free trial",
+    "noteMonthly": "14 days free · then {price}/mo · cancel anytime",
+    "noteAnnual": "14 days free · then {price}/yr · cancel anytime",
+    "assist": "Not sure which plan?",
+    "assistDemo": "Book a free demo",
+    "assistTail": "or leave your details below and we'll set it up with you.",
+    "formHeading": "Prefer it set up",
+    "formHeadingAccent": "with you?",
+    "formSub": "Leave your details and we'll walk you through the platform and set up your trial together.",
+    "firstName": "First Name *",
+    "firstNamePh": "Your first name",
+    "email": "Email *",
+    "emailPh": "you@example.com",
+    "business": "Business Name *",
+    "businessPh": "Your business name",
+    "phone": "Phone",
+    "phonePh": "+61 400 000 000",
+    "submit": "Get Started",
+    "submitting": "Setting up your account...",
+    "success": "You're in! Check your email for login details.",
+    "errorPrefix": "Something went wrong. Please email us at",
+    "errorSuffix": "instead.",
+    "value1Title": "All 6 core systems included",
+    "value1Text": "CRM, marketing, funnels, booking, reputation, and AI chat in one place.",
+    "value2Title": "AI-powered automations from day one",
+    "value2Text": "Smart workflows that save you hours every week, active the moment you sign up.",
+    "value3Title": "Guided onboarding to get you results fast",
+    "value3Text": "We walk you through setup so you see value within your first week.",
+    "value4Title": "Cancel anytime, no questions asked",
+    "value4Text": "Zero lock-in. If it's not the right fit, walk away with no strings attached.",
+    "t1Quote": "Within the first week, we had automated follow-ups running and booked three new clients. DUSA paid for itself before the trial was even over.",
+    "t1Name": "Sarah M.",
+    "t1Role": "Beauty & Wellness Studio",
+    "t2Quote": "We used to spend hours chasing invoices and missed calls. Now the system handles it all. I actually take weekends off again.",
+    "t2Name": "James T.",
+    "t2Role": "Residential Plumbing",
+    "t3Quote": "Our Google reviews went from 12 to over 80 in three months. The automated review requests changed everything for our local visibility.",
+    "t3Name": "Priya K.",
+    "t3Role": "Boutique Fitness Studio",
+    "t4Quote": "I replaced four separate subscriptions with DUSA. One login, one bill, and everything actually talks to each other now.",
+    "t4Name": "Marcus D.",
+    "t4Role": "Independent Financial Advisor",
+    "t5Quote": "The AI chat captured leads while I was on set. I came back to three new bookings. That would never have happened before.",
+    "t5Name": "Lena R.",
+    "t5Role": "Photography & Creative Studio",
+    "t6Quote": "Setting up funnels used to take us weeks with a developer. We built one in an afternoon and it converted better than anything before.",
+    "t6Name": "Tom H.",
+    "t6Role": "E-commerce Brand Owner",
+    "testimonialAria": "Testimonial",
+    "legalPrefix": "By signing up you agree to our",
+    "legalTerms": "Terms",
+    "legalAnd": "and",
+    "legalPrivacy": "Privacy Policy",
+    "featuresLabel": "What You Get",
+    "featuresH2": "Everything you need to grow,",
+    "featuresH2Accent": "all in one place",
+    "f1Title": "CRM & Pipeline Management",
+    "f1Desc": "Track every lead, deal, and customer interaction from one dashboard.",
+    "f2Title": "Email & SMS Marketing",
+    "f2Desc": "Send targeted campaigns that turn leads into loyal customers.",
+    "f3Title": "Booking & Calendar",
+    "f3Desc": "Let clients book online, sync calendars, and automate reminders.",
+    "f4Title": "Funnel & Website Builder",
+    "f4Desc": "Build high-converting landing pages and sales funnels without code.",
+    "f5Title": "Reputation Management",
+    "f5Desc": "Collect reviews, monitor feedback, and build trust on autopilot.",
+    "f6Title": "AI Chat & Automations",
+    "f6Desc": "Respond to leads instantly with AI, then hand off seamlessly when you're ready.",
+    "ctaH2": "Still",
+    "ctaH2Accent": "deciding?",
+    "ctaText": "Prefer a guided walkthrough? Book a free demo and we'll show you the platform using your business as the example.",
+    "ctaBtn": "Book a Demo",
+    "plans": {
+      "launchpad": {
+        "name": "Launchpad",
+        "blurb": "Pick any single core system and get started today.",
+        "features": [
+          "1 core system of your choice",
+          "Full dashboard access",
+          "AI chat support",
+          "Basic analytics"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "blurb": "Everything connected. All 9 core systems under one login.",
+        "features": [
+          "All 9 core systems",
+          "CRM, email, SMS, funnels & booking",
+          "AI automations included",
+          "Email support"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "blurb": "Built for momentum. Unlimited contacts and priority support.",
+        "features": [
+          "Everything in Starter",
+          "Unlimited contacts & users",
+          "Advanced automations",
+          "Priority support + account manager"
+        ]
+      }
+    }
+  },
+  "thankYou": {
+    "metaTitle": "Welcome to DUSA | DUSA . studio",
+    "metaDesc": "Your free trial is being set up. Check your email for login credentials and get started with the DUSA platform.",
+    "label": "You're in",
+    "h1": "Welcome to",
+    "h1Accent": "DUSA",
+    "sub": "Your 14-day free trial is being set up right now. Here's what happens next.",
+    "step1Title": "Check your email",
+    "step1Text": "We're sending your login credentials to the email you just provided. It should arrive within a few minutes.",
+    "step2Title": "Follow the link to log in",
+    "step2Text": "Click the link in your email to set your password and access the platform. You can also log in anytime via the button in the top right of this site.",
+    "step3Title": "Start building",
+    "step3Text": "Follow the guided onboarding to connect your calendar, set up your first workflow, and start capturing leads from day one.",
+    "login": "Log in to DUSA",
+    "home": "Back to Home",
+    "helpPrefix": "Didn't receive an email? Check your spam folder, or reach out to",
+    "helpSuffix": "and we'll sort it out."
+  },
+  "industriesIndex": {
+    "metaTitle": "Industries | DUSA.studio",
+    "metaDesc": "DUSA is built for your industry. Explore how our growth platform works for real estate, trades, gyms, restaurants, salons, dentists, and more.",
+    "label": "Industries",
+    "h1": "Built for",
+    "h1Accent": "your",
+    "h1Tail": "industry",
+    "sub": "Every business is different. That is why DUSA adapts to the way you work, with pipelines, automations, and workflows designed for your specific industry. Find yours below.",
+    "learnMore": "Learn more",
+    "ctaTitle": "Do not see your industry?",
+    "ctaDesc": "DUSA works for any service-based business. Get in touch and we will show you how it fits your workflow.",
+    "ctaStart": "Get Started",
+    "ctaTalk": "Talk to Us",
+    "cards": {
+      "real-estate": [
+        "Real Estate",
+        "Pipeline management, automated open home follow-ups, and buyer matching for agents who want to close more deals."
+      ],
+      "gyms": [
+        "Gyms and Fitness",
+        "Member onboarding, class reminders, win-back campaigns, and referral tracking to reduce churn and fill classes."
+      ],
+      "tradies": [
+        "Trades",
+        "Missed call text-back, quote pipelines, job scheduling, and invoice reminders for tradies who are too busy on the tools."
+      ],
+      "restaurants": [
+        "Restaurants",
+        "Reservation reminders, post-visit review requests, birthday campaigns, and digital loyalty programs."
+      ],
+      "salons": [
+        "Salons and Spas",
+        "Online booking, automated reminders, rebooking campaigns, and client preference tracking to fill every chair."
+      ],
+      "accountants": [
+        "Accountants",
+        "Document collection automation, deadline reminders, and year-round client engagement beyond tax season."
+      ],
+      "dentists": [
+        "Dental Practices",
+        "Recall reminders, new patient acquisition, review generation, and treatment plan follow-ups on autopilot."
+      ],
+      "photographers": [
+        "Photographers",
+        "Enquiry autoresponders, contract workflows, session reminders, gallery delivery, and print upsell sequences."
+      ],
+      "construction": [
+        "Construction",
+        "Lead tracking, quote follow-ups, project milestone communication, and payment collection for builders."
+      ],
+      "personal-trainers": [
+        "Personal Trainers",
+        "Lead magnet funnels, consultation booking, transformation showcases, and automated client check-ins."
+      ],
+      "cleaning-services": [
+        "Cleaning Services",
+        "Recurring booking management, quality follow-ups, crew scheduling, and upsell campaigns for cleaning businesses."
+      ],
+      "law-firms": [
+        "Law Firms",
+        "Intake form automation, case status updates, referral tracking, and thought leadership content within compliance."
+      ],
+      "property-managers": [
+        "Property Managers",
+        "Tenant lifecycle automation, maintenance request pipelines, rent reminders, and lease renewal campaigns."
+      ],
+      "auto-repair": [
+        "Auto Repair",
+        "Service reminder automation, seasonal campaigns, review generation, and loyalty programs for mechanics."
+      ],
+      "coaches": [
+        "Coaches and Consultants",
+        "Discovery call funnels, onboarding sequences, session scheduling, and testimonial collection to scale your practice."
+      ],
+      "ecommerce": [
+        "E-commerce",
+        "Post-purchase sequences, review automation, cross-sell flows, VIP segmentation, and birthday rewards."
+      ]
+    }
+  },
+  "home": {
+    "metaTitle": "DUSA . studio | Growth Platform for Small Business",
+    "metaDesc": "Marketing, sales and customer engagement from one login. DUSA is the all-in-one growth platform for small businesses that want to scale without the complexity.",
+    "schemaDesc": "All-in-one growth platform for small businesses. CRM, marketing automation, sales pipelines, and customer engagement from one login."
+  },
+  "faq": {
+    "eyebrow": "Questions? Answered.",
+    "heading": "Everything you might",
+    "headingAccent": "want to ask.",
+    "items": [
+      {
+        "q": "What exactly does DUSA do?",
+        "a": "DUSA replaces the 10+ disconnected apps most businesses juggle with one platform. CRM, email, SMS, funnels, scheduling, payments, reviews, and AI automations, all under one login. Every lead gets chased, every booking gets confirmed, and every follow-up happens automatically."
+      },
+      {
+        "q": "How much does it cost?",
+        "a": "Plans start at $149 per month. Most businesses we onboard are currently paying $800 to $1,100 per month across separate tools, so switching usually pays for itself several times over in the first month."
+      },
+      {
+        "q": "Do I need to be technical?",
+        "a": "Not at all. We do the setup for you. Your CRM, automations, funnels, and integrations are configured by our team within the first week. If you can use email, you can run DUSA."
+      },
+      {
+        "q": "What happens to my existing contacts and tools?",
+        "a": "We migrate everything. Contacts, campaigns, and data move across from your old tools as part of onboarding, and we train you and your team before you go live. Nothing gets lost in the switch."
+      },
+      {
+        "q": "Am I locked into a contract?",
+        "a": "No. You can cancel anytime. We keep customers by being useful, not by locking the door."
+      },
+      {
+        "q": "How fast can I be up and running?",
+        "a": "Your workspace is set up within days, and most businesses are fully live, with data migrated and team trained, inside two weeks."
+      },
+      {
+        "q": "What if I get stuck?",
+        "a": "AI support is available 24/7 on every plan, and real humans back it up. Growth and Bespoke plans also get a dedicated account manager who checks in on you proactively."
+      }
+    ]
   }
 }

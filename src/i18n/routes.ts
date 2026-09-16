@@ -53,7 +53,7 @@ export const ROUTES: Set<string> = new Set(
 );
 
 /** Region prefixes in nav order. `au` is the unprefixed root site. */
-export const REGION_PREFIXES = ['au', 'us', 'uk', 'es', 'mx', 'br', 'fr', 'de'] as const;
+export const REGION_PREFIXES = ['au', 'us', 'uk', 'es', 'mx', 'br', 'fr', 'de', 'it', 'nl', 'se', 'dk', 'fi', 'no'] as const;
 export type RegionKey = (typeof REGION_PREFIXES)[number];
 
 /** Regions that serve English content (differ only by currency). */

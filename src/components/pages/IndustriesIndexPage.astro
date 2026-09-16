@@ -1,0 +1,278 @@
+---
+/** IndustriesIndexPage: the /industries hub, dictionary-driven (t.industriesIndex).
+    Industry detail pages exist only in English and the older locales, so links
+    stay unprefixed unless the region has its own copies. */
+import { INDUSTRY_ICONS } from '../../config/industry-icons';
+import { getRegion } from '../../i18n/regions.js';
+import { routeExists } from '../../i18n/routes';
+interface Props { t: Record<string, any>; regionKey?: string; }
+const { t, regionKey = 'au' } = Astro.props;
+const s = t.industriesIndex || {};
+const region = getRegion(regionKey);
+const prefix = region.lang === 'en' ? '' : `/${regionKey}`;
+const cards = Object.entries(s.cards || {}).map(([slug, v]: [string, any]) => ({
+  slug,
+  title: v[0],
+  desc: v[1],
+  href: routeExists(regionKey, `/industries/${slug}`) ? `${prefix}/industries/${slug}` : `/industries/${slug}`,
+}));
+const startHref = routeExists(regionKey, '/start') ? `${prefix}/start` : '/start';
+const contactHref = routeExists(regionKey, '/contact') ? `${prefix}/contact` : '/contact';
+---
+  <section class="ind-hero section section--dark">
+    <div class="container">
+      <div class="ind-hero__content">
+        <span class="label">{s.label}</span>
+        <h1>{s.h1} <span class="gradient-text">{s.h1Accent}</span> {s.h1Tail}</h1>
+        <p class="ind-hero__sub">{s.sub}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ind-grid section--dark">
+    <div class="container">
+      <div class="ind-grid__cards">
+        {cards.map((ind) => (
+          <a href={ind.href} class="ind-card">
+            <div class="ind-card__icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={INDUSTRY_ICONS[ind.slug]} />
+              </svg>
+            </div>
+            <h2 class="ind-card__title">{ind.title}</h2>
+            <p class="ind-card__desc">{ind.desc}</p>
+            <span class="ind-card__link">{s.learnMore} &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ind-cta section--dark">
+    <div class="container">
+      <div class="ind-cta__box">
+        <h2 class="ind-cta__title">{s.ctaTitle}</h2>
+        <p class="ind-cta__desc">{s.ctaDesc}</p>
+        <div class="ind-cta__buttons">
+          <a href={startHref} class="btn btn--primary">{s.ctaStart}</a>
+          <a href={contactHref} class="btn btn--outline">{s.ctaTalk}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<style>
+  /* ─── Hero ─── */
+  .ind-hero {
+    padding-top: calc(var(--nav-height) + var(--space-3xl));
+    padding-bottom: var(--space-2xl);
+  }
+
+  .ind-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ind-hero__sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.7;
+    margin-top: var(--space-sm);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── Grid ─── */
+  .ind-grid {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .ind-grid__cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .ind-card {
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.06);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg);
+    transition: border-color var(--duration-fast), transform var(--duration-fast);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ind-card:hover {
+    border-color: rgba(78, 216, 194, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .ind-card__icon-wrap {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.15);
+    border-radius: var(--radius-md, 8px);
+    margin-bottom: var(--space-md);
+  }
+
+  .ind-card__icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    color: var(--reef-aqua);
+  }
+
+  .ind-card__title {
+    font-family: var(--font-headline);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .ind-card__desc {
+    font-size: 0.925rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.55);
+    flex: 1;
+  }
+
+  .ind-card__link {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--reef-aqua);
+    transition: opacity var(--duration-fast);
+  }
+
+  .ind-card:hover .ind-card__link {
+    opacity: 0.8;
+  }
+
+  /* ─── CTA ─── */
+  .ind-cta {
+    padding: var(--space-xl) 0 var(--space-3xl);
+  }
+
+  .ind-cta__box {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--space-2xl);
+    background: rgba(78, 216, 194, 0.04);
+    border: 1px solid rgba(78, 216, 194, 0.12);
+    border-radius: var(--radius-lg, 16px);
+  }
+
+  .ind-cta__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--warm-white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .ind-cta__desc {
+    color: rgba(247, 244, 239, 0.6);
+    line-height: 1.65;
+    margin-bottom: var(--space-lg);
+  }
+
+  .ind-cta__buttons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─── Light mode ─── */
+  :global(html[data-theme="light"]) .ind-hero__sub {
+    color: rgba(30, 30, 30, 0.68);
+  }
+
+  :global(html[data-theme="light"]) .ind-card {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .ind-card:hover {
+    border-color: rgba(78, 216, 194, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__desc {
+    color: rgba(30, 30, 30, 0.68);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__box {
+    background: rgba(78, 216, 194, 0.06);
+    border-color: rgba(78, 216, 194, 0.2);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__title {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-cta__desc {
+    color: rgba(30, 30, 30, 0.68);
+  }
+
+  :global(html[data-theme="light"]) .ind-hero__content h1 {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__icon-wrap {
+    background: rgba(26, 58, 92, 0.08);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .ind-card__icon-wrap svg {
+    color: var(--deep-ocean);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .ind-grid__cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ind-grid__cards {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ind-grid__cards {
+      grid-template-columns: 1fr;
+    }
+
+    .ind-hero {
+      padding-top: calc(var(--nav-height) + var(--space-xl));
+      padding-bottom: var(--space-md);
+    }
+
+    .ind-cta__box {
+      padding: var(--space-lg);
+    }
+  }
+</style>

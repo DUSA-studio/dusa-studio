@@ -16,7 +16,8 @@
     "termsOfService": "Términos de servicio",
     "region": "Región",
     "theme": "Tema",
-    "seeThePlatform": "Ver la plataforma"
+    "seeThePlatform": "Ver la plataforma",
+    "skipToContent": "Saltar al contenido"
   },
   "nav": {
     "pricing": "Precios",
@@ -30,7 +31,27 @@
     "demo": "Demo",
     "region": "Región",
     "theme": "Tema",
-    "selectRegion": "Seleccionar región e idioma"
+    "selectRegion": "Seleccionar región e idioma",
+    "viewAllIndustries": "Ver todas las industrias",
+    "viewAll": "Ver todas",
+    "industryLabels": {
+      "real-estate": "Inmobiliarias",
+      "gyms": "Gimnasios y fitness",
+      "tradies": "Oficios",
+      "restaurants": "Restaurantes",
+      "salons": "Salones y spas",
+      "accountants": "Contadores",
+      "dentists": "Clínicas dentales",
+      "photographers": "Fotógrafos",
+      "construction": "Construcción",
+      "personal-trainers": "Entrenadores personales",
+      "cleaning-services": "Servicios de limpieza",
+      "law-firms": "Despachos de abogados",
+      "property-managers": "Administradores de propiedades",
+      "auto-repair": "Talleres mecánicos",
+      "coaches": "Coaches",
+      "ecommerce": "E-commerce"
+    }
   },
   "footer": {
     "tagline": "Marcas que florecen.",
@@ -64,7 +85,9 @@
     "tradies": "Oficios y servicios",
     "dentists": "Dentistas",
     "coaches": "Coaches",
-    "careers": "Trabaja con nosotros"
+    "careers": "Trabaja con nosotros",
+    "askAi": "Pregunta a la IA sobre DUSA:",
+    "shareThis": "Compartir:"
   },
   "hero": {
     "label": "El sistema de crecimiento con IA",
@@ -102,7 +125,13 @@
     "introSee": "Mira lo que hay dentro",
     "introFreeDemo": "Reserva una demo gratis",
     "introFreeDemoShort": "Demo gratis",
-    "introSetupNote": "Configuración incluida &middot; Impulsado por IA &middot; Cancela cuando quieras"
+    "introSetupNote": "Configuración incluida &middot; Impulsado por IA &middot; Cancela cuando quieras",
+    "platformPhone": "Móvil",
+    "platformTablet": "Tablet",
+    "platformDesktop": "Escritorio",
+    "platformWeb": "Web",
+    "platformPhoneAria": "Móvil. Pulsa de nuevo para cambiar entre iPhone y Android",
+    "platformPhoneTitle": "Pulsa de nuevo para cambiar iPhone / Android"
   },
   "whatIsDusa": {
     "eyebrow": "Utilidad Digital para Ventas y Automatización",
@@ -280,7 +309,73 @@
     "stat4Value": "$800+",
     "stat4Label": "Ahorro mensual",
     "stat5Value": "< 48hrs",
-    "stat5Label": "Tiempo de configuración"
+    "stat5Label": "Tiempo de configuración",
+    "testimonials": [
+      {
+        "quote": "Antes usaba un montón de herramientas distintas para cada cliente. El tiempo que dedicaba a aprender y montar sistemas de marketing se ha reducido muchísimo. Los flujos de automatización son mi parte favorita.",
+        "role": "Desarrollador web"
+      },
+      {
+        "quote": "Una solución todo en uno que ahorra tiempo, esfuerzo y dinero. Constructor de embudos, automatizaciones inteligentes, marketing por correo, llamadas e IA integrada en todo. La interfaz es muy fácil de usar.",
+        "role": "Consultor de marketing"
+      },
+      {
+        "quote": "Todo se comunicó con claridad durante el proceso y el problema quedó resuelto. Al equipo de soporte le importa de verdad que quedes bien configurado.",
+        "role": "Dueño de negocio"
+      },
+      {
+        "quote": "La experiencia de onboarding fue, sin duda, la mejor que he visto nunca. La profesionalidad y la calma con la que trabajan no tienen comparación. Me sentí acompañado en cada paso.",
+        "role": "Dueño de agencia"
+      },
+      {
+        "quote": "Sustituimos cinco herramientas distintas y redujimos nuestro gasto mensual en software a menos de la mitad. La configuración llevó días, no meses. Ahora todo está realmente conectado.",
+        "role": "Administrador de propiedades"
+      },
+      {
+        "quote": "Solo las solicitudes automáticas de reseñas ya han valido la pena. Pasamos de 12 reseñas en Google a más de 80 en tres meses sin mover un dedo.",
+        "role": "Dueño de clínica dental"
+      },
+      {
+        "quote": "Pacientes, profesionales y se tomaron el tiempo de entender los problemas. Es el mejor soporte que he tenido en cualquier plataforma.",
+        "role": "Dueño de pequeña empresa"
+      },
+      {
+        "quote": "El asistente de reservas con IA se encarga de agendar las citas, envía recordatorios y hace seguimiento a quienes no se presentan, todo automáticamente. He reducido mi tiempo administrativo a la mitad.",
+        "role": "Dueño de clínica de fisioterapia"
+      },
+      {
+        "quote": "Probamos otras tres plataformas antes de esta. Ninguna combinaba tanta profundidad de automatización con tanta sencillez. Esta es la que se quedó.",
+        "role": "CEO de agencia digital"
+      },
+      {
+        "quote": "Solo el marketing por SMS ya ha cambiado las reglas del juego para nuestro restaurante. Enviamos una promo de almuerzo y vemos un pico de pedidos en menos de una hora.",
+        "role": "Gerente de restaurante"
+      },
+      {
+        "quote": "Dirijo tres negocios y los gestiono todos desde un solo panel. El soporte multi-ubicación me ahorró tener que contratar a un asistente virtual a tiempo completo.",
+        "role": "Dueño de varios negocios"
+      },
+      {
+        "quote": "Nuestra comunidad de miembros se lanzó en un fin de semana. Alojamiento de cursos, contenido por goteo, chat de comunidad. Todo dentro de la misma plataforma que usamos como CRM.",
+        "role": "Creador de cursos online"
+      },
+      {
+        "quote": "Mis tasas de apertura de correo saltaron del 18% al 42% después del cambio. Las plantillas integradas y las herramientas de redacción con IA están muy infravaloradas.",
+        "role": "Responsable de marketing"
+      },
+      {
+        "quote": "Sustituyó por completo nuestro antiguo CRM y el constructor de páginas de destino. Tenemos un stack tecnológico increíblemente bueno por una fracción de lo que pagábamos antes.",
+        "role": "Fundador de agencia"
+      },
+      {
+        "quote": "Tenía mis dudas sobre una plataforma todo en uno, pero la profundidad aquí es real. Embudos, secuencias de correo, gestión de reputación. Simplemente funciona.",
+        "role": "Dueño de consultora"
+      },
+      {
+        "quote": "El equipo de soporte fue más allá de lo esperado. Se tomaron el tiempo de entender de verdad mi configuración y me guiaron en cada cambio. Extremadamente minuciosos.",
+        "role": "Fundador de agencia creativa"
+      }
+    ]
   },
   "brandCarousel": {
     "label": "Impulsando el crecimiento de",
@@ -387,7 +482,330 @@
     "ctaDesc": "Prueba la plataforma completa gratis durante 14 días. Gratis por 14 días, cancela cuando quieras. O reserva una demo y te lo explicamos.",
     "ctaGetStarted": "Comenzar",
     "ctaBookDemo": "Reservar una demo",
-    "included": "Incluido"
+    "included": "Incluido",
+    "data": {
+      "tierHighlights": {
+        "launchpad": [
+          "1 sistema principal a tu elección",
+          "9 sistemas para elegir",
+          "Acceso completo al panel",
+          "Análisis básicos",
+          "Soporte por chat con IA",
+          "Acceso a la comunidad"
+        ],
+        "starter": [
+          "Los 9 sistemas principales incluidos",
+          "CRM + gestión de pipeline",
+          "Marketing por correo y SMS",
+          "Constructor de embudos y sitios web",
+          "Reservas, redes sociales y reputación",
+          "Facturación, formularios y encuestas",
+          "Automatizaciones de flujo de trabajo",
+          "Soporte por chat con IA"
+        ],
+        "growth": [
+          "Todo lo de Starter",
+          "Contactos y flujos de trabajo ilimitados",
+          "Constructor de automatizaciones avanzado",
+          "Respuestas impulsadas por IA",
+          "Paneles de informes personalizados",
+          "Soporte prioritario",
+          "Sesión estratégica de onboarding",
+          "Canal de comunidad dedicado"
+        ],
+        "bespoke": [
+          "Todo lo de Growth",
+          "Soporte multi-ubicación",
+          "Cuentas de usuario para tu equipo",
+          "Integraciones personalizadas",
+          "Gestor de cuenta dedicado",
+          "Revisiones estratégicas mensuales",
+          "Automatizaciones construidas a medida",
+          "Línea de soporte telefónico"
+        ]
+      },
+      "replacementFeatures": [
+        "CRM y gestión de pipeline",
+        "Marketing por correo electrónico",
+        "Marketing por SMS",
+        "Constructor de embudos y sitios web",
+        "Reservas y calendario",
+        "Automatizaciones de flujo de trabajo",
+        "Gestión de reputación",
+        "Análisis e informes",
+        "Planificador de redes sociales",
+        "Facturación y pagos",
+        "Formularios y encuestas",
+        "Plataforma comunitaria",
+        "Seguimiento de llamadas"
+      ],
+      "cellPick1": "Elige 1",
+      "cellUnlimited": "Ilimitado",
+      "cellWorkflows5": "5 flujos de trabajo",
+      "featureCategories": [
+        {
+          "name": "Plataforma principal",
+          "rows": [
+            [
+              "CRM y gestión de pipeline",
+              "Guarda cada lead, cliente y conversación en un solo lugar. Pipelines visuales de arrastrar y soltar para seguir tus tratos, prever ingresos y no dejar escapar ninguna oportunidad."
+            ],
+            [
+              "Constructor de embudos y sitios web",
+              "Crea páginas de destino de alta conversión, embudos de captación y un sitio web completo para tu negocio con arrastrar y soltar. Dominio propio, herramientas SEO y SSL incluidos."
+            ],
+            [
+              "Marketing por correo electrónico",
+              "Envía correos atractivos con tu marca, crea secuencias de nurturing automatizadas y mide aperturas, clics y conversiones. Sin cargos por envío en ningún plan."
+            ],
+            [
+              "Marketing por SMS",
+              "Llega directamente a tus clientes con campañas de texto, recordatorios de citas y conversaciones bidireccionales. El uso de mensajes se factura por separado según lo consumas."
+            ],
+            [
+              "Sistema de reservas y calendario",
+              "Permite que tus clientes reserven citas directamente desde tu sitio web o tus enlaces. Se sincroniza con Google Calendar, envía recordatorios automáticos y reduce las ausencias."
+            ],
+            [
+              "Planificador de redes sociales",
+              "Programa y publica contenido en Facebook, Instagram, Google y más. Planifica tu calendario de contenidos y mide la interacción desde un solo lugar."
+            ],
+            [
+              "Gestión de reputación",
+              "Solicita reseñas automáticamente a tus clientes satisfechos, supervisa tu reputación online y responde a las reseñas desde un solo panel."
+            ],
+            [
+              "Facturación y pagos",
+              "Envía facturas profesionales, acepta pagos online y controla quién ha pagado. Se integra con Stripe para transacciones sin fricciones."
+            ],
+            [
+              "Formularios y encuestas",
+              "Capta leads con formularios personalizados y recoge opiniones con encuestas. Insértalos donde quieras y activa automatizaciones con cada envío."
+            ]
+          ]
+        },
+        {
+          "name": "Automatización e IA",
+          "rows": [
+            [
+              "Automatizaciones básicas de flujo de trabajo",
+              "Configura automatizaciones sencillas del tipo \"si pasa esto, haz aquello\", como enviar un correo de bienvenida cuando alguien rellena un formulario o etiquetar contactos según sus acciones."
+            ],
+            [
+              "Constructor de automatizaciones multipaso",
+              "Crea flujos de trabajo complejos de varios pasos con esperas, condiciones y múltiples acciones. Automatiza todo tu proceso de seguimiento, desde el primer contacto hasta la conversión."
+            ],
+            [
+              "Secuencias basadas en disparadores",
+              "Inicia secuencias automáticamente cuando un contacto realiza una acción concreta, como visitar una página, abrir un correo o reservar una cita."
+            ],
+            [
+              "Respuestas automáticas con IA",
+              "Deja que la IA atienda las primeras consultas, califique leads y responda al instante a las preguntas frecuentes por chat, SMS o correo mientras tú te centras en tu negocio."
+            ],
+            [
+              "Asistente de contenido con IA",
+              "Genera textos de correo, publicaciones para redes sociales y contenido de marketing con una IA entrenada en la voz de tu marca. Ahorra horas en la creación de contenido."
+            ],
+            [
+              "Lógica condicional y ramificación",
+              "Crea flujos de trabajo inteligentes que se ramifican según el comportamiento del contacto, el valor del trato o los valores de campos personalizados. Distintos caminos para distintos escenarios."
+            ],
+            [
+              "Automatizaciones construidas a medida",
+              "Nuestro equipo crea automatizaciones a medida, adaptadas exactamente a los procesos de tu negocio. Integraciones complejas y lógica personalizada construidas para ti."
+            ]
+          ]
+        },
+        {
+          "name": "Contactos y datos",
+          "rows": [
+            [
+              "Fichas de contacto",
+              "Guarda y gestiona tus leads y clientes con perfiles detallados, historial de actividad, notas y campos de datos personalizados."
+            ],
+            [
+              "Campos personalizados",
+              "Añade tus propios campos de datos a contactos, tratos y registros. Registra la información concreta que importa para tu negocio."
+            ],
+            [
+              "Etiquetas y segmentos",
+              "Organiza tus contactos con etiquetas y crea segmentos dinámicos según comportamiento, datos demográficos o criterios personalizados para lanzar campañas dirigidas."
+            ],
+            [
+              "Importar / exportar contactos",
+              "Trae tus contactos existentes fácilmente mediante un archivo CSV o exporta tus datos cuando quieras. Tus datos siempre son tuyos."
+            ],
+            [
+              "Puntuación de leads",
+              "Puntúa tus leads automáticamente según su interacción, comportamiento y afinidad. Dedica tu tiempo a los contactos con más probabilidades de convertir."
+            ],
+            [
+              "Listas inteligentes y filtros",
+              "Crea listas dinámicas que se actualizan solas según la actividad, las etiquetas o los valores de campo de cada contacto. Ten siempre lista la audiencia adecuada."
+            ]
+          ]
+        },
+        {
+          "name": "Informes y análisis",
+          "rows": [
+            [
+              "Panel básico",
+              "Consulta tus métricas clave de un vistazo, incluidos nuevos leads, tratos activos, citas e ingresos, en un panel general claro y ordenado."
+            ],
+            [
+              "Informes de rendimiento de campañas",
+              "Mide las tasas de apertura y de clics de tus correos, la entrega de SMS y las tasas de conversión en todas tus campañas de marketing."
+            ],
+            [
+              "Informes de pipeline e ingresos",
+              "Visualiza el valor de tu pipeline de ventas, las tasas de conversión por etapa y las previsiones de ingresos para tomar decisiones basadas en datos."
+            ],
+            [
+              "Paneles de informes personalizados",
+              "Construye tus propios paneles con las métricas y visualizaciones exactas que necesitas. Arrastra y suelta widgets para crear tu vista ideal."
+            ],
+            [
+              "Seguimiento de atribución",
+              "Descubre exactamente qué canales y campañas generan leads e ingresos. Sabe dónde invertir tu presupuesto de marketing."
+            ],
+            [
+              "Informes programados por correo",
+              "Recibe automáticamente tus informes clave por correo con frecuencia diaria, semanal o mensual. Mantente al día sin tener que iniciar sesión."
+            ]
+          ]
+        },
+        {
+          "name": "Soporte y comunidad",
+          "rows": [
+            [
+              "Base de conocimiento y guías",
+              "Accede a guías paso a paso, videotutoriales y documentación de buenas prácticas para sacar el máximo partido a cada función de DUSA."
+            ],
+            [
+              "Asistente de IA (24/7)",
+              "Llama o chatea con tu asistente de IA en cualquier momento. Te guía en todo lo relacionado con DUSA, desde la configuración hasta la estrategia. Si te atascas, te agendamos una cita con un especialista en crecimiento."
+            ],
+            [
+              "Acceso a la comunidad DUSA",
+              "Únete a una comunidad privada de dueños de negocios que usan DUSA. Comparte estrategias, haz preguntas y aprende de resultados reales."
+            ],
+            [
+              "Soporte por correo",
+              "Contacta con nuestro equipo de soporte por correo para consultas técnicas, resolución de problemas y ayuda con tu cuenta en horario laboral."
+            ],
+            [
+              "Cola de soporte prioritario",
+              "Sáltate la cola y recibe respuestas más rápidas de nuestro equipo de soporte. Tus solicitudes se atienden primero y con atención dedicada."
+            ],
+            [
+              "Sesión estratégica de onboarding",
+              "Una sesión individual con un consultor de crecimiento para planificar tu configuración de DUSA, migrar tus datos y crear tus primeras automatizaciones."
+            ],
+            [
+              "Gestor de cuenta dedicado",
+              "Un gestor de cuenta con nombre y apellido que conoce tu negocio a fondo. Tu único punto de contacto para todo lo relacionado con DUSA."
+            ],
+            [
+              "Soporte telefónico",
+              "Acceso telefónico directo a nuestro equipo de soporte para incidencias urgentes o consultas complejas que requieren una conversación real."
+            ],
+            [
+              "Revisiones estratégicas mensuales",
+              "Reuniones periódicas con tu gestor de cuenta para revisar el rendimiento, optimizar tu configuración y planificar tus próximos pasos de crecimiento."
+            ]
+          ]
+        },
+        {
+          "name": "Plataforma e integraciones",
+          "rows": [
+            [
+              "Acceso al portal de miembros",
+              "Tu portal privado para gestionar tu cuenta, acceder a la formación y enviar solicitudes de soporte, todo en un mismo lugar."
+            ],
+            [
+              "Aplicación móvil",
+              "Gestiona leads, responde mensajes, revisa tu pipeline y sigue la actividad desde tu teléfono con la aplicación móvil de DUSA."
+            ],
+            [
+              "Integración con Zapier",
+              "Conecta DUSA con miles de aplicaciones a través de Zapier. Sincroniza datos, activa acciones y crea flujos de trabajo personalizados entre tus herramientas."
+            ],
+            [
+              "Acceso a la API",
+              "Acceso completo a la API REST para integraciones personalizadas, sincronización de datos y desarrollo sobre la plataforma DUSA."
+            ],
+            [
+              "Dominio propio",
+              "Aloja tu sitio web, embudos y portales creados con DUSA en tu propio dominio de marca, con SSL incluido."
+            ],
+            [
+              "Portal de cliente de marca blanca",
+              "Elimina la marca DUSA y presenta la plataforma como propia ante tus clientes. Ideal para agencias y consultores."
+            ],
+            [
+              "Gestión multi-ubicación",
+              "Gestiona varias sedes de tu negocio desde una sola cuenta, con pipelines, contactos e informes independientes para cada ubicación."
+            ],
+            [
+              "Cuentas de usuario para tu equipo",
+              "Añade miembros de tu equipo con permisos por rol. Controla quién puede ver, editar y gestionar cada parte de tu cuenta."
+            ],
+            [
+              "Integraciones personalizadas",
+              "Nuestro equipo crea integraciones a medida para conectar DUSA con tus herramientas, bases de datos y sistemas internos actuales."
+            ]
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "q": "¿Qué es DUSA y cómo ayuda a las pequeñas empresas?",
+          "a": "DUSA es una plataforma de crecimiento todo en uno que sustituye las herramientas dispersas que usan las pequeñas empresas para CRM, marketing por correo, SMS, embudos, reservas y gestión de reputación. En lugar de pagar cinco o seis suscripciones distintas, todo vive en un único sistema conectado."
+        },
+        {
+          "q": "¿Cuánto cuesta la plataforma DUSA al mes?",
+          "a": "Los planes empiezan desde {launchpad} {currency} al mes por una única herramienta principal con nuestro plan Launchpad. Nuestro plan Starter incluye los 9 sistemas principales por {starter}/mes, y Growth desbloquea contactos ilimitados, automatizaciones avanzadas y soporte prioritario por {growth}/mes. Todos los precios están en {currency}, sin cargos ocultos."
+        },
+        {
+          "q": "¿Qué incluye el plan Launchpad?",
+          "a": "Launchpad te da acceso a un sistema principal a tu elección entre nueve opciones: CRM y pipeline, embudos y sitio web, marketing por correo, marketing por SMS, reservas y calendario, planificador de redes sociales, gestión de reputación, facturación y pagos, o formularios y encuestas. Incluye acceso completo al panel, análisis básicos, soporte por chat con IA y acceso a la comunidad. Está pensado para profesionales independientes que quieren empezar con poco e ir escalando."
+        },
+        {
+          "q": "¿Puedo cambiar de plan en cualquier momento?",
+          "a": "Sí. Puedes subir de plan o cambiarlo cuando quieras. Los cambios se aplican en tu siguiente ciclo de facturación. No hay contratos de permanencia, y puedes moverte entre planes a medida que cambian las necesidades de tu negocio."
+        },
+        {
+          "q": "¿Hay cuotas de configuración o costos ocultos?",
+          "a": "No hay cuotas de configuración en ningún plan. El precio de tu plan cubre el acceso a la plataforma. El uso de mensajes, llamadas, correo e IA se factura por separado según lo consumas, y se descuenta de un saldo prepagado en tu cuenta. Se hace un pequeño cargo de recarga a tu tarjeta la primera vez que activas esas funciones, y de nuevo automáticamente cada vez que el saldo se agota. Tú defines el importe de la recarga y puedes añadir saldo por tu cuenta en cualquier momento. El consumo se factura en USD porque los proveedores de telefonía, correo e IA que hay detrás de la plataforma están en Estados Unidos. La mayoría de los clientes gastan entre 15 y 25 USD al mes según el volumen. No hay ningún otro cargo oculto."
+        },
+        {
+          "q": "¿Qué tipo de soporte ofrece DUSA?",
+          "a": "Todos los planes incluyen soporte ilimitado por chat con IA, disponible 24/7 desde tu portal de miembros, además de acceso a la comunidad DUSA. A partir de Starter se incluye soporte por correo. Los planes Growth cuentan con soporte prioritario y una sesión estratégica de onboarding. Los clientes Bespoke reciben un gestor de cuenta dedicado, soporte telefónico y revisiones estratégicas mensuales."
+        },
+        {
+          "q": "¿Es DUSA adecuado para profesionales independientes y freelancers?",
+          "a": "Por supuesto. La plataforma DUSA se creó para profesionales independientes, freelancers y dueños de pequeñas empresas que necesitan herramientas profesionales sin la complejidad de las grandes corporaciones. El plan Launchpad, por {launchpad}/mes, está diseñado precisamente como una puerta de entrada de bajo compromiso para que pruebes una herramienta y amplíes a medida que creces."
+        },
+        {
+          "q": "¿Qué es la comunidad DUSA?",
+          "a": "La comunidad DUSA es un espacio exclusivo para miembros donde los dueños de negocios comparten estrategias, hacen preguntas y reciben apoyo de otros usuarios de DUSA y del equipo de DUSA. Está incluida en todos los planes y es un recurso excelente para aprender a sacar el máximo partido a la plataforma."
+        },
+        {
+          "q": "¿DUSA sustituye herramientas como Mailchimp, Calendly y HubSpot?",
+          "a": "Sí. DUSA incluye marketing por correo (en lugar de Mailchimp), reservas y programación de citas (en lugar de Calendly), CRM y gestión de pipeline (en lugar de HubSpot), además de marketing por SMS, creación de embudos y sitios web, planificación de redes sociales, gestión de reputación, facturación y formularios. Todo en una sola plataforma por una fracción del costo combinado."
+        },
+        {
+          "q": "¿Cuánto se tarda en configurar DUSA?",
+          "a": "La mayoría de los negocios están en marcha en menos de 48 horas. Nuestro plan Launchpad puede estar activo en menos de una hora. Los planes Growth y Bespoke incluyen una sesión estratégica de onboarding en la que te ayudamos a configurarlo todo para tu negocio concreto."
+        },
+        {
+          "q": "¿Todos los precios están en {currency}?",
+          "a": "Sí. Todos los precios de DUSA en esta página están en {currency} ({regionLabel}). No hay conversiones de moneda ni sorpresas en tu factura."
+        }
+      ]
+    },
+    "toggleDusa": "Activar DUSA para esta función"
   },
   "services": {
     "metaTitle": "Servicios | DUSA.studio",
@@ -560,5 +978,19 @@
         "a": "El soporte con IA está disponible 24/7 en todos los planes, con personas reales detrás. Los planes Growth y Bespoke también incluyen un gestor de cuenta dedicado que te acompaña de forma proactiva."
       }
     ]
+  },
+  "start": {
+    "t1Quote": "En la primera semana ya teníamos seguimientos automáticos funcionando y reservamos tres clientes nuevos. DUSA se pagó sola antes de que terminara la prueba.",
+    "t1Role": "Estudio de belleza y bienestar",
+    "t2Quote": "Antes pasábamos horas persiguiendo facturas y llamadas perdidas. Ahora el sistema se encarga de todo. Vuelvo a tener los fines de semana libres.",
+    "t2Role": "Fontanería residencial",
+    "t3Quote": "Nuestras reseñas de Google pasaron de 12 a más de 80 en tres meses. Las solicitudes automáticas de reseñas cambiaron por completo nuestra visibilidad local.",
+    "t3Role": "Estudio de fitness boutique",
+    "t4Quote": "Reemplacé cuatro suscripciones distintas con DUSA. Un solo acceso, una sola factura y ahora todo se comunica entre sí.",
+    "t4Role": "Asesor financiero independiente",
+    "t5Quote": "El chat con IA captó clientes mientras yo estaba en una sesión. Volví con tres reservas nuevas. Eso nunca habría pasado antes.",
+    "t5Role": "Estudio de fotografía y creatividad",
+    "t6Quote": "Montar embudos nos llevaba semanas con un desarrollador. Construimos uno en una tarde y convirtió mejor que cualquiera anterior.",
+    "t6Role": "Dueño de marca de e-commerce"
   }
 }

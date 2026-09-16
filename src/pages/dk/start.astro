@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StartPage from '../../components/pages/StartPage.astro';
+import { getRegion } from '../../i18n/regions.js';
+import t from '../../i18n/translations/da.json';
+const region = getRegion('dk');
+---
+
+<BaseLayout t={t} title={t.start.metaTitle} description={t.start.metaDesc} lang={region.htmlLang} ogLocale={region.ogLocale} region="dk">
+  <StartPage t={t} regionKey="dk" />
+</BaseLayout>

@@ -14,6 +14,13 @@ export const regions = {
   br: { lang: 'pt', label: 'Brasil', currency: 'BRL', symbol: 'R$', flag: '\u{1F1E7}\u{1F1F7}', locale: 'pt-BR', htmlLang: 'pt', ogLocale: 'pt_BR', rate: 3.45 },
   fr: { lang: 'fr', label: 'France', currency: 'EUR', symbol: '€', flag: '\u{1F1EB}\u{1F1F7}', locale: 'fr-FR', htmlLang: 'fr', ogLocale: 'fr_FR', rate: 0.61 },
   de: { lang: 'de', label: 'Deutschland', currency: 'EUR', symbol: '€', flag: '\u{1F1E9}\u{1F1EA}', locale: 'de-DE', htmlLang: 'de', ogLocale: 'de_DE', rate: 0.61 },
+  // The six other languages the DUSA platform (GHL) ships in. Rates are AUD -> currency, Sept 2026.
+  it: { lang: 'it', label: 'Italia', currency: 'EUR', symbol: '€', flag: '\u{1F1EE}\u{1F1F9}', locale: 'it-IT', htmlLang: 'it', ogLocale: 'it_IT', rate: 0.61 },
+  nl: { lang: 'nl', label: 'Nederland', currency: 'EUR', symbol: '€', flag: '\u{1F1F3}\u{1F1F1}', locale: 'nl-NL', htmlLang: 'nl', ogLocale: 'nl_NL', rate: 0.61 },
+  se: { lang: 'sv', label: 'Sverige', currency: 'SEK', symbol: 'kr ', flag: '\u{1F1F8}\u{1F1EA}', locale: 'sv-SE', htmlLang: 'sv', ogLocale: 'sv_SE', rate: 6.94 },
+  dk: { lang: 'da', label: 'Danmark', currency: 'DKK', symbol: 'kr ', flag: '\u{1F1E9}\u{1F1F0}', locale: 'da-DK', htmlLang: 'da', ogLocale: 'da_DK', rate: 4.62 },
+  fi: { lang: 'fi', label: 'Suomi', currency: 'EUR', symbol: '€', flag: '\u{1F1EB}\u{1F1EE}', locale: 'fi-FI', htmlLang: 'fi', ogLocale: 'fi_FI', rate: 0.61 },
+  no: { lang: 'nb', label: 'Norge', currency: 'NOK', symbol: 'kr ', flag: '\u{1F1F3}\u{1F1F4}', locale: 'nb-NO', htmlLang: 'nb', ogLocale: 'nb_NO', rate: 6.66 },
 };
 
 /**

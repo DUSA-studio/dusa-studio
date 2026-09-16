@@ -216,6 +216,7 @@ const replacements = [
 /* Convert tool costs and prioritise regional competitors */
 const competitorNames = new Set(competitors.map((c: any) => c.name.toLowerCase()));
 const displayReplacements = replacements.map(r => {
+  (r as any).featureKey = r.feature;
   const converted = r.tools.map(t => ({ ...t, displayCost: convertToolCost(t.cost) }));
   /* Sort: tools that match regional competitors float to the front */
   converted.sort((a, b) => {
@@ -366,7 +367,50 @@ const faqs = [
 ];
 
 /* Serialise data attributes for the JS interactive layer */
-const regionData = JSON.stringify({ sym, currency: region.currency, rate: region.rate, prices });
+/* ── Dictionary overrides ──
+   The arrays above are the English source of truth. When the region's
+   dictionary carries pricing.data (every non-English region does), swap the
+   labels in place so the table, the plan cards and the FAQ read in the
+   visitor's language. Structure and plan availability never change. */
+const L: any = (p as any).data || null;
+if (L) {
+  const fill = (tpl: string) => String(tpl)
+    .replace(/\{launchpad\}/g, `${sym}${prices.launchpad}`)
+    .replace(/\{starter\}/g, `${sym}${prices.starter}`)
+    .replace(/\{growth\}/g, `${sym}${prices.growth}`)
+    .replace(/\{currency\}/g, region.currency)
+    .replace(/\{regionLabel\}/g, region.label);
+  tiers.forEach((tier) => { const h = L.tierHighlights && L.tierHighlights[tier.id]; if (Array.isArray(h) && h.length === tier.highlights.length) tier.highlights = h; });
+  if (Array.isArray(L.replacementFeatures) && L.replacementFeatures.length === replacements.length) {
+    replacements.forEach((r, i) => { (r as any).feature = L.replacementFeatures[i]; });
+    displayReplacements.forEach((r, i) => { (r as any).feature = L.replacementFeatures[i]; });
+  }
+  if (Array.isArray(L.featureCategories) && L.featureCategories.length === featureCategories.length) {
+    featureCategories.forEach((cat, i) => {
+      const lc = L.featureCategories[i]; if (!lc) return;
+      if (lc.name) (cat as any).name = lc.name;
+      if (Array.isArray(lc.rows) && lc.rows.length === cat.features.length) cat.features.forEach((row: any, j: number) => { row.label = lc.rows[j][0]; row.desc = lc.rows[j][1]; });
+    });
+  }
+  const cellMap: Record<string, string> = { 'Pick 1': L.cellPick1, 'Unlimited': L.cellUnlimited, '5 workflows': L.cellWorkflows5 };
+  featureCategories.forEach((cat) => cat.features.forEach((row: any) => { (['launchpad', 'starter', 'growth', 'bespoke'] as const).forEach((k) => { if (typeof row[k] === 'string' && cellMap[row[k]]) row[k] = cellMap[row[k]]; }); }));
+  if (Array.isArray(L.faqs) && L.faqs.length === faqs.length) faqs.forEach((f, i) => { f.q = fill(L.faqs[i].q); f.a = fill(L.faqs[i].a); });
+}
+
+/* Mobile plan selector reads the same (localised) tiers + feature table */
+const mpsData = {
+  plans: [
+    { name: p.tierLaunchpad, price: `${sym}${prices.launchpad}`, period: `${p.perMonth} ${region.currency}`, cta: `${p.startFor} ${sym}${prices.launchpad}`, ctaLink: `${langPrefix}/start` },
+    { name: p.tierStarter, price: `${sym}${prices.starter}`, period: `${p.perMonth} ${region.currency}`, cta: p.getStarter, ctaLink: `${langPrefix}/start` },
+    { name: p.tierGrowth, price: `${sym}${prices.growth}`, period: `${p.perMonth} ${region.currency}`, cta: p.scaleFaster, ctaLink: `${langPrefix}/start` },
+    { name: p.tierBespoke, price: p.custom || 'Custom', period: '', custom: true, cta: p.letsTalk, ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' },
+  ],
+  categories: featureCategories.map((cat: any) => ({
+    name: cat.name,
+    features: cat.features.map((f: any) => ({ label: f.label, vals: [f.launchpad, f.starter, f.growth, f.bespoke] })),
+  })),
+};
+const regionData = JSON.stringify({ sym, currency: region.currency, rate: region.rate, prices, mps: mpsData });
 ---
 
   <!-- Hero -->
@@ -483,8 +527,8 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
                       </div>
                     </div>
                     <span class="rack-row__cost" data-row-cost={i}>{sym}{r.tools[0].displayCost}</span>
-                    <label class="dusa-toggle" data-row={i} title="Toggle DUSA for this feature">
-                      <input type="checkbox" class="dusa-toggle__input" data-feature={r.feature} />
+                    <label class="dusa-toggle" data-row={i} title={p.toggleDusa || 'Toggle DUSA for this feature'}>
+                      <input type="checkbox" class="dusa-toggle__input" data-feature={(r as any).featureKey || r.feature} />
                       <span class="dusa-toggle__track">
                         <span class="dusa-toggle__thumb"></span>
                         <span class="dusa-toggle__label-off">DUSA</span>
@@ -2538,76 +2582,17 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     var s = rd.sym;
 
     // Detect regional prefix for /start links
-    var regionMatch = window.location.pathname.match(/^\/(us|uk|es|mx|br|fr|de)(\/|$)/);
+    var regionMatch = window.location.pathname.match(/^\/(us|uk|es|mx|br|fr|de|it|nl|se|dk|fi|no)(\/|$)/);
     var startLink = regionMatch ? '/' + regionMatch[1] + '/start' : '/start';
 
-    var plans = [
+    var plans = (rd.mps && rd.mps.plans) || [
       { name: 'Launchpad', price: s + rd.prices.launchpad, period: '/mo ' + rd.currency, cta: 'Start for ' + s + rd.prices.launchpad, ctaLink: startLink },
       { name: 'Starter', price: s + rd.prices.starter, period: '/mo ' + rd.currency, cta: 'Get Starter', ctaLink: startLink },
       { name: 'Growth', price: s + rd.prices.growth, period: '/mo ' + rd.currency, cta: 'Scale Faster', ctaLink: startLink },
-      { name: 'Bespoke', price: 'Custom', period: '', cta: "Let's Talk", ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
+      { name: 'Bespoke', price: 'Custom', period: '', custom: true, cta: "Let's Talk", ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
     ];
 
-    var categories = [
-      { name: 'Core platform', features: [
-        { label: 'CRM & pipeline management', vals: ['Pick 1', true, true, true] },
-        { label: 'Funnel & website builder', vals: ['Pick 1', true, true, true] },
-        { label: 'Email marketing', vals: ['Pick 1', true, true, true] },
-        { label: 'SMS marketing', vals: ['Pick 1', true, true, true] },
-        { label: 'Booking & calendar', vals: ['Pick 1', true, true, true] },
-        { label: 'Social media planner', vals: ['Pick 1', true, true, true] },
-        { label: 'Reputation management', vals: ['Pick 1', true, true, true] },
-        { label: 'Invoicing & payments', vals: ['Pick 1', true, true, true] },
-        { label: 'Forms & surveys', vals: ['Pick 1', true, true, true] },
-      ]},
-      { name: 'Automation & AI', features: [
-        { label: 'Basic workflow automations', vals: [false, true, true, true] },
-        { label: 'Multi-step automation builder', vals: [false, '5 workflows', 'Unlimited', 'Unlimited'] },
-        { label: 'Trigger-based sequences', vals: [false, true, true, true] },
-        { label: 'AI-powered auto-responses', vals: [false, false, true, true] },
-        { label: 'AI content assistant', vals: [false, false, true, true] },
-        { label: 'Conditional logic & branching', vals: [false, false, true, true] },
-        { label: 'Custom automation builds', vals: [false, false, false, true] },
-      ]},
-      { name: 'Contacts & data', features: [
-        { label: 'Contact records', vals: ['500', '2,500', 'Unlimited', 'Unlimited'] },
-        { label: 'Custom fields', vals: ['10', '50', 'Unlimited', 'Unlimited'] },
-        { label: 'Tags & segments', vals: [true, true, true, true] },
-        { label: 'Import / export contacts', vals: [true, true, true, true] },
-        { label: 'Lead scoring', vals: [false, false, true, true] },
-        { label: 'Smart lists & filters', vals: [false, true, true, true] },
-      ]},
-      { name: 'Reporting & analytics', features: [
-        { label: 'Basic dashboard', vals: [true, true, true, true] },
-        { label: 'Campaign performance', vals: [false, true, true, true] },
-        { label: 'Pipeline & revenue reporting', vals: [false, true, true, true] },
-        { label: 'Custom dashboards', vals: [false, false, true, true] },
-        { label: 'Attribution tracking', vals: [false, false, true, true] },
-        { label: 'Scheduled report emails', vals: [false, false, true, true] },
-      ]},
-      { name: 'Support & community', features: [
-        { label: 'Knowledge base & guides', vals: [true, true, true, true] },
-        { label: 'AI assistant (24/7)', vals: [true, true, true, true] },
-        { label: 'Community access', vals: [true, true, true, true] },
-        { label: 'Email support', vals: [true, true, true, true] },
-        { label: 'Priority support queue', vals: [false, false, true, true] },
-        { label: 'Onboarding strategy session', vals: [false, false, true, true] },
-        { label: 'Dedicated account manager', vals: [false, false, false, true] },
-        { label: 'Phone support', vals: [false, false, false, true] },
-        { label: 'Monthly strategy reviews', vals: [false, false, false, true] },
-      ]},
-      { name: 'Platform & integrations', features: [
-        { label: 'Members portal access', vals: [true, true, true, true] },
-        { label: 'Mobile app', vals: [true, true, true, true] },
-        { label: 'Zapier integration', vals: [false, true, true, true] },
-        { label: 'API access', vals: [false, false, true, true] },
-        { label: 'Custom domain', vals: [false, true, true, true] },
-        { label: 'White-label client portal', vals: [false, false, false, true] },
-        { label: 'Multi-location management', vals: [false, false, false, true] },
-        { label: 'Team user accounts', vals: [false, false, false, true] },
-        { label: 'Custom integrations', vals: [false, false, false, true] },
-      ]}
-    ];
+    var categories = (rd.mps && rd.mps.categories) || [];
 
     var currentPlan = 0;
     var tabs = mps.querySelectorAll('.mps__tab');
@@ -2650,8 +2635,8 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       });
 
       var p = plans[idx];
-      if (p.price === 'Custom') {
-        priceEl.innerHTML = '<span class="mps__price-amount">Custom</span>';
+      if (p.custom || p.price === 'Custom') {
+        priceEl.innerHTML = '<span class="mps__price-amount">' + p.price + '</span>';
       } else {
         priceEl.innerHTML = '<span class="mps__price-amount">' + p.price + '</span><span class="mps__price-period">' + p.period + '</span>';
       }

@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import WhatIsDusa from '../../components/WhatIsDusa.astro';
+import UnderwaterDive from '../../components/UnderwaterDive.astro';
+import FunnelComparison from '../../components/FunnelComparison.astro';
+import Features from '../../components/Features.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import Onboarding from '../../components/Onboarding.astro';
+import BrandCarousel from '../../components/BrandCarousel.astro';
+import SocialProof from '../../components/SocialProof.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTA from '../../components/CTA.astro';
+import t from '../../i18n/translations/sv.json';
+---
+
+<BaseLayout
+  title={t.home.metaTitle}
+  description={t.home.metaDesc}
+  lang="sv"
+  ogLocale="sv_SE"
+  region="se"
+  t={t}
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DUSA . studio",
+    "url": "https://dusa.studio/se/",
+    "logo": "https://dusa.studio/favicon.png",
+    "description": t.home.schemaDesc,
+    "address": { "@type": "PostalAddress", "addressLocality": "Sydney", "addressRegion": "NSW", "addressCountry": "AU" },
+    "sameAs": ["https://www.instagram.com/the.dusa.studio", "https://www.linkedin.com/company/dusa-studio", "https://au.pinterest.com/DUSAstudio", "https://www.facebook.com/the.DUSA.studio", "https://github.com/DUSA-studio"]
+  })} />
+  <Hero t={t} lang="sv" />
+  <Features t={t} />
+  <SocialProof t={t} />
+  <UnderwaterDive t={t} />
+  <FunnelComparison t={t} />
+  <WhatIsDusa t={t} />
+  <HowItWorks t={t} />
+  <Onboarding t={t} region="se" />
+  <BrandCarousel t={t} />
+  <FAQ t={t} />
+  <CTA t={t} />
+</BaseLayout>
+
+<script>
+  function initAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') { setTimeout(initAnimations, 100); return; }
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('gsap-ready');
+    const heroTl = gsap.timeline({
+      scrollTrigger: { trigger: '.hero__inner', start: 'top 75%', once: true },
+    });
+    const heroLabel = document.querySelector('.hero .label');
+    const heroTitle = document.querySelector('.hero__title');
+    const heroSub = document.querySelector('.hero__subtitle');
+    const heroPhone = document.querySelector('.hero__phone-wrap');
+    const notifFeed = document.querySelector('#hero-notif-feed');
+    if (notifFeed) { gsap.set(notifFeed, { opacity: 0 }); heroTl.to(notifFeed, { opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.6'); }
+    const heroProof = document.querySelector('.hero__proof');
+    // ─── SCROLL REVEALS ───
+    // Handled by /js/reveal.js (a single IntersectionObserver). This used to
+    // create one ScrollTrigger per .reveal element — ~54 of them on this page.
+
+document.querySelectorAll('.hiw__step-num').forEach((el) => { gsap.from(el, { scale: 0.3, opacity: 0, duration: 0.6, ease: 'back.out(2)', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }); });
+    document.querySelectorAll('.proof__stat-value').forEach((el) => { gsap.from(el, { scale: 0.4, opacity: 0, y: 20, duration: 0.7, ease: 'back.out(2)', scrollTrigger: { trigger: el, start: 'top 88%', once: true } }); });
+    document.querySelectorAll('.cta__expand-line').forEach((el) => { gsap.fromTo(el, { scaleY: 0 }, { scaleY: 1, duration: 1, ease: 'power2.out', transformOrigin: 'top center', scrollTrigger: { trigger: el, start: 'top 92%', once: true } }); });
+    const nav = document.querySelector('.nav');
+    if (nav) { ScrollTrigger.create({ start: 'top -80', onUpdate: (self) => { nav.classList.toggle('nav--scrolled', self.progress > 0); } }); }
+    setTimeout(() => ScrollTrigger.refresh(), 500);
+    setTimeout(() => ScrollTrigger.refresh(), 1500);
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initAnimations); } else { initAnimations(); }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && typeof gsap !== 'undefined') { gsap.ticker.wake(); if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); } });
+</script>

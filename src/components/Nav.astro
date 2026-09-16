@@ -26,24 +26,27 @@ const themeLabel = n.theme || 'Theme';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
+const IL: Record<string, string> = n.industryLabels || {};
 const industryLinks = [
-  { label: 'Real Estate', slug: '/industries/real-estate' },
-  { label: 'Gyms & Fitness', slug: '/industries/gyms' },
-  { label: 'Trades', slug: '/industries/tradies' },
-  { label: 'Restaurants', slug: '/industries/restaurants' },
-  { label: 'Salons & Spas', slug: '/industries/salons' },
-  { label: 'Accountants', slug: '/industries/accountants' },
-  { label: 'Dental Practices', slug: '/industries/dentists' },
-  { label: 'Photographers', slug: '/industries/photographers' },
-  { label: 'Construction', slug: '/industries/construction' },
-  { label: 'Personal Trainers', slug: '/industries/personal-trainers' },
-  { label: 'Cleaning Services', slug: '/industries/cleaning-services' },
-  { label: 'Law Firms', slug: '/industries/law-firms' },
-  { label: 'Property Managers', slug: '/industries/property-managers' },
-  { label: 'Auto Repair', slug: '/industries/auto-repair' },
-  { label: 'Coaches', slug: '/industries/coaches' },
-  { label: 'E-commerce', slug: '/industries/ecommerce' },
+  { label: IL['real-estate'] || 'Real Estate', slug: '/industries/real-estate' },
+  { label: IL['gyms'] || 'Gyms & Fitness', slug: '/industries/gyms' },
+  { label: IL['tradies'] || 'Trades', slug: '/industries/tradies' },
+  { label: IL['restaurants'] || 'Restaurants', slug: '/industries/restaurants' },
+  { label: IL['salons'] || 'Salons & Spas', slug: '/industries/salons' },
+  { label: IL['accountants'] || 'Accountants', slug: '/industries/accountants' },
+  { label: IL['dentists'] || 'Dental Practices', slug: '/industries/dentists' },
+  { label: IL['photographers'] || 'Photographers', slug: '/industries/photographers' },
+  { label: IL['construction'] || 'Construction', slug: '/industries/construction' },
+  { label: IL['personal-trainers'] || 'Personal Trainers', slug: '/industries/personal-trainers' },
+  { label: IL['cleaning-services'] || 'Cleaning Services', slug: '/industries/cleaning-services' },
+  { label: IL['law-firms'] || 'Law Firms', slug: '/industries/law-firms' },
+  { label: IL['property-managers'] || 'Property Managers', slug: '/industries/property-managers' },
+  { label: IL['auto-repair'] || 'Auto Repair', slug: '/industries/auto-repair' },
+  { label: IL['coaches'] || 'Coaches', slug: '/industries/coaches' },
+  { label: IL['ecommerce'] || 'E-commerce', slug: '/industries/ecommerce' },
 ];
+const viewAllIndustriesLabel = n.viewAllIndustries || 'View all industries';
+const viewAllLabel = n.viewAll || 'View all';
 ---
 
 <nav class="nav" id="nav">
@@ -74,7 +77,7 @@ const industryLinks = [
             ))}
           </div>
           <div class="nav__dropdown-footer">
-            <a href="/industries" data-page="industries" class="nav__dropdown-all">View all industries &rarr;</a>
+            <a href="/industries" data-page="industries" class="nav__dropdown-all">{viewAllIndustriesLabel} &rarr;</a>
           </div>
         </div>
       </div>
@@ -102,6 +105,12 @@ const industryLinks = [
           <button class="nav__region-option" data-region="br"><span class="nav__region-flag">🇧🇷</span> Brasil <span class="nav__region-currency">BRL</span></button>
           <button class="nav__region-option" data-region="fr"><span class="nav__region-flag">🇫🇷</span> France <span class="nav__region-currency">EUR</span></button>
           <button class="nav__region-option" data-region="de"><span class="nav__region-flag">🇩🇪</span> Deutschland <span class="nav__region-currency">EUR</span></button>
+          <button class="nav__region-option" data-region="it"><span class="nav__region-flag">🇮🇹</span> Italia <span class="nav__region-currency">EUR</span></button>
+          <button class="nav__region-option" data-region="nl"><span class="nav__region-flag">🇳🇱</span> Nederland <span class="nav__region-currency">EUR</span></button>
+          <button class="nav__region-option" data-region="se"><span class="nav__region-flag">🇸🇪</span> Sverige <span class="nav__region-currency">SEK</span></button>
+          <button class="nav__region-option" data-region="dk"><span class="nav__region-flag">🇩🇰</span> Danmark <span class="nav__region-currency">DKK</span></button>
+          <button class="nav__region-option" data-region="fi"><span class="nav__region-flag">🇫🇮</span> Suomi <span class="nav__region-currency">EUR</span></button>
+          <button class="nav__region-option" data-region="no"><span class="nav__region-flag">🇳🇴</span> Norge <span class="nav__region-currency">NOK</span></button>
         </div>
         <script type="application/json" id="dusa-region-map" set:html={JSON.stringify({ alternates: regionAlternates, homes: regionHomes, routes: regionRoutes })}></script>
       </div>
@@ -150,7 +159,7 @@ const industryLinks = [
             <span>{ind.label}</span>
           </a>
         ))}
-        <a href="/industries" data-page="industries" class="nav__mobile-sub-link nav__mobile-sub-link--all">View all &rarr;</a>
+        <a href="/industries" data-page="industries" class="nav__mobile-sub-link nav__mobile-sub-link--all">{viewAllLabel} &rarr;</a>
       </div>
     </div>
     <a href="/contact" data-page="contact" class={`nav__mobile-link ${currentPath === '/contact' ? 'nav__mobile-link--active' : ''}`}>{contactLabel}</a>
@@ -166,6 +175,12 @@ const industryLinks = [
         <option value="br">🇧🇷 Brasil (BRL)</option>
         <option value="fr">🇫🇷 France (EUR)</option>
         <option value="de">🇩🇪 Deutschland (EUR)</option>
+        <option value="it">🇮🇹 Italia (EUR)</option>
+        <option value="nl">🇳🇱 Nederland (EUR)</option>
+        <option value="se">🇸🇪 Sverige (SEK)</option>
+        <option value="dk">🇩🇰 Danmark (DKK)</option>
+        <option value="fi">🇫🇮 Suomi (EUR)</option>
+        <option value="no">🇳🇴 Norge (NOK)</option>
       </select>
     </div>
     <div class="nav__mobile-theme" id="mobile-theme-toggle">
@@ -669,6 +684,11 @@ const industryLinks = [
     padding: 0.5rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     z-index: 1001;
+    /* 14 regions now: keep the list inside the viewport and scroll the rest. */
+    max-height: calc(100vh - 110px);
+    max-height: calc(100dvh - 110px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .nav__region-dropdown.active {
@@ -1155,7 +1175,7 @@ const industryLinks = [
   // filesystem (see src/i18n/routes.ts). Previously these were hand-maintained
   // lists that had drifted: the AU list was missing the homepage, so switching
   // back to AUD from a translated home page dumped you on /pricing.
-  const regionPrefixes = ['au','us','uk','es','mx','br','fr','de'];
+  const regionPrefixes = ['au','us','uk','es','mx','br','fr','de','it','nl','se','dk','fi','no'];
   const ENGLISH_REGIONS = ['au','us','uk'];
   const REGION_PREF_KEY = 'dusa-region';
 

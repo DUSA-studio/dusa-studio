@@ -12,6 +12,7 @@
 // it degrades to a readable static state under prefers-reduced-motion.
 import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../config/stack-compare';
 import { BRAND_MARKS } from '../config/brand-marks';
+import { TOOL_MARKS } from '../config/tool-marks';
 
 interface Props {
   t?: Record<string, any>;
@@ -36,18 +37,18 @@ const MOONS = BRAND_MARKS.slice(0, 8);
 
 /* Entry lane, and where each chip comes to rest once the neck is blocked.
    Deterministic so the jam looks designed rather than accidental. Resting
-   x is kept inside the cone wall at that height (wall half-width in stage
-   units: 18% at y32, 12% at y39, 9% at y43, 6% at y47, 1.5% at y52, less a
-   chip's own half-width of ~5%). */
+   x is kept inside the cone wall at that height (cube plus tag is ~40px
+   half-width at jam scale; wall half-width runs 192px at y25, 153 at y32,
+   121 at y38, 87 at y44, 60 at y49). */
 const FALL = [
-  { lane: -30, jamX:  -6, jamY: 47, rot: -14 },
-  { lane:  14, jamX:   6, jamY: 46, rot:  11 },
-  { lane:  -8, jamX:   0, jamY: 52, rot:   5 },
-  { lane:  32, jamX:  11, jamY: 39, rot:  17 },
-  { lane: -22, jamX: -10, jamY: 39, rot: -20 },
-  { lane:   4, jamX:   1, jamY: 42, rot:  -6 },
-  { lane:  26, jamX:   8, jamY: 33, rot:   9 },
-  { lane: -14, jamX:  -8, jamY: 32, rot: -10 },
+  { lane: -30, jamX:  -5, jamY: 44, rot: -10 },
+  { lane:  14, jamX:   5, jamY: 43, rot:   8 },
+  { lane:  -8, jamX:   0, jamY: 49, rot:   4 },
+  { lane:  32, jamX:  11, jamY: 33, rot:  12 },
+  { lane: -22, jamX: -11, jamY: 32, rot: -14 },
+  { lane:   4, jamX:   1, jamY: 38, rot:  -5 },
+  { lane:  26, jamX:  13, jamY: 26, rot:   7 },
+  { lane: -14, jamX: -13, jamY: 25, rot:  -8 },
 ];
 ---
 
@@ -83,22 +84,14 @@ const FALL = [
               <stop offset="55%"  stop-color="#FFFFFF" stop-opacity="0.07"/>
               <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
             </linearGradient>
-            <linearGradient id="gfCaustic" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0"/>
-              <stop offset="45%"  stop-color="#FFFFFF" stop-opacity="0.22"/>
-              <stop offset="55%"  stop-color="#FFFFFF" stop-opacity="0.22"/>
-              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-            </linearGradient>
           </defs>
 
           <path class="gf__body" d="M96,104 L524,104 L338,304 Q310,318 282,304 Z"
                 fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
-          <!-- One committed light source: specular band down the left shoulder,
-               a thin bounce highlight up the right, and a slow travelling
-               caustic so the glass never reads as flat. -->
+          <!-- One committed light source: specular band down the left
+               shoulder and a thin bounce highlight up the right. -->
           <path class="gf__sheen" d="M132,112 L196,112 L288,292 L262,292 Z" fill="url(#gfSheen)"/>
           <path d="M488,112 L462,112 L338,292 L352,292 Z" fill="#FFFFFF" fill-opacity="0.05"/>
-          <path class="gf__caustic" d="M96,104 L524,104 L338,304 Q310,318 282,304 Z" fill="url(#gfCaustic)"/>
 
           <ellipse cx="310" cy="104" rx="214" ry="44" fill="rgba(78,216,194,0.05)"
                    stroke="url(#gfRim)" stroke-width="2"/>
@@ -113,14 +106,21 @@ const FALL = [
 
         <!-- ── ACT 1: the tools ───────────────────────────────────────── -->
         <div class="gf__layer">
-          {STACK.map((tool, i) => (
+          {STACK.map((tool, i) => { const mk = TOOL_MARKS[tool.name] || { hex: '#4ED8C2', mono: tool.name[0] }; return (
             <span class="gf__chip"
-                  style={`--lane:${FALL[i].lane}%;--jx:${FALL[i].jamX}%;--jy:${FALL[i].jamY}%;--rot:${FALL[i].rot}deg;--i:${i}`}>
-              <span class="gf__chip-name">{tool.name}</span>
-              <span class="gf__chip-job">{tool.job}</span>
-              <span class="gf__tag">{money(tool.cost)}</span>
+                  style={`--lane:${FALL[i].lane}%;--jx:${FALL[i].jamX}%;--jy:${FALL[i].jamY}%;--rot:${FALL[i].rot}deg;--i:${i};--brand:${mk.hex};--spin:${(22 + (i * 7) % 16)}s;--tilt:${(i % 2 ? 1 : -1) * (24 + (i * 5) % 12)}deg`}>
+              <span class="gf__cube">
+                {['front', 'right', 'back', 'left', 'top', 'bottom'].map((face) => (
+                  <span class={`gf__face gf__face--${face}`}>
+                    {mk.path
+                      ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={mk.path} fill="currentColor"/></svg>
+                      : <b>{mk.mono}</b>}
+                  </span>
+                ))}
+              </span>
+              <span class="gf__tag"><i></i><span class="gf__tag-name">{tool.name}</span><span class="gf__tag-cost">{money(tool.cost)}</span></span>
             </span>
-          ))}
+          ); })}
           <span class="gf__jam-note">{jamNote}</span>
         </div>
 
@@ -184,12 +184,6 @@ const FALL = [
     position: absolute; inset: 0 0 auto; width: 100%; height: auto;
     filter: drop-shadow(0 20px 50px rgba(78, 216, 194, 0.16));
   }
-  .gf__caustic {
-    opacity: 0.5; mix-blend-mode: screen;
-    transform-origin: 310px 200px;
-    animation: gfCaustic 7s ease-in-out infinite alternate;
-  }
-  @keyframes gfCaustic { from { transform: translateX(-140px) skewX(-8deg); } to { transform: translateX(140px) skewX(8deg); } }
 
   .gf__pool {
     position: absolute; left: 50%; top: 78%; width: 46%; height: 12%;
@@ -211,34 +205,64 @@ const FALL = [
 
   .gf__layer { position: absolute; inset: 0; pointer-events: none; }
 
-  /* ── Act 1: the chips ──────────────────────────────────────────────── */
+  /* ── Act 1: the tool cubes ─────────────────────────────────────────
+     Same glass dice as the hero's integration field: fixed isometric
+     tilt plus a slow Y spin, so two or three faces always show. The
+     wrapper carries the fall (top/left/scale), the cube only spins. ── */
   .gf__chip {
     position: absolute; left: calc(50% + var(--lane)); top: 1%;
     transform: translate(-50%, -50%) scale(1) rotate(0deg);
-    display: grid; justify-items: center; gap: 0.05rem;
-    padding: 0.5rem 0.85rem 0.7rem; border-radius: 11px;
-    background: linear-gradient(150deg, rgba(255,255,255,0.2), rgba(232,82,78,0.1));
-    border: 1px solid rgba(255, 255, 255, 0.26);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 8px 20px rgba(4, 8, 14, 0.55);
-    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+    display: grid; justify-items: center; gap: 0.55rem;
+    width: var(--cube, 62px);
     opacity: 0; will-change: top, left, transform;
   }
-  .gf__chip-name { font-size: 0.8125rem; font-weight: 600; color: rgba(247,244,239,0.96); white-space: nowrap; }
-  .gf__chip-job {
-    font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.16em;
-    text-transform: uppercase; color: rgba(247, 244, 239, 0.42);
+  .gf__cube {
+    position: relative; width: var(--cube, 62px); height: var(--cube, 62px);
+    transform-style: preserve-3d;
+    animation: gfSpinY var(--spin, 26s) linear infinite;
   }
+  @keyframes gfSpinY {
+    from { transform: rotateX(var(--tilt, -28deg)) rotateY(0deg); }
+    to   { transform: rotateX(var(--tilt, -28deg)) rotateY(360deg); }
+  }
+  .gf__face {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(150deg, rgba(30, 38, 54, 0.86), rgba(16, 20, 30, 0.94));
+    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
+    color: var(--brand);
+    box-shadow: inset 0 0 18px color-mix(in srgb, var(--brand) 8%, transparent), 0 0 14px color-mix(in srgb, var(--brand) 22%, transparent), 0 4px 16px rgba(0, 0, 0, 0.25);
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  }
+  .gf__face svg { width: 56%; height: 56%; }
+  .gf__face b { font-family: var(--font-headline); font-weight: 700; font-size: calc(var(--cube, 62px) * 0.4); letter-spacing: -0.02em; }
+  .gf__face--front  { transform: rotateY(0deg)   translateZ(calc(var(--cube, 62px) / 2)); }
+  .gf__face--right  { transform: rotateY(90deg)  translateZ(calc(var(--cube, 62px) / 2)); }
+  .gf__face--back   { transform: rotateY(180deg) translateZ(calc(var(--cube, 62px) / 2)); }
+  .gf__face--left   { transform: rotateY(270deg) translateZ(calc(var(--cube, 62px) / 2)); }
+  .gf__face--top    { transform: rotateX(90deg)  translateZ(calc(var(--cube, 62px) / 2)); }
+  .gf__face--bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube, 62px) / 2)); }
+
+  /* The price tag hangs off the cube on a short string: name and cost
+     attached to the thing, not floating beside it. */
   .gf__tag {
-    position: absolute; right: -0.45rem; bottom: -0.6rem;
-    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
-    color: #2A0B0B; background: rgba(236, 132, 128, 0.96);
-    padding: 0.08rem 0.38rem; border-radius: 4px;
-    box-shadow: 0 3px 8px rgba(4, 8, 14, 0.55);
+    position: relative; display: inline-flex; align-items: center; gap: 0.35rem;
+    padding: 0.2rem 0.5rem; border-radius: 6px; white-space: nowrap;
+    background: rgba(247, 244, 239, 0.96); color: #1B1F27;
+    box-shadow: 0 4px 12px rgba(4, 8, 14, 0.5);
+    font-family: var(--font-mono); font-size: 0.625rem; line-height: 1.3;
   }
-  .gf__tag::before {
-    content: ''; position: absolute; left: 0.26rem; top: -0.3rem;
-    width: 1px; height: 0.3rem; background: rgba(255, 255, 255, 0.45);
+  .gf__tag i {
+    position: absolute; left: 50%; top: -0.55rem; width: 1px; height: 0.55rem;
+    background: rgba(247, 244, 239, 0.55);
   }
+  .gf__tag i::after {
+    content: ''; position: absolute; left: -2px; top: -3px; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--brand);
+  }
+  .gf__tag-name { font-family: var(--font-body); font-weight: 600; font-size: 0.6875rem; }
+  .gf__tag-cost { font-weight: 700; color: #B3261E; }
+
   .gf__jam-note {
     position: absolute; left: 50%; top: 61%; transform: translate(-50%, 0);
     font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
@@ -378,9 +402,9 @@ const FALL = [
   @keyframes gfBar { to { width: 100%; } }
 
   @container (max-width: 620px) {
-    .gf__chip { padding: 0.35rem 0.55rem 0.55rem; }
-    .gf__chip-name { font-size: 0.6875rem; }
-    .gf__tag { font-size: 0.625rem; }
+    .gf__chip { --cube: 50px; gap: 0.45rem; }
+    .gf__tag { font-size: 0.5625rem; padding: 0.15rem 0.4rem; }
+    .gf__tag-name { font-size: 0.625rem; }
     .gf__orb { width: 150px; height: 150px; }
     .gf__orb-core { width: 96px; height: 96px; }
     .gf__v b { font-size: 1.2rem; }
@@ -388,9 +412,9 @@ const FALL = [
     .gf__jam-note { font-size: 0.5625rem; }
   }
   @container (max-width: 420px) {
-    .gf__chip { padding: 0.3rem 0.45rem 0.45rem; border-radius: 8px; }
-    .gf__chip-name { font-size: 0.625rem; }
-    .gf__chip-job { display: none; }
+    .gf__chip { --cube: 40px; gap: 0.35rem; }
+    .gf__tag { font-size: 0.5rem; }
+    .gf__tag-name { font-size: 0.5625rem; }
     .gf__orb { width: 120px; height: 120px; }
     .gf__orb-core { width: 78px; height: 78px; }
     .gf__orb-core b { font-size: 1rem; }
@@ -416,7 +440,7 @@ const FALL = [
   /* Motion is the whole mechanism, so without it state both outcomes plainly. */
   @media (prefers-reduced-motion: reduce) {
     .gf__chip, .gf__orb, .gf__coin, .gf__burst, .gf__ring, .gf__orbit, .gf__moon,
-    .gf__bar-fill, .gf__jam-note, .gf__caustic { animation: none !important; }
+    .gf__bar-fill, .gf__jam-note, .gf__cube { animation: none !important; }
     .gf__chip { opacity: 1; top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
     .gf__jam-note { opacity: 1; }
     .gf__orb { display: none; }

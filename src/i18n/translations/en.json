@@ -204,7 +204,17 @@
     "step3Title": "Start Growing",
     "step3Desc": "Launch campaigns, capture leads, and let AI handle your follow-ups from day one. Watch your pipeline fill up.",
     "step3Label": "GROWTH",
-    "bookFreeDemo": "Book Your Free Demo"
+    "bookFreeDemo": "Book Your Free Demo",
+    "setup1Title": "Pick a time",
+    "setup1Desc": "Choose a 20-minute slot that suits you. On the call we look at how your business runs today and show you exactly what DUSA will do with it.",
+    "setup1You": "You: 20 minutes",
+    "setup2Title": "Connect your accounts",
+    "setup2Desc": "Google, Meta, your calendar and your payments. One click each. We migrate your contacts and build your automations while you carry on working.",
+    "setup2You": "You: a few clicks",
+    "setup3Title": "Log in and go",
+    "setup3Desc": "Open DUSA on your phone or laptop. Your first leads, bookings and reviews start landing the same day, and AI handles the follow-up.",
+    "setup3You": "You: one login",
+    "orTrial": "or start a 14-day free trial"
   },
   "onboarding": {
     "component": {

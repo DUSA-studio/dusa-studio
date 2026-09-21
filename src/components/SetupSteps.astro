@@ -1,0 +1,424 @@
+---
+// SetupSteps.astro — "Up and running in three steps", told from the visitor's
+// side: the three things THEY physically do. Each step has a live scene that
+// shows the action happening (a slot being picked, accounts switching on,
+// the first leads landing on a phone). Desktop: steps on the left, one stage
+// on the right that cycles; phone: each step followed by its own scene.
+//
+// Pure CSS animation, no libraries. Marks come from brand-marks.ts.
+import { BRAND_MARKS } from '../config/brand-marks';
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+const s = t?.howItWorks || {};
+const label = s.label || 'How It Works';
+const heading = s.heading || 'Up and running';
+const headingAccent = s.headingAccent || 'in three steps.';
+const cta = s.bookFreeDemo || 'Book Your Free Demo';
+const ctaAlt = s.orTrial || 'or start a 14-day free trial';
+
+const steps = [
+  {
+    n: '01',
+    title: s.setup1Title || 'Pick a time',
+    desc: s.setup1Desc || 'Choose a 20-minute slot that suits you. On the call we look at how your business runs today and show you exactly what DUSA will do with it.',
+    you: s.setup1You || 'You: 20 minutes',
+  },
+  {
+    n: '02',
+    title: s.setup2Title || 'Connect your accounts',
+    desc: s.setup2Desc || 'Google, Meta, your calendar and your payments. One click each. We migrate your contacts and build your automations while you carry on working.',
+    you: s.setup2You || 'You: a few clicks',
+  },
+  {
+    n: '03',
+    title: s.setup3Title || 'Log in and go',
+    desc: s.setup3Desc || 'Open DUSA on your phone or laptop. Your first leads, bookings and reviews start landing the same day, and AI handles the follow-up.',
+    you: s.setup3You || 'You: one login',
+  },
+];
+
+const mark = (name: string) => BRAND_MARKS.find((m) => m.name === name);
+const connect = [
+  { name: 'Google Calendar', m: mark('Google Calendar') },
+  { name: 'Instagram', m: mark('Instagram') },
+  { name: 'Meta', m: mark('Meta') },
+  { name: 'Stripe', m: mark('Stripe') },
+];
+const days = [['Mon', 14], ['Tue', 15], ['Wed', 16], ['Thu', 17], ['Fri', 18]];
+const slots = ['9:00', '10:30', '1:00', '3:30'];
+---
+
+<section class="ss section section--dark" id="how-it-works">
+  <div class="container">
+    <div class="ss__header reveal">
+      <span class="label">{label}</span>
+      <h2>{heading}<br/><span class="gradient-text">{headingAccent}</span></h2>
+    </div>
+
+    <div class="ss__grid reveal" data-setup-steps data-active="0">
+      {steps.map((st, i) => (
+        <button class="ss__step" type="button" data-step={i} aria-pressed={i === 0 ? 'true' : 'false'} style={`--i:${i}`}>
+          <span class="ss__num">{st.n}</span>
+          <span class="ss__body">
+            <span class="ss__title">{st.title}</span>
+            <span class="ss__desc">{st.desc}</span>
+            <span class="ss__you"><i></i>{st.you}</span>
+          </span>
+          <span class="ss__bar" aria-hidden="true"><span></span></span>
+        </button>
+      ))}
+
+      <!-- ── Scene 1: picking a slot ─────────────────────────────────── -->
+      <div class="ss__scene ss__scene--1" data-scene="0" aria-hidden="true">
+        <div class="ss__card ss__book">
+          <div class="ss__book-head">
+            <span class="ss__book-logo">DUSA<i>.</i>studio</span>
+            <span class="ss__book-meta">Discovery call · 20 min</span>
+          </div>
+          <div class="ss__days">
+            {days.map(([d, n], i) => (
+              <span class={`ss__day ${i === 1 ? 'is-on' : ''}`}><b>{d}</b><span>{n}</span></span>
+            ))}
+          </div>
+          <div class="ss__slots">
+            {slots.map((sl, i) => (
+              <span class={`ss__slot ${i === 1 ? 'is-pick' : ''}`}>{sl}</span>
+            ))}
+          </div>
+          <span class="ss__cursor" aria-hidden="true"></span>
+          <div class="ss__toast">
+            <svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Confirmed · Tue 10:30</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Scene 2: connecting accounts ────────────────────────────── -->
+      <div class="ss__scene ss__scene--2" data-scene="1" aria-hidden="true">
+        <div class="ss__card ss__connect">
+          <div class="ss__connect-head">Connect your accounts</div>
+          {connect.map((c, i) => (
+            <div class="ss__row" style={`--r:${i};--brand:${c.m?.hex || '#4ED8C2'}`}>
+              <span class="ss__row-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={c.m?.path || ''} fill="currentColor"/></svg></span>
+              <span class="ss__row-name">{c.name}</span>
+              <span class="ss__row-state"><span class="ss__row-off">Connect</span><span class="ss__row-on">Connected</span></span>
+              <span class="ss__toggle"><i></i></span>
+            </div>
+          ))}
+          <div class="ss__migrate">
+            <span class="ss__migrate-label"><span>Migrating contacts</span><b>1,248</b></span>
+            <span class="ss__migrate-bar"><span></span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Scene 3: first day on the app ───────────────────────────── -->
+      <div class="ss__scene ss__scene--3" data-scene="2" aria-hidden="true">
+        <div class="ss__phone">
+          <div class="ss__phone-top"><span class="ss__phone-time">9:41</span><span class="ss__phone-dot"></span></div>
+          <div class="ss__phone-app">
+            <span class="ss__phone-brand">DUSA<i>.</i>studio</span>
+            <span class="ss__phone-today">Today</span>
+          </div>
+          <div class="ss__notifs">
+            <div class="ss__notif ss__notif--lead" style="--k:0">
+              <span class="ss__notif-ic ss__notif-ic--lead"></span>
+              <span class="ss__notif-body"><b>New lead</b><span>Sarah wants a quote for Thursday</span></span>
+              <span class="ss__notif-time">now</span>
+            </div>
+            <div class="ss__notif ss__notif--book" style="--k:1">
+              <span class="ss__notif-ic ss__notif-ic--book"></span>
+              <span class="ss__notif-body"><b>Booked</b><span>10:30 tomorrow. Reminder sent.</span></span>
+              <span class="ss__notif-time">now</span>
+            </div>
+            <div class="ss__notif ss__notif--rev" style="--k:2">
+              <span class="ss__notif-ic ss__notif-ic--rev"></span>
+              <span class="ss__notif-body"><b>New 5-star review</b><span>"Booked in minutes, brilliant service."</span></span>
+              <span class="ss__notif-time">now</span>
+            </div>
+            <div class="ss__notif ss__notif--ai" style="--k:3">
+              <span class="ss__notif-ic ss__notif-ic--ai"></span>
+              <span class="ss__notif-body"><b>AI replied</b><span>Sarah has a quote and a booking link.</span></span>
+              <span class="ss__notif-time">now</span>
+            </div>
+          </div>
+          <div class="ss__phone-stats"><span><b>3</b> leads</span><span><b>2</b> bookings</span><span><b>1</b> review</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ss__cta reveal">
+      <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--primary">{cta}</a>
+      <a href="/start" data-page="start" class="ss__cta-alt">{ctaAlt} &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ss__header { text-align: center; max-width: 720px; margin: 0 auto var(--space-xl); }
+  .ss__header h2 { margin-top: var(--space-xs); }
+
+  /* ── Layout: steps left, one stage right; phones interleave ─────────── */
+  .ss__grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto; gap: 0 var(--space-xl); align-items: start;
+    max-width: 1080px; margin: 0 auto;
+  }
+  .ss__step { grid-column: 1; }
+  .ss__scene { grid-column: 2; grid-row: 1 / 4; align-self: center; }
+
+  /* ── Steps ──────────────────────────────────────────────────────────── */
+  .ss__step {
+    display: grid; grid-template-columns: auto 1fr; gap: 0 1.1rem; text-align: left;
+    position: relative; width: 100%; padding: 1.35rem 1.25rem 1.5rem; margin: 0;
+    background: transparent; border: 1px solid transparent; border-radius: 18px; cursor: pointer;
+    color: inherit; font: inherit;
+    transition: background var(--duration-normal), border-color var(--duration-normal);
+  }
+  .ss__step[aria-pressed="true"] {
+    background: rgba(247, 244, 239, 0.035);
+    border-color: rgba(78, 216, 194, 0.22);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.05), 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+  .ss__step:hover:not([aria-pressed="true"]) { background: rgba(247, 244, 239, 0.02); }
+  .ss__num {
+    font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.08em;
+    color: rgba(78, 216, 194, 0.7); padding-top: 0.35rem;
+    width: 2.4rem; height: 2.4rem; display: grid; place-items: center; padding: 0;
+    border: 1px solid rgba(78, 216, 194, 0.28); border-radius: 50%;
+    transition: background var(--duration-normal), color var(--duration-normal);
+  }
+  .ss__step[aria-pressed="true"] .ss__num { background: var(--reef-aqua); color: var(--deep-black); border-color: var(--reef-aqua); }
+  .ss__body { display: grid; gap: 0.35rem; }
+  .ss__title { font-family: var(--font-headline); font-weight: 700; font-size: 1.375rem; color: var(--warm-white); line-height: 1.2; }
+  .ss__desc { font-size: 0.9375rem; line-height: 1.6; color: rgba(247, 244, 239, 0.62); max-width: 44ch; }
+  .ss__you {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.25rem;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(78, 216, 194, 0.85);
+  }
+  .ss__you i { width: 6px; height: 6px; border-radius: 50%; background: var(--reef-aqua); box-shadow: 0 0 8px rgba(78, 216, 194, 0.8); }
+  .ss__bar { position: absolute; left: 1.25rem; right: 1.25rem; bottom: 0; height: 2px; background: rgba(247, 244, 239, 0.06); border-radius: 2px; overflow: hidden; opacity: 0; }
+  .ss__bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue)); }
+  .ss__step[aria-pressed="true"] .ss__bar { opacity: 1; }
+  .ss__grid.is-cycling .ss__step[aria-pressed="true"] .ss__bar span { animation: ssBar 6s linear forwards; }
+  @keyframes ssBar { to { width: 100%; } }
+
+  /* ── Stage / scenes ─────────────────────────────────────────────────── */
+  .ss__scene { opacity: 0; transform: translateY(10px) scale(0.98); pointer-events: none; transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out); }
+  .ss__grid[data-active="0"] .ss__scene--1,
+  .ss__grid[data-active="1"] .ss__scene--2,
+  .ss__grid[data-active="2"] .ss__scene--3 { opacity: 1; transform: none; pointer-events: auto; }
+  /* Loops only run while the scene is showing, so it always starts from the top. */
+  .ss__scene:not(.is-live) * { animation-play-state: paused !important; }
+
+  .ss__card {
+    position: relative; margin: 0 auto; max-width: 420px;
+    padding: 1.25rem 1.25rem 1.4rem; border-radius: 22px;
+    background: linear-gradient(160deg, rgba(30, 38, 54, 0.75), rgba(16, 20, 30, 0.9));
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 70px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    overflow: hidden;
+  }
+
+  /* Scene 1 */
+  .ss__book-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
+  .ss__book-logo { font-family: var(--font-headline); font-weight: 700; font-size: 0.9375rem; color: var(--warm-white); letter-spacing: 0.02em; }
+  .ss__book-logo i, .ss__phone-brand i { font-style: normal; color: var(--reef-aqua); }
+  .ss__book-meta { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); }
+  .ss__days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin-bottom: 0.9rem; }
+  .ss__day { display: grid; justify-items: center; gap: 0.15rem; padding: 0.5rem 0; border-radius: 12px; border: 1px solid rgba(247, 244, 239, 0.08); color: rgba(247, 244, 239, 0.6); }
+  .ss__day b { font-family: var(--font-mono); font-weight: 400; font-size: 0.5625rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .ss__day span { font-family: var(--font-headline); font-weight: 600; font-size: 1rem; }
+  .ss__day.is-on { border-color: rgba(78, 216, 194, 0.6); color: var(--warm-white); background: rgba(78, 216, 194, 0.08); }
+  .ss__slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .ss__slot { text-align: center; padding: 0.7rem 0; border-radius: 12px; border: 1px solid rgba(247, 244, 239, 0.12); font-family: var(--font-mono); font-size: 0.875rem; color: rgba(247, 244, 239, 0.75); }
+  .ss__slot.is-pick { animation: ssPick 7s ease-in-out infinite; }
+  @keyframes ssPick {
+    0%, 28% { background: transparent; border-color: rgba(247, 244, 239, 0.12); color: rgba(247, 244, 239, 0.75); transform: none; }
+    31% { transform: scale(0.96); }
+    34%, 100% { background: var(--reef-aqua); border-color: var(--reef-aqua); color: var(--deep-black); transform: none; }
+  }
+  .ss__cursor {
+    position: absolute; width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(247, 244, 239, 0.95); box-shadow: 0 0 0 4px rgba(247, 244, 239, 0.18), 0 6px 18px rgba(0, 0, 0, 0.5);
+    left: 86%; top: 88%; opacity: 0;
+    animation: ssCursor 7s ease-in-out infinite;
+  }
+  @keyframes ssCursor {
+    0% { opacity: 0; left: 86%; top: 88%; }
+    8% { opacity: 1; }
+    26% { left: 74%; top: 61%; transform: scale(1); }
+    30% { transform: scale(0.7); }
+    34% { transform: scale(1); }
+    48% { opacity: 1; left: 74%; top: 61%; }
+    58%, 100% { opacity: 0; left: 74%; top: 61%; }
+  }
+  .ss__toast {
+    position: absolute; left: 50%; bottom: 1rem; transform: translate(-50%, 140%);
+    display: inline-flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+    padding: 0.5rem 0.9rem; border-radius: 999px;
+    background: var(--deep-black); border: 1px solid rgba(78, 216, 194, 0.5); color: var(--reef-aqua);
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.06em;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: ssToast 7s ease-in-out infinite;
+  }
+  @keyframes ssToast {
+    0%, 40% { transform: translate(-50%, 140%); opacity: 0; }
+    46%, 92% { transform: translate(-50%, 0); opacity: 1; }
+    100% { transform: translate(-50%, 140%); opacity: 0; }
+  }
+
+  /* Scene 2 */
+  .ss__connect-head { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); margin-bottom: 0.75rem; }
+  .ss__row { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 0.7rem; padding: 0.6rem 0; border-top: 1px solid rgba(247, 244, 239, 0.07); }
+  .ss__row:first-of-type { border-top: 0; }
+  .ss__row-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 9px; background: rgba(247, 244, 239, 0.05); border: 1px solid rgba(247, 244, 239, 0.08); color: var(--brand); }
+  .ss__row-icon svg { width: 17px; height: 17px; }
+  .ss__row-name { font-size: 0.875rem; font-weight: 500; color: var(--warm-white); }
+  .ss__row-state { position: relative; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; min-width: 6.2em; text-align: right; }
+  .ss__row-off { color: rgba(247, 244, 239, 0.4); animation: ssOff 8s steps(1) infinite; animation-delay: calc(var(--r) * 1.1s); }
+  .ss__row-on { position: absolute; right: 0; top: 0; color: var(--reef-aqua); opacity: 0; animation: ssOn 8s steps(1) infinite; animation-delay: calc(var(--r) * 1.1s); }
+  @keyframes ssOff { 0%, 18% { opacity: 1; } 18.01%, 88% { opacity: 0; } 88.01%, 100% { opacity: 1; } }
+  @keyframes ssOn  { 0%, 18% { opacity: 0; } 18.01%, 88% { opacity: 1; } 88.01%, 100% { opacity: 0; } }
+  .ss__toggle { position: relative; width: 38px; height: 22px; border-radius: 999px; background: rgba(247, 244, 239, 0.12); animation: ssTog 8s ease infinite; animation-delay: calc(var(--r) * 1.1s); }
+  .ss__toggle i { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--warm-white); animation: ssKnob 8s ease infinite; animation-delay: calc(var(--r) * 1.1s); }
+  @keyframes ssTog  { 0%, 18% { background: rgba(247, 244, 239, 0.12); } 22%, 88% { background: var(--reef-aqua); } 92%, 100% { background: rgba(247, 244, 239, 0.12); } }
+  @keyframes ssKnob { 0%, 18% { left: 3px; } 22%, 88% { left: 19px; } 92%, 100% { left: 3px; } }
+  .ss__migrate { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid rgba(247, 244, 239, 0.07); }
+  .ss__migrate-label { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); margin-bottom: 0.5rem; }
+  .ss__migrate-label b { color: var(--warm-white); font-weight: 400; }
+  .ss__migrate-bar { display: block; height: 6px; border-radius: 6px; background: rgba(247, 244, 239, 0.08); overflow: hidden; }
+  .ss__migrate-bar span { display: block; height: 100%; width: 0; border-radius: 6px; background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue)); animation: ssMigrate 8s ease-in-out infinite; }
+  @keyframes ssMigrate { 0%, 35% { width: 0; } 80%, 92% { width: 100%; } 100% { width: 0; } }
+
+  /* Scene 3 */
+  .ss__phone {
+    position: relative; margin: 0 auto; width: 270px; padding: 0.9rem 0.85rem 1rem; border-radius: 34px;
+    background: linear-gradient(160deg, rgba(30, 38, 54, 0.85), rgba(12, 14, 20, 0.95));
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    box-shadow: inset 0 0 0 5px rgba(12, 14, 20, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 30px 70px rgba(0, 0, 0, 0.45);
+  }
+  .ss__phone-top { display: flex; justify-content: space-between; align-items: center; padding: 0 0.6rem; margin-bottom: 0.6rem; }
+  .ss__phone-time { font-family: var(--font-mono); font-size: 0.6875rem; color: rgba(247, 244, 239, 0.8); }
+  .ss__phone-dot { width: 48px; height: 14px; border-radius: 999px; background: #05070B; }
+  .ss__phone-app { display: flex; justify-content: space-between; align-items: baseline; padding: 0 0.4rem; margin-bottom: 0.6rem; }
+  .ss__phone-brand { font-family: var(--font-headline); font-weight: 700; font-size: 0.875rem; color: var(--warm-white); }
+  .ss__phone-today { font-family: var(--font-mono); font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247, 244, 239, 0.45); }
+  .ss__notifs { display: grid; gap: 0.45rem; min-height: 214px; align-content: start; }
+  .ss__notif {
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.55rem;
+    padding: 0.55rem 0.65rem; border-radius: 14px;
+    background: rgba(247, 244, 239, 0.06); border: 1px solid rgba(247, 244, 239, 0.08);
+    opacity: 0; transform: translateY(-8px) scale(0.98);
+    animation: ssNotif 9s ease-out infinite; animation-delay: calc(var(--k) * 1.5s);
+  }
+  @keyframes ssNotif { 0%, 8% { opacity: 0; transform: translateY(-8px) scale(0.98); } 14%, 84% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; transform: translateY(6px); } }
+  .ss__notif-ic { width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center; }
+  .ss__notif-ic::before { content: ''; width: 12px; height: 12px; border-radius: 50%; }
+  .ss__notif-ic--lead { background: rgba(78, 216, 194, 0.16); } .ss__notif-ic--lead::before { background: var(--reef-aqua); }
+  .ss__notif-ic--book { background: rgba(106, 170, 207, 0.16); } .ss__notif-ic--book::before { background: var(--mist-blue); }
+  .ss__notif-ic--rev { background: rgba(232, 179, 65, 0.16); } .ss__notif-ic--rev::before { background: #E8B341; }
+  .ss__notif-ic--ai { background: rgba(166, 245, 231, 0.14); } .ss__notif-ic--ai::before { background: #A6F5E7; box-shadow: 0 0 10px #A6F5E7; }
+  .ss__notif-body { display: grid; gap: 0.1rem; min-width: 0; }
+  .ss__notif-body b { font-size: 0.75rem; font-weight: 600; color: var(--warm-white); }
+  .ss__notif-body span { font-size: 0.6875rem; color: rgba(247, 244, 239, 0.62); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ss__notif-time { font-family: var(--font-mono); font-size: 0.5625rem; color: rgba(247, 244, 239, 0.4); }
+  .ss__phone-stats { display: flex; justify-content: space-around; margin-top: 0.7rem; padding-top: 0.6rem; border-top: 1px solid rgba(247, 244, 239, 0.08); font-family: var(--font-mono); font-size: 0.5625rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); }
+  .ss__phone-stats b { color: var(--reef-aqua); font-size: 0.875rem; margin-right: 0.2rem; }
+
+  /* ── CTA ────────────────────────────────────────────────────────────── */
+  .ss__cta { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; margin-top: var(--space-xl); }
+  .ss__cta-alt { font-size: 0.9375rem; color: rgba(247, 244, 239, 0.62); text-decoration: none; transition: color var(--duration-fast); }
+  .ss__cta-alt:hover { color: var(--reef-aqua); }
+
+  /* ── Phones: interleave, every scene visible and live ───────────────── */
+  @media (max-width: 900px) {
+    .ss__grid { grid-template-columns: 1fr; gap: 0; }
+    .ss__step, .ss__scene { grid-column: 1; grid-row: auto; }
+    .ss__step { order: calc(var(--i) * 2); padding: 1.1rem 0.9rem 1.2rem; cursor: default; }
+    .ss__scene--1 { order: 1; } .ss__scene--2 { order: 3; } .ss__scene--3 { order: 5; }
+    .ss__scene { opacity: 1; transform: none; pointer-events: auto; margin: 0.5rem 0 1.75rem; }
+    .ss__scene * { animation-play-state: running !important; }
+    .ss__step[aria-pressed="true"] { background: transparent; border-color: transparent; box-shadow: none; }
+    .ss__bar { display: none; }
+    .ss__title { font-size: 1.25rem; }
+    .ss__desc { max-width: none; }
+  }
+  @media (max-width: 420px) {
+    .ss__card { padding: 1rem; }
+    .ss__phone { width: 250px; }
+  }
+
+  /* ── Light mode ─────────────────────────────────────────────────────── */
+  :global(html[data-theme="light"]) .ss__step[aria-pressed="true"] { background: rgba(255, 255, 255, 0.7); border-color: rgba(26, 58, 92, 0.18); box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08); }
+  :global(html[data-theme="light"]) .ss__step:hover:not([aria-pressed="true"]) { background: rgba(12, 14, 20, 0.03); }
+  :global(html[data-theme="light"]) .ss__num { color: var(--deep-ocean); border-color: rgba(26, 58, 92, 0.35); }
+  :global(html[data-theme="light"]) .ss__step[aria-pressed="true"] .ss__num { background: var(--deep-ocean); border-color: var(--deep-ocean); color: var(--warm-white); }
+  :global(html[data-theme="light"]) .ss__title { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .ss__desc { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .ss__you { color: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .ss__you i { background: var(--deep-ocean); box-shadow: none; }
+  :global(html[data-theme="light"]) .ss__bar { background: rgba(12, 14, 20, 0.08); }
+  :global(html[data-theme="light"]) .ss__cta-alt { color: rgba(12, 14, 20, 0.62); }
+  :global(html[data-theme="light"]) .ss__cta-alt:hover { color: var(--deep-ocean); }
+  /* The scenes are screens, so they stay dark in light mode: a device on a desk. */
+
+  @media (prefers-reduced-motion: reduce) {
+    .ss__scene *, .ss__bar span { animation: none !important; }
+    .ss__slot.is-pick { background: var(--reef-aqua); border-color: var(--reef-aqua); color: var(--deep-black); }
+    .ss__toast { transform: translate(-50%, 0); opacity: 1; }
+    .ss__cursor { display: none; }
+    .ss__row-off { opacity: 0; } .ss__row-on { opacity: 1; }
+    .ss__toggle { background: var(--reef-aqua); } .ss__toggle i { left: 19px; }
+    .ss__migrate-bar span { width: 100%; }
+    .ss__notif { opacity: 1; transform: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-setup-steps]').forEach((grid) => {
+    const steps = [...grid.querySelectorAll('[data-step]')];
+    const scenes = [...grid.querySelectorAll('[data-scene]')];
+    const desktop = window.matchMedia('(min-width: 901px)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const STEP_MS = 6000;
+    let active = 0, timer = null, running = false;
+
+    /* Restart a scene's loops from the top each time it is shown, so the
+       action is always seen from the beginning rather than mid-cycle. */
+    const show = (n) => {
+      active = n;
+      grid.setAttribute('data-active', String(n));
+      steps.forEach((b, i) => b.setAttribute('aria-pressed', i === n ? 'true' : 'false'));
+      scenes.forEach((sc, i) => {
+        sc.classList.remove('is-live');
+        if (i === n) { void sc.offsetWidth; sc.classList.add('is-live'); }
+      });
+      const bar = steps[n].querySelector('.ss__bar span');
+      if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+    };
+    const queue = () => {
+      clearTimeout(timer);
+      if (!desktop.matches || reduced) return;
+      timer = setTimeout(() => { show((active + 1) % steps.length); queue(); }, STEP_MS);
+    };
+    const start = () => { if (running) return; running = true; grid.classList.add('is-cycling'); show(active); queue(); };
+    const stop = () => { running = false; clearTimeout(timer); };
+
+    steps.forEach((b, i) => b.addEventListener('click', () => { show(i); queue(); }));
+    grid.addEventListener('mouseenter', () => { clearTimeout(timer); grid.classList.remove('is-cycling'); });
+    grid.addEventListener('mouseleave', () => { if (running) { grid.classList.add('is-cycling'); show(active); queue(); } });
+    desktop.addEventListener('change', () => { if (!desktop.matches) { scenes.forEach((sc) => sc.classList.add('is-live')); clearTimeout(timer); } else if (running) { show(active); queue(); } });
+    if (!desktop.matches) scenes.forEach((sc) => sc.classList.add('is-live'));
+
+    if (!('IntersectionObserver' in window)) { start(); return; }
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => { e.isIntersecting ? start() : stop(); });
+    }, { threshold: 0.2 }).observe(grid);
+  });
+</script>

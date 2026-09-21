@@ -171,17 +171,9 @@ const FALL = [
           <span class="gf__atom">
             <span class="gf__halo" aria-hidden="true"></span>
             <svg class="gf__orbits" viewBox={`0 0 ${ATOM} ${ATOM}`} aria-hidden="true">
-              <defs>
-                <linearGradient id="gfOrbitStroke" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stop-color="#4ED8C2" stop-opacity="0.15"/>
-                  <stop offset="50%" stop-color="#A6F5E7" stop-opacity="0.75"/>
-                  <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.15"/>
-                </linearGradient>
-              </defs>
-              {RINGS.map((r, i) => (
+              {RINGS.map((r) => (
                 <g transform={`rotate(${r.deg} 120 120)`}>
-                  <ellipse class="gf__orbit-line" cx="120" cy="120" rx={RX} ry={RY} fill="none" stroke="url(#gfOrbitStroke)" stroke-width="1.2"/>
-                  <ellipse class="gf__orbit-pulse" cx="120" cy="120" rx={RX} ry={RY} fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" style={`--d:${ORBIT_S[i]}s`}/>
+                  <ellipse class="gf__orbit-line" cx="120" cy="120" rx={RX} ry={RY} fill="none"/>
                 </g>
               ))}
             </svg>
@@ -189,9 +181,13 @@ const FALL = [
               <b>DUSA</b>
               <i>{money(DUSA_COST)}{perMonth}</i>
             </span>
-            {ELECTRONS.map((e) => (
-              <span class="gf__electron" style={`offset-path: path('${RINGS[e.ring].path}'); --d:${ORBIT_S[e.ring]}s; --delay:${e.delay}s; --brand:${e.m.hex}`}>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d={e.m.path}/></svg>
+            {ELECTRONS.map((e, i) => (
+              <span class="gf__electron" style={`offset-path: path('${RINGS[e.ring].path}'); --d:${ORBIT_S[e.ring]}s; --delay:${e.delay}s; --brand:${e.m.hex}; --spin:${30 + (i * 5) % 14}s; --tilt:${(i % 2 ? 1 : -1) * (24 + (i * 5) % 10)}deg`}>
+                <span class="gf__cube gf__cube--sm">
+                  {['front', 'right', 'back', 'left', 'top', 'bottom'].map((face) => (
+                    <span class={`gf__face gf__face--${face}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={e.m.path} fill="currentColor"/></svg></span>
+                  ))}
+                </span>
               </span>
             ))}
           </span>
@@ -284,14 +280,21 @@ const FALL = [
   }
   .gf__face {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    border-radius: 12px;
-    background: linear-gradient(150deg, rgba(30, 38, 54, 0.86), rgba(16, 20, 30, 0.94));
-    border: 1px solid color-mix(in srgb, var(--brand) 45%, transparent);
-    color: var(--brand);
-    box-shadow: inset 0 0 18px color-mix(in srgb, var(--brand) 8%, transparent), 0 0 14px color-mix(in srgb, var(--brand) 22%, transparent), 0 4px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 22%;
+    background: linear-gradient(150deg, rgba(34, 42, 58, 0.78), rgba(14, 18, 27, 0.92));
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    color: rgba(247, 244, 239, 0.82);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 0 16px color-mix(in srgb, var(--brand) 9%, transparent),
+      0 0 0 0.5px color-mix(in srgb, var(--brand) 28%, transparent),
+      0 6px 18px rgba(0, 0, 0, 0.3);
     backface-visibility: hidden; -webkit-backface-visibility: hidden;
   }
   .gf__face svg { width: 56%; height: 56%; }
+  .gf__cube--sm { --cube: 30px; width: 30px; height: 30px; }
+  .gf__cube--sm .gf__face { border-radius: 26%; }
+  .gf__cube--sm .gf__face svg { width: 52%; height: 52%; }
   .gf__face b { font-family: var(--font-headline); font-weight: 700; font-size: calc(var(--cube, 62px) * 0.4); letter-spacing: -0.02em; }
   .gf__face--front  { transform: rotateY(0deg)   translateZ(calc(var(--cube, 62px) / 2)); }
   .gf__face--right  { transform: rotateY(90deg)  translateZ(calc(var(--cube, 62px) / 2)); }
@@ -337,48 +340,40 @@ const FALL = [
     opacity: 0; will-change: top, transform;
   }
   .gf__halo {
-    position: absolute; inset: 20%; border-radius: 50%;
-    background: radial-gradient(circle, rgba(78, 216, 194, 0.35), rgba(78, 216, 194, 0.08) 50%, transparent 72%);
-    filter: blur(10px); animation: gfHalo 3.2s ease-in-out infinite;
+    position: absolute; inset: 26%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(78, 216, 194, 0.16), rgba(78, 216, 194, 0.04) 55%, transparent 72%);
+    filter: blur(14px); animation: gfHalo 4s ease-in-out infinite;
   }
-  @keyframes gfHalo { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.12); opacity: 1; } }
+  @keyframes gfHalo { 0%, 100% { transform: scale(0.94); opacity: 0.8; } 50% { transform: scale(1.08); opacity: 1; } }
   .gf__orbits { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .gf__orbit-line { filter: drop-shadow(0 0 4px rgba(78, 216, 194, 0.5)); }
-  /* A short bright dash chases round each orbit: the energy in the system. */
-  .gf__orbit-pulse {
-    stroke-dasharray: 26 460; stroke-opacity: 0.85;
-    animation: gfOrbitPulse var(--d, 10s) linear infinite;
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
-  }
-  @keyframes gfOrbitPulse { to { stroke-dashoffset: -486; } }
+  /* Hairline orbits: one thin line each, lit slightly on the near side. */
+  .gf__orbit-line { stroke: rgba(247, 244, 239, 0.22); stroke-width: 1; }
   .gf__nucleus {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-    display: grid; justify-items: center; align-content: center; gap: 0.05rem;
+    display: grid; justify-items: center; align-content: center; gap: 0.1rem;
     width: 92px; height: 92px; border-radius: 50%;
-    background: radial-gradient(circle at 34% 26%, rgba(255,255,255,0.7), rgba(78,216,194,0.5) 40%, rgba(46,130,182,0.45) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    box-shadow: inset 0 3px 14px rgba(255,255,255,0.5), inset 0 -8px 18px rgba(46,130,182,0.35), 0 0 40px rgba(78, 216, 194, 0.55);
-    animation: gfNucleus 3.2s ease-in-out infinite;
+    background:
+      radial-gradient(circle at 32% 24%, rgba(255,255,255,0.22), rgba(255,255,255,0.03) 38%, transparent 60%),
+      radial-gradient(circle at 50% 110%, rgba(78,216,194,0.28), transparent 60%),
+      linear-gradient(160deg, rgba(40, 50, 68, 0.8), rgba(14, 18, 27, 0.95));
+    border: 1px solid rgba(247, 244, 239, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -10px 24px rgba(78,216,194,0.12), 0 0 34px rgba(78, 216, 194, 0.22), 0 18px 40px rgba(0, 0, 0, 0.45);
+    animation: gfNucleus 4s ease-in-out infinite;
   }
   @keyframes gfNucleus {
-    0%, 100% { box-shadow: inset 0 3px 14px rgba(255,255,255,0.5), inset 0 -8px 18px rgba(46,130,182,0.35), 0 0 40px rgba(78, 216, 194, 0.5); }
-    50% { box-shadow: inset 0 3px 14px rgba(255,255,255,0.5), inset 0 -8px 18px rgba(46,130,182,0.35), 0 0 64px rgba(78, 216, 194, 0.85); }
+    0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -10px 24px rgba(78,216,194,0.12), 0 0 34px rgba(78, 216, 194, 0.22), 0 18px 40px rgba(0, 0, 0, 0.45); }
+    50% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -10px 24px rgba(78,216,194,0.18), 0 0 48px rgba(78, 216, 194, 0.36), 0 18px 40px rgba(0, 0, 0, 0.45); }
   }
-  .gf__nucleus b { font-family: var(--font-headline); font-weight: 700; font-size: 1.125rem; letter-spacing: 0.06em; color: #06303C; }
-  .gf__nucleus i { font-style: normal; font-family: var(--font-mono); font-size: 0.625rem; color: rgba(6, 48, 60, 0.85); }
+  .gf__nucleus b { font-family: var(--font-headline); font-weight: 700; font-size: 1.0625rem; letter-spacing: 0.08em; color: var(--warm-white); }
+  .gf__nucleus i { font-style: normal; font-family: var(--font-mono); font-size: 0.5625rem; letter-spacing: 0.06em; color: rgba(247, 244, 239, 0.62); }
+  /* Electrons are the same glass cubes as the tools, travelling the orbits
+     and turning slowly as they go. offset-rotate keeps the cube upright. */
   .gf__electron {
-    position: absolute; left: 0; top: 0;
-    width: 26px; height: 26px; margin: -13px 0 0 -13px;
-    display: grid; place-items: center; border-radius: 50%;
-    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0.12) 55%, rgba(255,255,255,0.04));
-    border: 1px solid color-mix(in srgb, var(--brand) 60%, #fff);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 12px color-mix(in srgb, var(--brand) 55%, transparent), 0 4px 10px rgba(4, 8, 14, 0.5);
-    color: var(--brand);
+    position: absolute; left: 0; top: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+    display: grid; place-items: center;
     offset-rotate: 0deg; offset-distance: 0%;
     animation: gfElectron var(--d, 10s) linear infinite; animation-delay: var(--delay, 0s);
   }
-  .gf__electron svg { width: 13px; height: 13px; }
-  .gf__electron svg path { fill: currentColor; }
   @keyframes gfElectron { to { offset-distance: 100%; } }
   @supports not (offset-path: path('M 0 0 L 1 1')) {
     .gf__electron { display: none; }
@@ -394,7 +389,7 @@ const FALL = [
   .gf__burst {
     position: absolute; left: 50%; top: 68%; width: 150px; height: 150px;
     margin: -75px 0 0 -75px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(78,216,194,0.5) 40%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.7), rgba(78,216,194,0.4) 40%, transparent 70%);
     opacity: 0; transform: scale(0.2);
   }
   .gf__ring {
@@ -528,7 +523,7 @@ const FALL = [
 
   /* Motion is the whole mechanism, so without it state both outcomes plainly. */
   @media (prefers-reduced-motion: reduce) {
-    .gf__chip, .gf__atom, .gf__coin, .gf__burst, .gf__ring, .gf__wake, .gf__halo, .gf__nucleus, .gf__electron, .gf__orbit-pulse,
+    .gf__chip, .gf__atom, .gf__coin, .gf__burst, .gf__ring, .gf__wake, .gf__halo, .gf__nucleus, .gf__electron,
     .gf__bar-fill, .gf__jam-note, .gf__cube { animation: none !important; }
     .gf__chip { opacity: 1; top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
     .gf__jam-note { opacity: 1; }

@@ -113,6 +113,8 @@ DOMAINS.forEach((d, di) => {
     label: d.name, color: d.color,
     hit: arc(R_D0, R_D1, a0, a1),
     nextColor: DOMAINS[(di + 1) % DOMAINS.length].color,
+    /* Phone focus zoom: centre on the wedge, scale so its outer chord fits. */
+    mid, zoom: Math.min(2.4, Math.max(1.75, VB / (2 * R_C1 * Math.sin(span / 2) + 60))),
     gx1, gy1, gx2, gy2,
     textPath: arcPath(rLabel, a0 + GAP, a1 - GAP, flip),
   });
@@ -376,7 +378,8 @@ const STATS = [
              wheel would reset every time you crossed from one tile to the next. -->
         <g class="cp__hit">
           {domainSegs.map((s) => (
-            <path class="cp__hit-dom" data-di={s.di} d={s.hit} fill="none" pointer-events="all" />
+            <path class="cp__hit-dom" data-di={s.di} d={s.hit} fill="none" pointer-events="all"
+                  data-mid={s.mid.toFixed(4)} data-zoom={s.zoom.toFixed(2)} />
           ))}
           {capSegs.map((s) => (
             <path class="cp__hit-cap" d={s.hit} fill="none" pointer-events="all"
@@ -455,6 +458,17 @@ const STATS = [
         <span class="cp__tip-name"></span>
         <span class="cp__tip-val"></span>
       </div>
+
+    <!-- Phone focus strip: sits over the bottom (or top) of the stage while
+         a domain is zoomed, naming what was tapped. -->
+    <div class="cp__focus" aria-live="polite" hidden>
+      <span class="cp__focus-domain"></span>
+      <span class="cp__focus-name"></span>
+      <span class="cp__focus-desc"></span>
+      <button class="cp__focus-close" type="button" aria-label="Show the whole wheel">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
 
     <p class="cp__hint"><i aria-hidden="true"></i><span class="cp__hint-hover">{hubHint}</span><span class="cp__hint-tap">{hubHintTap}</span></p>
 
@@ -598,6 +612,7 @@ const STATS = [
 
   /* ─── Touch readout panels (phones only, see media block below) ─── */
   .cp__mpanels { display: none; }
+  .cp__focus { display: none; }
   .cp__mpanel-empty {
     margin: var(--space-md) auto 0; max-width: 32ch; text-align: center;
     font-size: 0.875rem; line-height: 1.5; color: rgba(247, 244, 239, 0.62);
@@ -1026,14 +1041,16 @@ const STATS = [
        the detail. The wheel itself runs edge to edge: at 375px every extra
        pixel of radius is label size. */
     .cp__stage { max-width: none; margin-left: calc(var(--space-md) * -1 + 4px); margin-right: calc(var(--space-md) * -1 + 4px); }
-    .cp__cap-text { display: none; }
-    /* Domain names are the one thing the wheel must say on a phone. 21px in
-       the 760 viewBox is ~10.5px on screen; fitLabels() still shrinks the
-       long ones (Marketing & Social) to whatever their arc allows. */
+    /* The ring keeps its labels, like desktop. At rest they are small; a tap
+       on a domain zooms the wheel into that wedge (transform below) so they
+       read at 11px or better. The stage clips the zoomed wheel. */
+    .cp__stage { overflow: hidden; border-radius: 28px; }
+    .cp__wheel { transform-origin: var(--zx, 50%) var(--zy, 50%); transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+    .cp__stage.is-zoom .cp__wheel { transform: scale(var(--zoom, 2)); }
+    .cp__cap-text { font-size: 14px; font-weight: 600; }
     .cp__dom-text { font-size: 21px; letter-spacing: 0.02em; }
     .cp__ai-label { font-size: 13px; letter-spacing: 1.6px; }
     .cp__readout-hint { display: none; }
-    /* cqw sizes shrink with the stage; hold them above legibility. */
     .cp__readout { width: 30%; }
     .cp__readout-brand { font-size: max(5.3cqw, 1.25rem); }
     .cp__readout-sub { font-size: max(1.55cqw, 0.625rem); letter-spacing: 0.16em; }
@@ -1045,20 +1062,27 @@ const STATS = [
     .cp__stat dd { font-size: 0.6875rem; color: rgba(247, 244, 239, 0.62); }
     .cp__chip { padding: 0.45rem 0.8rem; }
     .cp__chip > span { font-size: 0.6875rem; }
-    .cp__mpanels { display: block; margin-top: var(--space-md); }
-    .cp__mpanel-empty { display: none; }
-    .cp__mpanel { margin: 0.5rem auto 0; padding: 0.55rem 0.9rem 0.6rem; }
-    .cp__mpanel-head { margin-bottom: 0; min-height: 40px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-    .cp__mpanel-head::after {
-      content: ''; flex: 0 0 auto; width: 8px; height: 8px; margin-left: 0.6rem;
-      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
-      color: rgba(247, 244, 239, 0.55); transform: translateY(-2px) rotate(45deg); transition: transform 0.2s ease;
+    .cp__mpanels { display: none; }
+    .cp__focus {
+      position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 3;
+      display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'domain close' 'name close' 'desc close';
+      column-gap: 0.5rem; row-gap: 0.1rem; padding: 0.6rem 0.6rem 0.65rem 0.85rem;
+      border-radius: 14px; background: rgba(12, 14, 20, 0.82); border: 1px solid rgba(247, 244, 239, 0.12);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
-    .cp__mpanel.is-open .cp__mpanel-head { margin-bottom: 0.6rem; }
-    .cp__mpanel.is-open .cp__mpanel-head::after { transform: translateY(2px) rotate(-135deg); }
-    .cp__mpanel:not(.is-open) ul { display: none; }
-    .cp__mpanel.is-open ul { padding-bottom: 0.3rem; }
-    :global(html[data-theme="light"]) .cp__mpanel-head::after { color: rgba(12, 14, 20, 0.5); }
+    .cp__focus[hidden] { display: none; }
+    .cp__focus.is-top { bottom: auto; top: 10px; }
+    .cp__focus-domain { grid-area: domain; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--reef-aqua); }
+    .cp__focus-name { grid-area: name; font-family: var(--font-headline); font-weight: 700; font-size: 0.9375rem; color: var(--warm-white); line-height: 1.2; }
+    .cp__focus-desc { grid-area: desc; font-size: 0.75rem; line-height: 1.4; color: rgba(247, 244, 239, 0.7); }
+    .cp__focus-desc:empty { display: none; }
+    .cp__focus-close { grid-area: close; align-self: center; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(247, 244, 239, 0.18); background: rgba(247, 244, 239, 0.06); color: var(--warm-white); cursor: pointer; }
+    :global(html[data-theme="light"]) .cp__focus { background: rgba(255, 255, 255, 0.9); border-color: rgba(12, 14, 20, 0.12); }
+    :global(html[data-theme="light"]) .cp__focus-domain { color: var(--aqua-ink, #0B5F55); }
+    :global(html[data-theme="light"]) .cp__focus-name { color: var(--deep-black); }
+    :global(html[data-theme="light"]) .cp__focus-desc { color: rgba(12, 14, 20, 0.7); }
+    :global(html[data-theme="light"]) .cp__focus-close { color: var(--deep-black); border-color: rgba(12, 14, 20, 0.2); background: rgba(12, 14, 20, 0.05); }
     .cp__stage.is-dim .cp__seg:not(.is-on) { opacity: 0.3; }
     .cp__legend { margin-top: var(--space-md); }
     .cp__lg { min-height: 44px; padding: 0.55rem 0.7rem 0.55rem 0.95rem; font-size: 0.8125rem; }
@@ -1334,9 +1358,48 @@ const STATS = [
     };
 
     /* Whatever is locked is what we fall back to. */
+    /* Phone focus zoom. A locked domain (or a capability inside one) zooms the
+       wheel into that wedge; the strip names it. Nothing locked = whole wheel. */
+    const focus = section.querySelector('.cp__focus');
+    const focusDomain = focus && focus.querySelector('.cp__focus-domain');
+    const focusName = focus && focus.querySelector('.cp__focus-name');
+    const focusDesc = focus && focus.querySelector('.cp__focus-desc');
+    const domHits = [...svg.querySelectorAll('.cp__hit-dom')];
+    const syncZoom = () => {
+      if (!focus) return;
+      const di = locked && (locked.kind === 'domain' ? String(locked.di) : locked.kind === 'cap' && locked.hit ? locked.hit.getAttribute('data-di') : null);
+      if (!phonePanels.matches || di === null || di === undefined) {
+        stage.classList.remove('is-zoom'); focus.hidden = true; return;
+      }
+      const dh = domHits.find((h) => h.getAttribute('data-di') === di);
+      if (!dh) return;
+      const mid = parseFloat(dh.getAttribute('data-mid')), zoom = parseFloat(dh.getAttribute('data-zoom'));
+      const VBn = Number(svg.dataset.vb || 760), cx = Number(svg.dataset.cx || 380), cy = Number(svg.dataset.cy || 380);
+      const rZ = 252; /* between the domain ring and the outer rim */
+      svg.style.setProperty('--zx', ((cx + rZ * Math.cos(mid)) / VBn * 100).toFixed(2) + '%');
+      svg.style.setProperty('--zy', ((cy + rZ * Math.sin(mid)) / VBn * 100).toFixed(2) + '%');
+      svg.style.setProperty('--zoom', String(zoom));
+      stage.classList.add('is-zoom');
+      /* Strip goes to whichever edge the wedge is NOT on. */
+      focus.classList.toggle('is-top', Math.sin(mid) > 0.2);
+      if (locked.kind === 'cap' && locked.hit) {
+        focusDomain.textContent = locked.hit.getAttribute('data-domain-name') + (locked.hit.getAttribute('data-ai') === '1' ? ' · AI' : '');
+        focusName.textContent = locked.hit.getAttribute('data-name');
+        focusDesc.textContent = locked.hit.getAttribute('data-desc') || '';
+      } else {
+        focusDomain.textContent = hubHintTapText;
+        focusName.textContent = DOMAIN_NAMES[Number(di)] || '';
+        focusDesc.textContent = '';
+      }
+      focus.hidden = false;
+    };
+    const hubHintTapText = (section.querySelector('.cp__hint-tap') || {}).textContent || '';
+    if (focus) focus.querySelector('.cp__focus-close').addEventListener('click', () => { locked = null; restore(); });
+
     const restore = () => {
       activeHit = null;
       syncPanels();
+      syncZoom();
       if (!locked) { clearMarks(); showDefault(); setChips(); return; }
       if (locked.kind === 'ai') { lightAi(); }
       else if (locked.kind === 'domain') {
@@ -1428,7 +1491,7 @@ const STATS = [
       head.addEventListener('click', toggle);
       head.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
     });
-    phonePanels.addEventListener('change', syncPanels);
+    phonePanels.addEventListener('change', () => { syncPanels(); syncZoom(); });
     syncPanels();
 
     document.addEventListener('keydown', (e) => {

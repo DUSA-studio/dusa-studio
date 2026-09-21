@@ -386,7 +386,15 @@
     "unifiedSub": "One login, one bill, full visibility",
     "goingIn": "GOING IN",
     "aiPowered": "AI-POWERED",
-    "vs": "VS"
+    "vs": "VS",
+    "jamNote": "Blocked. Nothing here talks to anything else.",
+    "verdict1Title": "{total} in. A trickle out.",
+    "verdict1Sub": "Eight tools, eight logins, none of them connected. The work jams before it reaches you.",
+    "verdict2Title": "{dusa} in. All of it out.",
+    "verdict2Sub": "One connected platform, and the other {saving} a month stays yours.",
+    "tabTools": "Eight tools",
+    "tabPlatform": "One platform",
+    "perMonth": "/mo"
   },
   "cta": {
     "label": "Ready?",

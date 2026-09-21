@@ -1,0 +1,484 @@
+---
+// FunnelGlass.astro — "Where does your money actually go?" as one glass vessel
+// in two acts. Act 1: eight priced tools drop in and JAM in the neck, only a
+// trickle escapes. Act 2: one connected DUSA orb (integrations orbiting as
+// glass moons) passes straight through and bursts into money at the spout.
+//
+// Promoted from the staging branch (Direction D, Eliah's concept) with the
+// reconciled $990 stack, chips kept inside the cone wall, a continuous pour,
+// counting numbers, a light-mode display case and dictionary-driven copy.
+//
+// SVG + CSS only, no WebGL: chips stay crisp DOM text, zero bundle cost, and
+// it degrades to a readable static state under prefers-reduced-motion.
+import { STACK, DUSA_COST, STACK_TOTAL, SAVING, money } from '../config/stack-compare';
+import { BRAND_MARKS } from '../config/brand-marks';
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+const s = t?.funnelComparison || {};
+const fcLabel = s.label || 'The real cost of scattered tools';
+const fcHeading = s.heading || 'Where does your';
+const fcHeadingAccent = s.headingAccent || 'money actually go?';
+const jamNote = s.jamNote || 'Blocked. Nothing here talks to anything else.';
+const fill = (str: string) => String(str)
+  .replace('{total}', money(STACK_TOTAL)).replace('{dusa}', money(DUSA_COST)).replace('{saving}', money(SAVING));
+const v1Title = fill(s.verdict1Title || '{total} in. A trickle out.');
+const v1Sub = fill(s.verdict1Sub || 'Eight tools, eight logins, none of them connected. The work jams before it reaches you.');
+const v2Title = fill(s.verdict2Title || '{dusa} in. All of it out.');
+const v2Sub = fill(s.verdict2Sub || 'One connected platform, and the other {saving} a month stays yours.');
+const tabTools = s.tabTools || 'Eight tools';
+const tabPlatform = s.tabPlatform || 'One platform';
+const perMonth = s.perMonth || '/mo';
+
+const MOONS = BRAND_MARKS.slice(0, 8);
+
+/* Entry lane, and where each chip comes to rest once the neck is blocked.
+   Deterministic so the jam looks designed rather than accidental. Resting
+   x is kept inside the cone wall at that height (wall half-width in stage
+   units: 18% at y32, 12% at y39, 9% at y43, 6% at y47, 1.5% at y52, less a
+   chip's own half-width of ~5%). */
+const FALL = [
+  { lane: -30, jamX:  -6, jamY: 47, rot: -14 },
+  { lane:  14, jamX:   6, jamY: 46, rot:  11 },
+  { lane:  -8, jamX:   0, jamY: 52, rot:   5 },
+  { lane:  32, jamX:  11, jamY: 39, rot:  17 },
+  { lane: -22, jamX: -10, jamY: 39, rot: -20 },
+  { lane:   4, jamX:   1, jamY: 42, rot:  -6 },
+  { lane:  26, jamX:   8, jamY: 33, rot:   9 },
+  { lane: -14, jamX:  -8, jamY: 32, rot: -10 },
+];
+---
+
+<section class="funnel section section--dark" id="funnel">
+  <div class="container">
+    <div class="funnel__header reveal">
+      <span class="label">{fcLabel}</span>
+      <h2>{fcHeading}<br/><span class="gradient-text">{fcHeadingAccent}</span></h2>
+    </div>
+
+    <div class="gf reveal" data-glass-funnel data-total={STACK_TOTAL} data-dusa={DUSA_COST} data-saving={SAVING}>
+      <div class="gf__stage">
+        <span class="gf__pool" aria-hidden="true"></span>
+        <span class="gf__rimlight" aria-hidden="true"></span>
+
+        <!-- ── The vessel ─────────────────────────────────────────────── -->
+        <svg class="gf__vessel" viewBox="0 0 620 440" aria-hidden="true">
+          <defs>
+            <linearGradient id="gfBody" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#8FE9DC" stop-opacity="0.34"/>
+              <stop offset="14%"  stop-color="#FFFFFF" stop-opacity="0.12"/>
+              <stop offset="40%"  stop-color="#4ED8C2" stop-opacity="0.045"/>
+              <stop offset="74%"  stop-color="#FFFFFF" stop-opacity="0.16"/>
+              <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.30"/>
+            </linearGradient>
+            <linearGradient id="gfRim" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#4ED8C2" stop-opacity="0.8"/>
+              <stop offset="50%"  stop-color="#FFFFFF" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.8"/>
+            </linearGradient>
+            <linearGradient id="gfSheen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.4"/>
+              <stop offset="55%"  stop-color="#FFFFFF" stop-opacity="0.07"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="gfCaustic" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0"/>
+              <stop offset="45%"  stop-color="#FFFFFF" stop-opacity="0.22"/>
+              <stop offset="55%"  stop-color="#FFFFFF" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <path class="gf__body" d="M96,104 L524,104 L338,304 Q310,318 282,304 Z"
+                fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
+          <!-- One committed light source: specular band down the left shoulder,
+               a thin bounce highlight up the right, and a slow travelling
+               caustic so the glass never reads as flat. -->
+          <path class="gf__sheen" d="M132,112 L196,112 L288,292 L262,292 Z" fill="url(#gfSheen)"/>
+          <path d="M488,112 L462,112 L338,292 L352,292 Z" fill="#FFFFFF" fill-opacity="0.05"/>
+          <path class="gf__caustic" d="M96,104 L524,104 L338,304 Q310,318 282,304 Z" fill="url(#gfCaustic)"/>
+
+          <ellipse cx="310" cy="104" rx="214" ry="44" fill="rgba(78,216,194,0.05)"
+                   stroke="url(#gfRim)" stroke-width="2"/>
+          <path d="M96,104 A214,44 0 0 0 524,104" fill="none"
+                stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2.5"/>
+
+          <path class="gf__spout" d="M282,304 L282,378 Q310,392 338,378 L338,304"
+                fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
+          <ellipse cx="310" cy="378" rx="28" ry="9"
+                   fill="rgba(12,14,20,0.65)" stroke="url(#gfRim)" stroke-width="1.5"/>
+        </svg>
+
+        <!-- ── ACT 1: the tools ───────────────────────────────────────── -->
+        <div class="gf__layer">
+          {STACK.map((tool, i) => (
+            <span class="gf__chip"
+                  style={`--lane:${FALL[i].lane}%;--jx:${FALL[i].jamX}%;--jy:${FALL[i].jamY}%;--rot:${FALL[i].rot}deg;--i:${i}`}>
+              <span class="gf__chip-name">{tool.name}</span>
+              <span class="gf__chip-job">{tool.job}</span>
+              <span class="gf__tag">{money(tool.cost)}</span>
+            </span>
+          ))}
+          <span class="gf__jam-note">{jamNote}</span>
+        </div>
+
+        <!-- ── ACT 2: the orb ─────────────────────────────────────────── -->
+        <div class="gf__layer">
+          <span class="gf__orb">
+            <span class="gf__orb-core">
+              <b>DUSA</b>
+              <i>{money(DUSA_COST)}{perMonth}</i>
+            </span>
+            <span class="gf__orbit">
+              {MOONS.map((m, i) => (
+                <span class="gf__moon-arm" style={`--a:${(360 / MOONS.length) * i}deg`}>
+                  <span class="gf__moon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={m.path}/></svg></span>
+                </span>
+              ))}
+            </span>
+          </span>
+          <span class="gf__burst" aria-hidden="true"></span>
+          <span class="gf__ring" aria-hidden="true"></span>
+        </div>
+
+        <!-- ── Output ─────────────────────────────────────────────────── -->
+        <div class="gf__out" aria-hidden="true">
+          {[0, 1, 2].map((n) => <span class="gf__coin gf__coin--dud" style={`--n:${n}`}>$</span>)}
+          {Array.from({ length: 26 }).map((_, n) => <span class="gf__coin gf__coin--good" style={`--n:${n}`}>$</span>)}
+        </div>
+
+        <div class="gf__verdict">
+          <p class="gf__v gf__v--1">
+            <b><span class="gf__count" data-count={STACK_TOTAL}>{money(STACK_TOTAL)}</span> {v1Title.replace(money(STACK_TOTAL), '').trim()}</b>
+            <span>{v1Sub}</span>
+          </p>
+          <p class="gf__v gf__v--2">
+            <b><span class="gf__count" data-count={DUSA_COST}>{money(DUSA_COST)}</span> {v2Title.replace(money(DUSA_COST), '').trim()}</b>
+            <span>{v2Sub}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="gf__controls">
+        <button class="gf__tab" type="button" data-goto="1" aria-pressed="true"><i></i>{tabTools}</button>
+        <button class="gf__tab" type="button" data-goto="2" aria-pressed="false"><i></i>{tabPlatform}</button>
+        <span class="gf__bar" aria-hidden="true"><span class="gf__bar-fill"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .funnel__header { text-align: center; max-width: 720px; margin: 0 auto var(--space-lg); }
+  .funnel__header h2 { margin-top: var(--space-xs); }
+
+  .gf { container-type: inline-size; }
+
+  .gf__stage {
+    position: relative; width: 100%; max-width: 660px; margin: 0 auto;
+    aspect-ratio: 620 / 560;
+  }
+  .gf__vessel {
+    position: absolute; inset: 0 0 auto; width: 100%; height: auto;
+    filter: drop-shadow(0 20px 50px rgba(78, 216, 194, 0.16));
+  }
+  .gf__caustic {
+    opacity: 0.5; mix-blend-mode: screen;
+    transform-origin: 310px 200px;
+    animation: gfCaustic 7s ease-in-out infinite alternate;
+  }
+  @keyframes gfCaustic { from { transform: translateX(-140px) skewX(-8deg); } to { transform: translateX(140px) skewX(8deg); } }
+
+  .gf__pool {
+    position: absolute; left: 50%; top: 78%; width: 46%; height: 12%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(78, 216, 194, 0.22), rgba(78, 216, 194, 0) 70%);
+    filter: blur(12px); opacity: 0.4;
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  }
+  .gf[data-act="2"] .gf__pool { opacity: 1; transform: translateX(-50%) scale(1.25); }
+  /* Whole-vessel glow that swells when the platform passes through. */
+  .gf__rimlight {
+    position: absolute; left: 50%; top: 36%; width: 70%; height: 46%;
+    transform: translate(-50%, -50%); border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(78, 216, 194, 0.18), rgba(46, 130, 182, 0.06) 45%, transparent 70%);
+    filter: blur(24px); opacity: 0.35; transition: opacity 1.2s var(--ease-out);
+  }
+  .gf[data-act="1"] .gf__rimlight { opacity: 0.2; background: radial-gradient(ellipse at center, rgba(236, 132, 128, 0.16), transparent 70%); }
+  .gf[data-act="2"] .gf__rimlight { opacity: 0.9; }
+
+  .gf__layer { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ── Act 1: the chips ──────────────────────────────────────────────── */
+  .gf__chip {
+    position: absolute; left: calc(50% + var(--lane)); top: 1%;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    display: grid; justify-items: center; gap: 0.05rem;
+    padding: 0.5rem 0.85rem 0.7rem; border-radius: 11px;
+    background: linear-gradient(150deg, rgba(255,255,255,0.2), rgba(232,82,78,0.1));
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 8px 20px rgba(4, 8, 14, 0.55);
+    backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+    opacity: 0; will-change: top, left, transform;
+  }
+  .gf__chip-name { font-size: 0.8125rem; font-weight: 600; color: rgba(247,244,239,0.96); white-space: nowrap; }
+  .gf__chip-job {
+    font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.42);
+  }
+  .gf__tag {
+    position: absolute; right: -0.45rem; bottom: -0.6rem;
+    font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700;
+    color: #2A0B0B; background: rgba(236, 132, 128, 0.96);
+    padding: 0.08rem 0.38rem; border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(4, 8, 14, 0.55);
+  }
+  .gf__tag::before {
+    content: ''; position: absolute; left: 0.26rem; top: -0.3rem;
+    width: 1px; height: 0.3rem; background: rgba(255, 255, 255, 0.45);
+  }
+  .gf__jam-note {
+    position: absolute; left: 50%; top: 61%; transform: translate(-50%, 0);
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(236, 132, 128, 0.9);
+    white-space: nowrap; opacity: 0;
+  }
+
+  /* ── Act 2: the orb ────────────────────────────────────────────────── */
+  .gf__orb {
+    position: absolute; left: 50%; top: 1%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 190px; height: 190px; display: grid; place-items: center;
+    opacity: 0; will-change: top, transform;
+  }
+  .gf__orb-core {
+    grid-area: 1 / 1; display: grid; justify-items: center; align-content: center;
+    gap: 0.1rem; width: 118px; height: 118px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 26%, rgba(255,255,255,0.6), rgba(78,216,194,0.4) 42%, rgba(46,130,182,0.34) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0 3px 14px rgba(255,255,255,0.45), 0 0 54px rgba(78, 216, 194, 0.5);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .gf__orb-core b { font-family: var(--font-headline); font-weight: 700; font-size: 1.25rem; letter-spacing: 0.06em; color: #06303C; }
+  .gf__orb-core i { font-style: normal; font-family: var(--font-mono); font-size: 0.6875rem; color: rgba(6, 48, 60, 0.8); }
+
+  .gf__orbit { grid-area: 1 / 1; width: 100%; height: 100%; position: relative; animation: gfSpin 15s linear infinite; }
+  .gf__moon-arm { position: absolute; inset: 0; transform: rotate(var(--a)); }
+  .gf__moon {
+    position: absolute; left: 50%; top: -11px;
+    width: 30px; height: 30px; margin-left: -15px;
+    display: grid; place-items: center; border-radius: 50%;
+    background: linear-gradient(150deg, rgba(255,255,255,0.4), rgba(255,255,255,0.08));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 4px 12px rgba(4,8,14,0.5);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    /* Counter-spin at the parent's duration keeps each mark upright. */
+    animation: gfSpin 15s linear infinite reverse;
+  }
+  .gf__moon svg { width: 15px; height: 15px; }
+  .gf__moon svg path { fill: rgba(247, 244, 239, 0.9); }
+  @keyframes gfSpin { to { transform: rotate(360deg); } }
+
+  .gf__burst {
+    position: absolute; left: 50%; top: 68%; width: 150px; height: 150px;
+    margin: -75px 0 0 -75px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(78,216,194,0.5) 40%, transparent 70%);
+    opacity: 0; transform: scale(0.2);
+  }
+  .gf__ring {
+    position: absolute; left: 50%; top: 68%; width: 60px; height: 60px;
+    margin: -30px 0 0 -30px; border-radius: 50%;
+    border: 2px solid rgba(78, 216, 194, 0.8); opacity: 0;
+  }
+
+  /* ── Output ────────────────────────────────────────────────────────── */
+  .gf__out {
+    position: absolute; left: 50%; top: 70%; transform: translateX(-50%);
+    width: 240px; height: 26%; pointer-events: none;
+  }
+  .gf__coin { position: absolute; left: 50%; top: 0; opacity: 0; font-family: var(--font-mono); font-weight: 700; }
+  .gf__coin--dud { font-size: 0.875rem; color: rgba(236, 132, 128, 0.8); }
+  .gf__coin--good { font-size: 1.125rem; color: var(--reef-aqua); text-shadow: 0 0 12px rgba(78,216,194,0.6); }
+
+  /* ── Verdict ───────────────────────────────────────────────────────── */
+  .gf__verdict { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; min-height: 5.5rem; }
+  .gf__v { margin: 0; max-width: none; opacity: 0; position: absolute; left: 0; right: 0; bottom: 0; transition: opacity 0.6s var(--ease-out); }
+  .gf__v b { display: block; font-family: var(--font-mono); font-weight: 700; font-size: 1.5rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .gf__v span { display: block; margin: 0.3rem auto 0; max-width: 46ch; font-size: 0.875rem; color: rgba(247,244,239,0.55); }
+  .gf__v--1 b { color: rgba(236, 132, 128, 0.95); }
+  .gf__v--2 b { color: var(--reef-aqua); }
+
+  /* ── Act orchestration ─────────────────────────────────────────────── */
+  .gf[data-act="1"] .gf__chip { animation: gfJam 4.2s cubic-bezier(0.4, 0, 0.6, 1) forwards; animation-delay: calc(var(--i) * 260ms); }
+  .gf[data-act="1"] .gf__jam-note { animation: gfNote 5s ease-out 2.9s forwards; }
+  .gf[data-act="1"] .gf__coin--dud { animation: gfDud 2.6s ease-in infinite; animation-delay: calc(3.4s + var(--n) * 900ms); }
+  .gf[data-act="1"] .gf__v--1 { opacity: 1; transition-delay: 2.6s; }
+
+  .gf[data-act="2"] .gf__orb { animation: gfOrbFall 3.4s cubic-bezier(0.4, 0, 0.6, 1) forwards; }
+  .gf[data-act="2"] .gf__burst { animation: gfBurst 1.1s ease-out 2.9s forwards; }
+  .gf[data-act="2"] .gf__ring { animation: gfRing 1.4s ease-out 2.95s forwards; }
+  /* The pour keeps running for the rest of the act rather than stopping
+     after one pass: a stream, not a handful. */
+  .gf[data-act="2"] .gf__coin--good { animation: gfPour 1.9s ease-in infinite; animation-delay: calc(3.05s + var(--n) * 73ms); }
+  .gf[data-act="2"] .gf__v--2 { opacity: 1; transition-delay: 3.2s; }
+
+  /* Falls, hits the narrowing wall, then stalls where the neck blocks it.
+     top/left drive the path: percentages inside translate() would resolve
+     against the chip's own box, not the stage. */
+  @keyframes gfJam {
+    0%   { opacity: 0; top: 1%;  left: calc(50% + var(--lane)); transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+    9%   { opacity: 1; }
+    46%  { opacity: 1; top: 30%; left: calc(50% + var(--lane) * 0.6); transform: translate(-50%,-50%) scale(0.86) rotate(calc(var(--rot) * 0.4)); }
+    72%  { top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
+    82%  { top: calc(var(--jy) - 1.5%); }
+    100% { opacity: 1; top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
+  }
+  @keyframes gfNote { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 1; } }
+  @keyframes gfOrbFall {
+    0%   { opacity: 0; top: 1%;  transform: translate(-50%,-50%) scale(1); }
+    10%  { opacity: 1; }
+    52%  { opacity: 1; top: 34%; transform: translate(-50%,-50%) scale(0.92); }
+    84%  { opacity: 1; top: 62%; transform: translate(-50%,-50%) scale(0.46); }
+    100% { opacity: 0; top: 70%; transform: translate(-50%,-50%) scale(0.24); }
+  }
+  @keyframes gfBurst { 0% { opacity: 0; transform: scale(0.2); } 35% { opacity: 0.9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6); } }
+  @keyframes gfRing { 0% { opacity: 0.9; transform: scale(0.3); } 100% { opacity: 0; transform: scale(4); } }
+  @keyframes gfDud {
+    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.8); }
+    18%  { opacity: 1; }
+    60%  { opacity: 0; transform: translate(calc(-50% + 5px), 76px) scale(0.7); }
+    100% { opacity: 0; transform: translate(calc(-50% + 5px), 76px) scale(0.7); }
+  }
+  @keyframes gfPour {
+    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+    14%  { opacity: 1; transform: translate(calc(-50% + (var(--n) - 13) * 4px), 20px) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + (var(--n) - 13) * 12px), 116px) scale(0.85); }
+  }
+
+  /* ── Controls ──────────────────────────────────────────────────────── */
+  .gf__controls { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-top: var(--space-md); flex-wrap: wrap; }
+  .gf__tab {
+    display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; min-height: 40px;
+    font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(247, 244, 239, 0.6);
+    background: rgba(247, 244, 239, 0.03); border: 1px solid rgba(247, 244, 239, 0.14);
+    border-radius: 999px; padding: 0.42rem 0.9rem;
+    transition: color var(--duration-fast), border-color var(--duration-fast);
+  }
+  .gf__tab i { width: 7px; height: 7px; border-radius: 50%; background: rgba(247, 244, 239, 0.3); transition: background var(--duration-fast); }
+  .gf__tab[aria-pressed="true"] { color: var(--warm-white); border-color: rgba(78,216,194,0.55); }
+  .gf__tab[data-goto="1"][aria-pressed="true"] i { background: rgba(236, 132, 128, 0.95); }
+  .gf__tab[data-goto="2"][aria-pressed="true"] i { background: var(--reef-aqua); }
+  .gf__tab:hover { color: var(--warm-white); }
+  .gf__bar { width: 90px; height: 2px; border-radius: 2px; background: rgba(247, 244, 239, 0.1); overflow: hidden; }
+  .gf__bar-fill { display: block; width: 0; height: 100%; background: var(--reef-aqua); }
+  .gf[data-act] .gf__bar-fill { animation: gfBar 9s linear forwards; }
+  @keyframes gfBar { to { width: 100%; } }
+
+  @container (max-width: 620px) {
+    .gf__chip { padding: 0.35rem 0.55rem 0.55rem; }
+    .gf__chip-name { font-size: 0.6875rem; }
+    .gf__tag { font-size: 0.625rem; }
+    .gf__orb { width: 150px; height: 150px; }
+    .gf__orb-core { width: 96px; height: 96px; }
+    .gf__v b { font-size: 1.2rem; }
+    .gf__v span { font-size: 0.8125rem; }
+    .gf__jam-note { font-size: 0.5625rem; }
+  }
+  @container (max-width: 420px) {
+    .gf__chip { padding: 0.3rem 0.45rem 0.45rem; border-radius: 8px; }
+    .gf__chip-name { font-size: 0.625rem; }
+    .gf__chip-job { display: none; }
+    .gf__orb { width: 120px; height: 120px; }
+    .gf__orb-core { width: 78px; height: 78px; }
+    .gf__orb-core b { font-size: 1rem; }
+    .gf__moon { width: 24px; height: 24px; margin-left: -12px; top: -8px; }
+    .gf__moon svg { width: 12px; height: 12px; }
+    .gf__verdict { min-height: 6.5rem; }
+  }
+
+  /* ── Light mode: the vessel sits in a dark display case, so the glass
+       and the glow keep their depth on a pale page. ─────────────────── */
+  :global(html[data-theme="light"]) .gf__stage {
+    background: radial-gradient(ellipse at 50% 30%, #17212B, #0C0E14 70%);
+    border-radius: 28px; border: 1px solid rgba(12, 14, 20, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 60px rgba(12, 14, 20, 0.18);
+  }
+  :global(html[data-theme="light"]) .gf__tab { color: rgba(12, 14, 20, 0.6); background: rgba(12, 14, 20, 0.03); border-color: rgba(12, 14, 20, 0.15); }
+  :global(html[data-theme="light"]) .gf__tab i { background: rgba(12, 14, 20, 0.25); }
+  :global(html[data-theme="light"]) .gf__tab[aria-pressed="true"] { color: var(--deep-black); border-color: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .gf__tab:hover { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .gf__bar { background: rgba(12, 14, 20, 0.12); }
+  :global(html[data-theme="light"]) .gf__bar-fill { background: var(--deep-ocean); }
+
+  /* Motion is the whole mechanism, so without it state both outcomes plainly. */
+  @media (prefers-reduced-motion: reduce) {
+    .gf__chip, .gf__orb, .gf__coin, .gf__burst, .gf__ring, .gf__orbit, .gf__moon,
+    .gf__bar-fill, .gf__jam-note, .gf__caustic { animation: none !important; }
+    .gf__chip { opacity: 1; top: var(--jy); left: calc(50% + var(--jx)); transform: translate(-50%,-50%) scale(0.66) rotate(var(--rot)); }
+    .gf__jam-note { opacity: 1; }
+    .gf__orb { display: none; }
+    .gf__verdict { position: static; display: grid; gap: 0.9rem; margin-top: 1rem; min-height: 0; }
+    .gf__v { position: static; opacity: 1; transition: none; }
+    .gf__stage { aspect-ratio: auto; }
+    .gf__vessel { position: relative; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-glass-funnel]').forEach((root) => {
+    const tabs = [...root.querySelectorAll('[data-goto]')];
+    const counts = [...root.querySelectorAll('.gf__count')];
+    const ACT_MS = 9000;
+    let act = 1, timer = null, running = false, raf = 0;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fmt = (n) => '$' + Math.round(n).toLocaleString('en-AU');
+
+    /* The verdict figure counts up to its value as the act resolves, so the
+       number arrives with the picture rather than sitting there beforehand. */
+    const countTo = (el, target, delay, dur) => {
+      if (!el || reduced) return;
+      el.textContent = fmt(0);
+      const t0 = performance.now() + delay;
+      const step = (now) => {
+        const p = Math.min(1, Math.max(0, (now - t0) / dur));
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(target * eased);
+        if (p < 1) raf = requestAnimationFrame(step);
+      };
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(step);
+    };
+
+    /* Re-setting the same attribute will not restart a CSS animation: clear
+       it, force a reflow, then set it. */
+    const play = (n) => {
+      act = n;
+      root.removeAttribute('data-act');
+      void root.offsetWidth;
+      root.setAttribute('data-act', String(n));
+      tabs.forEach((t) => t.setAttribute('aria-pressed', t.getAttribute('data-goto') === String(n) ? 'true' : 'false'));
+      const el = counts[n - 1];
+      if (el) countTo(el, Number(el.getAttribute('data-count')), n === 1 ? 2600 : 3200, 1400);
+    };
+    const queue = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { play(act === 1 ? 2 : 1); queue(); }, ACT_MS);
+    };
+    const start = () => { if (running) return; running = true; play(act); queue(); };
+    const stop = () => { running = false; clearTimeout(timer); };
+
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      running = true;
+      play(Number(t.getAttribute('data-goto')));
+      queue();
+    }));
+
+    if (!('IntersectionObserver' in window)) { start(); return; }
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => { e.isIntersecting ? start() : stop(); });
+    }, { threshold: 0.25 }).observe(root);
+  });
+</script>

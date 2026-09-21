@@ -357,7 +357,15 @@
         "quote": "The support team went above and beyond. They took the time to actually understand my setup and guided me through every change. Extremely thorough.",
         "role": "Creative Agency Founder"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Google reviews in three months",
+      "Email open rate after switching",
+      "Monthly software spend"
+    ],
+    "moreStories": "More customer stories",
+    "fewerStories": "Show fewer stories",
+    "trustLine": "Real reviews, collected on G2 and Trustpilot"
   },
   "brandCarousel": {
     "label": "Powering Growth For",

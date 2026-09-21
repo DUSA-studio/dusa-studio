@@ -138,13 +138,34 @@ const spLabel = sp.resultsLabel || 'Results That Speak';
 const spHeading = sp.heading || 'Businesses grow faster with';
 const spHeadingAccent = sp.headingAccent || 'AI and everything connected';
 
+/* Three outcome numbers. Money first: it is the one figure every visitor
+   can hold onto, and it reconciles with the pricing page ($990 − $149). */
 const stats = [
-  { value: sp.stat1Value || '5+', label: sp.stat1Label || 'Tools replaced' },
-  { value: sp.stat2Value || '2x', label: sp.stat2Label || 'Faster follow-up' },
-  { value: sp.stat3Value || '100%', label: sp.stat3Label || 'AI-Automated' },
   { value: sp.stat4Value || '$800+', label: sp.stat4Label || 'Saved monthly' },
+  { value: sp.stat1Value || '5+', label: sp.stat1Label || 'Tools replaced' },
   { value: sp.stat5Value || '< 48hrs', label: sp.stat5Label || 'Setup time' },
 ];
+
+/* Three featured stories, one per buyer fear (results, marketing, cost),
+   each led by the number inside the quote. Indices point into the array
+   above so translated quotes flow through. */
+const captions: string[] = Array.isArray(sp.featuredCaptions) && sp.featuredCaptions.length === 3
+  ? sp.featuredCaptions
+  : ['Google reviews in three months', 'Email open rate after switching', 'Monthly software spend'];
+const featured = [
+  { idx: 5,  num: '12 → 80+',  caption: captions[0] },
+  { idx: 12, num: '18% → 42%', caption: captions[1] },
+  { idx: 4,  num: '−50%',      caption: captions[2] },
+].map((f) => ({ ...f, ...testimonials[f.idx] }));
+const rest = testimonials.filter((_, i) => ![5, 12, 4].includes(i));
+const moreLabel = sp.moreStories || 'More customer stories';
+const fewerLabel = sp.fewerStories || 'Show fewer stories';
+const trustLine = sp.trustLine || 'Real reviews, collected on G2 and Trustpilot';
+
+/* 'full' | 'half' | 'empty' per star; the template draws them. */
+const starKinds = (stars: number) => [1, 2, 3, 4, 5].map((i) =>
+  i <= Math.floor(stars) ? 'full' : (i === Math.ceil(stars) && stars % 1 !== 0) ? 'half' : 'empty');
+const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z';
 ---
 
 <section class="proof section section--dark" id="proof">
@@ -163,41 +184,86 @@ const stats = [
       ))}
     </div>
 
-    <!-- Auto-scrolling testimonial carousel -->
-    <div class="proof__carousel" aria-label="Customer testimonials">
-      <div class="proof__track">
-        {/* Duplicate testimonials for seamless loop; the second copy is
-            aria-hidden and all clip-path ids carry the loop index so no
-            id is ever duplicated in the document. */}
-        {[...testimonials, ...testimonials].map((t, loopIdx) => (
-          <div class="proof__testimonial" aria-hidden={loopIdx >= testimonials.length ? 'true' : undefined}>
-            <blockquote class="proof__quote">&ldquo;{t.quote}&rdquo;</blockquote>
-            <div class="proof__bottom">
-              <div class="proof__stars" aria-label={`${t.stars} out of 5 stars`}>
-                {[1,2,3,4,5].map((i) => (
-                  i <= Math.floor(t.stars)
-                    ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z"/></svg>
-                    : i === Math.ceil(t.stars) && t.stars % 1 !== 0
-                      ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-${loopIdx}-${i}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="currentColor" clip-path={`url(#half-${loopIdx}-${i})`}/><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-                      : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-                ))}
-              </div>
-              <div class="proof__author">
-                {(t as any).photo
-                  ? <img class="proof__author-photo" src={(t as any).photo} alt={t.name} loading="lazy" width="40" height="40" />
-                  : <div class="proof__author-avatar">{initials(t.name)}</div>}
-                <div>
-                  <div class="proof__author-name">{t.name}</div>
-                  <div class="proof__author-role">{t.role} <span class="proof__source">via {t.source}</span></div>
-                </div>
+    <!-- Three number-led stories -->
+    <div class="proof__featured reveal">
+      {featured.map((f, i) => (
+        <article class="proof__card">
+          <div class="proof__num">{f.num}</div>
+          <div class="proof__caption">{f.caption}</div>
+          <blockquote class="proof__quote">&ldquo;{f.quote}&rdquo;</blockquote>
+          <div class="proof__bottom">
+            <div class="proof__stars" aria-label={`${f.stars} out of 5 stars`}>{starKinds(f.stars).map((k, si) => k === 'full'
+                ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d={STAR}/></svg>
+                : k === 'half'
+                  ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-f${i}-${si}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d={STAR} fill="currentColor" clip-path={`url(#half-f${i}-${si})`}/><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>
+                  : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>)}</div>
+            <div class="proof__author">
+              {(f as any).photo
+                ? <img class="proof__author-photo" src={(f as any).photo} alt={f.name} loading="lazy" width="40" height="40" />
+                : <div class="proof__author-avatar">{initials(f.name)}</div>}
+              <div>
+                <div class="proof__author-name">{f.name}</div>
+                <div class="proof__author-role">{f.role} <span class="proof__source">via {f.source}</span></div>
               </div>
             </div>
           </div>
-        ))}
+        </article>
+      ))}
+    </div>
+
+    <div class="proof__trust reveal">
+      <span class="proof__trust-line">{trustLine}</span>
+      <button class="proof__more-btn" type="button" aria-expanded="false" aria-controls="proof-more" data-more={moreLabel} data-fewer={fewerLabel}>
+        {moreLabel}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+    <!-- The other thirteen, in the slow carousel, only when asked for -->
+    <div class="proof__more" id="proof-more" hidden>
+      <div class="proof__carousel" aria-label="Customer testimonials">
+        <div class="proof__track">
+          {[...rest, ...rest].map((t, loopIdx) => (
+            <div class="proof__testimonial" aria-hidden={loopIdx >= rest.length ? 'true' : undefined}>
+              <blockquote class="proof__quote">&ldquo;{t.quote}&rdquo;</blockquote>
+              <div class="proof__bottom">
+                <div class="proof__stars" aria-label={`${t.stars} out of 5 stars`}>{starKinds(t.stars).map((k, si) => k === 'full'
+                ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d={STAR}/></svg>
+                : k === 'half'
+                  ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-r${loopIdx}-${si}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d={STAR} fill="currentColor" clip-path={`url(#half-r${loopIdx}-${si})`}/><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>
+                  : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>)}</div>
+                <div class="proof__author">
+                  {(t as any).photo
+                    ? <img class="proof__author-photo" src={(t as any).photo} alt={t.name} loading="lazy" width="40" height="40" />
+                    : <div class="proof__author-avatar">{initials(t.name)}</div>}
+                  <div>
+                    <div class="proof__author-name">{t.name}</div>
+                    <div class="proof__author-role">{t.role} <span class="proof__source">via {t.source}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.proof__more-btn').forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
+    if (!panel) return;
+    btn.addEventListener('click', () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.firstChild.textContent = (open ? btn.getAttribute('data-fewer') : btn.getAttribute('data-more')) + ' ';
+      btn.classList.toggle('is-open', open);
+      if (open) panel.querySelectorAll('.proof__testimonial').forEach((el) => el.classList.add('is-visible'));
+    });
+  });
+</script>
 
 <style>
   .proof__header {
@@ -208,11 +274,65 @@ const stats = [
 
   .proof__stats {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-md);
-    margin-bottom: var(--space-xl);
+    max-width: 820px;
+    margin: 0 auto var(--space-lg);
     text-align: center;
   }
+
+  /* ─── FEATURED STORIES ─── */
+  .proof__featured {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  .proof__card {
+    display: flex; flex-direction: column;
+    padding: var(--space-lg);
+    background: rgba(247, 244, 239, 0.03);
+    border: 1px solid rgba(247, 244, 239, 0.07);
+    border-radius: var(--radius-md);
+    position: relative; overflow: hidden;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: border-color var(--duration-normal), transform var(--duration-normal), box-shadow var(--duration-normal);
+  }
+  .proof__card::before {
+    content: ''; position: absolute; inset: 0 0 auto 0; height: 2px;
+    background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue));
+    opacity: 0.7;
+  }
+  .proof__card:hover { border-color: rgba(78, 216, 194, 0.2); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); }
+  .proof__num {
+    font-family: var(--font-headline); font-weight: 700;
+    font-size: clamp(1.75rem, 2.6vw, 2.25rem); line-height: 1.1;
+    color: var(--reef-aqua); letter-spacing: -0.01em; white-space: nowrap;
+    text-shadow: 0 0 30px rgba(78, 216, 194, 0.15);
+  }
+  .proof__caption {
+    font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(247, 244, 239, 0.62); margin: 0.35rem 0 1rem;
+  }
+  .proof__card .proof__quote { font-size: 0.9375rem; }
+
+  .proof__trust {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap;
+    margin-bottom: var(--space-sm);
+  }
+  .proof__trust-line { font-size: 0.8125rem; color: rgba(247, 244, 239, 0.58); }
+  .proof__more-btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--font-body); font-weight: 500; font-size: 0.875rem;
+    color: var(--reef-aqua); background: none; border: 1px solid rgba(78, 216, 194, 0.25);
+    border-radius: 100px; padding: 0.55rem 1rem; cursor: pointer; min-height: 40px;
+    transition: border-color var(--duration-fast), background var(--duration-fast);
+  }
+  .proof__more-btn:hover { border-color: rgba(78, 216, 194, 0.55); background: rgba(78, 216, 194, 0.06); }
+  .proof__more-btn svg { transition: transform 0.2s ease; }
+  .proof__more-btn.is-open svg { transform: rotate(180deg); }
+  .proof__more[hidden] { display: none; }
+  .proof__more { padding-top: var(--space-sm); }
 
   .proof__stat {
     padding: var(--space-md);
@@ -408,9 +528,10 @@ const stats = [
 
   @media (max-width: 1024px) {
     .proof__stats {
-      grid-template-columns: repeat(5, 1fr);
       gap: var(--space-sm);
     }
+    .proof__featured { gap: var(--space-sm); }
+    .proof__card { padding: var(--space-md); }
 
     .proof__testimonial {
       min-width: 300px;
@@ -419,9 +540,8 @@ const stats = [
   }
 
   @media (max-width: 768px) {
-    .proof__stats {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .proof__featured { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .proof__trust { justify-content: center; text-align: center; }
 
     .proof__testimonial {
       min-width: 280px;
@@ -431,21 +551,12 @@ const stats = [
 
   @media (max-width: 480px) {
     .proof__stats {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-xs);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
     }
 
     .proof__stat {
-      padding: var(--space-sm);
-    }
-
-    /* Hide dividers on right-column items in 2-col layout */
-    .proof__stat:nth-child(even)::after {
-      display: none;
-    }
-
-    .proof__stat:last-child {
-      grid-column: 1 / -1;
+      padding: var(--space-sm) 0.25rem;
     }
 
     .proof__stat-label {
@@ -533,4 +644,11 @@ const stats = [
   :global(html[data-theme="light"]) .proof__source {
     color: rgba(12, 14, 20, 0.62);
   }
+  :global(html[data-theme="light"]) .proof__card { background: rgba(255, 255, 255, 0.7); border-color: rgba(12, 14, 20, 0.08); box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04); }
+  :global(html[data-theme="light"]) .proof__card:hover { border-color: rgba(26, 58, 92, 0.15); background: rgba(255, 255, 255, 0.9); box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08); }
+  :global(html[data-theme="light"]) .proof__num { color: var(--deep-ocean); text-shadow: none; }
+  :global(html[data-theme="light"]) .proof__caption { color: rgba(12, 14, 20, 0.62); }
+  :global(html[data-theme="light"]) .proof__trust-line { color: rgba(12, 14, 20, 0.6); }
+  :global(html[data-theme="light"]) .proof__more-btn { color: var(--deep-ocean); border-color: rgba(26, 58, 92, 0.3); }
+  :global(html[data-theme="light"]) .proof__more-btn:hover { background: rgba(26, 58, 92, 0.06); border-color: var(--deep-ocean); }
 </style>

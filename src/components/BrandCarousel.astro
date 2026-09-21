@@ -25,8 +25,10 @@ const brands = [
 
 interface Props {
   t?: Record<string, any>;
+  /** Slim trust strip (label only, tight padding) for directly under a hero. */
+  compact?: boolean;
 }
-const { t = {} } = Astro.props;
+const { t = {}, compact = false } = Astro.props;
 
 const s = t?.brandCarousel || {};
 const bcLabel = s.label || 'Powering Growth For';
@@ -34,11 +36,12 @@ const bcHeading = s.heading || 'Brands that';
 const bcHeadingAccent = s.headingAccent || 'bloom';
 ---
 
-<section class="brands section section--dark" id="brands">
+<section class={`brands section section--dark ${compact ? 'brands--compact' : ''}`} id="brands">
   <div class="container">
     <div class="brands__header">
-      <span class="label">{bcLabel}</span>
-      <h2>{bcHeading} <span class="gradient-text">{bcHeadingAccent}</span></h2>
+      {compact
+        ? <p class="brands__strip-label">{bcLabel} <span class="gradient-text">{bcHeading} {bcHeadingAccent}</span></p>
+        : <><span class="label">{bcLabel}</span><h2>{bcHeading} <span class="gradient-text">{bcHeadingAccent}</span></h2></>}
     </div>
   </div>
 
@@ -76,6 +79,18 @@ const bcHeadingAccent = s.headingAccent || 'bloom';
     text-align: center;
     margin-bottom: var(--space-lg);
   }
+
+  /* Compact trust strip under the hero */
+  .brands--compact { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+  .brands--compact .brands__header { margin-bottom: var(--space-sm); }
+  .brands__strip-label {
+    margin: 0; font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em;
+    color: rgba(247, 244, 239, 0.55);
+  }
+  .brands__strip-label .gradient-text { font-family: var(--font-headline); text-transform: none; letter-spacing: 0; font-weight: 700; font-size: 0.9375rem; }
+  .brands--compact .brands__logo-wrap { height: 72px; }
+  .brands--compact .brands__logo { max-height: 56px; }
+  :global(html[data-theme="light"]) .brands__strip-label { color: rgba(12, 14, 20, 0.6); }
 
   .brands__header h2 {
     font-weight: 600;

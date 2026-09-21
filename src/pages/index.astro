@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import Devices from '../components/Devices.astro';
-import WhatIsDusa from '../components/WhatIsDusa.astro';
-import UnderwaterDive from '../components/UnderwaterDive.astro';
 import FunnelComparison from '../components/FunnelComparison.astro';
 import ConnectedPlatform from '../components/ConnectedPlatform.astro';
 import HowItWorks from '../components/HowItWorks.astro';
-import Onboarding from '../components/Onboarding.astro';
 import BrandCarousel from '../components/BrandCarousel.astro';
 import SocialProof from '../components/SocialProof.astro';
 import FAQ from '../components/FAQ.astro';
@@ -31,20 +27,18 @@ import t from '../i18n/translations/en.json';
     },
     "sameAs": ["https://www.instagram.com/the.dusa.studio", "https://www.linkedin.com/company/dusa-studio", "https://au.pinterest.com/DUSAstudio", "https://www.facebook.com/the.DUSA.studio", "https://github.com/DUSA-studio"]
   })} />
-  {/* Conversion arc: promise → show it → prove it → pain → money →
-      what it is → works everywhere → how easy → you're supported →
-      who else trusts us → final ask */}
+  {/* Conversion arc, distilled (Sept 2026): promise → who trusts us →
+      what it is → what it costs you today → proof → how easy → objections
+      → final ask. Problem, What-is-DUSA, Devices and Onboarding were cut
+      from the home page: each repeated a story already told above it.
+      Onboarding detail lives at /onboarding, the pillars at /about. */}
   <Hero t={t} />
+  <BrandCarousel t={t} compact />
   <ConnectedPlatform t={t} />
-  <SocialProof t={t} />
-  <UnderwaterDive t={t} />
   <FunnelComparison t={t} />
-  <WhatIsDusa t={t} />
-  <Devices t={t} />
+  <SocialProof t={t} />
   <HowItWorks t={t} />
-  <Onboarding t={t} />
-  <BrandCarousel t={t} />
-  <FAQ t={t} />
+  <FAQ t={t} limit={5} />
   <CTA t={t} />
 </BaseLayout>
 

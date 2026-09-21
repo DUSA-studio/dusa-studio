@@ -5,8 +5,10 @@
 
 interface Props {
   t?: Record<string, any>;
+  /** Show only the first N questions (home page keeps the five pre-demo objections). */
+  limit?: number;
 }
-const { t = {} } = Astro.props;
+const { t = {}, limit } = Astro.props;
 
 const s = t?.faq || {};
 const faqEyebrow = s.eyebrow || 'Questions? Answered.';
@@ -44,7 +46,8 @@ const defaultItems = [
   },
 ];
 
-const items: { q: string; a: string }[] = s.items || defaultItems;
+const allItems: { q: string; a: string }[] = s.items || defaultItems;
+const items = limit ? allItems.slice(0, limit) : allItems;
 
 const faqSchema = {
   '@context': 'https://schema.org',

@@ -375,7 +375,15 @@
         "quote": "Supportteamet gikk langt utover det man kan forvente. De tok seg tid til å faktisk forstå oppsettet mitt og veiledet meg gjennom hver eneste endring. Ekstremt grundige.",
         "role": "Gründer av kreativt byrå"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Google-anmeldelser på tre måneder",
+      "Åpningsrate for e-post etter byttet",
+      "Månedlige programvarekostnader"
+    ],
+    "moreStories": "Flere kundehistorier",
+    "fewerStories": "Vis færre historier",
+    "trustLine": "Ekte anmeldelser, samlet inn på G2 og Trustpilot"
   },
   "brandCarousel": {
     "label": "Skaper vekst for",

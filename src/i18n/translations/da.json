@@ -375,7 +375,15 @@
         "quote": "Supportteamet gik langt ud over det forventede. De tog sig tid til virkelig at forstå min opsætning og guidede mig gennem hver eneste ændring. Ekstremt grundige.",
         "role": "Stifter af kreativt bureau"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Google-anmeldelser på tre måneder",
+      "Åbningsrate for e-mails efter skiftet",
+      "Månedlige softwareudgifter"
+    ],
+    "moreStories": "Flere kundehistorier",
+    "fewerStories": "Vis færre historier",
+    "trustLine": "Ægte anmeldelser, indsamlet på G2 og Trustpilot"
   },
   "brandCarousel": {
     "label": "Vi driver væksten hos",

@@ -375,7 +375,15 @@
         "quote": "Das Support-Team hat weit mehr getan als erwartet. Sie haben sich die Zeit genommen, meine Einrichtung wirklich zu verstehen, und mich durch jede Änderung geführt. Extrem gründlich.",
         "role": "Gründerin einer Kreativagentur"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Google-Bewertungen in drei Monaten",
+      "E-Mail-Öffnungsrate nach dem Wechsel",
+      "Monatliche Software-Ausgaben"
+    ],
+    "moreStories": "Mehr Kundenstimmen",
+    "fewerStories": "Weniger Kundenstimmen anzeigen",
+    "trustLine": "Echte Bewertungen, gesammelt auf G2 und Trustpilot"
   },
   "brandCarousel": {
     "label": "Wachstum für",

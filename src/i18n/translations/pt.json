@@ -375,7 +375,15 @@
         "quote": "A equipe de suporte foi muito além. Dedicaram tempo para entender de fato a minha configuração e me orientaram em cada mudança. Extremamente cuidadosos.",
         "role": "Fundador de Agência Criativa"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Avaliações no Google em três meses",
+      "Taxa de abertura de e-mail após a troca",
+      "Gasto mensal com software"
+    ],
+    "moreStories": "Mais histórias de clientes",
+    "fewerStories": "Mostrar menos histórias",
+    "trustLine": "Avaliações reais, coletadas no G2 e no Trustpilot"
   },
   "brandCarousel": {
     "label": "Impulsionando o crescimento de",

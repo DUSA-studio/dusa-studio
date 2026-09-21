@@ -375,7 +375,15 @@
         "quote": "L'équipe support est allée bien au-delà de ce qu'on attendait. Ils ont pris le temps de vraiment comprendre ma configuration et m'ont guidé à chaque changement. Extrêmement rigoureux.",
         "role": "Fondatrice d'agence créative"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Avis Google en trois mois",
+      "Taux d'ouverture des e-mails après le changement",
+      "Dépenses logicielles mensuelles"
+    ],
+    "moreStories": "Plus de témoignages clients",
+    "fewerStories": "Afficher moins de témoignages",
+    "trustLine": "Avis authentiques, recueillis sur G2 et Trustpilot"
   },
   "brandCarousel": {
     "label": "Propulser la croissance de",

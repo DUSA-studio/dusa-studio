@@ -375,7 +375,15 @@
         "quote": "Tukitiimi ylitti kaikki odotukset. He käyttivät aikaa ymmärtääkseen aidosti minun asetukseni ja opastivat minut jokaisen muutoksen läpi. Äärimmäisen perusteellista.",
         "role": "Luovan toimiston perustaja"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Google-arvostelua kolmessa kuukaudessa",
+      "Sähköpostin avausprosentti vaihdon jälkeen",
+      "Kuukausittaiset ohjelmistokulut"
+    ],
+    "moreStories": "Lisää asiakastarinoita",
+    "fewerStories": "Näytä vähemmän tarinoita",
+    "trustLine": "Aitoja arvosteluja, kerätty G2:sta ja Trustpilotista"
   },
   "brandCarousel": {
     "label": "Kasvun moottorina",

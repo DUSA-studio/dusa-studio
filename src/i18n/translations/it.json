@@ -375,7 +375,15 @@
         "quote": "Il team di supporto è andato ben oltre le aspettative. Si sono presi il tempo di capire davvero la mia configurazione e mi hanno guidato in ogni modifica. Estremamente meticolosi.",
         "role": "Fondatore di agenzia creativa"
       }
-    ]
+    ],
+    "featuredCaptions": [
+      "Recensioni Google in tre mesi",
+      "Tasso di apertura email dopo il passaggio",
+      "Spesa software mensile"
+    ],
+    "moreStories": "Altre storie di clienti",
+    "fewerStories": "Mostra meno storie",
+    "trustLine": "Recensioni reali, raccolte su G2 e Trustpilot"
   },
   "brandCarousel": {
     "label": "Facciamo crescere",

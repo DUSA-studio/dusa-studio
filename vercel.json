@@ -1237,12 +1237,22 @@
       "permanent": false
     },
     {
-      "source": "/it/blog/:path*",
-      "destination": "/blog/:path*",
+      "source": "/it/blog/",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/it/blog/(.*)",
+      "destination": "/blog/$1",
       "permanent": false
     },
     {
       "source": "/it/industries/:slug",
+      "destination": "/industries/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/it/industries/:slug/",
       "destination": "/industries/:slug",
       "permanent": false
     },
@@ -1252,7 +1262,17 @@
       "permanent": false
     },
     {
+      "source": "/it/careers/",
+      "destination": "/careers",
+      "permanent": false
+    },
+    {
       "source": "/it/terms",
+      "destination": "/terms",
+      "permanent": false
+    },
+    {
+      "source": "/it/terms/",
       "destination": "/terms",
       "permanent": false
     },
@@ -1262,17 +1282,32 @@
       "permanent": false
     },
     {
+      "source": "/it/privacy-policy/",
+      "destination": "/privacy-policy",
+      "permanent": false
+    },
+    {
       "source": "/nl/blog",
       "destination": "/blog",
       "permanent": false
     },
     {
-      "source": "/nl/blog/:path*",
-      "destination": "/blog/:path*",
+      "source": "/nl/blog/",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/nl/blog/(.*)",
+      "destination": "/blog/$1",
       "permanent": false
     },
     {
       "source": "/nl/industries/:slug",
+      "destination": "/industries/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/nl/industries/:slug/",
       "destination": "/industries/:slug",
       "permanent": false
     },
@@ -1282,7 +1317,17 @@
       "permanent": false
     },
     {
+      "source": "/nl/careers/",
+      "destination": "/careers",
+      "permanent": false
+    },
+    {
       "source": "/nl/terms",
+      "destination": "/terms",
+      "permanent": false
+    },
+    {
+      "source": "/nl/terms/",
       "destination": "/terms",
       "permanent": false
     },
@@ -1292,17 +1337,32 @@
       "permanent": false
     },
     {
+      "source": "/nl/privacy-policy/",
+      "destination": "/privacy-policy",
+      "permanent": false
+    },
+    {
       "source": "/se/blog",
       "destination": "/blog",
       "permanent": false
     },
     {
-      "source": "/se/blog/:path*",
-      "destination": "/blog/:path*",
+      "source": "/se/blog/",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/se/blog/(.*)",
+      "destination": "/blog/$1",
       "permanent": false
     },
     {
       "source": "/se/industries/:slug",
+      "destination": "/industries/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/se/industries/:slug/",
       "destination": "/industries/:slug",
       "permanent": false
     },
@@ -1312,7 +1372,17 @@
       "permanent": false
     },
     {
+      "source": "/se/careers/",
+      "destination": "/careers",
+      "permanent": false
+    },
+    {
       "source": "/se/terms",
+      "destination": "/terms",
+      "permanent": false
+    },
+    {
+      "source": "/se/terms/",
       "destination": "/terms",
       "permanent": false
     },
@@ -1322,17 +1392,32 @@
       "permanent": false
     },
     {
+      "source": "/se/privacy-policy/",
+      "destination": "/privacy-policy",
+      "permanent": false
+    },
+    {
       "source": "/dk/blog",
       "destination": "/blog",
       "permanent": false
     },
     {
-      "source": "/dk/blog/:path*",
-      "destination": "/blog/:path*",
+      "source": "/dk/blog/",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/dk/blog/(.*)",
+      "destination": "/blog/$1",
       "permanent": false
     },
     {
       "source": "/dk/industries/:slug",
+      "destination": "/industries/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/dk/industries/:slug/",
       "destination": "/industries/:slug",
       "permanent": false
     },
@@ -1342,7 +1427,17 @@
       "permanent": false
     },
     {
+      "source": "/dk/careers/",
+      "destination": "/careers",
+      "permanent": false
+    },
+    {
       "source": "/dk/terms",
+      "destination": "/terms",
+      "permanent": false
+    },
+    {
+      "source": "/dk/terms/",
       "destination": "/terms",
       "permanent": false
     },
@@ -1352,17 +1447,32 @@
       "permanent": false
     },
     {
+      "source": "/dk/privacy-policy/",
+      "destination": "/privacy-policy",
+      "permanent": false
+    },
+    {
       "source": "/fi/blog",
       "destination": "/blog",
       "permanent": false
     },
     {
-      "source": "/fi/blog/:path*",
-      "destination": "/blog/:path*",
+      "source": "/fi/blog/",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/fi/blog/(.*)",
+      "destination": "/blog/$1",
       "permanent": false
     },
     {
       "source": "/fi/industries/:slug",
+      "destination": "/industries/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/fi/industries/:slug/",
       "destination": "/industries/:slug",
       "permanent": false
     },
@@ -1372,7 +1482,17 @@
       "permanent": false
     },
     {
+      "source": "/fi/careers/",
+      "destination": "/careers",
+      "permanent": false
+    },
+    {
       "source": "/fi/terms",
+      "destination": "/terms",
+      "permanent": false
+    },
+    {
+      "source": "/fi/terms/",
       "destination": "/terms",
       "permanent": false
     },
@@ -1382,17 +1502,32 @@
       "permanent": false
     },
     {
+      "source": "/fi/privacy-policy/",
+      "destination": "/privacy-policy",
+      "permanent": false
+    },
+    {
       "source": "/no/blog",
       "destination": "/blog",
       "permanent": false
     },
     {
-      "source": "/no/blog/:path*",
-      "destination": "/blog/:path*",
+      "source": "/no/blog/",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/no/blog/(.*)",
+      "destination": "/blog/$1",
       "permanent": false
     },
     {
       "source": "/no/industries/:slug",
+      "destination": "/industries/:slug",
+      "permanent": false
+    },
+    {
+      "source": "/no/industries/:slug/",
       "destination": "/industries/:slug",
       "permanent": false
     },
@@ -1402,12 +1537,27 @@
       "permanent": false
     },
     {
+      "source": "/no/careers/",
+      "destination": "/careers",
+      "permanent": false
+    },
+    {
       "source": "/no/terms",
       "destination": "/terms",
       "permanent": false
     },
     {
+      "source": "/no/terms/",
+      "destination": "/terms",
+      "permanent": false
+    },
+    {
       "source": "/no/privacy-policy",
+      "destination": "/privacy-policy",
+      "permanent": false
+    },
+    {
+      "source": "/no/privacy-policy/",
       "destination": "/privacy-policy",
       "permanent": false
     }

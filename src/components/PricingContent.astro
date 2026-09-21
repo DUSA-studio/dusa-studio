@@ -728,10 +728,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       <!-- CTA row aligned to table columns -->
       <div class="compare__cta-row">
         <div class="compare__cta-label"></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">{p.startFor} {sym}{prices.launchpad}</a></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">{p.getStarter}</a></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--primary" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">{p.scaleFaster}</a></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline" style="font-size:0.9375rem;padding:0.65rem 1.25rem;width:100%;text-align:center;">{p.letsTalk}</a></div>
+        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline compare__cta-btn">{p.startFor} {sym}{prices.launchpad}</a></div>
+        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline compare__cta-btn">{p.getStarter}</a></div>
+        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--primary compare__cta-btn">{p.scaleFaster}</a></div>
+        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline compare__cta-btn">{p.letsTalk}</a></div>
       </div>
 
       <!-- MOBILE PLAN SELECTOR -->
@@ -1623,6 +1623,11 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .compare__cta-row { display: grid; grid-template-columns: 35% repeat(4, 16.25%); gap: 0; padding-top: var(--space-md); }
   .compare__cta-label { }
   .compare__cta-cell { display: flex; justify-content: center; padding: 0 0.5rem; }
+  .compare__cta-btn { font-size: 0.9375rem; padding: 0.65rem 1.25rem; width: 100%; text-align: center; white-space: normal; line-height: 1.25; }
+  @media (max-width: 1100px) {
+    .compare__cta-cell { padding: 0 0.25rem; }
+    .compare__cta-btn { font-size: 0.8125rem; padding: 0.6rem 0.5rem; }
+  }
 
   /* ─── FAQ ─── */
   .faq__header { max-width: 600px; margin: 0 auto var(--space-xl); text-align: center; }

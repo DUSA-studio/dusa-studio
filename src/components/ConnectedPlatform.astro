@@ -466,7 +466,7 @@ const STATS = [
       <p class="cp__mpanel-empty">{panelEmpty}</p>
       {DOMAINS.map((d, i) => (
         <div class="cp__mpanel" data-domain={i} hidden style={`--lg:${d.color}`}>
-          <div class="cp__mpanel-head"><i aria-hidden="true"></i><h3>{d.name}</h3><b>{d.items.length}</b></div>
+          <div class="cp__mpanel-head" role="button" tabindex="0" aria-expanded="false"><i aria-hidden="true"></i><h3>{d.name}</h3><b>{d.items.length}</b></div>
           <ul>
             {d.items.map((it) => (
               <li class={it.ai ? 'is-ai' : ''}>
@@ -478,7 +478,7 @@ const STATS = [
         </div>
       ))}
       <div class="cp__mpanel cp__mpanel--ai" data-ai hidden>
-        <div class="cp__mpanel-head"><i aria-hidden="true"></i><h3>{aiPanelTitle}</h3><b>{aiCount}</b></div>
+        <div class="cp__mpanel-head" role="button" tabindex="0" aria-expanded="false"><i aria-hidden="true"></i><h3>{aiPanelTitle}</h3><b>{aiCount}</b></div>
         <ul>
           {DOMAINS.map((d) => d.items.filter((it) => it.ai).map((it) => (
             <li class="is-ai">
@@ -1045,7 +1045,20 @@ const STATS = [
     .cp__stat dd { font-size: 0.6875rem; color: rgba(247, 244, 239, 0.62); }
     .cp__chip { padding: 0.45rem 0.8rem; }
     .cp__chip > span { font-size: 0.6875rem; }
-    .cp__mpanels { display: block; }
+    .cp__mpanels { display: block; margin-top: var(--space-md); }
+    .cp__mpanel-empty { display: none; }
+    .cp__mpanel { margin: 0.5rem auto 0; padding: 0.55rem 0.9rem 0.6rem; }
+    .cp__mpanel-head { margin-bottom: 0; min-height: 40px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .cp__mpanel-head::after {
+      content: ''; flex: 0 0 auto; width: 8px; height: 8px; margin-left: 0.6rem;
+      border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+      color: rgba(247, 244, 239, 0.55); transform: translateY(-2px) rotate(45deg); transition: transform 0.2s ease;
+    }
+    .cp__mpanel.is-open .cp__mpanel-head { margin-bottom: 0.6rem; }
+    .cp__mpanel.is-open .cp__mpanel-head::after { transform: translateY(2px) rotate(-135deg); }
+    .cp__mpanel:not(.is-open) ul { display: none; }
+    .cp__mpanel.is-open ul { padding-bottom: 0.3rem; }
+    :global(html[data-theme="light"]) .cp__mpanel-head::after { color: rgba(12, 14, 20, 0.5); }
     .cp__stage.is-dim .cp__seg:not(.is-on) { opacity: 0.3; }
     .cp__legend { margin-top: var(--space-md); }
     .cp__lg { min-height: 44px; padding: 0.55rem 0.7rem 0.55rem 0.95rem; font-size: 0.8125rem; }
@@ -1275,6 +1288,11 @@ const STATS = [
     /* Touch panels under the wheel mirror whatever is locked. */
     const panels = [...section.querySelectorAll('.cp__mpanel')];
     const panelEmpty = section.querySelector('.cp__mpanel-empty');
+    /* Under 700px every panel stays on the page as an accordion row, so the
+       capability names and descriptions (which the ring cannot carry at that
+       size) are readable without a tap. The row matching the wheel selection
+       is the open one; with nothing selected the first domain opens. */
+    const phonePanels = window.matchMedia('(max-width: 700px)');
     const syncPanels = () => {
       let shown = null;
       panels.forEach((p) => {
@@ -1282,10 +1300,20 @@ const STATS = [
           (locked.kind === 'ai' && p.hasAttribute('data-ai')) ||
           (locked.kind === 'domain' && p.getAttribute('data-domain') === String(locked.di)) ||
           (locked.kind === 'cap' && locked.hit && p.getAttribute('data-domain') === locked.hit.getAttribute('data-di')));
-        p.hidden = !on;
-        if (on) shown = p;
+        if (phonePanels.matches) {
+          const open = on || (!locked && p.getAttribute('data-domain') === '0');
+          p.hidden = false;
+          p.classList.toggle('is-open', open);
+          const head = p.querySelector('.cp__mpanel-head');
+          if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (on) shown = p;
+        } else {
+          p.classList.remove('is-open');
+          p.hidden = !on;
+          if (on) shown = p;
+        }
       });
-      if (panelEmpty) panelEmpty.hidden = !!shown;
+      if (panelEmpty) panelEmpty.hidden = phonePanels.matches || !!shown;
       /* On a phone the panel opens under the wheel; bring it into view if the
          tap left it below the fold. */
       if (shown && touchUI) {
@@ -1384,6 +1412,24 @@ const STATS = [
       locked = (locked && locked.kind === 'ai') ? null : { kind: 'ai' };
       restore();
     });
+
+    panels.forEach((p) => {
+      const head = p.querySelector('.cp__mpanel-head');
+      if (!head) return;
+      const toggle = () => {
+        if (p.hasAttribute('data-ai')) {
+          locked = (locked && locked.kind === 'ai') ? null : { kind: 'ai' };
+        } else {
+          const di = p.getAttribute('data-domain');
+          locked = (locked && locked.kind === 'domain' && locked.di === di) ? null : { kind: 'domain', di };
+        }
+        restore();
+      };
+      head.addEventListener('click', toggle);
+      head.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    });
+    phonePanels.addEventListener('change', syncPanels);
+    syncPanels();
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && locked) { locked = null; restore(); }

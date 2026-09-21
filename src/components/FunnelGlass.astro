@@ -88,26 +88,33 @@ const FALL = [
               <stop offset="100%" stop-color="#2E82B6" stop-opacity="0.8"/>
             </linearGradient>
             <linearGradient id="gfSheen" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.34"/>
+              <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.04"/>
+              <stop offset="22%"  stop-color="#FFFFFF" stop-opacity="0.30"/>
               <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
             </linearGradient>
           </defs>
 
-          <path class="gf__body" d="M96,104 L524,104 L338,304 Q310,318 282,304 Z"
-                fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>
-          <path d="M96,104 L524,104 L338,304 Q310,318 282,304 Z" fill="url(#gfDepth)"/>
+          <!-- The body's top edge is the FRONT arc of the rim, not a straight
+               chord: a chord draws a line straight across the opening and cuts
+               the circle in two. Order matters: body, its shading, then the
+               opening on top, then the front lip. -->
+          <path class="gf__body" d="M96,104 A214,44 0 0 0 524,104 L338,304 Q310,318 282,304 Z"
+                fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M96,104 A214,44 0 0 0 524,104 L338,304 Q310,318 282,304 Z" fill="url(#gfDepth)"/>
           <!-- One committed light source: a short specular on the left
-               shoulder that fades out by a third of the way down. -->
-          <path class="gf__sheen" d="M130,112 L188,112 L236,216 L204,216 Z" fill="url(#gfSheen)"/>
-          <!-- Short bounce light on the far shoulder, and a hairline inner
-               rim so the glass has thickness. Neither reaches the neck. -->
-          <path d="M480,116 L500,116 L452,198 L438,198 Z" fill="#FFFFFF" fill-opacity="0.06"/>
-          <ellipse cx="310" cy="106" rx="204" ry="38" fill="none" stroke="#FFFFFF" stroke-opacity="0.16" stroke-width="1"/>
+               shoulder that fades out a third of the way down, and a faint
+               bounce high on the far shoulder. Neither reaches the neck. -->
+          <path class="gf__sheen" d="M140,138 L192,134 L236,216 L204,216 Z" fill="url(#gfSheen)"/>
+          <path d="M474,138 L492,136 L452,198 L438,198 Z" fill="url(#gfSheen)" fill-opacity="0.35"/>
 
-          <ellipse cx="310" cy="104" rx="214" ry="44" fill="rgba(78,216,194,0.05)"
-                   stroke="url(#gfRim)" stroke-width="2"/>
+          <!-- The opening: back wall visible through the glass, a hairline
+               inner rim for thickness, and the bright front lip. -->
+          <ellipse cx="310" cy="104" rx="214" ry="44" fill="rgba(14,22,30,0.55)"
+                   stroke="url(#gfRim)" stroke-width="1.5"/>
+          <ellipse cx="310" cy="104" rx="214" ry="44" fill="url(#gfBody)" fill-opacity="0.6"/>
+          <ellipse cx="310" cy="106" rx="204" ry="38" fill="none" stroke="#FFFFFF" stroke-opacity="0.14" stroke-width="1"/>
           <path d="M96,104 A214,44 0 0 0 524,104" fill="none"
-                stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2.5"/>
+                stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="2.5" stroke-linecap="round"/>
 
           <path class="gf__spout" d="M282,304 L282,378 Q310,392 338,378 L338,304"
                 fill="url(#gfBody)" stroke="url(#gfRim)" stroke-width="1.5"/>

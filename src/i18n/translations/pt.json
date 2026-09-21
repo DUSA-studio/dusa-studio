@@ -816,7 +816,9 @@
         }
       ]
     },
-    "toggleDusa": "Ativar a DUSA para este recurso"
+    "toggleDusa": "Ativar a DUSA para este recurso",
+    "selectToolsHint": "Selecione ferramentas para ver sua economia.",
+    "getEverythingAbove": "Tenha tudo acima"
   },
   "services": {
     "metaTitle": "Serviços | DUSA.studio",

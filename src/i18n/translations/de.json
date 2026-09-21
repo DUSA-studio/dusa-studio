@@ -816,7 +816,9 @@
         }
       ]
     },
-    "toggleDusa": "DUSA für diese Funktion umschalten"
+    "toggleDusa": "DUSA für diese Funktion umschalten",
+    "selectToolsHint": "Wählen Sie Tools aus, um Ihre Ersparnis zu sehen.",
+    "getEverythingAbove": "Alles oben Genannte"
   },
   "services": {
     "metaTitle": "Leistungen | DUSA.studio",

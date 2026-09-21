@@ -816,7 +816,9 @@
         }
       ]
     },
-    "toggleDusa": "Slå DUSA til for denne funktion"
+    "toggleDusa": "Slå DUSA til for denne funktion",
+    "selectToolsHint": "Vælg værktøjer for at se din besparelse.",
+    "getEverythingAbove": "Få alt ovenfor"
   },
   "services": {
     "metaTitle": "Ydelser | DUSA . studio",

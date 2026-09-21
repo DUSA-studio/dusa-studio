@@ -816,7 +816,9 @@
         }
       ]
     },
-    "toggleDusa": "Ota DUSA käyttöön tälle ominaisuudelle"
+    "toggleDusa": "Ota DUSA käyttöön tälle ominaisuudelle",
+    "selectToolsHint": "Valitse työkalut nähdäksesi säästösi.",
+    "getEverythingAbove": "Saat kaiken yllä olevan"
   },
   "services": {
     "metaTitle": "Palvelut | DUSA.studio",

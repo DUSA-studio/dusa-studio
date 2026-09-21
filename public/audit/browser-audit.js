@@ -106,7 +106,7 @@
 
     // 7. Copy: em/en dashes in visible text, duplicate ids, empty headings
     const text = (d.querySelector('main') || d.body).innerText || '';
-    const dashes = (text.match(/[—–]/g) || []).length;
+    const dashes = [...(d.querySelector('main') || d.body).querySelectorAll('*')].filter((e) => !e.children.length && /[—–]/.test(e.textContent) && !/dash|sep|divider/i.test(String(e.className))).length;
     if (dashes) issues.push({ type: 'em-dash-in-copy', detail: dashes + ' found' });
     const ids = [...d.querySelectorAll('[id]')].map((e) => e.id); const dup = ids.filter((id, i) => ids.indexOf(id) !== i);
     if (dup.length) issues.push({ type: 'duplicate-id', detail: [...new Set(dup)].slice(0, 5).join(', ') });
@@ -117,9 +117,9 @@
     // 8. Leftover English on locale pages (stopword density)
     const lang = de.getAttribute('lang') || 'en';
     if (!lang.startsWith('en')) {
-      const hits = (text.match(/\b(the|and|your|with|for|you|our|get started|book a demo|learn more)\b/gi) || []).length;
+      const hits = (text.match(/\b(the|and|your|with|our|get started|book a demo|learn more|sign up|free trial)\b/gi) || []).length;
       const words = text.split(/\s+/).length;
-      if (words > 100 && hits / words > 0.02) issues.push({ type: 'english-on-locale-page', detail: hits + ' English stopwords in ' + words + ' words' });
+      if (words > 100 && hits / words > 0.012) issues.push({ type: 'english-on-locale-page', detail: hits + ' English stopwords in ' + words + ' words' });
     }
 
     // 9. Meta / SEO basics

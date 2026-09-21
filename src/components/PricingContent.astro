@@ -410,7 +410,9 @@ const mpsData = {
     features: cat.features.map((f: any) => ({ label: f.label, vals: [f.launchpad, f.starter, f.growth, f.bespoke] })),
   })),
 };
-const regionData = JSON.stringify({ sym, currency: region.currency, rate: region.rate, prices, mps: mpsData });
+const regionData = JSON.stringify({ sym, currency: region.currency, rate: region.rate, prices, mps: mpsData,
+  i18n: { save: p.savingsPrefix || 'Save', with: p.savingsWith || 'with DUSA', at: p.savingsAt || 'at', perMonth: p.perMonth || '/mo',
+          selectTools: p.selectToolsHint || 'Select tools to see your savings.', getEverything: p.getEverythingAbove || 'Get everything above' } });
 ---
 
   <!-- Hero -->
@@ -2241,12 +2243,13 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       if (!saveEl) return;
       const saving = total - dusaPrice;
       const tier = getDusaTier(getActiveSelections().length);
+      const L = (window.__dusaRegion && window.__dusaRegion.i18n) || { save: 'Save', with: 'with DUSA', at: 'at', perMonth: '/mo', selectTools: 'Select tools to see your savings.', getEverything: 'Get everything above' };
       if (dusaPrice === 0) {
-        saveEl.innerHTML = 'Select tools to see your savings.';
+        saveEl.innerHTML = L.selectTools;
       } else if (saving > 0) {
-        saveEl.innerHTML = 'Save <strong>' + sym + saving + '/mo</strong> with DUSA ' + tier + ' at <strong>' + sym + dusaPrice + '/mo</strong>';
+        saveEl.innerHTML = L.save + ' <strong>' + sym + saving + L.perMonth + '</strong> ' + L.with + ' ' + tier + ' ' + L.at + ' <strong>' + sym + dusaPrice + L.perMonth + '</strong>';
       } else {
-        saveEl.innerHTML = 'Get everything above with DUSA ' + tier + ' at <strong>' + sym + dusaPrice + '/mo</strong>';
+        saveEl.innerHTML = L.getEverything + ' ' + L.with + ' ' + tier + ' ' + L.at + ' <strong>' + sym + dusaPrice + L.perMonth + '</strong>';
       }
     }
 

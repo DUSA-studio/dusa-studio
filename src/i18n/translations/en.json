@@ -821,7 +821,9 @@
         }
       ]
     },
-    "toggleDusa": "Toggle DUSA for this feature"
+    "toggleDusa": "Toggle DUSA for this feature",
+    "selectToolsHint": "Select tools to see your savings.",
+    "getEverythingAbove": "Get everything above"
   },
   "services": {
     "metaTitle": "Services | DUSA.studio",

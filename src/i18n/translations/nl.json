@@ -816,7 +816,9 @@
         }
       ]
     },
-    "toggleDusa": "DUSA voor deze functie inschakelen"
+    "toggleDusa": "DUSA voor deze functie inschakelen",
+    "selectToolsHint": "Selecteer tools om je besparing te zien.",
+    "getEverythingAbove": "Krijg alles hierboven"
   },
   "services": {
     "metaTitle": "Diensten | DUSA.studio",

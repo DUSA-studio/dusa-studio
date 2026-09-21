@@ -816,7 +816,9 @@
         }
       ]
     },
-    "toggleDusa": "Slå på DUSA för den här funktionen"
+    "toggleDusa": "Slå på DUSA för den här funktionen",
+    "selectToolsHint": "Välj verktyg för att se din besparing.",
+    "getEverythingAbove": "Få allt ovan"
   },
   "services": {
     "metaTitle": "Tjänster | DUSA . studio",

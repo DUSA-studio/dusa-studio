@@ -150,7 +150,7 @@ const FALL = [
         <div class="gf__layer">
           {STACK.map((tool, i) => { const mk = TOOL_MARKS[tool.name] || { hex: '#4ED8C2', mono: tool.name[0] }; return (
             <span class="gf__chip"
-                  style={`--lane:${FALL[i].lane}%;--jx:${FALL[i].jamX}%;--jy:${FALL[i].jamY}%;--rot:${FALL[i].rot}deg;--i:${i};--brand:${mk.hex};--spin:${(22 + (i * 7) % 16)}s;--tilt:${(i % 2 ? 1 : -1) * (24 + (i * 5) % 12)}deg`}>
+                  style={`--lane:${FALL[i].lane}%;--jx:${FALL[i].jamX}%;--jy:${FALL[i].jamY}%;--rot:${FALL[i].rot}deg;--i:${i};--brand:${mk.hex};--spin:${(22 + (i * 7) % 16)}s;--tilt:-${22 + (i * 5) % 14}deg`}>
               <span class="gf__cube">
                 {['front', 'right', 'back', 'left', 'top', 'bottom'].map((face) => (
                   <span class={`gf__face gf__face--${face}`}>
@@ -182,7 +182,7 @@ const FALL = [
               <i>{money(DUSA_COST)}{perMonth}</i>
             </span>
             {ELECTRONS.map((e, i) => (
-              <span class="gf__electron" style={`offset-path: path('${RINGS[e.ring].path}'); --d:${ORBIT_S[e.ring]}s; --delay:${e.delay}s; --brand:${e.m.hex}; --spin:${30 + (i * 5) % 14}s; --tilt:${(i % 2 ? 1 : -1) * (24 + (i * 5) % 10)}deg`}>
+              <span class="gf__electron" style={`offset-path: path('${RINGS[e.ring].path}'); --d:${ORBIT_S[e.ring]}s; --delay:${e.delay}s; --brand:${e.m.hex}; --spin:${30 + (i * 5) % 14}s; --tilt:-${22 + (i * 5) % 14}deg`}>
                 <span class="gf__cube gf__cube--sm">
                   {['front', 'right', 'back', 'left', 'top', 'bottom'].map((face) => (
                     <span class={`gf__face gf__face--${face}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={e.m.path} fill="currentColor"/></svg></span>
@@ -267,6 +267,7 @@ const FALL = [
     transform: translate(-50%, -50%) scale(1) rotate(0deg);
     display: grid; justify-items: center; gap: 0.55rem;
     width: var(--cube, 62px);
+    perspective: 640px;
     opacity: 0; will-change: top, left, transform;
   }
   .gf__cube {
@@ -280,20 +281,19 @@ const FALL = [
   }
   .gf__face {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    border-radius: 22%;
-    background: linear-gradient(150deg, rgba(34, 42, 58, 0.78), rgba(14, 18, 27, 0.92));
-    border: 1px solid rgba(247, 244, 239, 0.14);
-    color: rgba(247, 244, 239, 0.82);
+    border-radius: 12px;
+    background: linear-gradient(150deg, rgba(30, 38, 54, 0.85) 0%, rgba(16, 20, 30, 0.92) 100%);
+    border: 1px solid rgba(122, 219, 201, 0.16);
+    color: rgba(247, 244, 239, 0.7);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.16),
-      inset 0 0 16px color-mix(in srgb, var(--brand) 9%, transparent),
-      0 0 0 0.5px color-mix(in srgb, var(--brand) 28%, transparent),
-      0 6px 18px rgba(0, 0, 0, 0.3);
+      inset 0 0 12px rgba(0, 0, 0, 0.2),
+      0 0 0 0.5px color-mix(in srgb, var(--brand) 22%, transparent),
+      0 2px 8px rgba(0, 0, 0, 0.2);
     backface-visibility: hidden; -webkit-backface-visibility: hidden;
   }
   .gf__face svg { width: 56%; height: 56%; }
   .gf__cube--sm { --cube: 30px; width: 30px; height: 30px; }
-  .gf__cube--sm .gf__face { border-radius: 26%; }
+  .gf__cube--sm .gf__face { border-radius: 7px; }
   .gf__cube--sm .gf__face svg { width: 52%; height: 52%; }
   .gf__face b { font-family: var(--font-headline); font-weight: 700; font-size: calc(var(--cube, 62px) * 0.4); letter-spacing: -0.02em; }
   .gf__face--front  { transform: rotateY(0deg)   translateZ(calc(var(--cube, 62px) / 2)); }
@@ -370,7 +370,7 @@ const FALL = [
      and turning slowly as they go. offset-rotate keeps the cube upright. */
   .gf__electron {
     position: absolute; left: 0; top: 0; width: 30px; height: 30px; margin: -15px 0 0 -15px;
-    display: grid; place-items: center;
+    display: grid; place-items: center; perspective: 640px;
     offset-rotate: 0deg; offset-distance: 0%;
     animation: gfElectron var(--d, 10s) linear infinite; animation-delay: var(--delay, 0s);
   }

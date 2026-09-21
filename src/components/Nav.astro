@@ -301,7 +301,7 @@ const viewAllLabel = n.viewAll || 'View all';
      each link a 44px tap target without changing the visual layout. */
   @media (hover: none) and (min-width: 769px), (pointer: coarse) and (min-width: 769px) {
     .nav__link { padding-block: 11px; margin-block: -11px; }
-    .nav__login { min-height: 44px; display: inline-flex; align-items: center; }
+    .nav__login { min-height: 44px; }
   }
 
   .nav__link::after {
@@ -518,12 +518,14 @@ const viewAllLabel = n.viewAll || 'View all';
   .nav__login {
     font-family: var(--font-body);
     font-weight: 500;
-    font-size: 0.9375rem;
-    line-height: 1;
+    font-size: 1rem;
+    line-height: 1.7;
     color: var(--warm-white);
     white-space: nowrap;
     margin-right: 0.25rem;
-    padding: 0.75rem 1.4rem;
+    padding: calc(0.75rem - 1.5px) 1.4rem;
+    display: inline-flex;
+    align-items: center;
     border-radius: 100px;
     border: 1.5px solid rgba(247, 244, 239, 0.38);
     background: linear-gradient(180deg, rgba(247, 244, 239, 0.12), rgba(247, 244, 239, 0.05));
@@ -630,8 +632,8 @@ const viewAllLabel = n.viewAll || 'View all';
     }
 
     .nav__login {
-      font-size: 0.875rem;
-      padding: 0.65rem 1.2rem;
+      font-size: 0.9375rem;
+      padding: calc(0.75rem - 1.5px) 1.2rem;
     }
   }
 
@@ -650,8 +652,8 @@ const viewAllLabel = n.viewAll || 'View all';
     }
 
     .nav__login {
-      font-size: 0.8125rem;
-      padding: 0.5rem 0.9rem;
+      font-size: 0.875rem;
+      padding: calc(0.5rem - 1.5px) 0.9rem;
     }
 
     .nav__right {
@@ -979,6 +981,8 @@ const viewAllLabel = n.viewAll || 'View all';
       display: none;
     }
 
+    .nav__mobile-login { max-width: 40vw; overflow: hidden; text-overflow: ellipsis; display: block; line-height: 36px; }
+
     .nav__mobile-bar {
       display: flex;
     }
@@ -1060,6 +1064,14 @@ const viewAllLabel = n.viewAll || 'View all';
 
   :global(html[data-theme="light"]) .nav__mobile-sub-link:hover {
     color: rgba(12, 14, 20, 0.95);
+  }
+
+  @media (max-width: 380px) {
+    .nav__logo { font-size: 1.2rem; }
+    .nav__mobile-bar { gap: 0.25rem; }
+    .nav__mobile-login { font-size: 0.75rem; padding: 0 0.7rem; min-height: 34px; line-height: 34px; }
+    .nav__theme-toggle--bar { width: 40px; height: 40px; }
+    .nav__mobile-toggle { min-width: 40px; padding: 8px; }
   }
 
   :global(html[data-theme="light"]) .nav__login {

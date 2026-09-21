@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /audit/
 Allow: /
 Sitemap: https://dusa.studio/sitemap-index.xml
 

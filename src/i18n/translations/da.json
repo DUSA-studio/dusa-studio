@@ -383,12 +383,15 @@
     ],
     "moreStories": "Flere kundehistorier",
     "fewerStories": "Vis færre historier",
-    "trustLine": "Ægte anmeldelser, indsamlet på G2 og Trustpilot"
+    "trustLine": "Ægte anmeldelser, indsamlet på G2 og Trustpilot",
+    "ratingLine": "{avg} i gennemsnit over {n} anmeldelser",
+    "businessesLine": "20+ virksomheder på DUSA"
   },
   "brandCarousel": {
     "label": "Vi driver væksten hos",
     "heading": "Brands, der",
-    "headingAccent": "blomstrer"
+    "headingAccent": "blomstrer",
+    "stripLabel": "Virksomheder der kører på DUSA"
   },
   "funnelComparison": {
     "label": "Den reelle pris for spredte værktøjer",

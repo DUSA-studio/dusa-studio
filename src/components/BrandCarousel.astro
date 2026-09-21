@@ -32,6 +32,7 @@ const { t = {}, compact = false } = Astro.props;
 
 const s = t?.brandCarousel || {};
 const bcLabel = s.label || 'Powering Growth For';
+const stripLabel = s.stripLabel || 'Businesses running on DUSA';
 const bcHeading = s.heading || 'Brands that';
 const bcHeadingAccent = s.headingAccent || 'bloom';
 ---
@@ -40,7 +41,7 @@ const bcHeadingAccent = s.headingAccent || 'bloom';
   <div class="container">
     <div class="brands__header">
       {compact
-        ? <p class="brands__strip-label">{bcLabel} <span class="gradient-text">{bcHeading} {bcHeadingAccent}</span></p>
+        ? <p class="brands__strip-label"><span class="gradient-text">{stripLabel}</span></p>
         : <><span class="label">{bcLabel}</span><h2>{bcHeading} <span class="gradient-text">{bcHeadingAccent}</span></h2></>}
     </div>
   </div>

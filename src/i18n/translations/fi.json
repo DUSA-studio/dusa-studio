@@ -383,12 +383,15 @@
     ],
     "moreStories": "Lisää asiakastarinoita",
     "fewerStories": "Näytä vähemmän tarinoita",
-    "trustLine": "Aitoja arvosteluja, kerätty G2:sta ja Trustpilotista"
+    "trustLine": "Aitoja arvosteluja, kerätty G2:sta ja Trustpilotista",
+    "ratingLine": "{avg} keskiarvo {n} arvostelusta",
+    "businessesLine": "Yli 20 yritystä DUSAlla"
   },
   "brandCarousel": {
     "label": "Kasvun moottorina",
     "heading": "Brändejä, jotka",
-    "headingAccent": "kukoistavat"
+    "headingAccent": "kukoistavat",
+    "stripLabel": "Yritykset, jotka toimivat DUSAlla"
   },
   "funnelComparison": {
     "label": "Hajallaan olevien työkalujen todellinen hinta",

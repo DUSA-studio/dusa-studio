@@ -383,12 +383,15 @@
     ],
     "moreStories": "Mehr Kundenstimmen",
     "fewerStories": "Weniger Kundenstimmen anzeigen",
-    "trustLine": "Echte Bewertungen, gesammelt auf G2 und Trustpilot"
+    "trustLine": "Echte Bewertungen, gesammelt auf G2 und Trustpilot",
+    "ratingLine": "{avg} im Schnitt aus {n} Bewertungen",
+    "businessesLine": "Über 20 Unternehmen auf DUSA"
   },
   "brandCarousel": {
     "label": "Wachstum für",
     "heading": "Marken, die",
-    "headingAccent": "aufblühen"
+    "headingAccent": "aufblühen",
+    "stripLabel": "Unternehmen, die auf DUSA laufen"
   },
   "funnelComparison": {
     "label": "Die wahren Kosten verteilter Tools",

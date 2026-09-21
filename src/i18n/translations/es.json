@@ -383,12 +383,15 @@
     ],
     "moreStories": "Más historias de clientes",
     "fewerStories": "Mostrar menos historias",
-    "trustLine": "Reseñas reales, recogidas en G2 y Trustpilot"
+    "trustLine": "Reseñas reales, recogidas en G2 y Trustpilot",
+    "ratingLine": "{avg} de media en {n} reseñas",
+    "businessesLine": "Más de 20 negocios en DUSA"
   },
   "brandCarousel": {
     "label": "Impulsando el crecimiento de",
     "heading": "Marcas que",
-    "headingAccent": "florecen"
+    "headingAccent": "florecen",
+    "stripLabel": "Negocios que funcionan con DUSA"
   },
   "funnelComparison": {
     "label": "El coste real de las herramientas dispersas",

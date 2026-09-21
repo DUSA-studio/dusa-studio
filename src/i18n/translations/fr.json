@@ -383,12 +383,15 @@
     ],
     "moreStories": "Plus de témoignages clients",
     "fewerStories": "Afficher moins de témoignages",
-    "trustLine": "Avis authentiques, recueillis sur G2 et Trustpilot"
+    "trustLine": "Avis authentiques, recueillis sur G2 et Trustpilot",
+    "ratingLine": "{avg} de moyenne sur {n} avis",
+    "businessesLine": "Plus de 20 entreprises sur DUSA"
   },
   "brandCarousel": {
     "label": "Propulser la croissance de",
     "heading": "Marques qui",
-    "headingAccent": "s'épanouissent"
+    "headingAccent": "s'épanouissent",
+    "stripLabel": "Des entreprises qui tournent sur DUSA"
   },
   "funnelComparison": {
     "label": "Le coût réel des outils dispersés",

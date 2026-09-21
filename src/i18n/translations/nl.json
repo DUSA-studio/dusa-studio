@@ -383,12 +383,15 @@
     ],
     "moreStories": "Meer klantverhalen",
     "fewerStories": "Minder verhalen tonen",
-    "trustLine": "Echte reviews, verzameld op G2 en Trustpilot"
+    "trustLine": "Echte reviews, verzameld op G2 en Trustpilot",
+    "ratingLine": "{avg} gemiddeld over {n} reviews",
+    "businessesLine": "20+ bedrijven op DUSA"
   },
   "brandCarousel": {
     "label": "Groeimotor voor",
     "heading": "Merken die",
-    "headingAccent": "bloeien"
+    "headingAccent": "bloeien",
+    "stripLabel": "Bedrijven die draaien op DUSA"
   },
   "funnelComparison": {
     "label": "De echte kosten van losse tools",

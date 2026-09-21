@@ -383,12 +383,15 @@
     ],
     "moreStories": "Mais histórias de clientes",
     "fewerStories": "Mostrar menos histórias",
-    "trustLine": "Avaliações reais, coletadas no G2 e no Trustpilot"
+    "trustLine": "Avaliações reais, coletadas no G2 e no Trustpilot",
+    "ratingLine": "{avg} de média em {n} avaliações",
+    "businessesLine": "Mais de 20 negócios na DUSA"
   },
   "brandCarousel": {
     "label": "Impulsionando o crescimento de",
     "heading": "Marcas que",
-    "headingAccent": "florescem"
+    "headingAccent": "florescem",
+    "stripLabel": "Negócios que rodam na DUSA"
   },
   "funnelComparison": {
     "label": "O custo real de ferramentas espalhadas",

@@ -152,11 +152,21 @@ const stats = [
 const captions: string[] = Array.isArray(sp.featuredCaptions) && sp.featuredCaptions.length === 3
   ? sp.featuredCaptions
   : ['Google reviews in three months', 'Email open rate after switching', 'Monthly software spend'];
+const shortQuotes: string[] = Array.isArray(sp.featuredQuotes) && sp.featuredQuotes.length === 3 ? sp.featuredQuotes : [];
+/* from/to drive the count-up and the before/after bar; `show` is the static
+   fallback text (reduced motion, no JS). */
 const featured = [
-  { idx: 5,  num: '12 → 80+',  caption: captions[0] },
-  { idx: 12, num: '18% → 42%', caption: captions[1] },
-  { idx: 4,  num: '−50%',      caption: captions[2] },
-].map((f) => ({ ...f, ...testimonials[f.idx] }));
+  { idx: 5,  from: 12, to: 80, prefix: '',  mid: ' → ', suffix: '+', unit: '',  caption: captions[0], bar: [12, 80] },
+  { idx: 12, from: 18, to: 42, prefix: '',  mid: ' → ', suffix: '',  unit: '%', caption: captions[1], bar: [18, 42] },
+  { idx: 4,  from: 0,  to: 50, prefix: '−', mid: '',    suffix: '',  unit: '%', caption: captions[2], bar: [100, 50] },
+].map((f, i) => ({ ...f, ...testimonials[f.idx], quote: shortQuotes[i] || testimonials[f.idx].quote }));
+
+/* Rating summary from the reviews on this page: honest, and it needs no
+   third-party badge to be true. */
+const reviewCount = testimonials.length;
+const avgRating = Math.round((testimonials.reduce((n, t) => n + t.stars, 0) / reviewCount) * 10) / 10;
+const ratingLine = (sp.ratingLine || '{avg} average across {n} reviews').replace('{avg}', avgRating.toFixed(1)).replace('{n}', String(reviewCount));
+const businessesLine = sp.businessesLine || '20+ businesses on DUSA';
 const rest = testimonials.filter((_, i) => ![5, 12, 4].includes(i));
 const moreLabel = sp.moreStories || 'More customer stories';
 const fewerLabel = sp.fewerStories || 'Show fewer stories';
@@ -173,6 +183,16 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
     <div class="proof__header reveal">
       <span class="label">{spLabel}</span>
       <h2>{spHeading} <span class="gradient-text">{spHeadingAccent}</span></h2>
+      <p class="proof__rating" aria-label={ratingLine}>
+        <span class="proof__stars proof__stars--lg" aria-hidden="true">{starKinds(avgRating).map((k, si) => k === 'full'
+          ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d={STAR}/></svg>
+          : k === 'half'
+            ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-avg-${si}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d={STAR} fill="currentColor" clip-path={`url(#half-avg-${si})`}/><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>)}</span>
+        <span class="proof__rating-text"><b>{avgRating.toFixed(1)}</b> {ratingLine.replace(avgRating.toFixed(1), '').trim()}</span>
+        <span class="proof__rating-sep" aria-hidden="true">·</span>
+        <span class="proof__rating-text">{businessesLine}</span>
+      </p>
     </div>
 
     <div class="proof__stats reveal">
@@ -188,8 +208,13 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
     <div class="proof__featured reveal">
       {featured.map((f, i) => (
         <article class="proof__card">
-          <div class="proof__num">{f.num}</div>
+          <div class="proof__num" data-count data-from={f.from} data-to={f.to}>
+            {f.prefix}{f.mid ? <><span class="proof__num-from">{f.from}{f.unit}</span>{f.mid}</> : null}<span class="proof__num-to">{f.to}{f.unit}</span>{f.suffix}
+          </div>
           <div class="proof__caption">{f.caption}</div>
+          <div class="proof__bar" aria-hidden="true" style={`--before:${f.bar[0] >= f.bar[1] ? 100 : Math.round(f.bar[0] / f.bar[1] * 100)}%;--after:${f.bar[0] >= f.bar[1] ? Math.round(f.bar[1] / f.bar[0] * 100) : 100}%`}>
+            <span class="proof__bar-before"></span><span class="proof__bar-after"></span>
+          </div>
           <blockquote class="proof__quote">&ldquo;{f.quote}&rdquo;</blockquote>
           <div class="proof__bottom">
             <div class="proof__stars" aria-label={`${f.stars} out of 5 stars`}>{starKinds(f.stars).map((k, si) => k === 'full'
@@ -203,7 +228,7 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
                 : <div class="proof__author-avatar">{initials(f.name)}</div>}
               <div>
                 <div class="proof__author-name">{f.name}</div>
-                <div class="proof__author-role">{f.role} <span class="proof__source">via {f.source}</span></div>
+                <div class="proof__author-role">{f.role} <span class={`proof__badge proof__badge--${f.source.toLowerCase()}`}>{f.source === 'Trustpilot' ? <i aria-hidden="true">★</i> : null}{f.source}</span></div>
               </div>
             </div>
           </div>
@@ -238,7 +263,7 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
                     : <div class="proof__author-avatar">{initials(t.name)}</div>}
                   <div>
                     <div class="proof__author-name">{t.name}</div>
-                    <div class="proof__author-role">{t.role} <span class="proof__source">via {t.source}</span></div>
+                    <div class="proof__author-role">{t.role} <span class={`proof__badge proof__badge--${t.source.toLowerCase()}`}>{t.source === 'Trustpilot' ? <i aria-hidden="true">★</i> : null}{t.source}</span></div>
                   </div>
                 </div>
               </div>
@@ -251,6 +276,34 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
 </section>
 
 <script>
+  /* The featured numbers roll up to their value the first time the cards
+     come into view; the before/after bars grow with them. */
+  (() => {
+    const cards = [...document.querySelectorAll('.proof__card')];
+    if (!cards.length) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const run = (card) => {
+      card.classList.add('is-counted');
+      const num = card.querySelector('[data-count]');
+      const to = num && num.querySelector('.proof__num-to');
+      if (!num || !to || reduced) return;
+      const start = Number(num.getAttribute('data-from')) || 0, end = Number(num.getAttribute('data-to')) || 0;
+      const unit = to.textContent.replace(/[\d.,\s]/g, '');
+      const t0 = performance.now(), dur = 1400;
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        to.textContent = Math.round(start + (end - start) * e) + unit;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    if (!('IntersectionObserver' in window)) { cards.forEach(run); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    cards.forEach((c) => io.observe(c));
+  })();
+
   document.querySelectorAll('.proof__more-btn').forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
     if (!panel) return;
@@ -271,6 +324,36 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
     margin: 0 auto var(--space-lg);
     text-align: center;
   }
+
+  .proof__rating {
+    display: inline-flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
+    margin: 1rem auto 0; padding: 0.5rem 1rem; border-radius: 999px;
+    background: rgba(247, 244, 239, 0.04); border: 1px solid rgba(247, 244, 239, 0.08);
+    font-size: 0.875rem; color: rgba(247, 244, 239, 0.7);
+  }
+  .proof__rating b { color: var(--warm-white); font-weight: 600; }
+  .proof__rating-sep { color: rgba(247, 244, 239, 0.3); }
+  .proof__stars--lg { margin: 0; gap: 1px; }
+  .proof__stars--lg .proof__star { width: 15px; height: 15px; }
+
+  .proof__num-to { font-variant-numeric: tabular-nums; }
+  .proof__bar { display: flex; flex-direction: column; gap: 4px; margin: -0.35rem 0 1rem; }
+  .proof__bar span { display: block; height: 4px; border-radius: 4px; transform-origin: left; transform: scaleX(0); }
+  .proof__bar-before { width: var(--before); background: rgba(247, 244, 239, 0.18); }
+  .proof__bar-after { width: var(--after); background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue)); box-shadow: 0 0 10px rgba(78, 216, 194, 0.35); }
+  .proof__card.is-counted .proof__bar-before { transform: scaleX(1); transition: transform 0.6s var(--ease-out); }
+  .proof__card.is-counted .proof__bar-after { transform: scaleX(1); transition: transform 1.2s var(--ease-out) 0.3s; }
+
+  .proof__badge {
+    display: inline-flex; align-items: center; gap: 0.2rem; margin-left: 0.35rem; vertical-align: 1px;
+    padding: 0.05rem 0.4rem; border-radius: 4px;
+    font-family: var(--font-headline); font-weight: 700; font-size: 0.625rem; letter-spacing: 0.02em; font-style: normal;
+    color: var(--warm-white); border: 1px solid rgba(247, 244, 239, 0.14); background: rgba(247, 244, 239, 0.05);
+  }
+  .proof__badge i { font-style: normal; font-size: 0.6875rem; line-height: 1; }
+  .proof__badge--g2 { color: #FF6B4F; border-color: rgba(255, 73, 44, 0.35); }
+  .proof__badge--trustpilot { color: #2FD48F; border-color: rgba(0, 182, 122, 0.4); }
+  .proof__badge--trustpilot i { color: #00B67A; }
 
   .proof__stats {
     display: grid;
@@ -550,6 +633,8 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
   }
 
   @media (max-width: 480px) {
+    .proof__rating { flex-direction: column; gap: 0.25rem; border-radius: 14px; padding: 0.65rem 1rem; font-size: 0.8125rem; }
+    .proof__rating-sep { display: none; }
     .proof__stats {
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
@@ -647,6 +732,14 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
   :global(html[data-theme="light"]) .proof__card { background: rgba(255, 255, 255, 0.7); border-color: rgba(12, 14, 20, 0.08); box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04); }
   :global(html[data-theme="light"]) .proof__card:hover { border-color: rgba(26, 58, 92, 0.15); background: rgba(255, 255, 255, 0.9); box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08); }
   :global(html[data-theme="light"]) .proof__num { color: var(--deep-ocean); text-shadow: none; }
+  :global(html[data-theme="light"]) .proof__rating { background: rgba(255, 255, 255, 0.7); border-color: rgba(12, 14, 20, 0.1); color: rgba(12, 14, 20, 0.7); }
+  :global(html[data-theme="light"]) .proof__rating b { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .proof__rating-sep { color: rgba(12, 14, 20, 0.3); }
+  :global(html[data-theme="light"]) .proof__bar-before { background: rgba(12, 14, 20, 0.14); }
+  :global(html[data-theme="light"]) .proof__bar-after { background: linear-gradient(90deg, var(--deep-ocean), var(--mist-blue)); box-shadow: none; }
+  :global(html[data-theme="light"]) .proof__badge { color: var(--deep-black); border-color: rgba(12, 14, 20, 0.14); background: rgba(12, 14, 20, 0.04); }
+  :global(html[data-theme="light"]) .proof__badge--g2 { color: #D6361C; }
+  :global(html[data-theme="light"]) .proof__badge--trustpilot { color: #00875A; }
   :global(html[data-theme="light"]) .proof__caption { color: rgba(12, 14, 20, 0.62); }
   :global(html[data-theme="light"]) .proof__trust-line { color: rgba(12, 14, 20, 0.6); }
   :global(html[data-theme="light"]) .proof__more-btn { color: var(--deep-ocean); border-color: rgba(26, 58, 92, 0.3); }

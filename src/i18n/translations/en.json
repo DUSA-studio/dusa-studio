@@ -375,12 +375,20 @@
     ],
     "moreStories": "More customer stories",
     "fewerStories": "Show fewer stories",
-    "trustLine": "Real reviews, collected on G2 and Trustpilot"
+    "trustLine": "Real reviews, collected on G2 and Trustpilot",
+    "ratingLine": "{avg} average across {n} reviews",
+    "businessesLine": "20+ businesses on DUSA",
+    "featuredQuotes": [
+      "The automated review requests alone have been worth it. We did not lift a finger.",
+      "The built-in templates and AI copywriting tools are seriously underrated.",
+      "Setup took days, not months. Everything actually connects now."
+    ]
   },
   "brandCarousel": {
     "label": "Powering Growth For",
     "heading": "Brands that",
-    "headingAccent": "bloom"
+    "headingAccent": "bloom",
+    "stripLabel": "Businesses running on DUSA"
   },
   "funnelComparison": {
     "label": "The real cost of scattered tools",

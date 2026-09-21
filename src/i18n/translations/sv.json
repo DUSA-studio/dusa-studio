@@ -383,12 +383,15 @@
     ],
     "moreStories": "Fler kundberättelser",
     "fewerStories": "Visa färre berättelser",
-    "trustLine": "Riktiga omdömen, insamlade på G2 och Trustpilot"
+    "trustLine": "Riktiga omdömen, insamlade på G2 och Trustpilot",
+    "ratingLine": "{avg} i snitt över {n} omdömen",
+    "businessesLine": "20+ företag på DUSA"
   },
   "brandCarousel": {
     "label": "Driver tillväxt för",
     "heading": "Varumärken som",
-    "headingAccent": "blomstrar"
+    "headingAccent": "blomstrar",
+    "stripLabel": "Företag som drivs med DUSA"
   },
   "funnelComparison": {
     "label": "Den verkliga kostnaden för spridda verktyg",

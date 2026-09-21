@@ -383,12 +383,15 @@
     ],
     "moreStories": "Altre storie di clienti",
     "fewerStories": "Mostra meno storie",
-    "trustLine": "Recensioni reali, raccolte su G2 e Trustpilot"
+    "trustLine": "Recensioni reali, raccolte su G2 e Trustpilot",
+    "ratingLine": "{avg} di media su {n} recensioni",
+    "businessesLine": "Oltre 20 aziende su DUSA"
   },
   "brandCarousel": {
     "label": "Facciamo crescere",
     "heading": "Brand che",
-    "headingAccent": "fioriscono"
+    "headingAccent": "fioriscono",
+    "stripLabel": "Aziende che lavorano con DUSA"
   },
   "funnelComparison": {
     "label": "Il vero costo degli strumenti sparsi",

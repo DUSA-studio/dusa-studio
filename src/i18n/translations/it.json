@@ -971,7 +971,8 @@
     "hubHint": "Passi il mouse per esplorare, clicchi per fissare",
     "hubHintTap": "Tocchi un segmento per esplorare",
     "panelEmpty": "Tocchi un'area sulla ruota, o un'etichetta qui sotto, per vedere cosa contiene.",
-    "aiPanelTitle": "Basato sull'IA"
+    "aiPanelTitle": "Basato sull'IA",
+    "holdHint": "Tieni premuto e trascina per ingrandire"
   },
   "start": {
     "metaTitle": "Inizi la prova gratuita | DUSA . studio",

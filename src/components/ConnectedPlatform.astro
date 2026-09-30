@@ -30,6 +30,7 @@ const ctaLabel = c.cta || 'See everything included';
 const aiBandLabel = c.aiBand || 'AI · ACROSS EVERYTHING';
 const hubHint = c.hubHint || 'Hover to explore, click to keep it';
 const hubHintTap = c.hubHintTap || 'Tap a segment to explore';
+const holdHint = c.holdHint || 'Hold and drag to magnify';
 const panelEmpty = c.panelEmpty || 'Tap a domain on the wheel, or a chip below, to see what is inside.';
 const aiPanelTitle = c.aiPanelTitle || 'AI powered';
 
@@ -470,7 +471,7 @@ const STATS = [
       </button>
     </div>
 
-    <p class="cp__hint"><i aria-hidden="true"></i><span class="cp__hint-hover">{hubHint}</span><span class="cp__hint-tap">{hubHintTap}</span></p>
+    <p class="cp__hint"><i aria-hidden="true"></i><span class="cp__hint-hover">{hubHint}</span><span class="cp__hint-tap">{hubHintTap} · {holdHint}</span></p>
 
     <!-- Touch readout. On a phone the wheel is too small to carry labels and
          there is no hover, so whatever is selected is spelled out here, under
@@ -609,6 +610,36 @@ const STATS = [
     .cp__hint-hover { display: none; }
     .cp__hint-tap { display: inline; }
   }
+
+  /* ─── Touch magnifier (built by the script on touch screens) ─── */
+  :global(.cp__lens) {
+    position: fixed; left: 0; top: 0; z-index: 1200; width: 172px; height: 172px;
+    border-radius: 50%; overflow: hidden; pointer-events: none;
+    background: #0C0E14;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    box-shadow:
+      inset 0 0 0 1px rgba(78, 216, 194, 0.35),
+      inset 0 18px 30px rgba(255, 255, 255, 0.10),
+      inset 0 -20px 30px rgba(0, 0, 0, 0.35),
+      0 0 0 6px rgba(78, 216, 194, 0.10),
+      0 24px 50px rgba(0, 0, 0, 0.55);
+    opacity: 0; scale: 0.6; transform-origin: 50% 100%;
+    transition: opacity 0.18s ease-out, scale 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  :global(.cp__lens.is-on) { opacity: 1; scale: 1; }
+  :global(.cp__lens-inner) { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+  :global(.cp__lens-svg) { display: block; max-width: none !important; }
+  :global(.cp__lens-svg .cp__hit) { display: none; }
+  /* Specular arc on the glass. */
+  :global(.cp__lens > i) {
+    position: absolute; left: 12%; top: 6%; width: 60%; height: 34%; border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+  :global(html[data-theme="light"] .cp__lens) { background: #F7F4EF; border-color: rgba(26, 58, 92, 0.5); box-shadow: inset 0 0 0 1px rgba(26, 58, 92, 0.2), inset 0 18px 30px rgba(255,255,255,0.7), 0 0 0 6px rgba(26, 58, 92, 0.08), 0 24px 50px rgba(12, 14, 20, 0.3); }
+  .cp__stage.is-lensing .cp__wheel { touch-action: none; }
+  @media (hover: none) { .cp__wheel { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; } }
 
   /* ─── Touch readout panels (phones only, see media block below) ─── */
   .cp__mpanels { display: none; }
@@ -1044,9 +1075,7 @@ const STATS = [
     /* The ring keeps its labels, like desktop. At rest they are small; a tap
        on a domain zooms the wheel into that wedge (transform below) so they
        read at 11px or better. The stage clips the zoomed wheel. */
-    .cp__stage { overflow: hidden; border-radius: 28px; }
-    .cp__wheel { transform-origin: var(--zx, 50%) var(--zy, 50%); transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
-    .cp__stage.is-zoom .cp__wheel { transform: scale(var(--zoom, 2)); }
+    .cp__stage { border-radius: 28px; }
     .cp__cap-text { font-size: 14px; font-weight: 600; }
     .cp__dom-text { font-size: 21px; letter-spacing: 0.02em; }
     .cp__ai-label { font-size: 13px; letter-spacing: 1.6px; }
@@ -1373,13 +1402,7 @@ const STATS = [
       }
       const dh = domHits.find((h) => h.getAttribute('data-di') === di);
       if (!dh) return;
-      const mid = parseFloat(dh.getAttribute('data-mid')), zoom = parseFloat(dh.getAttribute('data-zoom'));
-      const VBn = Number(svg.dataset.vb || 760), cx = Number(svg.dataset.cx || 380), cy = Number(svg.dataset.cy || 380);
-      const rZ = 252; /* between the domain ring and the outer rim */
-      svg.style.setProperty('--zx', ((cx + rZ * Math.cos(mid)) / VBn * 100).toFixed(2) + '%');
-      svg.style.setProperty('--zy', ((cy + rZ * Math.sin(mid)) / VBn * 100).toFixed(2) + '%');
-      svg.style.setProperty('--zoom', String(zoom));
-      stage.classList.add('is-zoom');
+      const mid = parseFloat(dh.getAttribute('data-mid'));
       /* Strip goes to whichever edge the wedge is NOT on. */
       focus.classList.toggle('is-top', Math.sin(mid) > 0.2);
       if (locked.kind === 'cap' && locked.hit) {
@@ -1493,6 +1516,81 @@ const STATS = [
     });
     phonePanels.addEventListener('change', () => { syncPanels(); syncZoom(); });
     syncPanels();
+
+    /* ── Touch magnifier ─────────────────────────────────────────────────
+       On touch screens a press-and-hold on the wheel raises a round glass
+       lens above the finger showing that part of the wheel at 2.6x, and it
+       follows the finger. Before the hold lands, touches scroll the page as
+       normal; once the lens is up, moves are consumed so the page holds still.
+       The lens shows a clone of the SVG (same document, so gradient and
+       textPath ids resolve to the originals), taken fresh on each press so it
+       carries the current lit state. */
+    if (touchUI) {
+      const ZOOM = 2.6, HOLD_MS = 220, LIFT = 96;
+      let lens = null, inner = null, holdTimer = null, active = false, startX = 0, startY = 0, clone = null, sr = null, R = 0, lensedAt = 0;
+      const ensureLens = () => {
+        if (lens) return;
+        lens = document.createElement('div'); lens.className = 'cp__lens'; lens.setAttribute('aria-hidden', 'true');
+        inner = document.createElement('div'); inner.className = 'cp__lens-inner';
+        lens.appendChild(inner);
+        const glint = document.createElement('i'); lens.appendChild(glint);
+        document.body.appendChild(lens);
+      };
+      const place = (x, y) => {
+        R = lens.offsetWidth / 2;
+        const px = x - sr.left, py = y - sr.top;
+        inner.style.transform = 'translate(' + (R - px * ZOOM) + 'px,' + (R - py * ZOOM) + 'px) scale(' + ZOOM + ')';
+        /* Lens sits above the finger; flips below near the top of the screen. */
+        let cy = y - LIFT - R;
+        if (cy < 8) cy = y + LIFT * 0.6;
+        let cx = Math.min(Math.max(x - R, 8), window.innerWidth - lens.offsetWidth - 8);
+        lens.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+      };
+      const show = (x, y) => {
+        ensureLens();
+        sr = svg.getBoundingClientRect();
+        if (clone) clone.remove();
+        clone = svg.cloneNode(true);
+        clone.removeAttribute('id'); clone.removeAttribute('role'); clone.removeAttribute('aria-label');
+        clone.classList.add('cp__lens-svg');
+        clone.style.width = sr.width + 'px'; clone.style.height = sr.height + 'px';
+        inner.style.width = sr.width + 'px'; inner.style.height = sr.height + 'px';
+        inner.appendChild(clone);
+        active = true;
+        place(x, y);
+        lens.classList.add('is-on');
+        stage.classList.add('is-lensing');
+      };
+      const hide = () => {
+        clearTimeout(holdTimer); holdTimer = null;
+        if (!active) return;
+        active = false; lensedAt = Date.now();
+        lens.classList.remove('is-on');
+        stage.classList.remove('is-lensing');
+        setTimeout(() => { if (!active && clone) { clone.remove(); clone = null; } }, 250);
+      };
+      svg.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        const t = e.touches[0]; startX = t.clientX; startY = t.clientY;
+        clearTimeout(holdTimer);
+        holdTimer = setTimeout(() => { holdTimer = null; show(startX, startY); }, HOLD_MS);
+      }, { passive: true });
+      svg.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        if (!active) {
+          /* Moved before the hold landed: that is a scroll, not a press. */
+          if (holdTimer && Math.hypot(t.clientX - startX, t.clientY - startY) > 10) { clearTimeout(holdTimer); holdTimer = null; }
+          return;
+        }
+        e.preventDefault();
+        place(t.clientX, t.clientY);
+      }, { passive: false });
+      svg.addEventListener('touchend', hide, { passive: true });
+      svg.addEventListener('touchcancel', hide, { passive: true });
+      /* A hold that turned into a lens must not also register as a tap-lock. */
+      svg.addEventListener('click', (e) => { if (active || Date.now() - lensedAt < 500) { e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+      svg.addEventListener('contextmenu', (e) => { if (active || holdTimer) e.preventDefault(); });
+    }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && locked) { locked = null; restore(); }

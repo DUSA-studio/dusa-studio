@@ -976,7 +976,8 @@
     "hubHint": "Hover to explore, click to keep it",
     "hubHintTap": "Tap a segment to explore",
     "panelEmpty": "Tap a domain on the wheel, or a chip below, to see what is inside.",
-    "aiPanelTitle": "AI powered"
+    "aiPanelTitle": "AI powered",
+    "holdHint": "Hold and drag to magnify"
   },
   "start": {
     "metaTitle": "Start Your Free Trial | DUSA . studio",

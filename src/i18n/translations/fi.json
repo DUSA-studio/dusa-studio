@@ -971,7 +971,8 @@
     "hubHint": "Tutki viemällä hiiri päälle, lukitse klikkaamalla",
     "hubHintTap": "Napauta lohkoa tutkiaksesi",
     "panelEmpty": "Napauta pyörän lohkoa tai alla olevaa nappia nähdäksesi, mitä sisältä löytyy.",
-    "aiPanelTitle": "Tekoälyllä toimiva"
+    "aiPanelTitle": "Tekoälyllä toimiva",
+    "holdHint": "Pidä pohjassa ja vedä suurentaaksesi"
   },
   "start": {
     "metaTitle": "Aloita ilmainen kokeilu | DUSA . studio",

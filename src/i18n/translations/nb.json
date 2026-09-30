@@ -971,7 +971,8 @@
     "hubHint": "Hold over for å utforske, klikk for å låse",
     "hubHintTap": "Trykk på et segment for å utforske",
     "panelEmpty": "Trykk på et område på hjulet, eller en brikke under, for å se hva som er inni.",
-    "aiPanelTitle": "AI-drevet"
+    "aiPanelTitle": "AI-drevet",
+    "holdHint": "Hold og dra for å forstørre"
   },
   "start": {
     "metaTitle": "Start din gratis prøveperiode | DUSA . studio",

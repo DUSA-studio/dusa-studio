@@ -971,7 +971,8 @@
     "hubHint": "Beweeg om te ontdekken, klik om vast te zetten",
     "hubHintTap": "Tik op een segment om te ontdekken",
     "panelEmpty": "Tik op een onderdeel van het wiel, of op een chip hieronder, om te zien wat erin zit.",
-    "aiPanelTitle": "AI-gedreven"
+    "aiPanelTitle": "AI-gedreven",
+    "holdHint": "Houd vast en sleep om te vergroten"
   },
   "start": {
     "metaTitle": "Start je gratis proefperiode | DUSA . studio",

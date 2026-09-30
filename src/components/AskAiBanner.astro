@@ -18,18 +18,41 @@ const { t = {} } = Astro.props;
 const a = t?.askAi || {};
 const eyebrow = a.eyebrow || 'New';
 const headline = a.headline || 'Ask AI is now included in every plan.';
-const sub = a.sub || 'Claude and ChatGPT, inside the platform. One place for your AI, no extra subscriptions.';
-const examplesLead = a.examplesLead || 'Ask AI to';
-const examples: string[] = Array.isArray(a.examples) && a.examples.length ? a.examples : [
-  'write your marketing content',
-  'tag and segment your contact database',
-  'draft a reply to every enquiry',
-  'summarise a customer before you call them',
-  'build a follow-up sequence',
-  'answer your Google reviews',
-  'plan a month of social posts',
-  'turn a call transcript into next steps',
+const examplesLead = a.examplesLead || 'Ask AI';
+/* The Claude / ChatGPT message, said several ways so it lands with different
+   buyers: the one paying for subscriptions, the one short on time, the one
+   who wants context, the one who wants choice. One of these appears after
+   every pair of use cases. */
+const aiLines: string[] = Array.isArray(a.aiLines) && a.aiLines.length ? a.aiLines : [
+  'Claude and ChatGPT, built into DUSA. No extra AI subscriptions.',
+  'Already paying for ChatGPT or Claude? They are inside your plan now.',
+  'Pick Claude or ChatGPT per task. Same login, same customer data.',
+  'Your AI already knows your contacts, bookings and conversations. Nothing to paste in.',
+  'Two frontier models. One platform. Included from Launchpad up.',
+  'Stop switching tabs to ask AI. It lives where your work is.',
 ];
+/* Strongest proven jobs for AI inside the platform: calls, replies, bookings,
+   reviews, content, then the data tasks Ask AI does on your CRM. */
+const examples: string[] = Array.isArray(a.examples) && a.examples.length ? a.examples : [
+  'answer every missed call and book the job',
+  'reply to enquiries on SMS, Instagram and web chat while you work',
+  'qualify a lead and book it straight into your calendar',
+  'respond to every Google review in your voice',
+  'write your emails, texts, social posts and funnel pages',
+  'tag and segment your contacts by what they asked for',
+  'summarise a customer\'s history before you pick up the phone',
+  'build an automation from a plain-English description',
+  'chase an unpaid invoice politely, then keep following up',
+  'write the quote and send the booking link in one message',
+  'turn last month\'s numbers into a one-page report',
+  'draft the review request that actually gets replies',
+];
+/* Marquee order: lead, then [AI line, use case, use case] repeating. */
+const sequence: Array<{ kind: 'ai' | 'ex'; text: string }> = [];
+examples.forEach((ex, i) => {
+  if (i % 2 === 0) sequence.push({ kind: 'ai', text: aiLines[(i / 2) % aiLines.length] });
+  sequence.push({ kind: 'ex', text: ex });
+});
 const cta = a.cta || 'See how it works';
 const ctaHref = a.ctaHref || '/pricing#faq';
 const closeLabel = a.close || 'Dismiss';
@@ -72,23 +95,28 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
             <span class="aab__pill">{eyebrow}</span>
             <strong class="aab__headline">{headline}</strong>
           </span>
-          <span class="aab__dot" aria-hidden="true"></span>
-          <span class="aab__item">
-            <span class="aab__cube" style={`--brand:${claude.hex}`}>
-              {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={claude.viewBox} aria-hidden="true"><path d={claude.path} fill="currentColor"/></svg></span>)}
-            </span>
-            <span class="aab__cube" style={`--brand:${gpt.hex}`}>
-              {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={gpt.viewBox} aria-hidden="true"><path d={gpt.path} fill="currentColor"/></svg></span>)}
-            </span>
-            <span class="aab__sub">{sub}</span>
-          </span>
-          {examples.map((ex) => (
+          {sequence.map((it) => it.kind === 'ai' ? (
             <>
               <span class="aab__dot" aria-hidden="true"></span>
-              <span class="aab__item aab__item--ex"><em>{examplesLead}</em> {ex}</span>
+              <span class="aab__item aab__item--ai">
+                <span class="aab__cube" style={`--brand:${claude.hex}`}>
+                  {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={claude.viewBox} aria-hidden="true"><path d={claude.path} fill="currentColor"/></svg></span>)}
+                </span>
+                <span class="aab__cube aab__cube--gpt" style="--brand:#F7F4EF">
+                  {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={gpt.viewBox} aria-hidden="true"><path d={gpt.path} fill="currentColor"/></svg></span>)}
+                </span>
+                <span class="aab__sub">{it.text}</span>
+              </span>
+            </>
+          ) : (
+            <>
+              <span class="aab__dot" aria-hidden="true"></span>
+              <span class="aab__item aab__item--ex">
+                <svg class="aab__spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z"/><path d="M19 15l.9 2.6 2.6.9-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/><path d="M4.5 16l.7 1.8 1.8.7-1.8.7L4.5 21l-.7-1.8L2 18.5l1.8-.7z"/></svg>
+                <em>{examplesLead}</em> {it.text}
+              </span>
             </>
           ))}
-          <span class="aab__dot" aria-hidden="true"></span>
           <a class="aab__item aab__cta" href={ctaHref}>{cta} &rarr;</a>
         </div>
       ))}
@@ -100,7 +128,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
 </div>
 
 <style>
-  :root { --aab-h: 42px; }
+  :root { --aab-h: 60px; --aab-cube: 48px; }
   .aab[hidden] { display: none; }
 
   /* ── Bubbles ─────────────────────────────────────────────────────── */
@@ -161,32 +189,34 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
   /* ── Marquee ──────────────────────────────────────────────────────── */
   .aab__track {
     display: flex; width: max-content; height: 100%; align-items: center;
-    animation: aabScroll var(--aab-speed, 70s) linear infinite;
+    animation: aabScroll var(--aab-speed, 150s) linear infinite;
     mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
   }
   .aab__bar:hover .aab__track, .aab__bar:focus-within .aab__track { animation-play-state: paused; }
   @keyframes aabScroll { to { transform: translateX(-50%); } }
-  .aab__run { display: flex; align-items: center; gap: 1.6rem; padding-right: 1.6rem; white-space: nowrap; }
-  .aab__item { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; color: rgba(247, 244, 239, 0.86); }
-  .aab__headline { font-family: var(--font-headline); font-weight: 700; font-size: 0.9375rem; color: var(--warm-white); letter-spacing: 0.01em; }
+  .aab__run { display: flex; align-items: center; gap: 1.75rem; padding-right: 1.75rem; white-space: nowrap; }
+  .aab__item { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.9375rem; color: rgba(247, 244, 239, 0.86); }
+  .aab__headline { font-family: var(--font-headline); font-weight: 700; font-size: 1.0625rem; color: var(--warm-white); letter-spacing: 0.01em; }
   .aab__pill {
     font-family: var(--font-mono); font-size: 0.5625rem; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--deep-black); background: var(--reef-aqua); border-radius: 999px; padding: 0.15rem 0.5rem;
   }
   .aab__sub { color: rgba(247, 244, 239, 0.72); }
-  .aab__item--ex em { font-style: normal; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--reef-aqua); }
+  .aab__item--ex em { font-style: normal; font-family: var(--font-headline); font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.02em; color: var(--reef-aqua); }
+  .aab__spark { width: 18px; height: 18px; fill: var(--reef-aqua); flex: 0 0 auto; filter: drop-shadow(0 0 5px rgba(78, 216, 194, 0.7)); animation: aabTwinkle 2.6s ease-in-out infinite; }
+  @keyframes aabTwinkle { 0%, 100% { opacity: 0.85; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.06); } }
   .aab__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--reef-aqua); opacity: 0.7; flex: 0 0 auto; }
   .aab__cta { color: var(--reef-aqua); text-decoration: none; font-weight: 500; }
   .aab__cta:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   /* Glass cubes, the hero's dice at 24px. */
-  .aab__cube { position: relative; width: 24px; height: 24px; perspective: 400px; flex: 0 0 auto; transform-style: preserve-3d; animation: aabSpin 22s linear infinite; --brand: var(--reef-aqua); }
+  .aab__cube { position: relative; width: var(--aab-cube); height: var(--aab-cube); perspective: 600px; flex: 0 0 auto; transform-style: preserve-3d; animation: aabSpin 22s linear infinite; --brand: var(--reef-aqua); }
   .aab__cube--dusa { animation-duration: 26s; animation-direction: reverse; }
   @keyframes aabSpin { from { transform: rotateX(-24deg) rotateY(0deg); } to { transform: rotateX(-24deg) rotateY(360deg); } }
   .aab__face {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    border-radius: 5px;
+    border-radius: 22%;
     background: linear-gradient(150deg, rgba(30, 38, 54, 0.85), rgba(16, 20, 30, 0.92));
     border: 1px solid rgba(122, 219, 201, 0.16);
     color: var(--brand);
@@ -194,13 +224,16 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
     backface-visibility: hidden; -webkit-backface-visibility: hidden;
   }
   .aab__face svg { width: 60%; height: 60%; }
-  .aab__face b { font-family: var(--font-headline); font-weight: 700; font-size: 12px; color: var(--reef-aqua); }
-  .aab__face--front  { transform: rotateY(0deg)   translateZ(12px); }
-  .aab__face--right  { transform: rotateY(90deg)  translateZ(12px); }
-  .aab__face--back   { transform: rotateY(180deg) translateZ(12px); }
-  .aab__face--left   { transform: rotateY(270deg) translateZ(12px); }
-  .aab__face--top    { transform: rotateX(90deg)  translateZ(12px); }
-  .aab__face--bottom { transform: rotateX(-90deg) translateZ(12px); }
+  .aab__face b { font-family: var(--font-headline); font-weight: 700; font-size: calc(var(--aab-cube) * 0.5); color: var(--reef-aqua); }
+  .aab__cube--gpt .aab__face { border-color: rgba(247, 244, 239, 0.28); }
+  .aab__item--ai { gap: 0.75rem; }
+  .aab__item--ai .aab__cube + .aab__cube { margin-left: -0.15rem; }
+  .aab__face--front  { transform: rotateY(0deg)   translateZ(calc(var(--aab-cube) / 2)); }
+  .aab__face--right  { transform: rotateY(90deg)  translateZ(calc(var(--aab-cube) / 2)); }
+  .aab__face--back   { transform: rotateY(180deg) translateZ(calc(var(--aab-cube) / 2)); }
+  .aab__face--left   { transform: rotateY(270deg) translateZ(calc(var(--aab-cube) / 2)); }
+  .aab__face--top    { transform: rotateX(90deg)  translateZ(calc(var(--aab-cube) / 2)); }
+  .aab__face--bottom { transform: rotateX(-90deg) translateZ(calc(var(--aab-cube) / 2)); }
 
   .aab__close {
     position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
@@ -227,10 +260,10 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
 
   /* ── Phones ──────────────────────────────────────────────────────── */
   @media (max-width: 768px) {
-    :root { --aab-h: 38px; }
-    .aab__track { --aab-speed: 55s; }
-    .aab__item { font-size: 0.8125rem; }
-    .aab__headline { font-size: 0.875rem; }
+    :root { --aab-h: 52px; --aab-cube: 40px; }
+    .aab__track { --aab-speed: 120s; }
+    .aab__item { font-size: 0.875rem; }
+    .aab__headline { font-size: 0.9375rem; }
     .aab__close { right: 6px; width: 26px; height: 26px; }
     .aab__bar { padding-right: 34px; }
   }
@@ -238,7 +271,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
   @media (prefers-reduced-motion: reduce) {
     .aab__bubbles { display: none; }
     .aab__bar { transform: none; opacity: 1; transition: none; }
-    .aab__track, .aab__cube, .aab__glow { animation: none !important; }
+    .aab__track, .aab__cube, .aab__glow, .aab__spark { animation: none !important; }
     .aab__cube { transform: rotateX(-24deg) rotateY(32deg); }
   }
 </style>

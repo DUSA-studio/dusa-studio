@@ -1,0 +1,282 @@
+---
+// AskAiBanner.astro — "Ask AI is included in every plan."
+//
+// On first view a cloud of glass bubbles rises from the bottom of the
+// viewport and gathers under the nav, where it sets into a thin glass bar.
+// The bar carries a slow marquee: the headline, the Claude and ChatGPT marks
+// on glass cubes, and a run of "Ask AI to …" outcomes. Dismissable; the
+// bubble intro plays once per session, the bar itself persists until closed.
+//
+// Everything animates with transform/opacity only. Reduced motion: no
+// bubbles, the bar fades in, the marquee holds still.
+import { AI_MARKS } from '../config/ai-marks';
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+const a = t?.askAi || {};
+const eyebrow = a.eyebrow || 'New';
+const headline = a.headline || 'Ask AI is now included in every plan.';
+const sub = a.sub || 'Claude and ChatGPT, inside the platform. One place for your AI, no extra subscriptions.';
+const examplesLead = a.examplesLead || 'Ask AI to';
+const examples: string[] = Array.isArray(a.examples) && a.examples.length ? a.examples : [
+  'write your marketing content',
+  'tag and segment your contact database',
+  'draft a reply to every enquiry',
+  'summarise a customer before you call them',
+  'build a follow-up sequence',
+  'answer your Google reviews',
+  'plan a month of social posts',
+  'turn a call transcript into next steps',
+];
+const cta = a.cta || 'See how it works';
+const ctaHref = a.ctaHref || '/pricing#faq';
+const closeLabel = a.close || 'Dismiss';
+
+const claude = AI_MARKS.Claude, gpt = AI_MARKS.ChatGPT;
+
+/* Bubble field: deterministic so it reviews the same every time. */
+const BUBBLES = Array.from({ length: 22 }, (_, i) => {
+  const r = (n: number) => { const x = Math.sin(i * 12.9898 + n * 78.233) * 43758.5453; return x - Math.floor(x); };
+  return {
+    x: Math.round(4 + r(1) * 92),            // start column, vw
+    s: Math.round(9 + r(2) * 26),             // diameter px
+    d: (2.3 + r(3) * 1.5).toFixed(2),         // rise duration s
+    delay: (r(4) * 1.1).toFixed(2),           // s
+    drift: Math.round((r(5) - 0.5) * 120),    // px sideways over the rise
+    wob: (1.1 + r(6) * 0.9).toFixed(2),       // wobble period s
+  };
+});
+
+const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
+---
+
+<div class="aab" data-ask-ai hidden>
+  <!-- Bubbles live in their own fixed layer over the hero. -->
+  <div class="aab__bubbles" aria-hidden="true">
+    {BUBBLES.map((b) => (
+      <span class="aab__bubble" style={`--x:${b.x}vw;--s:${b.s}px;--d:${b.d}s;--delay:${b.delay}s;--drift:${b.drift}px;--wob:${b.wob}s`}><i></i></span>
+    ))}
+  </div>
+
+  <div class="aab__bar" role="region" aria-label={headline}>
+    <span class="aab__glow" aria-hidden="true"></span>
+    <div class="aab__track" aria-hidden="false">
+      {[0, 1].map((copy) => (
+        <div class="aab__run" aria-hidden={copy === 1 ? 'true' : undefined}>
+          <span class="aab__item aab__item--lead">
+            <span class="aab__cube aab__cube--dusa">
+              {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><b>D</b></span>)}
+            </span>
+            <span class="aab__pill">{eyebrow}</span>
+            <strong class="aab__headline">{headline}</strong>
+          </span>
+          <span class="aab__dot" aria-hidden="true"></span>
+          <span class="aab__item">
+            <span class="aab__cube" style={`--brand:${claude.hex}`}>
+              {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={claude.viewBox} aria-hidden="true"><path d={claude.path} fill="currentColor"/></svg></span>)}
+            </span>
+            <span class="aab__cube" style={`--brand:${gpt.hex}`}>
+              {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={gpt.viewBox} aria-hidden="true"><path d={gpt.path} fill="currentColor"/></svg></span>)}
+            </span>
+            <span class="aab__sub">{sub}</span>
+          </span>
+          {examples.map((ex) => (
+            <>
+              <span class="aab__dot" aria-hidden="true"></span>
+              <span class="aab__item aab__item--ex"><em>{examplesLead}</em> {ex}</span>
+            </>
+          ))}
+          <span class="aab__dot" aria-hidden="true"></span>
+          <a class="aab__item aab__cta" href={ctaHref}>{cta} &rarr;</a>
+        </div>
+      ))}
+    </div>
+    <button class="aab__close" type="button" aria-label={closeLabel}>
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  :root { --aab-h: 42px; }
+  .aab[hidden] { display: none; }
+
+  /* ── Bubbles ─────────────────────────────────────────────────────── */
+  .aab__bubbles { position: fixed; inset: 0; z-index: 998; pointer-events: none; overflow: hidden; }
+  .aab__bubble {
+    position: absolute; left: var(--x); bottom: -40px; width: var(--s); height: var(--s);
+    opacity: 0; will-change: transform, opacity;
+  }
+  .aab__bubble i {
+    display: block; width: 100%; height: 100%; border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 28%, rgba(255,255,255,0.75), rgba(255,255,255,0.18) 28%, rgba(255,255,255,0.02) 48%),
+      radial-gradient(circle at 70% 78%, rgba(78,216,194,0.35), transparent 55%),
+      radial-gradient(circle, rgba(247,244,239,0.06), rgba(247,244,239,0.02));
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: inset 0 0 8px rgba(255,255,255,0.18), 0 0 12px rgba(78, 216, 194, 0.2);
+    animation: aabWobble var(--wob) ease-in-out infinite alternate;
+  }
+  .aab.is-rising .aab__bubble { animation: aabRise var(--d) cubic-bezier(0.3, 0.1, 0.25, 1) var(--delay) forwards; }
+  /* The rise ends where the bar sits: nav height + half the bar. Written as
+     a translateY from the bubble's own start (bottom of the viewport). */
+  @keyframes aabRise {
+    0%   { opacity: 0; transform: translate3d(0, 0, 0) scale(0.6); }
+    8%   { opacity: 1; transform: translate3d(0, -4vh, 0) scale(1); }
+    80%  { opacity: 1; transform: translate3d(var(--drift), calc(-100vh - 40px + var(--nav-height) + var(--aab-h) / 2 + var(--s) / 2), 0) scale(0.9); }
+    100% { opacity: 0; transform: translate3d(var(--drift), calc(-100vh - 40px + var(--nav-height) + var(--aab-h) / 2 + var(--s) / 2), 0) scale(1.6); }
+  }
+  @keyframes aabWobble { from { transform: translateX(-6px) scaleY(0.96); } to { transform: translateX(6px) scaleY(1.04); } }
+
+  /* ── The bar ──────────────────────────────────────────────────────── */
+  .aab__bar {
+    position: fixed; left: 0; right: 0; top: var(--nav-height); z-index: 999;
+    height: var(--aab-h); display: flex; align-items: center; overflow: hidden;
+    background: linear-gradient(90deg, rgba(247,244,239,0.06), rgba(247,244,239,0.10) 50%, rgba(247,244,239,0.06));
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 30px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%);
+    transform: scaleX(0); transform-origin: 50% 50%; opacity: 0;
+    transition: transform 1.3s var(--ease-out), opacity 0.5s;
+  }
+  .aab.is-set .aab__bar { transform: scaleX(1); opacity: 1; }
+  /* Mint accent line along the bottom edge, and a glow that swells as the
+     bubbles merge into the bar. */
+  .aab__bar::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--reef-aqua) 20%, var(--reef-aqua) 80%, transparent);
+    opacity: 0.8;
+  }
+  .aab__glow {
+    position: absolute; inset: -20px 10%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(78, 216, 194, 0.28), transparent 65%);
+    opacity: 0; transition: opacity 0.8s;
+  }
+  .aab.is-set .aab__glow { animation: aabGlow 1.6s ease-out forwards; }
+  @keyframes aabGlow { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+
+  /* ── Marquee ──────────────────────────────────────────────────────── */
+  .aab__track {
+    display: flex; width: max-content; height: 100%; align-items: center;
+    animation: aabScroll var(--aab-speed, 70s) linear infinite;
+    mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 94%, transparent);
+  }
+  .aab__bar:hover .aab__track, .aab__bar:focus-within .aab__track { animation-play-state: paused; }
+  @keyframes aabScroll { to { transform: translateX(-50%); } }
+  .aab__run { display: flex; align-items: center; gap: 1.6rem; padding-right: 1.6rem; white-space: nowrap; }
+  .aab__item { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; color: rgba(247, 244, 239, 0.86); }
+  .aab__headline { font-family: var(--font-headline); font-weight: 700; font-size: 0.9375rem; color: var(--warm-white); letter-spacing: 0.01em; }
+  .aab__pill {
+    font-family: var(--font-mono); font-size: 0.5625rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--deep-black); background: var(--reef-aqua); border-radius: 999px; padding: 0.15rem 0.5rem;
+  }
+  .aab__sub { color: rgba(247, 244, 239, 0.72); }
+  .aab__item--ex em { font-style: normal; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--reef-aqua); }
+  .aab__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--reef-aqua); opacity: 0.7; flex: 0 0 auto; }
+  .aab__cta { color: var(--reef-aqua); text-decoration: none; font-weight: 500; }
+  .aab__cta:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Glass cubes, the hero's dice at 24px. */
+  .aab__cube { position: relative; width: 24px; height: 24px; perspective: 400px; flex: 0 0 auto; transform-style: preserve-3d; animation: aabSpin 22s linear infinite; --brand: var(--reef-aqua); }
+  .aab__cube--dusa { animation-duration: 26s; animation-direction: reverse; }
+  @keyframes aabSpin { from { transform: rotateX(-24deg) rotateY(0deg); } to { transform: rotateX(-24deg) rotateY(360deg); } }
+  .aab__face {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    border-radius: 5px;
+    background: linear-gradient(150deg, rgba(30, 38, 54, 0.85), rgba(16, 20, 30, 0.92));
+    border: 1px solid rgba(122, 219, 201, 0.16);
+    color: var(--brand);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.2), 0 0 0 0.5px color-mix(in srgb, var(--brand) 25%, transparent);
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  }
+  .aab__face svg { width: 60%; height: 60%; }
+  .aab__face b { font-family: var(--font-headline); font-weight: 700; font-size: 12px; color: var(--reef-aqua); }
+  .aab__face--front  { transform: rotateY(0deg)   translateZ(12px); }
+  .aab__face--right  { transform: rotateY(90deg)  translateZ(12px); }
+  .aab__face--back   { transform: rotateY(180deg) translateZ(12px); }
+  .aab__face--left   { transform: rotateY(270deg) translateZ(12px); }
+  .aab__face--top    { transform: rotateX(90deg)  translateZ(12px); }
+  .aab__face--bottom { transform: rotateX(-90deg) translateZ(12px); }
+
+  .aab__close {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%;
+    background: rgba(12, 14, 20, 0.85); border: 1px solid rgba(247, 244, 239, 0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    color: rgba(247, 244, 239, 0.8); cursor: pointer;
+    transition: background var(--duration-fast), color var(--duration-fast);
+  }
+  .aab__close:hover { background: rgba(78, 216, 194, 0.18); color: var(--warm-white); }
+
+  /* ── Light mode ──────────────────────────────────────────────────── */
+  :global(html[data-theme="light"]) .aab__bar {
+    background: linear-gradient(90deg, rgba(255,255,255,0.55), rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.55));
+    border-top-color: rgba(12, 14, 20, 0.08); border-bottom-color: rgba(12, 14, 20, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 30px rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .aab__item { color: rgba(12, 14, 20, 0.8); }
+  :global(html[data-theme="light"]) .aab__headline { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .aab__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .aab__item--ex em, :global(html[data-theme="light"]) .aab__cta { color: var(--aqua-ink, #0B5F55); }
+  :global(html[data-theme="light"]) .aab__dot { background: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .aab__close { background: rgba(255,255,255,0.7); border-color: rgba(12,14,20,0.15); color: var(--deep-black); }
+  :global(html[data-theme="light"]) .aab__bubble i { border-color: rgba(26, 58, 92, 0.35); box-shadow: inset 0 0 8px rgba(255,255,255,0.6), 0 0 12px rgba(26, 58, 92, 0.15); }
+
+  /* ── Phones ──────────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    :root { --aab-h: 38px; }
+    .aab__track { --aab-speed: 55s; }
+    .aab__item { font-size: 0.8125rem; }
+    .aab__headline { font-size: 0.875rem; }
+    .aab__close { right: 6px; width: 26px; height: 26px; }
+    .aab__bar { padding-right: 34px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aab__bubbles { display: none; }
+    .aab__bar { transform: none; opacity: 1; transition: none; }
+    .aab__track, .aab__cube, .aab__glow { animation: none !important; }
+    .aab__cube { transform: rotateX(-24deg) rotateY(32deg); }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.querySelector('[data-ask-ai]');
+    if (!root) return;
+    const KEY_DISMISSED = 'dusa-askai-dismissed', KEY_SEEN = 'dusa-askai-seen';
+    let dismissed = false, seen = false;
+    try { dismissed = sessionStorage.getItem(KEY_DISMISSED) === '1'; seen = sessionStorage.getItem(KEY_SEEN) === '1'; } catch (e) {}
+    if (dismissed) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    root.hidden = false;
+    document.documentElement.classList.add('has-askai');
+
+    if (reduced || seen) {
+      /* Bar only. */
+      root.querySelector('.aab__bubbles').remove();
+      void root.offsetWidth;
+      root.classList.add('is-set');
+    } else {
+      /* Bubbles rise, then the bar sets as they arrive. */
+      /* Force a style flush first so the transition/animation actually runs
+         (rAF is not used: background tabs never fire it). */
+      void root.offsetWidth;
+      root.classList.add('is-rising');
+      setTimeout(() => root.classList.add('is-set'), 2300);
+      setTimeout(() => { const b = root.querySelector('.aab__bubbles'); if (b) b.remove(); }, 5200);
+      try { sessionStorage.setItem(KEY_SEEN, '1'); } catch (e) {}
+    }
+
+    root.querySelector('.aab__close').addEventListener('click', () => {
+      root.classList.remove('is-set');
+      document.documentElement.classList.remove('has-askai');
+      setTimeout(() => { root.hidden = true; }, 500);
+      try { sessionStorage.setItem(KEY_DISMISSED, '1'); } catch (e) {}
+    });
+  })();
+</script>

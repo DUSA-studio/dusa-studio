@@ -1,0 +1,226 @@
+---
+// PREVIEW ONLY: the home page with the Ask AI glass bubble banner on top.
+// noindex, excluded from the sitemap. Delete once the banner ships on index.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import AskAiBanner from '../../components/AskAiBanner.astro';
+import FunnelGlass from '../../components/FunnelGlass.astro';
+import ConnectedPlatform from '../../components/ConnectedPlatform.astro';
+import SetupSteps from '../../components/SetupSteps.astro';
+import BrandCarousel from '../../components/BrandCarousel.astro';
+import SocialProof from '../../components/SocialProof.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTA from '../../components/CTA.astro';
+import t from '../../i18n/translations/en.json';
+---
+
+<BaseLayout t={t} noindex={true} title="Preview: Ask AI banner | DUSA . studio" description="Internal preview of the Ask AI announcement bar.">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DUSA . studio",
+    "url": "https://dusa.studio",
+    "logo": "https://dusa.studio/favicon.png",
+    "description": "All-in-one growth platform for small businesses. CRM, marketing automation, sales pipelines, and customer engagement from one login.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sydney",
+      "addressRegion": "NSW",
+      "addressCountry": "AU"
+    },
+    "sameAs": ["https://www.instagram.com/the.dusa.studio", "https://www.linkedin.com/company/dusa-studio", "https://au.pinterest.com/DUSAstudio", "https://www.facebook.com/the.DUSA.studio", "https://github.com/DUSA-studio"]
+  })} />
+  {/* Conversion arc, distilled (Sept 2026): promise → who trusts us →
+      what it is → what it costs you today → proof → how easy → objections
+      → final ask. Problem, What-is-DUSA, Devices and Onboarding were cut
+      from the home page: each repeated a story already told above it.
+      Onboarding detail lives at /onboarding, the pillars at /about. */}
+  <AskAiBanner t={t} />
+  <Hero t={t} />
+  <BrandCarousel t={t} compact />
+  <ConnectedPlatform t={t} />
+  <FunnelGlass t={t} />
+  <SocialProof t={t} />
+  <SetupSteps t={t} />
+  <FAQ t={t} limit={5} />
+  <CTA t={t} />
+</BaseLayout>
+
+<style is:global>
+  html.has-askai .hero__intro { padding-top: var(--aab-h, 42px); min-height: calc(100svh - var(--nav-height)); }
+  html.has-askai .nav__region-dropdown, html.has-askai .nav__dropdown { margin-top: var(--aab-h, 42px); }
+</style>
+
+<script>
+  function initAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initAnimations, 100);
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Mark GSAP as ready so CSS fallback animation is cancelled
+    document.documentElement.classList.add('gsap-ready');
+
+
+    // ─── HERO INTRO SEQUENCE ───
+    const heroTl = gsap.timeline({
+      scrollTrigger: { trigger: '.hero__inner', start: 'top 75%', once: true },
+    });
+
+    // Label slides up
+    const heroLabel = document.querySelector('.hero .label');
+    if (heroLabel) {
+    }
+
+    // Title slides up
+    const heroTitle = document.querySelector('.hero__title');
+    if (heroTitle) {
+    }
+
+    // Subtitle slides up
+    const heroSub = document.querySelector('.hero__subtitle');
+    if (heroSub) {
+    }
+
+    // CTAs stagger in
+    // Phone floats up with scale
+    const heroPhone = document.querySelector('.hero__phone-wrap');
+    if (heroPhone) {
+    }
+
+    // Notification feed fades in as a unit (individual notifs animate via JS)
+    const notifFeed = document.querySelector('#hero-notif-feed');
+    if (notifFeed) {
+      gsap.set(notifFeed, { opacity: 0 });
+      heroTl.to(notifFeed, { opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.6');
+    }
+
+    // Proof bar slides up
+    const heroProof = document.querySelector('.hero__proof');
+    if (heroProof) {
+    }
+
+    // Phone parallax removed — was causing scroll glitches
+
+    // ─── SCROLL REVEALS ───
+    // Handled by /js/reveal.js (a single IntersectionObserver). This used to
+    // create one ScrollTrigger per .reveal element — ~54 of them on this page.
+
+// Step numbers pop
+    document.querySelectorAll('.hiw__step-num').forEach((el) => {
+      gsap.from(el, {
+        scale: 0.3, opacity: 0, duration: 0.6, ease: 'back.out(2)',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      });
+    });
+
+    // ─── STAT VALUES — scale + counter effect ───
+    document.querySelectorAll('.proof__stat-value').forEach((el) => {
+      gsap.from(el, {
+        scale: 0.4, opacity: 0, y: 20, duration: 0.7,
+        ease: 'back.out(2)',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      });
+    });
+
+    // ─── ACCENT LINES ───
+    document.querySelectorAll('.cta__expand-line').forEach((el) => {
+      gsap.fromTo(el, { scaleY: 0 }, {
+        scaleY: 1, duration: 1, ease: 'power2.out',
+        transformOrigin: 'top center',
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+      });
+    });
+
+    // ─── FUNNEL COMPARISON ENTRANCE ───
+    const funnelSection = document.querySelector('.funnel');
+    if (funnelSection) {
+      // Pills bounce in with stagger
+      const leftPills = funnelSection.querySelectorAll('.funnel__side--left .fpill');
+      if (leftPills.length) {
+        gsap.to(leftPills, {
+          opacity: 1, y: 0, duration: 0.45, stagger: 0.08, ease: 'bounce.out',
+          scrollTrigger: { trigger: '.funnel__layout', start: 'top 95%', once: true },
+        });
+      }
+
+      // DUSA platform card enters after competitors
+      const dusaPlatform = funnelSection.querySelector('.funnel__platform');
+      if (dusaPlatform) {
+        gsap.to(dusaPlatform, {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.7,
+          scrollTrigger: { trigger: '.funnel__layout', start: 'top 95%', once: true },
+        });
+      }
+
+      // Funnel shapes scale in
+      const funnelShapes = funnelSection.querySelectorAll('.funnel__shape');
+      if (funnelShapes.length) {
+        gsap.to(funnelShapes, {
+          opacity: 1, scale: 1, duration: 0.8, stagger: 0.15, ease: 'power4.out',
+          scrollTrigger: { trigger: '.funnel__layout', start: 'top 90%', once: true },
+          delay: 0.2,
+        });
+      }
+
+      // VS badge pops
+      const vsBadge = funnelSection.querySelector('.funnel__vs-badge');
+      if (vsBadge) {
+        gsap.to(vsBadge, {
+          opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)',
+          scrollTrigger: { trigger: '.funnel__layout', start: 'top 88%', once: true },
+          delay: 0.4,
+        });
+        gsap.set(vsBadge, { scale: 0.5 });
+      }
+
+      // Output sections fade in
+      const outputs = funnelSection.querySelectorAll('.funnel__output');
+      if (outputs.length) {
+        gsap.to(outputs, {
+          opacity: 1, duration: 0.7, stagger: 0.25, ease: 'power3.out',
+          scrollTrigger: { trigger: '.funnel__output', start: 'top 95%', once: true },
+          delay: 0.3,
+        });
+      }
+    }
+
+    // ─── SECTION BORDER REVEALS ───
+    document.querySelectorAll('.hiw__step').forEach((step) => {
+      gsap.fromTo(step, { backgroundSize: '0% 1px' }, {
+        backgroundSize: '100% 1px', duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: step, start: 'top 85%', once: true },
+      });
+    });
+
+    // ─── SMOOTH NAV TRANSITION ───
+    const nav = document.querySelector('.nav');
+    if (nav) {
+      ScrollTrigger.create({
+        start: 'top -80',
+        onUpdate: (self) => {
+          nav.classList.toggle('nav--scrolled', self.progress > 0);
+        },
+      });
+    }
+
+    // Recalculate scroll positions after fonts/images settle
+    setTimeout(() => ScrollTrigger.refresh(), 500);
+    setTimeout(() => ScrollTrigger.refresh(), 1500);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    initAnimations();
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && typeof gsap !== 'undefined') {
+      gsap.ticker.wake();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }
+  });
+</script>

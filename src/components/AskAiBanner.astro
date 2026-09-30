@@ -47,6 +47,14 @@ const examples: string[] = Array.isArray(a.examples) && a.examples.length ? a.ex
   'turn last month\'s numbers into a one-page report',
   'draft the review request that actually gets replies',
 ];
+/* Each AI line is split so the Claude cube sits right before the word
+   "Claude" and the ChatGPT cube before "ChatGPT". A line naming neither gets
+   both cubes up front. */
+const tokenise = (line: string) => {
+  const parts = line.split(/(Claude|ChatGPT)/).filter(Boolean);
+  if (!parts.some((p) => p === 'Claude' || p === 'ChatGPT')) return ['Claude', 'ChatGPT', ' ' + line];
+  return parts;
+};
 /* Marquee order: lead, then [AI line, use case, use case] repeating. */
 const sequence: Array<{ kind: 'ai' | 'ex'; text: string }> = [];
 examples.forEach((ex, i) => {
@@ -85,7 +93,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
 
   <div class="aab__bar" role="region" aria-label={headline}>
     <span class="aab__glow" aria-hidden="true"></span>
-    <div class="aab__track" aria-hidden="false">
+    <div class="aab__clip"><div class="aab__track" aria-hidden="false">
       {[0, 1].map((copy) => (
         <div class="aab__run" aria-hidden={copy === 1 ? 'true' : undefined}>
           <span class="aab__item aab__item--lead">
@@ -99,13 +107,17 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
             <>
               <span class="aab__dot" aria-hidden="true"></span>
               <span class="aab__item aab__item--ai">
-                <span class="aab__cube" style={`--brand:${claude.hex}`}>
-                  {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={claude.viewBox} aria-hidden="true"><path d={claude.path} fill="currentColor"/></svg></span>)}
-                </span>
-                <span class="aab__cube aab__cube--gpt" style="--brand:#F7F4EF">
-                  {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={gpt.viewBox} aria-hidden="true"><path d={gpt.path} fill="currentColor"/></svg></span>)}
-                </span>
-                <span class="aab__sub">{it.text}</span>
+                {tokenise(it.text).map((tok) => tok === 'Claude' ? (
+                  <span class="aab__brand"><span class="aab__cube" style={`--brand:${claude.hex}`}>
+                    {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={claude.viewBox} aria-hidden="true"><path d={claude.path} fill="currentColor"/></svg></span>)}
+                  </span><b>Claude</b></span>
+                ) : tok === 'ChatGPT' ? (
+                  <span class="aab__brand"><span class="aab__cube aab__cube--gpt" style="--brand:#F7F4EF">
+                    {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={gpt.viewBox} aria-hidden="true"><path d={gpt.path} fill="currentColor"/></svg></span>)}
+                  </span><b>ChatGPT</b></span>
+                ) : (
+                  <span class="aab__sub">{tok}</span>
+                ))}
               </span>
             </>
           ) : (
@@ -120,7 +132,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
           <a class="aab__item aab__cta" href={ctaHref}>{cta} &rarr;</a>
         </div>
       ))}
-    </div>
+    </div></div>
     <button class="aab__close" type="button" aria-label={closeLabel}>
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -128,7 +140,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
 </div>
 
 <style>
-  :root { --aab-h: 60px; --aab-cube: 48px; }
+  :root { --aab-h: 42px; --aab-cube: 48px; }
   .aab[hidden] { display: none; }
 
   /* ── Bubbles ─────────────────────────────────────────────────────── */
@@ -161,7 +173,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
   /* ── The bar ──────────────────────────────────────────────────────── */
   .aab__bar {
     position: fixed; left: 0; right: 0; top: var(--nav-height); z-index: 999;
-    height: var(--aab-h); display: flex; align-items: center; overflow: hidden;
+    height: var(--aab-h); display: flex; align-items: center; overflow: visible;
     background: linear-gradient(90deg, rgba(247,244,239,0.06), rgba(247,244,239,0.10) 50%, rgba(247,244,239,0.06));
     border-top: 1px solid rgba(255, 255, 255, 0.14);
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
@@ -187,6 +199,10 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
   @keyframes aabGlow { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
 
   /* ── Marquee ──────────────────────────────────────────────────────── */
+  /* The clip is taller than the bar so the 48px cubes overhang top and
+     bottom while the marquee is still cut cleanly at the screen edges. */
+  .aab__clip { position: absolute; left: 0; right: 0; top: -14px; bottom: -14px; overflow: hidden; pointer-events: none; }
+  .aab__clip > * { pointer-events: auto; }
   .aab__track {
     display: flex; width: max-content; height: 100%; align-items: center;
     animation: aabScroll var(--aab-speed, 150s) linear infinite;
@@ -226,8 +242,12 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
   .aab__face svg { width: 60%; height: 60%; }
   .aab__face b { font-family: var(--font-headline); font-weight: 700; font-size: calc(var(--aab-cube) * 0.5); color: var(--reef-aqua); }
   .aab__cube--gpt .aab__face { border-color: rgba(247, 244, 239, 0.28); }
-  .aab__item--ai { gap: 0.75rem; }
-  .aab__item--ai .aab__cube + .aab__cube { margin-left: -0.15rem; }
+  .aab__item--ai { gap: 0; }
+  .aab__brand { display: inline-flex; align-items: center; gap: 0.45rem; margin-left: 0.4rem; }
+  .aab__brand:first-child { margin-left: 0; }
+  .aab__brand + .aab__brand { margin-left: 0.5rem; }
+  .aab__brand b { font-family: var(--font-headline); font-weight: 700; color: var(--warm-white); }
+  .aab__item--ai .aab__sub { white-space: pre; }
   .aab__face--front  { transform: rotateY(0deg)   translateZ(calc(var(--aab-cube) / 2)); }
   .aab__face--right  { transform: rotateY(90deg)  translateZ(calc(var(--aab-cube) / 2)); }
   .aab__face--back   { transform: rotateY(180deg) translateZ(calc(var(--aab-cube) / 2)); }
@@ -251,7 +271,7 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 30px rgba(12, 14, 20, 0.08);
   }
   :global(html[data-theme="light"]) .aab__item { color: rgba(12, 14, 20, 0.8); }
-  :global(html[data-theme="light"]) .aab__headline { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .aab__headline, :global(html[data-theme="light"]) .aab__brand b { color: var(--deep-black); }
   :global(html[data-theme="light"]) .aab__sub { color: rgba(12, 14, 20, 0.66); }
   :global(html[data-theme="light"]) .aab__item--ex em, :global(html[data-theme="light"]) .aab__cta { color: var(--aqua-ink, #0B5F55); }
   :global(html[data-theme="light"]) .aab__dot { background: var(--deep-ocean); }
@@ -260,12 +280,13 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
 
   /* ── Phones ──────────────────────────────────────────────────────── */
   @media (max-width: 768px) {
-    :root { --aab-h: 52px; --aab-cube: 40px; }
+    :root { --aab-h: 38px; --aab-cube: 42px; }
     .aab__track { --aab-speed: 120s; }
     .aab__item { font-size: 0.875rem; }
     .aab__headline { font-size: 0.9375rem; }
     .aab__close { right: 6px; width: 26px; height: 26px; }
     .aab__bar { padding-right: 34px; }
+    .aab__clip { top: -10px; bottom: -10px; }
   }
 
   @media (prefers-reduced-motion: reduce) {

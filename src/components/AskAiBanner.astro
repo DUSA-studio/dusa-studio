@@ -97,9 +97,9 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
       {[0, 1].map((copy) => (
         <div class="aab__run" aria-hidden={copy === 1 ? 'true' : undefined}>
           <span class="aab__item aab__item--lead">
-            <span class="aab__cube aab__cube--dusa">
+            <span class="aab__cube-wrap"><span class="aab__cube aab__cube--dusa">
               {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><b>D</b></span>)}
-            </span>
+            </span></span>
             <span class="aab__pill">{eyebrow}</span>
             <strong class="aab__headline">{headline}</strong>
           </span>
@@ -108,13 +108,13 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
               <span class="aab__dot" aria-hidden="true"></span>
               <span class="aab__item aab__item--ai">
                 {tokenise(it.text).map((tok) => tok === 'Claude' ? (
-                  <span class="aab__brand"><span class="aab__cube" style={`--brand:${claude.hex}`}>
+                  <span class="aab__brand"><span class="aab__cube-wrap"><span class="aab__cube" style={`--brand:${claude.hex}`}>
                     {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={claude.viewBox} aria-hidden="true"><path d={claude.path} fill="currentColor"/></svg></span>)}
-                  </span><b>Claude</b></span>
+                  </span></span><b>Claude</b></span>
                 ) : tok === 'ChatGPT' ? (
-                  <span class="aab__brand"><span class="aab__cube aab__cube--gpt" style="--brand:#F7F4EF">
+                  <span class="aab__brand"><span class="aab__cube-wrap"><span class="aab__cube aab__cube--gpt" style="--brand:#F7F4EF">
                     {FACES.map((f) => <span class={`aab__face aab__face--${f}`}><svg viewBox={gpt.viewBox} aria-hidden="true"><path d={gpt.path} fill="currentColor"/></svg></span>)}
-                  </span><b>ChatGPT</b></span>
+                  </span></span><b>ChatGPT</b></span>
                 ) : (
                   <span class="aab__sub">{tok}</span>
                 ))}
@@ -227,7 +227,10 @@ const FACES = ['front', 'right', 'back', 'left', 'top', 'bottom'];
   .aab__cta:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   /* Glass cubes, the hero's dice at 24px. */
-  .aab__cube { position: relative; width: var(--aab-cube); height: var(--aab-cube); perspective: 600px; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.65)); z-index: 1; flex: 0 0 auto; transform-style: preserve-3d; animation: aabSpin 22s linear infinite; --brand: var(--reef-aqua); }
+  /* The wrapper carries the shadow and the stacking; the cube itself must
+     stay free of filter/opacity/overflow, which would flatten its 3D faces. */
+  .aab__cube-wrap { display: inline-flex; flex: 0 0 auto; position: relative; z-index: 1; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.65)); }
+  .aab__cube { position: relative; width: var(--aab-cube); height: var(--aab-cube); perspective: 600px; flex: 0 0 auto; transform-style: preserve-3d; animation: aabSpin 22s linear infinite; --brand: var(--reef-aqua); }
   .aab__cube--dusa { animation-duration: 26s; animation-direction: reverse; }
   @keyframes aabSpin { from { transform: rotateX(-24deg) rotateY(0deg); } to { transform: rotateX(-24deg) rotateY(360deg); } }
   .aab__face {

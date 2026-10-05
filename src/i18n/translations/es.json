@@ -246,7 +246,7 @@
       "supportAiTitle": "Soporte con IA",
       "supportAiDesc": "Disponible en todos los planes, 24/7.",
       "supportManagerTitle": "Gestor de cuenta dedicado",
-      "supportManagerDesc": "Para miembros de los planes Growth y Bespoke.",
+      "supportManagerDesc": "Para miembros del plan Bespoke. Los miembros de Growth cuentan con soporte prioritario.",
       "ctaBookDemo": "Reserva tu demo gratuita",
       "ctaLearnMore": "Saber más sobre la incorporación"
     },
@@ -284,11 +284,11 @@
       "phase3Detail2Desc": "Una guía práctica para ti y tu equipo. No un webinar grabado. Orientación en vivo adaptada a tu configuración.",
       "phase4Badge": "Continuo",
       "phase4Title": "Lanzamiento y soporte",
-      "phase4Desc": "Estás en vivo. Desde aquí, nuestro asistente de soporte con IA está disponible las 24 horas. Para los miembros de los planes Growth y Bespoke, tu gestor de cuenta dedicado hace seguimiento regularmente para optimizar tu configuración.",
+      "phase4Desc": "Estás en vivo. Desde aquí, nuestro asistente de soporte con IA está disponible las 24 horas. Los miembros de Growth cuentan con soporte prioritario y un seguimiento con su consultor de incorporación. Los clientes Bespoke tienen un gestor de cuenta dedicado que hace seguimiento regularmente para optimizar tu configuración y ayudarte a crecer.",
       "phase4Detail1Title": "Soporte con IA, 24/7",
       "phase4Detail1Desc": "Obtén respuestas al instante. Nuestro asistente de IA está entrenado en toda la plataforma DUSA y puede ayudarte con la configuración, resolución de problemas y mejores prácticas.",
       "phase4Detail2Title": "Gestor de cuenta dedicado",
-      "phase4Detail2Desc": "Para miembros de los planes Growth y Bespoke. Revisiones mensuales, optimización proactiva y una línea directa con alguien que conoce tu negocio.",
+      "phase4Detail2Desc": "Para miembros del plan Bespoke. Revisiones mensuales, optimización proactiva y una línea directa con alguien que conoce tu negocio. Los miembros de Growth cuentan con soporte prioritario.",
       "ctaTitle": "Listo para empezar?",
       "ctaDesc": "Reserva una demo gratuita y descubre exactamente cómo DUSA se adapta a tu negocio.",
       "ctaBookDemo": "Reserva tu demo gratuita",
@@ -422,33 +422,38 @@
   },
   "pricing": {
     "metaTitle": "Precios | DUSA . studio",
-    "metaDesc": "Precios simples y transparentes para cada etapa de crecimiento. CRM, correo, SMS, embudos, reservas y gestión de reputación en una sola plataforma.",
-    "metaDescription": "Precios simples y transparentes para cada etapa de crecimiento. CRM, email, SMS, embudos, reservas y reputación en una sola plataforma. Sin permanencia.",
+    "metaDesc": "Precios simples y transparentes para cada etapa de crecimiento. CRM, correo, SMS, embudos, reservas y gestión de reputación en una sola plataforma, con Ask AI en todos los planes.",
+    "metaDescription": "Precios simples y transparentes para cada etapa de crecimiento. CRM, email, SMS, embudos, reservas y reputación en una sola plataforma, con Ask AI en todos los planes y tu AI Employee en Growth. Sin permanencia.",
     "heroLabel": "Precios",
     "heroTitle": "Una plataforma.",
     "heroTitleAccent": "Tu precio.",
     "heroSub": "Comienza con lo que necesitas. Escala cuando estés listo. Sin compromisos, sin cargos ocultos.",
     "currencyNote": "Todos los precios en {currency}",
-    "usageNoteShort": "El precio del plan cubre el acceso a la plataforma. El uso de mensajes, llamadas, correos e IA se factura por separado segun tu consumo, en USD.",
+    "usageNoteShort": "El precio del plan cubre el acceso a la plataforma. El uso de mensajes, llamadas y correos, así como la IA que supere lo incluido en tu plan, se factura según tu consumo, en USD.",
     "usageNoteLink": "Como funciona la facturacion por uso",
+    "addonsLine": "Complementos: usuarios adicionales por {extraUser}/mes cada uno en cualquier plan. Unlimited AI por {unlimitedAi}/mes en Growth.",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
     "tierGrowth": "Growth",
     "tierBespoke": "Bespoke",
     "launchpadTagline": "Empieza con uno. Escala cuando estés listo.",
-    "launchpadDesc": "Elige cualquier sistema principal y comienza hoy. La forma más fácil de descubrir lo que DUSA puede hacer por tu negocio.",
+    "launchpadDesc": "Elige cualquier sistema principal y comienza hoy, con Ask AI a tu lado. La forma más fácil de descubrir lo que DUSA puede hacer por tu negocio.",
     "starterTagline": "Todo conectado.",
-    "starterDesc": "Los 9 sistemas principales trabajando juntos. La plataforma DUSA completa a una fracción del costo de comprar herramientas por separado.",
-    "growthTagline": "Construido para el impulso.",
-    "growthDesc": "Todo ilimitado más automatizaciones avanzadas, herramientas de IA y soporte prioritario para acelerar tu crecimiento.",
+    "starterDesc": "Los 9 sistemas principales trabajando juntos, con Ask AI para ayudarte a gestionarlo todo. La plataforma DUSA completa a una fracción del costo de comprar herramientas por separado.",
+    "growthTagline": "Tu equipo de IA, incluido.",
+    "growthDesc": "El AI Employee atiende tus llamadas y mensajes y agenda citas por ti. Contactos ilimitados, 3 usuarios y soporte prioritario.",
     "bespokeTagline": "Soluciones personalizadas para equipos en crecimiento.",
-    "bespokeDesc": "Multi-ubicación, acceso de equipo, integraciones personalizadas y gestión de cuenta dedicada. Construido en torno a tu negocio.",
+    "bespokeDesc": "IA ilimitada, usuarios ilimitados, multi-ubicación, integraciones personalizadas y un gestor de cuenta dedicado. Construido en torno a tu negocio.",
+    "deltaLaunchpad": "Por {deltaStarter}/mes más obtienes los 9 sistemas en Starter",
+    "deltaStarter": "Por {deltaGrowth}/mes más obtienes el AI Employee en Growth",
+    "deltaGrowth": "¿Necesitas IA ilimitada o más usuarios? Descubre Bespoke",
+    "deltaBespoke": "Sin contratos de permanencia en ningún plan",
     "perMonth": "/mes",
     "custom": "Personalizado",
     "getStarted": "Comenzar",
     "letsTalk": "Hablemos",
     "badgeEntry": "Oferta inicial",
-    "badgeBestValue": "Mejor valor",
+    "badgeBestValue": "Más popular",
     "badgeCustom": "Personalizado",
     "replaceLabel": "¿Por qué estás pagando?",
     "replaceTitle": "Selecciona tus herramientas actuales.",
@@ -490,48 +495,49 @@
     "ctaLabel": "Listo para crecer?",
     "ctaTitle": "Empieza con Launchpad.",
     "ctaTitleAccent": "Escala desde ahí.",
-    "ctaDesc": "Prueba la plataforma completa gratis durante 14 días. Gratis por 14 días, cancela cuando quieras. O reserva una demo y te lo explicamos.",
+    "ctaDesc": "Prueba la plataforma completa gratis durante 14 días, cancela cuando quieras. O reserva una demo y te lo explicamos.",
     "ctaGetStarted": "Comenzar",
     "ctaBookDemo": "Reservar una demo",
     "included": "Incluido",
+    "notIncluded": "No incluido",
     "data": {
       "tierHighlights": {
         "launchpad": [
           "1 sistema principal a tu elección",
           "9 sistemas para elegir",
-          "Acceso completo al panel",
-          "Análisis básicos",
-          "Soporte por chat con IA",
-          "Acceso a la comunidad"
+          "Asistente Ask AI, pago por uso",
+          "1 usuario, 500 contactos",
+          "Panel completo y análisis básicos",
+          "Soporte por chat con IA y comunidad"
         ],
         "starter": [
           "Los 9 sistemas principales incluidos",
-          "CRM + gestión de pipeline",
+          "CRM, pipeline y 2 500 contactos",
           "Marketing por correo y SMS",
           "Constructor de embudos y sitios web",
           "Reservas, redes sociales y reputación",
-          "Facturación, formularios y encuestas",
-          "Automatizaciones de flujo de trabajo",
-          "Soporte por chat con IA"
+          "Automatizaciones ilimitadas",
+          "Asistente Ask AI, pago por uso",
+          "1 usuario, añade más por {extraUser}/mes"
         ],
         "growth": [
           "Todo lo de Starter",
-          "Contactos y flujos de trabajo ilimitados",
-          "Constructor de automatizaciones avanzado",
-          "Respuestas impulsadas por IA",
-          "Paneles de informes personalizados",
-          "Soporte prioritario",
-          "Sesión estratégica de onboarding",
-          "Canal de comunidad dedicado"
+          "AI Employee incluido",
+          "La IA atiende tus llamadas, chats y mensajes",
+          "100 min de llamadas y 1 000 respuestas IA al mes",
+          "Uso de Ask AI incluido",
+          "Contactos ilimitados, 3 usuarios",
+          "Automatización premium, paneles a medida, API",
+          "Soporte prioritario y sesión de configuración IA"
         ],
         "bespoke": [
           "Todo lo de Growth",
+          "Llamadas y conversaciones con IA ilimitadas",
+          "Usuarios ilimitados",
           "Soporte multi-ubicación",
-          "Cuentas de usuario para tu equipo",
-          "Integraciones personalizadas",
+          "Integraciones y automatizaciones a medida",
           "Gestor de cuenta dedicado",
           "Revisiones estratégicas mensuales",
-          "Automatizaciones construidas a medida",
           "Línea de soporte telefónico"
         ]
       },
@@ -550,9 +556,15 @@
         "Plataforma comunitaria",
         "Seguimiento de llamadas"
       ],
-      "cellPick1": "Elige 1",
-      "cellUnlimited": "Ilimitado",
-      "cellWorkflows5": "5 flujos de trabajo",
+      "cells": {
+        "pick1": "Elige 1",
+        "unlimited": "Ilimitado",
+        "included": "Incluido",
+        "payg": "Pago por uso",
+        "aiReplies": "1 000 respuestas/mes",
+        "aiMinutes": "100 min/mes",
+        "extraUser": "{extraUser}/mes c/u"
+      },
       "featureCategories": [
         {
           "name": "Plataforma principal",
@@ -596,31 +608,23 @@
           ]
         },
         {
-          "name": "Automatización e IA",
+          "name": "Automatización",
           "rows": [
             [
-              "Automatizaciones básicas de flujo de trabajo",
-              "Configura automatizaciones sencillas del tipo \"si pasa esto, haz aquello\", como enviar un correo de bienvenida cuando alguien rellena un formulario o etiquetar contactos según sus acciones."
-            ],
-            [
-              "Constructor de automatizaciones multipaso",
-              "Crea flujos de trabajo complejos de varios pasos con esperas, condiciones y múltiples acciones. Automatiza todo tu proceso de seguimiento, desde el primer contacto hasta la conversión."
+              "Automatizaciones de flujo de trabajo",
+              "Crea flujos de trabajo automatizados sin límite: da seguimiento a los nuevos leads, confirma reservas, reclama facturas pendientes y nutre a tus contactos en piloto automático, con esperas, condiciones y múltiples acciones."
             ],
             [
               "Secuencias basadas en disparadores",
               "Inicia secuencias automáticamente cuando un contacto realiza una acción concreta, como visitar una página, abrir un correo o reservar una cita."
             ],
             [
-              "Respuestas automáticas con IA",
-              "Deja que la IA atienda las primeras consultas, califique leads y responda al instante a las preguntas frecuentes por chat, SMS o correo mientras tú te centras en tu negocio."
-            ],
-            [
-              "Asistente de contenido con IA",
-              "Genera textos de correo, publicaciones para redes sociales y contenido de marketing con una IA entrenada en la voz de tu marca. Ahorra horas en la creación de contenido."
-            ],
-            [
               "Lógica condicional y ramificación",
               "Crea flujos de trabajo inteligentes que se ramifican según el comportamiento del contacto, el valor del trato o los valores de campos personalizados. Distintos caminos para distintos escenarios."
+            ],
+            [
+              "Acciones premium de flujo de trabajo",
+              "Desbloquea los pasos de automatización premium: decisiones con IA dentro de los flujos de trabajo, webhooks, Google Sheets, Slack, código personalizado y más. Solo unos centavos por ejecución, descontados de tu saldo."
             ],
             [
               "Automatizaciones construidas a medida",
@@ -629,15 +633,48 @@
           ]
         },
         {
-          "name": "Contactos y datos",
+          "name": "AI Employee",
+          "rows": [
+            [
+              "Asistente Ask AI",
+              "Tu asistente dentro de la plataforma. Pídele que escriba una campaña, cree un flujo de trabajo, etiquete y segmente tus contactos o te explique tus cifras, y hace el trabajo en tu cuenta. El uso ligero se cobra en centavos en Launchpad y Starter, y está incluido en Growth."
+            ],
+            [
+              "Conversation AI",
+              "La IA responde a tus leads por SMS, chat web, correo, Instagram y Facebook Messenger, contesta preguntas a partir de tu base de conocimiento y agenda citas directamente en tu calendario."
+            ],
+            [
+              "Agente telefónico Voice AI",
+              "Un recepcionista con inteligencia artificial atiende tus llamadas 24/7, califica a quien llama, agenda la cita y te envía el resumen. No vuelvas a perder ni una llamada."
+            ],
+            [
+              "Reviews AI",
+              "Responde automáticamente a tus reseñas de Google y Facebook, con tu tono, para que ninguna reseña se quede sin respuesta."
+            ],
+            [
+              "Content AI",
+              "Redacta correos, publicaciones para redes sociales y textos para páginas de destino, y genera imágenes bajo demanda desde el mismo constructor."
+            ],
+            [
+              "Uso adicional de IA",
+              "En Growth, el uso de IA que exceda lo incluido cada mes continúa a tarifas de pago por uso, descontadas de tu saldo, o cámbiate a Unlimited AI por {unlimitedAi}/mes. En todos los planes se aplican los cargos estándar por llamadas y SMS."
+            ]
+          ]
+        },
+        {
+          "name": "Contactos y usuarios",
           "rows": [
             [
               "Fichas de contacto",
               "Guarda y gestiona tus leads y clientes con perfiles detallados, historial de actividad, notas y campos de datos personalizados."
             ],
             [
-              "Campos personalizados",
-              "Añade tus propios campos de datos a contactos, tratos y registros. Registra la información concreta que importa para tu negocio."
+              "Usuarios incluidos",
+              "Accesos para tu equipo con permisos por rol, cada uno con su propio calendario y su vista de bandeja de entrada. Añade usuarios adicionales a cualquier plan por {extraUser}/mes cada uno."
+            ],
+            [
+              "Usuarios adicionales",
+              "Añade miembros de tu equipo cuando los necesites. Cada usuario adicional tiene su propio acceso, calendario y permisos."
             ],
             [
               "Etiquetas y segmentos",
@@ -646,10 +683,6 @@
             [
               "Importar / exportar contactos",
               "Trae tus contactos existentes fácilmente mediante un archivo CSV o exporta tus datos cuando quieras. Tus datos siempre son tuyos."
-            ],
-            [
-              "Puntuación de leads",
-              "Puntúa tus leads automáticamente según su interacción, comportamiento y afinidad. Dedica tu tiempo a los contactos con más probabilidades de convertir."
             ],
             [
               "Listas inteligentes y filtros",
@@ -710,8 +743,8 @@
               "Sáltate la cola y recibe respuestas más rápidas de nuestro equipo de soporte. Tus solicitudes se atienden primero y con atención dedicada."
             ],
             [
-              "Sesión estratégica de onboarding",
-              "Una sesión individual con un consultor de crecimiento para planificar tu configuración de DUSA, migrar tus datos y crear tus primeras automatizaciones."
+              "Sesión de onboarding y configuración de IA",
+              "Una sesión individual con un consultor de crecimiento para planificar tu configuración, migrar tus datos, crear tus primeras automatizaciones y enseñar a tu AI Employee todo sobre tu negocio."
             ],
             [
               "Gestor de cuenta dedicado",
@@ -759,10 +792,6 @@
               "Gestiona varias sedes de tu negocio desde una sola cuenta, con pipelines, contactos e informes independientes para cada ubicación."
             ],
             [
-              "Cuentas de usuario para tu equipo",
-              "Añade miembros de tu equipo con permisos por rol. Controla quién puede ver, editar y gestionar cada parte de tu cuenta."
-            ],
-            [
               "Integraciones personalizadas",
               "Nuestro equipo crea integraciones a medida para conectar DUSA con tus herramientas, bases de datos y sistemas internos actuales."
             ]
@@ -772,15 +801,31 @@
       "faqs": [
         {
           "q": "¿Qué es DUSA y cómo ayuda a las pequeñas empresas?",
-          "a": "DUSA es una plataforma de crecimiento todo en uno que sustituye las herramientas dispersas que usan las pequeñas empresas para CRM, marketing por correo, SMS, embudos, reservas y gestión de reputación. En lugar de pagar cinco o seis suscripciones distintas, todo vive en un único sistema conectado."
+          "a": "DUSA es una plataforma de crecimiento todo en uno que sustituye las herramientas dispersas que usan las pequeñas empresas para CRM, marketing por correo, SMS, embudos, reservas y gestión de reputación. En lugar de pagar cinco o seis suscripciones distintas, todo vive en un único sistema conectado, con IA integrada."
         },
         {
           "q": "¿Cuánto cuesta la plataforma DUSA al mes?",
-          "a": "Los planes empiezan desde {launchpad} {currency} al mes por una única herramienta principal con nuestro plan Launchpad. Nuestro plan Starter incluye los 9 sistemas principales por {starter}/mes, y Growth desbloquea contactos ilimitados, automatizaciones avanzadas y soporte prioritario por {growth}/mes. Todos los precios están en {currency}, sin cargos ocultos."
+          "a": "Los planes empiezan desde {launchpad} {currency} al mes por un único sistema principal con nuestro plan Launchpad. Starter incluye los 9 sistemas principales por {starter}/mes, y Growth añade tu AI Employee, contactos ilimitados, 3 usuarios y soporte prioritario por {growth}/mes. Ask AI está en todos los planes. Todos los precios están en {currency}, sin cargos ocultos."
         },
         {
           "q": "¿Qué incluye el plan Launchpad?",
-          "a": "Launchpad te da acceso a un sistema principal a tu elección entre nueve opciones: CRM y pipeline, embudos y sitio web, marketing por correo, marketing por SMS, reservas y calendario, planificador de redes sociales, gestión de reputación, facturación y pagos, o formularios y encuestas. Incluye acceso completo al panel, análisis básicos, soporte por chat con IA y acceso a la comunidad. Está pensado para profesionales independientes que quieren empezar con poco e ir escalando."
+          "a": "Launchpad te da acceso a un sistema principal a tu elección entre nueve opciones: CRM y pipeline, embudos y sitio web, marketing por correo, marketing por SMS, reservas y calendario, planificador de redes sociales, gestión de reputación, facturación y pagos, o formularios y encuestas. Incluye Ask AI, acceso completo al panel, análisis básicos, soporte por chat con IA y acceso a la comunidad, para 1 usuario y hasta 500 contactos. Está pensado para profesionales independientes que quieren empezar con poco e ir escalando."
+        },
+        {
+          "q": "¿Qué es Ask AI y qué planes lo incluyen?",
+          "a": "Ask AI es el asistente integrado en todos los planes de DUSA. Pídele que escriba una campaña de correo, cree un flujo de trabajo, etiquete y segmente tus contactos o te explique un informe, y hace el trabajo dentro de tu cuenta. Está en todos los planes. En Launchpad y Starter, el pequeño consumo de IA que genera se descuenta de tu saldo, normalmente unos centavos por tarea. En Growth y Bespoke, el uso de Ask AI está incluido."
+        },
+        {
+          "q": "¿Qué es el AI Employee del plan Growth?",
+          "a": "El AI Employee es un equipo de empleados con IA que trabajan dentro de tu cuenta. Conversation AI responde a tus leads por SMS, chat web, correo, Instagram y Facebook y agenda citas. Voice AI atiende tu teléfono, califica a quien llama y le agenda una cita. Reviews AI responde a tus reseñas de Google. Content AI redacta correos y publicaciones y genera imágenes. Growth incluye 100 minutos de llamadas con IA y 1 000 respuestas de conversación con IA al mes, además de Reviews AI y Content AI ilimitados. Si superas lo incluido, el uso continúa a tarifas de pago por uso descontadas de tu saldo, o puedes pasarte a Unlimited AI por {unlimitedAi}/mes. Los cargos estándar por llamadas y SMS se siguen aplicando."
+        },
+        {
+          "q": "¿Cuál es la diferencia entre Starter y Growth?",
+          "a": "Starter te da toda la plataforma para que la gestiones tú: los 9 sistemas, flujos de trabajo ilimitados, 2 500 contactos y 1 usuario, con la ayuda de Ask AI. Growth es para negocios que quieren que la plataforma funcione sola. Añade el AI Employee, que atiende tus llamadas y mensajes y agenda citas, el uso de Ask AI incluido, pasos de automatización premium, contactos ilimitados, 3 usuarios, paneles personalizados, atribución, acceso a la API, soporte prioritario y una sesión de onboarding y configuración de IA. El salto cuesta {deltaGrowth}/mes más."
+        },
+        {
+          "q": "¿Cuántos usuarios puedo añadir?",
+          "a": "Launchpad y Starter incluyen 1 usuario. Growth incluye 3 usuarios. Los usuarios adicionales cuestan {extraUser}/mes cada uno en cualquier plan, con su propio acceso, calendario y permisos. Bespoke incluye usuarios ilimitados."
         },
         {
           "q": "¿Puedo cambiar de plan en cualquier momento?",
@@ -788,11 +833,11 @@
         },
         {
           "q": "¿Hay cuotas de configuración o costos ocultos?",
-          "a": "No hay cuotas de configuración en ningún plan. El precio de tu plan cubre el acceso a la plataforma. El uso de mensajes, llamadas, correo e IA se factura por separado según lo consumas, y se descuenta de un saldo prepagado en tu cuenta. Se hace un pequeño cargo de recarga a tu tarjeta la primera vez que activas esas funciones, y de nuevo automáticamente cada vez que el saldo se agota. Tú defines el importe de la recarga y puedes añadir saldo por tu cuenta en cualquier momento. El consumo se factura en USD porque los proveedores de telefonía, correo e IA que hay detrás de la plataforma están en Estados Unidos. La mayoría de los clientes gastan entre 15 y 25 USD al mes según el volumen. No hay ningún otro cargo oculto."
+          "a": "No hay cuotas de configuración en ningún plan. El precio de tu plan cubre el acceso a la plataforma. El uso de mensajes, llamadas y correo, así como cualquier uso de IA que supere lo incluido en tu plan, se factura por separado según lo consumas, y se descuenta de un saldo prepagado en tu cuenta. Se hace un pequeño cargo de recarga a tu tarjeta la primera vez que activas esas funciones, y de nuevo automáticamente cada vez que el saldo se agota. Tú defines el importe de la recarga y puedes añadir saldo por tu cuenta en cualquier momento. El consumo se factura en USD porque los proveedores de telefonía, correo e IA que hay detrás de la plataforma están en Estados Unidos. La mayoría de los clientes gastan entre 15 y 25 USD al mes según el volumen. No hay ningún otro cargo oculto."
         },
         {
           "q": "¿Qué tipo de soporte ofrece DUSA?",
-          "a": "Todos los planes incluyen soporte ilimitado por chat con IA, disponible 24/7 desde tu portal de miembros, además de acceso a la comunidad DUSA. A partir de Starter se incluye soporte por correo. Los planes Growth cuentan con soporte prioritario y una sesión estratégica de onboarding. Los clientes Bespoke reciben un gestor de cuenta dedicado, soporte telefónico y revisiones estratégicas mensuales."
+          "a": "Todos los planes incluyen soporte ilimitado por chat con IA, disponible 24/7 desde tu portal de miembros, además de acceso a la comunidad DUSA y soporte por correo. Los planes Growth cuentan con soporte prioritario y una sesión de onboarding y configuración de IA. Los clientes Bespoke reciben un gestor de cuenta dedicado, soporte telefónico y revisiones estratégicas mensuales."
         },
         {
           "q": "¿Es DUSA adecuado para profesionales independientes y freelancers?",
@@ -808,7 +853,7 @@
         },
         {
           "q": "¿Cuánto se tarda en configurar DUSA?",
-          "a": "La mayoría de los negocios están en marcha en menos de 48 horas. Nuestro plan Launchpad puede estar activo en menos de una hora. Los planes Growth y Bespoke incluyen una sesión estratégica de onboarding en la que te ayudamos a configurarlo todo para tu negocio concreto."
+          "a": "La mayoría de los negocios están en marcha en menos de 48 horas. Nuestro plan Launchpad puede estar activo en menos de una hora. Los planes Growth y Bespoke incluyen una sesión de onboarding y configuración de IA en la que te ayudamos a configurarlo todo para tu negocio concreto."
         },
         {
           "q": "¿Todos los precios están en {currency}?",
@@ -968,7 +1013,7 @@
       },
       {
         "q": "¿Cuánto cuesta?",
-        "a": "Los planes comienzan en $149 al mes. La mayoría de los negocios que incorporamos pagan entre $800 y $1,100 al mes en herramientas separadas, así que el cambio suele pagarse solo varias veces en el primer mes."
+        "a": "La plataforma completa comienza en $149 al mes, con Ask AI en todos los planes. Growth, por $297, añade tu AI Employee para atender llamadas y mensajes por ti. La mayoría de los negocios que incorporamos pagan entre $800 y $1,100 al mes en herramientas separadas, así que el cambio suele pagarse solo varias veces en el primer mes."
       },
       {
         "q": "¿Necesito conocimientos técnicos?",
@@ -988,7 +1033,7 @@
       },
       {
         "q": "¿Y si me quedo atascado?",
-        "a": "El soporte con IA está disponible 24/7 en todos los planes, con personas reales detrás. Los planes Growth y Bespoke también incluyen un gestor de cuenta dedicado que te acompaña de forma proactiva."
+        "a": "El soporte con IA está disponible 24/7 en todos los planes, con personas reales detrás. Los planes Growth cuentan con soporte prioritario y una sesión de onboarding, y los clientes Bespoke tienen un gestor de cuenta dedicado que te acompaña de forma proactiva."
       }
     ]
   },

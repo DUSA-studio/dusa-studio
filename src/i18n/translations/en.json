@@ -238,7 +238,7 @@
       "supportAiTitle": "AI Support",
       "supportAiDesc": "Available on all plans, 24/7.",
       "supportManagerTitle": "Dedicated Account Manager",
-      "supportManagerDesc": "For Growth and Bespoke plan members.",
+      "supportManagerDesc": "For Bespoke plan members. Growth members get priority support.",
       "ctaBookDemo": "Book Your Free Demo",
       "ctaLearnMore": "Learn more about onboarding"
     },
@@ -276,11 +276,11 @@
       "phase3Detail2Desc": "A hands-on walkthrough for you and your team. Not a recorded webinar. Live guidance tailored to your setup.",
       "phase4Badge": "Ongoing",
       "phase4Title": "Launch and Support",
-      "phase4Desc": "You are live. From here, our AI support assistant is available around the clock. For Growth and Bespoke plan members, your dedicated account manager checks in regularly to optimise your setup and help you get the most from the platform.",
+      "phase4Desc": "You are live. From here, our AI support assistant is available around the clock. Growth members get priority support and a follow-up with their onboarding consultant. Bespoke clients have a dedicated account manager who checks in regularly to optimise your setup and help you grow.",
       "phase4Detail1Title": "AI support, 24/7",
       "phase4Detail1Desc": "Get answers instantly. Our AI assistant is trained on the entire DUSA platform and can help with setup, troubleshooting, and best practices.",
       "phase4Detail2Title": "Dedicated account manager",
-      "phase4Detail2Desc": "For Growth and Bespoke plan members. Monthly check-ins, proactive optimisation, and a direct line to someone who knows your business.",
+      "phase4Detail2Desc": "For Bespoke plan members. Monthly check-ins, proactive optimisation, and a direct line to someone who knows your business. Growth members get priority support.",
       "ctaTitle": "Ready to get started?",
       "ctaDesc": "Book a free demo and see exactly how DUSA fits your business.",
       "ctaBookDemo": "Book Your Free Demo",
@@ -427,33 +427,38 @@
   },
   "pricing": {
     "metaTitle": "Pricing | DUSA . studio",
-    "metaDesc": "Simple, transparent pricing for every stage of growth. CRM, email, SMS, funnels, booking and reputation management in one platform.",
-    "metaDescription": "Simple, transparent pricing for every stage of growth. CRM, email, SMS, funnels, booking and reputation management in one platform. No lock-in contracts.",
+    "metaDesc": "Simple, transparent pricing for every stage of growth. CRM, email, SMS, funnels, booking and reputation management in one platform, with Ask AI on every plan.",
+    "metaDescription": "Simple, transparent pricing for every stage of growth. CRM, email, SMS, funnels, booking and reputation management in one platform, with Ask AI on every plan and your AI Employee on Growth. No lock-in contracts.",
     "heroLabel": "Pricing",
     "heroTitle": "One platform.",
     "heroTitleAccent": "Your price.",
     "heroSub": "Start with what you need. Scale when you are ready. No lock-ins, no hidden fees.",
     "currencyNote": "All prices in {currency}",
-    "usageNoteShort": "Plan price covers platform access. Message, call, email and AI usage is billed separately as you use it, in USD.",
+    "usageNoteShort": "Plan price covers platform access. Message, call and email usage, and AI beyond what your plan includes, is billed as you use it, in USD.",
     "usageNoteLink": "How usage billing works",
+    "addonsLine": "Add-ons: extra users {extraUser}/mo each on any plan. Unlimited AI {unlimitedAi}/mo on Growth.",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
     "tierGrowth": "Growth",
     "tierBespoke": "Bespoke",
     "launchpadTagline": "Start with one. Scale when ready.",
-    "launchpadDesc": "Pick any single core system and get started today. The easiest way to see what DUSA can do for your business.",
+    "launchpadDesc": "Pick any single core system and get started today, with Ask AI alongside you. The easiest way to see what DUSA can do for your business.",
     "starterTagline": "Everything connected.",
-    "starterDesc": "All 9 core systems working together. The full DUSA platform at a fraction of buying tools separately.",
-    "growthTagline": "Built for momentum.",
-    "growthDesc": "Unlimited everything plus advanced automations, AI tools, and priority support to accelerate your growth.",
+    "starterDesc": "All 9 core systems working together, with Ask AI to help you run it. The full DUSA platform at a fraction of buying tools separately.",
+    "growthTagline": "Your AI team, included.",
+    "growthDesc": "The AI Employee answers your calls and messages and books appointments for you. Unlimited contacts, 3 users and priority support.",
     "bespokeTagline": "Custom solutions for growing teams.",
-    "bespokeDesc": "Multi-location, team access, custom integrations, and dedicated account management. Built around your business.",
+    "bespokeDesc": "Unlimited AI, unlimited users, multi-location, custom integrations and a dedicated account manager. Built around your business.",
+    "deltaLaunchpad": "{deltaStarter}/mo more gets you all 9 systems on Starter",
+    "deltaStarter": "{deltaGrowth}/mo more gets you the AI Employee on Growth",
+    "deltaGrowth": "Need unlimited AI or more users? See Bespoke",
+    "deltaBespoke": "No lock-in contracts on any plan",
     "perMonth": "/mo",
     "custom": "Custom",
     "getStarted": "Get Started",
     "letsTalk": "Let us talk",
     "badgeEntry": "Entry Offer",
-    "badgeBestValue": "Best Value",
+    "badgeBestValue": "Most popular",
     "badgeCustom": "Custom",
     "replaceLabel": "What are you paying for?",
     "replaceTitle": "Select your current tools.",
@@ -495,48 +500,49 @@
     "ctaLabel": "Ready to grow?",
     "ctaTitle": "Start with Launchpad.",
     "ctaTitleAccent": "Scale from there.",
-    "ctaDesc": "Try the full platform free for 14 days. Free for 14 days, cancel anytime. Or book a demo and we will walk you through it.",
+    "ctaDesc": "Try the full platform free for 14 days, cancel anytime. Or book a demo and we will walk you through it.",
     "ctaGetStarted": "Get Started",
     "ctaBookDemo": "Book a Demo",
     "included": "Included",
+    "notIncluded": "Not included",
     "data": {
       "tierHighlights": {
         "launchpad": [
           "1 core system of your choice",
           "9 systems to choose from",
-          "Full dashboard access",
-          "Basic analytics",
-          "AI chat support",
-          "Community access"
+          "Ask AI assistant, pay as you go",
+          "1 user, 500 contacts",
+          "Full dashboard and basic analytics",
+          "AI chat support and community"
         ],
         "starter": [
           "All 9 core systems included",
-          "CRM + pipeline management",
-          "Email & SMS marketing",
-          "Funnel & website builder",
-          "Booking, social & reputation",
-          "Invoicing, forms & surveys",
-          "Workflow automations",
-          "AI chat support"
+          "CRM, pipeline and 2,500 contacts",
+          "Email and SMS marketing",
+          "Funnel and website builder",
+          "Booking, social and reputation",
+          "Unlimited workflow automations",
+          "Ask AI assistant, pay as you go",
+          "1 user, add more for {extraUser}/mo"
         ],
         "growth": [
           "Everything in Starter",
-          "Unlimited contacts & workflows",
-          "Advanced automation builder",
-          "AI-powered responses",
-          "Custom reporting dashboards",
-          "Priority support",
-          "Onboarding strategy session",
-          "Dedicated community channel"
+          "AI Employee included",
+          "AI answers your calls, chats and messages",
+          "100 AI call minutes and 1,000 AI replies a month",
+          "Ask AI usage included",
+          "Unlimited contacts, 3 users",
+          "Premium automations, custom dashboards, API",
+          "Priority support and AI setup session"
         ],
         "bespoke": [
           "Everything in Growth",
+          "Unlimited AI calls and conversations",
+          "Unlimited users",
           "Multi-location support",
-          "Team user accounts",
-          "Custom integrations",
+          "Custom integrations and automation builds",
           "Dedicated account manager",
           "Monthly strategy reviews",
-          "Custom automation builds",
           "Phone support line"
         ]
       },
@@ -555,9 +561,15 @@
         "Community platform",
         "Call tracking"
       ],
-      "cellPick1": "Pick 1",
-      "cellUnlimited": "Unlimited",
-      "cellWorkflows5": "5 workflows",
+      "cells": {
+        "pick1": "Pick 1",
+        "unlimited": "Unlimited",
+        "included": "Included",
+        "payg": "Pay as you go",
+        "aiReplies": "1,000 replies/mo",
+        "aiMinutes": "100 min/mo",
+        "extraUser": "{extraUser}/mo each"
+      },
       "featureCategories": [
         {
           "name": "Core platform",
@@ -601,31 +613,23 @@
           ]
         },
         {
-          "name": "Automation & AI",
+          "name": "Automation",
           "rows": [
             [
-              "Basic workflow automations",
-              "Set up simple if-this-then-that automations like sending a welcome email when someone fills out a form, or tagging contacts based on actions."
-            ],
-            [
-              "Multi-step automation builder",
-              "Build complex multi-step workflows with delays, conditions, and multiple actions. Automate your entire follow-up process from first touch to conversion."
+              "Workflow automations",
+              "Build unlimited automated workflows: follow up new leads, confirm bookings, chase invoices and nurture contacts on autopilot, with delays, conditions and multiple actions."
             ],
             [
               "Trigger-based sequences",
               "Automatically start sequences when contacts take specific actions like visiting a page, opening an email, or booking an appointment."
             ],
             [
-              "AI-powered auto-responses",
-              "Let AI handle initial enquiries, qualify leads, and respond to common questions instantly via chat, SMS, or email while you focus on your business."
-            ],
-            [
-              "AI content assistant",
-              "Generate email copy, social posts, and marketing content using AI trained on your brand voice. Save hours on content creation."
-            ],
-            [
               "Conditional logic & branching",
               "Create intelligent workflows that branch based on contact behaviour, deal value, or custom field values. Different paths for different scenarios."
+            ],
+            [
+              "Premium workflow actions",
+              "Unlock the premium automation steps: AI decisions inside workflows, webhooks, Google Sheets, Slack, custom code and more. A few cents per run, drawn from your balance."
             ],
             [
               "Custom automation builds",
@@ -634,15 +638,48 @@
           ]
         },
         {
-          "name": "Contacts & data",
+          "name": "AI Employee",
+          "rows": [
+            [
+              "Ask AI assistant",
+              "Your assistant inside the platform. Ask it to write a campaign, build a workflow, tag and segment your contacts, or explain your numbers, and it does the work in your account. Light usage billed in cents on Launchpad and Starter, included on Growth."
+            ],
+            [
+              "Conversation AI",
+              "AI replies to leads on SMS, web chat, email, Instagram and Facebook Messenger, answers questions from your knowledge base and books appointments straight into your calendar."
+            ],
+            [
+              "Voice AI phone agent",
+              "An AI receptionist answers your calls 24/7, qualifies the caller, books the appointment and sends you the summary. Never miss a call again."
+            ],
+            [
+              "Reviews AI",
+              "Replies to your Google and Facebook reviews automatically, in your tone, so every review gets a response."
+            ],
+            [
+              "Content AI",
+              "Writes emails, social posts and landing page copy, and generates images on demand from inside the builder."
+            ],
+            [
+              "Extra AI usage",
+              "On Growth, AI usage past the monthly allowance continues at pay as you go rates from your balance, or switch to Unlimited AI for {unlimitedAi}/mo. Standard call and SMS charges apply on every plan."
+            ]
+          ]
+        },
+        {
+          "name": "Contacts & users",
           "rows": [
             [
               "Contact records",
               "Store and manage your leads and customers with detailed profiles, activity history, notes, and custom data fields."
             ],
             [
-              "Custom fields",
-              "Add your own data fields to contacts, deals, and records. Track the specific information that matters to your business."
+              "Users included",
+              "Team logins with role-based permissions, each with their own calendar and inbox view. Add extra users to any plan for {extraUser}/mo each."
+            ],
+            [
+              "Extra users",
+              "Add team members whenever you need them. Each extra user gets their own login, calendar and permissions."
             ],
             [
               "Tags & segments",
@@ -651,10 +688,6 @@
             [
               "Import / export contacts",
               "Easily bring in your existing contacts via CSV upload or export your data anytime. Your data is always yours."
-            ],
-            [
-              "Lead scoring",
-              "Automatically score leads based on engagement, behaviour, and fit. Focus your time on the contacts most likely to convert."
             ],
             [
               "Smart lists & filters",
@@ -715,8 +748,8 @@
               "Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention."
             ],
             [
-              "Onboarding strategy session",
-              "A one-on-one session with a growth consultant to map out your DUSA setup, migrate your data, and build your first automations."
+              "Onboarding and AI setup session",
+              "A one-on-one session with a growth consultant to map out your setup, migrate your data, build your first automations and train your AI Employee on your business."
             ],
             [
               "Dedicated account manager",
@@ -764,10 +797,6 @@
               "Manage multiple business locations from a single account with separate pipelines, contacts, and reporting per location."
             ],
             [
-              "Team user accounts",
-              "Add team members with role-based permissions. Control who can see, edit, and manage different parts of your account."
-            ],
-            [
               "Custom integrations",
               "Our team builds bespoke integrations to connect DUSA with your existing tools, databases, and internal systems."
             ]
@@ -777,15 +806,31 @@
       "faqs": [
         {
           "q": "What is DUSA and how does it help small businesses?",
-          "a": "DUSA is an all-in-one growth platform that replaces the scattered tools small businesses use for CRM, email marketing, SMS, funnels, booking, and reputation management. Instead of paying for five or six separate subscriptions, everything lives in one connected system."
+          "a": "DUSA is an all-in-one growth platform that replaces the scattered tools small businesses use for CRM, email marketing, SMS, funnels, booking, and reputation management. Instead of paying for five or six separate subscriptions, everything lives in one connected system, with AI built in."
         },
         {
           "q": "How much does the DUSA platform cost per month?",
-          "a": "Plans start from {launchpad} {currency} per month for a single core tool on our Launchpad plan. Our Starter plan includes all 9 core systems for {starter}/mo, and Growth unlocks unlimited contacts, advanced automations, and priority support for {growth}/mo. All prices are in {currency} with no hidden fees."
+          "a": "Plans start from {launchpad} {currency} per month for a single core system on our Launchpad plan. Starter includes all 9 core systems for {starter}/mo, and Growth adds your AI Employee, unlimited contacts, 3 users and priority support for {growth}/mo. Ask AI is on every plan. All prices are in {currency} with no hidden fees."
         },
         {
           "q": "What is included in the Launchpad plan?",
-          "a": "Launchpad gives you access to one core system of your choice from nine options: CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, or forms and surveys. It includes full dashboard access, basic analytics, AI chat support, and community access. It is designed for sole operators who want to start small and scale up."
+          "a": "Launchpad gives you access to one core system of your choice from nine options: CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, or forms and surveys. It includes Ask AI, full dashboard access, basic analytics, AI chat support and community access, for 1 user and up to 500 contacts. It is designed for sole operators who want to start small and scale up."
+        },
+        {
+          "q": "What is Ask AI and which plans include it?",
+          "a": "Ask AI is the assistant built into every DUSA plan. Ask it to write an email campaign, build a workflow, tag and segment your contacts, or explain a report, and it does the work inside your account. It is on every plan. On Launchpad and Starter the small amount of AI usage it consumes is billed from your balance, usually cents per task. On Growth and Bespoke, Ask AI usage is included."
+        },
+        {
+          "q": "What is the AI Employee on the Growth plan?",
+          "a": "The AI Employee is a set of AI staff that work inside your account. Conversation AI replies to leads on SMS, web chat, email, Instagram and Facebook and books appointments. Voice AI answers your phone, qualifies callers and books them in. Reviews AI replies to your Google reviews. Content AI writes emails, posts and images. Growth includes 100 AI call minutes and 1,000 AI conversation replies a month, plus unlimited Reviews AI and Content AI. If you go past the included allowance, usage continues at pay as you go rates from your balance, or you can move to Unlimited AI for {unlimitedAi}/mo. Standard call and SMS charges still apply."
+        },
+        {
+          "q": "What is the difference between Starter and Growth?",
+          "a": "Starter gives you the whole platform to run yourself: all 9 systems, unlimited workflows, 2,500 contacts and 1 user, with Ask AI to help. Growth is for businesses that want the platform to run itself. It adds the AI Employee that answers your calls and messages and books appointments, included Ask AI usage, premium automation steps, unlimited contacts, 3 users, custom dashboards, attribution, API access, priority support and an onboarding and AI setup session. The step up is {deltaGrowth}/mo."
+        },
+        {
+          "q": "How many users can I add?",
+          "a": "Launchpad and Starter include 1 user. Growth includes 3 users. Extra users are {extraUser}/mo each on any plan, with their own login, calendar and permissions. Bespoke includes unlimited users."
         },
         {
           "q": "Can I upgrade my plan at any time?",
@@ -793,11 +838,11 @@
         },
         {
           "q": "Are there any setup fees or hidden costs?",
-          "a": "There are no setup fees on any plan. Your plan price covers platform access. Message, call, email and AI usage is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees."
+          "a": "There are no setup fees on any plan. Your plan price covers platform access. Message, call and email usage, and any AI usage beyond what your plan includes, is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees."
         },
         {
           "q": "What kind of support does DUSA offer?",
-          "a": "Every plan includes unlimited AI chat support available 24/7 through your members portal, plus access to the DUSA community. Starter and above includes email support. Growth plans get priority support and an onboarding strategy session. Bespoke clients receive a dedicated account manager, phone support, and monthly strategy reviews."
+          "a": "Every plan includes unlimited AI chat support available 24/7 through your members portal, plus access to the DUSA community and email support. Growth plans get priority support and an onboarding and AI setup session. Bespoke clients receive a dedicated account manager, phone support, and monthly strategy reviews."
         },
         {
           "q": "Is DUSA suitable for sole operators and freelancers?",
@@ -813,7 +858,7 @@
         },
         {
           "q": "How long does it take to set up DUSA?",
-          "a": "Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding strategy session where we help you configure everything for your specific business."
+          "a": "Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding and AI setup session where we help you configure everything for your specific business."
         },
         {
           "q": "All prices are in {currency}?",
@@ -1018,10 +1063,10 @@
     "success": "You're in! Check your email for login details.",
     "errorPrefix": "Something went wrong. Please email us at",
     "errorSuffix": "instead.",
-    "value1Title": "All 6 core systems included",
-    "value1Text": "CRM, marketing, funnels, booking, reputation, and AI chat in one place.",
-    "value2Title": "AI-powered automations from day one",
-    "value2Text": "Smart workflows that save you hours every week, active the moment you sign up.",
+    "value1Title": "All 9 core systems included",
+    "value1Text": "CRM, marketing, funnels, booking, reputation and payments in one place, with Ask AI on every plan.",
+    "value2Title": "AI that works from day one",
+    "value2Text": "Ask AI helps you build and run the platform. On Growth, your AI Employee answers calls and messages for you.",
     "value3Title": "Guided onboarding to get you results fast",
     "value3Text": "We walk you through setup so you see value within your first week.",
     "value4Title": "Cancel anytime, no questions asked",
@@ -1062,8 +1107,8 @@
     "f4Desc": "Build high-converting landing pages and sales funnels without code.",
     "f5Title": "Reputation Management",
     "f5Desc": "Collect reviews, monitor feedback, and build trust on autopilot.",
-    "f6Title": "AI Chat & Automations",
-    "f6Desc": "Respond to leads instantly with AI, then hand off seamlessly when you're ready.",
+    "f6Title": "Ask AI & AI Employee",
+    "f6Desc": "Ask AI builds and runs things for you. On Growth, AI answers your calls and messages and books the appointment.",
     "ctaH2": "Still",
     "ctaH2Accent": "deciding?",
     "ctaText": "Prefer a guided walkthrough? Book a free demo and we'll show you the platform using your business as the example.",
@@ -1074,9 +1119,9 @@
         "blurb": "Pick any single core system and get started today.",
         "features": [
           "1 core system of your choice",
-          "Full dashboard access",
-          "AI chat support",
-          "Basic analytics"
+          "Ask AI assistant",
+          "Full dashboard and basic analytics",
+          "AI chat support, 1 user"
         ]
       },
       "starter": {
@@ -1084,19 +1129,19 @@
         "blurb": "Everything connected. All 9 core systems under one login.",
         "features": [
           "All 9 core systems",
-          "CRM, email, SMS, funnels & booking",
-          "AI automations included",
-          "Email support"
+          "CRM, email, SMS, funnels and booking",
+          "Unlimited workflow automations",
+          "Ask AI assistant, 1 user"
         ]
       },
       "growth": {
         "name": "Growth",
-        "blurb": "Built for momentum. Unlimited contacts and priority support.",
+        "blurb": "Your AI team, included. The platform that runs itself.",
         "features": [
           "Everything in Starter",
-          "Unlimited contacts & users",
-          "Advanced automations",
-          "Priority support + account manager"
+          "AI Employee answers calls, chats and messages",
+          "Ask AI usage included",
+          "Unlimited contacts, 3 users, priority support"
         ]
       }
     }
@@ -1215,7 +1260,7 @@
       },
       {
         "q": "How much does it cost?",
-        "a": "Plans start at $149 per month. Most businesses we onboard are currently paying $800 to $1,100 per month across separate tools, so switching usually pays for itself several times over in the first month."
+        "a": "The full platform starts at $149 per month, with Ask AI on every plan. Growth, at $297, adds your AI Employee to answer calls and messages for you. Most businesses we onboard are currently paying $800 to $1,100 per month across separate tools, so switching usually pays for itself several times over in the first month."
       },
       {
         "q": "Do I need to be technical?",
@@ -1235,7 +1280,7 @@
       },
       {
         "q": "What if I get stuck?",
-        "a": "AI support is available 24/7 on every plan, and real humans back it up. Growth and Bespoke plans also get a dedicated account manager who checks in on you proactively."
+        "a": "AI support is available 24/7 on every plan, and real humans back it up. Growth plans get priority support and an onboarding session, and Bespoke clients get a dedicated account manager who checks in on you proactively."
       }
     ]
   }

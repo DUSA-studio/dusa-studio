@@ -246,7 +246,7 @@
       "supportAiTitle": "AI-support",
       "supportAiDesc": "Inkluderet i alle planer, døgnet rundt.",
       "supportManagerTitle": "Dedikeret account manager",
-      "supportManagerDesc": "For kunder på Growth- og Bespoke-planerne.",
+      "supportManagerDesc": "For kunder på Bespoke-planen. Growth-kunder får prioriteret support.",
       "ctaBookDemo": "Book din gratis demo",
       "ctaLearnMore": "Læs mere om onboarding"
     },
@@ -284,11 +284,11 @@
       "phase3Detail2Desc": "En praktisk gennemgang for dig og dit team. Ikke et optaget webinar. Live vejledning tilpasset din opsætning.",
       "phase4Badge": "Løbende",
       "phase4Title": "Lancering og support",
-      "phase4Desc": "Du er live. Herfra er vores AI-supportassistent tilgængelig døgnet rundt. Kunder på Growth- og Bespoke-planerne har en dedikeret account manager, der jævnligt følger op for at optimere din opsætning og hjælpe dig med at få mest muligt ud af platformen.",
+      "phase4Desc": "Du er live. Herfra er vores AI-supportassistent tilgængelig døgnet rundt. Growth-kunder får prioriteret support og en opfølgning med deres onboarding-konsulent. Bespoke-kunder har en dedikeret account manager, der jævnligt følger op for at optimere din opsætning og hjælpe dig med at vokse.",
       "phase4Detail1Title": "AI-support, døgnet rundt",
       "phase4Detail1Desc": "Få svar med det samme. Vores AI-assistent er trænet på hele DUSA-platformen og kan hjælpe med opsætning, fejlfinding og bedste praksis.",
       "phase4Detail2Title": "Dedikeret account manager",
-      "phase4Detail2Desc": "For kunder på Growth- og Bespoke-planerne. Månedlige opfølgninger, proaktiv optimering og en direkte linje til én, der kender din forretning.",
+      "phase4Detail2Desc": "For kunder på Bespoke-planen. Månedlige opfølgninger, proaktiv optimering og en direkte linje til én, der kender din forretning. Growth-kunder får prioriteret support.",
       "ctaTitle": "Klar til at komme i gang?",
       "ctaDesc": "Book en gratis demo, og se præcis, hvordan DUSA passer til din virksomhed.",
       "ctaBookDemo": "Book din gratis demo",
@@ -422,33 +422,38 @@
   },
   "pricing": {
     "metaTitle": "Priser | DUSA . studio",
-    "metaDesc": "Enkle, gennemsigtige priser til hvert vækststadie. CRM, e-mail, SMS, funnels, booking og omdømmestyring i én platform.",
-    "metaDescription": "Enkle, gennemsigtige priser til hvert vækststadie. CRM, e-mail, SMS, funnels, booking og omdømmestyring i én platform. Ingen bindende kontrakter.",
+    "metaDesc": "Enkle, gennemsigtige priser til hvert vækststadie. CRM, e-mail, SMS, funnels, booking og omdømmestyring i én platform, med Ask AI på alle planer.",
+    "metaDescription": "Enkle, gennemsigtige priser til hvert vækststadie. CRM, e-mail, SMS, funnels, booking og omdømmestyring i én platform, med Ask AI på alle planer og din AI Employee på Growth. Ingen bindende kontrakter.",
     "heroLabel": "Priser",
     "heroTitle": "Én platform.",
     "heroTitleAccent": "Din pris.",
     "heroSub": "Start med det, du har brug for. Skalér, når du er klar. Ingen binding, ingen skjulte gebyrer.",
     "currencyNote": "Alle priser i {currency}",
-    "usageNoteShort": "Planens pris dækker adgang til platformen. Forbrug af beskeder, opkald, e-mails og AI faktureres separat i USD, efterhånden som du bruger det.",
+    "usageNoteShort": "Planens pris dækker adgang til platformen. Forbrug af beskeder, opkald og e-mails samt AI ud over det, din plan inkluderer, faktureres i USD, efterhånden som du bruger det.",
     "usageNoteLink": "Sådan fungerer forbrugsafregning",
+    "addonsLine": "Tilkøb: ekstra brugere for {extraUser}/md. pr. bruger på alle planer. Unlimited AI for {unlimitedAi}/md. på Growth.",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
     "tierGrowth": "Growth",
     "tierBespoke": "Bespoke",
     "launchpadTagline": "Start med ét. Skalér, når du er klar.",
-    "launchpadDesc": "Vælg ét enkelt kernesystem, og kom i gang i dag. Den nemmeste måde at se, hvad DUSA kan gøre for din virksomhed.",
+    "launchpadDesc": "Vælg ét enkelt kernesystem, og kom i gang i dag med Ask AI ved din side. Den nemmeste måde at se, hvad DUSA kan gøre for din virksomhed.",
     "starterTagline": "Alt forbundet.",
-    "starterDesc": "Alle 9 kernesystemer, der arbejder sammen. Hele DUSA-platformen til en brøkdel af prisen for at købe værktøjerne hver for sig.",
-    "growthTagline": "Bygget til momentum.",
-    "growthDesc": "Ubegrænset alt plus avancerede automatiseringer, AI-værktøjer og prioriteret support, der sætter fart på din vækst.",
+    "starterDesc": "Alle 9 kernesystemer, der arbejder sammen, med Ask AI, der hjælper dig med driften. Hele DUSA-platformen til en brøkdel af prisen for at købe værktøjerne hver for sig.",
+    "growthTagline": "Dit AI-team, inkluderet.",
+    "growthDesc": "Din AI Employee besvarer dine opkald og beskeder og booker tider for dig. Ubegrænsede kontakter, 3 brugere og prioriteret support.",
     "bespokeTagline": "Skræddersyede løsninger til voksende teams.",
-    "bespokeDesc": "Flere lokationer, teamadgang, skræddersyede integrationer og dedikeret account management. Bygget op omkring din forretning.",
+    "bespokeDesc": "Unlimited AI, ubegrænset antal brugere, flere lokationer, skræddersyede integrationer og en dedikeret account manager. Bygget op omkring din forretning.",
+    "deltaLaunchpad": "For {deltaStarter}/md. mere får du alle 9 systemer på Starter",
+    "deltaStarter": "For {deltaGrowth}/md. mere får du AI Employee på Growth",
+    "deltaGrowth": "Brug for ubegrænset AI eller flere brugere? Se Bespoke",
+    "deltaBespoke": "Ingen bindende kontrakter på nogen plan",
     "perMonth": "/md.",
     "custom": "Efter aftale",
     "getStarted": "Kom i gang",
     "letsTalk": "Lad os tale sammen",
     "badgeEntry": "Starttilbud",
-    "badgeBestValue": "Bedste værdi",
+    "badgeBestValue": "Mest populær",
     "badgeCustom": "Skræddersyet",
     "replaceLabel": "Hvad betaler du for?",
     "replaceTitle": "Vælg dine nuværende værktøjer.",
@@ -490,48 +495,49 @@
     "ctaLabel": "Klar til at vokse?",
     "ctaTitle": "Start med Launchpad.",
     "ctaTitleAccent": "Skalér derfra.",
-    "ctaDesc": "Prøv hele platformen gratis i 14 dage. Gratis i 14 dage, opsig når som helst. Eller book en demo, så gennemgår vi det hele med dig.",
+    "ctaDesc": "Prøv hele platformen gratis i 14 dage, opsig når som helst. Eller book en demo, så gennemgår vi det hele med dig.",
     "ctaGetStarted": "Kom i gang",
     "ctaBookDemo": "Book en demo",
     "included": "Inkluderet",
+    "notIncluded": "Ikke inkluderet",
     "data": {
       "tierHighlights": {
         "launchpad": [
           "1 kernesystem efter eget valg",
           "9 systemer at vælge imellem",
-          "Fuld adgang til dashboardet",
-          "Grundlæggende analyser",
-          "AI-chatsupport",
-          "Adgang til fællesskabet"
+          "Ask AI-assistent, betal efter forbrug",
+          "1 bruger, 500 kontakter",
+          "Fuldt dashboard og grundlæggende analyser",
+          "AI-chatsupport og fællesskab"
         ],
         "starter": [
           "Alle 9 kernesystemer inkluderet",
-          "CRM + pipeline-styring",
+          "CRM, pipeline og 2.500 kontakter",
           "E-mail- og SMS-marketing",
           "Funnel- og hjemmesidebygger",
           "Booking, sociale medier og omdømme",
-          "Fakturering, formularer og undersøgelser",
-          "Workflow-automatiseringer",
-          "AI-chatsupport"
+          "Ubegrænsede workflow-automatiseringer",
+          "Ask AI-assistent, betal efter forbrug",
+          "1 bruger, tilføj flere for {extraUser}/md."
         ],
         "growth": [
           "Alt i Starter",
-          "Ubegrænsede kontakter og workflows",
-          "Avanceret automatiseringsbygger",
-          "AI-drevne svar",
-          "Tilpassede rapporteringsdashboards",
-          "Prioriteret support",
-          "Strategisession ved onboarding",
-          "Dedikeret community-kanal"
+          "AI Employee inkluderet",
+          "AI besvarer dine opkald, chats og beskeder",
+          "100 AI-taleminutter og 1.000 AI-svar/md.",
+          "Ask AI-forbrug inkluderet",
+          "Ubegrænsede kontakter, 3 brugere",
+          "Premium-automatisering, egne dashboards, API",
+          "Prioriteret support og AI-opsætningssession"
         ],
         "bespoke": [
           "Alt i Growth",
+          "Ubegrænsede AI-opkald og -samtaler",
+          "Ubegrænset antal brugere",
           "Understøttelse af flere lokationer",
-          "Brugerkonti til teamet",
-          "Skræddersyede integrationer",
+          "Skræddersyede integrationer og workflows",
           "Dedikeret account manager",
           "Månedlige strategigennemgange",
-          "Skræddersyede automatiseringer",
           "Direkte telefonsupport"
         ]
       },
@@ -550,9 +556,15 @@
         "Community-platform",
         "Opkaldssporing"
       ],
-      "cellPick1": "Vælg 1",
-      "cellUnlimited": "Ubegrænset",
-      "cellWorkflows5": "5 workflows",
+      "cells": {
+        "pick1": "Vælg 1",
+        "unlimited": "Ubegrænset",
+        "included": "Inkluderet",
+        "payg": "Efter forbrug",
+        "aiReplies": "1.000 svar/md.",
+        "aiMinutes": "100 min/md.",
+        "extraUser": "{extraUser}/md. hver"
+      },
       "featureCategories": [
         {
           "name": "Kerneplatform",
@@ -596,31 +608,23 @@
           ]
         },
         {
-          "name": "Automatisering og AI",
+          "name": "Automatisering",
           "rows": [
             [
-              "Grundlæggende workflow-automatiseringer",
-              "Opsæt simple hvis-så-automatiseringer, for eksempel en velkomstmail, når nogen udfylder en formular, eller tagging af kontakter ud fra deres handlinger."
-            ],
-            [
-              "Automatiseringsbygger med flere trin",
-              "Byg komplekse workflows i flere trin med forsinkelser, betingelser og flere handlinger. Automatiser hele din opfølgning fra første kontakt til konvertering."
+              "Workflow-automatiseringer",
+              "Byg ubegrænsede automatiske workflows: følg op på nye leads, bekræft bookinger, ryk for fakturaer og plej dine kontakter på autopilot, med forsinkelser, betingelser og flere handlinger."
             ],
             [
               "Trigger-baserede sekvenser",
               "Start automatisk sekvenser, når kontakter gør noget bestemt, som at besøge en side, åbne en e-mail eller booke en tid."
             ],
             [
-              "AI-drevne autosvar",
-              "Lad AI tage sig af de første henvendelser, kvalificere leads og besvare almindelige spørgsmål med det samme via chat, SMS eller e-mail, mens du koncentrerer dig om din forretning."
-            ],
-            [
-              "AI-indholdsassistent",
-              "Skab e-mailtekster, opslag til sociale medier og marketingindhold med AI, der er trænet i din brandstemme. Spar timevis af arbejde på indhold."
-            ],
-            [
               "Betinget logik og forgreninger",
               "Skab intelligente workflows, der forgrener sig ud fra kontaktens adfærd, aftalens værdi eller tilpassede feltværdier. Forskellige forløb til forskellige scenarier."
+            ],
+            [
+              "Premium-handlinger i workflows",
+              "Lås op for premium-automatiseringstrinnene: AI-beslutninger inde i dine workflows, webhooks, Google Sheets, Slack, egen kode og mere. Nogle få cent pr. kørsel, trukket fra din saldo."
             ],
             [
               "Skræddersyede automatiseringer",
@@ -629,15 +633,48 @@
           ]
         },
         {
-          "name": "Kontakter og data",
+          "name": "AI Employee",
+          "rows": [
+            [
+              "Ask AI-assistent",
+              "Din assistent inde i platformen. Bed den om at skrive en kampagne, bygge et workflow, tagge og segmentere dine kontakter eller forklare dine tal, så udfører den arbejdet i din konto. Det beskedne forbrug afregnes i cent på Launchpad og Starter og er inkluderet på Growth."
+            ],
+            [
+              "Conversation AI",
+              "AI svarer dine leads på SMS, webchat, e-mail, Instagram og Facebook Messenger, besvarer spørgsmål ud fra din vidensbase og booker tider direkte i din kalender."
+            ],
+            [
+              "Voice AI-telefonagent",
+              "En AI-receptionist besvarer dine opkald 24/7, kvalificerer den, der ringer, booker tiden og sender dig et resumé. Gå aldrig glip af et opkald igen."
+            ],
+            [
+              "Reviews AI",
+              "Besvarer automatisk dine Google- og Facebook-anmeldelser i din egen tone, så hver eneste anmeldelse får et svar."
+            ],
+            [
+              "Content AI",
+              "Skriver e-mails, opslag til sociale medier og tekster til landingssider og genererer billeder efter behov direkte inde i byggeren."
+            ],
+            [
+              "Ekstra AI-forbrug",
+              "På Growth fortsætter AI-forbrug ud over den månedlige pulje til almindelig forbrugstakst fra din saldo, eller du kan skifte til Unlimited AI for {unlimitedAi}/md. Almindelige takster for opkald og SMS gælder på alle planer."
+            ]
+          ]
+        },
+        {
+          "name": "Kontakter og brugere",
           "rows": [
             [
               "Kontaktkort",
               "Gem og administrer dine leads og kunder med detaljerede profiler, aktivitetshistorik, noter og tilpassede datafelter."
             ],
             [
-              "Tilpassede felter",
-              "Tilføj dine egne datafelter på kontakter, aftaler og poster. Følg præcis de oplysninger, der betyder noget for din forretning."
+              "Brugere inkluderet",
+              "Teamlogins med rollebaserede rettigheder, hver med egen kalender og egen indbakke. Tilføj ekstra brugere på alle planer for {extraUser}/md. pr. bruger."
+            ],
+            [
+              "Ekstra brugere",
+              "Tilføj teammedlemmer, når du har brug for dem. Hver ekstra bruger får sit eget login, egen kalender og egne rettigheder."
             ],
             [
               "Tags og segmenter",
@@ -646,10 +683,6 @@
             [
               "Import og eksport af kontakter",
               "Hent nemt dine eksisterende kontakter ind via CSV-upload, eller eksporter dine data når som helst. Dine data er altid dine."
-            ],
-            [
-              "Lead-scoring",
-              "Giv automatisk leads point ud fra engagement, adfærd og match. Brug din tid på de kontakter, der er mest tilbøjelige til at konvertere."
             ],
             [
               "Smarte lister og filtre",
@@ -710,8 +743,8 @@
               "Spring køen over og få hurtigere svar fra vores supportteam. Dine henvendelser behandles først og med fuld opmærksomhed."
             ],
             [
-              "Strategisession ved onboarding",
-              "En personlig session med en vækstkonsulent, hvor I planlægger din DUSA-opsætning, flytter dine data og bygger dine første automatiseringer."
+              "Onboarding- og AI-opsætningssession",
+              "En personlig session med en vækstkonsulent, hvor I planlægger din opsætning, flytter dine data, bygger dine første automatiseringer og træner din AI Employee i din forretning."
             ],
             [
               "Dedikeret account manager",
@@ -759,10 +792,6 @@
               "Administrer flere forretningssteder fra én konto med separate pipelines, kontakter og rapportering pr. lokation."
             ],
             [
-              "Brugerkonti til teamet",
-              "Tilføj teammedlemmer med rollebaserede rettigheder. Styr hvem der kan se, redigere og administrere de forskellige dele af din konto."
-            ],
-            [
               "Skræddersyede integrationer",
               "Vores team bygger skræddersyede integrationer, der forbinder DUSA med dine eksisterende værktøjer, databaser og interne systemer."
             ]
@@ -772,15 +801,31 @@
       "faqs": [
         {
           "q": "Hvad er DUSA, og hvordan hjælper det små virksomheder?",
-          "a": "DUSA er en alt-i-en-vækstplatform, der erstatter de mange spredte værktøjer, små virksomheder bruger til CRM, e-mailmarketing, SMS, funnels, booking og omdømmestyring. I stedet for at betale for fem eller seks separate abonnementer samler du det hele i ét sammenhængende system."
+          "a": "DUSA er en alt-i-en-vækstplatform, der erstatter de mange spredte værktøjer, små virksomheder bruger til CRM, e-mailmarketing, SMS, funnels, booking og omdømmestyring. I stedet for at betale for fem eller seks separate abonnementer samler du det hele i ét sammenhængende system med indbygget AI."
         },
         {
           "q": "Hvad koster DUSA-platformen om måneden?",
-          "a": "Priserne starter ved {launchpad} {currency} om måneden for ét kernesystem på vores Launchpad-plan. Starter-planen inkluderer alle 9 kernesystemer for {starter}/md., og Growth giver dig ubegrænsede kontakter, avancerede automatiseringer og prioriteret support for {growth}/md. Alle priser er i {currency} uden skjulte gebyrer."
+          "a": "Priserne starter ved {launchpad} {currency} om måneden for ét kernesystem på vores Launchpad-plan. Starter-planen inkluderer alle 9 kernesystemer for {starter}/md., og Growth tilføjer din AI Employee, ubegrænsede kontakter, 3 brugere og prioriteret support for {growth}/md. Ask AI er med på alle planer. Alle priser er i {currency} uden skjulte gebyrer."
         },
         {
           "q": "Hvad er inkluderet i Launchpad-planen?",
-          "a": "Med Launchpad får du adgang til ét kernesystem efter eget valg blandt ni muligheder: CRM og pipeline, funnels og hjemmeside, e-mailmarketing, SMS-marketing, booking og kalender, planlægning af sociale medier, omdømmestyring, fakturering og betalinger eller formularer og undersøgelser. Planen inkluderer fuld adgang til dashboardet, grundlæggende analyser, AI-chatsupport og adgang til fællesskabet. Den er lavet til selvstændige, der vil starte i det små og skalere op."
+          "a": "Med Launchpad får du adgang til ét kernesystem efter eget valg blandt ni muligheder: CRM og pipeline, funnels og hjemmeside, e-mailmarketing, SMS-marketing, booking og kalender, planlægning af sociale medier, omdømmestyring, fakturering og betalinger eller formularer og undersøgelser. Planen inkluderer Ask AI, fuld adgang til dashboardet, grundlæggende analyser, AI-chatsupport og adgang til fællesskabet, med 1 bruger og op til 500 kontakter. Den er lavet til selvstændige, der vil starte i det små og skalere op."
+        },
+        {
+          "q": "Hvad er Ask AI, og hvilke planer inkluderer det?",
+          "a": "Ask AI er assistenten, der er indbygget i alle DUSA-planer. Bed den om at skrive en e-mailkampagne, bygge et workflow, tagge og segmentere dine kontakter eller forklare en rapport, så udfører den arbejdet inde i din konto. Den er med på alle planer. På Launchpad og Starter afregnes det lille AI-forbrug, den bruger, fra din saldo, typisk nogle få cent pr. opgave. På Growth og Bespoke er Ask AI-forbrug inkluderet."
+        },
+        {
+          "q": "Hvad er AI Employee på Growth-planen?",
+          "a": "AI Employee er et hold af AI-medarbejdere, der arbejder inde i din konto. Conversation AI svarer dine leads på SMS, webchat, e-mail, Instagram og Facebook og booker tider. Voice AI tager telefonen, kvalificerer dem, der ringer, og booker dem ind. Reviews AI besvarer dine Google-anmeldelser. Content AI skriver e-mails og opslag og genererer billeder. Growth inkluderer 100 AI-taleminutter og 1.000 AI-samtalesvar om måneden samt ubegrænset Reviews AI og Content AI. Bruger du mere end det inkluderede, afregnes resten efter forbrug fra din saldo, eller du kan skifte til Unlimited AI for {unlimitedAi}/md. Almindelige takster for opkald og SMS gælder stadig."
+        },
+        {
+          "q": "Hvad er forskellen på Starter og Growth?",
+          "a": "Starter giver dig hele platformen, som du selv driver: alle 9 systemer, ubegrænsede workflows, 2.500 kontakter og 1 bruger, med Ask AI som hjælp. Growth er til virksomheder, der vil have en platform, der kører af sig selv. Den tilføjer AI Employee, der besvarer dine opkald og beskeder og booker tider, inkluderet Ask AI-forbrug, premium-automatiseringstrin, ubegrænsede kontakter, 3 brugere, tilpassede dashboards, attributionssporing, API-adgang, prioriteret support og en onboarding- og AI-opsætningssession. Forskellen er {deltaGrowth}/md."
+        },
+        {
+          "q": "Hvor mange brugere kan jeg tilføje?",
+          "a": "Launchpad og Starter inkluderer 1 bruger. Growth inkluderer 3 brugere. Ekstra brugere koster {extraUser}/md. pr. bruger på alle planer og får eget login, egen kalender og egne rettigheder. Bespoke inkluderer ubegrænset antal brugere."
         },
         {
           "q": "Kan jeg opgradere min plan når som helst?",
@@ -788,11 +833,11 @@
         },
         {
           "q": "Er der oprettelsesgebyrer eller skjulte omkostninger?",
-          "a": "Der er ingen oprettelsesgebyrer på nogen plan. Prisen på din plan dækker adgangen til platformen. Forbrug af beskeder, opkald, e-mails og AI afregnes separat efter forbrug og trækkes fra en forudbetalt saldo på din konto. Dit kort trækkes for en mindre optankning, første gang du slår de funktioner til, og derefter automatisk, når saldoen løber lav. Du bestemmer selv beløbet for optankningen og kan til enhver tid fylde saldoen op selv. Forbruget afregnes i USD, fordi leverandørerne af telefoni, e-mail og AI bag platformen er amerikanske. De fleste kunder ligger på omkring 15-25 USD om måneden afhængigt af volumen. Der er ingen andre skjulte gebyrer."
+          "a": "Der er ingen oprettelsesgebyrer på nogen plan. Prisen på din plan dækker adgangen til platformen. Forbrug af beskeder, opkald og e-mails samt AI-forbrug ud over det, din plan inkluderer, afregnes separat efter forbrug og trækkes fra en forudbetalt saldo på din konto. Dit kort trækkes for en mindre optankning, første gang du slår de funktioner til, og derefter automatisk, når saldoen løber lav. Du bestemmer selv beløbet for optankningen og kan til enhver tid fylde saldoen op selv. Forbruget afregnes i USD, fordi leverandørerne af telefoni, e-mail og AI bag platformen er amerikanske. De fleste kunder ligger på omkring 15-25 USD om måneden afhængigt af volumen. Der er ingen andre skjulte gebyrer."
         },
         {
           "q": "Hvilken slags support tilbyder DUSA?",
-          "a": "Alle planer inkluderer ubegrænset AI-chatsupport døgnet rundt via din medlemsportal samt adgang til DUSA-fællesskabet. Starter og opefter inkluderer e-mailsupport. Growth-planer får prioriteret support og en strategisession ved onboarding. Bespoke-kunder får en dedikeret account manager, telefonsupport og månedlige strategigennemgange."
+          "a": "Alle planer inkluderer ubegrænset AI-chatsupport døgnet rundt via din medlemsportal samt adgang til DUSA-fællesskabet og e-mailsupport. Growth-planer får prioriteret support og en onboarding- og AI-opsætningssession. Bespoke-kunder får en dedikeret account manager, telefonsupport og månedlige strategigennemgange."
         },
         {
           "q": "Er DUSA egnet til selvstændige og freelancere?",
@@ -808,7 +853,7 @@
         },
         {
           "q": "Hvor lang tid tager det at sætte DUSA op?",
-          "a": "De fleste virksomheder er oppe at køre inden for 48 timer. Vores Launchpad-plan kan være live på under en time. Growth- og Bespoke-planer inkluderer en strategisession ved onboarding, hvor vi hjælper dig med at sætte alt op til netop din virksomhed."
+          "a": "De fleste virksomheder er oppe at køre inden for 48 timer. Vores Launchpad-plan kan være live på under en time. Growth- og Bespoke-planer inkluderer en onboarding- og AI-opsætningssession, hvor vi hjælper dig med at sætte alt op til netop din virksomhed."
         },
         {
           "q": "Er alle priser i {currency}?",
@@ -1013,10 +1058,10 @@
     "success": "Du er inde! Tjek din e-mail for loginoplysninger.",
     "errorPrefix": "Noget gik galt. Send os i stedet en e-mail på",
     "errorSuffix": ".",
-    "value1Title": "Alle 6 kernesystemer inkluderet",
-    "value1Text": "CRM, marketing, funnels, booking, omdømme og AI-chat samlet ét sted.",
-    "value2Title": "AI-drevne automatiseringer fra dag ét",
-    "value2Text": "Smarte workflows, der sparer dig timer hver uge, aktive fra det øjeblik, du tilmelder dig.",
+    "value1Title": "Alle 9 kernesystemer inkluderet",
+    "value1Text": "CRM, marketing, funnels, booking, omdømme og betalinger samlet ét sted, med Ask AI på alle planer.",
+    "value2Title": "AI, der arbejder fra dag ét",
+    "value2Text": "Ask AI hjælper dig med at bygge og drive platformen. På Growth besvarer din AI Employee opkald og beskeder for dig.",
     "value3Title": "Guidet onboarding, så du hurtigt får resultater",
     "value3Text": "Vi guider dig gennem opsætningen, så du ser værdi allerede i den første uge.",
     "value4Title": "Opsig når som helst, uden spørgsmål",
@@ -1057,8 +1102,8 @@
     "f4Desc": "Byg landingssider og salgsfunnels, der konverterer, uden kode.",
     "f5Title": "Omdømmestyring",
     "f5Desc": "Indsaml anmeldelser, følg feedback, og opbyg tillid på autopilot.",
-    "f6Title": "AI-chat & automatiseringer",
-    "f6Desc": "Svar leads med det samme via AI, og tag over, når du er klar.",
+    "f6Title": "Ask AI & AI Employee",
+    "f6Desc": "Ask AI bygger og kører tingene for dig. På Growth besvarer AI dine opkald og beskeder og booker tiden.",
     "ctaH2": "Stadig",
     "ctaH2Accent": "i tvivl?",
     "ctaText": "Vil du hellere have en guidet gennemgang? Book en gratis demo, så viser vi dig platformen med din egen virksomhed som eksempel.",
@@ -1069,9 +1114,9 @@
         "blurb": "Vælg ét enkelt kernesystem, og kom i gang i dag.",
         "features": [
           "1 kernesystem efter eget valg",
-          "Fuld adgang til dashboardet",
-          "AI-chatsupport",
-          "Grundlæggende analyse"
+          "Ask AI-assistent",
+          "Fuldt dashboard og grundlæggende analyser",
+          "AI-chatsupport, 1 bruger"
         ]
       },
       "starter": {
@@ -1079,19 +1124,19 @@
         "blurb": "Alt forbundet. Alle 9 kernesystemer under ét login.",
         "features": [
           "Alle 9 kernesystemer",
-          "CRM, e-mail, SMS, funnels & booking",
-          "AI-automatiseringer inkluderet",
-          "E-mailsupport"
+          "CRM, e-mail, SMS, funnels og booking",
+          "Ubegrænsede workflow-automatiseringer",
+          "Ask AI-assistent, 1 bruger"
         ]
       },
       "growth": {
         "name": "Growth",
-        "blurb": "Bygget til momentum. Ubegrænsede kontakter og prioriteret support.",
+        "blurb": "Dit AI-team, inkluderet. Platformen, der kører af sig selv.",
         "features": [
           "Alt i Starter",
-          "Ubegrænsede kontakter & brugere",
-          "Avancerede automatiseringer",
-          "Prioriteret support + account manager"
+          "AI Employee besvarer opkald, chats og beskeder",
+          "Ask AI-forbrug inkluderet",
+          "Ubegrænsede kontakter, 3 brugere, prioriteret support"
         ]
       }
     }
@@ -1210,7 +1255,7 @@
       },
       {
         "q": "Hvad koster det?",
-        "a": "Planerne starter ved 149 AUD om måneden (se priser i kroner på prissiden). De fleste virksomheder, vi onboarder, betaler i dag 800 til 1.100 AUD om måneden fordelt på separate værktøjer, så skiftet tjener sig typisk hjem flere gange allerede den første måned."
+        "a": "Hele platformen starter ved 149 AUD om måneden (se priser i kroner på prissiden), med Ask AI på alle planer. Growth til 297 AUD tilføjer din AI Employee, der besvarer opkald og beskeder for dig. De fleste virksomheder, vi onboarder, betaler i dag 800 til 1.100 AUD om måneden fordelt på separate værktøjer, så skiftet tjener sig typisk hjem flere gange allerede den første måned."
       },
       {
         "q": "Skal jeg være teknisk?",
@@ -1230,7 +1275,7 @@
       },
       {
         "q": "Hvad hvis jeg sidder fast?",
-        "a": "AI-support er tilgængelig døgnet rundt på alle planer, og der står rigtige mennesker bag. Growth- og Bespoke-planerne får desuden en dedikeret account manager, der proaktivt følger op på dig."
+        "a": "AI-support er tilgængelig døgnet rundt på alle planer, og der står rigtige mennesker bag. Growth-planer får prioriteret support og en onboardingsession, og Bespoke-kunder får en dedikeret account manager, der proaktivt følger op på dig."
       }
     ]
   }

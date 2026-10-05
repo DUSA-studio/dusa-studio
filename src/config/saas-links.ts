@@ -27,9 +27,9 @@ export const SAAS_PLANS: SaasPlan[] = [
     highlight: false,
     features: [
       '1 core system of your choice',
-      'Full dashboard access',
-      'AI chat support',
-      'Basic analytics',
+      'Ask AI assistant',
+      'Full dashboard and basic analytics',
+      'AI chat support, 1 user',
     ],
     links: {
       monthly: 'https://buy.stripe.com/fZudRb9o6dSD4Tv0QweAg0c',
@@ -42,12 +42,12 @@ export const SAAS_PLANS: SaasPlan[] = [
     blurb: 'Everything connected. All 9 core systems under one login.',
     monthlyPrice: 149,
     annualPrice: 1490,
-    highlight: true,
+    highlight: false,
     features: [
       'All 9 core systems',
-      'CRM, email, SMS, funnels & booking',
-      'AI automations included',
-      'Email support',
+      'CRM, email, SMS, funnels and booking',
+      'Unlimited workflow automations',
+      'Ask AI assistant, 1 user',
     ],
     links: {
       monthly: 'https://buy.stripe.com/28E9AVgQybKvfy99n2eAg0e',
@@ -57,15 +57,15 @@ export const SAAS_PLANS: SaasPlan[] = [
   {
     id: 'growth',
     name: 'Growth',
-    blurb: 'Built for momentum. Unlimited contacts and priority support.',
+    blurb: 'Your AI team, included. The platform that runs itself.',
     monthlyPrice: 297,
     annualPrice: 2970,
-    highlight: false,
+    highlight: true,
     features: [
       'Everything in Starter',
-      'Unlimited contacts & users',
-      'Advanced automations',
-      'Priority support + account manager',
+      'AI Employee answers calls, chats and messages',
+      'Ask AI usage included',
+      'Unlimited contacts, 3 users, priority support',
     ],
     links: {
       monthly: 'https://buy.stripe.com/6oU28tgQy8yjgCd8iYeAg0k',

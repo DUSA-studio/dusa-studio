@@ -246,7 +246,7 @@
       "supportAiTitle": "AI-support",
       "supportAiDesc": "Beschikbaar op alle plannen, 24/7.",
       "supportManagerTitle": "Vaste accountmanager",
-      "supportManagerDesc": "Voor leden met een Growth- of Bespoke-plan.",
+      "supportManagerDesc": "Voor leden met een Bespoke-plan. Growth-leden krijgen prioriteitssupport.",
       "ctaBookDemo": "Boek je gratis demo",
       "ctaLearnMore": "Meer over onboarding"
     },
@@ -284,11 +284,11 @@
       "phase3Detail2Desc": "Een praktische rondleiding voor jou en je team. Geen opgenomen webinar. Live begeleiding, afgestemd op jouw inrichting.",
       "phase4Badge": "Doorlopend",
       "phase4Title": "Lancering en support",
-      "phase4Desc": "Je bent live. Vanaf nu staat onze AI-supportassistent dag en nacht voor je klaar. Leden met een Growth- of Bespoke-plan hebben een vaste accountmanager die regelmatig contact opneemt om je inrichting te optimaliseren en het maximale uit het platform te halen.",
+      "phase4Desc": "Je bent live. Vanaf nu staat onze AI-supportassistent dag en nacht voor je klaar. Growth-leden krijgen prioriteitssupport en een vervolggesprek met hun onboardingconsultant. Bespoke-klanten hebben een vaste accountmanager die regelmatig contact opneemt om je inrichting te optimaliseren en je te helpen groeien.",
       "phase4Detail1Title": "AI-support, 24/7",
       "phase4Detail1Desc": "Direct antwoord. Onze AI-assistent is getraind op het volledige DUSA-platform en helpt je met inrichting, problemen oplossen en best practices.",
       "phase4Detail2Title": "Vaste accountmanager",
-      "phase4Detail2Desc": "Voor leden met een Growth- of Bespoke-plan. Maandelijkse check-ins, proactieve optimalisatie en een directe lijn naar iemand die je bedrijf kent.",
+      "phase4Detail2Desc": "Voor leden met een Bespoke-plan. Maandelijkse check-ins, proactieve optimalisatie en een directe lijn naar iemand die je bedrijf kent. Growth-leden krijgen prioriteitssupport.",
       "ctaTitle": "Klaar om te beginnen?",
       "ctaDesc": "Boek een gratis demo en zie precies hoe DUSA bij je bedrijf past.",
       "ctaBookDemo": "Boek je gratis demo",
@@ -422,33 +422,38 @@
   },
   "pricing": {
     "metaTitle": "Prijzen | DUSA . studio",
-    "metaDesc": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform.",
-    "metaDescription": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform. Geen vaste contracten.",
+    "metaDesc": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform, met Ask AI op elk plan.",
+    "metaDescription": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform, met Ask AI op elk plan en je AI Employee op Growth. Geen vaste contracten.",
     "heroLabel": "Prijzen",
     "heroTitle": "Eén platform.",
     "heroTitleAccent": "Jouw prijs.",
     "heroSub": "Begin met wat je nodig hebt. Schaal op wanneer je er klaar voor bent. Geen vaste contracten, geen verborgen kosten.",
     "currencyNote": "Alle prijzen in {currency}",
-    "usageNoteShort": "De planprijs dekt de toegang tot het platform. Verbruik van berichten, gesprekken, e-mail en AI wordt apart gefactureerd op basis van gebruik, in USD.",
+    "usageNoteShort": "De planprijs dekt de toegang tot het platform. Verbruik van berichten, gesprekken en e-mail, plus AI boven wat in je plan zit, wordt gefactureerd op basis van gebruik, in USD.",
     "usageNoteLink": "Hoe verbruiksfacturatie werkt",
+    "addonsLine": "Add-ons: extra gebruikers {extraUser}/mnd per gebruiker op elk plan. Unlimited AI {unlimitedAi}/mnd op Growth.",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
     "tierGrowth": "Growth",
     "tierBespoke": "Bespoke",
     "launchpadTagline": "Begin met één. Schaal op wanneer je klaar bent.",
-    "launchpadDesc": "Kies één kernsysteem en ga vandaag nog aan de slag. De makkelijkste manier om te zien wat DUSA voor je bedrijf kan doen.",
+    "launchpadDesc": "Kies één kernsysteem en ga vandaag nog aan de slag, met Ask AI aan je zijde. De makkelijkste manier om te zien wat DUSA voor je bedrijf kan doen.",
     "starterTagline": "Alles verbonden.",
-    "starterDesc": "Alle 9 kernsystemen die samenwerken. Het volledige DUSA-platform voor een fractie van wat losse tools kosten.",
-    "growthTagline": "Gebouwd voor momentum.",
-    "growthDesc": "Onbeperkt alles, plus geavanceerde automatiseringen, AI-tools en prioriteitssupport om je groei te versnellen.",
+    "starterDesc": "Alle 9 kernsystemen die samenwerken, met Ask AI om je te helpen alles te runnen. Het volledige DUSA-platform voor een fractie van wat losse tools kosten.",
+    "growthTagline": "Je AI-team, inbegrepen.",
+    "growthDesc": "De AI Employee beantwoordt je oproepen en berichten en plant afspraken voor je in. Onbeperkte contacten, 3 gebruikers en prioriteitssupport.",
     "bespokeTagline": "Maatwerk voor groeiende teams.",
-    "bespokeDesc": "Meerdere vestigingen, teamtoegang, integraties op maat en een vaste accountmanager. Gebouwd rond jouw bedrijf.",
+    "bespokeDesc": "Unlimited AI, onbeperkte gebruikers, meerdere vestigingen, integraties op maat en een vaste accountmanager. Gebouwd rond jouw bedrijf.",
+    "deltaLaunchpad": "Voor {deltaStarter}/mnd extra krijg je alle 9 systemen op Starter",
+    "deltaStarter": "Voor {deltaGrowth}/mnd extra krijg je de AI Employee op Growth",
+    "deltaGrowth": "Onbeperkte AI of meer gebruikers nodig? Bekijk Bespoke",
+    "deltaBespoke": "Geen vaste contracten, op geen enkel plan",
     "perMonth": "/mnd",
     "custom": "Op maat",
     "getStarted": "Aan de slag",
     "letsTalk": "Laten we praten",
     "badgeEntry": "Instapaanbod",
-    "badgeBestValue": "Beste waarde",
+    "badgeBestValue": "Populairste keuze",
     "badgeCustom": "Op maat",
     "replaceLabel": "Waar betaal je voor?",
     "replaceTitle": "Selecteer je huidige tools.",
@@ -490,48 +495,49 @@
     "ctaLabel": "Klaar om te groeien?",
     "ctaTitle": "Begin met Launchpad.",
     "ctaTitleAccent": "Schaal van daaruit op.",
-    "ctaDesc": "Probeer het volledige platform 14 dagen gratis. 14 dagen gratis, altijd opzegbaar. Of boek een demo en we nemen je stap voor stap mee.",
+    "ctaDesc": "Probeer het volledige platform 14 dagen gratis, altijd opzegbaar. Of boek een demo en we nemen je stap voor stap mee.",
     "ctaGetStarted": "Aan de slag",
     "ctaBookDemo": "Demo boeken",
     "included": "Inbegrepen",
+    "notIncluded": "Niet inbegrepen",
     "data": {
       "tierHighlights": {
         "launchpad": [
           "1 kernsysteem naar keuze",
           "Keuze uit 9 systemen",
-          "Volledige dashboardtoegang",
-          "Basisanalytics",
-          "AI-chatsupport",
-          "Toegang tot de community"
+          "Ask AI-assistent, betalen naar gebruik",
+          "1 gebruiker, 500 contacten",
+          "Volledig dashboard en basisanalytics",
+          "AI-chatsupport en community"
         ],
         "starter": [
           "Alle 9 kernsystemen inbegrepen",
-          "CRM + pipelinebeheer",
+          "CRM, pipeline en 2.500 contacten",
           "E-mail- en SMS-marketing",
           "Funnel- en websitebouwer",
           "Boekingen, social en reviews",
-          "Facturatie, formulieren en enquêtes",
-          "Workflow-automatiseringen",
-          "AI-chatsupport"
+          "Onbeperkte workflow-automatiseringen",
+          "Ask AI-assistent, betalen naar gebruik",
+          "1 gebruiker, extra gebruikers {extraUser}/mnd"
         ],
         "growth": [
           "Alles uit Starter",
-          "Onbeperkte contacten en workflows",
-          "Geavanceerde automatiseringsbouwer",
-          "AI-gestuurde antwoorden",
-          "Rapportagedashboards op maat",
-          "Prioriteitssupport",
-          "Strategiesessie bij onboarding",
-          "Eigen communitykanaal"
+          "AI Employee inbegrepen",
+          "AI beantwoordt oproepen, chats en berichten",
+          "100 AI-belminuten en 1.000 AI-antwoorden/mnd",
+          "Ask AI-verbruik inbegrepen",
+          "Onbeperkte contacten, 3 gebruikers",
+          "Premium automatisering, eigen dashboards, API",
+          "Prioriteitssupport en AI-inrichtingssessie"
         ],
         "bespoke": [
           "Alles uit Growth",
+          "Onbeperkte AI-oproepen en -gesprekken",
+          "Onbeperkte gebruikers",
           "Ondersteuning voor meerdere vestigingen",
-          "Teamaccounts",
-          "Integraties op maat",
+          "Integraties en automatiseringen op maat",
           "Vaste accountmanager",
           "Maandelijkse strategiesessies",
-          "Automatiseringen op maat gebouwd",
           "Telefonische supportlijn"
         ]
       },
@@ -550,9 +556,15 @@
         "Communityplatform",
         "Call tracking"
       ],
-      "cellPick1": "Kies er 1",
-      "cellUnlimited": "Onbeperkt",
-      "cellWorkflows5": "5 workflows",
+      "cells": {
+        "pick1": "Kies er 1",
+        "unlimited": "Onbeperkt",
+        "included": "Inbegrepen",
+        "payg": "Naar gebruik",
+        "aiReplies": "1.000 antwoorden/mnd",
+        "aiMinutes": "100 min/mnd",
+        "extraUser": "{extraUser}/mnd p.p."
+      },
       "featureCategories": [
         {
           "name": "Kernplatform",
@@ -596,31 +608,23 @@
           ]
         },
         {
-          "name": "Automatisering en AI",
+          "name": "Automatisering",
           "rows": [
             [
-              "Basis workflow-automatiseringen",
-              "Zet simpele als-dit-dan-dat automatiseringen op, zoals een welkomstmail sturen zodra iemand een formulier invult, of contacten taggen op basis van hun acties."
-            ],
-            [
-              "Meerstaps automatiseringsbouwer",
-              "Bouw complexe workflows met meerdere stappen, wachttijden, voorwaarden en acties. Automatiseer je volledige opvolging, van eerste contact tot conversie."
+              "Workflow-automatiseringen",
+              "Bouw onbeperkt geautomatiseerde workflows: nieuwe leads opvolgen, boekingen bevestigen, facturen najagen en contacten warm houden op de automatische piloot, met wachttijden, voorwaarden en meerdere acties."
             ],
             [
               "Trigger-gebaseerde reeksen",
               "Start automatisch een reeks zodra een contact iets specifieks doet, zoals een pagina bezoeken, een e-mail openen of een afspraak boeken."
             ],
             [
-              "AI-gestuurde automatische antwoorden",
-              "Laat AI de eerste vragen afhandelen, leads kwalificeren en veelgestelde vragen direct beantwoorden via chat, SMS of e-mail, terwijl jij je op je bedrijf richt."
-            ],
-            [
-              "AI-contentassistent",
-              "Genereer e-mailteksten, social posts en marketingcontent met AI die getraind is op jouw merkstem. Bespaar uren op contentcreatie."
-            ],
-            [
               "Voorwaardelijke logica en vertakkingen",
               "Maak slimme workflows die vertakken op basis van contactgedrag, dealwaarde of aangepaste veldwaarden. Verschillende paden voor verschillende scenario's."
+            ],
+            [
+              "Premium workflow-acties",
+              "Ontgrendel de premium automatiseringsstappen: AI-beslissingen binnen workflows, webhooks, Google Sheets, Slack, eigen code en meer. Een paar cent per uitvoering, afgeschreven van je saldo."
             ],
             [
               "Automatiseringen op maat gebouwd",
@@ -629,15 +633,48 @@
           ]
         },
         {
-          "name": "Contacten en data",
+          "name": "AI Employee",
+          "rows": [
+            [
+              "Ask AI-assistent",
+              "Je assistent binnen het platform. Vraag om een campagne te schrijven, een workflow te bouwen, je contacten te taggen en te segmenteren of je cijfers uit te leggen, en het werk wordt in je account gedaan. Licht verbruik wordt op Launchpad en Starter in centen afgerekend, op Growth is het inbegrepen."
+            ],
+            [
+              "Conversation AI",
+              "AI beantwoordt leads via SMS, webchat, e-mail, Instagram en Facebook Messenger, beantwoordt vragen vanuit je kennisbank en plant afspraken rechtstreeks in je agenda."
+            ],
+            [
+              "Voice AI telefoonagent",
+              "Een AI-receptionist neemt je oproepen 24/7 aan, kwalificeert de beller, plant de afspraak in en stuurt je de samenvatting. Nooit meer een gemiste oproep."
+            ],
+            [
+              "Reviews AI",
+              "Reageert automatisch op je Google- en Facebook-reviews, in jouw toon, zodat elke review een antwoord krijgt."
+            ],
+            [
+              "Content AI",
+              "Schrijft e-mails, social posts en landingspaginateksten, en genereert op verzoek afbeeldingen, rechtstreeks vanuit de bouwer."
+            ],
+            [
+              "Extra AI-verbruik",
+              "Op Growth loopt AI-verbruik boven de maandelijkse bundel gewoon door, afgerekend naar gebruik vanuit je saldo, of je stapt over op Unlimited AI voor {unlimitedAi}/mnd. De normale gespreks- en SMS-kosten gelden op elk plan."
+            ]
+          ]
+        },
+        {
+          "name": "Contacten en gebruikers",
           "rows": [
             [
               "Contactgegevens",
               "Bewaar en beheer je leads en klanten met uitgebreide profielen, activiteitengeschiedenis, notities en aangepaste datavelden."
             ],
             [
-              "Aangepaste velden",
-              "Voeg je eigen datavelden toe aan contacten, deals en records. Volg precies de informatie die ertoe doet voor jouw bedrijf."
+              "Gebruikers inbegrepen",
+              "Teamlogins met rolgebaseerde rechten, elk met een eigen agenda en inboxweergave. Voeg op elk plan extra gebruikers toe voor {extraUser}/mnd per gebruiker."
+            ],
+            [
+              "Extra gebruikers",
+              "Voeg teamleden toe wanneer je ze nodig hebt. Elke extra gebruiker krijgt een eigen login, agenda en rechten."
             ],
             [
               "Tags en segmenten",
@@ -646,10 +683,6 @@
             [
               "Contacten importeren / exporteren",
               "Zet je bestaande contacten eenvoudig over via een CSV-upload of exporteer je data wanneer je maar wilt. Je data blijft altijd van jou."
-            ],
-            [
-              "Leadscoring",
-              "Scoor leads automatisch op basis van betrokkenheid, gedrag en fit. Besteed je tijd aan de contacten die het meest kansrijk zijn."
             ],
             [
               "Slimme lijsten en filters",
@@ -710,8 +743,8 @@
               "Sla de wachtrij over en krijg sneller antwoord van ons supportteam. Jouw tickets worden als eerste en met extra aandacht opgepakt."
             ],
             [
-              "Strategiesessie bij onboarding",
-              "Een één-op-één sessie met een groeiconsultant om je DUSA-inrichting uit te stippelen, je data te migreren en je eerste automatiseringen te bouwen."
+              "Onboarding- en AI-inrichtingssessie",
+              "Een één-op-één sessie met een groeiconsultant om je inrichting uit te stippelen, je data te migreren, je eerste automatiseringen te bouwen en je AI Employee te trainen op jouw bedrijf."
             ],
             [
               "Vaste accountmanager",
@@ -759,10 +792,6 @@
               "Beheer meerdere bedrijfslocaties vanuit één account, met aparte pipelines, contacten en rapportages per vestiging."
             ],
             [
-              "Teamaccounts",
-              "Voeg teamleden toe met rolgebaseerde rechten. Bepaal wie welke onderdelen van je account mag bekijken, bewerken en beheren."
-            ],
-            [
               "Integraties op maat",
               "Ons team bouwt integraties op maat om DUSA te koppelen aan je bestaande tools, databases en interne systemen."
             ]
@@ -772,15 +801,31 @@
       "faqs": [
         {
           "q": "Wat is DUSA en hoe helpt het kleine bedrijven?",
-          "a": "DUSA is een alles-in-één groeiplatform dat de losse tools vervangt die kleine bedrijven gebruiken voor CRM, e-mailmarketing, SMS, funnels, boekingen en reviewbeheer. In plaats van vijf of zes aparte abonnementen te betalen, zit alles in één verbonden systeem."
+          "a": "DUSA is een alles-in-één groeiplatform dat de losse tools vervangt die kleine bedrijven gebruiken voor CRM, e-mailmarketing, SMS, funnels, boekingen en reviewbeheer. In plaats van vijf of zes aparte abonnementen te betalen, zit alles in één verbonden systeem, met ingebouwde AI."
         },
         {
           "q": "Wat kost het DUSA-platform per maand?",
-          "a": "Plannen beginnen bij {launchpad} {currency} per maand voor één kernsysteem op ons Launchpad-plan. Ons Starter-plan bevat alle 9 kernsystemen voor {starter} per maand, en Growth ontgrendelt onbeperkte contacten, geavanceerde automatiseringen en prioriteitssupport voor {growth} per maand. Alle prijzen zijn in {currency}, zonder verborgen kosten."
+          "a": "Plannen beginnen bij {launchpad} {currency} per maand voor één kernsysteem op ons Launchpad-plan. Starter bevat alle 9 kernsystemen voor {starter} per maand, en Growth voegt daar je AI Employee, onbeperkte contacten, 3 gebruikers en prioriteitssupport aan toe voor {growth} per maand. Ask AI zit op elk plan. Alle prijzen zijn in {currency}, zonder verborgen kosten."
         },
         {
           "q": "Wat zit er in het Launchpad-plan?",
-          "a": "Met Launchpad krijg je toegang tot één kernsysteem naar keuze uit negen opties: CRM en pipeline, funnels en website, e-mailmarketing, SMS-marketing, boekingen en agenda, socialmediaplanner, reviewbeheer, facturatie en betalingen, of formulieren en enquêtes. Inbegrepen zijn volledige dashboardtoegang, basisanalytics, AI-chatsupport en toegang tot de community. Het is gemaakt voor zelfstandigen die klein willen beginnen en later willen opschalen."
+          "a": "Met Launchpad krijg je toegang tot één kernsysteem naar keuze uit negen opties: CRM en pipeline, funnels en website, e-mailmarketing, SMS-marketing, boekingen en agenda, socialmediaplanner, reviewbeheer, facturatie en betalingen, of formulieren en enquêtes. Inbegrepen zijn Ask AI, volledige dashboardtoegang, basisanalytics, AI-chatsupport en toegang tot de community, voor 1 gebruiker en maximaal 500 contacten. Het is gemaakt voor zelfstandigen die klein willen beginnen en later willen opschalen."
+        },
+        {
+          "q": "Wat is Ask AI en op welke plannen zit het?",
+          "a": "Ask AI is de assistent die in elk DUSA-plan is ingebouwd. Vraag om een e-mailcampagne te schrijven, een workflow te bouwen, je contacten te taggen en te segmenteren of een rapport uit te leggen, en Ask AI doet het werk in je account. Het zit op elk plan. Op Launchpad en Starter wordt het kleine beetje AI-verbruik dat het gebruikt van je saldo afgeschreven, meestal een paar cent per taak. Op Growth en Bespoke is het Ask AI-verbruik inbegrepen."
+        },
+        {
+          "q": "Wat is de AI Employee op het Growth-plan?",
+          "a": "De AI Employee is een team van AI-medewerkers dat in je account werkt. Conversation AI beantwoordt leads via SMS, webchat, e-mail, Instagram en Facebook en plant afspraken in. Voice AI neemt je telefoon op, kwalificeert bellers en plant ze in. Reviews AI beantwoordt je Google-reviews. Content AI schrijft e-mails en posts en genereert afbeeldingen. Growth bevat 100 AI-belminuten en 1.000 AI-conversatieantwoorden per maand, plus onbeperkt Reviews AI en Content AI. Ga je over de inbegrepen bundel heen, dan loopt het verbruik gewoon door, afgerekend naar gebruik vanuit je saldo, of je stapt over op Unlimited AI voor {unlimitedAi} per maand. De normale gespreks- en SMS-kosten blijven gelden."
+        },
+        {
+          "q": "Wat is het verschil tussen Starter en Growth?",
+          "a": "Met Starter krijg je het hele platform om zelf te runnen: alle 9 systemen, onbeperkte workflows, 2.500 contacten en 1 gebruiker, met Ask AI als hulp. Growth is voor bedrijven die willen dat het platform zichzelf runt. Het voegt de AI Employee toe die je oproepen en berichten beantwoordt en afspraken inplant, plus inbegrepen Ask AI-verbruik, premium automatiseringsstappen, onbeperkte contacten, 3 gebruikers, eigen dashboards, attributie, API-toegang, prioriteitssupport en een onboarding- en AI-inrichtingssessie. Het verschil is {deltaGrowth} per maand."
+        },
+        {
+          "q": "Hoeveel gebruikers kan ik toevoegen?",
+          "a": "Launchpad en Starter bevatten 1 gebruiker. Growth bevat 3 gebruikers. Extra gebruikers kosten {extraUser} per maand per gebruiker, op elk plan, met een eigen login, agenda en rechten. Bespoke bevat onbeperkte gebruikers."
         },
         {
           "q": "Kan ik mijn plan op elk moment upgraden?",
@@ -788,11 +833,11 @@
         },
         {
           "q": "Zijn er installatiekosten of verborgen kosten?",
-          "a": "Er zijn geen installatiekosten, op geen enkel plan. De prijs van je plan dekt de toegang tot het platform. Het verbruik van berichten, gesprekken, e-mail en AI wordt apart gefactureerd op basis van gebruik, vanuit een vooruitbetaald saldo in je account. Bij het inschakelen van die functies wordt een klein opwaardeerbedrag van je kaart afgeschreven, en daarna automatisch opnieuw zodra het saldo laag wordt. Je bepaalt zelf het opwaardeerbedrag en kunt op elk moment zelf saldo toevoegen. Het verbruik wordt in USD gefactureerd, omdat de telefonie-, e-mail- en AI-providers achter het platform in de VS gevestigd zijn. De meeste klanten zitten rond de US$ 15 tot 25 per maand, afhankelijk van het volume. Verder zijn er geen verborgen kosten."
+          "a": "Er zijn geen installatiekosten, op geen enkel plan. De prijs van je plan dekt de toegang tot het platform. Het verbruik van berichten, gesprekken en e-mail, en AI-verbruik boven wat in je plan zit, wordt apart gefactureerd op basis van gebruik, vanuit een vooruitbetaald saldo in je account. Bij het inschakelen van die functies wordt een klein opwaardeerbedrag van je kaart afgeschreven, en daarna automatisch opnieuw zodra het saldo laag wordt. Je bepaalt zelf het opwaardeerbedrag en kunt op elk moment zelf saldo toevoegen. Het verbruik wordt in USD gefactureerd, omdat de telefonie-, e-mail- en AI-providers achter het platform in de VS gevestigd zijn. De meeste klanten zitten rond de US$ 15 tot 25 per maand, afhankelijk van het volume. Verder zijn er geen verborgen kosten."
         },
         {
           "q": "Wat voor support biedt DUSA?",
-          "a": "Elk plan bevat onbeperkte AI-chatsupport, 24/7 beschikbaar via je ledenportaal, plus toegang tot de DUSA-community. Vanaf Starter is e-mailsupport inbegrepen. Growth-plannen krijgen prioriteitssupport en een strategiesessie bij onboarding. Bespoke-klanten krijgen een vaste accountmanager, telefonische support en maandelijkse strategiesessies."
+          "a": "Elk plan bevat onbeperkte AI-chatsupport, 24/7 beschikbaar via je ledenportaal, plus toegang tot de DUSA-community en e-mailsupport. Growth-plannen krijgen prioriteitssupport en een onboarding- en AI-inrichtingssessie. Bespoke-klanten krijgen een vaste accountmanager, telefonische support en maandelijkse strategiesessies."
         },
         {
           "q": "Is DUSA geschikt voor zelfstandigen en freelancers?",
@@ -808,7 +853,7 @@
         },
         {
           "q": "Hoe lang duurt het om DUSA in te richten?",
-          "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Ons Launchpad-plan kan binnen een uur live staan. Growth- en Bespoke-plannen bevatten een strategiesessie bij onboarding, waarin we alles samen met jou configureren voor jouw specifieke bedrijf."
+          "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Ons Launchpad-plan kan binnen een uur live staan. Growth- en Bespoke-plannen bevatten een onboarding- en AI-inrichtingssessie, waarin we alles samen met jou configureren voor jouw specifieke bedrijf."
         },
         {
           "q": "Zijn alle prijzen in {currency}?",
@@ -1013,10 +1058,10 @@
     "success": "Je bent binnen! Check je e-mail voor je inloggegevens.",
     "errorPrefix": "Er ging iets mis. Stuur in plaats daarvan een e-mail naar",
     "errorSuffix": "en we helpen je verder.",
-    "value1Title": "Alle 6 kernsystemen inbegrepen",
-    "value1Text": "CRM, marketing, funnels, boekingen, reviews en AI-chat op één plek.",
-    "value2Title": "AI-automatiseringen vanaf dag één",
-    "value2Text": "Slimme workflows die je elke week uren besparen, actief vanaf het moment dat je je aanmeldt.",
+    "value1Title": "Alle 9 kernsystemen inbegrepen",
+    "value1Text": "CRM, marketing, funnels, boekingen, reviews en betalingen op één plek, met Ask AI op elk plan.",
+    "value2Title": "AI die vanaf dag één voor je werkt",
+    "value2Text": "Ask AI helpt je het platform te bouwen en te runnen. Op Growth beantwoordt je AI Employee oproepen en berichten voor je.",
     "value3Title": "Begeleide onboarding voor snel resultaat",
     "value3Text": "We leiden je door de inrichting, zodat je binnen je eerste week al waarde ziet.",
     "value4Title": "Altijd opzegbaar, zonder gedoe",
@@ -1057,8 +1102,8 @@
     "f4Desc": "Bouw landingspagina's en salesfunnels die converteren, zonder code.",
     "f5Title": "Reviewbeheer",
     "f5Desc": "Verzamel reviews, houd feedback in de gaten en bouw vertrouwen op de automatische piloot.",
-    "f6Title": "AI-chat & Automatiseringen",
-    "f6Desc": "Reageer direct op leads met AI en neem het naadloos over wanneer jij er klaar voor bent.",
+    "f6Title": "Ask AI & AI Employee",
+    "f6Desc": "Ask AI bouwt en regelt dingen voor je. Op Growth beantwoordt AI je oproepen en berichten en plant de afspraak in.",
     "ctaH2": "Nog aan het",
     "ctaH2Accent": "twijfelen?",
     "ctaText": "Liever een begeleide rondleiding? Boek een gratis demo en we laten je het platform zien met jouw bedrijf als voorbeeld.",
@@ -1069,9 +1114,9 @@
         "blurb": "Kies één kernsysteem en ga vandaag nog aan de slag.",
         "features": [
           "1 kernsysteem naar keuze",
-          "Volledige dashboardtoegang",
-          "AI-chatsupport",
-          "Basisanalytics"
+          "Ask AI-assistent",
+          "Volledig dashboard en basisanalytics",
+          "AI-chatsupport, 1 gebruiker"
         ]
       },
       "starter": {
@@ -1079,19 +1124,19 @@
         "blurb": "Alles verbonden. Alle 9 kernsystemen onder één login.",
         "features": [
           "Alle 9 kernsystemen",
-          "CRM, e-mail, SMS, funnels & boekingen",
-          "AI-automatiseringen inbegrepen",
-          "E-mailsupport"
+          "CRM, e-mail, SMS, funnels en boekingen",
+          "Onbeperkte workflow-automatiseringen",
+          "Ask AI-assistent, 1 gebruiker"
         ]
       },
       "growth": {
         "name": "Growth",
-        "blurb": "Gebouwd voor momentum. Onbeperkte contacten en prioriteitssupport.",
+        "blurb": "Je AI-team, inbegrepen. Het platform dat zichzelf runt.",
         "features": [
           "Alles uit Starter",
-          "Onbeperkte contacten & gebruikers",
-          "Geavanceerde automatiseringen",
-          "Prioriteitssupport + accountmanager"
+          "AI Employee beantwoordt oproepen, chats en berichten",
+          "Ask AI-verbruik inbegrepen",
+          "Onbeperkte contacten, 3 gebruikers, prioriteitssupport"
         ]
       }
     }
@@ -1210,7 +1255,7 @@
       },
       {
         "q": "Wat kost het?",
-        "a": "Plannen beginnen bij 149 AUD per maand (zie de prijzen in euro op de prijzenpagina). De meeste bedrijven die wij onboarden, betalen nu 800 tot 1.100 AUD per maand aan losse tools, dus overstappen verdient zich meestal al in de eerste maand meerdere keren terug."
+        "a": "Het volledige platform begint bij 149 AUD per maand (zie de prijzen in euro op de prijzenpagina), met Ask AI op elk plan. Growth, voor 297 AUD, voegt je AI Employee toe die oproepen en berichten voor je beantwoordt. De meeste bedrijven die wij onboarden, betalen nu 800 tot 1.100 AUD per maand aan losse tools, dus overstappen verdient zich meestal al in de eerste maand meerdere keren terug."
       },
       {
         "q": "Moet ik technisch zijn?",
@@ -1230,7 +1275,7 @@
       },
       {
         "q": "Wat als ik vastloop?",
-        "a": "AI-support is 24/7 beschikbaar op elk plan, met echte mensen als back-up. Growth- en Bespoke-plannen krijgen ook een vaste accountmanager die proactief bij je checkt."
+        "a": "AI-support is 24/7 beschikbaar op elk plan, met echte mensen als back-up. Growth-plannen krijgen prioriteitssupport en een onboardingsessie, en Bespoke-klanten krijgen een vaste accountmanager die proactief bij je checkt."
       }
     ]
   }

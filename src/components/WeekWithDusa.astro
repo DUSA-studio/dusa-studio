@@ -44,6 +44,86 @@ const ICONS: Record<string, string> = {
   map: 'M12 21s-6-5.3-6-10a6 6 0 1112 0c0 4.7-6 10-6 10zM12 13a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
   repeat: 'M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3',
 };
+
+/* Line-art scenes, one per beat, drawn in the empty column beside the card.
+   Each path carries class "d" (draw on, in order via --o) and loops carry
+   their own class. Stroke only, no fills, 1.6px, so they read as sketches. */
+const SCENES: Record<string, string> = {
+  phone: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect class="d" style="--o:0" x="28" y="14" width="40" height="82" rx="8"/>
+      <path class="d" style="--o:1" d="M42 20h12"/>
+      <path class="ring" d="M78 36a14 14 0 0 1 0 20"/>
+      <path class="ring ring--2" d="M86 28a24 24 0 0 1 0 36"/>
+      <path class="miss" d="M40 48l16 16M56 48L40 64"/>
+      <g class="pop">
+        <path class="d" style="--o:2" d="M86 62h48a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8h-30l-10 8v-8h-8a8 8 0 0 1-8-8V70a8 8 0 0 1 8-8z"/>
+        <path class="d" style="--o:3" d="M96 76h28M96 84h18"/>
+      </g>
+    </svg>`,
+  chat: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <g class="bub bub--a"><path class="d" style="--o:0" d="M16 18h56a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6H34l-8 7v-7h-10a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6z"/><path class="d" style="--o:1" d="M24 28h36M24 36h22"/></g>
+      <g class="bub bub--b"><path class="d" style="--o:2" d="M88 44h56a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6h-10v7l-8-7H88a6 6 0 0 1-6-6V50a6 6 0 0 1 6-6z"/><path class="d" style="--o:3" d="M96 54h36M96 62h24"/></g>
+      <g class="cal">
+        <rect class="d" style="--o:4" x="40" y="72" width="44" height="32" rx="5"/>
+        <path class="d" style="--o:4" d="M40 82h44M50 68v8M74 68v8"/>
+        <path class="tick" d="M53 92l6 6 12-12"/>
+      </g>
+    </svg>`,
+  bell: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect class="d" style="--o:0" x="58" y="10" width="44" height="90" rx="8"/>
+      <path class="d" style="--o:1" d="M74 16h12"/>
+      <g class="toast">
+        <rect class="d" style="--o:2" x="64" y="30" width="32" height="22" rx="4"/>
+        <path class="d" style="--o:3" d="M70 38h20M70 44h12"/>
+      </g>
+      <g class="swing"><path class="d" style="--o:4" d="M80 62a8 8 0 0 1 8 8v8l3 3H69l3-3v-8a8 8 0 0 1 8-8zM77 84a3 3 0 0 0 6 0"/></g>
+      <path class="ring" d="M108 60a14 14 0 0 1 0 20"/>
+      <path class="ring ring--2" d="M52 60a14 14 0 0 0 0 20"/>
+    </svg>`,
+  card: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path class="d" style="--o:0" d="M30 12h52l14 14v70H30z"/>
+      <path class="d" style="--o:1" d="M82 12v14h14M42 40h40M42 50h40M42 60h24"/>
+      <g class="swipe">
+        <rect class="d" style="--o:2" x="88" y="62" width="52" height="32" rx="5"/>
+        <path class="d" style="--o:3" d="M88 72h52M96 84h12"/>
+      </g>
+      <g class="stamp"><circle class="d" style="--o:4" cx="64" cy="80" r="11"/><path class="tick" d="M58 80l4 4 8-8"/></g>
+    </svg>`,
+  star: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect class="d" style="--o:0" x="20" y="24" width="120" height="62" rx="8"/>
+      <path class="d" style="--o:1" d="M32 68h60M32 76h36"/>
+      <g class="stars">
+        <path class="st" style="--o:2" d="M38 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
+        <path class="st" style="--o:3" d="M60 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
+        <path class="st" style="--o:4" d="M82 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
+        <path class="st" style="--o:5" d="M104 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
+        <path class="st" style="--o:6" d="M126 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
+      </g>
+    </svg>`,
+  map: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path class="d" style="--o:0" d="M14 96l40-14 36 14 40-14M28 30c20 8 30 30 26 52M70 18c22 6 40 24 46 50"/>
+      <g class="drop">
+        <path class="d" style="--o:1" d="M80 66s-18-16-18-30a18 18 0 0 1 36 0c0 14-18 30-18 30z"/>
+        <circle class="d" style="--o:2" cx="80" cy="36" r="6"/>
+      </g>
+      <ellipse class="ripple" cx="80" cy="68" rx="10" ry="4"/>
+      <ellipse class="ripple ripple--2" cx="80" cy="68" rx="18" ry="7"/>
+      <g class="rank"><path class="d" style="--o:3" d="M128 84v-16M138 84V52M148 84V34"/><path class="d" style="--o:4" d="M126 30l22-6-6 22"/></g>
+    </svg>`,
+  repeat: `
+    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <g class="orbit"><path class="d" style="--o:0" d="M118 56a38 38 0 0 1-66 26M42 56a38 38 0 0 1 66-26"/><path class="d" style="--o:1" d="M100 24l10 6-6 10M60 88l-10-6 6-10"/></g>
+      <rect class="d" style="--o:2" x="62" y="40" width="36" height="30" rx="5"/>
+      <path class="d" style="--o:2" d="M62 50h36M70 36v8M90 36v8"/>
+      <path class="tick" d="M72 59l5 5 11-11"/>
+    </svg>`,
+};
 const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.toneDusa || 'DUSA', customer: s.toneCustomer || 'Customer' };
 ---
 
@@ -60,6 +140,7 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
       {beats.map((b, i) => (
         <li class={`week__beat week__beat--${b.tone || 'dusa'}`} style={`--i:${i}`}>
           <span class="week__dot" aria-hidden="true"></span>
+          <div class="week__scene" aria-hidden="true" set:html={SCENES[b.icon] || SCENES.chat} />
           <div class="week__card">
             <div class="week__card-top">
               <span class="week__icon" aria-hidden="true">
@@ -100,7 +181,7 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     max-width: 880px;
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 1.4rem;
   }
   .week__rail {
     position: absolute;
@@ -129,9 +210,61 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     align-items: center;
     column-gap: 3rem;
   }
-  @media (min-width: 769px) { .week__beat + .week__beat { margin-top: -2.4rem; } }
-  .week__beat:nth-child(odd) .week__card { grid-column: 1; }
-  .week__beat:nth-child(even) .week__card { grid-column: 2; }
+  .week__beat:nth-child(odd) .week__card { grid-column: 1; grid-row: 1; }
+  .week__beat:nth-child(even) .week__card { grid-column: 2; grid-row: 1; }
+  .week__beat:nth-child(odd) .week__scene { grid-column: 2; grid-row: 1; justify-self: start; }
+  .week__beat:nth-child(even) .week__scene { grid-column: 1; grid-row: 1; justify-self: end; }
+
+  /* ── Line-art scene ── */
+  .week__scene {
+    width: 200px; max-width: 100%;
+    color: rgba(247, 244, 239, 0.7);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    transition-delay: calc(var(--i) * 0.9s + 0.5s);
+  }
+  .week[data-live] .week__scene { opacity: 1; transform: none; }
+  .week__scene svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .week__beat--dusa .week__scene { color: rgba(78, 216, 194, 0.85); }
+  .week__beat--customer .week__scene { color: rgba(106, 170, 207, 0.9); }
+
+  /* draw-on: every .d path reveals in order (--o), after its card lands */
+  .week__scene .d { stroke-dasharray: 320; stroke-dashoffset: 320; }
+  .week[data-live] .week__scene .d {
+    animation: weekDraw 0.9s var(--ease-out) forwards;
+    animation-delay: calc(var(--i) * 0.9s + 0.6s + var(--o, 0) * 0.28s);
+  }
+  @keyframes weekDraw { to { stroke-dashoffset: 0; } }
+
+  /* loops: only once live, each after its scene is drawn */
+  .week__scene .ring, .week__scene .ripple, .week__scene .tick, .week__scene .st, .week__scene .miss { opacity: 0; }
+  .week[data-live] .week__scene .ring { animation: weekRing 2.2s ease-out infinite; animation-delay: calc(var(--i) * 0.9s + 1.2s); transform-origin: center; }
+  .week[data-live] .week__scene .ring--2 { animation-delay: calc(var(--i) * 0.9s + 1.6s); }
+  @keyframes weekRing { 0% { opacity: 0; transform: scale(0.8); } 30% { opacity: 0.9; } 100% { opacity: 0; transform: scale(1.15); } }
+  .week[data-live] .week__scene .miss { animation: weekBlink 1.4s ease-in-out 2; animation-delay: calc(var(--i) * 0.9s + 1.2s); }
+  @keyframes weekBlink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+  .week__scene .pop { transform-origin: 90% 80%; transform: scale(0.9); transition: transform 0.5s var(--ease-out); }
+  .week[data-live] .week__scene .pop { transform: scale(1); transition-delay: calc(var(--i) * 0.9s + 1.3s); }
+  .week[data-live] .week__scene .tick { animation: weekTick 0.5s var(--ease-out) forwards; animation-delay: calc(var(--i) * 0.9s + 2.2s); stroke-dasharray: 40; stroke-dashoffset: 40; }
+  @keyframes weekTick { to { opacity: 1; stroke-dashoffset: 0; } }
+  .week[data-live] .week__scene .st { animation: weekStar 0.45s var(--ease-out) forwards; animation-delay: calc(var(--i) * 0.9s + 1.2s + var(--o, 0) * 0.22s); transform-origin: center; transform: scale(0.4); }
+  @keyframes weekStar { to { opacity: 1; transform: scale(1); } }
+  .week[data-live] .week__scene .ripple { animation: weekRing 2.4s ease-out infinite; animation-delay: calc(var(--i) * 0.9s + 1.8s); transform-origin: 80px 68px; }
+  .week[data-live] .week__scene .ripple--2 { animation-delay: calc(var(--i) * 0.9s + 2.3s); }
+  .week__scene .drop { transform: translateY(-14px); opacity: 0; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s; }
+  .week[data-live] .week__scene .drop { transform: none; opacity: 1; transition-delay: calc(var(--i) * 0.9s + 1.3s); }
+  .week__scene .swing { transform-origin: 80px 64px; }
+  .week[data-live] .week__scene .swing { animation: weekSwing 1.6s ease-in-out infinite; animation-delay: calc(var(--i) * 0.9s + 2s); }
+  @keyframes weekSwing { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+  .week__scene .toast { transform: translateY(-16px); opacity: 0; transition: transform 0.5s var(--ease-out), opacity 0.4s; }
+  .week[data-live] .week__scene .toast { transform: none; opacity: 1; transition-delay: calc(var(--i) * 0.9s + 1.6s); }
+  .week__scene .swipe { transform: translateX(22px); opacity: 0; transition: transform 0.6s var(--ease-out), opacity 0.4s; }
+  .week[data-live] .week__scene .swipe { transform: none; opacity: 1; transition-delay: calc(var(--i) * 0.9s + 1.4s); }
+  .week__scene .bub { transform-origin: left bottom; }
+  .week__scene .orbit { transform-origin: 80px 56px; }
+  .week[data-live] .week__scene .orbit { animation: weekOrbit 9s linear infinite; animation-delay: calc(var(--i) * 0.9s + 2.4s); }
+  @keyframes weekOrbit { to { transform: rotate(360deg); } }
 
   .week__dot {
     position: absolute;
@@ -203,13 +336,15 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     .week__list { padding-left: 1.75rem; }
     .week__rail { left: 7px; transform: none; }
     .week__beat { grid-template-columns: 1fr; }
-    .week__beat:nth-child(odd) .week__card, .week__beat:nth-child(even) .week__card { grid-column: 1; }
+    .week__beat:nth-child(odd) .week__card, .week__beat:nth-child(even) .week__card { grid-column: 1; grid-row: 2; }
+    .week__beat:nth-child(odd) .week__scene, .week__beat:nth-child(even) .week__scene { grid-column: 1; grid-row: 1; justify-self: start; width: 150px; margin-bottom: -0.4rem; }
     .week__dot { left: -1.75rem; margin-left: 7px; }
     .week__card { padding: 1rem 1rem 1.05rem; }
     .week__ctas .btn { width: 100%; text-align: center; }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .week__scene, .week__scene * { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
     .week__card, .week__dot { transition: none; opacity: 1; transform: translate(-50%, -50%) scale(1); }
     .week__card { transform: none; }
     .week__rail-fill { transition: none; transform: scaleY(1); }

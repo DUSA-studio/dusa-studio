@@ -324,28 +324,29 @@ p.cta__expand-label {
 
 /* --- Label Tag — pill with subtle glow --- */
 .label {
+  /* Frosted glass pill, words embossed into it, a breath of mint in the dark. */
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--reef-aqua);
+  color: rgba(247, 244, 239, 0.86);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.55);
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
   margin-bottom: var(--space-sm);
-  padding: 0.375rem 1rem;
-  border: 1px solid rgba(78, 216, 194, 0.2);
+  padding: 0.45rem 1.1rem;
+  border: 1px solid rgba(247, 244, 239, 0.14);
   border-radius: var(--radius-full);
-  background: rgba(78, 216, 194, 0.05);
-}
-
-.label::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--reef-aqua);
-  box-shadow: 0 0 8px rgba(78, 216, 194, 0.6);
+  background: linear-gradient(135deg, rgba(247, 244, 239, 0.1), rgba(247, 244, 239, 0.03));
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(247, 244, 239, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 0.5px rgba(78, 216, 194, 0.18),
+    0 0 24px rgba(78, 216, 194, 0.12),
+    0 6px 18px rgba(0, 0, 0, 0.22);
 }
 
 /* --- Gradient Text — animated shimmer --- */
@@ -758,14 +759,15 @@ html[data-theme="light"] .btn--dark {
 
 /* --- Label Tag --- */
 html[data-theme="light"] .label {
-  color: var(--deep-ocean);
-  border-color: rgba(26, 58, 92, 0.2);
-  background: rgba(26, 58, 92, 0.06);
-}
-
-html[data-theme="light"] .label::before {
-  background: var(--deep-ocean);
-  box-shadow: 0 0 8px rgba(26, 58, 92, 0.4);
+  color: rgba(12, 14, 20, 0.82);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9), 0 -1px 0 rgba(12, 14, 20, 0.12);
+  border-color: rgba(12, 14, 20, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.45));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(12, 14, 20, 0.06),
+    0 0 0 0.5px rgba(26, 58, 92, 0.12),
+    0 6px 16px rgba(12, 14, 20, 0.07);
 }
 
 /* --- Gradient Text — stays aqua/blue, works on both --- */

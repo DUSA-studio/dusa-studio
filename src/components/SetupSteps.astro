@@ -49,6 +49,10 @@ const connect = [
 ];
 const days = [['Mon', 14], ['Tue', 15], ['Wed', 16], ['Thu', 17], ['Fri', 18]];
 const slots = ['9:00', '10:30', '1:00', '3:30'];
+const BOOK_URL = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+const bookFoot = s.setupBookFoot || 'Real calendar. Tap a time to book it.';
+const bookDaysAria = s.setupBookDays || 'Pick a day';
+const bookSlotAria = s.setupBookSlot || 'Book a discovery call at';
 ---
 
 <section class="ss section section--dark" id="how-it-works">
@@ -72,24 +76,27 @@ const slots = ['9:00', '10:30', '1:00', '3:30'];
       ))}
 
       <!-- ── Scene 1: picking a slot ─────────────────────────────────── -->
-      <div class="ss__scene ss__scene--1" data-scene="0" aria-hidden="true">
-        <div class="ss__card ss__book">
+      <!-- The calendar is real: a day can be picked and every time opens the
+           actual booking page. The demo cursor plays until a hand arrives. -->
+      <div class="ss__scene ss__scene--1" data-scene="0">
+        <div class="ss__card ss__book" data-book>
           <div class="ss__book-head">
             <span class="ss__book-logo">DUSA<i>.</i>studio</span>
             <span class="ss__book-meta">Discovery call · 20 min</span>
           </div>
-          <div class="ss__days">
+          <div class="ss__days" role="group" aria-label={bookDaysAria}>
             {days.map(([d, n], i) => (
-              <span class={`ss__day ${i === 1 ? 'is-on' : ''}`}><b>{d}</b><span>{n}</span></span>
+              <button type="button" class={`ss__day ${i === 1 ? 'is-on' : ''}`} aria-pressed={i === 1 ? 'true' : 'false'} data-day><b>{d}</b><span>{n}</span></button>
             ))}
           </div>
           <div class="ss__slots">
             {slots.map((sl, i) => (
-              <span class={`ss__slot ${i === 1 ? 'is-pick' : ''}`}>{sl}</span>
+              <a class={`ss__slot ${i === 1 ? 'is-pick' : ''}`} href={BOOK_URL} target="_blank" rel="noopener noreferrer" aria-label={`${bookSlotAria} ${sl}`}>{sl}</a>
             ))}
           </div>
+          <p class="ss__book-foot">{bookFoot}</p>
           <span class="ss__cursor" aria-hidden="true"></span>
-          <div class="ss__toast">
+          <div class="ss__toast" aria-hidden="true">
             <svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M4 10.5l3.5 3.5L16 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span>Confirmed · Tue 10:30</span>
           </div>
@@ -231,13 +238,21 @@ const slots = ['9:00', '10:30', '1:00', '3:30'];
   .ss__book-logo i, .ss__phone-brand i { font-style: normal; color: var(--reef-aqua); }
   .ss__book-meta { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); }
   .ss__days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin-bottom: 0.9rem; }
-  .ss__day { display: grid; justify-items: center; gap: 0.15rem; padding: 0.5rem 0; border-radius: 12px; border: 1px solid rgba(247, 244, 239, 0.08); color: rgba(247, 244, 239, 0.6); }
+  .ss__day { display: grid; justify-items: center; gap: 0.15rem; padding: 0.5rem 0; border-radius: 12px; border: 1px solid rgba(247, 244, 239, 0.08); color: rgba(247, 244, 239, 0.6); background: transparent; font: inherit; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; }
+  .ss__day:hover { border-color: rgba(78, 216, 194, 0.35); color: var(--warm-white); }
   .ss__day b { font-family: var(--font-mono); font-weight: 400; font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; }
   .ss__day span { font-family: var(--font-headline); font-weight: 600; font-size: 1rem; }
   .ss__day.is-on { border-color: rgba(78, 216, 194, 0.6); color: var(--warm-white); background: rgba(78, 216, 194, 0.08); }
   .ss__slots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-  .ss__slot { text-align: center; padding: 0.7rem 0; border-radius: 12px; border: 1px solid rgba(247, 244, 239, 0.12); font-family: var(--font-mono); font-size: 0.875rem; color: rgba(247, 244, 239, 0.75); }
+  .ss__slot { text-align: center; padding: 0.7rem 0; border-radius: 12px; border: 1px solid rgba(247, 244, 239, 0.12); font-family: var(--font-mono); font-size: 0.875rem; color: rgba(247, 244, 239, 0.75); text-decoration: none; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s; }
+  .ss__slot:hover, .ss__slot:focus-visible { border-color: var(--reef-aqua); background: rgba(78, 216, 194, 0.12); color: var(--warm-white); transform: translateY(-1px); }
   .ss__slot.is-pick { animation: ssPick 7s ease-in-out infinite; }
+  /* A hand on the card ends the demo: the cursor and the scripted pick stop,
+     the times are theirs. */
+  .ss__book:hover .ss__cursor, .ss__book:focus-within .ss__cursor { animation: none; opacity: 0; }
+  .ss__book:hover .ss__slot.is-pick, .ss__book:focus-within .ss__slot.is-pick { animation: none; }
+  .ss__book:hover .ss__toast, .ss__book:focus-within .ss__toast { animation: none; opacity: 0; transform: translate(-50%, 140%); }
+  .ss__book-foot { margin: 0.8rem 0 0; text-align: center; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247, 244, 239, 0.45); max-width: none; }
   @keyframes ssPick {
     0%, 28% { background: transparent; border-color: rgba(247, 244, 239, 0.12); color: rgba(247, 244, 239, 0.75); transform: none; }
     31% { transform: scale(0.96); }
@@ -415,6 +430,15 @@ const slots = ['9:00', '10:30', '1:00', '3:30'];
     grid.addEventListener('mouseleave', () => { if (running) { grid.classList.add('is-cycling'); show(active); queue(); } });
     desktop.addEventListener('change', () => { if (!desktop.matches) { scenes.forEach((sc) => sc.classList.add('is-live')); clearTimeout(timer); } else if (running) { show(active); queue(); } });
     if (!desktop.matches) scenes.forEach((sc) => sc.classList.add('is-live'));
+
+    /* The calendar is real: a tapped day lights up, and every time is a link
+       to the booking page (the href does the rest). */
+    grid.querySelectorAll('[data-book]').forEach((book) => {
+      const days = [...book.querySelectorAll('[data-day]')];
+      days.forEach((d) => d.addEventListener('click', () => {
+        days.forEach((o) => { o.classList.toggle('is-on', o === d); o.setAttribute('aria-pressed', o === d ? 'true' : 'false'); });
+      }));
+    });
 
     if (!('IntersectionObserver' in window)) { start(); return; }
     new IntersectionObserver((entries) => {

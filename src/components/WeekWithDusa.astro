@@ -46,83 +46,143 @@ const ICONS: Record<string, string> = {
 };
 
 /* Line-art scenes, one per beat, drawn in the empty column beside the card.
-   Each path carries class "d" (draw on, in order via --o) and loops carry
-   their own class. Stroke only, no fills, 1.6px, so they read as sketches. */
+   Stroke only, 1.6px, in the brand palette: warm white for the world, reef
+   aqua for what DUSA does, mist blue for the customer. Each scene draws on
+   once (class "d", ordered by --o) and then loops a six-second mini story
+   (classes below, all transform/opacity). Words inside the scenes come from
+   `week.scene` in the dictionary so they translate with the rest. */
+const L = Object.assign({
+  calling: 'New client calling', missed: 'Missed', smsA: 'Sorry we missed you,', smsB: 'how can we help?', later: '8 sec later',
+  askA: 'Can you do', askB: 'Thursday?', replyA: 'Thursday 10am', replyB: 'is yours. Booked!', thu: 'Thu 10am',
+  toast: 'Tomorrow, 10am', bell: 'Reminder',
+  invoice: 'Invoice', amount: '$480', tap: 'Tap to pay', paid: 'Paid',
+  replied: 'DUSA replied',
+  enquiry: 'New enquiry', rank: 'Higher on the map',
+  next: 'Next month', again: 'Booked again',
+}, s.scene || {});
+const SVG = (inner: string) => `<svg viewBox="0 0 200 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
 const SCENES: Record<string, string> = {
-  phone: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <rect class="d" style="--o:0" x="28" y="14" width="40" height="82" rx="8"/>
-      <path class="d" style="--o:1" d="M42 20h12"/>
-      <path class="ring" d="M78 36a14 14 0 0 1 0 20"/>
-      <path class="ring ring--2" d="M86 28a24 24 0 0 1 0 36"/>
-      <path class="miss" d="M40 48l16 16M56 48L40 64"/>
-      <g class="pop">
-        <path class="d" style="--o:2" d="M86 62h48a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8h-30l-10 8v-8h-8a8 8 0 0 1-8-8V70a8 8 0 0 1 8-8z"/>
-        <path class="d" style="--o:3" d="M96 76h28M96 84h18"/>
+  phone: SVG(`
+    <g class="ph">
+      <rect class="d" style="--o:0" x="22" y="10" width="56" height="110" rx="10"/>
+      <path class="d" style="--o:0" d="M42 17h16"/>
+      <g class="call">
+        <circle class="d a" style="--o:1" cx="50" cy="44" r="11"/>
+        <path class="d a" style="--o:1" d="M50 39.5a3.6 3.6 0 1 1 0 7.2a3.6 3.6 0 0 1 0-7.2M43.5 52a8.5 8.5 0 0 1 13 0"/>
+        <text class="t" x="50" y="66" text-anchor="middle">${L.calling.split(' ').slice(0, -1).join(' ')}</text>
+        <text class="t" x="50" y="77" text-anchor="middle">${L.calling.split(' ').slice(-1)[0]}</text>
+        <circle class="d a" style="--o:2" cx="50" cy="100" r="9"/>
+        <path class="d a" style="--o:2" d="M46.5 97.5h2l1 2.5-1.2.8a5 5 0 0 0 2.4 2.4l.8-1.2 2.5 1v2a1 1 0 0 1-1 1a7.5 7.5 0 0 1-7.5-7.5a1 1 0 0 1 1-1z"/>
       </g>
-    </svg>`,
-  chat: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <g class="bub bub--a"><path class="d" style="--o:0" d="M16 18h56a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6H34l-8 7v-7h-10a6 6 0 0 1-6-6V24a6 6 0 0 1 6-6z"/><path class="d" style="--o:1" d="M24 28h36M24 36h22"/></g>
-      <g class="bub bub--b"><path class="d" style="--o:2" d="M88 44h56a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6h-10v7l-8-7H88a6 6 0 0 1-6-6V50a6 6 0 0 1 6-6z"/><path class="d" style="--o:3" d="M96 54h36M96 62h24"/></g>
-      <g class="cal">
-        <rect class="d" style="--o:4" x="40" y="72" width="44" height="32" rx="5"/>
-        <path class="d" style="--o:4" d="M40 82h44M50 68v8M74 68v8"/>
-        <path class="tick" d="M53 92l6 6 12-12"/>
+      <g class="missed">
+        <text class="t tb" x="50" y="72" text-anchor="middle">${L.missed}</text>
+        <path class="b" d="M44 94l12 12M56 94l-12 12"/>
       </g>
-    </svg>`,
-  bell: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <rect class="d" style="--o:0" x="58" y="10" width="44" height="90" rx="8"/>
-      <path class="d" style="--o:1" d="M74 16h12"/>
-      <g class="toast">
-        <rect class="d" style="--o:2" x="64" y="30" width="32" height="22" rx="4"/>
-        <path class="d" style="--o:3" d="M70 38h20M70 44h12"/>
-      </g>
-      <g class="swing"><path class="d" style="--o:4" d="M80 62a8 8 0 0 1 8 8v8l3 3H69l3-3v-8a8 8 0 0 1 8-8zM77 84a3 3 0 0 0 6 0"/></g>
-      <path class="ring" d="M108 60a14 14 0 0 1 0 20"/>
-      <path class="ring ring--2" d="M52 60a14 14 0 0 0 0 20"/>
-    </svg>`,
-  card: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path class="d" style="--o:0" d="M30 12h52l14 14v70H30z"/>
-      <path class="d" style="--o:1" d="M82 12v14h14M42 40h40M42 50h40M42 60h24"/>
-      <g class="swipe">
-        <rect class="d" style="--o:2" x="88" y="62" width="52" height="32" rx="5"/>
-        <path class="d" style="--o:3" d="M88 72h52M96 84h12"/>
-      </g>
-      <g class="stamp"><circle class="d" style="--o:4" cx="64" cy="80" r="11"/><path class="tick" d="M58 80l4 4 8-8"/></g>
-    </svg>`,
-  star: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <rect class="d" style="--o:0" x="20" y="24" width="120" height="62" rx="8"/>
-      <path class="d" style="--o:1" d="M32 68h60M32 76h36"/>
-      <g class="stars">
-        <path class="st" style="--o:2" d="M38 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
-        <path class="st" style="--o:3" d="M60 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
-        <path class="st" style="--o:4" d="M82 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
-        <path class="st" style="--o:5" d="M104 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
-        <path class="st" style="--o:6" d="M126 36l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6-4.5-4 6-1z"/>
-      </g>
-    </svg>`,
-  map: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path class="d" style="--o:0" d="M14 96l40-14 36 14 40-14M28 30c20 8 30 30 26 52M70 18c22 6 40 24 46 50"/>
-      <g class="drop">
-        <path class="d" style="--o:1" d="M80 66s-18-16-18-30a18 18 0 0 1 36 0c0 14-18 30-18 30z"/>
-        <circle class="d" style="--o:2" cx="80" cy="36" r="6"/>
-      </g>
-      <ellipse class="ripple" cx="80" cy="68" rx="10" ry="4"/>
-      <ellipse class="ripple ripple--2" cx="80" cy="68" rx="18" ry="7"/>
-      <g class="rank"><path class="d" style="--o:3" d="M128 84v-16M138 84V52M148 84V34"/><path class="d" style="--o:4" d="M126 30l22-6-6 22"/></g>
-    </svg>`,
-  repeat: `
-    <svg viewBox="0 0 160 110" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <g class="orbit"><path class="d" style="--o:0" d="M118 56a38 38 0 0 1-66 26M42 56a38 38 0 0 1 66-26"/><path class="d" style="--o:1" d="M100 24l10 6-6 10M60 88l-10-6 6-10"/></g>
-      <rect class="d" style="--o:2" x="62" y="40" width="36" height="30" rx="5"/>
-      <path class="d" style="--o:2" d="M62 50h36M70 36v8M90 36v8"/>
-      <path class="tick" d="M72 59l5 5 11-11"/>
-    </svg>`,
+    </g>
+    <path class="rg a" d="M90 44a18 18 0 0 1 0 28"/>
+    <path class="rg rg--2 a" d="M100 36a30 30 0 0 1 0 44"/>
+    <g class="sms">
+      <path class="a" d="M100 70h82a8 8 0 0 1 8 8v22a8 8 0 0 1-8 8h-58l-12 10v-10h-12a8 8 0 0 1-8-8V78a8 8 0 0 1 8-8z"/>
+      <text class="t ta" x="110" y="85">${L.smsA}</text>
+      <text class="t ta" x="110" y="97">${L.smsB}</text>
+      <text class="t tm" x="190" y="124" text-anchor="end">${L.later}</text>
+    </g>`),
+  chat: SVG(`
+    <g class="bub bub--c">
+      <path class="d b" style="--o:0" d="M14 14h84a7 7 0 0 1 7 7v18a7 7 0 0 1-7 7H36l-10 8v-8h-5a7 7 0 0 1-7-7V21a7 7 0 0 1 7-7z"/>
+      <text class="t tb" x="24" y="28">${L.askA}</text>
+      <text class="t tb" x="24" y="40">${L.askB}</text>
+    </g>
+    <g class="bub bub--d">
+      <path class="d a" style="--o:1" d="M100 56h84a7 7 0 0 1 7 7v18a7 7 0 0 1-7 7h-5v8l-10-8h-69a7 7 0 0 1-7-7V63a7 7 0 0 1 7-7z"/>
+      <g class="dots"><circle class="dt" cx="132" cy="72" r="2.4"/><circle class="dt dt--2" cx="142" cy="72" r="2.4"/><circle class="dt dt--3" cx="152" cy="72" r="2.4"/></g>
+      <g class="reply"><text class="t ta" x="110" y="70">${L.replyA}</text><text class="t ta" x="110" y="82">${L.replyB}</text></g>
+    </g>
+    <g class="cal">
+      <rect class="d" style="--o:2" x="28" y="76" width="56" height="42" rx="6"/>
+      <path class="d" style="--o:2" d="M28 88h56M40 72v8M72 72v8"/>
+      <text class="t tm" x="56" y="100" text-anchor="middle">${L.thu}</text>
+      <path class="tick a" d="M49 109l5 5 11-11"/>
+    </g>`),
+  bell: SVG(`
+    <rect class="d" style="--o:0" x="60" y="8" width="80" height="114" rx="10"/>
+    <path class="d" style="--o:0" d="M90 15h20"/>
+    <g class="toast">
+      <rect class="a" x="66" y="24" width="68" height="38" rx="6"/>
+      <path class="a" d="M78 31a4 4 0 0 1 4 4v4l1.5 1.5h-11L74 39v-4a4 4 0 0 1 4-4zM76.5 42a1.5 1.5 0 0 0 3 0"/>
+      <text class="t tm" x="88" y="39">${L.bell}</text>
+      <text class="t ts" x="72" y="55">${L.toast}</text>
+    </g>
+    <g class="swing"><path class="d" style="--o:1" d="M100 74a10 10 0 0 1 10 10v10l4 4H86l4-4V84a10 10 0 0 1 10-10zM96 100a4 4 0 0 0 8 0"/></g>
+    <path class="rg a" d="M126 80a16 16 0 0 1 0 22"/>
+    <path class="rg rg--2 a" d="M74 80a16 16 0 0 0 0 22"/>`),
+  card: SVG(`
+    <g class="inv">
+      <path class="d" style="--o:0" d="M20 14h56l16 16v86H20z"/>
+      <path class="d" style="--o:0" d="M76 14v16h16"/>
+      <path class="d" style="--o:1" d="M32 46h44M32 58h44M32 70h28"/>
+      <text class="t tm" x="32" y="92">${L.invoice}</text>
+      <text class="t" x="32" y="106">${L.amount}</text>
+    </g>
+    <g class="term">
+      <rect class="d" style="--o:2" x="110" y="46" width="72" height="46" rx="7"/>
+      <path class="d" style="--o:2" d="M110 60h72"/>
+      <text class="t tm" x="146" y="80" text-anchor="middle">${L.tap}</text>
+    </g>
+    <g class="swipe">
+      <rect class="a" x="124" y="18" width="44" height="26" rx="4"/><path class="a" d="M124 26h44M130 38h10"/>
+    </g>
+    <g class="paid">
+      <circle class="a" cx="128" cy="110" r="10"/><path class="a tick" d="M122.5 110l4 4 8-8"/>
+      <text class="t ta" x="144" y="114">${L.paid}</text>
+    </g>`),
+  star: SVG(`
+    <rect class="d" style="--o:0" x="16" y="14" width="168" height="102" rx="10"/>
+    <circle class="d b" style="--o:1" cx="36" cy="36" r="9"/>
+    <path class="d b" style="--o:1" d="M36 32.5a2.8 2.8 0 1 1 0 5.6a2.8 2.8 0 0 1 0-5.6M31 42a6.5 6.5 0 0 1 10 0"/>
+    <path class="d" style="--o:1" d="M52 32h52M52 41h34"/>
+    <g class="stars">
+      <path class="st" d="M36 56l3 6 6.5 1-4.7 4.4 1.1 6.4L36 70.8l-5.9 3 1.1-6.4-4.7-4.4 6.5-1z"/>
+      <path class="st" d="M62 56l3 6 6.5 1-4.7 4.4 1.1 6.4L62 70.8l-5.9 3 1.1-6.4-4.7-4.4 6.5-1z"/>
+      <path class="st" d="M88 56l3 6 6.5 1-4.7 4.4 1.1 6.4L88 70.8l-5.9 3 1.1-6.4-4.7-4.4 6.5-1z"/>
+      <path class="st" d="M114 56l3 6 6.5 1-4.7 4.4 1.1 6.4L114 70.8l-5.9 3 1.1-6.4-4.7-4.4 6.5-1z"/>
+      <path class="st" d="M140 56l3 6 6.5 1-4.7 4.4 1.1 6.4L140 70.8l-5.9 3 1.1-6.4-4.7-4.4 6.5-1z"/>
+    </g>
+    <path class="d" style="--o:2" d="M28 86h110M28 95h70"/>
+    <g class="rep">
+      <rect class="a" x="100" y="100" width="72" height="14" rx="7"/>
+      <text class="t ta" x="136" y="110" text-anchor="middle">${L.replied}</text>
+    </g>`),
+  map: SVG(`
+    <path class="d" style="--o:0" d="M10 118l44-16 46 16 44-16M22 30c26 10 40 38 34 64M86 18c30 8 52 30 58 60"/>
+    <g class="drop">
+      <path class="d a" style="--o:1" d="M80 86s-20-18-20-34a20 20 0 0 1 40 0c0 16-20 34-20 34z"/>
+      <circle class="d a" style="--o:1" cx="80" cy="52" r="7"/>
+    </g>
+    <ellipse class="ripple a" cx="80" cy="88" rx="10" ry="4"/>
+    <ellipse class="ripple ripple--2 a" cx="80" cy="88" rx="20" ry="8"/>
+    <g class="rank">
+      <path class="d" style="--o:2" d="M136 76l16-14 10 8 18-20"/>
+      <path class="d" style="--o:3" d="M172 50h8v8"/>
+      <text class="t tm" x="180" y="88" text-anchor="end">${L.rank}</text>
+    </g>
+    <g class="lead">
+      <rect class="a" x="108" y="100" width="80" height="16" rx="8"/>
+      <text class="t ta" x="148" y="111" text-anchor="middle">${L.enquiry}</text>
+    </g>`),
+  repeat: SVG(`
+    <g class="orbit">
+      <path class="d a" style="--o:0" d="M150 65a50 50 0 0 1-86 35M50 65a50 50 0 0 1 86-35"/>
+      <path class="d a" style="--o:1" d="M128 24l12 8-8 12M72 106l-12-8 8-12"/>
+    </g>
+    <rect class="d" style="--o:2" x="72" y="44" width="56" height="42" rx="6"/>
+    <path class="d" style="--o:2" d="M72 56h56M84 40v8M116 40v8"/>
+    <text class="t tm" x="100" y="68" text-anchor="middle">${L.next}</text>
+    <path class="tick a" d="M93 78l5 5 11-11"/>
+    <g class="again">
+      <rect class="a" x="60" y="112" width="80" height="16" rx="8"/>
+      <text class="t ta" x="100" y="123" text-anchor="middle">${L.again}</text>
+    </g>`),
 };
 const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.toneDusa || 'DUSA', customer: s.toneCustomer || 'Customer' };
 ---
@@ -199,7 +259,7 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     background: linear-gradient(180deg, var(--reef-aqua), var(--mist-blue));
     transform: scaleY(0);
     transform-origin: top;
-    transition: transform 7s linear;
+    transition: transform 5s linear;
   }
   .week[data-live] .week__rail-fill { transform: scaleY(1); }
 
@@ -215,56 +275,144 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
   .week__beat:nth-child(odd) .week__scene { grid-column: 2; grid-row: 1; justify-self: start; }
   .week__beat:nth-child(even) .week__scene { grid-column: 1; grid-row: 1; justify-self: end; }
 
-  /* ── Line-art scene ── */
+  /* ── Line-art scene ──
+     The SVG is injected with set:html, so its parts are reached with :global.
+     --sa is DUSA's accent (reef aqua in the dark, deep ocean in the light),
+     --sb is the customer's (mist blue), the base stroke is the world. Every
+     loop runs on one shared six-second clock (--cycle) starting once the
+     scene has drawn on, so each scene tells its story and repeats. */
   .week__scene {
-    width: 200px; max-width: 100%;
-    color: rgba(247, 244, 239, 0.7);
+    --sa: var(--reef-aqua);
+    --sb: var(--mist-blue);
+    --cycle: 6s;
+    --start: calc(var(--i) * 0.6s + 1.7s);
+    width: 240px; max-width: 100%;
+    color: rgba(247, 244, 239, 0.72);
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-    transition-delay: calc(var(--i) * 0.9s + 0.5s);
+    transition-delay: calc(var(--i) * 0.6s + 0.5s);
   }
   .week[data-live] .week__scene { opacity: 1; transform: none; }
-  .week__scene svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .week__beat--dusa .week__scene { color: rgba(78, 216, 194, 0.85); }
-  .week__beat--customer .week__scene { color: rgba(106, 170, 207, 0.9); }
+  .week__scene :global(svg) { width: 100%; height: auto; display: block; overflow: visible; }
+  .week__scene :global(.a) { stroke: var(--sa); }
+  .week__scene :global(.b) { stroke: var(--sb); }
+  .week__scene :global(.t) { font-family: var(--font-body); font-size: 8.5px; font-weight: 600; fill: currentColor; stroke: none; letter-spacing: 0.01em; }
+  .week__scene :global(.ta) { fill: var(--sa); }
+  .week__scene :global(.tb) { fill: var(--sb); }
+  .week__scene :global(.ts) { font-size: 7.6px; }
+  .week__scene :global(.tm) { font-size: 7px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; }
 
   /* draw-on: every .d path reveals in order (--o), after its card lands */
-  .week__scene .d { stroke-dasharray: 320; stroke-dashoffset: 320; }
-  .week[data-live] .week__scene .d {
+  .week__scene :global(.d) { stroke-dasharray: 340; stroke-dashoffset: 340; }
+  .week[data-live] .week__scene :global(.d) {
     animation: weekDraw 0.9s var(--ease-out) forwards;
-    animation-delay: calc(var(--i) * 0.9s + 0.6s + var(--o, 0) * 0.28s);
+    animation-delay: calc(var(--i) * 0.6s + 0.6s + var(--o, 0) * 0.26s);
   }
   @keyframes weekDraw { to { stroke-dashoffset: 0; } }
 
-  /* loops: only once live, each after its scene is drawn */
-  .week__scene .ring, .week__scene .ripple, .week__scene .tick, .week__scene .st, .week__scene .miss { opacity: 0; }
-  .week[data-live] .week__scene .ring { animation: weekRing 2.2s ease-out infinite; animation-delay: calc(var(--i) * 0.9s + 1.2s); transform-origin: center; }
-  .week[data-live] .week__scene .ring--2 { animation-delay: calc(var(--i) * 0.9s + 1.6s); }
-  @keyframes weekRing { 0% { opacity: 0; transform: scale(0.8); } 30% { opacity: 0.9; } 100% { opacity: 0; transform: scale(1.15); } }
-  .week[data-live] .week__scene .miss { animation: weekBlink 1.4s ease-in-out 2; animation-delay: calc(var(--i) * 0.9s + 1.2s); }
-  @keyframes weekBlink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-  .week__scene .pop { transform-origin: 90% 80%; transform: scale(0.9); transition: transform 0.5s var(--ease-out); }
-  .week[data-live] .week__scene .pop { transform: scale(1); transition-delay: calc(var(--i) * 0.9s + 1.3s); }
-  .week[data-live] .week__scene .tick { animation: weekTick 0.5s var(--ease-out) forwards; animation-delay: calc(var(--i) * 0.9s + 2.2s); stroke-dasharray: 40; stroke-dashoffset: 40; }
-  @keyframes weekTick { to { opacity: 1; stroke-dashoffset: 0; } }
-  .week[data-live] .week__scene .st { animation: weekStar 0.45s var(--ease-out) forwards; animation-delay: calc(var(--i) * 0.9s + 1.2s + var(--o, 0) * 0.22s); transform-origin: center; transform: scale(0.4); }
-  @keyframes weekStar { to { opacity: 1; transform: scale(1); } }
-  .week[data-live] .week__scene .ripple { animation: weekRing 2.4s ease-out infinite; animation-delay: calc(var(--i) * 0.9s + 1.8s); transform-origin: 80px 68px; }
-  .week[data-live] .week__scene .ripple--2 { animation-delay: calc(var(--i) * 0.9s + 2.3s); }
-  .week__scene .drop { transform: translateY(-14px); opacity: 0; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s; }
-  .week[data-live] .week__scene .drop { transform: none; opacity: 1; transition-delay: calc(var(--i) * 0.9s + 1.3s); }
-  .week__scene .swing { transform-origin: 80px 64px; }
-  .week[data-live] .week__scene .swing { animation: weekSwing 1.6s ease-in-out infinite; animation-delay: calc(var(--i) * 0.9s + 2s); }
-  @keyframes weekSwing { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
-  .week__scene .toast { transform: translateY(-16px); opacity: 0; transition: transform 0.5s var(--ease-out), opacity 0.4s; }
-  .week[data-live] .week__scene .toast { transform: none; opacity: 1; transition-delay: calc(var(--i) * 0.9s + 1.6s); }
-  .week__scene .swipe { transform: translateX(22px); opacity: 0; transition: transform 0.6s var(--ease-out), opacity 0.4s; }
-  .week[data-live] .week__scene .swipe { transform: none; opacity: 1; transition-delay: calc(var(--i) * 0.9s + 1.4s); }
-  .week__scene .bub { transform-origin: left bottom; }
-  .week__scene .orbit { transform-origin: 80px 56px; }
-  .week[data-live] .week__scene .orbit { animation: weekOrbit 9s linear infinite; animation-delay: calc(var(--i) * 0.9s + 2.4s); }
-  @keyframes weekOrbit { to { transform: rotate(360deg); } }
+  /* Loop parts start hidden or at rest and only move once the section is live. */
+  .week__scene :global(.rg), .week__scene :global(.ripple), .week__scene :global(.tick),
+  .week__scene :global(.missed), .week__scene :global(.sms), .week__scene :global(.reply),
+  .week__scene :global(.paid), .week__scene :global(.rep), .week__scene :global(.lead),
+  .week__scene :global(.again), .week__scene :global(.toast), .week__scene :global(.swipe) { opacity: 0; }
+  .week__scene :global(.tick) { stroke-dasharray: 40; stroke-dashoffset: 40; }
+  .week__scene :global(.st) { fill: transparent; stroke: currentColor; transform-origin: center; transform-box: fill-box; }
+  .week__scene :global(.dt) { fill: var(--sa); stroke: none; opacity: 0.35; }
+
+  /* Shared loop timing */
+  .week[data-live] .week__scene :global(.loop),
+  .week[data-live] .week__scene :global(.ph), .week[data-live] .week__scene :global(.rg),
+  .week[data-live] .week__scene :global(.call), .week[data-live] .week__scene :global(.missed),
+  .week[data-live] .week__scene :global(.sms), .week[data-live] .week__scene :global(.dots),
+  .week[data-live] .week__scene :global(.dt), .week[data-live] .week__scene :global(.reply),
+  .week[data-live] .week__scene :global(.tick), .week[data-live] .week__scene :global(.toast),
+  .week[data-live] .week__scene :global(.swing), .week[data-live] .week__scene :global(.swipe),
+  .week[data-live] .week__scene :global(.paid), .week[data-live] .week__scene :global(.st),
+  .week[data-live] .week__scene :global(.rep), .week[data-live] .week__scene :global(.drop),
+  .week[data-live] .week__scene :global(.ripple), .week[data-live] .week__scene :global(.lead),
+  .week[data-live] .week__scene :global(.orbit), .week[data-live] .week__scene :global(.again) {
+    animation-duration: var(--cycle);
+    animation-delay: var(--start);
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+  }
+
+  /* 1. Monday 9:02pm: the phone rings, goes unanswered, DUSA texts back. */
+  .week__scene :global(.ph) { transform-origin: 50px 65px; }
+  .week[data-live] .week__scene :global(.ph) { animation-name: wkShake; }
+  @keyframes wkShake {
+    0%, 2%, 6%, 10%, 14%, 18%, 22%, 26%, 30%, 34% { transform: rotate(0); }
+    4%, 12%, 20%, 28% { transform: rotate(-2.5deg); }
+    8%, 16%, 24%, 32% { transform: rotate(2.5deg); }
+    36%, 100% { transform: rotate(0); }
+  }
+  .week__scene :global(.rg) { transform-origin: 80px 58px; }
+  .week[data-live] .week__scene :global(.rg) { animation-name: wkRing; }
+  .week[data-live] .week__scene :global(.rg--2) { animation-name: wkRing2; }
+  @keyframes wkRing { 0%, 36% { opacity: 0; } 3%, 11%, 19%, 27% { opacity: 1; } 7%, 15%, 23%, 31% { opacity: 0.15; } 37%, 100% { opacity: 0; } }
+  @keyframes wkRing2 { 0%, 36% { opacity: 0; } 5%, 13%, 21%, 29% { opacity: 0.8; } 9%, 17%, 25%, 33% { opacity: 0.1; } 37%, 100% { opacity: 0; } }
+  .week[data-live] .week__scene :global(.call) { animation-name: wkCall; }
+  @keyframes wkCall { 0%, 38% { opacity: 1; } 42%, 100% { opacity: 0; } }
+  .week[data-live] .week__scene :global(.missed) { animation-name: wkMissed; }
+  @keyframes wkMissed { 0%, 42% { opacity: 0; } 46%, 94% { opacity: 1; } 100% { opacity: 0; } }
+  .week__scene :global(.sms) { transform-origin: 100px 110px; }
+  .week[data-live] .week__scene :global(.sms) { animation-name: wkPop; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes wkPop { 0%, 52% { opacity: 0; transform: scale(0.6); } 58%, 94% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1); } }
+
+  /* 2. Monday 9:04pm: the customer asks, DUSA types, the slot is booked. */
+  .week__scene :global(.bub) { transform-origin: left bottom; }
+  .week[data-live] .week__scene :global(.dt) { animation-name: wkDot; }
+  .week[data-live] .week__scene :global(.dt--2) { animation-delay: calc(var(--start) + 0.2s); }
+  .week[data-live] .week__scene :global(.dt--3) { animation-delay: calc(var(--start) + 0.4s); }
+  @keyframes wkDot { 0%, 36% { opacity: 0.35; } 4%, 14%, 24%, 34% { opacity: 1; } 9%, 19%, 29% { opacity: 0.35; } 40%, 100% { opacity: 0; } }
+  .week[data-live] .week__scene :global(.reply) { animation-name: wkReply; }
+  @keyframes wkReply { 0%, 40% { opacity: 0; } 46%, 96% { opacity: 1; } 100% { opacity: 0; } }
+  .week[data-live] .week__scene :global(.tick) { animation-name: wkTick; }
+  @keyframes wkTick { 0%, 58% { opacity: 0; stroke-dashoffset: 40; } 62% { opacity: 1; } 70%, 96% { opacity: 1; stroke-dashoffset: 0; } 100% { opacity: 0; stroke-dashoffset: 0; } }
+
+  /* 3. Wednesday 4pm: the reminder drops in and the bell rings. */
+  .week[data-live] .week__scene :global(.toast) { animation-name: wkToast; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  @keyframes wkToast { 0% { opacity: 0; transform: translateY(-18px); } 10%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-6px); } }
+  .week__scene :global(.swing) { transform-origin: 100px 74px; }
+  .week[data-live] .week__scene :global(.swing) { animation-name: wkSwing; }
+  @keyframes wkSwing { 0%, 10%, 50%, 100% { transform: rotate(0); } 14%, 26%, 38% { transform: rotate(-12deg); } 20%, 32%, 44% { transform: rotate(12deg); } }
+
+  /* 4. Thursday 11:30am: the card lands on the terminal, paid. */
+  .week[data-live] .week__scene :global(.swipe) { animation-name: wkSwipe; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  @keyframes wkSwipe { 0%, 8% { opacity: 0; transform: translate(14px, -12px); } 16% { opacity: 1; } 30%, 92% { opacity: 1; transform: translate(0, 28px); } 100% { opacity: 0; transform: translate(0, 28px); } }
+  .week__scene :global(.paid) { transform-origin: 128px 110px; }
+  .week[data-live] .week__scene :global(.paid) { animation-name: wkPaid; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes wkPaid { 0%, 40% { opacity: 0; transform: scale(0.5); } 48%, 94% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+  .week[data-live] .week__scene :global(.paid .tick) { animation: none; opacity: 1; stroke-dashoffset: 0; }
+
+  /* 5. Thursday 6pm: five stars land, one at a time, then DUSA replies. */
+  .week[data-live] .week__scene :global(.st) { animation-name: wkStar; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .week[data-live] .week__scene :global(.st:nth-child(2)) { animation-delay: calc(var(--start) + 0.35s); }
+  .week[data-live] .week__scene :global(.st:nth-child(3)) { animation-delay: calc(var(--start) + 0.7s); }
+  .week[data-live] .week__scene :global(.st:nth-child(4)) { animation-delay: calc(var(--start) + 1.05s); }
+  .week[data-live] .week__scene :global(.st:nth-child(5)) { animation-delay: calc(var(--start) + 1.4s); }
+  @keyframes wkStar { 0%, 4% { fill: transparent; stroke: currentColor; transform: scale(0.6); } 10%, 94% { fill: var(--sa); stroke: var(--sa); transform: scale(1); } 100% { fill: transparent; stroke: currentColor; transform: scale(1); } }
+  .week__scene :global(.rep) { transform-origin: 136px 107px; }
+  .week[data-live] .week__scene :global(.rep) { animation-name: wkPop; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+  /* 6. Friday 8am: the pin drops, the map ripples, a new enquiry arrives. */
+  .week[data-live] .week__scene :global(.drop) { animation-name: wkDrop; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes wkDrop { 0% { transform: translateY(-22px); opacity: 0; } 10%, 100% { transform: none; opacity: 1; } }
+  .week__scene :global(.ripple) { transform-origin: 80px 88px; }
+  .week[data-live] .week__scene :global(.ripple) { animation-name: wkRipple; animation-timing-function: ease-out; }
+  .week[data-live] .week__scene :global(.ripple--2) { animation-delay: calc(var(--start) + 0.5s); }
+  @keyframes wkRipple { 0%, 10% { opacity: 0; transform: scale(0.5); } 14% { opacity: 0.9; } 40% { opacity: 0; transform: scale(1.3); } 44% { opacity: 0.9; transform: scale(0.5); } 70%, 100% { opacity: 0; transform: scale(1.3); } }
+  .week__scene :global(.lead) { transform-origin: 148px 108px; }
+  .week[data-live] .week__scene :global(.lead) { animation-name: wkPop; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+  /* 7. Next month: the loop turns, the slot is taken again. */
+  .week__scene :global(.orbit) { transform-origin: 100px 65px; }
+  .week[data-live] .week__scene :global(.orbit) { animation-name: wkOrbit; animation-duration: 12s; animation-timing-function: linear; }
+  @keyframes wkOrbit { to { transform: rotate(360deg); } }
+  .week__scene :global(.again) { transform-origin: 100px 120px; }
+  .week[data-live] .week__scene :global(.again) { animation-name: wkPop; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
 
   .week__dot {
     position: absolute;
@@ -276,7 +424,7 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     background: var(--deep-black);
     border: 2px solid rgba(247, 244, 239, 0.25);
     transition: transform 0.5s var(--ease-out), border-color 0.5s, box-shadow 0.5s;
-    transition-delay: calc(var(--i) * 0.9s + 0.2s);
+    transition-delay: calc(var(--i) * 0.6s + 0.2s);
   }
   .week[data-live] .week__dot {
     transform: translate(-50%, -50%) scale(1);
@@ -297,7 +445,7 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     opacity: 0;
     transform: translateY(18px) scale(0.98);
     transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out), border-color 0.6s;
-    transition-delay: calc(var(--i) * 0.9s + 0.3s);
+    transition-delay: calc(var(--i) * 0.6s + 0.3s);
   }
   .week[data-live] .week__card { opacity: 1; transform: none; }
   .week__beat--dusa .week__card { border-color: rgba(78, 216, 194, 0.25); }
@@ -337,14 +485,15 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
     .week__rail { left: 7px; transform: none; }
     .week__beat { grid-template-columns: 1fr; }
     .week__beat:nth-child(odd) .week__card, .week__beat:nth-child(even) .week__card { grid-column: 1; grid-row: 2; }
-    .week__beat:nth-child(odd) .week__scene, .week__beat:nth-child(even) .week__scene { grid-column: 1; grid-row: 1; justify-self: start; width: 150px; margin-bottom: -0.4rem; }
+    .week__beat:nth-child(odd) .week__scene, .week__beat:nth-child(even) .week__scene { grid-column: 1; grid-row: 1; justify-self: start; width: 184px; margin-bottom: -0.4rem; }
     .week__dot { left: -1.75rem; margin-left: 7px; }
     .week__card { padding: 1rem 1rem 1.05rem; }
     .week__ctas .btn { width: 100%; text-align: center; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .week__scene, .week__scene * { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+    .week__scene, .week__scene :global(*) { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+    .week__scene :global(.st) { fill: var(--sa) !important; stroke: var(--sa) !important; }
     .week__card, .week__dot { transition: none; opacity: 1; transform: translate(-50%, -50%) scale(1); }
     .week__card { transform: none; }
     .week__rail-fill { transition: none; transform: scaleY(1); }
@@ -352,6 +501,7 @@ const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.ton
 
   /* ── Light mode ── */
   :global(html[data-theme="light"]) .week__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .week__scene { --sa: var(--deep-ocean); color: rgba(12, 14, 20, 0.7); }
   :global(html[data-theme="light"]) .week__rail { background: rgba(12, 14, 20, 0.1); }
   :global(html[data-theme="light"]) .week__dot { background: var(--sand, #f3f1ec); border-color: rgba(12, 14, 20, 0.25); }
   :global(html[data-theme="light"]) .week[data-live] .week__dot { border-color: var(--deep-ocean); box-shadow: 0 0 0 6px rgba(26, 58, 92, 0.1), 0 0 20px rgba(26, 58, 92, 0.2); }

@@ -29,6 +29,9 @@ const heroCapFunnelsSub = s.capFunnelsSub || 'Convert while you sleep';
 const heroCapAiTitle = s.capAiTitle || 'AI Built In';
 const heroCapAiSub = s.capAiSub || 'Smarter conversations, faster growth';
 const heroScrollExplore = s.scrollExplore || 'Explore';
+// Caption under the phone: why every app landing in one place matters.
+const heroPhoneCaptionLead = s.phoneCaptionLead || 'Every app you already use, in one place.';
+const heroPhoneCaption = s.phoneCaption || 'Your phone still buzzes. You just never jump between apps again.';
 
 // Intro (opening panel) strings
 const introLabel = s.introLabel || 'Growth, done for you';
@@ -222,6 +225,10 @@ const notifJson = JSON.stringify(notifTranslations);
             </button>
           </div>
         </div>
+        <p class="hero__phone-caption">
+          <strong>{heroPhoneCaptionLead}</strong>
+          <span>{heroPhoneCaption}</span>
+        </p>
       </div>
     </div>
 
@@ -380,6 +387,26 @@ const notifJson = JSON.stringify(notifTranslations);
     align-items: center;
     gap: var(--space-md);
   }
+
+  /* Why the apps land in one phone: the caption that gives the animation its point. */
+  .hero__phone-caption {
+    max-width: 320px;
+    margin: 0;
+    text-align: center;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: rgba(247, 244, 239, 0.66);
+  }
+  .hero__phone-caption strong {
+    display: block;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--warm-white);
+    margin-bottom: 0.15rem;
+  }
+  :global(html[data-theme="light"]) .hero__phone-caption { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .hero__phone-caption strong { color: var(--deep-black); }
 
   .hero__phone {
     width: 320px;

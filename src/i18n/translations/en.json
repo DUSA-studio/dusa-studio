@@ -486,6 +486,7 @@
     "supportPortalDesc": "Your private hub for guides, tutorials, templates, and support. Everything you need to get the most out of your DUSA platform, all in one place.",
     "supportPriorityTitle": "Priority and dedicated",
     "supportPriorityDesc": "Growth plans jump the queue with priority support. Bespoke clients get a dedicated account manager, phone line, and monthly strategy reviews.",
+    "supportHoursLine": "Every plan includes 3 hours of hands-on help in your first 3 months. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.",
     "allPlans": "All plans",
     "growthAndBespoke": "Growth and Bespoke",
     "compareLabel": "Full comparison",
@@ -569,7 +570,10 @@
         "payg": "Pay as you go",
         "aiReplies": "1,000 replies/mo",
         "aiMinutes": "100 min/mo",
-        "extraUser": "{extraUser}/mo each"
+        "extraUser": "{extraUser}/mo each",
+        "helpHours": "3 hrs, first 3 months",
+        "extraHelp": "{assist}/hr, {expert}/hr expert",
+        "byArrangement": "By arrangement"
       },
       "featureCategories": [
         {
@@ -753,6 +757,14 @@
               "A one-on-one session with a growth consultant to map out your setup, migrate your data, build your first automations and train your AI Employee on your business."
             ],
             [
+              "Hands-on help included",
+              "Three hours of a real person helping you set up, fix or build things in your account, included on every plan for your first three months. Book a time or reply to any email from us."
+            ],
+            [
+              "Extra help, when you want it",
+              "After your included hours, help is charged by the hour: {assist} for general assistance and execution, {expert} for expert work such as strategy, consulting and anything outside the platform. You always approve the time first."
+            ],
+            [
               "Dedicated account manager",
               "A named account manager who knows your business inside and out. Your single point of contact for everything DUSA."
             ],
@@ -860,6 +872,10 @@
         {
           "q": "How long does it take to set up DUSA?",
           "a": "Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding and AI setup session where we help you configure everything for your specific business."
+        },
+        {
+          "q": "What if I get stuck, or want someone to do it for me?",
+          "a": "Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Every plan includes 3 hours of hands-on help in your first 3 months: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used."
         },
         {
           "q": "What is DUSA built on?",

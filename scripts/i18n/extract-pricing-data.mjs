@@ -7,7 +7,7 @@ function slice(startMarker) {
   const i = src.indexOf(startMarker); if (i < 0) throw new Error('missing ' + startMarker);
   const j = src.indexOf('\n];', i); return src.slice(i + startMarker.length - 1, j + 2);
 }
-const cells = { pick1: 'Pick 1', unlimited: 'Unlimited', included: 'Included', payg: 'Pay as you go', aiReplies: '1,000 replies/mo', aiMinutes: '100 min/mo', extraUser: '{extraUser}/mo each' };
+const cells = { pick1: 'Pick 1', unlimited: 'Unlimited', included: 'Included', payg: 'Pay as you go', aiReplies: '1,000 replies/mo', aiMinutes: '100 min/mo', extraUser: '{extraUser}/mo each', helpHours: '3 hrs, first 3 months', extraHelp: '{assist}/hr, {expert}/hr expert', byArrangement: 'By arrangement' };
 const p = new Proxy({}, { get: (_, k) => '{p.' + String(k) + '}' });
 const prices = { launchpad: 47, starter: 149, growth: 297 };
 const tiers = new Function('cells', 'p', 'prices', 'return ' + slice('const tiers = ['))(cells, p, prices);

@@ -480,6 +480,7 @@
     "supportPortalDesc": "Seu hub privado de guias, tutoriais, modelos e suporte. Tudo o que você precisa para aproveitar ao máximo sua plataforma DUSA.",
     "supportPriorityTitle": "Prioritário e dedicado",
     "supportPriorityDesc": "Os planos Growth têm prioridade na fila de suporte. Clientes Bespoke recebem um gerente de conta dedicado, linha telefônica e revisões estratégicas mensais.",
+    "supportHoursLine": "Todos os planos incluem 3 horas de ajuda prática nos seus primeiros 3 meses. Depois disso, {assist} por hora para ajuda geral e {expert} por hora para estratégia e consultoria, sempre com a sua aprovação antes.",
     "allPlans": "Todos os planos",
     "growthAndBespoke": "Growth e Bespoke",
     "compareLabel": "Comparação completa",
@@ -564,7 +565,10 @@
         "payg": "Pague pelo uso",
         "aiReplies": "1.000 respostas/mês",
         "aiMinutes": "100 min/mês",
-        "extraUser": "{extraUser}/mês cada"
+        "extraUser": "{extraUser}/mês cada",
+        "helpHours": "3 h, primeiros 3 meses",
+        "extraHelp": "{assist}/h, {expert}/h especialista",
+        "byArrangement": "Sob consulta"
       },
       "featureCategories": [
         {
@@ -748,6 +752,14 @@
               "Uma sessão individual com um consultor de crescimento para planejar sua configuração, migrar seus dados, criar suas primeiras automações e treinar seu AI Employee no seu negócio."
             ],
             [
+              "Ajuda prática incluída",
+              "Três horas de uma pessoa de verdade ajudando você a configurar, corrigir ou construir coisas na sua conta, incluídas em todos os planos nos seus primeiros três meses. Agende um horário ou responda a qualquer e-mail nosso."
+            ],
+            [
+              "Ajuda extra, quando você quiser",
+              "Depois das horas incluídas, a ajuda é cobrada por hora: {assist} para assistência geral e execução, {expert} para trabalho especializado, como estratégia, consultoria e tudo o que estiver fora da plataforma. Você sempre aprova o tempo antes."
+            ],
+            [
               "Gerente de conta dedicado",
               "Um gerente de conta com nome e sobrenome, que conhece o seu negócio de ponta a ponta. Seu único ponto de contato para tudo o que envolve a DUSA."
             ],
@@ -855,6 +867,10 @@
         {
           "q": "Quanto tempo leva para configurar a DUSA?",
           "a": "A maioria dos negócios está operando em até 48 horas. O plano Launchpad pode estar no ar em menos de uma hora. Os planos Growth e Bespoke incluem uma sessão de onboarding e setup de IA em que ajudamos você a configurar tudo para a realidade do seu negócio."
+        },
+        {
+          "q": "E se eu travar ou quiser que alguém faça por mim?",
+          "a": "Responda a qualquer e-mail nosso e uma pessoa vai ler, ou pergunte ao assistente de IA 24/7 dentro da sua conta. Todos os planos incluem 3 horas de ajuda prática nos seus primeiros 3 meses: uma pessoa de verdade configurando, corrigindo ou construindo coisas com você por compartilhamento de tela. Depois disso, a ajuda custa {assist} por hora para assistência geral e execução, e {expert} por hora para trabalho especializado, como estratégia, consultoria e tudo o que estiver fora da plataforma. Você aprova o tempo antes de ele ser usado."
         },
         {
           "q": "Em que a DUSA é construída?",

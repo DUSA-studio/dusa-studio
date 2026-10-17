@@ -481,6 +481,7 @@
     "supportPortalDesc": "Je eigen plek voor handleidingen, tutorials, templates en support. Alles wat je nodig hebt om het maximale uit je DUSA-platform te halen, op één plek.",
     "supportPriorityTitle": "Prioriteit en vaste begeleiding",
     "supportPriorityDesc": "Growth-plannen gaan voor in de rij met prioriteitssupport. Bespoke-klanten krijgen een vaste accountmanager, een directe telefoonlijn en maandelijkse strategiesessies.",
+    "supportHoursLine": "Elk plan bevat 3 uur persoonlijke hulp in je eerste 3 maanden. Daarna betaal je {assist} per uur voor algemene hulp en {expert} per uur voor strategie en consultancy, altijd eerst door jou goedgekeurd.",
     "allPlans": "Alle plannen",
     "growthAndBespoke": "Growth en Bespoke",
     "compareLabel": "Volledige vergelijking",
@@ -564,7 +565,10 @@
         "payg": "Naar gebruik",
         "aiReplies": "1.000 antwoorden/mnd",
         "aiMinutes": "100 min/mnd",
-        "extraUser": "{extraUser}/mnd p.p."
+        "extraUser": "{extraUser}/mnd p.p.",
+        "helpHours": "3 uur, eerste 3 mnd",
+        "extraHelp": "{assist}/uur, {expert}/uur expert",
+        "byArrangement": "Op afspraak"
       },
       "featureCategories": [
         {
@@ -748,6 +752,14 @@
               "Een één-op-één sessie met een groeiconsultant om je inrichting uit te stippelen, je data te migreren, je eerste automatiseringen te bouwen en je AI Employee te trainen op jouw bedrijf."
             ],
             [
+              "Persoonlijke hulp inbegrepen",
+              "Drie uur waarin een echt persoon je helpt met inrichten, oplossen of bouwen in je account, inbegrepen op elk plan gedurende je eerste drie maanden. Boek een moment of reageer op een e-mail van ons."
+            ],
+            [
+              "Extra hulp, wanneer je wilt",
+              "Na je inbegrepen uren wordt hulp per uur gefactureerd: {assist} voor algemene hulp en uitvoering, {expert} voor expertwerk zoals strategie, consultancy en alles buiten het platform. Jij keurt de tijd altijd eerst goed."
+            ],
+            [
               "Vaste accountmanager",
               "Een vaste accountmanager die jouw bedrijf door en door kent. Je enige aanspreekpunt voor alles rondom DUSA."
             ],
@@ -855,6 +867,10 @@
         {
           "q": "Hoe lang duurt het om DUSA in te richten?",
           "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Ons Launchpad-plan kan binnen een uur live staan. Growth- en Bespoke-plannen bevatten een onboarding- en AI-inrichtingssessie, waarin we alles samen met jou configureren voor jouw specifieke bedrijf."
+        },
+        {
+          "q": "Wat als ik vastloop, of wil dat iemand het voor me doet?",
+          "a": "Reageer op een e-mail van ons en een echt persoon leest hem, of stel je vraag aan de 24/7 AI-assistent in je account. Elk plan bevat 3 uur persoonlijke hulp in je eerste 3 maanden: een echt persoon die samen met jou via schermdelen dingen inricht, oplost of bouwt. Daarna kost hulp {assist} per uur voor algemene hulp en uitvoering, en {expert} per uur voor expertwerk zoals strategie, consultancy en alles buiten het platform. Jij keurt de tijd goed voordat die wordt gebruikt."
         },
         {
           "q": "Waarop is DUSA gebouwd?",

@@ -51,6 +51,8 @@ function convertToolCost(audCost: number): number {
 /* ─── Add-on prices (AUD base, converted like the plan prices) ─── */
 const extraUserPrice = convertPrice(29, regionKey);
 const unlimitedAiPrice = convertPrice(197, regionKey);
+const assistRate = convertPrice(75, regionKey);
+const expertRate = convertPrice(225, regionKey);
 const deltaStarterVal = prices.starter - prices.launchpad;
 const deltaGrowthVal = prices.growth - prices.starter;
 
@@ -62,6 +64,8 @@ const fill = (tpl: string) => String(tpl)
   .replace(/\{growth\}/g, `${sym}${prices.growth}`)
   .replace(/\{extraUser\}/g, `${sym}${extraUserPrice}`)
   .replace(/\{unlimitedAi\}/g, `${sym}${unlimitedAiPrice}`)
+  .replace(/\{assist\}/g, `${sym}${assistRate}`)
+  .replace(/\{expert\}/g, `${sym}${expertRate}`)
   .replace(/\{deltaStarter\}/g, `${sym}${deltaStarterVal}`)
   .replace(/\{deltaGrowth\}/g, `${sym}${deltaGrowthVal}`)
   .replace(/\{currency\}/g, region.currency)
@@ -79,6 +83,9 @@ const cells = {
   aiReplies: (L && L.cells && L.cells.aiReplies) || '1,000 replies/mo',
   aiMinutes: (L && L.cells && L.cells.aiMinutes) || '100 min/mo',
   extraUser: fill((L && L.cells && L.cells.extraUser) || '{extraUser}/mo each'),
+  helpHours: (L && L.cells && L.cells.helpHours) || '3 hrs, first 3 months',
+  extraHelp: fill((L && L.cells && L.cells.extraHelp) || '{assist}/hr, {expert}/hr expert'),
+  byArrangement: (L && L.cells && L.cells.byArrangement) || 'By arrangement',
 };
 
 const tiers = [
@@ -344,6 +351,8 @@ const featureCategories = [
       { label: 'Email support', desc: 'Reach our support team by email for technical questions, troubleshooting, and account help during business hours.', launchpad: true, starter: true, growth: true, bespoke: true },
       { label: 'Priority support queue', desc: 'Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention.', launchpad: false, starter: false, growth: true, bespoke: true },
       { label: 'Onboarding and AI setup session', desc: 'A one-on-one session with a growth consultant to map out your setup, migrate your data, build your first automations and train your AI Employee on your business.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Hands-on help included', desc: 'Three hours of a real person helping you set up, fix or build things in your account, included on every plan for your first three months. Book a time or reply to any email from us.', launchpad: cells.helpHours, starter: cells.helpHours, growth: cells.helpHours, bespoke: cells.included },
+      { label: 'Extra help, when you want it', desc: 'After your included hours, help is charged by the hour: {assist} for general assistance and execution, {expert} for expert work such as strategy, consulting and anything outside the platform. You always approve the time first.', launchpad: cells.extraHelp, starter: cells.extraHelp, growth: cells.extraHelp, bespoke: cells.byArrangement },
       { label: 'Dedicated account manager', desc: 'A named account manager who knows your business inside and out. Your single point of contact for everything DUSA.', launchpad: false, starter: false, growth: false, bespoke: true },
       { label: 'Phone support', desc: 'Direct phone access to our support team for urgent issues or complex questions that need a real conversation.', launchpad: false, starter: false, growth: false, bespoke: true },
       { label: 'Monthly strategy reviews', desc: 'Regular check-ins with your account manager to review performance, optimise your setup, and plan your next growth moves.', launchpad: false, starter: false, growth: false, bespoke: true },
@@ -423,6 +432,10 @@ const faqs = [
     a: 'Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding and AI setup session where we help you configure everything for your specific business.',
   },
   {
+    q: 'What if I get stuck, or want someone to do it for me?',
+    a: 'Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Every plan includes 3 hours of hands-on help in your first 3 months: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used.',
+  },
+  {
     q: 'What is DUSA built on?',
     a: 'DUSA runs on HighLevel, the platform powering 2.2 million businesses worldwide, with DUSA as your provider. You get that engine plus everything we add on top: setup with you in the first week, Australian support, {currency} billing, Ask AI on every plan and the AI Employee included on Growth. Your data is yours and exports at any time. We compare DUSA with going direct to HighLevel, openly, on our HighLevel comparison page.',
   },
@@ -457,6 +470,7 @@ if (L) {
 tiers.forEach((tier) => { tier.highlights = tier.highlights.map(fill); tier.delta = fill(tier.delta); });
 featureCategories.forEach((cat) => cat.features.forEach((row: any) => { row.desc = fill(row.desc); }));
 faqs.forEach((f) => { f.q = fill(f.q); f.a = fill(f.a); });
+const supportHoursLine = fill(p.supportHoursLine || 'Every plan includes 3 hours of hands-on help in your first 3 months. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.');
 const addonsLine = fill(p.addonsLine || 'Add-ons: extra users {extraUser}/mo each on any plan. Unlimited AI {unlimitedAi}/mo on Growth.');
 
 /* Mobile plan selector reads the same (localised) tiers + feature table */
@@ -720,6 +734,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
           <span class="support__card-plans">{p.growthAndBespoke}</span>
         </div>
       </div>
+      <p class="usage-note usage-note--support">{supportHoursLine}</p>
     </div>
   </section>
 
@@ -2038,6 +2053,8 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .usage-note--tight {
     margin-top: 0.5rem;
   }
+  .usage-note--support { margin-top: var(--space-lg); color: rgba(247, 244, 239, 0.7); }
+  html[data-theme="light"] .usage-note--support { color: rgba(12, 14, 20, 0.68); }
 
   .usage-note__ast {
     color: var(--reef-aqua);

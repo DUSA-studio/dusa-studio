@@ -481,6 +481,7 @@
     "supportPortalDesc": "Dit private hub med guides, videoer, skabeloner og support. Alt, hvad du skal bruge for at få mest muligt ud af din DUSA-platform, samlet ét sted.",
     "supportPriorityTitle": "Prioriteret og dedikeret",
     "supportPriorityDesc": "Growth-planer springer køen over med prioriteret support. Bespoke-kunder får en dedikeret account manager, direkte telefonlinje og månedlige strategigennemgange.",
+    "supportHoursLine": "Alle planer inkluderer 3 timers praktisk hjælp i dine første 3 måneder. Derefter koster det {assist} i timen for generel hjælp og {expert} i timen for strategi og rådgivning, altid godkendt af dig først.",
     "allPlans": "Alle planer",
     "growthAndBespoke": "Growth og Bespoke",
     "compareLabel": "Fuld sammenligning",
@@ -564,7 +565,10 @@
         "payg": "Efter forbrug",
         "aiReplies": "1.000 svar/md.",
         "aiMinutes": "100 min/md.",
-        "extraUser": "{extraUser}/md. hver"
+        "extraUser": "{extraUser}/md. hver",
+        "helpHours": "3 timer, første 3 md.",
+        "extraHelp": "{assist}/time, {expert}/time ekspert",
+        "byArrangement": "Efter aftale"
       },
       "featureCategories": [
         {
@@ -748,6 +752,14 @@
               "En personlig session med en vækstkonsulent, hvor I planlægger din opsætning, flytter dine data, bygger dine første automatiseringer og træner din AI Employee i din forretning."
             ],
             [
+              "Praktisk hjælp inkluderet",
+              "Tre timer, hvor et rigtigt menneske hjælper dig med at sætte op, løse eller bygge ting i din konto, inkluderet på alle planer i dine første tre måneder. Book en tid, eller svar på en hvilken som helst e-mail fra os."
+            ],
+            [
+              "Ekstra hjælp, når du vil",
+              "Efter dine inkluderede timer afregnes hjælp pr. time: {assist} for generel hjælp og udførelse, {expert} for ekspertarbejde som strategi, rådgivning og alt uden for platformen. Du godkender altid tiden først."
+            ],
+            [
               "Dedikeret account manager",
               "En fast account manager, der kender din forretning ud og ind. Din ene kontaktperson til alt, der handler om DUSA."
             ],
@@ -855,6 +867,10 @@
         {
           "q": "Hvor lang tid tager det at sætte DUSA op?",
           "a": "De fleste virksomheder er oppe at køre inden for 48 timer. Vores Launchpad-plan kan være live på under en time. Growth- og Bespoke-planer inkluderer en onboarding- og AI-opsætningssession, hvor vi hjælper dig med at sætte alt op til netop din virksomhed."
+        },
+        {
+          "q": "Hvad hvis jeg sidder fast eller vil have nogen til at gøre det for mig?",
+          "a": "Svar på en hvilken som helst e-mail fra os, så læser et menneske den, eller spørg AI-assistenten, der er tilgængelig 24/7 i din konto. Alle planer inkluderer 3 timers praktisk hjælp i dine første 3 måneder: et rigtigt menneske, der sætter op, løser eller bygger ting sammen med dig via skærmdeling. Derefter koster hjælp {assist} i timen for generel hjælp og udførelse og {expert} i timen for ekspertarbejde som strategi, rådgivning og alt uden for platformen. Du godkender tiden, før den bruges."
         },
         {
           "q": "Hvad er DUSA bygget på?",

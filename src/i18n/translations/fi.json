@@ -481,6 +481,7 @@
     "supportPortalDesc": "Yksityinen keskuksesi oppaille, tutoriaaleille, pohjille ja tuelle. Kaikki, mitä tarvitset saadaksesi DUSA-alustasta kaiken irti, yhdessä paikassa.",
     "supportPriorityTitle": "Prioriteetti ja oma vastaava",
     "supportPriorityDesc": "Growth-paketit ohittavat jonon prioriteettituella. Bespoke-asiakkaat saavat oman asiakasvastaavan, puhelinlinjan ja kuukausittaiset strategiakatsaukset.",
+    "supportHoursLine": "Jokaiseen pakettiin sisältyy 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana. Sen jälkeen yleinen apu maksaa {assist} tunnilta ja strategia ja konsultointi {expert} tunnilta, aina sinun ennakkohyväksynnälläsi.",
     "allPlans": "Kaikki paketit",
     "growthAndBespoke": "Growth ja Bespoke",
     "compareLabel": "Täysi vertailu",
@@ -564,7 +565,10 @@
         "payg": "Käytön mukaan",
         "aiReplies": "1 000 vastausta/kk",
         "aiMinutes": "100 min/kk",
-        "extraUser": "{extraUser}/kk/käyttäjä"
+        "extraUser": "{extraUser}/kk/käyttäjä",
+        "helpHours": "3 h, ensimmäiset 3 kk",
+        "extraHelp": "{assist}/h, {expert}/h asiantuntija",
+        "byArrangement": "Sopimuksen mukaan"
       },
       "featureCategories": [
         {
@@ -748,6 +752,14 @@
               "Kahdenkeskinen sessio kasvukonsultin kanssa, jossa suunnittelette asennuksesi, siirrätte tietosi, rakennatte ensimmäiset automaatiosi ja koulutatte AI Employee -tekoälytyöntekijäsi tuntemaan yrityksesi."
             ],
             [
+              "Henkilökohtainen apu mukana",
+              "Kolme tuntia, joiden aikana oikea ihminen auttaa sinua ottamaan käyttöön, korjaamaan tai rakentamaan asioita tililläsi. Sisältyy jokaiseen pakettiin ensimmäisten kolmen kuukauden ajan. Varaa aika tai vastaa mihin tahansa meiltä tulleeseen sähköpostiin."
+            ],
+            [
+              "Lisäapua, kun haluat",
+              "Sisältyvien tuntien jälkeen apu laskutetaan tunneittain: {assist} yleisestä avusta ja toteutuksesta, {expert} asiantuntijatyöstä, kuten strategiasta, konsultoinnista ja kaikesta alustan ulkopuolisesta. Hyväksyt ajan aina ensin."
+            ],
+            [
               "Oma asiakasvastaava",
               "Nimetty asiakasvastaava, joka tuntee yrityksesi läpikotaisin. Yksi yhteyshenkilö kaikkeen DUSAan liittyvään."
             ],
@@ -855,6 +867,10 @@
         {
           "q": "Kauanko DUSAn käyttöönotto kestää?",
           "a": "Useimmat yritykset ovat käynnissä 48 tunnin sisällä. Launchpad-paketin saat käyttöön alle tunnissa. Growth- ja Bespoke-paketteihin sisältyy käyttöönoton ja tekoälyn asennussessio, jossa autamme sinua määrittämään kaiken juuri sinun yrityksellesi."
+        },
+        {
+          "q": "Mitä jos jään jumiin tai haluan, että joku tekee sen puolestani?",
+          "a": "Vastaa mihin tahansa meiltä tulleeseen sähköpostiin, niin ihminen lukee sen, tai kysy tilisi 24/7-tekoälyavustajalta. Jokaiseen pakettiin sisältyy 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana: oikea ihminen ottaa käyttöön, korjaa tai rakentaa asioita kanssasi ruudunjaon kautta. Sen jälkeen apu maksaa {assist} tunnilta yleisestä avusta ja toteutuksesta ja {expert} tunnilta asiantuntijatyöstä, kuten strategiasta, konsultoinnista ja kaikesta alustan ulkopuolisesta. Hyväksyt ajan ennen kuin sitä käytetään."
         },
         {
           "q": "Minkä päälle DUSA on rakennettu?",

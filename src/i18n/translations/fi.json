@@ -481,7 +481,7 @@
     "supportPortalDesc": "Yksityinen keskuksesi oppaille, tutoriaaleille, pohjille ja tuelle. Kaikki, mitä tarvitset saadaksesi DUSA-alustasta kaiken irti, yhdessä paikassa.",
     "supportPriorityTitle": "Prioriteetti ja oma vastaava",
     "supportPriorityDesc": "Growth-paketit ohittavat jonon prioriteettituella. Bespoke-asiakkaat saavat oman asiakasvastaavan, puhelinlinjan ja kuukausittaiset strategiakatsaukset.",
-    "supportHoursLine": "Jokaiseen pakettiin sisältyy 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana. Sen jälkeen yleinen apu maksaa {assist} tunnilta ja strategia ja konsultointi {expert} tunnilta, aina sinun ennakkohyväksynnälläsi.",
+    "supportHoursLine": "Jokaiseen pakettiin sisältyy 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana asiakkaana, ensimmäisestä maksustasi alkaen. Sen jälkeen yleinen apu maksaa {assist} tunnilta ja strategia ja konsultointi {expert} tunnilta, aina sinun ennakkohyväksynnälläsi.",
     "allPlans": "Kaikki paketit",
     "growthAndBespoke": "Growth ja Bespoke",
     "compareLabel": "Täysi vertailu",
@@ -753,7 +753,7 @@
             ],
             [
               "Henkilökohtainen apu mukana",
-              "Kolme tuntia, joiden aikana oikea ihminen auttaa sinua ottamaan käyttöön, korjaamaan tai rakentamaan asioita tililläsi. Sisältyy jokaiseen pakettiin ensimmäisten kolmen kuukauden ajan. Varaa aika tai vastaa mihin tahansa meiltä tulleeseen sähköpostiin."
+              "Kolme tuntia, joiden aikana oikea ihminen auttaa sinua ottamaan käyttöön, korjaamaan tai rakentamaan asioita tililläsi. Sisältyy jokaiseen pakettiin ensimmäisten kolmen kuukauden ajan asiakkaana. Tunnit avautuvat ensimmäisen maksusi yhteydessä, ilmaisen kokeilujakson jälkeen. Varaa aika tai vastaa mihin tahansa meiltä tulleeseen sähköpostiin."
             ],
             [
               "Lisäapua, kun haluat",
@@ -870,7 +870,7 @@
         },
         {
           "q": "Mitä jos jään jumiin tai haluan, että joku tekee sen puolestani?",
-          "a": "Vastaa mihin tahansa meiltä tulleeseen sähköpostiin, niin ihminen lukee sen, tai kysy tilisi 24/7-tekoälyavustajalta. Jokaiseen pakettiin sisältyy 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana: oikea ihminen ottaa käyttöön, korjaa tai rakentaa asioita kanssasi ruudunjaon kautta. Sen jälkeen apu maksaa {assist} tunnilta yleisestä avusta ja toteutuksesta ja {expert} tunnilta asiantuntijatyöstä, kuten strategiasta, konsultoinnista ja kaikesta alustan ulkopuolisesta. Hyväksyt ajan ennen kuin sitä käytetään."
+          "a": "Vastaa mihin tahansa meiltä tulleeseen sähköpostiin, niin ihminen lukee sen, tai kysy tilisi 24/7-tekoälyavustajalta. Jokaiseen pakettiin sisältyy 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana asiakkaana, ja ne avautuvat ensimmäisen maksusi yhteydessä ilmaisen kokeilujakson jälkeen: oikea ihminen ottaa käyttöön, korjaa tai rakentaa asioita kanssasi ruudunjaon kautta. Sen jälkeen apu maksaa {assist} tunnilta yleisestä avusta ja toteutuksesta ja {expert} tunnilta asiantuntijatyöstä, kuten strategiasta, konsultoinnista ja kaikesta alustan ulkopuolisesta. Hyväksyt ajan ennen kuin sitä käytetään."
         },
         {
           "q": "Minkä päälle DUSA on rakennettu?",

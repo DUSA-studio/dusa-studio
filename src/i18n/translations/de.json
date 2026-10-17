@@ -480,7 +480,7 @@
     "supportPortalDesc": "Ihr privater Hub für Anleitungen, Tutorials, Vorlagen und Support. Alles, was Sie brauchen, um das Beste aus Ihrer DUSA-Plattform herauszuholen, an einem Ort.",
     "supportPriorityTitle": "Priorisiert und dediziert",
     "supportPriorityDesc": "Growth-Pläne erhalten bevorzugten Support. Bespoke-Kunden bekommen einen dedizierten Account-Manager, eine Telefonleitung und monatliche Strategiegespräche.",
-    "supportHoursLine": "Jeder Plan enthält 3 Stunden persönliche Unterstützung in Ihren ersten 3 Monaten. Danach {assist} pro Stunde für allgemeine Hilfe und {expert} pro Stunde für Strategie und Beratung, immer erst nach Ihrer Freigabe.",
+    "supportHoursLine": "Jeder Plan enthält 3 Stunden persönliche Unterstützung in Ihren ersten 3 Monaten als Kunde, ab Ihrer ersten Zahlung. Danach {assist} pro Stunde für allgemeine Hilfe und {expert} pro Stunde für Strategie und Beratung, immer erst nach Ihrer Freigabe.",
     "allPlans": "Alle Pläne",
     "growthAndBespoke": "Growth und Bespoke",
     "compareLabel": "Vollständiger Vergleich",
@@ -753,7 +753,7 @@
             ],
             [
               "Persönliche Hilfe inklusive",
-              "Drei Stunden, in denen ein echter Mensch Ihnen hilft, Dinge in Ihrem Konto einzurichten, zu beheben oder aufzubauen, in jedem Plan für Ihre ersten drei Monate enthalten. Buchen Sie einen Termin oder antworten Sie einfach auf eine E-Mail von uns."
+              "Drei Stunden, in denen ein echter Mensch Ihnen hilft, Dinge in Ihrem Konto einzurichten, zu beheben oder aufzubauen, in jedem Plan für Ihre ersten drei Monate als Kunde enthalten. Die Stunden werden mit Ihrer ersten Zahlung freigeschaltet, nach der kostenlosen Testphase. Buchen Sie einen Termin oder antworten Sie einfach auf eine E-Mail von uns."
             ],
             [
               "Zusätzliche Hilfe auf Wunsch",
@@ -870,7 +870,7 @@
         },
         {
           "q": "Was, wenn ich nicht weiterkomme oder jemand es für mich erledigen soll?",
-          "a": "Antworten Sie auf eine beliebige E-Mail von uns und ein Mensch liest sie, oder fragen Sie den KI-Assistenten, der 24/7 in Ihrem Konto verfügbar ist. Jeder Plan enthält 3 Stunden persönliche Unterstützung in Ihren ersten 3 Monaten: ein echter Mensch, der per Bildschirmfreigabe mit Ihnen Dinge einrichtet, behebt oder aufbaut. Danach kostet Hilfe {assist} pro Stunde für allgemeine Unterstützung und Umsetzung und {expert} pro Stunde für Expertenarbeit wie Strategie, Beratung und alles außerhalb der Plattform. Sie geben die Zeit frei, bevor sie genutzt wird."
+          "a": "Antworten Sie auf eine beliebige E-Mail von uns und ein Mensch liest sie, oder fragen Sie den KI-Assistenten, der 24/7 in Ihrem Konto verfügbar ist. Jeder Plan enthält 3 Stunden persönliche Unterstützung in Ihren ersten 3 Monaten als Kunde, freigeschaltet mit Ihrer ersten Zahlung nach der kostenlosen Testphase: ein echter Mensch, der per Bildschirmfreigabe mit Ihnen Dinge einrichtet, behebt oder aufbaut. Danach kostet Hilfe {assist} pro Stunde für allgemeine Unterstützung und Umsetzung und {expert} pro Stunde für Expertenarbeit wie Strategie, Beratung und alles außerhalb der Plattform. Sie geben die Zeit frei, bevor sie genutzt wird."
         },
         {
           "q": "Worauf basiert DUSA?",

@@ -481,7 +481,7 @@
     "supportPortalDesc": "Je eigen plek voor handleidingen, tutorials, templates en support. Alles wat je nodig hebt om het maximale uit je DUSA-platform te halen, op één plek.",
     "supportPriorityTitle": "Prioriteit en vaste begeleiding",
     "supportPriorityDesc": "Growth-plannen gaan voor in de rij met prioriteitssupport. Bespoke-klanten krijgen een vaste accountmanager, een directe telefoonlijn en maandelijkse strategiesessies.",
-    "supportHoursLine": "Elk plan bevat 3 uur persoonlijke hulp in je eerste 3 maanden. Daarna betaal je {assist} per uur voor algemene hulp en {expert} per uur voor strategie en consultancy, altijd eerst door jou goedgekeurd.",
+    "supportHoursLine": "Elk plan bevat 3 uur persoonlijke hulp in je eerste 3 maanden als klant, vanaf je eerste betaling. Daarna betaal je {assist} per uur voor algemene hulp en {expert} per uur voor strategie en consultancy, altijd eerst door jou goedgekeurd.",
     "allPlans": "Alle plannen",
     "growthAndBespoke": "Growth en Bespoke",
     "compareLabel": "Volledige vergelijking",
@@ -753,7 +753,7 @@
             ],
             [
               "Persoonlijke hulp inbegrepen",
-              "Drie uur waarin een echt persoon je helpt met inrichten, oplossen of bouwen in je account, inbegrepen op elk plan gedurende je eerste drie maanden. Boek een moment of reageer op een e-mail van ons."
+              "Drie uur waarin een echt persoon je helpt met inrichten, oplossen of bouwen in je account, inbegrepen op elk plan gedurende je eerste drie maanden als klant. De uren komen vrij bij je eerste betaling, na de gratis proefperiode. Boek een moment of reageer op een e-mail van ons."
             ],
             [
               "Extra hulp, wanneer je wilt",
@@ -870,7 +870,7 @@
         },
         {
           "q": "Wat als ik vastloop, of wil dat iemand het voor me doet?",
-          "a": "Reageer op een e-mail van ons en een echt persoon leest hem, of stel je vraag aan de 24/7 AI-assistent in je account. Elk plan bevat 3 uur persoonlijke hulp in je eerste 3 maanden: een echt persoon die samen met jou via schermdelen dingen inricht, oplost of bouwt. Daarna kost hulp {assist} per uur voor algemene hulp en uitvoering, en {expert} per uur voor expertwerk zoals strategie, consultancy en alles buiten het platform. Jij keurt de tijd goed voordat die wordt gebruikt."
+          "a": "Reageer op een e-mail van ons en een echt persoon leest hem, of stel je vraag aan de 24/7 AI-assistent in je account. Elk plan bevat 3 uur persoonlijke hulp in je eerste 3 maanden als klant, die vrijkomen bij je eerste betaling na de gratis proefperiode: een echt persoon die samen met jou via schermdelen dingen inricht, oplost of bouwt. Daarna kost hulp {assist} per uur voor algemene hulp en uitvoering, en {expert} per uur voor expertwerk zoals strategie, consultancy en alles buiten het platform. Jij keurt de tijd goed voordat die wordt gebruikt."
         },
         {
           "q": "Waarop is DUSA gebouwd?",

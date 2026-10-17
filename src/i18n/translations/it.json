@@ -481,7 +481,7 @@
     "supportPortalDesc": "Il Suo hub privato con guide, tutorial, modelli e supporto. Tutto ciò che Le serve per ottenere il massimo dalla piattaforma DUSA, in un unico posto.",
     "supportPriorityTitle": "Prioritario e dedicato",
     "supportPriorityDesc": "I piani Growth saltano la coda con il supporto prioritario. I clienti Bespoke hanno un account manager dedicato, una linea telefonica riservata e revisioni strategiche mensili.",
-    "supportHoursLine": "Ogni piano include 3 ore di assistenza pratica nei Suoi primi 3 mesi. Dopo, {assist} all'ora per l'aiuto generale e {expert} all'ora per strategia e consulenza, sempre con la Sua approvazione preventiva.",
+    "supportHoursLine": "Ogni piano include 3 ore di assistenza pratica nei Suoi primi 3 mesi da cliente, a partire dal Suo primo pagamento. Dopo, {assist} all'ora per l'aiuto generale e {expert} all'ora per strategia e consulenza, sempre con la Sua approvazione preventiva.",
     "allPlans": "Tutti i piani",
     "growthAndBespoke": "Growth e Bespoke",
     "compareLabel": "Confronto completo",
@@ -753,7 +753,7 @@
             ],
             [
               "Assistenza pratica inclusa",
-              "Tre ore con una persona vera che La aiuta a configurare, correggere o costruire cose nel Suo account, incluse in ogni piano per i Suoi primi tre mesi. Prenoti un appuntamento o risponda a qualsiasi nostra email."
+              "Tre ore con una persona vera che La aiuta a configurare, correggere o costruire cose nel Suo account, incluse in ogni piano per i Suoi primi tre mesi da cliente. Le ore si attivano con il Suo primo pagamento, dopo la prova gratuita. Prenoti un appuntamento o risponda a qualsiasi nostra email."
             ],
             [
               "Più aiuto, quando lo desidera",
@@ -870,7 +870,7 @@
         },
         {
           "q": "E se mi blocco, o voglio che qualcuno lo faccia per me?",
-          "a": "Risponda a qualsiasi nostra email e la legge una persona, oppure chieda all'assistente IA 24/7 nel Suo account. Ogni piano include 3 ore di assistenza pratica nei Suoi primi 3 mesi: una persona vera che configura, corregge o costruisce cose insieme a Lei in condivisione schermo. Dopo, l'aiuto costa {assist} all'ora per assistenza generale ed esecuzione, e {expert} all'ora per lavoro specialistico come strategia, consulenza e tutto ciò che esula dalla piattaforma. Approva Lei il tempo prima che venga utilizzato."
+          "a": "Risponda a qualsiasi nostra email e la legge una persona, oppure chieda all'assistente IA 24/7 nel Suo account. Ogni piano include 3 ore di assistenza pratica nei Suoi primi 3 mesi da cliente, che si attivano con il Suo primo pagamento dopo la prova gratuita: una persona vera che configura, corregge o costruisce cose insieme a Lei in condivisione schermo. Dopo, l'aiuto costa {assist} all'ora per assistenza generale ed esecuzione, e {expert} all'ora per lavoro specialistico come strategia, consulenza e tutto ciò che esula dalla piattaforma. Approva Lei il tempo prima che venga utilizzato."
         },
         {
           "q": "Su cosa è costruita DUSA?",

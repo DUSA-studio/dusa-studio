@@ -481,7 +481,7 @@
     "supportPortalDesc": "Ditt private knutepunkt for guider, veiledninger, maler og support. Alt du trenger for å få mest mulig ut av DUSA-plattformen, samlet på ett sted.",
     "supportPriorityTitle": "Prioritert og dedikert",
     "supportPriorityDesc": "Growth-planer går foran i køen med prioritert support. Bespoke-kunder får en dedikert kundeansvarlig, egen telefonlinje og månedlige strategigjennomganger.",
-    "supportHoursLine": "Alle planer inkluderer 3 timer praktisk hjelp i dine første 3 måneder. Etter det koster det {assist} per time for generell hjelp og {expert} per time for strategi og rådgivning, alltid godkjent av deg først.",
+    "supportHoursLine": "Alle planer inkluderer 3 timer praktisk hjelp i dine første 3 måneder som kunde, fra og med din første betaling. Etter det koster det {assist} per time for generell hjelp og {expert} per time for strategi og rådgivning, alltid godkjent av deg først.",
     "allPlans": "Alle planer",
     "growthAndBespoke": "Growth og Bespoke",
     "compareLabel": "Full sammenligning",
@@ -753,7 +753,7 @@
             ],
             [
               "Praktisk hjelp inkludert",
-              "Tre timer der et ekte menneske hjelper deg med å sette opp, fikse eller bygge ting i kontoen din, inkludert på alle planer i dine første tre måneder. Book en tid eller svar på en hvilken som helst e-post fra oss."
+              "Tre timer der et ekte menneske hjelper deg med å sette opp, fikse eller bygge ting i kontoen din, inkludert på alle planer i dine første tre måneder som kunde. Timene åpnes med din første betaling, etter den gratis prøveperioden. Book en tid eller svar på en hvilken som helst e-post fra oss."
             ],
             [
               "Ekstra hjelp når du vil",
@@ -870,7 +870,7 @@
         },
         {
           "q": "Hva om jeg står fast, eller vil at noen gjør det for meg?",
-          "a": "Svar på en hvilken som helst e-post fra oss, så leser et menneske den, eller spør AI-assistenten som er tilgjengelig 24/7 i kontoen din. Alle planer inkluderer 3 timer praktisk hjelp i dine første 3 måneder: et ekte menneske som setter opp, fikser eller bygger ting sammen med deg via skjermdeling. Etter det koster hjelp {assist} per time for generell hjelp og utførelse, og {expert} per time for ekspertarbeid som strategi, rådgivning og alt utenfor plattformen. Du godkjenner tiden før den brukes."
+          "a": "Svar på en hvilken som helst e-post fra oss, så leser et menneske den, eller spør AI-assistenten som er tilgjengelig 24/7 i kontoen din. Alle planer inkluderer 3 timer praktisk hjelp i dine første 3 måneder som kunde, som åpnes med din første betaling etter den gratis prøveperioden: et ekte menneske som setter opp, fikser eller bygger ting sammen med deg via skjermdeling. Etter det koster hjelp {assist} per time for generell hjelp og utførelse, og {expert} per time for ekspertarbeid som strategi, rådgivning og alt utenfor plattformen. Du godkjenner tiden før den brukes."
         },
         {
           "q": "Hva er DUSA bygget på?",

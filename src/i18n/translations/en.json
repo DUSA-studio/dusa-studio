@@ -486,7 +486,7 @@
     "supportPortalDesc": "Your private hub for guides, tutorials, templates, and support. Everything you need to get the most out of your DUSA platform, all in one place.",
     "supportPriorityTitle": "Priority and dedicated",
     "supportPriorityDesc": "Growth plans jump the queue with priority support. Bespoke clients get a dedicated account manager, phone line, and monthly strategy reviews.",
-    "supportHoursLine": "Every plan includes 3 hours of hands-on help in your first 3 months. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.",
+    "supportHoursLine": "Every plan includes 3 hours of hands-on help in your first 3 months as a customer, from your first payment. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.",
     "allPlans": "All plans",
     "growthAndBespoke": "Growth and Bespoke",
     "compareLabel": "Full comparison",
@@ -758,7 +758,7 @@
             ],
             [
               "Hands-on help included",
-              "Three hours of a real person helping you set up, fix or build things in your account, included on every plan for your first three months. Book a time or reply to any email from us."
+              "Three hours of a real person helping you set up, fix or build things in your account, included on every plan for your first three months as a customer. The hours open up with your first payment, after the free trial. Book a time or reply to any email from us."
             ],
             [
               "Extra help, when you want it",
@@ -875,7 +875,7 @@
         },
         {
           "q": "What if I get stuck, or want someone to do it for me?",
-          "a": "Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Every plan includes 3 hours of hands-on help in your first 3 months: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used."
+          "a": "Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Every plan includes 3 hours of hands-on help in your first 3 months as a customer, opening up with your first payment after the free trial: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used."
         },
         {
           "q": "What is DUSA built on?",

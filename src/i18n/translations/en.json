@@ -73,38 +73,38 @@
     "compareHighLevel": "DUSA vs HighLevel"
   },
   "hero": {
-    "label": "The AI-Powered Growth System",
-    "title": "Everything you need.",
-    "titleAccent": "One login.",
-    "subtitle": "AI-powered marketing, sales, and engagement. All connected. So you can run your business, not your tech stack.",
+    "label": "Built for business owners, not tech teams",
+    "title": "Get found. Get booked.",
+    "titleAccent": "Get paid. Get the review.",
+    "subtitle": "DUSA runs the growth side of your business from one login: your website, socials, bookings, reviews, invoices and every message, with AI that answers and books while you work.",
     "getStarted": "Get Started",
     "bookDemo": "Book a Demo",
     "phoneApp": "DUSA . studio",
     "statLeads": "leads",
     "statTracked": "tracked",
     "statRating": "rating",
-    "capCrmTitle": "CRM & Contacts",
-    "capCrmSub": "Track every lead",
-    "capEmailTitle": "Email & SMS",
-    "capEmailSub": "Campaigns on autopilot",
-    "capFunnelsTitle": "Funnels & Automations",
-    "capFunnelsSub": "Convert while you sleep",
-    "capAiTitle": "AI Built In",
-    "capAiSub": "Smarter conversations, faster growth",
+    "capCrmTitle": "Your customers",
+    "capCrmSub": "Every enquiry remembered",
+    "capEmailTitle": "Your messages",
+    "capEmailSub": "Follow-ups sent for you",
+    "capFunnelsTitle": "Bookings and payments",
+    "capFunnelsSub": "Booked and paid while you work",
+    "capAiTitle": "Your AI assistant",
+    "capAiSub": "Answers while you are on the tools",
     "scrollExplore": "Explore",
-    "introLabel": "Growth, done for you",
-    "introH1": "We help your business",
-    "introH1Accent": "grow",
-    "introSub": "Running a business today means a dozen apps that don't talk to each other, and you stuck in the middle. DUSA replaces the mess with one system that chases every lead, books the jobs, and gets you paid. Automatically.",
-    "introStat1n": "12+ apps",
-    "introStat1l": "too many apps to run a business",
+    "introLabel": "For businesses that do it all",
+    "introH1": "Your whole business,",
+    "introH1Accent": "one login",
+    "introSub": "Your website, your socials, your bookings, your reviews, your customer list, your invoices and every message, together in one place that follows up for you. You do the work. DUSA does the chasing.",
+    "introStat1n": "12+ logins",
+    "introStat1l": "the average small business juggles today",
     "introStat2n": "1 login",
-    "introStat2l": "what it takes with DUSA",
+    "introStat2l": "with DUSA",
     "introStat3n": "10+ hrs",
-    "introStat3l": "of busywork handed to AI, every week",
+    "introStat3l": "of chasing handed to DUSA every week",
     "introStat4n": "+32%",
     "introStat4l": "more revenue in your first year",
-    "introNote": "Less chaos. More customers. That's the whole idea.",
+    "introNote": "Fewer tabs. More customers. That is the whole idea.",
     "introSee": "See what's inside",
     "introFreeDemo": "Book a Free Demo",
     "introFreeDemoShort": "Free Demo",
@@ -437,6 +437,7 @@
     "currencyNote": "All prices in {currency}",
     "usageNoteShort": "Plan price covers platform access. Message, call and email usage, and AI beyond what your plan includes, is billed as you use it, in USD.",
     "usageNoteLink": "How usage billing works",
+    "trialReassure": "Free for 14 days with a card on file, and you will hear from us four days and one day before anything is charged, each time with a one-click cancel. No surprises.",
     "addonsLine": "Add-ons: extra users {extraUser}/mo each on any plan. Unlimited AI {unlimitedAi}/mo on Growth.",
     "tierLaunchpad": "Launchpad",
     "tierStarter": "Starter",
@@ -465,6 +466,8 @@
     "replaceTitle": "Select your current tools.",
     "replaceTitleAccent": "See what you save.",
     "replaceSub": "Tap the tools you are actually using right now. We will show you the real cost of your stack, and exactly how much DUSA saves you. When you book a demo, we will come prepared with a migration plan tailored to your setup.",
+    "rackToggle": "Already paying for tools? See what you would save",
+    "rackToggleOpen": "Hide the comparison",
     "activateDusa": "Activate DUSA",
     "savingsPrefix": "Save",
     "savingsWith": "with DUSA",
@@ -1165,7 +1168,8 @@
           "Unlimited contacts, 3 users, priority support"
         ]
       }
-    }
+    },
+    "reassure": "You will hear from us before anything is charged: a reminder four days and one day before your trial ends, each with a one-click cancel. No surprises."
   },
   "thankYou": {
     "metaTitle": "Welcome to DUSA | DUSA . studio",
@@ -1333,5 +1337,91 @@
     ],
     "source": "HighLevel, published figures, October 2026",
     "link": "Why we tell you"
+  },
+  "week": {
+    "eyebrow": "A week with DUSA",
+    "heading": "You do the work.",
+    "headingAccent": "DUSA does the chasing.",
+    "sub": "One customer, start to finish. Every line here happens without you touching a thing.",
+    "toneYou": "You",
+    "toneDusa": "DUSA",
+    "toneCustomer": "Customer",
+    "beats": [
+      {
+        "when": "Monday 9:02pm",
+        "title": "A new customer calls. You miss it.",
+        "text": "Eight seconds later DUSA texts them back from your number and asks what they need.",
+        "icon": "phone",
+        "tone": "dusa"
+      },
+      {
+        "when": "Monday 9:04pm",
+        "title": "They reply by text.",
+        "text": "The AI answers their questions, offers Thursday at 10, and books it straight into your calendar.",
+        "icon": "chat",
+        "tone": "dusa"
+      },
+      {
+        "when": "Wednesday 4:00pm",
+        "title": "Reminder sent.",
+        "text": "They get a text the day before with the address and a way to reschedule. No-shows stop.",
+        "icon": "bell",
+        "tone": "dusa"
+      },
+      {
+        "when": "Thursday 11:30am",
+        "title": "Job done. Invoice sent from your phone.",
+        "text": "One tap. Paid by card before you have packed the van.",
+        "icon": "card",
+        "tone": "you"
+      },
+      {
+        "when": "Thursday 6:00pm",
+        "title": "Review request goes out.",
+        "text": "Two hours later a five-star review lands on Google, and DUSA replies to it for you.",
+        "icon": "star",
+        "tone": "customer"
+      },
+      {
+        "when": "Friday 8:00am",
+        "title": "The next customer finds you.",
+        "text": "That review moved you up the map. A new enquiry comes in before your first coffee.",
+        "icon": "map",
+        "tone": "customer"
+      },
+      {
+        "when": "Next month",
+        "title": "They come back.",
+        "text": "A text about your winter special. They book again. No ad spend, no chasing.",
+        "icon": "repeat",
+        "tone": "dusa"
+      }
+    ],
+    "verdict": "That is one customer. DUSA does it for every one of them, from one login.",
+    "cta": "See it on your business",
+    "ctaDemo": "Book a free demo"
+  },
+  "pick": {
+    "lead": "I run a",
+    "more": "Something else",
+    "sub": "Pick yours and see your week with DUSA.",
+    "labels": {
+      "tradies": "trade business",
+      "salons": "salon or spa",
+      "dentists": "dental practice",
+      "gyms": "gym or studio",
+      "real-estate": "real estate agency",
+      "restaurants": "restaurant or cafe",
+      "accountants": "accounting practice",
+      "cleaning-services": "cleaning business",
+      "photographers": "photography studio",
+      "personal-trainers": "PT business",
+      "coaches": "coaching business",
+      "law-firms": "law firm",
+      "property-managers": "property management agency",
+      "auto-repair": "auto repair shop",
+      "construction": "construction company",
+      "ecommerce": "online store"
+    }
   }
 }

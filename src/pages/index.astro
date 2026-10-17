@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import FunnelGlass from '../components/FunnelGlass.astro';
+import WeekWithDusa from '../components/WeekWithDusa.astro';
+import IndustryPicker from '../components/IndustryPicker.astro';
 import ConnectedPlatform from '../components/ConnectedPlatform.astro';
 import SetupSteps from '../components/SetupSteps.astro';
 import BrandCarousel from '../components/BrandCarousel.astro';
@@ -19,7 +20,7 @@ import t from '../i18n/translations/en.json';
     "name": "DUSA . studio",
     "url": "https://dusa.studio",
     "logo": "https://dusa.studio/favicon.png",
-    "description": "All-in-one growth platform for small businesses. CRM, marketing automation, sales pipelines, and customer engagement from one login.",
+    "description": "Your whole business, one login. DUSA runs the growth side of a small business: website, socials, bookings, reviews, invoices and every message in one place, with AI that answers and books while you work.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Sydney",
@@ -28,16 +29,18 @@ import t from '../i18n/translations/en.json';
     },
     "sameAs": ["https://www.instagram.com/the.dusa.studio", "https://www.linkedin.com/company/dusa-studio", "https://au.pinterest.com/DUSAstudio", "https://www.facebook.com/the.DUSA.studio", "https://github.com/DUSA-studio"]
   })} />
-  {/* Conversion arc, distilled (Sept 2026): promise → who trusts us →
-      what it is → what it costs you today → proof → how easy → objections
-      → final ask. Problem, What-is-DUSA, Devices and Onboarding were cut
-      from the home page: each repeated a story already told above it.
-      Onboarding detail lives at /onboarding, the pillars at /about. */}
+  {/* Nurture arc (Oct 2026, outcomes first): the promise (hero) → who the
+      engine is (trust strip) → "that's me" (industry picker) → the story
+      (a week with DUSA) → what is inside (wheel) → who trusts us → proof →
+      how easy → objections → final ask. The glass funnel and the tool-cost
+      story were retired: they answered a question first-time buyers do not
+      ask. The rack lives on /pricing for people who already pay for tools. */}
   <Hero t={t} />
   <TrustStrip t={t} tight />
-  <BrandCarousel t={t} compact />
+  <IndustryPicker t={t} />
+  <WeekWithDusa t={t} />
   <ConnectedPlatform t={t} />
-  <FunnelGlass t={t} />
+  <BrandCarousel t={t} compact />
   <SocialProof t={t} />
   <SetupSteps t={t} />
   <FAQ t={t} limit={6} />

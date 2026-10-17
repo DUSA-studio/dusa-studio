@@ -123,6 +123,7 @@ const valueIcons = [
         ))}
       </div>
 
+      <p class="activate__reassure">{s.reassure || 'You will hear from us before anything is charged: a reminder four days and one day before your trial ends, each with a one-click cancel. No surprises.'}</p>
       <p class="activate__assist">{s.assist} <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer">{s.assistDemo}</a> {s.assistTail}</p>
     </div>
   </section>
@@ -970,6 +971,8 @@ const valueIcons = [
     color: rgba(247, 244, 239, 0.58);
   }
 
+  .activate__reassure { text-align: center; max-width: 640px; margin: var(--space-lg) auto 0; font-size: 0.9375rem; line-height: 1.6; color: rgba(247, 244, 239, 0.7); }
+  :global(html[data-theme="light"]) .activate__reassure { color: rgba(12, 14, 20, 0.68); }
   .activate__assist {
     text-align: center;
     margin-inline: auto;

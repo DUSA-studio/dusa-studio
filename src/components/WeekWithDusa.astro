@@ -1,0 +1,251 @@
+---
+/**
+ * WeekWithDusa.astro
+ *
+ * The home page centrepiece: one customer's week, told as seven glass
+ * notification cards that light up in sequence as the section scrolls into
+ * view. Pure outcomes, no feature names. Replaces the glass funnel.
+ *
+ * Mechanics: transform/opacity only, an IntersectionObserver toggles `is-live`
+ * (so it replays on re-entry), a progress rail fills behind the cards, and
+ * the whole thing degrades to a static list under prefers-reduced-motion.
+ */
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+const s = t?.week || {};
+
+const eyebrow = s.eyebrow || 'A week with DUSA';
+const heading = s.heading || 'You do the work.';
+const headingAccent = s.headingAccent || 'DUSA does the chasing.';
+const sub = s.sub || 'One customer, start to finish. Every line here happens without you touching a thing.';
+const verdict = s.verdict || 'That is one customer. DUSA does it for every one of them, from one login.';
+const ctaLabel = s.cta || 'See it on your business';
+const ctaDemo = s.ctaDemo || 'Book a free demo';
+
+type Beat = { when: string; title: string; text: string; icon: string; tone?: 'you' | 'dusa' | 'customer' };
+const beats: Beat[] = s.beats || [
+  { when: 'Monday 9:02pm', title: 'A new customer calls. You miss it.', text: 'Eight seconds later DUSA texts them back from your number and asks what they need.', icon: 'phone', tone: 'dusa' },
+  { when: 'Monday 9:04pm', title: 'They reply by text.', text: 'The AI answers their questions, offers Thursday at 10, and books it straight into your calendar.', icon: 'chat', tone: 'dusa' },
+  { when: 'Wednesday 4:00pm', title: 'Reminder sent.', text: 'They get a text the day before with the address and a way to reschedule. No-shows stop.', icon: 'bell', tone: 'dusa' },
+  { when: 'Thursday 11:30am', title: 'Job done. Invoice sent from your phone.', text: 'One tap. Paid by card before you have packed the van.', icon: 'card', tone: 'you' },
+  { when: 'Thursday 6:00pm', title: 'Review request goes out.', text: 'Two hours later a five-star review lands on Google, and DUSA replies to it for you.', icon: 'star', tone: 'customer' },
+  { when: 'Friday 8:00am', title: 'The next customer finds you.', text: 'That review moved you up the map. A new enquiry comes in before your first coffee.', icon: 'map', tone: 'customer' },
+  { when: 'Next month', title: 'They come back.', text: 'A text about your winter special. They book again. No ad spend, no chasing.', icon: 'repeat', tone: 'dusa' },
+];
+
+const ICONS: Record<string, string> = {
+  phone: 'M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z',
+  chat: 'M21 12a8 8 0 01-8 8H8l-5 3 1.5-4.5A8 8 0 1121 12zM8 11h.01M12 11h.01M16 11h.01',
+  bell: 'M6 16V11a6 6 0 1112 0v5l2 2H4l2-2zM10 21a2 2 0 004 0',
+  card: 'M3 7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2zM3 10h18M7 15h4',
+  star: 'M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z',
+  map: 'M12 21s-6-5.3-6-10a6 6 0 1112 0c0 4.7-6 10-6 10zM12 13a2.5 2.5 0 100-5 2.5 2.5 0 000 5z',
+  repeat: 'M17 2l4 4-4 4M3 11V9a4 4 0 014-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 01-4 4H3',
+};
+const toneLabel: Record<string, string> = { you: s.toneYou || 'You', dusa: s.toneDusa || 'DUSA', customer: s.toneCustomer || 'Customer' };
+---
+
+<section class="week section section--dark" id="week" data-week>
+  <div class="container">
+    <div class="week__header">
+      <span class="label">{eyebrow}</span>
+      <h2>{heading}<br/><span class="gradient-text">{headingAccent}</span></h2>
+      <p class="week__sub">{sub}</p>
+    </div>
+
+    <ol class="week__list" aria-label={eyebrow}>
+      <span class="week__rail" aria-hidden="true"><span class="week__rail-fill"></span></span>
+      {beats.map((b, i) => (
+        <li class={`week__beat week__beat--${b.tone || 'dusa'}`} style={`--i:${i}`}>
+          <span class="week__dot" aria-hidden="true"></span>
+          <div class="week__card">
+            <div class="week__card-top">
+              <span class="week__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={ICONS[b.icon] || ICONS.chat} /></svg>
+              </span>
+              <span class="week__when">{b.when}</span>
+              <span class="week__who">{toneLabel[b.tone || 'dusa']}</span>
+            </div>
+            <p class="week__title">{b.title}</p>
+            <p class="week__text">{b.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="week__verdict">
+      <p class="week__verdict-text">{verdict}</p>
+      <div class="week__ctas">
+        <a href="/industries" data-page="industries" class="btn btn--primary">{ctaLabel}</a>
+        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">{ctaDemo}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .week { position: relative; overflow: hidden; }
+  .week__header { text-align: center; max-width: 640px; margin: 0 auto var(--space-2xl); }
+  .week__header h2 { font-size: clamp(2rem, 4vw, 3rem); }
+  .week__sub { font-size: 1.125rem; color: rgba(247, 244, 239, 0.66); line-height: 1.7; margin: var(--space-sm) auto 0; }
+
+  /* ── The timeline ── */
+  .week__list {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    max-width: 880px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .week__rail {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: rgba(247, 244, 239, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .week__rail-fill {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--reef-aqua), var(--mist-blue));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 7s linear;
+  }
+  .week[data-live] .week__rail-fill { transform: scaleY(1); }
+
+  .week__beat {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: 3rem;
+  }
+  @media (min-width: 769px) { .week__beat + .week__beat { margin-top: -2.4rem; } }
+  .week__beat:nth-child(odd) .week__card { grid-column: 1; }
+  .week__beat:nth-child(even) .week__card { grid-column: 2; }
+
+  .week__dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px; height: 14px;
+    transform: translate(-50%, -50%) scale(0.4);
+    border-radius: 50%;
+    background: var(--deep-black);
+    border: 2px solid rgba(247, 244, 239, 0.25);
+    transition: transform 0.5s var(--ease-out), border-color 0.5s, box-shadow 0.5s;
+    transition-delay: calc(var(--i) * 0.9s + 0.2s);
+  }
+  .week[data-live] .week__dot {
+    transform: translate(-50%, -50%) scale(1);
+    border-color: var(--reef-aqua);
+    box-shadow: 0 0 0 6px rgba(78, 216, 194, 0.12), 0 0 24px rgba(78, 216, 194, 0.35);
+  }
+
+  /* ── Glass card ── */
+  .week__card {
+    position: relative;
+    padding: 1.1rem 1.25rem 1.2rem;
+    border-radius: 18px;
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    background: linear-gradient(135deg, rgba(247, 244, 239, 0.07), rgba(247, 244, 239, 0.025));
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.08), 0 14px 40px rgba(0, 0, 0, 0.22);
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out), border-color 0.6s;
+    transition-delay: calc(var(--i) * 0.9s + 0.3s);
+  }
+  .week[data-live] .week__card { opacity: 1; transform: none; }
+  .week__beat--dusa .week__card { border-color: rgba(78, 216, 194, 0.25); }
+  .week__beat--customer .week__card { border-color: rgba(106, 170, 207, 0.3); }
+
+  .week__card-top { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.55rem; }
+  .week__icon {
+    width: 30px; height: 30px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 9px;
+    background: rgba(78, 216, 194, 0.12);
+    color: var(--reef-aqua);
+  }
+  .week__beat--you .week__icon { background: rgba(247, 244, 239, 0.1); color: var(--warm-white); }
+  .week__beat--customer .week__icon { background: rgba(106, 170, 207, 0.16); color: var(--mist-blue); }
+  .week__icon svg { width: 16px; height: 16px; }
+  .week__when { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(247, 244, 239, 0.6); }
+  .week__who {
+    margin-left: auto;
+    font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.2rem 0.55rem; border-radius: 100px;
+    color: var(--reef-aqua); background: rgba(78, 216, 194, 0.1); border: 1px solid rgba(78, 216, 194, 0.22);
+  }
+  .week__beat--you .week__who { color: var(--warm-white); background: rgba(247, 244, 239, 0.08); border-color: rgba(247, 244, 239, 0.18); }
+  .week__beat--customer .week__who { color: var(--mist-blue); background: rgba(106, 170, 207, 0.12); border-color: rgba(106, 170, 207, 0.3); }
+  .week__title { font-family: var(--font-headline); font-weight: 600; font-size: 1.0625rem; color: var(--warm-white); line-height: 1.35; margin: 0 0 0.3rem; max-width: none; }
+  .week__text { font-size: 0.9375rem; color: rgba(247, 244, 239, 0.68); line-height: 1.6; margin: 0; max-width: none; }
+
+  /* ── Verdict ── */
+  .week__verdict { text-align: center; max-width: 640px; margin: var(--space-2xl) auto 0; }
+  .week__verdict-text { font-family: var(--font-headline); font-weight: 600; font-size: clamp(1.25rem, 2.2vw, 1.6rem); color: var(--warm-white); line-height: 1.4; margin: 0 auto var(--space-md); max-width: none; }
+  .week__ctas { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .week__list { padding-left: 1.75rem; }
+    .week__rail { left: 7px; transform: none; }
+    .week__beat { grid-template-columns: 1fr; }
+    .week__beat:nth-child(odd) .week__card, .week__beat:nth-child(even) .week__card { grid-column: 1; }
+    .week__dot { left: -1.75rem; margin-left: 7px; }
+    .week__card { padding: 1rem 1rem 1.05rem; }
+    .week__ctas .btn { width: 100%; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .week__card, .week__dot { transition: none; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .week__card { transform: none; }
+    .week__rail-fill { transition: none; transform: scaleY(1); }
+  }
+
+  /* ── Light mode ── */
+  :global(html[data-theme="light"]) .week__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .week__rail { background: rgba(12, 14, 20, 0.1); }
+  :global(html[data-theme="light"]) .week__dot { background: var(--sand, #f3f1ec); border-color: rgba(12, 14, 20, 0.25); }
+  :global(html[data-theme="light"]) .week[data-live] .week__dot { border-color: var(--deep-ocean); box-shadow: 0 0 0 6px rgba(26, 58, 92, 0.1), 0 0 20px rgba(26, 58, 92, 0.2); }
+  :global(html[data-theme="light"]) .week__card { border-color: rgba(12, 14, 20, 0.1); background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.4)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 12px 30px rgba(12, 14, 20, 0.07); }
+  :global(html[data-theme="light"]) .week__beat--dusa .week__card { border-color: rgba(26, 58, 92, 0.3); }
+  :global(html[data-theme="light"]) .week__beat--customer .week__card { border-color: rgba(106, 170, 207, 0.45); }
+  :global(html[data-theme="light"]) .week__icon { background: rgba(26, 58, 92, 0.1); color: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .week__beat--you .week__icon { background: rgba(12, 14, 20, 0.08); color: var(--deep-black); }
+  :global(html[data-theme="light"]) .week__when { color: rgba(12, 14, 20, 0.6); }
+  :global(html[data-theme="light"]) .week__who { color: var(--deep-ocean); background: rgba(26, 58, 92, 0.08); border-color: rgba(26, 58, 92, 0.2); }
+  :global(html[data-theme="light"]) .week__beat--you .week__who { color: var(--deep-black); background: rgba(12, 14, 20, 0.06); border-color: rgba(12, 14, 20, 0.15); }
+  :global(html[data-theme="light"]) .week__title { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .week__text { color: rgba(12, 14, 20, 0.68); }
+  :global(html[data-theme="light"]) .week__verdict-text { color: var(--deep-black); }
+</style>
+
+<script>
+  // Play when the section enters, replay on re-entry (a once-only animation
+  // you scrolled past can never be seen again on a review page).
+  (function () {
+    const el = document.querySelector('[data-week]');
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.setAttribute('data-live', ''); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { el.setAttribute('data-live', ''); }
+        else if (e.boundingClientRect.top > 0) { el.removeAttribute('data-live'); }
+      });
+    }, { threshold: 0.12 });
+    io.observe(el);
+  })();
+</script>

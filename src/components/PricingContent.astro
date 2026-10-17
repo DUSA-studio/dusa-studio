@@ -552,6 +552,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
         ))}
       </div>
       <p class="usage-note usage-note--addons">{addonsLine}</p>
+      <p class="usage-note usage-note--reassure">{p.trialReassure || 'Free for 14 days with a card on file, and you will hear from us four days and one day before anything is charged, each time with a one-click cancel. No surprises.'}</p>
       <p class="usage-note usage-note--tight">
         <span class="usage-note__ast" aria-hidden="true">*</span>{p.usageNoteShort} <a href={`${langPrefix}/terms#usage-charges`}>{p.usageNoteLink}</a>
       </p>
@@ -565,8 +566,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
         <span class="label">{p.replaceLabel}</span>
         <h2>{p.replaceTitle}<br/><span class="gradient-text">{p.replaceTitleAccent}</span></h2>
         <p class="replace__sub">{p.replaceSub}</p>
+        <button type="button" class="replace__toggle" id="replaceToggle" aria-expanded="false" aria-controls="replaceBody" data-open={p.rackToggleOpen || 'Hide the comparison'} data-closed={p.rackToggle || 'Already paying for tools? See what you would save'}>{p.rackToggle || 'Already paying for tools? See what you would save'}</button>
       </div>
 
+      <div class="replace__body replace__body--collapsed" id="replaceBody">
       <div class="replace__stack">
         <div class="rack-outer" id="rackOuter">
           <div class="rack-center" id="rackCenter">
@@ -640,6 +643,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
         <p class="replace__savings-callout" id="replaceSave">
           {p.savingsPrefix} <strong>{sym}{defaultTotal - prices.starter}{p.perMonth}</strong> {p.savingsWith} {p.tierStarter} {p.savingsAt} <strong>{sym}{prices.starter}{p.perMonth}</strong>
         </p>
+      </div>
       </div>
     </div>
   </section>
@@ -1240,6 +1244,27 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   }
 
   /* ─── TOOL REPLACEMENT ─── */
+  .replace__toggle {
+    margin-top: var(--space-md);
+    font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+    color: var(--reef-aqua);
+    background: rgba(78, 216, 194, 0.08);
+    border: 1px solid rgba(78, 216, 194, 0.3);
+    border-radius: 100px;
+    padding: 0.7rem 1.4rem;
+    cursor: pointer;
+    transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+  }
+  .replace__toggle:hover { background: rgba(78, 216, 194, 0.16); border-color: var(--reef-aqua); color: var(--warm-white); }
+  .replace__toggle::after { content: ' \2193'; }
+  .replace__toggle[aria-expanded="true"]::after { content: ' \2191'; }
+  .replace__body { transition: opacity 0.45s var(--ease-out); }
+  .replace__body--collapsed { max-height: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+  html[data-theme="light"] .replace__toggle { color: var(--deep-ocean); background: rgba(26, 58, 92, 0.06); border-color: rgba(26, 58, 92, 0.3); }
+  html[data-theme="light"] .replace__toggle:hover { background: rgba(26, 58, 92, 0.12); color: var(--deep-black); }
+  .usage-note--reassure { margin-top: 0.75rem; color: rgba(247, 244, 239, 0.7); }
+  html[data-theme="light"] .usage-note--reassure { color: rgba(12, 14, 20, 0.68); }
+
   .replace {
     border-top: 1px solid rgba(247, 244, 239, 0.06);
   }
@@ -2694,6 +2719,18 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     });
   }
 
+  function initReplaceToggle() {
+    var btn = document.getElementById('replaceToggle');
+    var body = document.getElementById('replaceBody');
+    if (!btn || !body) return;
+    btn.addEventListener('click', function () {
+      var open = body.classList.toggle('replace__body--collapsed') === false;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? btn.getAttribute('data-open') : btn.getAttribute('data-closed');
+      if (open) { window.dispatchEvent(new Event('resize')); }
+    });
+  }
+
   function initMobilePlanSelector() {
     var mps = document.getElementById('mobile-plan-selector');
     if (!mps) return;
@@ -2798,11 +2835,12 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { initToolSelector(); initExpandableRows(); initCtaCapture(); initMobilePlanSelector(); });
+    document.addEventListener('DOMContentLoaded', () => { initToolSelector(); initExpandableRows(); initCtaCapture(); initMobilePlanSelector(); initReplaceToggle(); });
   } else {
     initToolSelector();
     initExpandableRows();
     initCtaCapture();
     initMobilePlanSelector();
+    initReplaceToggle();
   }
 </script>

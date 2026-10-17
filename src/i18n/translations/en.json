@@ -1312,13 +1312,26 @@
   "trust": {
     "aria": "Platform trust facts",
     "lead": "Built on HighLevel",
-    "sub": "the platform powering 2.2 million businesses",
-    "facts": [
-      "SOC 2 Type II infrastructure",
-      "Set up and supported from Sydney",
-      "No lock-in contracts",
-      "Your data stays yours"
+    "sub": "The platform under every DUSA account",
+    "stats": [
+      [
+        "2.2M",
+        "businesses"
+      ],
+      [
+        "7.3B",
+        "leads generated"
+      ],
+      [
+        "179M",
+        "appointments booked"
+      ],
+      [
+        "US$5.2B",
+        "in sales, 2025"
+      ]
     ],
+    "source": "HighLevel, published figures, October 2026",
     "link": "Why we tell you"
   }
 }

@@ -1307,13 +1307,26 @@
   "trust": {
     "aria": "Vertrouwensfeiten over het platform",
     "lead": "Gebouwd op HighLevel",
-    "sub": "het platform achter 2,2 miljoen bedrijven",
-    "facts": [
-      "SOC 2 Type II-infrastructuur",
-      "Ingericht en ondersteund vanuit Sydney",
-      "Geen vaste contracten",
-      "Je data blijft van jou"
+    "sub": "Het platform onder elk DUSA-account",
+    "stats": [
+      [
+        "2,2M",
+        "bedrijven"
+      ],
+      [
+        "7,3B",
+        "gegenereerde leads"
+      ],
+      [
+        "179M",
+        "geboekte afspraken"
+      ],
+      [
+        "US$5,2B",
+        "omzet, 2025"
+      ]
     ],
+    "source": "HighLevel, gepubliceerde cijfers, oktober 2026",
     "link": "Waarom we dit vertellen"
   }
 }

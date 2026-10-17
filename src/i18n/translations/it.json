@@ -1307,13 +1307,26 @@
   "trust": {
     "aria": "Garanzie della piattaforma",
     "lead": "Costruita su HighLevel",
-    "sub": "la piattaforma che alimenta 2,2 milioni di aziende",
-    "facts": [
-      "Infrastruttura SOC 2 Type II",
-      "Configurazione e supporto da Sydney",
-      "Nessun vincolo contrattuale",
-      "I Suoi dati restano Suoi"
+    "sub": "La piattaforma alla base di ogni account DUSA",
+    "stats": [
+      [
+        "2,2M",
+        "aziende"
+      ],
+      [
+        "7,3B",
+        "lead generati"
+      ],
+      [
+        "179M",
+        "appuntamenti fissati"
+      ],
+      [
+        "US$5,2B",
+        "di vendite, 2025"
+      ]
     ],
+    "source": "HighLevel, dati pubblicati, ottobre 2026",
     "link": "Perché lo diciamo"
   }
 }

@@ -1079,13 +1079,26 @@
   "trust": {
     "aria": "Vertrauensfakten zur Plattform",
     "lead": "Basiert auf HighLevel",
-    "sub": "der Plattform hinter 2,2 Millionen Unternehmen",
-    "facts": [
-      "Infrastruktur nach SOC 2 Type II",
-      "Einrichtung und Support aus Sydney",
-      "Keine Vertragsbindung",
-      "Ihre Daten bleiben Ihre"
+    "sub": "Die Plattform hinter jedem DUSA-Konto",
+    "stats": [
+      [
+        "2,2M",
+        "Unternehmen"
+      ],
+      [
+        "7,3B",
+        "generierte Leads"
+      ],
+      [
+        "179M",
+        "gebuchte Termine"
+      ],
+      [
+        "US$5,2B",
+        "Umsatz, 2025"
+      ]
     ],
+    "source": "HighLevel, veröffentlichte Zahlen, Oktober 2026",
     "link": "Warum wir es sagen"
   }
 }

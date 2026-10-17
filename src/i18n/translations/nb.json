@@ -1307,13 +1307,26 @@
   "trust": {
     "aria": "Fakta om plattformens pålitelighet",
     "lead": "Bygget på HighLevel",
-    "sub": "plattformen bak 2,2 millioner bedrifter",
-    "facts": [
-      "SOC 2 Type II-infrastruktur",
-      "Oppsett og support fra Sydney",
-      "Ingen bindingstid",
-      "Dataene dine forblir dine"
+    "sub": "Plattformen under hver DUSA-konto",
+    "stats": [
+      [
+        "2,2M",
+        "bedrifter"
+      ],
+      [
+        "7,3B",
+        "genererte leads"
+      ],
+      [
+        "179M",
+        "bookede møter"
+      ],
+      [
+        "US$5,2B",
+        "i salg, 2025"
+      ]
     ],
+    "source": "HighLevel, publiserte tall, oktober 2026",
     "link": "Derfor forteller vi det"
   }
 }

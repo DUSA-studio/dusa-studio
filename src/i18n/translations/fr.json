@@ -1079,13 +1079,26 @@
   "trust": {
     "aria": "Repères de confiance de la plateforme",
     "lead": "Bâti sur HighLevel",
-    "sub": "la plateforme qui propulse 2,2 millions d'entreprises",
-    "facts": [
-      "Infrastructure SOC 2 Type II",
-      "Configuré et accompagné depuis Sydney",
-      "Sans engagement",
-      "Vos données vous appartiennent"
+    "sub": "La plateforme au cœur de chaque compte DUSA",
+    "stats": [
+      [
+        "2,2M",
+        "entreprises"
+      ],
+      [
+        "7,3B",
+        "leads générés"
+      ],
+      [
+        "179M",
+        "rendez-vous pris"
+      ],
+      [
+        "US$5,2B",
+        "de ventes, 2025"
+      ]
     ],
+    "source": "HighLevel, chiffres publiés, octobre 2026",
     "link": "Pourquoi vous le dire"
   }
 }

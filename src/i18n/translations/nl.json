@@ -87,7 +87,8 @@
     "coaches": "Coaches",
     "careers": "Werken bij",
     "askAi": "Vraag AI over DUSA:",
-    "shareThis": "Deel dit:"
+    "shareThis": "Deel dit:",
+    "compareHighLevel": "DUSA vs HighLevel"
   },
   "hero": {
     "label": "Het AI-gedreven groeisysteem",
@@ -856,6 +857,10 @@
           "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Ons Launchpad-plan kan binnen een uur live staan. Growth- en Bespoke-plannen bevatten een onboarding- en AI-inrichtingssessie, waarin we alles samen met jou configureren voor jouw specifieke bedrijf."
         },
         {
+          "q": "Waarop is DUSA gebouwd?",
+          "a": "DUSA draait op HighLevel, het platform achter 2,2 miljoen bedrijven wereldwijd, met DUSA als je aanbieder. Je krijgt die motor plus alles wat wij eraan toevoegen: inrichting samen met jou in de eerste week, Australische support, facturatie in {currency}, Ask AI op elk plan en de AI Employee inbegrepen op Growth. Je data is van jou en je kunt die altijd exporteren. We vergelijken DUSA openlijk met rechtstreeks naar HighLevel gaan op onze HighLevel-vergelijkingspagina."
+        },
+        {
           "q": "Zijn alle prijzen in {currency}?",
           "a": "Ja. Alle DUSA-prijzen op deze pagina zijn in {currency} ({regionLabel}). Geen valutaomrekening en geen verrassingen op je factuur."
         }
@@ -1258,6 +1263,10 @@
         "a": "Het volledige platform begint bij 149 AUD per maand (zie de prijzen in euro op de prijzenpagina), met Ask AI op elk plan. Growth, voor 297 AUD, voegt je AI Employee toe die oproepen en berichten voor je beantwoordt. De meeste bedrijven die wij onboarden, betalen nu 800 tot 1.100 AUD per maand aan losse tools, dus overstappen verdient zich meestal al in de eerste maand meerdere keren terug."
       },
       {
+        "q": "Waarop is het gebouwd?",
+        "a": "DUSA draait op HighLevel, het platform achter 2,2 miljoen bedrijven, dus de infrastructuur is bewezen en je data is veilig en exporteerbaar. Wat DUSA toevoegt, is de inrichting, de support vanuit Sydney, prijzen in AUD en de AI-onderdelen bovenop die motor. We vergelijken de twee openlijk op onze HighLevel-vergelijkingspagina."
+      },
+      {
         "q": "Moet ik technisch zijn?",
         "a": "Helemaal niet. Wij doen de inrichting voor je. Je CRM, automatiseringen, funnels en integraties worden binnen de eerste week door ons team geconfigureerd. Kun je e-mailen, dan kun je DUSA gebruiken."
       },
@@ -1278,5 +1287,17 @@
         "a": "AI-support is 24/7 beschikbaar op elk plan, met echte mensen als back-up. Growth-plannen krijgen prioriteitssupport en een onboardingsessie, en Bespoke-klanten krijgen een vaste accountmanager die proactief bij je checkt."
       }
     ]
+  },
+  "trust": {
+    "aria": "Vertrouwensfeiten over het platform",
+    "lead": "Gebouwd op HighLevel",
+    "sub": "het platform achter 2,2 miljoen bedrijven",
+    "facts": [
+      "SOC 2 Type II-infrastructuur",
+      "Ingericht en ondersteund vanuit Sydney",
+      "Geen vaste contracten",
+      "Je data blijft van jou"
+    ],
+    "link": "Waarom we dit vertellen"
   }
 }

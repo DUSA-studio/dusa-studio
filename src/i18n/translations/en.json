@@ -69,7 +69,8 @@
     "coaches": "Coaches",
     "careers": "Careers",
     "askAi": "Ask AI about DUSA:",
-    "shareThis": "Share this:"
+    "shareThis": "Share this:",
+    "compareHighLevel": "DUSA vs HighLevel"
   },
   "hero": {
     "label": "The AI-Powered Growth System",
@@ -861,6 +862,10 @@
           "a": "Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding and AI setup session where we help you configure everything for your specific business."
         },
         {
+          "q": "What is DUSA built on?",
+          "a": "DUSA runs on HighLevel, the platform powering 2.2 million businesses worldwide, with DUSA as your provider. You get that engine plus everything we add on top: setup with you in the first week, Australian support, {currency} billing, Ask AI on every plan and the AI Employee included on Growth. Your data is yours and exports at any time. We compare DUSA with going direct to HighLevel, openly, on our HighLevel comparison page."
+        },
+        {
           "q": "All prices are in {currency}?",
           "a": "Yes. All DUSA pricing on this page is in {currency} ({regionLabel}). There are no currency conversions or surprises on your invoice."
         }
@@ -1263,6 +1268,10 @@
         "a": "The full platform starts at $149 per month, with Ask AI on every plan. Growth, at $297, adds your AI Employee to answer calls and messages for you. Most businesses we onboard are currently paying $800 to $1,100 per month across separate tools, so switching usually pays for itself several times over in the first month."
       },
       {
+        "q": "What is it built on?",
+        "a": "DUSA runs on HighLevel, the platform behind 2.2 million businesses, so the infrastructure is proven and your data is safe and exportable. What DUSA adds is the setup, the Sydney support, AUD pricing and the AI inclusions on top of that engine. We compare the two openly on our HighLevel comparison page."
+      },
+      {
         "q": "Do I need to be technical?",
         "a": "Not at all. We do the setup for you. Your CRM, automations, funnels, and integrations are configured by our team within the first week. If you can use email, you can run DUSA."
       },
@@ -1283,5 +1292,17 @@
         "a": "AI support is available 24/7 on every plan, and real humans back it up. Growth plans get priority support and an onboarding session, and Bespoke clients get a dedicated account manager who checks in on you proactively."
       }
     ]
+  },
+  "trust": {
+    "aria": "Platform trust facts",
+    "lead": "Built on HighLevel",
+    "sub": "the platform powering 2.2 million businesses",
+    "facts": [
+      "SOC 2 Type II infrastructure",
+      "Set up and supported from Sydney",
+      "No lock-in contracts",
+      "Your data stays yours"
+    ],
+    "link": "Why we tell you"
   }
 }

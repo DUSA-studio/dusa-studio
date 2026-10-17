@@ -5,6 +5,7 @@ import FunnelGlass from '../components/FunnelGlass.astro';
 import ConnectedPlatform from '../components/ConnectedPlatform.astro';
 import SetupSteps from '../components/SetupSteps.astro';
 import BrandCarousel from '../components/BrandCarousel.astro';
+import TrustStrip from '../components/TrustStrip.astro';
 import SocialProof from '../components/SocialProof.astro';
 import FAQ from '../components/FAQ.astro';
 import CTA from '../components/CTA.astro';
@@ -33,12 +34,13 @@ import t from '../i18n/translations/en.json';
       from the home page: each repeated a story already told above it.
       Onboarding detail lives at /onboarding, the pillars at /about. */}
   <Hero t={t} />
+  <TrustStrip t={t} tight />
   <BrandCarousel t={t} compact />
   <ConnectedPlatform t={t} />
   <FunnelGlass t={t} />
   <SocialProof t={t} />
   <SetupSteps t={t} />
-  <FAQ t={t} limit={5} />
+  <FAQ t={t} limit={6} />
   <CTA t={t} />
 </BaseLayout>
 

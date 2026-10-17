@@ -87,7 +87,8 @@
     "coaches": "Coachs",
     "careers": "Carrières",
     "askAi": "Demandez à l'IA à propos de DUSA :",
-    "shareThis": "Partager :"
+    "shareThis": "Partager :",
+    "compareHighLevel": "DUSA vs HighLevel"
   },
   "hero": {
     "label": "Le système de croissance IA",
@@ -856,6 +857,10 @@
           "a": "La plupart des entreprises sont opérationnelles en moins de 48 heures. Notre plan Launchpad peut être en ligne en moins d'une heure. Les plans Growth et Bespoke incluent une session d'intégration et de configuration IA au cours de laquelle nous vous aidons à tout configurer pour votre activité spécifique."
         },
         {
+          "q": "Sur quoi DUSA est-elle construite ?",
+          "a": "DUSA fonctionne sur HighLevel, la plateforme qui propulse 2,2 millions d'entreprises dans le monde, avec DUSA comme fournisseur. Vous obtenez ce moteur plus tout ce que nous ajoutons par-dessus : la configuration avec vous dès la première semaine, un support australien, la facturation en {currency}, Ask AI sur tous les plans et l'AI Employee inclus dans Growth. Vos données vous appartiennent et s'exportent à tout moment. Nous comparons DUSA avec un abonnement direct à HighLevel, en toute transparence, sur notre page de comparaison HighLevel."
+        },
+        {
           "q": "Tous les prix sont-ils en {currency} ?",
           "a": "Oui. Tous les tarifs DUSA affichés sur cette page sont en {currency} ({regionLabel}). Aucune conversion de devise, aucune surprise sur votre facture."
         }
@@ -1016,6 +1021,10 @@
         "a": "La plateforme complète commence à 149 $ par mois, avec Ask AI sur toutes les formules. Growth, à 297 $, ajoute votre AI Employee pour répondre aux appels et aux messages à votre place. La plupart des entreprises que nous intégrons paient actuellement entre 800 $ et 1 100 $ par mois en outils séparés, le changement se rentabilise donc généralement plusieurs fois dès le premier mois."
       },
       {
+        "q": "Sur quoi est-ce construit ?",
+        "a": "DUSA fonctionne sur HighLevel, la plateforme derrière 2,2 millions d'entreprises : l'infrastructure est donc éprouvée et vos données sont en sécurité et exportables. Ce que DUSA ajoute, c'est la configuration, le support depuis Sydney, les tarifs en AUD et les fonctions d'IA incluses par-dessus ce moteur. Nous comparons les deux ouvertement sur notre page de comparaison HighLevel."
+      },
+      {
         "q": "Faut-il être technique ?",
         "a": "Pas du tout. Nous faisons la configuration pour vous. Votre CRM, vos automatisations, vos tunnels et vos intégrations sont configurés par notre équipe dès la première semaine. Si vous savez utiliser un email, vous savez utiliser DUSA."
       },
@@ -1050,5 +1059,17 @@
     "t5Role": "Studio photo et création",
     "t6Quote": "Créer des tunnels nous prenait des semaines avec un développeur. On en a construit un en un après-midi et il a mieux converti que tout ce qu'on avait avant.",
     "t6Role": "Propriétaire de marque e-commerce"
+  },
+  "trust": {
+    "aria": "Repères de confiance de la plateforme",
+    "lead": "Bâti sur HighLevel",
+    "sub": "la plateforme qui propulse 2,2 millions d'entreprises",
+    "facts": [
+      "Infrastructure SOC 2 Type II",
+      "Configuré et accompagné depuis Sydney",
+      "Sans engagement",
+      "Vos données vous appartiennent"
+    ],
+    "link": "Pourquoi vous le dire"
   }
 }

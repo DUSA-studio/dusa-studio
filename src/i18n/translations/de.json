@@ -87,7 +87,8 @@
     "coaches": "Coaches",
     "careers": "Karriere",
     "askAi": "Fragen Sie die KI zu DUSA:",
-    "shareThis": "Teilen:"
+    "shareThis": "Teilen:",
+    "compareHighLevel": "DUSA vs. HighLevel"
   },
   "hero": {
     "label": "Das KI-gestützte Wachstumssystem",
@@ -856,6 +857,10 @@
           "a": "Die meisten Unternehmen sind innerhalb von 48 Stunden startklar. Unser Launchpad-Plan kann in unter einer Stunde live sein. Growth- und Bespoke-Pläne enthalten ein Onboarding- und KI-Einrichtungsgespräch, in dem wir alles gemeinsam mit Ihnen auf Ihr Unternehmen abstimmen."
         },
         {
+          "q": "Worauf basiert DUSA?",
+          "a": "DUSA läuft auf HighLevel, der Plattform hinter 2,2 Millionen Unternehmen weltweit, mit DUSA als Ihrem Anbieter. Sie erhalten diesen Motor plus alles, was wir darauf aufbauen: Einrichtung gemeinsam mit Ihnen in der ersten Woche, australischen Support, Abrechnung in {currency}, Ask AI in jedem Plan und den AI Employee inklusive im Growth-Plan. Ihre Daten gehören Ihnen und lassen sich jederzeit exportieren. Wie DUSA im Vergleich zum direkten Abschluss bei HighLevel abschneidet, zeigen wir offen auf unserer HighLevel-Vergleichsseite."
+        },
+        {
           "q": "Sind alle Preise in {currency}?",
           "a": "Ja. Alle DUSA-Preise auf dieser Seite sind in {currency} ({regionLabel}). Keine Währungsumrechnung, keine Überraschungen auf Ihrer Rechnung."
         }
@@ -1016,6 +1021,10 @@
         "a": "Die vollständige Plattform beginnt bei 149 $ pro Monat, mit Ask AI in jedem Tarif. Growth ergänzt für 297 $ Ihren AI Employee, der Anrufe und Nachrichten für Sie beantwortet. Die meisten Unternehmen, die wir onboarden, zahlen aktuell 800 $ bis 1.100 $ pro Monat für separate Tools. Der Wechsel rechnet sich daher meist schon im ersten Monat mehrfach."
       },
       {
+        "q": "Worauf basiert das Ganze?",
+        "a": "DUSA läuft auf HighLevel, der Plattform hinter 2,2 Millionen Unternehmen. Die Infrastruktur ist also bewährt und Ihre Daten sind sicher und exportierbar. Was DUSA hinzufügt, sind die Einrichtung, der Support aus Sydney, Preise in AUD und die inkludierten KI-Funktionen auf Basis dieses Motors. Beide Optionen vergleichen wir offen auf unserer HighLevel-Vergleichsseite."
+      },
+      {
         "q": "Muss ich technisch versiert sein?",
         "a": "Überhaupt nicht. Wir übernehmen die Einrichtung für Sie. Ihr CRM, Ihre Automatisierungen, Funnels und Integrationen werden in der ersten Woche von unserem Team konfiguriert. Wer E-Mails schreiben kann, kann DUSA bedienen."
       },
@@ -1050,5 +1059,17 @@
     "t5Role": "Foto- und Kreativstudio",
     "t6Quote": "Funnels aufzusetzen hat mit einem Entwickler Wochen gedauert. Wir haben einen an einem Nachmittag gebaut und er hat besser konvertiert als alles zuvor.",
     "t6Role": "Inhaber einer E-Commerce-Marke"
+  },
+  "trust": {
+    "aria": "Vertrauensfakten zur Plattform",
+    "lead": "Basiert auf HighLevel",
+    "sub": "der Plattform hinter 2,2 Millionen Unternehmen",
+    "facts": [
+      "Infrastruktur nach SOC 2 Type II",
+      "Einrichtung und Support aus Sydney",
+      "Keine Vertragsbindung",
+      "Ihre Daten bleiben Ihre"
+    ],
+    "link": "Warum wir es sagen"
   }
 }

@@ -87,7 +87,8 @@
     "coaches": "Valmentajat",
     "careers": "Avoimet työpaikat",
     "askAi": "Kysy tekoälyltä DUSAsta:",
-    "shareThis": "Jaa:"
+    "shareThis": "Jaa:",
+    "compareHighLevel": "DUSA vs HighLevel"
   },
   "hero": {
     "label": "Tekoälyllä toimiva kasvujärjestelmä",
@@ -856,6 +857,10 @@
           "a": "Useimmat yritykset ovat käynnissä 48 tunnin sisällä. Launchpad-paketin saat käyttöön alle tunnissa. Growth- ja Bespoke-paketteihin sisältyy käyttöönoton ja tekoälyn asennussessio, jossa autamme sinua määrittämään kaiken juuri sinun yrityksellesi."
         },
         {
+          "q": "Minkä päälle DUSA on rakennettu?",
+          "a": "DUSA toimii HighLevelin päällä, alustalla, joka pyörittää 2,2 miljoonaa yritystä eri puolilla maailmaa, ja DUSA on palveluntarjoajasi. Saat sen moottorin sekä kaiken, mitä lisäämme sen päälle: käyttöönoton yhdessä kanssasi ensimmäisen viikon aikana, australialaisen tuen, laskutuksen valuutassa {currency}, Ask AI jokaisessa paketissa ja AI Employee -tekoälytyöntekijän Growth-paketissa. Tietosi ovat sinun ja voit viedä ne milloin tahansa. Vertailemme avoimesti DUSAa ja suoraan HighLevelille menemistä HighLevel-vertailusivullamme."
+        },
+        {
           "q": "Ovatko kaikki hinnat valuutassa {currency}?",
           "a": "Kyllä. Kaikki tämän sivun DUSA-hinnat ovat valuutassa {currency} ({regionLabel}). Laskullasi ei ole valuutanvaihtoja eikä yllätyksiä."
         }
@@ -1258,6 +1263,10 @@
         "a": "Koko alusta alkaa 149 AUD kuukaudessa (katso hinnat euroina hinnastosivulta), ja Ask AI on mukana jokaisessa paketissa. Growth-paketti hintaan 297 AUD tuo mukanaan AI Employee -tekoälytyöntekijän, joka vastaa puheluihin ja viesteihin puolestasi. Useimmat asiakkaamme maksavat siirtyessään erillisistä työkaluista 800 ja 1 100 AUD:n välillä kuukaudessa, joten vaihto maksaa itsensä takaisin yleensä moninkertaisesti jo ensimmäisen kuukauden aikana."
       },
       {
+        "q": "Minkä päälle se on rakennettu?",
+        "a": "DUSA toimii HighLevelin päällä, alustalla 2,2 miljoonan yrityksen takana, joten infrastruktuuri on koeteltu ja tietosi ovat turvassa ja vietävissä. DUSA lisää sen moottorin päälle käyttöönoton, tuen Sydneystä, hinnat AUD-valuutassa ja tekoälyominaisuudet. Vertailemme näitä kahta avoimesti HighLevel-vertailusivullamme."
+      },
+      {
         "q": "Pitääkö minun olla tekninen?",
         "a": "Ei lainkaan. Me teemme asennuksen puolestasi. Tiimimme määrittää CRM:n, automaatiot, funnelit ja integraatiot ensimmäisen viikon aikana. Jos osaat käyttää sähköpostia, osaat käyttää DUSAa."
       },
@@ -1278,5 +1287,17 @@
         "a": "Tekoälytuki on käytettävissä 24/7 jokaisessa paketissa, ja oikeat ihmiset ovat sen takana. Growth-paketissa saat prioriteettituen ja käyttöönottosession, ja Bespoke-asiakkaat saavat oman asiakasvastaavan, joka ottaa sinuun yhteyttä ennakoivasti."
       }
     ]
+  },
+  "trust": {
+    "aria": "Faktat alustan luotettavuudesta",
+    "lead": "Rakennettu HighLevelin päälle",
+    "sub": "alusta 2,2 miljoonan yrityksen takana",
+    "facts": [
+      "SOC 2 Type II -infrastruktuuri",
+      "Käyttöönotto ja tuki Sydneystä",
+      "Ei sitovia sopimuksia",
+      "Tietosi pysyvät sinun"
+    ],
+    "link": "Miksi kerromme tämän"
   }
 }

@@ -11,6 +11,7 @@
  */
 import { convertPrice } from '../i18n/regions.js';
 import { getRegionalCompetitors } from '../i18n/competitors.js';
+import TrustStrip from './TrustStrip.astro';
 
 interface Props {
   region: {
@@ -422,6 +423,10 @@ const faqs = [
     a: 'Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding and AI setup session where we help you configure everything for your specific business.',
   },
   {
+    q: 'What is DUSA built on?',
+    a: 'DUSA runs on HighLevel, the platform powering 2.2 million businesses worldwide, with DUSA as your provider. You get that engine plus everything we add on top: setup with you in the first week, Australian support, {currency} billing, Ask AI on every plan and the AI Employee included on Growth. Your data is yours and exports at any time. We compare DUSA with going direct to HighLevel, openly, on our HighLevel comparison page.',
+  },
+  {
     q: 'All prices are in {currency}?',
     a: 'Yes. All DUSA pricing on this page is in {currency} ({regionLabel}). There are no currency conversions or surprises on your invoice.',
   },
@@ -483,6 +488,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       </div>
     </div>
   </section>
+
+  <!-- Trust strip: runs on HighLevel, rendered as a DUSA glass cube -->
+  <div class="section--dark pricing-trust"><TrustStrip t={t} tight /></div>
 
   <!-- Pricing Cards -->
   <section class="pricing-cards section section--dark" style="padding-top:0;">
@@ -907,6 +915,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     text-align: center;
     width: fit-content;
   }
+
+  .pricing-trust { padding-bottom: var(--space-lg); margin-top: calc(-1 * var(--space-lg)); }
+  .pricing-trust .trust { margin-bottom: 0; }
 
   /* ─── PRICING GRID ─── */
   .pricing-grid {

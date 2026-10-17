@@ -87,7 +87,8 @@
     "coaches": "Coacher",
     "careers": "Jobba hos oss",
     "askAi": "Fråga AI om DUSA:",
-    "shareThis": "Dela:"
+    "shareThis": "Dela:",
+    "compareHighLevel": "DUSA vs HighLevel"
   },
   "hero": {
     "label": "Det AI-drivna tillväxtsystemet",
@@ -856,6 +857,10 @@
           "a": "De flesta företag är igång inom 48 timmar. Vår Launchpad-plan kan vara live på under en timme. Growth- och Bespoke-planerna inkluderar en onboarding- och AI-uppsättningssession där vi hjälper dig att konfigurera allt för just din verksamhet."
         },
         {
+          "q": "Vad är DUSA byggt på?",
+          "a": "DUSA körs på HighLevel, plattformen bakom 2,2 miljoner företag världen över, med DUSA som din leverantör. Du får den motorn plus allt vi lägger till ovanpå: uppsättning tillsammans med dig under första veckan, australisk support, fakturering i {currency}, Ask AI i alla planer och AI Employee inkluderad i Growth. Din data är din och kan exporteras när som helst. Vi jämför öppet DUSA med att gå direkt till HighLevel på vår HighLevel-jämförelsesida."
+        },
+        {
           "q": "Är alla priser i {currency}?",
           "a": "Ja. Alla DUSA-priser på den här sidan anges i {currency} ({regionLabel}). Inga valutaomräkningar och inga överraskningar på fakturan."
         }
@@ -1258,6 +1263,10 @@
         "a": "Hela plattformen börjar på 149 AUD per månad (se priser i kronor på prissidan), med Ask AI i varje plan. Growth, för 297 AUD, lägger till din AI Employee som svarar på samtal och meddelanden åt dig. De flesta företag vi tar ombord betalar i dag 800 till 1 100 AUD per månad för separata verktyg, så bytet betalar sig oftast flera gånger om redan första månaden."
       },
       {
+        "q": "Vad är det byggt på?",
+        "a": "DUSA körs på HighLevel, plattformen bakom 2,2 miljoner företag, så infrastrukturen är beprövad och din data är säker och exporterbar. Det DUSA lägger till är uppsättningen, supporten från Sydney, priser i AUD och AI-funktionerna ovanpå den motorn. Vi jämför de två öppet på vår HighLevel-jämförelsesida."
+      },
+      {
         "q": "Behöver jag vara tekniskt kunnig?",
         "a": "Inte alls. Vi sköter uppsättningen åt dig. Ditt CRM, dina automationer, funnels och integrationer konfigureras av vårt team under den första veckan. Kan du använda e-post kan du använda DUSA."
       },
@@ -1278,5 +1287,17 @@
         "a": "AI-support finns dygnet runt i alla planer, med riktiga människor som backar upp. Growth-planer får prioriterad support och en onboardingsession, och Bespoke-kunder får en dedikerad kundansvarig som stämmer av med dig proaktivt."
       }
     ]
+  },
+  "trust": {
+    "aria": "Förtroendefakta om plattformen",
+    "lead": "Byggt på HighLevel",
+    "sub": "plattformen bakom 2,2 miljoner företag",
+    "facts": [
+      "SOC 2 Type II-infrastruktur",
+      "Uppsättning och support från Sydney",
+      "Inga bindande avtal",
+      "Din data förblir din"
+    ],
+    "link": "Därför berättar vi detta"
   }
 }

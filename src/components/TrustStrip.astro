@@ -1,0 +1,214 @@
+---
+/**
+ * TrustStrip.astro
+ *
+ * A slim glass bar that answers the "what happens if you disappear?" question
+ * in one line: DUSA runs on HighLevel infrastructure. The HighLevel mark is
+ * never shown; it is rendered as a DUSA glass cube (same dice as the hero and
+ * the funnel) carrying an HL monogram, so the strip reads as DUSA proof.
+ *
+ * Renders nothing when the dictionary has no `trust` block, so locale pages
+ * stay in their own language until the keys are translated.
+ */
+interface Props {
+  t?: Record<string, any>;
+  /** Tighter top margin when it sits directly under a hero. */
+  tight?: boolean;
+}
+const { t = {}, tight = false } = Astro.props;
+const s = t?.trust || null;
+const show = !!s;
+
+const lead = (s && s.lead) || 'Built on HighLevel';
+const sub = (s && s.sub) || 'the platform powering 2.2 million businesses';
+const facts: string[] = (s && s.facts) || ['SOC 2 Type II infrastructure', 'Set up and supported from Sydney', 'No lock-in contracts', 'Your data stays yours'];
+const linkLabel = (s && s.link) || 'Why we tell you';
+/* The comparison page exists in English only for now; Nav's region script keeps
+   data-page links on the root version for regions that lack the page. */
+const linkHref = '/compare/highlevel';
+const faces = ['front', 'right', 'back', 'left', 'top', 'bottom'];
+---
+
+{show && (
+<section class={`trust${tight ? ' trust--tight' : ''}`} aria-label={(s && s.aria) || 'Platform trust facts'}>
+  <div class="trust__bar">
+    <a class="trust__brand" href={linkHref} data-page="compare/highlevel">
+      <span class="trust__chip" aria-hidden="true">
+        <span class="trust__cube">
+          {faces.map((f) => (
+            <span class={`trust__face trust__face--${f}`}><b>HL</b></span>
+          ))}
+        </span>
+      </span>
+      <span class="trust__words">
+        <span class="trust__lead">{lead}</span>
+        <span class="trust__sub">{sub}</span>
+      </span>
+    </a>
+    <ul class="trust__facts">
+      {facts.map((f) => (
+        <li class="trust__fact">{f}</li>
+      ))}
+    </ul>
+    <a class="trust__link" href={linkHref} data-page="compare/highlevel">{linkLabel} <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+)}
+
+<style>
+  .trust {
+    position: relative;
+    padding: 0 var(--space-md);
+    margin: var(--space-lg) auto var(--space-xl);
+    max-width: 1200px;
+  }
+  .trust--tight { margin-top: var(--space-md); }
+
+  /* The bar: the same frosted glass recipe as the nav pills. */
+  .trust__bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    min-height: 64px;
+    padding: 0.6rem 1.1rem 0.6rem 0.85rem;
+    border-radius: 100px;
+    border: 1.5px solid rgba(247, 244, 239, 0.14);
+    background: linear-gradient(135deg, rgba(247, 244, 239, 0.07), rgba(247, 244, 239, 0.025));
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.08), 0 10px 40px rgba(0, 0, 0, 0.18);
+  }
+
+  .trust__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+  }
+
+  /* ── The glass cube (same dice as the hero and the funnel) ── */
+  .trust__chip {
+    --cube: 38px;
+    width: var(--cube);
+    height: var(--cube);
+    display: block;
+    perspective: 640px;
+    flex-shrink: 0;
+  }
+  .trust__cube {
+    display: block;
+    position: relative;
+    width: var(--cube);
+    height: var(--cube);
+    transform-style: preserve-3d;
+    animation: trustSpin 22s linear infinite;
+  }
+  @keyframes trustSpin {
+    from { transform: rotateX(-28deg) rotateY(0deg); }
+    to   { transform: rotateX(-28deg) rotateY(360deg); }
+  }
+  .trust__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: linear-gradient(150deg, rgba(30, 38, 54, 0.85) 0%, rgba(16, 20, 30, 0.92) 100%);
+    border: 1px solid rgba(122, 219, 201, 0.18);
+    color: rgba(247, 244, 239, 0.82);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 0 0 0 0.5px rgba(78, 216, 194, 0.22), 0 2px 8px rgba(0, 0, 0, 0.2);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .trust__face b {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: calc(var(--cube) * 0.38);
+    letter-spacing: -0.02em;
+  }
+  .trust__face--front  { transform: rotateY(0deg)   translateZ(calc(var(--cube) / 2)); }
+  .trust__face--right  { transform: rotateY(90deg)  translateZ(calc(var(--cube) / 2)); }
+  .trust__face--back   { transform: rotateY(180deg) translateZ(calc(var(--cube) / 2)); }
+  .trust__face--left   { transform: rotateY(270deg) translateZ(calc(var(--cube) / 2)); }
+  .trust__face--top    { transform: rotateX(90deg)  translateZ(calc(var(--cube) / 2)); }
+  .trust__face--bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube) / 2)); }
+
+  .trust__words { display: flex; flex-direction: column; line-height: 1.25; }
+  .trust__lead {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--warm-white);
+    white-space: nowrap;
+  }
+  .trust__sub {
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.62);
+    white-space: nowrap;
+  }
+
+  .trust__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.5rem;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    justify-content: center;
+  }
+  .trust__fact {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.7);
+    padding: 0.35rem 0.7rem;
+    border-radius: 100px;
+    border: 1px solid rgba(78, 216, 194, 0.18);
+    background: rgba(78, 216, 194, 0.06);
+    white-space: nowrap;
+  }
+  .trust__link {
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--reef-aqua);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0.5rem 0.25rem;
+    transition: color var(--duration-fast);
+  }
+  .trust__link span { margin-left: 0.3em; }
+  .trust__link:hover { color: var(--warm-white); }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .trust__bar { flex-wrap: wrap; border-radius: 28px; justify-content: center; row-gap: 0.75rem; padding: 0.9rem 1rem; }
+    .trust__brand { width: 100%; justify-content: center; }
+    .trust__facts { width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .trust { padding: 0 var(--space-sm); }
+    .trust__lead, .trust__sub { white-space: normal; text-align: left; }
+    .trust__fact { font-size: 0.625rem; padding: 0.3rem 0.55rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust__cube { animation: none; transform: rotateX(-24deg) rotateY(38deg); }
+  }
+
+  /* ── Light mode ── */
+  :global(html[data-theme="light"]) .trust__bar {
+    border-color: rgba(12, 14, 20, 0.1);
+    background: linear-gradient(135deg, rgba(12, 14, 20, 0.04), rgba(12, 14, 20, 0.015));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 10px 30px rgba(12, 14, 20, 0.06);
+  }
+  :global(html[data-theme="light"]) .trust__lead { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .trust__sub { color: rgba(12, 14, 20, 0.64); }
+  :global(html[data-theme="light"]) .trust__fact { color: rgba(12, 14, 20, 0.7); border-color: rgba(26, 58, 92, 0.18); background: rgba(26, 58, 92, 0.05); }
+  :global(html[data-theme="light"]) .trust__link { color: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .trust__link:hover { color: var(--deep-black); }
+</style>

@@ -1,6 +1,7 @@
 ---
 // Hero.astro — Full-viewport editorial hero with notification phone mockup
 import allNotifications from '../i18n/notifications.json';
+import TrustStrip from './TrustStrip.astro';
 
 interface Props {
   t?: Record<string, any>;
@@ -270,6 +271,9 @@ const notifJson = JSON.stringify(notifTranslations);
         </div>
       </div>
     </div>
+
+    <!-- The foundation under the four pillars: runs on HighLevel, their numbers. -->
+    <div class="hero__foundation reveal"><TrustStrip t={t} tight /></div>
 
     <div class="hero__scroll-indicator">
       <span class="hero__scroll-text">{heroScrollExplore}</span>
@@ -1108,6 +1112,10 @@ const notifJson = JSON.stringify(notifTranslations);
   }
 
   /* --- Scroll Indicator --- */
+  /* Sits where the capabilities' bottom margin used to be; keeps the scroll cue clear. */
+  .hero__foundation { margin: calc(-1 * var(--space-2xl) + var(--space-md)) auto var(--space-3xl); }
+  .hero__foundation :global(.trust) { padding: 0; margin: 0 auto; max-width: none; }
+
   .hero__scroll-indicator {
     position: absolute;
     bottom: var(--space-lg);

@@ -3,22 +3,22 @@
  * RooferDay.astro
  *
  * A roofer's Tuesday, with and without DUSA, in one picture. An iPhone sits
- * in the middle of an illustrated scene and a divider runs straight through
- * it. Left of the line is the day without DUSA (red: missed, later, overdue),
- * right of the line is the same day with it (green: replied, booked, paid).
- * Drag the line and red turns green.
+ * in the middle of a floating 3D diorama and a divider runs straight through
+ * both. Left of the line is the day without DUSA (red: missed, later,
+ * overdue), right of the line is the same day with it (green: replied,
+ * booked, paid). Drag the line and red turns green.
  *
- * The day plays on its own: six moments on a timeline under the phone,
- * advancing every few seconds, tap any time to jump. Each moment swaps the
- * notifications on both halves of the phone and nudges the scene (sun, ute,
- * evening). The last moment is 9pm: a laptop at the kitchen table on the
- * left, the family on the deck on the right.
+ * The diorama is a clay-style isometric island (rounded geometry, soft
+ * shadows, posed characters) rendered twice, once per world, on two stacked
+ * canvases; the "with" canvas is clipped by the same slider as the phone, so
+ * one drag cuts the whole picture. The day plays on its own through seven
+ * moments, including smoko: on the right the crew sits down together, on the
+ * left the roofer stands apart making call-backs.
  *
- * All HTML/SVG/CSS. No 3D, no scroll-jacking. The two halves are the same
- * markup rendered twice, the right copy clipped by the slider, so every row
- * lines up and the line cuts through each one.
+ * The phone is HTML (real type, real notifications), the world is Three.js,
+ * and under prefers-reduced-motion the scene stays still.
  */
-interface Moment { time: string; off: { app: string; title: string; body: string; line: string }; on: { app: string; title: string; body: string; line: string } }
+interface Moment { time: string; label?: string; off: { app: string; title: string; body: string; line: string }; on: { app: string; title: string; body: string; line: string } }
 interface Props {
   eyebrow?: string;
   heading?: string;
@@ -35,7 +35,7 @@ const {
   eyebrow = "A roofer's Tuesday",
   heading = 'Slide to see your Tuesday',
   headingAccent = 'with DUSA.',
-  sub = 'Same roofer, same jobs, same phone. Only the admin is different.',
+  sub = 'Same roofer, same crew, same jobs, same phone. Only the admin is different.',
   labelOff = 'Without DUSA',
   labelOn = 'With DUSA',
   date = 'Tuesday 21 October',
@@ -48,6 +48,9 @@ const {
     { time: '9:15',
       off: { app: 'Phone', title: 'Missed call', body: 'Dave M. No voicemail.', line: 'Phone rang in the ute. Job gone.' },
       on:  { app: 'DUSA', title: 'Replied in 8 seconds', body: 'Dave M: "Re-roof in Belmont, can you quote?"', line: 'Texted back in 8 seconds. Job booked.' } },
+    { time: '10:30', label: 'Smoko',
+      off: { app: 'Phone', title: 'Call back: Sam, Priya', body: 'Smoko is for call-backs.', line: 'Smoko spent on call-backs, away from the crew.' },
+      on:  { app: 'DUSA', title: 'Sam booked. Priya quoted.', body: 'Both replied while you were on the roof.', line: 'Smoko with the crew. The call-backs made themselves.' } },
     { time: '11:30',
       off: { app: 'Reminders', title: 'Send Dave the quote', body: 'Tonight. If there is time.', line: 'Quote goes out at 10pm from the kitchen table.' },
       on:  { app: 'DUSA', title: 'Deposit received', body: '$1,200 from Dave M. Job booked Monday.', line: 'Quote sent from the ute. Deposit paid by lunch.' } },
@@ -55,7 +58,7 @@ const {
       off: { app: 'Reminders', title: "Text tomorrow's customer", body: 'Harbour St. Confirm 7am.', line: "Tomorrow's customer has no idea he is coming." },
       on:  { app: 'DUSA', title: 'Reminder sent', body: 'Thu 7:00am, 14 Harbour St. Confirmed.', line: "Tomorrow's customer is confirmed. Driveway cleared." } },
     { time: '4:45',
-      off: { app: 'Reminders', title: 'Invoice Harbour St', body: 'Sunday. Paid in three weeks.', line: 'Invoice on Sunday. Paid in three weeks.' },
+      off: { app: 'Reminders', title: 'Invoice Harbour St', body: 'Sunday. Paid in three weeks.', line: 'Still on the roof at 4:45. Invoice on Sunday.' },
       on:  { app: 'DUSA', title: 'Invoice #2041 paid', body: '$4,800 by card. Review request queued.', line: 'Invoice sent from the ladder. Paid before the ute is packed.' } },
     { time: '9:00',
       off: { app: 'Reminders', title: '4 follow-ups overdue', body: 'Quotes, invoices, Priya, Sam.', line: 'Kitchen table. Laptop. Same again tomorrow.' },
@@ -63,116 +66,7 @@ const {
   ],
 } = Astro.props;
 const BOOK = 'https://link.dusa.studio/widget/bookings/dusa-demo';
-const pm = (i: number) => i >= 3;
-const clock = (m: Moment, i: number) => m.time;
-const ampm = (i: number) => (pm(i) ? 'pm' : 'am');
-
-/* One scene, drawn once, stamped into both layers. The `only-off` and
-   `only-on` classes hide parts per layer: the laptop glow versus the family,
-   the bin versus the picket fence. */
-const scene = `
-<svg class="ww__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs>
-    <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" class="sky1"/><stop offset="1" class="sky2"/>
-    </linearGradient>
-    <radialGradient id="sunG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ffd58a" stop-opacity="0.9"/><stop offset="1" stop-color="#ffd58a" stop-opacity="0"/></radialGradient>
-    <radialGradient id="warmG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ffb36b" stop-opacity="0.55"/><stop offset="1" stop-color="#ffb36b" stop-opacity="0"/></radialGradient>
-    <radialGradient id="coldG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#9fd8ff" stop-opacity="0.55"/><stop offset="1" stop-color="#9fd8ff" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect class="sky" width="1200" height="675" fill="url(#skyG)"/>
-  <g class="stars">
-    <circle cx="120" cy="80" r="1.6"/><circle cx="300" cy="140" r="1.2"/><circle cx="520" cy="60" r="1.4"/><circle cx="700" cy="120" r="1"/><circle cx="900" cy="70" r="1.6"/><circle cx="1050" cy="160" r="1.2"/><circle cx="1130" cy="60" r="1"/><circle cx="200" cy="210" r="1"/><circle cx="820" cy="190" r="1.3"/><circle cx="1000" cy="250" r="0.9"/>
-  </g>
-  <g class="sun"><circle class="sunHalo" r="110" fill="url(#sunG)"/><circle r="26" class="sunBall"/></g>
-  <g class="moon"><circle r="18" class="moonBall"/></g>
-  <path class="hill" d="M0 470 C 200 430 380 440 600 455 C 820 470 1000 440 1200 460 L1200 675 L0 675 Z"/>
-  <path class="road" d="M0 560 L1200 540 L1200 600 L0 620 Z"/>
-  <path class="roadLine" d="M40 590 L160 587 M240 585 L360 582 M440 580 L560 577 M640 575 L760 572 M840 570 L960 567 M1040 565 L1160 562"/>
-
-  <!-- Job site: house, ladder, roofer on the roof -->
-  <g class="job">
-    <g class="tree" transform="translate(150 455)"><path d="M0 0v-40"/><circle cy="-70" r="34"/></g>
-    <g class="tree" transform="translate(1080 445)"><path d="M0 0v-36"/><circle cy="-62" r="30"/></g>
-    <g class="house" transform="translate(330 300)">
-      <path class="wall" d="M-120 160 V40 H120 V160 Z"/>
-      <path class="roof" d="M-150 44 L0 -60 L150 44 Z"/>
-      <path d="M-150 44 H150"/>
-      <rect x="-88" y="70" width="40" height="36" rx="3" class="win"/>
-      <rect x="48" y="70" width="40" height="36" rx="3" class="win"/>
-      <rect x="-18" y="96" width="36" height="64" rx="3" class="door"/>
-      <rect x="60" y="-40" width="20" height="40" class="chim"/>
-      <!-- ladder on the side wall -->
-      <g class="ladder" transform="translate(-150 160) rotate(-20)">
-        <path d="M-9 0 V-150 M9 0 V-150"/>
-        <path d="M-9 -20 H9 M-9 -45 H9 M-9 -70 H9 M-9 -95 H9 M-9 -120 H9"/>
-      </g>
-      <!-- roofer, sitting astride the ridge -->
-      <g class="roofer" transform="translate(-40 -40)">
-        <circle cx="0" cy="-30" r="10"/>
-        <path class="hat" d="M-13 -36 Q0 -48 13 -36"/>
-        <path d="M0 -20 V8 M0 -8 L-14 10 M0 8 L-10 26 M0 8 L12 24"/>
-        <g class="arm"><path d="M0 -14 L16 -2"/><path class="hammer" d="M16 -2 L26 -12 M22 -16 L30 -8"/></g>
-      </g>
-      <!-- the phone, down in the ute: rings on the left only -->
-    </g>
-    <g class="ute" transform="translate(840 560)">
-      <path class="body" d="M-110 -6 H-20 V-46 H40 L70 -16 H110 V-6 Q118 -6 118 2 V14 H-118 V2 Q-118 -6 -110 -6 Z"/>
-      <path class="glass" d="M-12 -40 H34 L58 -16 H-12 Z"/>
-      <circle cx="-72" cy="16" r="16"/><circle cx="72" cy="16" r="16"/>
-      <circle cx="-72" cy="16" r="6"/><circle cx="72" cy="16" r="6"/>
-      <path class="rack only-on" d="M-18 -50 H42"/>
-      <g class="ring only-off" transform="translate(-60 -30)"><path d="M14 -10 a16 16 0 0 1 0 20"/><path d="M22 -18 a28 28 0 0 1 0 36"/></g>
-      <g class="reply only-on" transform="translate(-60 -34)"><path d="M-26 -8 h40 a6 6 0 0 1 6 6 v12 a6 6 0 0 1 -6 6 h-28 l-8 7 v-7 h-4 a6 6 0 0 1 -6 -6 v-12 a6 6 0 0 1 6 -6z"/><path d="M-18 2 h22 M-18 8 h14"/></g>
-    </g>
-    <g class="customer only-off" transform="translate(990 540)">
-      <circle cy="-70" r="9"/><path d="M0 -61 V-32 M0 -50 L-12 -36 M0 -50 L12 -38 M0 -32 L-9 -8 M0 -32 L9 -8"/>
-      <path class="walk" d="M24 -56 l10 -6 M24 -44 l12 -2 M24 -32 l10 6"/>
-    </g>
-  </g>
-
-  <!-- Home, 9pm: left is a laptop at the table, right is the family on the deck -->
-  <g class="home">
-    <g class="tree" transform="translate(120 450)"><path d="M0 0v-44"/><circle cy="-76" r="36"/></g>
-    <g class="tree only-on" transform="translate(1010 455)"><path d="M0 0v-34"/><circle cy="-60" r="28"/></g>
-    <g class="house" transform="translate(300 300)">
-      <path class="wall" d="M-140 160 V40 H140 V160 Z"/>
-      <path class="roof" d="M-170 44 L0 -70 L170 44 Z"/>
-      <path d="M-170 44 H170"/>
-      <rect x="-104" y="70" width="44" height="38" rx="3" class="win winCold only-off"/>
-      <rect x="-104" y="70" width="44" height="38" rx="3" class="win winWarm only-on"/>
-      <rect x="60" y="70" width="44" height="38" rx="3" class="win winWarm"/>
-      <rect x="-20" y="96" width="40" height="64" rx="3" class="door doorNice"/>
-      <rect x="70" y="-46" width="22" height="46" class="chim"/>
-      <!-- deck and table out front -->
-      <path class="deck" d="M-170 160 H190 V176 H-170 Z"/>
-      <g class="table" transform="translate(40 140)">
-        <path d="M-40 0 H40 M-32 0 V28 M32 0 V28"/>
-        <!-- without: laptop, cold glow -->
-        <g class="only-off"><circle class="glow cold" cx="0" cy="-10" r="60" fill="url(#coldG)" stroke="none"/><path class="laptop" d="M-18 0 V-22 H14 V0 M-20 0 H16"/></g>
-        <!-- with: lamp, warm glow, plates -->
-        <g class="only-on"><circle class="glow warm" cx="0" cy="-14" r="80" fill="url(#warmG)" stroke="none"/><path d="M0 0 V-26 M-10 -26 H10 L6 -36 H-6 Z"/><circle cx="-22" cy="-3" r="5"/><circle cx="22" cy="-3" r="5"/></g>
-      </g>
-      <!-- the roofer at the table (both), partner and kid (right only) -->
-      <g class="person" transform="translate(-10 122)"><circle cy="-30" r="9"/><path d="M0 -21 V4 M0 -12 L-12 0 M0 -12 L12 -2 M0 4 L-8 20 M0 4 L8 20"/></g>
-      <g class="person only-on" transform="translate(92 122)"><circle cy="-30" r="9"/><path d="M0 -21 V4 M0 -12 L12 0 M0 -12 L-12 -2 M0 4 L-8 20 M0 4 L8 20"/></g>
-      <g class="person only-on" transform="translate(50 134)"><circle cy="-20" r="6.5"/><path d="M0 -13 V2 M0 -7 L-8 0 M0 -7 L8 0 M0 2 L-5 12 M0 2 L5 12"/></g>
-    </g>
-    <!-- picket fence, right only -->
-    <g class="fence only-on" transform="translate(300 500)">
-      <path d="M-220 0 H220 M-220 -14 H220"/>
-      <path d="M-210 4 V-26 l5 -6 l5 6 V4 M-180 4 V-26 l5 -6 l5 6 V4 M-150 4 V-26 l5 -6 l5 6 V4 M-120 4 V-26 l5 -6 l5 6 V4 M-90 4 V-26 l5 -6 l5 6 V4 M-60 4 V-26 l5 -6 l5 6 V4 M70 4 V-26 l5 -6 l5 6 V4 M100 4 V-26 l5 -6 l5 6 V4 M130 4 V-26 l5 -6 l5 6 V4 M160 4 V-26 l5 -6 l5 6 V4 M190 4 V-26 l5 -6 l5 6 V4"/>
-    </g>
-    <g class="bin only-off" transform="translate(470 500)"><path d="M-14 0 V-30 H14 V0 Z M-18 -30 H18"/></g>
-    <g class="ute" transform="translate(880 560)">
-      <path class="body" d="M-110 -6 H-20 V-46 H40 L70 -16 H110 V-6 Q118 -6 118 2 V14 H-118 V2 Q-118 -6 -110 -6 Z"/>
-      <path class="glass" d="M-12 -40 H34 L58 -16 H-12 Z"/>
-      <circle cx="-72" cy="16" r="16"/><circle cx="72" cy="16" r="16"/>
-      <circle cx="-72" cy="16" r="6"/><circle cx="72" cy="16" r="6"/>
-      <path class="rack only-on" d="M-18 -50 H42"/>
-    </g>
-  </g>
-</svg>`;
+const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
 ---
 
 <section class="ww section section--dark" id="roofer-day" data-ww>
@@ -184,9 +78,12 @@ const scene = `
     </div>
 
     <div class="ww__stage" data-stage data-beat="0" style="--x: 50%">
+      <div class="ww__sky" aria-hidden="true"><span class="ww__stars"></span></div>
+      <canvas class="ww__world ww__world--off" data-world="off" aria-hidden="true"></canvas>
+      <canvas class="ww__world ww__world--on" data-world="on" aria-hidden="true"></canvas>
+
       {(['off', 'on'] as const).map((side) => (
         <div class={`ww__layer ww__layer--${side}`} aria-hidden={side === 'off' ? undefined : 'true'}>
-          <Fragment set:html={scene.split('skyG').join('skyG-' + side).split('sunG').join('sunG-' + side).split('warmG').join('warmG-' + side).split('coldG').join('coldG-' + side)} />
           <div class={`ph ph--${side}`}>
             <div class="ph__frame">
               <div class="ph__screen">
@@ -218,8 +115,8 @@ const scene = `
         </div>
       ))}
 
-      <span class="ww__tag ww__tag--off"><i aria-hidden="true"></i>{labelOff}</span>
-      <span class="ww__tag ww__tag--on"><i aria-hidden="true"></i>{labelOn}</span>
+      <span class="ww__tag ww__tag--off">{labelOff}</span>
+      <span class="ww__tag ww__tag--on">{labelOn}</span>
 
       <div class="ww__handle" data-handle role="slider" tabindex="0" aria-label="Slide between without and with DUSA" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
         <span class="ww__line"></span>
@@ -233,7 +130,8 @@ const scene = `
       {moments.map((m, i) => (
         <button type="button" class={`ww__time${i === 0 ? ' is-on' : ''}`} role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-time={i}>
           <span class="ww__time-bar" aria-hidden="true"><span></span></span>
-          <b>{clock(m, i)}<small>{ampm(i)}</small></b>
+          <b>{m.time}<small>{ampm(i)}</small></b>
+          {m.label && <span class="ww__time-label">{m.label}</span>}
         </button>
       ))}
     </div>
@@ -241,8 +139,8 @@ const scene = `
     <div class="ww__lines" aria-live="polite">
       {moments.map((m, i) => (
         <div class="ww__pair" data-pair={i} hidden={i !== 0 ? true : undefined}>
-          <p class="ww__line-off"><i aria-hidden="true"></i>{m.off.line}</p>
-          <p class="ww__line-on"><i aria-hidden="true"></i>{m.on.line}</p>
+          <p class="ww__line-off">{m.off.line}</p>
+          <p class="ww__line-on">{m.on.line}</p>
         </div>
       ))}
     </div>
@@ -258,9 +156,9 @@ const scene = `
   .ww { position: relative; padding-top: calc(74px + var(--space-xl)); overflow: hidden; }
   .ww__header { text-align: center; max-width: 680px; margin: 0 auto var(--space-lg); }
   .ww__h1 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1; margin: 0 0 0.6rem; color: var(--warm-white); }
-  .ww__sub { font-size: 1.0625rem; color: rgba(247, 244, 239, 0.66); margin: 0 auto; max-width: 520px; }
+  .ww__sub { font-size: 1.0625rem; color: rgba(247, 244, 239, 0.66); margin: 0 auto; max-width: 560px; }
 
-  /* ── Stage: two layers, the right one clipped at --x ── */
+  /* ── Stage ── */
   .ww__stage {
     position: relative;
     width: 100%; max-width: 1100px; margin: 0 auto;
@@ -273,81 +171,25 @@ const scene = `
     touch-action: pan-y;
     user-select: none; -webkit-user-select: none;
     cursor: ew-resize;
+    --sky1: #2b2f4a; --sky2: #8d6b7a;
   }
-  .ww__layer { position: absolute; inset: 0; }
+  .ww__sky { position: absolute; inset: 0; background: linear-gradient(180deg, var(--sky1), var(--sky2)); transition: background 1.4s ease; }
+  .ww__stars { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s;
+    background-image: radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 30% 9%, #fff 50%, transparent 55%), radial-gradient(1.5px 1.5px at 48% 22%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 63% 12%, #fff 50%, transparent 55%), radial-gradient(1.5px 1.5px at 78% 26%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 90% 8%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 22% 34%, #fff 50%, transparent 55%), radial-gradient(1.2px 1.2px at 85% 40%, #fff 50%, transparent 55%); }
+  .ww__stage[data-beat="0"] { --sky1: #2b2f4a; --sky2: #9c7383; }
+  .ww__stage[data-beat="1"] { --sky1: #3f7fb5; --sky2: #a9cfe4; }
+  .ww__stage[data-beat="2"] { --sky1: #4789bf; --sky2: #b6d8ec; }
+  .ww__stage[data-beat="3"] { --sky1: #4b93c9; --sky2: #bcdcef; }
+  .ww__stage[data-beat="4"] { --sky1: #478dc2; --sky2: #b6d6ea; }
+  .ww__stage[data-beat="5"] { --sky1: #3d5f8f; --sky2: #e2a06b; }
+  .ww__stage[data-beat="6"] { --sky1: #06080f; --sky2: #15213a; }
+  .ww__stage[data-beat="6"] .ww__stars { opacity: 1; }
+
+  .ww__world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ww__world--off { filter: saturate(0.55) brightness(0.82); }
+  .ww__world--on { clip-path: inset(0 0 0 var(--x)); }
+  .ww__layer { position: absolute; inset: 0; pointer-events: none; }
   .ww__layer--on { clip-path: inset(0 0 0 var(--x)); }
-  :global(.ww__svg) { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-
-  /* The world: line art in warm white, with the sky and sun following the clock. */
-  :global(.ww__svg) { --sky1: #0e1a2b; --sky2: #1a2a40; --ink: rgba(247, 244, 239, 0.78); --fill: rgba(247, 244, 239, 0.05); }
-  .ww__layer--on :global(.ww__svg) { --ink: rgba(247, 244, 239, 0.88); }
-  :global(.ww__svg .sky1) { stop-color: var(--sky1); transition: stop-color 1.4s ease; }
-  :global(.ww__svg .sky2) { stop-color: var(--sky2); transition: stop-color 1.4s ease; }
-  :global(.ww__svg :where(path, circle:not(.glow):not(.sunHalo), rect:not(.sky))) { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  :global(.ww__svg .sky) { stroke: none; }
-  :global(.ww__svg .stars circle) { fill: rgba(247, 244, 239, 0.9); stroke: none; opacity: 0; transition: opacity 1.4s; }
-  :global(.ww__svg .hill) { fill: rgba(78, 216, 194, 0.08); stroke: rgba(247, 244, 239, 0.28); transition: fill 1.4s; }
-  :global(.ww__svg .road) { fill: rgba(247, 244, 239, 0.05); stroke: rgba(247, 244, 239, 0.22); }
-  :global(.ww__svg .roadLine) { stroke: rgba(247, 244, 239, 0.3); stroke-dasharray: none; }
-  :global(.ww__svg .wall) { fill: var(--fill); }
-  :global(.ww__svg .roof) { fill: rgba(106, 170, 207, 0.14); }
-  .ww__layer--on :global(.ww__svg .roof) { fill: rgba(78, 216, 194, 0.16); }
-  :global(.ww__svg .win) { fill: rgba(12, 14, 20, 0.5); transition: fill 1.4s; }
-  :global(.ww__svg .door) { fill: rgba(26, 58, 92, 0.6); }
-  .ww__layer--on :global(.ww__svg .doorNice) { fill: rgba(78, 216, 194, 0.55); }
-  :global(.ww__svg .chim) { fill: var(--fill); }
-  :global(.ww__svg .deck) { fill: rgba(201, 162, 122, 0.18); stroke: rgba(201, 162, 122, 0.6); }
-  :global(.ww__svg .tree circle) { fill: rgba(47, 106, 98, 0.35); }
-  :global(.ww__svg .ute .body) { fill: rgba(26, 58, 92, 0.6); }
-  .ww__layer--on :global(.ww__svg .ute .body) { fill: rgba(106, 170, 207, 0.55); }
-  :global(.ww__svg .ute .glass) { fill: rgba(159, 216, 234, 0.35); }
-  :global(.ww__svg .sunBall) { fill: #ffd58a; stroke: none; }
-  :global(.ww__svg .moonBall) { fill: #dde7f5; stroke: none; }
-  :global(.ww__svg .sun), :global(.ww__svg .moon) { transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s; }
-  :global(.ww__svg .glow) { stroke: none; }
-  :global(.ww__svg .hat) { stroke-width: 3; }
-  :global(.ww__svg .ring), :global(.ww__svg .reply) { stroke: var(--accent); }
-  :global(.ww__svg .ring path) { animation: wwRing 1.6s ease-out infinite; }
-  :global(.ww__svg .ring path:nth-child(2)) { animation-delay: 0.3s; }
-  @keyframes wwRing { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
-  :global(.ww__svg .arm) { transform-box: fill-box; transform-origin: 2% 12%; animation: wwHammer 0.9s ease-in-out infinite; }
-  @keyframes wwHammer { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-28deg); } }
-  :global(.ww__svg .customer) { animation: wwWalk 6s linear infinite; }
-  @keyframes wwWalk { 0%, 30% { transform: translate(990px, 540px); opacity: 1; } 100% { transform: translate(1240px, 540px); opacity: 0; } }
-  .ww__layer--off { --accent: #ff6b5e; }
-  .ww__layer--on { --accent: #4ed8c2; }
-
-  /* Only-left / only-right parts */
-  .ww__layer--off :global(.ww__svg .only-on) { display: none; }
-  .ww__layer--on :global(.ww__svg .only-off) { display: none; }
-
-  /* The two scenes: job by day, home at 9pm */
-  :global(.ww__svg .home) { opacity: 0; transition: opacity 1s; }
-  :global(.ww__svg .job) { opacity: 1; transition: opacity 1s; }
-  .ww__stage[data-beat="5"] :global(.ww__svg .home) { opacity: 1; }
-  .ww__stage[data-beat="5"] :global(.ww__svg .job) { opacity: 0; }
-
-  /* Clock-driven sky and sun. The sun walks an arc from left to right. */
-  .ww__stage[data-beat="0"] :global(.ww__svg) { --sky1: #2b2f4a; --sky2: #8d6b7a; }
-  .ww__stage[data-beat="1"] :global(.ww__svg) { --sky1: #4a86b8; --sky2: #a9cfe4; }
-  .ww__stage[data-beat="2"] :global(.ww__svg) { --sky1: #4f93c7; --sky2: #bcdcef; }
-  .ww__stage[data-beat="3"] :global(.ww__svg) { --sky1: #4a8cc0; --sky2: #b6d6ea; }
-  .ww__stage[data-beat="4"] :global(.ww__svg) { --sky1: #3d5f8f; --sky2: #e2a06b; }
-  .ww__stage[data-beat="5"] :global(.ww__svg) { --sky1: #070b14; --sky2: #16233a; }
-  .ww__stage[data-beat="0"] :global(.ww__svg .sun) { transform: translate(140px, 440px); }
-  .ww__stage[data-beat="1"] :global(.ww__svg .sun) { transform: translate(330px, 200px); }
-  .ww__stage[data-beat="2"] :global(.ww__svg .sun) { transform: translate(600px, 90px); }
-  .ww__stage[data-beat="3"] :global(.ww__svg .sun) { transform: translate(820px, 130px); }
-  .ww__stage[data-beat="4"] :global(.ww__svg .sun) { transform: translate(1060px, 380px); }
-  .ww__stage[data-beat="5"] :global(.ww__svg .sun) { transform: translate(1200px, 560px); opacity: 0; }
-  :global(.ww__svg .moon) { transform: translate(1000px, 700px); opacity: 0; }
-  .ww__stage[data-beat="5"] :global(.ww__svg .moon) { transform: translate(980px, 120px); opacity: 1; }
-  .ww__stage[data-beat="5"] :global(.ww__svg .stars circle) { opacity: 1; }
-  .ww__stage[data-beat="5"] :global(.ww__svg .winWarm) { fill: rgba(255, 201, 122, 0.85); }
-  .ww__stage[data-beat="5"] :global(.ww__svg .winCold) { fill: rgba(159, 216, 255, 0.75); }
-  .ww__stage[data-beat="5"] :global(.ww__svg .hill) { fill: rgba(78, 216, 194, 0.04); }
-  /* Without DUSA is a little greyer. The line makes the point before the words do. */
-  .ww__layer--off :global(.ww__svg) { filter: saturate(0.55) brightness(0.82); }
 
   /* ── The iPhone ── */
   .ph {
@@ -364,19 +206,11 @@ const scene = `
       inset 0 0 0 1.5px rgba(255, 255, 255, 0.22),
       inset 0 0 0 4px #121318,
       0 1px 0 rgba(255, 255, 255, 0.12),
-      0 40px 90px rgba(0, 0, 0, 0.6),
-      0 0 60px rgba(78, 216, 194, 0.08);
+      0 40px 90px rgba(0, 0, 0, 0.6);
   }
-  /* side buttons */
   .ph__frame::before { content: ''; position: absolute; left: -3px; top: 22%; width: 3px; height: 26px; border-radius: 2px 0 0 2px; background: #2c2d33; box-shadow: 0 46px 0 #2c2d33, 0 86px 0 #2c2d33; }
   .ph__frame::after { content: ''; position: absolute; right: -3px; top: 30%; width: 3px; height: 52px; border-radius: 0 2px 2px 0; background: #2c2d33; }
-  .ph__screen {
-    position: absolute; inset: 9px;
-    border-radius: 40px;
-    overflow: hidden;
-    background: radial-gradient(120% 70% at 50% 0%, #27405e 0%, #0f1a2b 55%, #0a0f18 100%);
-    color: #fff;
-  }
+  .ph__screen { position: absolute; inset: 9px; border-radius: 40px; overflow: hidden; color: #fff; }
   .ph--on .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #1c4a4f 0%, #0f2432 55%, #0a0f18 100%); }
   .ph--off .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #3b2c35 0%, #1a1420 55%, #0b0a10 100%); }
   .ph__island { position: absolute; left: 50%; top: 12px; width: 92px; height: 28px; transform: translateX(-50%); border-radius: 20px; background: #000; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
@@ -386,8 +220,7 @@ const scene = `
   .ph__notifs { position: absolute; left: 10px; right: 10px; top: 168px; margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
   .ph__notif {
     display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start;
-    padding: 10px 12px 11px;
-    border-radius: 20px;
+    padding: 10px 12px 11px; border-radius: 20px;
     background: rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
@@ -397,7 +230,8 @@ const scene = `
   @keyframes phIn { from { opacity: 0; transform: translateY(-10px) scale(0.97); } to { opacity: 1; transform: none; } }
   .ph__icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; overflow: hidden; }
   .ph__icon--off { background: linear-gradient(160deg, #ff6b5e, #d93b2f); color: #fff; }
-  .ph__icon--on { background: linear-gradient(160deg, #35e0b8, #1a3a5c); }
+  /* The DUSA app icon: the lotus on the app's navy. */
+  .ph__icon--on { background: linear-gradient(160deg, #1f4472, #0f2440 70%, #0b1a30); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.35); }
   .ph__icon img { width: 22px; height: 22px; }
   .ph__body { display: grid; gap: 2px; min-width: 0; }
   .ph__row { display: flex; justify-content: space-between; align-items: baseline; }
@@ -409,24 +243,31 @@ const scene = `
   .ph__text { font-size: 12px; color: rgba(255, 255, 255, 0.78); line-height: 1.3; }
   .ph__home { position: absolute; left: 50%; bottom: 8px; width: 110px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform: translateX(-50%); }
 
-  /* ── Labels, handle ── */
+  /* ── Frosted tags, red and mint ── */
   .ww__tag {
     position: absolute; top: 14px;
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.4rem 0.85rem; border-radius: 100px;
-    font-size: 0.8125rem; font-weight: 600;
-    border: 1px solid rgba(247, 244, 239, 0.16); background: rgba(12, 14, 20, 0.5);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    color: rgba(247, 244, 239, 0.9); pointer-events: none;
+    padding: 0.45rem 0.95rem; border-radius: 100px;
+    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em;
+    color: #fff; pointer-events: none;
+    backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
   }
-  .ww__tag i { width: 8px; height: 8px; border-radius: 50%; }
-  .ww__tag--off { left: 14px; }
-  .ww__tag--off i { background: #ff6b5e; box-shadow: 0 0 10px rgba(255, 107, 94, 0.8); }
-  .ww__tag--on { right: 14px; }
-  .ww__tag--on i { background: #30d158; box-shadow: 0 0 10px rgba(48, 209, 88, 0.8); }
+  .ww__tag--off {
+    left: 14px;
+    background: linear-gradient(135deg, rgba(255, 70, 58, 0.72), rgba(255, 70, 58, 0.4));
+    border: 1px solid rgba(255, 160, 150, 0.65);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 24px rgba(255, 107, 94, 0.25);
+  }
+  .ww__tag--on {
+    right: 14px;
+    background: linear-gradient(135deg, rgba(78, 216, 194, 0.6), rgba(78, 216, 194, 0.28));
+    border: 1px solid rgba(160, 245, 230, 0.7);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 8px 24px rgba(78, 216, 194, 0.25);
+  }
 
+  /* ── Handle ── */
   .ww__handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 0; outline: none; }
-  .ww__line { position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: rgba(247, 244, 239, 0.9); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 18px rgba(247, 244, 239, 0.5); }
+  .ww__line { position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: rgba(247, 244, 239, 0.92); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 18px rgba(247, 244, 239, 0.5); }
   .ww__grip {
     position: absolute; left: 50%; top: 50%; width: 52px; height: 52px;
     transform: translate(-50%, -50%);
@@ -439,13 +280,14 @@ const scene = `
   .ww__stage.is-dragging .ww__grip, .ww__handle:focus-visible .ww__grip { transform: translate(-50%, -50%) scale(1.08); }
   .ww__handle:focus-visible .ww__line { background: var(--reef-aqua); }
   .ww__stage.is-nudging .ww__handle { transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
-  .ww__stage.is-nudging .ww__layer--on { transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .ww__stage.is-nudging .ww__layer--on, .ww__stage.is-nudging .ww__world--on { transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 
   /* ── Timeline ── */
   .ww__timeline { display: flex; gap: 0.5rem; max-width: 1100px; margin: var(--space-md) auto 0; }
-  .ww__time { flex: 1; background: none; border: 0; padding: 0.25rem 0 0; cursor: pointer; color: rgba(247, 244, 239, 0.5); font: inherit; text-align: left; }
+  .ww__time { flex: 1; position: relative; background: none; border: 0; padding: 0.25rem 0 0; cursor: pointer; color: rgba(247, 244, 239, 0.5); font: inherit; text-align: left; }
   .ww__time b { display: block; font-family: var(--font-headline); font-weight: 600; font-size: 0.95rem; margin-top: 0.45rem; transition: color 0.3s; }
   .ww__time b small { font-size: 0.7em; margin-left: 1px; font-weight: 500; }
+  .ww__time-label { display: block; font-size: 0.72rem; color: var(--reef-aqua); margin-top: 0.1rem; }
   .ww__time-bar { display: block; height: 3px; border-radius: 2px; background: rgba(247, 244, 239, 0.12); overflow: hidden; }
   .ww__time-bar span { display: block; height: 100%; width: 0; background: var(--reef-aqua); }
   .ww__time.is-past .ww__time-bar span { width: 100%; }
@@ -457,12 +299,9 @@ const scene = `
   .ww__lines { max-width: 1100px; margin: var(--space-md) auto 0; }
   .ww__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
   .ww__pair[hidden] { display: none; }
-  .ww__pair p { margin: 0; display: flex; gap: 0.6rem; align-items: flex-start; font-size: 1rem; line-height: 1.45; max-width: none; }
-  .ww__pair i { flex-shrink: 0; width: 9px; height: 9px; border-radius: 50%; margin-top: 0.45rem; }
-  .ww__line-off { color: rgba(247, 244, 239, 0.66); }
-  .ww__line-off i { background: #ff6b5e; }
-  .ww__line-on { color: var(--warm-white); font-weight: 500; }
-  .ww__line-on i { background: #30d158; box-shadow: 0 0 10px rgba(48, 209, 88, 0.7); }
+  .ww__pair p { margin: 0; padding-left: 1rem; border-left: 3px solid; font-size: 1rem; line-height: 1.45; max-width: none; }
+  .ww__line-off { color: rgba(247, 244, 239, 0.66); border-color: rgba(255, 107, 94, 0.8); }
+  .ww__line-on { color: var(--warm-white); font-weight: 500; border-color: #4ed8c2; }
   .ww__ctas { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg); }
 
   /* ── Phones ── */
@@ -484,17 +323,17 @@ const scene = `
     .ph__row b { font-size: 9.5px; } .ph__row em { font-size: 8.5px; }
     .ph__title { font-size: 10.5px; } .ph__text { font-size: 9.5px; }
     .ph__home { width: 70px; height: 4px; bottom: 6px; }
-    .ww__tag { top: 10px; font-size: 0.72rem; padding: 0.3rem 0.65rem; }
+    .ww__tag { top: 10px; font-size: 0.72rem; padding: 0.32rem 0.7rem; }
     .ww__tag--off { left: 10px; } .ww__tag--on { right: 10px; }
     .ww__grip { width: 44px; height: 44px; }
-    .ww__time b { font-size: 0.8rem; }
+    .ww__time b { font-size: 0.78rem; }
+    .ww__time-label { font-size: 0.62rem; }
     .ww__pair { grid-template-columns: 1fr; gap: 0.5rem; }
     .ww__pair p { font-size: 0.9375rem; }
     .ww__ctas .btn { width: 100%; text-align: center; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :global(.ww__svg *) { animation: none !important; transition: none !important; }
     .ph__notif { animation: none; }
     .ww__time.is-on .ww__time-bar span { transition: none; }
   }
@@ -502,16 +341,20 @@ const scene = `
   /* ── Light mode ── */
   :global(html[data-theme="light"]) .ww__h1 { color: var(--deep-black); }
   :global(html[data-theme="light"]) .ww__sub { color: rgba(12, 14, 20, 0.66); }
-  :global(html[data-theme="light"]) .ww__stage { background: #0f1a2b; border-color: rgba(12, 14, 20, 0.1); box-shadow: 0 30px 70px rgba(12, 14, 20, 0.18); }
+  :global(html[data-theme="light"]) .ww__stage { border-color: rgba(12, 14, 20, 0.1); box-shadow: 0 30px 70px rgba(12, 14, 20, 0.18); }
   :global(html[data-theme="light"]) .ww__time { color: rgba(12, 14, 20, 0.5); }
   :global(html[data-theme="light"]) .ww__time.is-on, :global(html[data-theme="light"]) .ww__time:hover b { color: var(--deep-black); }
   :global(html[data-theme="light"]) .ww__time-bar { background: rgba(12, 14, 20, 0.1); }
   :global(html[data-theme="light"]) .ww__time-bar span { background: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .ww__time-label { color: var(--deep-ocean); }
   :global(html[data-theme="light"]) .ww__line-off { color: rgba(12, 14, 20, 0.62); }
-  :global(html[data-theme="light"]) .ww__line-on { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .ww__line-on { color: var(--deep-black); border-color: var(--deep-ocean); }
 </style>
 
 <script>
+  import * as THREE from 'three';
+  import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+
   document.querySelectorAll<HTMLElement>('[data-ww]').forEach((root) => {
     const stage = root.querySelector<HTMLElement>('[data-stage]')!;
     const handle = root.querySelector<HTMLElement>('[data-handle]')!;
@@ -519,8 +362,9 @@ const scene = `
     const pairs = [...root.querySelectorAll<HTMLElement>('[data-pair]')];
     const clocks = [...root.querySelectorAll<HTMLElement>('[data-clock]')];
     const notifSets = [...root.querySelectorAll<HTMLElement>('.ph__notifs')].map((ol) => [...ol.querySelectorAll<HTMLElement>('[data-notif]')]);
+    const canvases = { off: root.querySelector<HTMLCanvasElement>('[data-world="off"]')!, on: root.querySelector<HTMLCanvasElement>('[data-world="on"]')! };
     const N = times.length;
-    const HOLD = 6000;
+    const HOLD = 6500;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     stage.style.setProperty('--hold', `${HOLD}ms`);
 
@@ -548,11 +392,340 @@ const scene = `
       if (e.key === 'End') { setX(96); e.preventDefault(); }
     });
 
+    /* ════════════════════════════════════════════════════════════════════
+       The diorama. Clay-style: rounded boxes, soft shadows, flat colours.
+       ════════════════════════════════════════════════════════════════════ */
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const damp = (a: number, b: number, k: number, dt: number) => a + (b - a) * (1 - Math.exp(-k * dt));
+    const V = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
+
+    const mat = (color: number, extra: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
+      new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.02, ...extra });
+    const rbox = (w: number, h: number, d: number, m: THREE.Material, r = 0.08, x = 0, y = 0, z = 0) => {
+      const o = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 3, Math.min(r, Math.min(w, h, d) / 2)), m);
+      o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+    const cyl = (rt: number, rb: number, h: number, m: THREE.Material, x = 0, y = 0, z = 0, seg = 24) => {
+      const o = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m);
+      o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+    const sph = (r: number, m: THREE.Material, x = 0, y = 0, z = 0) => {
+      const o = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 18), m);
+      o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+    const cap = (r: number, len: number, m: THREE.Material) => {
+      const o = new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 6, 12), m); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+
+    /* A person: capsule body, round head, hard hat, arms and legs that pose. */
+    type Pose = 'stand' | 'hammer' | 'phone' | 'sit' | 'sitMug' | 'laptop' | 'carry';
+    const makePerson = (shirt: number, skin = 0xd9a98a, hat = true, scale = 1) => {
+      const g = new THREE.Group();
+      const shirtM = mat(shirt), vestM = mat(0xf7c53a), skinM = mat(skin), pantsM = mat(0x3b4555), hatM = mat(0xf7c53a);
+      const body = cap(0.21, 0.36, shirtM); body.position.y = 0.86; g.add(body);
+      const vest = rbox(0.34, 0.3, 0.26, vestM, 0.06, 0, 0.84, 0.03); vest.scale.set(1, 1, 0.75); g.add(vest);
+      const head = sph(0.17, skinM, 0, 1.3, 0); g.add(head);
+      if (hat) {
+        const dome = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), hatM); dome.position.y = 1.33; dome.castShadow = true; g.add(dome);
+        g.add(cyl(0.25, 0.25, 0.04, hatM, 0, 1.33, 0));
+      } else {
+        const hair = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.1), mat(0x4a3326)); hair.position.y = 1.31; g.add(hair);
+      }
+      const arm = (side: number) => {
+        const p = new THREE.Group(); p.position.set(side * 0.26, 1.0, 0);
+        const a = cap(0.065, 0.34, shirtM); a.position.y = -0.22; p.add(a);
+        const hand = sph(0.07, skinM, 0, -0.44, 0); p.add(hand);
+        g.add(p); return p;
+      };
+      const leg = (side: number) => {
+        const p = new THREE.Group(); p.position.set(side * 0.11, 0.56, 0);
+        const l = cap(0.085, 0.34, pantsM); l.position.y = -0.24; p.add(l);
+        const boot = rbox(0.17, 0.1, 0.26, mat(0x2a2522), 0.04, 0, -0.5, 0.04); p.add(boot);
+        g.add(p); return p;
+      };
+      const armL = arm(-1), armR = arm(1), legL = leg(-1), legR = leg(1);
+      const held = new THREE.Group(); held.position.set(0, -0.44, 0); armR.add(held);
+      const mug = cyl(0.06, 0.05, 0.1, mat(0xf7f4ef), 0, 0, 0.02); mug.visible = false; held.add(mug);
+      const phone = rbox(0.09, 0.17, 0.02, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.01, 0, 0.02, 0.05); phone.visible = false; held.add(phone);
+      const phoneGlow = new THREE.PointLight(0xffffff, 0, 1.2); phoneGlow.position.set(0, 0.05, 0.12); phone.add(phoneGlow);
+      g.scale.setScalar(scale);
+      const T = { armL: V(), armR: V(), legL: V(), legR: V(), bodyY: 0, mug: false, phone: false };
+      let pose: Pose = 'stand';
+      const setPose = (p: Pose) => {
+        pose = p;
+        T.mug = p === 'sitMug'; T.phone = p === 'phone';
+        T.bodyY = 0;
+        T.armL.set(0.15, 0, 0.25); T.armR.set(-0.15, 0, -0.25);
+        T.legL.set(0, 0, 0.05); T.legR.set(0, 0, -0.05);
+        if (p === 'phone') { T.armR.set(-2.5, 0.2, -0.9); T.armL.set(0.3, 0, 0.3); }
+        if (p === 'sit' || p === 'sitMug' || p === 'laptop') { T.bodyY = -0.12; T.legL.set(-1.25, 0, 0.12); T.legR.set(-1.25, 0, -0.12); T.armL.set(-0.9, 0, 0.3); T.armR.set(-0.9, 0, -0.3); }
+        if (p === 'sitMug') { T.armR.set(-1.6, 0.3, -0.5); }
+        if (p === 'laptop') { T.armL.set(-1.3, 0, 0.1); T.armR.set(-1.3, 0, -0.1); }
+        if (p === 'carry') { T.armL.set(-1.2, 0, 0.1); T.armR.set(-1.2, 0, -0.1); }
+      };
+      const tick = (now: number, dt: number) => {
+        const k = 6;
+        const lerpRot = (grp: THREE.Group, t: THREE.Vector3, swing = 0) => {
+          grp.rotation.x = damp(grp.rotation.x, t.x + swing, k, dt);
+          grp.rotation.y = damp(grp.rotation.y, t.y, k, dt);
+          grp.rotation.z = damp(grp.rotation.z, t.z, k, dt);
+        };
+        const hammer = pose === 'hammer' ? -0.9 + Math.sin(now / 150) * 0.8 : 0;
+        lerpRot(armR, T.armR, hammer);
+        lerpRot(armL, T.armL);
+        lerpRot(legL, T.legL); lerpRot(legR, T.legR);
+        const by = damp(body.position.y - 0.86, T.bodyY, k, dt);
+        body.position.y = 0.86 + by; vest.position.y = 0.84 + by; head.position.y = 1.3 + by;
+        g.children.forEach((c) => { if (c !== body && c !== vest && c !== head && c !== legL && c !== legR && c !== armL && c !== armR) c.position.y = (c.userData.baseY ?? (c.userData.baseY = c.position.y)) + by; });
+        armL.position.y = 1.0 + by; armR.position.y = 1.0 + by;
+        mug.visible = T.mug; phone.visible = T.phone;
+        phoneGlow.intensity = T.phone ? 0.6 : 0;
+        // A breathing idle.
+        g.position.y = (g.userData.baseY ?? 0) + Math.sin(now / 700 + (g.userData.phase ?? 0)) * 0.01;
+      };
+      return { g, setPose, tick, phoneGlow };
+    };
+
+    /* A world: the island, the house, the ute, the crew. `nice` is the DUSA side. */
+    const makeWorld = (nice: boolean, canvas: HTMLCanvasElement) => {
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
+      const hemi = new THREE.HemisphereLight(0xdff2ff, 0x5b7c6a, 1.1); scene.add(hemi);
+      const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+      sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+      sun.shadow.camera.left = -9; sun.shadow.camera.right = 9; sun.shadow.camera.top = 9; sun.shadow.camera.bottom = -9;
+      sun.shadow.camera.near = 1; sun.shadow.camera.far = 60; sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.02; sun.shadow.radius = 4;
+      scene.add(sun, sun.target);
+      const fill = new THREE.DirectionalLight(0x9fd8ff, 0.35); fill.position.set(-6, 4, -8); scene.add(fill);
+
+      /* The island floats; a soft shadow sits under it. */
+      const isle = new THREE.Group(); scene.add(isle);
+      const grassM = mat(nice ? 0x6db38a : 0x659e80);
+      const soilM = mat(0x7a5a44);
+      isle.add(rbox(13, 0.5, 9, grassM, 0.22, 0, -0.25, 0));
+      isle.add(rbox(12.7, 1.1, 8.7, soilM, 0.3, 0, -1.05, 0));
+      const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d')!; const r = g.createRadialGradient(128, 128, 20, 128, 128, 128); r.addColorStop(0, 'rgba(0,0,0,0.55)'); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 256, 256); const t = new THREE.CanvasTexture(c); return t; })();
+      const drop = new THREE.Mesh(new THREE.PlaneGeometry(18, 13), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+      drop.rotation.x = -Math.PI / 2; drop.position.y = -2.4; scene.add(drop);
+
+      const road = rbox(13, 0.08, 1.7, mat(0x5c6672), 0.04, 0, 0.02, -3.7); isle.add(road);
+      for (let i = -5.6; i <= 5.6; i += 1.4) isle.add(rbox(0.6, 0.02, 0.07, mat(0xf0e9dc), 0.01, i, 0.065, -3.7));
+      const drive = rbox(2.6, 0.06, 3.4, mat(0x8f99a6), 0.04, 4.6, 0.03, -1.6); isle.add(drive);
+
+      /* The house */
+      const HX = -4.0, HZ = 0.3;
+      const houseG = new THREE.Group(); houseG.position.set(HX, 0, HZ); isle.add(houseG);
+      const H = 2.1, W = 3.6, D = 2.9;
+      houseG.add(rbox(W, H, D, mat(0xf2ece0), 0.08, 0, H / 2, 0));
+      const roofShape = new THREE.Shape(); roofShape.moveTo(-W / 2 - 0.35, 0); roofShape.lineTo(W / 2 + 0.35, 0); roofShape.lineTo(0, 1.35); roofShape.closePath();
+      const roofGeo = new THREE.ExtrudeGeometry(roofShape, { depth: D + 0.6, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 2 }); roofGeo.translate(0, 0, -(D + 0.6) / 2);
+      const roofM = mat(nice ? 0x2f6a9c : 0x3b5270, { roughness: 0.6 });
+      const roof = new THREE.Mesh(roofGeo, roofM); roof.position.y = H; roof.castShadow = true; roof.receiveShadow = true; houseG.add(roof);
+      houseG.add(rbox(W + 0.75, 0.12, 0.14, mat(0xffffff), 0.04, 0, H + 0.02, D / 2 + 0.33));
+      houseG.add(rbox(0.42, 0.7, 0.42, mat(0xcfc7bb), 0.05, W * 0.28, H + 1.0, -0.4));
+      const winM = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0xffc97a, emissiveIntensity: 0, roughness: 0.25, metalness: 0.1 });
+      const frameM = mat(0xffffff);
+      const win = (wx: number) => { houseG.add(rbox(0.9, 0.78, 0.08, frameM, 0.03, wx, H * 0.6, D / 2 + 0.03)); houseG.add(rbox(0.76, 0.64, 0.1, winM, 0.02, wx, H * 0.6, D / 2 + 0.05)); };
+      win(-1.05); win(1.05);
+      houseG.add(rbox(0.74, 1.3, 0.1, mat(nice ? 0x4ed8c2 : 0x2c3e55), 0.04, 0, 0.65, D / 2 + 0.05));
+      houseG.add(sph(0.04, mat(0xffe08a, { metalness: 0.8, roughness: 0.3 }), 0.24, 0.68, D / 2 + 0.11));
+
+      /* Ladder, leaning on the side wall */
+      const ladder = new THREE.Group(); const railM = mat(0xb8bfc8, { metalness: 0.5, roughness: 0.4 });
+      const LL = 2.3;
+      ladder.add(rbox(0.07, LL, 0.07, railM, 0.03, 0, LL / 2, -0.25), rbox(0.07, LL, 0.07, railM, 0.03, 0, LL / 2, 0.25));
+      for (let i = 0; i < 8; i++) ladder.add(rbox(0.06, 0.05, 0.5, railM, 0.02, 0, 0.25 + i * 0.3, 0));
+      ladder.position.set(HX + W / 2 + 1.15, 0, HZ + 0.5); ladder.rotation.z = 0.42; isle.add(ladder);
+
+      /* Trees, flowers */
+      const tree = (x: number, z: number, s = 1) => {
+        const g = new THREE.Group(); g.add(cyl(0.1 * s, 0.13 * s, 0.9 * s, mat(0x6b4a36), 0, 0.45 * s, 0));
+        const lm = mat(nice ? 0x3f8f6e : 0x3b7a62);
+        g.add(sph(0.62 * s, lm, 0, 1.25 * s, 0), sph(0.48 * s, lm, 0.42 * s, 1.0 * s, 0.2 * s), sph(0.45 * s, lm, -0.4 * s, 1.05 * s, -0.2 * s), sph(0.4 * s, lm, 0.05 * s, 1.72 * s, -0.05 * s));
+        g.position.set(x, 0, z); isle.add(g); return g;
+      };
+      tree(-6.0, -2.6, 1.0); tree(6.0, 3.6, 1.15); tree(0.9, 3.9, 0.8); tree(-1.6, -2.4, 0.7);
+      if (nice) { const fm = [0xf2a0a0, 0xf7c53a, 0xf7f4ef]; for (let i = 0; i < 7; i++) { const f = sph(0.09, mat(fm[i % 3]), HX - 1.9 + i * 0.3, 0.09, HZ + D / 2 + 0.45 + (i % 2) * 0.2); f.castShadow = false; isle.add(f); } }
+
+      /* The ute */
+      const ute = new THREE.Group(); isle.add(ute);
+      const uteM = mat(nice ? 0x8ec3e6 : 0x27456b, { roughness: nice ? 0.35 : 0.6, metalness: nice ? 0.3 : 0.1 });
+      ute.add(rbox(2.3, 0.5, 1.15, uteM, 0.1, 0, 0.5, 0));
+      ute.add(rbox(1.0, 0.64, 1.1, uteM, 0.12, 0.5, 1.04, 0));
+      ute.add(rbox(0.96, 0.4, 1.0, mat(0xbfe6f5, { roughness: 0.15, metalness: 0.4 }), 0.08, 0.5, 1.08, 0));
+      ute.add(rbox(1.0, 0.36, 1.08, mat(0x2a2f3a), 0.06, -0.55, 0.9, 0));
+      ute.add(rbox(0.15, 0.06, 0.4, mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.3 }), 0.02, 1.16, 0.55, 0.3), rbox(0.15, 0.06, 0.4, mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.3 }), 0.02, 1.16, 0.55, -0.3));
+      if (nice) { const rk = mat(0xc8ced6, { metalness: 0.6, roughness: 0.3 }); ute.add(rbox(1.1, 0.05, 0.06, rk, 0.02, 0.5, 1.4, 0.38), rbox(1.1, 0.05, 0.06, rk, 0.02, 0.5, 1.4, -0.38), rbox(0.08, 0.1, 1.2, rk, 0.02, 1.2, 0.33, 0)); }
+      const tyreM = mat(0x1d1f24, { roughness: 0.9 }), hubM = mat(0xc8ced6, { metalness: 0.6, roughness: 0.3 });
+      for (const [wx, wz] of [[-0.75, 0.6], [-0.75, -0.6], [0.75, 0.6], [0.75, -0.6]]) { const t = cyl(0.28, 0.28, 0.22, tyreM, wx, 0.28, wz, 28); t.rotation.x = Math.PI / 2; ute.add(t); const h = cyl(0.13, 0.13, 0.24, hubM, wx, 0.28, wz, 20); h.rotation.x = Math.PI / 2; ute.add(h); }
+      const UX = 4.6, UZ = -1.2;
+      ute.position.set(UX, 0, UZ); ute.rotation.y = Math.PI / 2;
+
+      /* Smoko: esky, crates, thermos. */
+      const smoko = new THREE.Group(); isle.add(smoko);
+      smoko.add(rbox(0.8, 0.5, 0.5, mat(0x3a86c9), 0.08, 0, 0.25, 0), rbox(0.84, 0.1, 0.54, mat(0xf2ece0), 0.04, 0, 0.53, 0));
+      smoko.add(rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, -1.1, 0.225, 0.5), rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, 1.1, 0.225, 0.45));
+      smoko.add(cyl(0.1, 0.1, 0.36, mat(0xd9402f), 0.25, 0.76, -0.1));
+      smoko.position.set(2.6, 0, -3.0); smoko.scale.setScalar(0.001);
+
+      /* Home, 9pm: a deck, a table, a lamp or a laptop. */
+      const home = new THREE.Group(); home.position.set(HX, 0, HZ); isle.add(home);
+      home.add(rbox(4.6, 0.14, 2.6, mat(0xb8916a), 0.05, 0, 0.07, 2.7));
+      const table = new THREE.Group(); table.position.set(0, 0.14, 2.7); home.add(table);
+      table.add(rbox(1.5, 0.08, 0.8, mat(0xd9b48a), 0.03, 0, 0.72, 0));
+      for (const [tx, tz] of [[-0.65, 0.3], [0.65, 0.3], [-0.65, -0.3], [0.65, -0.3]]) table.add(rbox(0.07, 0.7, 0.07, mat(0x8b6a4b), 0.02, tx, 0.35, tz));
+      const laptopScreen = new THREE.Mesh(new RoundedBoxGeometry(0.5, 0.34, 0.03, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0x9fd8ff, emissiveIntensity: 0 }));
+      laptopScreen.position.set(0, 0.95, -0.25); laptopScreen.rotation.x = -0.3;
+      const laptop = new THREE.Group(); laptop.add(laptopScreen, rbox(0.5, 0.02, 0.34, mat(0xb8bfc8, { metalness: 0.5 }), 0.01, 0, 0.78, -0.08));
+      const coldLight = new THREE.PointLight(0x9fd8ff, 0, 4, 2); coldLight.position.set(0, 1.1, 0.2); laptop.add(coldLight);
+      const lamp = new THREE.Group();
+      lamp.add(cyl(0.03, 0.04, 0.6, mat(0x8b6a4b), 0, 1.05, 0), cyl(0.18, 0.1, 0.18, mat(0xf2ece0), 0, 1.42, 0));
+      const warmLight = new THREE.PointLight(0xffb36b, 0, 5, 2); warmLight.position.set(0, 1.4, 0); lamp.add(warmLight);
+      const bulb = sph(0.06, mat(0xffe3a3, { emissive: 0xffd58a, emissiveIntensity: 0 }), 0, 1.36, 0); lamp.add(bulb);
+      if (nice) { table.add(lamp); for (const [px, pz] of [[-0.45, 0.15], [0.45, 0.15], [0, -0.2]]) table.add(cyl(0.11, 0.11, 0.02, mat(0xf7f4ef), px, 0.77, pz)); }
+      else table.add(laptop);
+      if (nice) {
+        const fenceM = mat(0xf7f4ef, { roughness: 0.6 });
+        for (let fx = -2.4; fx <= 6.2; fx += 0.3) { if (Math.abs(fx - 2.4) < 0.5) continue; home.add(rbox(0.09, 0.55, 0.05, fenceM, 0.03, fx, 0.28, 4.0)); }
+        home.add(rbox(4.2, 0.05, 0.04, fenceM, 0.02, -0.3, 0.36, 4.0), rbox(3.2, 0.05, 0.04, fenceM, 0.02, 4.6, 0.36, 4.0));
+      }
+      home.scale.setScalar(0.001);
+
+      /* People */
+      const roofer = makePerson(nice ? 0x4ed8c2 : 0xaab0ba, 0xd9a98a, true, 1.15); isle.add(roofer.g);
+      const crew1 = makePerson(0x3e6fa0, 0xc98a6a, true, 1.15); crew1.g.userData.phase = 1.2; isle.add(crew1.g);
+      const crew2 = makePerson(0xd96a4f, 0x8a5a3c, true, 1.15); crew2.g.userData.phase = 2.4; isle.add(crew2.g);
+      const partner = makePerson(0xe8907a, 0xd9a98a, false, 1.08); partner.g.visible = false; isle.add(partner.g);
+      const kid = makePerson(0xf7c53a, 0xd9a98a, false, 0.7); kid.g.visible = false; isle.add(kid.g);
+      const people = [roofer, crew1, crew2, partner, kid];
+
+      /* A phone in the ute tray that rings. */
+      const trayPhone = rbox(0.18, 0.36, 0.03, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.02, 0, 0, 0);
+      const ringLight = new THREE.PointLight(nice ? 0x4ed8c2 : 0xff6b5e, 0, 2.5); ringLight.position.set(UX, 1.1, UZ + 0.55); isle.add(ringLight);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.02, 8, 40), new THREE.MeshBasicMaterial({ color: nice ? 0x4ed8c2 : 0xff6b5e, transparent: true, opacity: 0 }));
+      ring.rotation.x = -Math.PI / 2; ring.position.set(UX, 0.82, UZ + 0.55); isle.add(ring);
+      trayPhone.rotation.x = -Math.PI / 2; trayPhone.position.set(UX, 0.78, UZ + 0.55); isle.add(trayPhone);
+
+      /* Targets per moment. Positions are on the island (y=0 is the grass). */
+      const ROOF_Y = H + 1.35 - 0.1;
+      type Target = { pos: THREE.Vector3; rot: number; pose: Pose; show?: boolean };
+      const tg = (pos: THREE.Vector3, rot: number, pose: Pose, show = true): Target => ({ pos, rot, pose, show });
+      const atRoof = (dx: number, dz = 0) => tg(V(HX + dx, ROOF_Y - Math.abs(dx) * 0.55, HZ + dz), 0.4, 'hammer');
+      const byUte = (dx: number, dz: number, pose: Pose = 'stand', rot = -1.2) => tg(V(UX + dx, 0, UZ + dz), rot, pose);
+      const LADDER_FOOT = tg(V(HX + W / 2 + 1.5, 0, HZ + 1.2), -2.4, 'stand');
+      const SMOKO = { roofer: tg(V(2.6, 0, -3.0), 0.5, 'sitMug'), crew1: tg(V(1.5, 0, -2.5), 1.0, 'sitMug'), crew2: tg(V(3.7, 0, -2.55), -0.9, 'sitMug'), pace: tg(V(5.3, 0, 1.4), -2.2, 'phone') };
+      const hidden = tg(V(0, -3, 0), 0, 'stand', false);
+      const beats: { roofer: Target; crew1: Target; crew2: Target; partner: Target; kid: Target; smoko: boolean; home: boolean; ring: boolean }[] = [
+        // 6:40 at the ute, unloading. Without: on the phone to voicemail.
+        { roofer: nice ? byUte(-0.9, 2.1, 'carry', -0.4) : byUte(0.9, 2.3, 'phone', -2.6), crew1: byUte(-0.2, 2.0, 'carry', -0.9), crew2: byUte(0.9, 1.6, 'stand', -2.0), partner: hidden, kid: hidden, smoko: false, home: false, ring: false },
+        // 9:15 on the roof. The phone rings in the ute.
+        { roofer: atRoof(0.3), crew1: atRoof(-0.2, 1.0), crew2: LADDER_FOOT, partner: hidden, kid: hidden, smoko: false, home: false, ring: true },
+        // 10:30 smoko. With: three on the esky. Without: two sit, the roofer paces with the phone.
+        { roofer: nice ? SMOKO.roofer : SMOKO.pace, crew1: SMOKO.crew1, crew2: SMOKO.crew2, partner: hidden, kid: hidden, smoko: true, home: false, ring: false },
+        // 11:30 back on the roof. Without: at the ute trying to write the quote.
+        { roofer: nice ? atRoof(0.3) : byUte(0.9, 2.3, 'phone', -2.6), crew1: atRoof(-0.2, 1.0), crew2: LADDER_FOOT, partner: hidden, kid: hidden, smoko: false, home: false, ring: false },
+        // 1:30 on the roof.
+        { roofer: atRoof(0.3), crew1: atRoof(-0.2, 1.0), crew2: nice ? atRoof(0.1, -1.0) : byUte(0.9, 2.3, 'phone', -2.6), partner: hidden, kid: hidden, smoko: false, home: false, ring: !nice },
+        // 4:45 packing up. Without: the roofer is still on the roof alone.
+        { roofer: nice ? byUte(-0.9, 2.1, 'carry', -0.4) : atRoof(0.3), crew1: byUte(-0.2, 2.0, 'carry', -0.9), crew2: byUte(0.9, 1.6, 'stand', -2.0), partner: hidden, kid: hidden, smoko: false, home: false, ring: false },
+        // 9:00 home. With: family at the table. Without: laptop.
+        { roofer: tg(V(HX + (nice ? -0.55 : 0), 0.14, HZ + 2.7 + 0.6), Math.PI, nice ? 'sit' : 'laptop'), crew1: hidden, crew2: hidden, partner: nice ? tg(V(HX + 0.6, 0.14, HZ + 2.7 + 0.6), Math.PI, 'sit') : hidden, kid: nice ? tg(V(HX, 0.14, HZ + 2.7 - 0.6), 0, 'sit') : hidden, smoko: false, home: true, ring: false },
+      ];
+
+      /* Light by moment: sun position, warmth, night. */
+      const sunPos = [V(-9, 3, 6), V(-6, 8, 5), V(-3, 10, 4), V(1, 11, 3), V(5, 9, 4), V(9, 4, 5), V(4, 6, -6)];
+      const sunCol = [0xffb27a, 0xfff1dc, 0xffffff, 0xffffff, 0xfff4e4, 0xffa070, 0x6f86b8];
+      const sunInt = [1.5, 2.3, 2.6, 2.7, 2.4, 1.8, 0.35];
+      const hemiInt = [0.8, 1.1, 1.2, 1.2, 1.1, 0.9, 0.25];
+
+      let beat = 0, lastT = 0, running = false, pingAt = -1e9;
+      const cur = { sun: V(-6, 8, 5), col: new THREE.Color(0xffffff), sunI: 2, hemiI: 1, night: 0, smoko: 0, home: 0 };
+      const setBeat = (b: number) => { beat = b; pingAt = performance.now(); people.forEach((p, i) => { const t = [beats[b].roofer, beats[b].crew1, beats[b].crew2, beats[b].partner, beats[b].kid][i]; p.setPose(t.pose); }); };
+
+      const resize = () => {
+        const w = stage.clientWidth, h = stage.clientHeight;
+        renderer.setSize(w, h, false);
+        const aspect = w / h;
+        const halfW = aspect < 1 ? 7.6 : 9.6;
+        camera.left = -halfW; camera.right = halfW; camera.top = halfW / aspect; camera.bottom = -halfW / aspect;
+        camera.updateProjectionMatrix();
+      };
+
+      const frame = (now: number) => {
+        if (!running) return;
+        const dt = Math.min(0.05, (now - lastT) / 1000 || 0.016); lastT = now;
+        const B = beats[beat];
+        const night = beat === 6 ? 1 : 0;
+        // Lights ease toward the moment.
+        cur.sun.lerp(sunPos[beat], 1 - Math.exp(-2 * dt));
+        cur.col.lerp(new THREE.Color(sunCol[beat]), 1 - Math.exp(-2 * dt));
+        cur.sunI = damp(cur.sunI, sunInt[beat], 2, dt); cur.hemiI = damp(cur.hemiI, hemiInt[beat], 2, dt);
+        cur.night = damp(cur.night, night, 2, dt);
+        sun.position.copy(cur.sun); sun.color.copy(cur.col); sun.intensity = cur.sunI; hemi.intensity = cur.hemiI;
+        hemi.color.set(0xdff2ff).lerp(new THREE.Color(0x3b5a8c), cur.night);
+        winM.emissiveIntensity = cur.night * (nice ? 1.4 : 0.35);
+        warmLight.intensity = cur.night * 3.2; bulb.material.emissiveIntensity = cur.night * 1.5;
+        coldLight.intensity = cur.night * 2.6; laptopScreen.material.emissiveIntensity = cur.night * 2.2;
+        // Scene swaps.
+        cur.smoko = damp(cur.smoko, B.smoko ? 1 : 0, 6, dt); smoko.scale.setScalar(Math.max(0.001, cur.smoko));
+        cur.home = damp(cur.home, B.home ? 1 : 0, 5, dt); home.scale.setScalar(Math.max(0.001, cur.home));
+        ladder.visible = cur.home < 0.5; trayPhone.visible = ring.visible = cur.home < 0.5;
+        // People drift to their marks.
+        const targets = [B.roofer, B.crew1, B.crew2, B.partner, B.kid];
+        people.forEach((p, i) => {
+          const t = targets[i];
+          p.g.visible = t.show !== false || p.g.position.y > -2.5;
+          const k = 1 - Math.exp(-3.5 * dt);
+          p.g.userData.baseY = THREE.MathUtils.lerp(p.g.userData.baseY ?? t.pos.y, t.pos.y, k);
+          p.g.position.x = THREE.MathUtils.lerp(p.g.position.x, t.pos.x, k);
+          p.g.position.z = THREE.MathUtils.lerp(p.g.position.z, t.pos.z, k);
+          let dr = t.rot - p.g.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr));
+          p.g.rotation.y += dr * k;
+          p.tick(now, dt);
+        });
+        // Pacing without DUSA at smoko.
+        if (!nice && beat === 2) roofer.g.position.x += Math.sin(now / 1200) * 0.004;
+        // The tray phone pings when a moment lands.
+        const since = (now - pingAt) / 1000;
+        const pulse = B.ring ? (Math.sin(now / 180) * 0.5 + 0.5) : since < 1.4 ? 1 - since / 1.4 : 0;
+        ring.material.opacity = pulse * 0.9; ring.scale.setScalar(1 + (1 - pulse) * 0.6);
+        ringLight.intensity = pulse * 1.6;
+        // The island breathes.
+        isle.position.y = Math.sin(now / 2600) * 0.06;
+        isle.rotation.y = 0.35 + Math.sin(now / 5200) * 0.015;
+        // Camera: isometric, a touch closer at home.
+        const zoom = 1 + cur.home * 0.22;
+        // The island is turned 0.35 rad, so marks are rotated into world space before the camera looks at them.
+        const rx = (x: number, z: number) => x * Math.cos(0.35) + z * Math.sin(0.35), rz = (x: number, z: number) => -x * Math.sin(0.35) + z * Math.cos(0.35);
+        const hx = HX + 3.4, hz = HZ + 1.2;
+        const cx = THREE.MathUtils.lerp(0, rx(hx, hz), cur.home), cz = THREE.MathUtils.lerp(0, rz(hx, hz), cur.home);
+        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 0.3, cz); camera.zoom = zoom; camera.updateProjectionMatrix();
+        renderer.render(scene, camera);
+        requestAnimationFrame(frame);
+      };
+      const start = () => { if (running) return; running = true; lastT = performance.now(); resize(); requestAnimationFrame(frame); };
+      const stop = () => { running = false; };
+      setBeat(0);
+      return { setBeat, resize, start, stop, renderOnce: () => { resize(); renderer.render(scene, camera); } };
+    };
+
+    const worlds = [makeWorld(false, canvases.off), makeWorld(true, canvases.on)];
+    window.addEventListener('resize', () => worlds.forEach((w) => w.resize()));
+
     /* ── Timeline ── */
     let beat = 0, timer = 0, paused = false, started = false;
     const show = (b: number) => {
       beat = (b + N) % N;
       stage.setAttribute('data-beat', String(beat));
+      worlds.forEach((w) => w.setBeat(beat));
       times.forEach((t, i) => {
         t.classList.toggle('is-on', i === beat); t.classList.toggle('is-past', i < beat);
         t.setAttribute('aria-selected', i === beat ? 'true' : 'false');
@@ -561,7 +734,6 @@ const scene = `
       });
       pairs.forEach((p, i) => { if (i === beat) p.removeAttribute('hidden'); else p.setAttribute('hidden', ''); });
       clocks.forEach((c) => (c.textContent = times[beat].querySelector('b')?.firstChild?.textContent || ''));
-      // The phone shows the newest moment on top, with the two before it beneath.
       notifSets.forEach((set) => {
         const order: HTMLElement[] = [];
         set.forEach((n, i) => { if (i <= beat && i > beat - 3) order.push(n); else n.setAttribute('hidden', ''); });
@@ -576,10 +748,10 @@ const scene = `
     stage.addEventListener('mouseleave', () => { if (!dragging) queue(); });
     document.addEventListener('visibilitychange', () => (document.hidden ? clearTimeout(timer) : queue()));
 
-    /* ── Start when seen; nudge the handle once so people know it moves ── */
     show(0);
     const start = () => {
       if (started) return; started = true;
+      worlds.forEach((w) => w.start());
       queue();
       if (reduced) return;
       stage.classList.add('is-nudging');
@@ -589,7 +761,7 @@ const scene = `
       setTimeout(() => stage.classList.remove('is-nudging'), 3200);
     };
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) start(); }), { threshold: 0.35 }).observe(stage);
+      new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) start(); else worlds.forEach((w) => w.stop()); if (e.isIntersecting && started) worlds.forEach((w) => w.start()); }), { threshold: 0.2 }).observe(stage);
     } else start();
   });
 </script>

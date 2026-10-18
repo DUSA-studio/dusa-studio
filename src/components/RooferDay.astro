@@ -186,21 +186,22 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
   .ww__stage[data-beat="6"] .ww__stars { opacity: 1; }
 
   .ww__world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .ww__world--off { filter: saturate(0.55) brightness(0.82); }
+  .ww__world--off { filter: saturate(0.8) brightness(0.92); }
   .ww__world--on { clip-path: inset(0 0 0 var(--x)); }
   .ww__layer { position: absolute; inset: 0; pointer-events: none; }
   .ww__layer--on { clip-path: inset(0 0 0 var(--x)); }
 
   /* ── The iPhone ── */
   .ph {
-    position: absolute; left: 50%; top: 50%;
-    width: 256px; aspect-ratio: 9 / 19.5;
-    transform: translate(-50%, -50%);
+    position: absolute; left: 50%; top: 16px;
+    width: 190px; aspect-ratio: 9 / 19.5;
+    transform: translateX(-50%);
+    --s: 0.742;
     font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif;
   }
   .ph__frame {
     position: absolute; inset: 0;
-    border-radius: 48px;
+    border-radius: 36px;
     background: linear-gradient(160deg, #3a3c43, #1a1b20 40%, #26272d 100%);
     box-shadow:
       inset 0 0 0 1.5px rgba(255, 255, 255, 0.22),
@@ -210,17 +211,17 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
   }
   .ph__frame::before { content: ''; position: absolute; left: -3px; top: 22%; width: 3px; height: 26px; border-radius: 2px 0 0 2px; background: #2c2d33; box-shadow: 0 46px 0 #2c2d33, 0 86px 0 #2c2d33; }
   .ph__frame::after { content: ''; position: absolute; right: -3px; top: 30%; width: 3px; height: 52px; border-radius: 0 2px 2px 0; background: #2c2d33; }
-  .ph__screen { position: absolute; inset: 9px; border-radius: 40px; overflow: hidden; color: #fff; }
+  .ph__screen { position: absolute; inset: 7px; border-radius: 30px; overflow: hidden; color: #fff; }
   .ph--on .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #1c4a4f 0%, #0f2432 55%, #0a0f18 100%); }
   .ph--off .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #3b2c35 0%, #1a1420 55%, #0b0a10 100%); }
-  .ph__island { position: absolute; left: 50%; top: 12px; width: 92px; height: 28px; transform: translateX(-50%); border-radius: 20px; background: #000; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
-  .ph__lock { position: absolute; left: 0; right: 0; top: 52px; text-align: center; line-height: 1; }
-  .ph__date { display: block; font-size: 13px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.8); }
-  .ph__clock { display: block; font-size: 68px; font-weight: 600; letter-spacing: -0.03em; color: #fff; margin-top: 4px; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25); }
-  .ph__notifs { position: absolute; left: 10px; right: 10px; top: 168px; margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  .ph__island { position: absolute; left: 50%; top: 9px; width: 68px; height: 21px; transform: translateX(-50%); border-radius: 20px; background: #000; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
+  .ph__lock { position: absolute; left: 0; right: 0; top: 38px; text-align: center; line-height: 1; }
+  .ph__date { display: block; font-size: 10px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.8); }
+  .ph__clock { display: block; font-size: 50px; font-weight: 600; letter-spacing: -0.03em; color: #fff; margin-top: 4px; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25); }
+  .ph__notifs { position: absolute; left: 7px; right: 7px; top: 124px; margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
   .ph__notif {
-    display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start;
-    padding: 10px 12px 11px; border-radius: 20px;
+    display: grid; grid-template-columns: 27px 1fr; gap: 7px; align-items: start;
+    padding: 7px 9px 8px; border-radius: 15px;
     background: rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
@@ -228,20 +229,21 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
   }
   .ph__notif[hidden] { display: none; }
   @keyframes phIn { from { opacity: 0; transform: translateY(-10px) scale(0.97); } to { opacity: 1; transform: none; } }
-  .ph__icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; overflow: hidden; }
+  .ph__icon { width: 27px; height: 27px; border-radius: 7px; display: grid; place-items: center; overflow: hidden; }
   .ph__icon--off { background: linear-gradient(160deg, #ff6b5e, #d93b2f); color: #fff; }
   /* The DUSA app icon: the lotus on the app's navy. */
   .ph__icon--on { background: linear-gradient(160deg, #1f4472, #0f2440 70%, #0b1a30); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.35); }
-  .ph__icon img { width: 22px; height: 22px; }
+  .ph__icon img { width: 16px; height: 16px; }
+  .ph__icon svg { width: 14px; height: 14px; }
   .ph__body { display: grid; gap: 2px; min-width: 0; }
   .ph__row { display: flex; justify-content: space-between; align-items: baseline; }
-  .ph__row b { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.92); }
-  .ph__row em { font-style: normal; font-size: 11px; color: rgba(255, 255, 255, 0.55); }
-  .ph__title { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.25; }
+  .ph__row b { font-size: 9.5px; font-weight: 600; color: rgba(255, 255, 255, 0.92); }
+  .ph__row em { font-style: normal; font-size: 8.5px; color: rgba(255, 255, 255, 0.55); }
+  .ph__title { font-size: 10.5px; font-weight: 600; color: #fff; line-height: 1.25; }
   .ph--off .ph__title { color: #ffb3aa; }
   .ph--on .ph__title { color: #8ff2e1; }
-  .ph__text { font-size: 12px; color: rgba(255, 255, 255, 0.78); line-height: 1.3; }
-  .ph__home { position: absolute; left: 50%; bottom: 8px; width: 110px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform: translateX(-50%); }
+  .ph__text { font-size: 9.5px; color: rgba(255, 255, 255, 0.78); line-height: 1.3; }
+  .ph__home { position: absolute; left: 50%; bottom: 6px; width: 80px; height: 4px; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform: translateX(-50%); }
 
   /* ── Frosted tags, red and mint ── */
   .ww__tag {
@@ -308,21 +310,21 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
   @media (max-width: 760px) {
     .ww { padding-top: calc(74px + var(--space-lg)); }
     .ww__stage { aspect-ratio: 4 / 5; border-radius: 22px; }
-    .ph { width: 166px; transform: translate(-50%, -46%); }
-    .ph__frame { border-radius: 32px; }
-    .ph__screen { inset: 6px; border-radius: 27px; }
-    .ph__island { width: 58px; height: 18px; top: 8px; }
-    .ph__lock { top: 32px; }
-    .ph__clock { font-size: 44px; }
-    .ph__date { font-size: 9.5px; }
-    .ph__notifs { top: 106px; left: 6px; right: 6px; gap: 5px; }
-    .ph__notif { padding: 7px 8px 8px; border-radius: 13px; grid-template-columns: 24px 1fr; gap: 7px; }
-    .ph__icon { width: 24px; height: 24px; border-radius: 6px; }
-    .ph__icon img { width: 15px; height: 15px; }
-    .ph__icon svg { width: 13px; height: 13px; }
-    .ph__row b { font-size: 9.5px; } .ph__row em { font-size: 8.5px; }
-    .ph__title { font-size: 10.5px; } .ph__text { font-size: 9.5px; }
-    .ph__home { width: 70px; height: 4px; bottom: 6px; }
+    .ph { width: 150px; top: 12px; }
+    .ph__frame { border-radius: 28px; }
+    .ph__screen { inset: 5px; border-radius: 24px; }
+    .ph__island { width: 52px; height: 16px; top: 7px; }
+    .ph__lock { top: 29px; }
+    .ph__clock { font-size: 38px; }
+    .ph__date { font-size: 8.5px; }
+    .ph__notifs { top: 96px; left: 5px; right: 5px; gap: 4px; }
+    .ph__notif { padding: 6px 7px 7px; border-radius: 11px; grid-template-columns: 21px 1fr; gap: 6px; }
+    .ph__icon { width: 21px; height: 21px; border-radius: 5px; }
+    .ph__icon img { width: 13px; height: 13px; }
+    .ph__icon svg { width: 11px; height: 11px; }
+    .ph__row b { font-size: 8.5px; } .ph__row em { font-size: 7.5px; }
+    .ph__title { font-size: 9.5px; } .ph__text { font-size: 8.5px; }
+    .ph__home { width: 60px; height: 3px; bottom: 5px; }
     .ww__tag { top: 10px; font-size: 0.72rem; padding: 0.32rem 0.7rem; }
     .ww__tag--off { left: 10px; } .ww__tag--on { right: 10px; }
     .ww__grip { width: 44px; height: 44px; }
@@ -359,30 +361,32 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     const stage = root.querySelector<HTMLElement>('[data-stage]')!;
     const handle = root.querySelector<HTMLElement>('[data-handle]')!;
     const times = [...root.querySelectorAll<HTMLButtonElement>('[data-time]')];
+    const bars = times.map((t) => t.querySelector<HTMLElement>('.ww__time-bar span')!);
     const pairs = [...root.querySelectorAll<HTMLElement>('[data-pair]')];
     const clocks = [...root.querySelectorAll<HTMLElement>('[data-clock]')];
     const notifSets = [...root.querySelectorAll<HTMLElement>('.ph__notifs')].map((ol) => [...ol.querySelectorAll<HTMLElement>('[data-notif]')]);
     const canvases = { off: root.querySelector<HTMLCanvasElement>('[data-world="off"]')!, on: root.querySelector<HTMLCanvasElement>('[data-world="on"]')! };
-    const N = times.length;
-    const HOLD = 6500;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    stage.style.setProperty('--hold', `${HOLD}ms`);
+
+    /* ── The clock. One loop is a working day, 6:30am to 9:30pm. ── */
+    const DAY0 = 6.5, DAY1 = 21.5, LOOP_MS = 64000;
+    const MARKS = [6.67, 9.25, 10.5, 11.5, 13.5, 16.75, 21.0]; // the seven moments on the timeline
+    const N = MARKS.length;
+    let hour = MARKS[0], beat = -1, playing = false, paused = false, started = false;
+    const beatOf = (h: number) => { let b = 0; for (let i = 0; i < N; i++) if (h >= MARKS[i]) b = i; return b; };
+    const fmt = (h: number) => { const hh = Math.floor(h), mm = Math.floor((h - hh) * 60); const h12 = ((hh + 11) % 12) + 1; return `${h12}:${mm < 10 ? '0' : ''}${mm}`; };
 
     /* ── Slider ── */
     let x = 50, dragging = false;
-    const setX = (v: number) => {
-      x = Math.min(96, Math.max(4, v));
-      stage.style.setProperty('--x', `${x}%`);
-      handle.setAttribute('aria-valuenow', String(Math.round(x)));
-    };
+    const setX = (v: number) => { x = Math.min(96, Math.max(4, v)); stage.style.setProperty('--x', `${x}%`); handle.setAttribute('aria-valuenow', String(Math.round(x))); };
     const fromEvent = (e: PointerEvent) => { const r = stage.getBoundingClientRect(); return ((e.clientX - r.left) / r.width) * 100; };
     stage.addEventListener('pointerdown', (e) => {
       if ((e.target as HTMLElement).closest('a, button')) return;
       dragging = true; stage.classList.add('is-dragging'); stage.classList.remove('is-nudging');
-      stage.setPointerCapture(e.pointerId); setX(fromEvent(e)); pause();
+      stage.setPointerCapture(e.pointerId); setX(fromEvent(e)); paused = true;
     });
     stage.addEventListener('pointermove', (e) => { if (dragging) setX(fromEvent(e)); });
-    const endDrag = () => { if (!dragging) return; dragging = false; stage.classList.remove('is-dragging'); resume(); };
+    const endDrag = () => { if (!dragging) return; dragging = false; stage.classList.remove('is-dragging'); paused = false; };
     stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
     handle.addEventListener('keydown', (e) => {
       const step = e.shiftKey ? 10 : 3;
@@ -396,6 +400,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
        The diorama. Clay-style: rounded boxes, soft shadows, flat colours.
        ════════════════════════════════════════════════════════════════════ */
     const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const smooth = (a: number, b: number, v: number) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
     const damp = (a: number, b: number, k: number, dt: number) => a + (b - a) * (1 - Math.exp(-k * dt));
     const V = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
 
@@ -413,36 +418,27 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const o = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 18), m);
       o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
     };
-    const cap = (r: number, len: number, m: THREE.Material) => {
-      const o = new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 6, 12), m); o.castShadow = true; o.receiveShadow = true; return o;
+    const cap = (r: number, len: number, m: THREE.Material) => { const o = new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 6, 12), m); o.castShadow = true; o.receiveShadow = true; return o; };
+
+    /* Two palettes: the brand on the DUSA side, the same scene gone bland on the other. */
+    const PAL = {
+      on:  { grass: 0x49b39a, grassTop: 0x5cc9ad, soil: 0x1a3a5c, road: 0x4a5d75, dash: 0xf7f4ef, drive: 0x9fbfd6, wall: 0xf7f4ef, roof: 0x1a3a5c, frame: 0x1a3a5c, door: 0x4ed8c2, ute: 0x6aaacf, uteDark: 0x1a3a5c, tree: 0x2f8f7c, treeTrunk: 0x6b4a36, vest: 0x4ed8c2, hat: 0xf7f4ef, shirt: 0x1a3a5c, home: 0xf7f4ef, homeRoof: 0x1a3a5c, deck: 0xd9b48a, esky: 0x1a3a5c, flower: [0x4ed8c2, 0xf7f4ef, 0x6aaacf] },
+      off: { grass: 0x8e9a8a, grassTop: 0x9aa697, soil: 0x5e5752, road: 0x5b5f66, dash: 0xc9c5bd, drive: 0x8d9299, wall: 0xd9d4ca, roof: 0x5b6572, frame: 0x6b7280, door: 0x6b7280, ute: 0x6e7784, uteDark: 0x3c424c, tree: 0x6f8a78, treeTrunk: 0x6b5a4c, vest: 0xb8a46a, hat: 0xb9b4a8, shirt: 0x7d8490, home: 0xcfc8ba, homeRoof: 0x6b6f78, deck: 0xa8927a, esky: 0x6b7280, flower: [0xb9b4a8, 0xa8927a, 0x9aa697] },
     };
 
-    /* A person: capsule body, round head, hard hat, arms and legs that pose. */
-    type Pose = 'stand' | 'hammer' | 'phone' | 'sit' | 'sitMug' | 'laptop' | 'carry';
-    const makePerson = (shirt: number, skin = 0xd9a98a, hat = true, scale = 1) => {
+    /* A person: capsule body, round head, hard hat, limbs that pose and walk. */
+    type Pose = 'stand' | 'hammer' | 'phone' | 'sit' | 'sitMug' | 'laptop' | 'carry' | 'walk';
+    const makePerson = (shirt: number, vestC: number, hatC: number, skin = 0xd9a98a, hat = true, scale = 1) => {
       const g = new THREE.Group();
-      const shirtM = mat(shirt), vestM = mat(0xf7c53a), skinM = mat(skin), pantsM = mat(0x3b4555), hatM = mat(0xf7c53a);
+      const shirtM = mat(shirt), vestM = mat(vestC), skinM = mat(skin), pantsM = mat(0x3b4555), hatM = mat(hatC);
       const body = cap(0.21, 0.36, shirtM); body.position.y = 0.86; g.add(body);
       const vest = rbox(0.34, 0.3, 0.26, vestM, 0.06, 0, 0.84, 0.03); vest.scale.set(1, 1, 0.75); g.add(vest);
       const head = sph(0.17, skinM, 0, 1.3, 0); g.add(head);
-      if (hat) {
-        const dome = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), hatM); dome.position.y = 1.33; dome.castShadow = true; g.add(dome);
-        g.add(cyl(0.25, 0.25, 0.04, hatM, 0, 1.33, 0));
-      } else {
-        const hair = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.1), mat(0x4a3326)); hair.position.y = 1.31; g.add(hair);
-      }
-      const arm = (side: number) => {
-        const p = new THREE.Group(); p.position.set(side * 0.26, 1.0, 0);
-        const a = cap(0.065, 0.34, shirtM); a.position.y = -0.22; p.add(a);
-        const hand = sph(0.07, skinM, 0, -0.44, 0); p.add(hand);
-        g.add(p); return p;
-      };
-      const leg = (side: number) => {
-        const p = new THREE.Group(); p.position.set(side * 0.11, 0.56, 0);
-        const l = cap(0.085, 0.34, pantsM); l.position.y = -0.24; p.add(l);
-        const boot = rbox(0.17, 0.1, 0.26, mat(0x2a2522), 0.04, 0, -0.5, 0.04); p.add(boot);
-        g.add(p); return p;
-      };
+      const top = new THREE.Group(); top.position.y = 1.3; g.add(top);
+      if (hat) { const dome = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2), hatM); dome.position.y = 0.03; dome.castShadow = true; top.add(dome, cyl(0.25, 0.25, 0.04, hatM, 0, 0.03, 0)); }
+      else { const hair = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.1), mat(0x4a3326)); hair.position.y = 0.01; top.add(hair); }
+      const arm = (side: number) => { const p = new THREE.Group(); p.position.set(side * 0.26, 1.0, 0); const a = cap(0.065, 0.34, shirtM); a.position.y = -0.22; p.add(a); p.add(sph(0.07, skinM, 0, -0.44, 0)); g.add(p); return p; };
+      const leg = (side: number) => { const p = new THREE.Group(); p.position.set(side * 0.11, 0.56, 0); const l = cap(0.085, 0.34, pantsM); l.position.y = -0.24; p.add(l); p.add(rbox(0.17, 0.1, 0.26, mat(0x2a2522), 0.04, 0, -0.5, 0.04)); g.add(p); return p; };
       const armL = arm(-1), armR = arm(1), legL = leg(-1), legR = leg(1);
       const held = new THREE.Group(); held.position.set(0, -0.44, 0); armR.add(held);
       const mug = cyl(0.06, 0.05, 0.1, mat(0xf7f4ef), 0, 0, 0.02); mug.visible = false; held.add(mug);
@@ -450,318 +446,344 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const phoneGlow = new THREE.PointLight(0xffffff, 0, 1.2); phoneGlow.position.set(0, 0.05, 0.12); phone.add(phoneGlow);
       g.scale.setScalar(scale);
       const T = { armL: V(), armR: V(), legL: V(), legR: V(), bodyY: 0, mug: false, phone: false };
-      let pose: Pose = 'stand';
+      let pose: Pose = 'stand', walkSpeed = 0, rush = 0;
       const setPose = (p: Pose) => {
-        pose = p;
-        T.mug = p === 'sitMug'; T.phone = p === 'phone';
-        T.bodyY = 0;
-        T.armL.set(0.15, 0, 0.25); T.armR.set(-0.15, 0, -0.25);
-        T.legL.set(0, 0, 0.05); T.legR.set(0, 0, -0.05);
+        pose = p; T.mug = p === 'sitMug'; T.phone = p === 'phone'; T.bodyY = 0;
+        T.armL.set(0.15, 0, 0.25); T.armR.set(-0.15, 0, -0.25); T.legL.set(0, 0, 0.05); T.legR.set(0, 0, -0.05);
         if (p === 'phone') { T.armR.set(-2.5, 0.2, -0.9); T.armL.set(0.3, 0, 0.3); }
         if (p === 'sit' || p === 'sitMug' || p === 'laptop') { T.bodyY = -0.12; T.legL.set(-1.25, 0, 0.12); T.legR.set(-1.25, 0, -0.12); T.armL.set(-0.9, 0, 0.3); T.armR.set(-0.9, 0, -0.3); }
-        if (p === 'sitMug') { T.armR.set(-1.6, 0.3, -0.5); }
+        if (p === 'sitMug') T.armR.set(-1.6, 0.3, -0.5);
         if (p === 'laptop') { T.armL.set(-1.3, 0, 0.1); T.armR.set(-1.3, 0, -0.1); }
         if (p === 'carry') { T.armL.set(-1.2, 0, 0.1); T.armR.set(-1.2, 0, -0.1); }
       };
+      const setWalk = (speed: number, r: number) => { walkSpeed = speed; rush = r; };
       const tick = (now: number, dt: number) => {
-        const k = 6;
-        const lerpRot = (grp: THREE.Group, t: THREE.Vector3, swing = 0) => {
-          grp.rotation.x = damp(grp.rotation.x, t.x + swing, k, dt);
-          grp.rotation.y = damp(grp.rotation.y, t.y, k, dt);
-          grp.rotation.z = damp(grp.rotation.z, t.z, k, dt);
-        };
+        const k = 7;
+        const lr = (grp: THREE.Group, t: THREE.Vector3, sx = 0) => { grp.rotation.x = damp(grp.rotation.x, t.x + sx, k, dt); grp.rotation.y = damp(grp.rotation.y, t.y, k, dt); grp.rotation.z = damp(grp.rotation.z, t.z, k, dt); };
+        const sw = walkSpeed > 0.01 ? Math.sin(now / (rush ? 70 : 110)) * (0.55 + rush * 0.3) : 0;
         const hammer = pose === 'hammer' ? -0.9 + Math.sin(now / 150) * 0.8 : 0;
-        lerpRot(armR, T.armR, hammer);
-        lerpRot(armL, T.armL);
-        lerpRot(legL, T.legL); lerpRot(legR, T.legR);
+        lr(armR, T.armR, hammer - sw * 0.7); lr(armL, T.armL, sw * 0.7);
+        lr(legL, T.legL, sw); lr(legR, T.legR, -sw);
         const by = damp(body.position.y - 0.86, T.bodyY, k, dt);
-        body.position.y = 0.86 + by; vest.position.y = 0.84 + by; head.position.y = 1.3 + by;
-        g.children.forEach((c) => { if (c !== body && c !== vest && c !== head && c !== legL && c !== legR && c !== armL && c !== armR) c.position.y = (c.userData.baseY ?? (c.userData.baseY = c.position.y)) + by; });
-        armL.position.y = 1.0 + by; armR.position.y = 1.0 + by;
-        mug.visible = T.mug; phone.visible = T.phone;
-        phoneGlow.intensity = T.phone ? 0.6 : 0;
-        // A breathing idle.
+        const bob = walkSpeed > 0.01 ? Math.abs(Math.sin(now / (rush ? 70 : 110))) * (0.03 + rush * 0.03) : 0;
+        body.position.y = 0.86 + by + bob; vest.position.y = 0.84 + by + bob; head.position.y = 1.3 + by + bob; top.position.y = 1.3 + by + bob;
+        armL.position.y = 1.0 + by + bob; armR.position.y = 1.0 + by + bob;
+        // A stressed head: quick glances when rushing.
+        top.rotation.y = rush ? Math.sin(now / 420) * 0.5 : damp(top.rotation.y, 0, 4, dt);
+        head.rotation.y = top.rotation.y;
+        mug.visible = T.mug; phone.visible = T.phone; phoneGlow.intensity = T.phone ? 0.6 : 0;
         g.position.y = (g.userData.baseY ?? 0) + Math.sin(now / 700 + (g.userData.phase ?? 0)) * 0.01;
       };
-      return { g, setPose, tick, phoneGlow };
+      return { g, setPose, setWalk, tick };
     };
 
-    /* A world: the island, the house, the ute, the crew. `nice` is the DUSA side. */
+    /* A world: the island, the customer's house by day, the roofer's own home at night. */
     const makeWorld = (nice: boolean, canvas: HTMLCanvasElement) => {
+      const P = nice ? PAL.on : PAL.off;
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setClearColor(0x000000, 0);
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
 
       const scene = new THREE.Scene();
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
       const hemi = new THREE.HemisphereLight(0xdff2ff, 0x5b7c6a, 1.1); scene.add(hemi);
       const sun = new THREE.DirectionalLight(0xffffff, 2.2);
       sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
-      sun.shadow.camera.left = -9; sun.shadow.camera.right = 9; sun.shadow.camera.top = 9; sun.shadow.camera.bottom = -9;
-      sun.shadow.camera.near = 1; sun.shadow.camera.far = 60; sun.shadow.bias = -0.0008; sun.shadow.normalBias = 0.02; sun.shadow.radius = 4;
+      sun.shadow.camera.left = -10; sun.shadow.camera.right = 10; sun.shadow.camera.top = 10; sun.shadow.camera.bottom = -10;
+      sun.shadow.camera.near = 1; sun.shadow.camera.far = 60; sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.04; sun.shadow.radius = 4;
       scene.add(sun, sun.target);
       const fill = new THREE.DirectionalLight(0x9fd8ff, 0.35); fill.position.set(-6, 4, -8); scene.add(fill);
 
-      /* The island floats; a soft shadow sits under it. */
       const isle = new THREE.Group(); scene.add(isle);
-      const grassM = mat(nice ? 0x6db38a : 0x659e80);
-      const soilM = mat(0x7a5a44);
-      isle.add(rbox(13, 0.5, 9, grassM, 0.22, 0, -0.25, 0));
-      isle.add(rbox(12.7, 1.1, 8.7, soilM, 0.3, 0, -1.05, 0));
-      const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d')!; const r = g.createRadialGradient(128, 128, 20, 128, 128, 128); r.addColorStop(0, 'rgba(0,0,0,0.55)'); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 256, 256); const t = new THREE.CanvasTexture(c); return t; })();
+      isle.add(rbox(13, 0.5, 9, mat(P.grassTop), 0.22, 0, -0.25, 0));
+      isle.add(rbox(12.7, 1.1, 8.7, mat(P.soil), 0.3, 0, -1.05, 0));
+      const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d')!; const r = g.createRadialGradient(128, 128, 20, 128, 128, 128); r.addColorStop(0, 'rgba(0,0,0,0.55)'); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 256, 256); return new THREE.CanvasTexture(c); })();
       const drop = new THREE.Mesh(new THREE.PlaneGeometry(18, 13), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
       drop.rotation.x = -Math.PI / 2; drop.position.y = -2.4; scene.add(drop);
+      // Road and driveway sit clearly above the grass so nothing flickers.
+      isle.add(rbox(13, 0.1, 1.7, mat(P.road), 0.04, 0, 0.05, -3.7));
+      for (let i = -5.6; i <= 5.6; i += 1.4) isle.add(rbox(0.6, 0.04, 0.08, mat(P.dash), 0.01, i, 0.11, -3.7));
+      const UX = 4.6, UZ = -1.2;
+      isle.add(rbox(2.6, 0.1, 3.6, mat(P.drive), 0.04, UX, 0.05, UZ - 0.5));
 
-      const road = rbox(13, 0.08, 1.7, mat(0x5c6672), 0.04, 0, 0.02, -3.7); isle.add(road);
-      for (let i = -5.6; i <= 5.6; i += 1.4) isle.add(rbox(0.6, 0.02, 0.07, mat(0xf0e9dc), 0.01, i, 0.065, -3.7));
-      const drive = rbox(2.6, 0.06, 3.4, mat(0x8f99a6), 0.04, 4.6, 0.03, -1.6); isle.add(drive);
+      /* Scene sets: the job (customer's house) and home (the roofer's own). */
+      const job = new THREE.Group(); isle.add(job);
+      const home = new THREE.Group(); isle.add(home);
+      const HX = -4.0, HZ = 0.3, H = 2.1, W = 3.6, D = 2.9;
 
-      /* The house */
-      const HX = -4.0, HZ = 0.3;
-      const houseG = new THREE.Group(); houseG.position.set(HX, 0, HZ); isle.add(houseG);
-      const H = 2.1, W = 3.6, D = 2.9;
-      houseG.add(rbox(W, H, D, mat(0xf2ece0), 0.08, 0, H / 2, 0));
-      const roofShape = new THREE.Shape(); roofShape.moveTo(-W / 2 - 0.35, 0); roofShape.lineTo(W / 2 + 0.35, 0); roofShape.lineTo(0, 1.35); roofShape.closePath();
-      const roofGeo = new THREE.ExtrudeGeometry(roofShape, { depth: D + 0.6, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 2 }); roofGeo.translate(0, 0, -(D + 0.6) / 2);
-      const roofM = mat(nice ? 0x2f6a9c : 0x3b5270, { roughness: 0.6 });
-      const roof = new THREE.Mesh(roofGeo, roofM); roof.position.y = H; roof.castShadow = true; roof.receiveShadow = true; houseG.add(roof);
-      houseG.add(rbox(W + 0.75, 0.12, 0.14, mat(0xffffff), 0.04, 0, H + 0.02, D / 2 + 0.33));
-      houseG.add(rbox(0.42, 0.7, 0.42, mat(0xcfc7bb), 0.05, W * 0.28, H + 1.0, -0.4));
-      const winM = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0xffc97a, emissiveIntensity: 0, roughness: 0.25, metalness: 0.1 });
-      const frameM = mat(0xffffff);
-      const win = (wx: number) => { houseG.add(rbox(0.9, 0.78, 0.08, frameM, 0.03, wx, H * 0.6, D / 2 + 0.03)); houseG.add(rbox(0.76, 0.64, 0.1, winM, 0.02, wx, H * 0.6, D / 2 + 0.05)); };
-      win(-1.05); win(1.05);
-      houseG.add(rbox(0.74, 1.3, 0.1, mat(nice ? 0x4ed8c2 : 0x2c3e55), 0.04, 0, 0.65, D / 2 + 0.05));
-      houseG.add(sph(0.04, mat(0xffe08a, { metalness: 0.8, roughness: 0.3 }), 0.24, 0.68, D / 2 + 0.11));
+      const house = (parent: THREE.Group, wall: number, roofC: number, door: number, winM: THREE.Material, bare: boolean) => {
+        const g = new THREE.Group(); g.position.set(HX, 0, HZ); parent.add(g);
+        g.add(rbox(W, H, D, mat(wall), 0.08, 0, H / 2, 0));
+        const shape = new THREE.Shape(); shape.moveTo(-W / 2 - 0.35, 0); shape.lineTo(W / 2 + 0.35, 0); shape.lineTo(0, 1.35); shape.closePath();
+        const geo = new THREE.ExtrudeGeometry(shape, { depth: D + 0.6, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 2 }); geo.translate(0, 0, -(D + 0.6) / 2);
+        const roof = new THREE.Mesh(geo, mat(bare ? 0xd9b48a : roofC, { roughness: 0.65 })); roof.position.y = H; roof.castShadow = true; roof.receiveShadow = true; g.add(roof);
+        if (bare) { const bm = mat(0xc49a6c); for (let i = -1.2; i <= 1.2; i += 0.6) { const b = rbox(0.06, 0.05, D + 0.7, bm, 0.02, 0, 0, 0); b.position.set(i, H + 1.35 - Math.abs(i) * (1.35 / (W / 2 + 0.35)) + 0.04, 0); g.add(b); } }
+        g.add(rbox(W + 0.75, 0.12, 0.14, mat(0xffffff), 0.04, 0, H + 0.02, D / 2 + 0.33));
+        g.add(rbox(0.42, 0.7, 0.42, mat(0xcfc7bb), 0.05, W * 0.28, H + 1.0, -0.4));
+        const frameM = mat(P.frame);
+        for (const wx of [-1.05, 1.05]) { g.add(rbox(0.9, 0.78, 0.08, frameM, 0.03, wx, H * 0.6, D / 2 + 0.03)); g.add(rbox(0.76, 0.64, 0.1, winM, 0.02, wx, H * 0.6, D / 2 + 0.05)); }
+        g.add(rbox(0.74, 1.3, 0.1, mat(door), 0.04, 0, 0.65, D / 2 + 0.05));
+        g.add(sph(0.04, mat(0xffe08a, { metalness: 0.8, roughness: 0.3 }), 0.24, 0.68, D / 2 + 0.11));
+        return { g, roof };
+      };
+      const jobWin = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, roughness: 0.25, metalness: 0.1 });
+      const homeWin = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0xffc97a, emissiveIntensity: 0, roughness: 0.25, metalness: 0.1 });
+      const jobHouse = house(job, 0xe9e3d6, P.roof, 0x6b7280, jobWin, true);
+      const ownHome = house(home, P.home, P.homeRoof, P.door, homeWin, false);
 
-      /* Ladder, leaning on the side wall */
-      const ladder = new THREE.Group(); const railM = mat(0xb8bfc8, { metalness: 0.5, roughness: 0.4 });
-      const LL = 2.3;
+      /* Roof tiles go on row by row as the day goes. Near slope first, then the far one. */
+      const tiles: THREE.Mesh[] = [];
+      const tileM = mat(P.roof, { roughness: 0.6 });
+      const slope = Math.atan2(1.35, W / 2 + 0.35);
+      const run = Math.hypot(1.35, W / 2 + 0.35);
+      for (const side of [1, -1]) for (let r = 0; r < 4; r++) for (let c = 0; c < 6; c++) {
+        const along = (r + 0.5) / 4 * run;
+        const t = rbox(run / 4 + 0.02, 0.07, (D + 0.6) / 6 + 0.02, tileM, 0.015);
+        const px = side * (W / 2 + 0.35 - along * Math.cos(slope)), py = H + along * Math.sin(slope) + 0.06;
+        t.position.set(px, py, -(D + 0.6) / 2 + (c + 0.5) * (D + 0.6) / 6);
+        t.rotation.z = -side * slope;
+        t.scale.setScalar(0.001);
+        jobHouse.g.add(t); tiles.push(t);
+      }
+      const ladder = new THREE.Group(); const railM = mat(0xb8bfc8, { metalness: 0.5, roughness: 0.4 }); const LL = 2.3;
       ladder.add(rbox(0.07, LL, 0.07, railM, 0.03, 0, LL / 2, -0.25), rbox(0.07, LL, 0.07, railM, 0.03, 0, LL / 2, 0.25));
       for (let i = 0; i < 8; i++) ladder.add(rbox(0.06, 0.05, 0.5, railM, 0.02, 0, 0.25 + i * 0.3, 0));
-      ladder.position.set(HX + W / 2 + 1.15, 0, HZ + 0.5); ladder.rotation.z = 0.42; isle.add(ladder);
+      ladder.position.set(HX + W / 2 + 1.15, 0, HZ + 0.5); ladder.rotation.z = 0.42; job.add(ladder);
+      job.add(rbox(0.9, 0.4, 0.6, mat(P.roof), 0.05, HX + W / 2 + 2.3, 0.2, HZ + 2.0)); // a stack of tiles waiting
 
       /* Trees, flowers */
       const tree = (x: number, z: number, s = 1) => {
-        const g = new THREE.Group(); g.add(cyl(0.1 * s, 0.13 * s, 0.9 * s, mat(0x6b4a36), 0, 0.45 * s, 0));
-        const lm = mat(nice ? 0x3f8f6e : 0x3b7a62);
+        const g = new THREE.Group(); g.add(cyl(0.1 * s, 0.13 * s, 0.9 * s, mat(P.treeTrunk), 0, 0.45 * s, 0));
+        const lm = mat(P.tree);
         g.add(sph(0.62 * s, lm, 0, 1.25 * s, 0), sph(0.48 * s, lm, 0.42 * s, 1.0 * s, 0.2 * s), sph(0.45 * s, lm, -0.4 * s, 1.05 * s, -0.2 * s), sph(0.4 * s, lm, 0.05 * s, 1.72 * s, -0.05 * s));
         g.position.set(x, 0, z); isle.add(g); return g;
       };
       tree(-6.0, -2.6, 1.0); tree(6.0, 3.6, 1.15); tree(0.9, 3.9, 0.8); tree(-1.6, -2.4, 0.7);
-      if (nice) { const fm = [0xf2a0a0, 0xf7c53a, 0xf7f4ef]; for (let i = 0; i < 7; i++) { const f = sph(0.09, mat(fm[i % 3]), HX - 1.9 + i * 0.3, 0.09, HZ + D / 2 + 0.45 + (i % 2) * 0.2); f.castShadow = false; isle.add(f); } }
+      for (let i = 0; i < 7; i++) { const f = sph(0.09, mat(P.flower[i % 3]), HX - 1.9 + i * 0.3, 0.09, HZ + D / 2 + 0.45 + (i % 2) * 0.2); f.castShadow = false; home.add(f); }
+      if (nice) {
+        const fenceM = mat(0xf7f4ef, { roughness: 0.6 });
+        for (let fx = -2.4; fx <= 6.2; fx += 0.3) { if (Math.abs(fx - 2.4) < 0.5) continue; home.add(rbox(0.09, 0.55, 0.05, fenceM, 0.03, HX + fx, 0.28, HZ + 4.0)); }
+        home.add(rbox(4.2, 0.05, 0.04, fenceM, 0.02, HX - 0.3, 0.36, HZ + 4.0), rbox(3.2, 0.05, 0.04, fenceM, 0.02, HX + 4.6, 0.36, HZ + 4.0));
+      }
 
-      /* The ute */
+      /* The ute, parked in the customer's driveway by day and at home by night. */
       const ute = new THREE.Group(); isle.add(ute);
-      const uteM = mat(nice ? 0x8ec3e6 : 0x27456b, { roughness: nice ? 0.35 : 0.6, metalness: nice ? 0.3 : 0.1 });
+      const uteM = mat(P.ute, { roughness: nice ? 0.35 : 0.6, metalness: nice ? 0.3 : 0.1 });
       ute.add(rbox(2.3, 0.5, 1.15, uteM, 0.1, 0, 0.5, 0));
       ute.add(rbox(1.0, 0.64, 1.1, uteM, 0.12, 0.5, 1.04, 0));
       ute.add(rbox(0.96, 0.4, 1.0, mat(0xbfe6f5, { roughness: 0.15, metalness: 0.4 }), 0.08, 0.5, 1.08, 0));
-      ute.add(rbox(1.0, 0.36, 1.08, mat(0x2a2f3a), 0.06, -0.55, 0.9, 0));
-      ute.add(rbox(0.15, 0.06, 0.4, mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.3 }), 0.02, 1.16, 0.55, 0.3), rbox(0.15, 0.06, 0.4, mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.3 }), 0.02, 1.16, 0.55, -0.3));
+      ute.add(rbox(1.0, 0.36, 1.08, mat(P.uteDark), 0.06, -0.55, 0.9, 0));
+      const lampM = mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.3 });
+      ute.add(rbox(0.15, 0.06, 0.4, lampM, 0.02, 1.16, 0.55, 0.3), rbox(0.15, 0.06, 0.4, lampM, 0.02, 1.16, 0.55, -0.3));
       if (nice) { const rk = mat(0xc8ced6, { metalness: 0.6, roughness: 0.3 }); ute.add(rbox(1.1, 0.05, 0.06, rk, 0.02, 0.5, 1.4, 0.38), rbox(1.1, 0.05, 0.06, rk, 0.02, 0.5, 1.4, -0.38), rbox(0.08, 0.1, 1.2, rk, 0.02, 1.2, 0.33, 0)); }
       const tyreM = mat(0x1d1f24, { roughness: 0.9 }), hubM = mat(0xc8ced6, { metalness: 0.6, roughness: 0.3 });
-      for (const [wx, wz] of [[-0.75, 0.6], [-0.75, -0.6], [0.75, 0.6], [0.75, -0.6]]) { const t = cyl(0.28, 0.28, 0.22, tyreM, wx, 0.28, wz, 28); t.rotation.x = Math.PI / 2; ute.add(t); const h = cyl(0.13, 0.13, 0.24, hubM, wx, 0.28, wz, 20); h.rotation.x = Math.PI / 2; ute.add(h); }
-      const UX = 4.6, UZ = -1.2;
+      const wheels: THREE.Mesh[] = [];
+      for (const [wx, wz] of [[-0.75, 0.6], [-0.75, -0.6], [0.75, 0.6], [0.75, -0.6]]) { const t = cyl(0.28, 0.28, 0.22, tyreM, wx, 0.28, wz, 28); t.rotation.x = Math.PI / 2; ute.add(t); wheels.push(t); const h = cyl(0.13, 0.13, 0.24, hubM, wx, 0.28, wz, 20); h.rotation.x = Math.PI / 2; ute.add(h); }
       ute.position.set(UX, 0, UZ); ute.rotation.y = Math.PI / 2;
 
       /* Smoko: esky, crates, thermos. */
       const smoko = new THREE.Group(); isle.add(smoko);
-      smoko.add(rbox(0.8, 0.5, 0.5, mat(0x3a86c9), 0.08, 0, 0.25, 0), rbox(0.84, 0.1, 0.54, mat(0xf2ece0), 0.04, 0, 0.53, 0));
+      smoko.add(rbox(0.8, 0.5, 0.5, mat(P.esky), 0.08, 0, 0.25, 0), rbox(0.84, 0.1, 0.54, mat(0xf2ece0), 0.04, 0, 0.53, 0));
       smoko.add(rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, -1.1, 0.225, 0.5), rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, 1.1, 0.225, 0.45));
-      smoko.add(cyl(0.1, 0.1, 0.36, mat(0xd9402f), 0.25, 0.76, -0.1));
+      smoko.add(cyl(0.1, 0.1, 0.36, mat(nice ? 0x4ed8c2 : 0x8a8f96), 0.25, 0.76, -0.1));
       smoko.position.set(2.6, 0, -3.0); smoko.scale.setScalar(0.001);
 
-      /* Home, 9pm: a deck, a table, a lamp or a laptop. */
-      const home = new THREE.Group(); home.position.set(HX, 0, HZ); isle.add(home);
-      home.add(rbox(4.6, 0.14, 2.6, mat(0xb8916a), 0.05, 0, 0.07, 2.7));
-      const table = new THREE.Group(); table.position.set(0, 0.14, 2.7); home.add(table);
+      /* Home: the deck and the table, a lamp or a laptop. */
+      home.add(rbox(4.6, 0.14, 2.6, mat(P.deck), 0.05, HX, 0.07, HZ + 2.7));
+      const table = new THREE.Group(); table.position.set(HX, 0.14, HZ + 2.7); home.add(table);
       table.add(rbox(1.5, 0.08, 0.8, mat(0xd9b48a), 0.03, 0, 0.72, 0));
       for (const [tx, tz] of [[-0.65, 0.3], [0.65, 0.3], [-0.65, -0.3], [0.65, -0.3]]) table.add(rbox(0.07, 0.7, 0.07, mat(0x8b6a4b), 0.02, tx, 0.35, tz));
       const laptopScreen = new THREE.Mesh(new RoundedBoxGeometry(0.5, 0.34, 0.03, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0x9fd8ff, emissiveIntensity: 0 }));
       laptopScreen.position.set(0, 0.95, -0.25); laptopScreen.rotation.x = -0.3;
-      const laptop = new THREE.Group(); laptop.add(laptopScreen, rbox(0.5, 0.02, 0.34, mat(0xb8bfc8, { metalness: 0.5 }), 0.01, 0, 0.78, -0.08));
-      const coldLight = new THREE.PointLight(0x9fd8ff, 0, 4, 2); coldLight.position.set(0, 1.1, 0.2); laptop.add(coldLight);
-      const lamp = new THREE.Group();
-      lamp.add(cyl(0.03, 0.04, 0.6, mat(0x8b6a4b), 0, 1.05, 0), cyl(0.18, 0.1, 0.18, mat(0xf2ece0), 0, 1.42, 0));
-      const warmLight = new THREE.PointLight(0xffb36b, 0, 5, 2); warmLight.position.set(0, 1.4, 0); lamp.add(warmLight);
-      const bulb = sph(0.06, mat(0xffe3a3, { emissive: 0xffd58a, emissiveIntensity: 0 }), 0, 1.36, 0); lamp.add(bulb);
-      if (nice) { table.add(lamp); for (const [px, pz] of [[-0.45, 0.15], [0.45, 0.15], [0, -0.2]]) table.add(cyl(0.11, 0.11, 0.02, mat(0xf7f4ef), px, 0.77, pz)); }
-      else table.add(laptop);
-      if (nice) {
-        const fenceM = mat(0xf7f4ef, { roughness: 0.6 });
-        for (let fx = -2.4; fx <= 6.2; fx += 0.3) { if (Math.abs(fx - 2.4) < 0.5) continue; home.add(rbox(0.09, 0.55, 0.05, fenceM, 0.03, fx, 0.28, 4.0)); }
-        home.add(rbox(4.2, 0.05, 0.04, fenceM, 0.02, -0.3, 0.36, 4.0), rbox(3.2, 0.05, 0.04, fenceM, 0.02, 4.6, 0.36, 4.0));
-      }
+      const coldLight = new THREE.PointLight(0x9fd8ff, 0, 4, 2); coldLight.position.set(0, 1.1, 0.2);
+      const warmLight = new THREE.PointLight(0xffb36b, 0, 5, 2); warmLight.position.set(0, 1.4, 0);
+      const bulb = sph(0.06, mat(0xffe3a3, { emissive: 0xffd58a, emissiveIntensity: 0 }), 0, 1.36, 0);
+      if (nice) { table.add(cyl(0.03, 0.04, 0.6, mat(0x8b6a4b), 0, 1.05, 0), cyl(0.18, 0.1, 0.18, mat(0xf2ece0), 0, 1.42, 0), warmLight, bulb); for (const [px, pz] of [[-0.45, 0.15], [0.45, 0.15], [0, -0.2]]) table.add(cyl(0.11, 0.11, 0.02, mat(0xf7f4ef), px, 0.77, pz)); }
+      else table.add(laptopScreen, rbox(0.5, 0.02, 0.34, mat(0xb8bfc8, { metalness: 0.5 }), 0.01, 0, 0.78, -0.08), coldLight);
       home.scale.setScalar(0.001);
 
       /* People */
-      const roofer = makePerson(nice ? 0x4ed8c2 : 0xaab0ba, 0xd9a98a, true, 1.15); isle.add(roofer.g);
-      const crew1 = makePerson(0x3e6fa0, 0xc98a6a, true, 1.15); crew1.g.userData.phase = 1.2; isle.add(crew1.g);
-      const crew2 = makePerson(0xd96a4f, 0x8a5a3c, true, 1.15); crew2.g.userData.phase = 2.4; isle.add(crew2.g);
-      const partner = makePerson(0xe8907a, 0xd9a98a, false, 1.08); partner.g.visible = false; isle.add(partner.g);
-      const kid = makePerson(0xf7c53a, 0xd9a98a, false, 0.7); kid.g.visible = false; isle.add(kid.g);
-      const people = [roofer, crew1, crew2, partner, kid];
+      const roofer = makePerson(P.shirt, P.vest, P.hat, 0xd9a98a, true, 1.15); isle.add(roofer.g);
+      const crew1 = makePerson(nice ? 0x6aaacf : 0x8a9099, P.vest, P.hat, 0xc98a6a, true, 1.15); crew1.g.userData.phase = 1.2; isle.add(crew1.g);
+      const crew2 = makePerson(nice ? 0xf7f4ef : 0xa39f96, P.vest, P.hat, 0x8a5a3c, true, 1.15); crew2.g.userData.phase = 2.4; isle.add(crew2.g);
+      const partner = makePerson(nice ? 0x6aaacf : 0x9a948c, 0, 0, 0xd9a98a, false, 1.08); isle.add(partner.g);
+      const kid = makePerson(nice ? 0x4ed8c2 : 0xb0aaa0, 0, 0, 0xd9a98a, false, 0.7); isle.add(kid.g);
+      [partner, kid].forEach((p) => { p.g.children.forEach((c) => { if ((c as THREE.Mesh).geometry instanceof RoundedBoxGeometry && c.position.y > 0.8 && c.position.y < 0.9) c.visible = false; }); });
 
-      /* A phone in the ute tray that rings. */
+      /* The phone in the ute tray. It rings; red or mint. */
+      const ringC = nice ? 0x4ed8c2 : 0xff6b5e;
       const trayPhone = rbox(0.18, 0.36, 0.03, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.02, 0, 0, 0);
-      const ringLight = new THREE.PointLight(nice ? 0x4ed8c2 : 0xff6b5e, 0, 2.5); ringLight.position.set(UX, 1.1, UZ + 0.55); isle.add(ringLight);
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.02, 8, 40), new THREE.MeshBasicMaterial({ color: nice ? 0x4ed8c2 : 0xff6b5e, transparent: true, opacity: 0 }));
-      ring.rotation.x = -Math.PI / 2; ring.position.set(UX, 0.82, UZ + 0.55); isle.add(ring);
       trayPhone.rotation.x = -Math.PI / 2; trayPhone.position.set(UX, 0.78, UZ + 0.55); isle.add(trayPhone);
+      const ringLight = new THREE.PointLight(ringC, 0, 2.5); ringLight.position.set(UX, 1.1, UZ + 0.55); isle.add(ringLight);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.02, 8, 40), new THREE.MeshBasicMaterial({ color: ringC, transparent: true, opacity: 0 }));
+      ring.rotation.x = -Math.PI / 2; ring.position.set(UX, 0.82, UZ + 0.55); isle.add(ring);
 
-      /* Targets per moment. Positions are on the island (y=0 is the grass). */
+      /* ── Marks and schedules. Hours of the day → where each person is. ── */
       const ROOF_Y = H + 1.35 - 0.1;
-      type Target = { pos: THREE.Vector3; rot: number; pose: Pose; show?: boolean };
-      const tg = (pos: THREE.Vector3, rot: number, pose: Pose, show = true): Target => ({ pos, rot, pose, show });
-      const atRoof = (dx: number, dz = 0) => tg(V(HX + dx, ROOF_Y - Math.abs(dx) * 0.55, HZ + dz), 0.4, 'hammer');
-      const byUte = (dx: number, dz: number, pose: Pose = 'stand', rot = -1.2) => tg(V(UX + dx, 0, UZ + dz), rot, pose);
-      const LADDER_FOOT = tg(V(HX + W / 2 + 1.5, 0, HZ + 1.2), -2.4, 'stand');
-      const SMOKO = { roofer: tg(V(2.6, 0, -3.0), 0.5, 'sitMug'), crew1: tg(V(1.5, 0, -2.5), 1.0, 'sitMug'), crew2: tg(V(3.7, 0, -2.55), -0.9, 'sitMug'), pace: tg(V(5.3, 0, 1.4), -2.2, 'phone') };
-      const hidden = tg(V(0, -3, 0), 0, 'stand', false);
-      const beats: { roofer: Target; crew1: Target; crew2: Target; partner: Target; kid: Target; smoko: boolean; home: boolean; ring: boolean }[] = [
-        // 6:40 at the ute, unloading. Without: on the phone to voicemail.
-        { roofer: nice ? byUte(-0.9, 2.1, 'carry', -0.4) : byUte(0.9, 2.3, 'phone', -2.6), crew1: byUte(-0.2, 2.0, 'carry', -0.9), crew2: byUte(0.9, 1.6, 'stand', -2.0), partner: hidden, kid: hidden, smoko: false, home: false, ring: false },
-        // 9:15 on the roof. The phone rings in the ute.
-        { roofer: atRoof(0.3), crew1: atRoof(-0.2, 1.0), crew2: LADDER_FOOT, partner: hidden, kid: hidden, smoko: false, home: false, ring: true },
-        // 10:30 smoko. With: three on the esky. Without: two sit, the roofer paces with the phone.
-        { roofer: nice ? SMOKO.roofer : SMOKO.pace, crew1: SMOKO.crew1, crew2: SMOKO.crew2, partner: hidden, kid: hidden, smoko: true, home: false, ring: false },
-        // 11:30 back on the roof. Without: at the ute trying to write the quote.
-        { roofer: nice ? atRoof(0.3) : byUte(0.9, 2.3, 'phone', -2.6), crew1: atRoof(-0.2, 1.0), crew2: LADDER_FOOT, partner: hidden, kid: hidden, smoko: false, home: false, ring: false },
-        // 1:30 on the roof.
-        { roofer: atRoof(0.3), crew1: atRoof(-0.2, 1.0), crew2: nice ? atRoof(0.1, -1.0) : byUte(0.9, 2.3, 'phone', -2.6), partner: hidden, kid: hidden, smoko: false, home: false, ring: !nice },
-        // 4:45 packing up. Without: the roofer is still on the roof alone.
-        { roofer: nice ? byUte(-0.9, 2.1, 'carry', -0.4) : atRoof(0.3), crew1: byUte(-0.2, 2.0, 'carry', -0.9), crew2: byUte(0.9, 1.6, 'stand', -2.0), partner: hidden, kid: hidden, smoko: false, home: false, ring: false },
-        // 9:00 home. With: family at the table. Without: laptop.
-        { roofer: tg(V(HX + (nice ? -0.55 : 0), 0.14, HZ + 2.7 + 0.6), Math.PI, nice ? 'sit' : 'laptop'), crew1: hidden, crew2: hidden, partner: nice ? tg(V(HX + 0.6, 0.14, HZ + 2.7 + 0.6), Math.PI, 'sit') : hidden, kid: nice ? tg(V(HX, 0.14, HZ + 2.7 - 0.6), 0, 'sit') : hidden, smoko: false, home: true, ring: false },
-      ];
-
-      /* Light by moment: sun position, warmth, night. */
-      const sunPos = [V(-9, 3, 6), V(-6, 8, 5), V(-3, 10, 4), V(1, 11, 3), V(5, 9, 4), V(9, 4, 5), V(4, 6, -6)];
-      const sunCol = [0xffb27a, 0xfff1dc, 0xffffff, 0xffffff, 0xfff4e4, 0xffa070, 0x6f86b8];
-      const sunInt = [1.5, 2.3, 2.6, 2.7, 2.4, 1.8, 0.35];
-      const hemiInt = [0.8, 1.1, 1.2, 1.2, 1.1, 0.9, 0.25];
-
-      let beat = 0, lastT = 0, running = false, pingAt = -1e9;
-      const cur = { sun: V(-6, 8, 5), col: new THREE.Color(0xffffff), sunI: 2, hemiI: 1, night: 0, smoko: 0, home: 0 };
-      const setBeat = (b: number) => { beat = b; pingAt = performance.now(); people.forEach((p, i) => { const t = [beats[b].roofer, beats[b].crew1, beats[b].crew2, beats[b].partner, beats[b].kid][i]; p.setPose(t.pose); }); };
-
-      const resize = () => {
-        const w = stage.clientWidth, h = stage.clientHeight;
-        renderer.setSize(w, h, false);
-        const aspect = w / h;
-        const halfW = aspect < 1 ? 7.6 : 9.6;
-        camera.left = -halfW; camera.right = halfW; camera.top = halfW / aspect; camera.bottom = -halfW / aspect;
-        camera.updateProjectionMatrix();
+      type Mark = { p: THREE.Vector3; r: number; pose: Pose };
+      const M = (p: THREE.Vector3, r: number, pose: Pose): Mark => ({ p, r, pose });
+      const roofAt = (dx: number, dz = 0, pose: Pose = 'hammer') => M(V(HX + dx, ROOF_Y - Math.abs(dx) * 0.55, HZ + dz), 0.4, pose);
+      const ladderFoot = M(V(HX + W / 2 + 1.5, 0, HZ + 1.2), -2.4, 'stand');
+      const uteBack = (dx: number, dz: number, pose: Pose = 'stand', r = -1.2) => M(V(UX + dx, 0, UZ + dz), r, pose);
+      const smokoSeat = [M(V(2.6, 0, -3.0), 0.5, 'sitMug'), M(V(1.5, 0, -2.5), 1.0, 'sitMug'), M(V(3.7, 0, -2.55), -0.9, 'sitMug')];
+      const pace = M(V(5.3, 0, 1.4), -2.2, 'phone');
+      const tableSeat = (dx: number, dz: number, r: number, pose: Pose) => M(V(HX + dx, 0.14, HZ + 2.7 + dz), r, pose);
+      const away = M(V(0, -3, 0), 0, 'stand');
+      type Key = [number, Mark];
+      const sched = {
+        roofer: nice ? [
+          [6.5, uteBack(-0.9, 2.1, 'carry', -0.4)], [7.1, uteBack(-0.9, 2.1, 'carry', -0.4)], [7.4, ladderFoot], [7.7, roofAt(0.3)], [10.35, roofAt(0.3)], [10.5, smokoSeat[0]], [11.2, smokoSeat[0]], [11.4, ladderFoot], [11.65, roofAt(0.3)], [16.3, roofAt(0.3)], [16.5, ladderFoot], [16.8, uteBack(-0.9, 2.1, 'carry', -0.4)], [17.3, uteBack(-0.9, 2.1, 'carry', -0.4)], [17.6, away], [18.5, away], [18.8, tableSeat(-0.55, 0.6, Math.PI, 'sit')], [21.5, tableSeat(-0.55, 0.6, Math.PI, 'sit')],
+        ] : [
+          [6.5, uteBack(0.9, 2.3, 'phone', -2.6)], [7.4, uteBack(0.9, 2.3, 'phone', -2.6)], [7.7, ladderFoot], [8.0, roofAt(0.3)], [9.2, roofAt(0.3)], [9.3, ladderFoot], [9.45, uteBack(0.9, 2.3, 'phone', -2.6)], [9.9, uteBack(0.9, 2.3, 'phone', -2.6)], [10.05, ladderFoot], [10.3, roofAt(0.3)], [10.45, roofAt(0.3)], [10.55, ladderFoot], [10.7, pace], [11.3, pace], [11.45, ladderFoot], [11.7, roofAt(0.3)], [12.3, roofAt(0.3)], [12.4, ladderFoot], [12.55, uteBack(0.9, 2.3, 'phone', -2.6)], [13.1, uteBack(0.9, 2.3, 'phone', -2.6)], [13.25, ladderFoot], [13.5, roofAt(0.3)], [13.9, roofAt(0.3)], [14.0, ladderFoot], [14.15, uteBack(0.9, 2.3, 'phone', -2.6)], [14.6, uteBack(0.9, 2.3, 'phone', -2.6)], [14.75, ladderFoot], [15.0, roofAt(0.3)], [17.9, roofAt(0.3)], [18.1, ladderFoot], [18.3, uteBack(-0.9, 2.1, 'carry', -0.4)], [18.5, away], [19.4, away], [19.7, tableSeat(0, 0.6, Math.PI, 'laptop')], [21.5, tableSeat(0, 0.6, Math.PI, 'laptop')],
+        ],
+        crew1: [
+          [6.5, uteBack(-0.2, 2.0, 'carry', -0.9)], [7.2, uteBack(-0.2, 2.0, 'carry', -0.9)], [7.5, ladderFoot], [7.8, roofAt(-0.2, 1.0)], [10.35, roofAt(-0.2, 1.0)], [10.55, smokoSeat[1]], [11.2, smokoSeat[1]], [11.45, ladderFoot], [11.7, roofAt(-0.2, 1.0)], [16.3, roofAt(-0.2, 1.0)], [16.55, ladderFoot], [16.8, uteBack(-0.2, 2.0, 'carry', -0.9)], [17.5, uteBack(-0.2, 2.0, 'stand', -0.9)], [17.8, away], [21.5, away],
+        ] as Key[],
+        crew2: [
+          [6.5, uteBack(0.9, 1.6, 'stand', -2.0)], [7.3, uteBack(0.9, 1.6, 'carry', -2.0)], [7.6, ladderFoot], [10.35, ladderFoot], [10.6, smokoSeat[2]], [11.2, smokoSeat[2]], [11.5, ladderFoot], [13.4, ladderFoot], [13.7, roofAt(0.1, -1.0)], [16.3, roofAt(0.1, -1.0)], [16.6, ladderFoot], [16.9, uteBack(0.9, 1.6, 'stand', -2.0)], [17.5, uteBack(0.9, 1.6, 'stand', -2.0)], [17.8, away], [21.5, away],
+        ] as Key[],
+        partner: nice ? [[6.5, away], [18.6, away], [18.9, tableSeat(0.6, 0.6, Math.PI, 'sit')], [21.5, tableSeat(0.6, 0.6, Math.PI, 'sit')]] as Key[] : [[6.5, away], [21.5, away]] as Key[],
+        kid: nice ? [[6.5, away], [18.6, away], [19.0, tableSeat(0, -0.6, 0, 'sit')], [21.5, tableSeat(0, -0.6, 0, 'sit')]] as Key[] : [[6.5, away], [21.5, away]] as Key[],
       };
+      // Without DUSA, the crew wait around at smoko and at the end of the day while the boss is on the phone.
+      if (!nice) { sched.crew2[2] = [7.6, ladderFoot]; }
+      const people: { p: ReturnType<typeof makePerson>; keys: Key[] }[] = [
+        { p: roofer, keys: sched.roofer as Key[] }, { p: crew1, keys: sched.crew1 }, { p: crew2, keys: sched.crew2 }, { p: partner, keys: sched.partner }, { p: kid, keys: sched.kid },
+      ];
+      const place = (keys: Key[], h: number) => {
+        let i = 0; while (i < keys.length - 2 && h >= keys[i + 1][0]) i++;
+        const [h0, a] = keys[i], [h1, b] = keys[i + 1];
+        const t = clamp01((h - h0) / Math.max(0.0001, h1 - h0));
+        const moving = a.p.distanceToSquared(b.p) > 0.01;
+        const pos = a.p.clone().lerp(b.p, moving ? smooth(0, 1, t) : t);
+        // Climbing: lift through the arc so nobody walks through the wall.
+        if (moving && Math.abs(a.p.y - b.p.y) > 1) pos.y = Math.max(a.p.y, b.p.y) * Math.sin(t * Math.PI / 2) ** 0.6 * (b.p.y > a.p.y ? 1 : 0) + (b.p.y > a.p.y ? 0 : Math.max(a.p.y, b.p.y) * Math.cos(t * Math.PI / 2) ** 0.6);
+        const speed = moving ? a.p.distanceTo(b.p) / (h1 - h0) : 0;
+        let rot = moving ? Math.atan2(b.p.x - a.p.x, b.p.z - a.p.z) : b.r;
+        if (moving && t > 0.9) rot = b.r;
+        return { pos, rot, pose: moving ? ('walk' as Pose) : (t < 1 ? b.pose : b.pose), speed, nextPose: b.pose };
+      };
+      // Roof progress: tiles go on while the boss is on the roof. Precomputed per hour.
+      const onRoofHours: number[] = []; let acc = 0;
+      for (let h = 6.5; h <= 21.5; h += 0.05) { const s = place(sched.roofer as Key[], h); if (!s.pose.startsWith('walk') && s.nextPose === 'hammer' && s.pos.y > 2) acc += 0.05; onRoofHours.push(acc); }
+      const total = nice ? onRoofHours[onRoofHours.length - 1] * 0.95 : onRoofHours[onRoofHours.length - 1] * 1.75; // the DUSA roof finishes; the other does not
+      const progressAt = (h: number) => clamp01(onRoofHours[Math.min(onRoofHours.length - 1, Math.max(0, Math.round((h - 6.5) / 0.05)))] / total);
 
-      const frame = (now: number) => {
-        if (!running) return;
-        const dt = Math.min(0.05, (now - lastT) / 1000 || 0.016); lastT = now;
-        const B = beats[beat];
-        const night = beat === 6 ? 1 : 0;
-        // Lights ease toward the moment.
-        cur.sun.lerp(sunPos[beat], 1 - Math.exp(-2 * dt));
-        cur.col.lerp(new THREE.Color(sunCol[beat]), 1 - Math.exp(-2 * dt));
-        cur.sunI = damp(cur.sunI, sunInt[beat], 2, dt); cur.hemiI = damp(cur.hemiI, hemiInt[beat], 2, dt);
-        cur.night = damp(cur.night, night, 2, dt);
-        sun.position.copy(cur.sun); sun.color.copy(cur.col); sun.intensity = cur.sunI; hemi.intensity = cur.hemiI;
-        hemi.color.set(0xdff2ff).lerp(new THREE.Color(0x3b5a8c), cur.night);
-        winM.emissiveIntensity = cur.night * (nice ? 1.4 : 0.35);
-        warmLight.intensity = cur.night * 3.2; bulb.material.emissiveIntensity = cur.night * 1.5;
-        coldLight.intensity = cur.night * 2.6; laptopScreen.material.emissiveIntensity = cur.night * 2.2;
-        // Scene swaps.
-        cur.smoko = damp(cur.smoko, B.smoko ? 1 : 0, 6, dt); smoko.scale.setScalar(Math.max(0.001, cur.smoko));
-        cur.home = damp(cur.home, B.home ? 1 : 0, 5, dt); home.scale.setScalar(Math.max(0.001, cur.home));
-        ladder.visible = cur.home < 0.5; trayPhone.visible = ring.visible = cur.home < 0.5;
-        // People drift to their marks.
-        const targets = [B.roofer, B.crew1, B.crew2, B.partner, B.kid];
-        people.forEach((p, i) => {
-          const t = targets[i];
-          p.g.visible = t.show !== false || p.g.position.y > -2.5;
-          const k = 1 - Math.exp(-3.5 * dt);
-          p.g.userData.baseY = THREE.MathUtils.lerp(p.g.userData.baseY ?? t.pos.y, t.pos.y, k);
-          p.g.position.x = THREE.MathUtils.lerp(p.g.position.x, t.pos.x, k);
-          p.g.position.z = THREE.MathUtils.lerp(p.g.position.z, t.pos.z, k);
-          let dr = t.rot - p.g.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr));
-          p.g.rotation.y += dr * k;
+      let lastT = 0, running = false, pingAt = -1e9, shownBeat = -1;
+      const cur = { night: 0, smoko: 0, home: 0, driveOff: 0 };
+      const resize = () => {
+        const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false);
+        const aspect = w / h; const halfW = aspect < 1 ? 7.8 : 10.0;
+        camera.left = -halfW; camera.right = halfW; camera.top = halfW / aspect; camera.bottom = -halfW / aspect; camera.updateProjectionMatrix();
+      };
+      const setBeat = (b: number) => { if (b !== shownBeat) { shownBeat = b; pingAt = performance.now(); } };
+
+      const frame = (now: number, h: number, dt: number, b: number) => {
+        setBeat(b);
+        // Sun on its arc, warm at the ends, blue at night.
+        const sunT = clamp01((h - 6) / 13), elev = Math.sin(sunT * Math.PI);
+        const night = smooth(18.2, 19.4, h), dawn = 1 - smooth(6.5, 8.5, h), dusk = smooth(16.5, 18.3, h) * (1 - night);
+        cur.night = night;
+        sun.position.set(Math.cos(Math.PI - sunT * Math.PI) * 10, 2 + elev * 10, 5 + elev * 2);
+        sun.intensity = 0.35 + elev * 2.4 * (1 - night);
+        sun.color.set(0xffffff).lerp(new THREE.Color(0xffa070), Math.max(dawn, dusk) * 0.8).lerp(new THREE.Color(0x6f86b8), night);
+        hemi.intensity = 0.3 + elev * 0.9 * (1 - night) + 0.05 * night;
+        hemi.color.set(0xdff2ff).lerp(new THREE.Color(0x3b5a8c), night);
+        homeWin.emissiveIntensity = night * (nice ? 1.4 : 0.35);
+        warmLight.intensity = night * 3.2; bulb.material.emissiveIntensity = night * 1.5;
+        coldLight.intensity = night * 2.6; laptopScreen.material.emissiveIntensity = night * 2.2;
+        // Scene swaps on the clock: smoko props, then the drive home at dusk.
+        const smokoAmt = smooth(10.4, 10.55, h) * (1 - smooth(11.25, 11.4, h));
+        cur.smoko = damp(cur.smoko, smokoAmt, 8, dt); smoko.scale.setScalar(Math.max(0.001, cur.smoko));
+        const homeAmt = nice ? smooth(17.9, 18.5, h) : smooth(18.8, 19.4, h);
+        cur.home = damp(cur.home, homeAmt, 6, dt);
+        job.scale.setScalar(Math.max(0.001, 1 - cur.home)); home.scale.setScalar(Math.max(0.001, cur.home));
+        // The ute leaves for home and arrives at the other end.
+        const leave = nice ? 17.55 : 18.45, arrive = nice ? 18.6 : 19.5;
+        const drive = smooth(leave, leave + 0.25, h) * (1 - smooth(arrive - 0.25, arrive, h));
+        const parkedHome = smooth(arrive - 0.25, arrive, h);
+        ute.position.set(UX, 0, UZ + drive * 8 + parkedHome * 0.0);
+        ute.visible = drive < 0.98 || parkedHome > 0.02;
+        ute.rotation.y = Math.PI / 2 + Math.PI * smooth(leave, leave + 0.25, h) * (1 - parkedHome) ;
+        if (drive > 0.02 && drive < 0.98) wheels.forEach((w) => (w.rotation.y += dt * 12));
+        trayPhone.visible = ring.visible = cur.home < 0.5;
+        // Tiles.
+        const prog = progressAt(h), nOn = prog * tiles.length;
+        tiles.forEach((t, i) => { const want = i < nOn ? 1 : 0.001; t.scale.setScalar(damp(t.scale.x, want, 10, dt)); });
+        // People follow their schedules.
+        people.forEach(({ p, keys }) => {
+          const s = place(keys, h);
+          p.g.position.x = s.pos.x; p.g.position.z = s.pos.z; p.g.userData.baseY = s.pos.y;
+          let dr = s.rot - p.g.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); p.g.rotation.y += dr * (1 - Math.exp(-8 * dt));
+          p.setPose(s.pose === 'walk' ? 'stand' : s.pose);
+          p.setWalk(s.speed, !nice && p === roofer && s.speed > 0 ? 1 : 0);
+          p.g.visible = s.pos.y > -2.5;
           p.tick(now, dt);
         });
-        // Pacing without DUSA at smoko.
-        if (!nice && beat === 2) roofer.g.position.x += Math.sin(now / 1200) * 0.004;
-        // The tray phone pings when a moment lands.
+        // The tray phone rings on the moments, and keeps ringing all day without DUSA.
         const since = (now - pingAt) / 1000;
-        const pulse = B.ring ? (Math.sin(now / 180) * 0.5 + 0.5) : since < 1.4 ? 1 - since / 1.4 : 0;
-        ring.material.opacity = pulse * 0.9; ring.scale.setScalar(1 + (1 - pulse) * 0.6);
-        ringLight.intensity = pulse * 1.6;
+        const ringing = !nice && (Math.sin(h * 9) > 0.55) ? Math.sin(now / 160) * 0.5 + 0.5 : 0;
+        const pulse = Math.max(ringing, since < 1.4 ? 1 - since / 1.4 : 0);
+        ring.material.opacity = pulse * 0.9; ring.scale.setScalar(1 + (1 - pulse) * 0.6); ringLight.intensity = pulse * 1.6;
         // The island breathes.
-        isle.position.y = Math.sin(now / 2600) * 0.06;
-        isle.rotation.y = 0.35 + Math.sin(now / 5200) * 0.015;
-        // Camera: isometric, a touch closer at home.
-        const zoom = 1 + cur.home * 0.22;
-        // The island is turned 0.35 rad, so marks are rotated into world space before the camera looks at them.
+        isle.position.y = Math.sin(now / 2600) * 0.06; isle.rotation.y = 0.35 + Math.sin(now / 5200) * 0.015;
+        // Camera: isometric, sitting low in the frame so the phone up top covers nothing that matters.
         const rx = (x: number, z: number) => x * Math.cos(0.35) + z * Math.sin(0.35), rz = (x: number, z: number) => -x * Math.sin(0.35) + z * Math.cos(0.35);
         const hx = HX + 3.4, hz = HZ + 1.2;
         const cx = THREE.MathUtils.lerp(0, rx(hx, hz), cur.home), cz = THREE.MathUtils.lerp(0, rz(hx, hz), cur.home);
-        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 0.3, cz); camera.zoom = zoom; camera.updateProjectionMatrix();
+        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 2.3 - cur.home * 0.8, cz); camera.zoom = 1 + cur.home * 0.22; camera.updateProjectionMatrix();
         renderer.render(scene, camera);
-        requestAnimationFrame(frame);
       };
-      const start = () => { if (running) return; running = true; lastT = performance.now(); resize(); requestAnimationFrame(frame); };
-      const stop = () => { running = false; };
-      setBeat(0);
-      return { setBeat, resize, start, stop, renderOnce: () => { resize(); renderer.render(scene, camera); } };
+      return { frame, resize, start: () => { running = true; }, stop: () => { running = false; }, get running() { return running; } };
     };
 
     const worlds = [makeWorld(false, canvases.off), makeWorld(true, canvases.on)];
     window.addEventListener('resize', () => worlds.forEach((w) => w.resize()));
 
-    /* ── Timeline ── */
-    let beat = 0, timer = 0, paused = false, started = false;
-    const show = (b: number) => {
-      beat = (b + N) % N;
+    /* ── UI per beat: cards, notifications, timeline ── */
+    const showBeat = (b: number) => {
+      if (b === beat) return;
+      beat = b;
       stage.setAttribute('data-beat', String(beat));
-      worlds.forEach((w) => w.setBeat(beat));
-      times.forEach((t, i) => {
-        t.classList.toggle('is-on', i === beat); t.classList.toggle('is-past', i < beat);
-        t.setAttribute('aria-selected', i === beat ? 'true' : 'false');
-        const bar = t.querySelector<HTMLElement>('.ww__time-bar span');
-        if (bar && i === beat) { bar.style.transition = 'none'; bar.style.width = '0'; void bar.offsetWidth; bar.style.transition = ''; bar.style.width = ''; }
-      });
+      times.forEach((t, i) => { t.classList.toggle('is-on', i === beat); t.classList.toggle('is-past', i < beat); t.setAttribute('aria-selected', i === beat ? 'true' : 'false'); });
       pairs.forEach((p, i) => { if (i === beat) p.removeAttribute('hidden'); else p.setAttribute('hidden', ''); });
-      clocks.forEach((c) => (c.textContent = times[beat].querySelector('b')?.firstChild?.textContent || ''));
       notifSets.forEach((set) => {
         const order: HTMLElement[] = [];
         set.forEach((n, i) => { if (i <= beat && i > beat - 3) order.push(n); else n.setAttribute('hidden', ''); });
         order.reverse().forEach((n, k) => { n.removeAttribute('hidden'); n.style.order = String(k); n.style.opacity = k === 0 ? '1' : k === 1 ? '0.85' : '0.65'; n.style.transform = k === 0 ? '' : `scale(${1 - k * 0.03})`; });
       });
     };
-    const queue = () => { clearTimeout(timer); if (paused || reduced) return; timer = window.setTimeout(() => { show(beat + 1); queue(); }, HOLD); };
-    const pause = () => { paused = true; clearTimeout(timer); };
-    const resume = () => { paused = false; queue(); };
-    times.forEach((t, i) => t.addEventListener('click', () => { show(i); queue(); }));
-    stage.addEventListener('mouseenter', () => clearTimeout(timer));
-    stage.addEventListener('mouseleave', () => { if (!dragging) queue(); });
-    document.addEventListener('visibilitychange', () => (document.hidden ? clearTimeout(timer) : queue()));
+    times.forEach((t, i) => t.addEventListener('click', () => { hour = MARKS[i] + 0.001; }));
+    stage.addEventListener('mouseenter', () => { paused = true; });
+    stage.addEventListener('mouseleave', () => { if (!dragging) paused = false; });
+    document.addEventListener('visibilitychange', () => { paused = document.hidden; });
 
-    show(0);
-    const start = () => {
-      if (started) return; started = true;
-      worlds.forEach((w) => w.start());
-      queue();
-      if (reduced) return;
-      stage.classList.add('is-nudging');
-      setTimeout(() => setX(62), 600);
-      setTimeout(() => setX(44), 1500);
-      setTimeout(() => setX(50), 2400);
-      setTimeout(() => stage.classList.remove('is-nudging'), 3200);
+    /* ── The loop ── */
+    let lastT = 0, lastClock = '';
+    const loop = (now: number) => {
+      if (!playing) return;
+      const dt = Math.min(0.05, (now - lastT) / 1000 || 0.016); lastT = now;
+      if (!paused && !reduced) { hour += dt * 1000 / LOOP_MS * (DAY1 - DAY0); if (hour >= DAY1) hour = DAY0; }
+      const b = beatOf(hour);
+      showBeat(b);
+      const next = b < N - 1 ? MARKS[b + 1] : DAY1;
+      bars.forEach((bar, i) => { bar.style.transition = 'none'; bar.style.width = i < b ? '100%' : i === b ? `${clamp01((hour - MARKS[b]) / (next - MARKS[b])) * 100}%` : '0'; });
+      const c = fmt(hour); if (c !== lastClock) { lastClock = c; clocks.forEach((el) => (el.textContent = c)); }
+      worlds.forEach((w) => w.frame(now, hour, dt, b));
+      requestAnimationFrame(loop);
     };
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) start(); else worlds.forEach((w) => w.stop()); if (e.isIntersecting && started) worlds.forEach((w) => w.start()); }), { threshold: 0.2 }).observe(stage);
-    } else start();
+    const start = () => {
+      if (!started) {
+        started = true;
+        if (!reduced) { stage.classList.add('is-nudging'); setTimeout(() => setX(62), 600); setTimeout(() => setX(44), 1500); setTimeout(() => setX(50), 2400); setTimeout(() => stage.classList.remove('is-nudging'), 3200); }
+      }
+      if (playing) return; playing = true; lastT = performance.now(); worlds.forEach((w) => w.resize()); requestAnimationFrame(loop);
+    };
+    const stop = () => { playing = false; };
+    worlds.forEach((w) => w.resize());
+    if ('IntersectionObserver' in window) new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.2 }).observe(stage);
+    else start();
   });
 </script>

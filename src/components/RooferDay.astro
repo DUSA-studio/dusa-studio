@@ -557,7 +557,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         g.add(sph(0.62 * s, lm, 0, 1.25 * s, 0), sph(0.48 * s, lm, 0.42 * s, 1.0 * s, 0.2 * s), sph(0.45 * s, lm, -0.4 * s, 1.05 * s, -0.2 * s), sph(0.4 * s, lm, 0.05 * s, 1.72 * s, -0.05 * s));
         g.position.set(x, 0, z); isle.add(g); return g;
       };
-      tree(-6.0, -2.6, 1.0); tree(6.0, 3.6, 1.15); tree(0.9, 3.9, 0.8); tree(-1.6, -2.4, 0.7);
+      // Trees keep to the corners: nothing stands between the camera and the sheet stack, the ladder, the pacing strip or the door.
+      tree(-6.0, -2.6, 1.0); tree(6.0, 3.6, 1.15); tree(3.4, 4.1, 0.7); tree(-1.6, -2.4, 0.7);
       for (let i = 0; i < 7; i++) { const f = sph(0.09, mat(P.flower[i % 3]), -1.6 + i * 0.3, 0.09, 1.65 + (i % 2) * 0.2); f.castShadow = false; home.add(f); }
 
       /* The ute, parked in the customer's driveway by day and at home by night. */

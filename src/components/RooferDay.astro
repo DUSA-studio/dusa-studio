@@ -101,6 +101,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       <div class="ww__vignette" aria-hidden="true"></div>
 
       <ol class="ww__banners" data-banners aria-live="polite"></ol>
+      <div class="ww__bubbles" data-bubbles aria-hidden="true"></div>
 
       <div class="ww__bottom">
         <div class="ww__lines">
@@ -175,7 +176,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
   .ww__vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%); }
 
   /* ── Notifications, the way the phone does them ── */
-  :global(.ww__banners) { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: min(380px, calc(100% - 24px)); margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; z-index: 3; }
+  /* On a desktop the banners sit top-right, clear of the house; on a phone they sit where the phone puts them. */
+  :global(.ww__banners) { position: absolute; right: 14px; top: 12px; width: min(380px, calc(100% - 24px)); margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; z-index: 3; }
   :global(.ww__banner) {
     display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: start;
     padding: 10px 12px 11px; border-radius: 22px;
@@ -225,11 +227,29 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
     color: #fff; font: inherit; font-weight: 600; font-size: 1rem; letter-spacing: 0.01em; cursor: pointer;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px rgba(78, 216, 194, 0.35), 0 0 0 0 rgba(78, 216, 194, 0.5);
-    animation: switchPulse 2.4s ease-out infinite;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -10px 24px rgba(78, 216, 194, 0.35), 0 0 28px rgba(78, 216, 194, 0.55), 0 10px 30px rgba(0, 0, 0, 0.25);
+    animation: switchGlow 2.2s ease-in-out infinite;
     transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
   }
-  @keyframes switchPulse { 0% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px rgba(78, 216, 194, 0.35), 0 0 0 0 rgba(78, 216, 194, 0.55); } 100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px rgba(78, 216, 194, 0.35), 0 0 0 22px rgba(78, 216, 194, 0); } }
+  @keyframes switchGlow { 0%, 100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -10px 24px rgba(78, 216, 194, 0.35), 0 0 22px rgba(78, 216, 194, 0.45), 0 10px 30px rgba(0, 0, 0, 0.25); } 50% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -10px 28px rgba(78, 216, 194, 0.55), 0 0 40px rgba(78, 216, 194, 0.8), 0 10px 30px rgba(0, 0, 0, 0.25); } }
+  /* Speech and thought bubbles, pinned above heads from the 3D scene. */
+  :global(.ww__bubbles) { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  :global(.ww__bubble) {
+    position: absolute; transform: translate(-50%, -100%); max-width: 190px;
+    padding: 7px 11px; border-radius: 14px;
+    background: rgba(255, 255, 255, 0.94); color: #0c0e14;
+    font-size: 12.5px; font-weight: 500; line-height: 1.3; text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    animation: bubbleIn 0.35s cubic-bezier(0.22, 1.2, 0.36, 1);
+    transition: opacity 0.3s;
+  }
+  :global(.ww__bubble::after) { content: ''; position: absolute; left: 50%; bottom: -5px; width: 12px; height: 12px; background: inherit; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+  :global(.ww__bubble--thought) { font-style: italic; background: rgba(255, 255, 255, 0.82); }
+  :global(.ww__bubble--thought::after) { width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); bottom: -11px; box-shadow: -8px 8px 0 -2px rgba(255, 255, 255, 0.82); }
+  :global(.ww__bubble--on) { background: #4ed8c2; }
+  :global(.ww__bubble--off) { background: #ffb3aa; }
+  :global(.ww__bubble.is-out) { opacity: 0; }
+  @keyframes bubbleIn { from { opacity: 0; transform: translate(-50%, -90%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -100%) scale(1); } }
   .ww__switch-dot { width: 9px; height: 9px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff; }
   .ww__switch[aria-pressed="true"] { animation: none; background: rgba(12, 14, 20, 0.45); border-color: rgba(247, 244, 239, 0.25); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 10px 30px rgba(0, 0, 0, 0.3); }
   .ww__switch[aria-pressed="true"] .ww__switch-dot { background: #4ed8c2; box-shadow: 0 0 10px #4ed8c2; }
@@ -253,8 +273,10 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     .ww__header { margin-bottom: var(--space-sm); }
     .ww__h1 { font-size: 1.6rem; }
     .ww__sub { font-size: 0.9375rem; }
-    .ww__stage { aspect-ratio: auto; height: calc(100svh - 74px - 1rem); max-height: 760px; border-radius: 22px; }
-  :global(.ww__banners) { top: 10px; width: calc(100% - 20px); }
+    .ww__stage { aspect-ratio: auto; width: 100vw; margin-left: calc(50% - 50vw); height: 100svh; max-height: none; border-radius: 0; border: 0; box-shadow: none; }
+    :global(.ww__banners) { left: 50%; right: auto; transform: translateX(-50%); top: max(10px, env(safe-area-inset-top)); width: calc(100% - 20px); }
+    :global(html.ww-immersed .ww__banners) { position: fixed; z-index: 1200; }
+    .ww__bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
     .ww__bottom { padding: 0 10px 10px; gap: 10px; }
     .ww__line { font-size: 0.9375rem; }
     .ww__switch { padding: 0.75rem 1.25rem; font-size: 0.9375rem; }
@@ -378,7 +400,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     };
 
     /* A person: capsule body, round head, hard hat, limbs that pose and walk. */
-    type Pose = 'stand' | 'hammer' | 'phone' | 'sit' | 'sitMug' | 'laptop' | 'carry' | 'walk';
+    type Pose = 'stand' | 'hammer' | 'phone' | 'sit' | 'sitMug' | 'laptop' | 'carry' | 'walk' | 'gift' | 'angry' | 'wait';
     const makePerson = (shirt: number, vestC: number, hatC: number, skin = 0xd9a98a, hat = true, scale = 1) => {
       const g = new THREE.Group();
       const shirtM = mat(shirt), vestM = mat(vestC), skinM = mat(skin), pantsM = mat(0x3b4555), hatM = mat(hatC);
@@ -395,13 +417,18 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const mug = cyl(0.06, 0.05, 0.1, mat(0xf7f4ef), 0, 0, 0.02); mug.visible = false; held.add(mug);
       const phone = rbox(0.09, 0.17, 0.02, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.01, 0, 0.02, 0.05); phone.visible = false; held.add(phone);
       const phoneGlow = new THREE.PointLight(0xffffff, 0, 1.2); phoneGlow.position.set(0, 0.05, 0.12); phone.add(phoneGlow);
+      const gift = new THREE.Group(); gift.visible = false; held.add(gift);
+      gift.add(rbox(0.2, 0.18, 0.2, mat(0x4ed8c2), 0.03, 0, 0, 0.08), rbox(0.22, 0.05, 0.05, mat(0xf7f4ef), 0.01, 0, 0.01, 0.08), rbox(0.05, 0.05, 0.22, mat(0xf7f4ef), 0.01, 0, 0.01, 0.08));
       g.scale.setScalar(scale);
-      const T = { armL: V(), armR: V(), legL: V(), legR: V(), bodyY: 0, mug: false, phone: false };
+      const T = { armL: V(), armR: V(), legL: V(), legR: V(), bodyY: 0, mug: false, phone: false, gift: false };
       let pose: Pose = 'stand', walkSpeed = 0, rush = 0;
       const setPose = (p: Pose) => {
-        pose = p; T.mug = p === 'sitMug'; T.phone = p === 'phone'; T.bodyY = 0;
+        pose = p; T.mug = p === 'sitMug'; T.phone = p === 'phone'; T.gift = p === 'gift'; T.bodyY = 0;
         T.armL.set(0.15, 0, 0.25); T.armR.set(-0.15, 0, -0.25); T.legL.set(0, 0, 0.05); T.legR.set(0, 0, -0.05);
         if (p === 'phone') { T.armR.set(-2.5, 0.2, -0.9); T.armL.set(0.3, 0, 0.3); }
+        if (p === 'gift') { T.armR.set(-1.4, 0, -0.1); T.armL.set(-1.4, 0, 0.1); }
+        if (p === 'angry') { T.armR.set(-2.6, 0, -0.4); T.armL.set(-2.6, 0, 0.4); }
+        if (p === 'wait') { T.bodyY = -0.12; T.legL.set(-1.25, 0, 0.12); T.legR.set(-1.25, 0, -0.12); T.armL.set(-1.1, 0, 0.35); T.armR.set(-1.1, 0, -0.35); }
         if (p === 'sit' || p === 'sitMug' || p === 'laptop') { T.bodyY = -0.12; T.legL.set(-1.25, 0, 0.12); T.legR.set(-1.25, 0, -0.12); T.armL.set(-0.9, 0, 0.3); T.armR.set(-0.9, 0, -0.3); }
         if (p === 'sitMug') T.armR.set(-1.6, 0.3, -0.5);
         if (p === 'laptop') { T.armL.set(-1.3, 0, 0.1); T.armR.set(-1.3, 0, -0.1); }
@@ -422,7 +449,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         // A stressed head: quick glances when rushing.
         top.rotation.y = rush ? Math.sin(now / 420) * 0.5 : damp(top.rotation.y, 0, 4, dt);
         head.rotation.y = top.rotation.y;
-        mug.visible = T.mug; phone.visible = T.phone; phoneGlow.intensity = T.phone ? 0.6 : 0;
+        mug.visible = T.mug; phone.visible = T.phone; gift.visible = T.gift; phoneGlow.intensity = T.phone ? 0.9 : 0;
+        if (pose === 'angry') { armR.rotation.x += Math.sin(now / 90) * 0.25; armL.rotation.x -= Math.sin(now / 90) * 0.25; }
+        if (pose === 'wait') top.rotation.y = Math.sin(now / 900) * 0.3;
         g.position.y = (g.userData.baseY ?? 0) + Math.sin(now / 700 + (g.userData.phase ?? 0)) * 0.01;
       };
       return { g, setPose, setWalk, tick };
@@ -457,7 +486,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       isle.add(rbox(13, 0.1, 1.7, mat(P.road), 0.04, 0, 0.05, -3.7));
       for (let i = -5.6; i <= 5.6; i += 1.4) isle.add(rbox(0.6, 0.04, 0.08, mat(P.dash), 0.01, i, 0.11, -3.7));
       const UX = 4.6, UZ = -1.2;
-      isle.add(rbox(2.6, 0.1, 3.6, mat(P.drive), 0.04, UX, 0.05, UZ - 0.5));
+      isle.add(rbox(2.6, 0.1, 2.9, mat(P.drive), 0.04, UX, 0.06, UZ - 0.15));
 
       /* Scene sets: the job (customer's house) and home (the roofer's own). */
       const job = new THREE.Group(); isle.add(job);
@@ -561,15 +590,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const crew2 = makePerson(nice ? 0xf7f4ef : 0xa39f96, P.vest, P.hat, 0x8a5a3c, true, 1.15); crew2.g.userData.phase = 2.4; isle.add(crew2.g);
       const partner = makePerson(nice ? 0x6aaacf : 0x9a948c, 0, 0, 0xd9a98a, false, 1.08); isle.add(partner.g);
       const kid = makePerson(nice ? 0x4ed8c2 : 0xb0aaa0, 0, 0, 0xd9a98a, false, 0.7); isle.add(kid.g);
-      [partner, kid].forEach((p) => { p.g.children.forEach((c) => { if ((c as THREE.Mesh).geometry instanceof RoundedBoxGeometry && c.position.y > 0.8 && c.position.y < 0.9) c.visible = false; }); });
+      const customer = makePerson(nice ? 0xf7c53a : 0xb8a46a, 0, 0, 0xc98a6a, false, 1.1); isle.add(customer.g);
+      [partner, kid, customer].forEach((p) => { p.g.children.forEach((c) => { if ((c as THREE.Mesh).geometry instanceof RoundedBoxGeometry && c.position.y > 0.8 && c.position.y < 0.9) c.visible = false; }); });
 
-      /* The phone in the ute tray. It rings; red or mint. */
-      const ringC = nice ? 0x4ed8c2 : 0xff6b5e;
-      const trayPhone = rbox(0.18, 0.36, 0.03, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.02, 0, 0, 0);
-      trayPhone.rotation.x = -Math.PI / 2; trayPhone.position.set(UX, 0.78, UZ + 0.55); isle.add(trayPhone);
-      const ringLight = new THREE.PointLight(ringC, 0, 2.5); ringLight.position.set(UX, 1.1, UZ + 0.55); isle.add(ringLight);
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.02, 8, 40), new THREE.MeshBasicMaterial({ color: ringC, transparent: true, opacity: 0 }));
-      ring.rotation.x = -Math.PI / 2; ring.position.set(UX, 0.82, UZ + 0.55); isle.add(ring);
 
       /* ── Marks and schedules. Hours of the day → where each person is. ── */
       const ROOF_Y = H + 1.35 - 0.1;
@@ -582,6 +605,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const pace = M(V(5.3, 0, 1.4), -2.2, 'phone');
       const tableSeat = (dx: number, dz: number, r: number, pose: Pose) => M(V(HX + dx, 0.14, HZ + 2.7 + dz), r, pose);
       const away = M(V(0, -3, 0), 0, 'stand');
+      const roofWait = (dx: number, dz: number) => M(V(HX + dx, ROOF_Y - Math.abs(dx) * 0.55, HZ + dz), 0.4, 'wait');
+      const door = (pose: Pose) => M(V(HX + 0.9, 0, HZ + D / 2 + 0.6), 2.6, pose);
       type Key = [number, Mark];
       const sched = {
         roofer: nice ? [
@@ -589,20 +614,46 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         ] : [
           [6.5, uteBack(0.9, 2.3, 'phone', -2.6)], [7.4, uteBack(0.9, 2.3, 'phone', -2.6)], [7.7, ladderFoot], [8.0, roofAt(0.3)], [9.2, roofAt(0.3)], [9.3, ladderFoot], [9.45, uteBack(0.9, 2.3, 'phone', -2.6)], [9.9, uteBack(0.9, 2.3, 'phone', -2.6)], [10.05, ladderFoot], [10.3, roofAt(0.3)], [10.45, roofAt(0.3)], [10.55, ladderFoot], [10.7, pace], [11.3, pace], [11.45, ladderFoot], [11.7, roofAt(0.3)], [12.3, roofAt(0.3)], [12.4, ladderFoot], [12.55, uteBack(0.9, 2.3, 'phone', -2.6)], [13.1, uteBack(0.9, 2.3, 'phone', -2.6)], [13.25, ladderFoot], [13.5, roofAt(0.3)], [13.9, roofAt(0.3)], [14.0, ladderFoot], [14.15, uteBack(0.9, 2.3, 'phone', -2.6)], [14.6, uteBack(0.9, 2.3, 'phone', -2.6)], [14.75, ladderFoot], [15.0, roofAt(0.3)], [17.9, roofAt(0.3)], [18.1, ladderFoot], [18.3, uteBack(-0.9, 2.1, 'carry', -0.4)], [18.5, away], [19.4, away], [19.7, tableSeat(0, 0.6, Math.PI, 'laptop')], [21.5, tableSeat(0, 0.6, Math.PI, 'laptop')],
         ],
-        crew1: [
+        crew1: (nice ? [
           [6.5, uteBack(-0.2, 2.0, 'carry', -0.9)], [7.2, uteBack(-0.2, 2.0, 'carry', -0.9)], [7.5, ladderFoot], [7.8, roofAt(-0.2, 1.0)], [10.35, roofAt(-0.2, 1.0)], [10.55, smokoSeat[1]], [11.2, smokoSeat[1]], [11.45, ladderFoot], [11.7, roofAt(-0.2, 1.0)], [16.3, roofAt(-0.2, 1.0)], [16.55, ladderFoot], [16.8, uteBack(-0.2, 2.0, 'carry', -0.9)], [17.5, uteBack(-0.2, 2.0, 'stand', -0.9)], [17.8, away], [21.5, away],
-        ] as Key[],
+        ] : [
+          [6.5, uteBack(-0.2, 2.0, 'carry', -0.9)], [7.2, uteBack(-0.2, 2.0, 'carry', -0.9)], [7.5, ladderFoot], [7.8, roofAt(-0.2, 1.0)], [9.25, roofAt(-0.2, 1.0)], [9.3, roofWait(-0.2, 1.0)], [10.05, roofWait(-0.2, 1.0)], [10.3, roofAt(-0.2, 1.0)], [10.45, roofAt(-0.2, 1.0)], [10.55, smokoSeat[1]], [11.2, smokoSeat[1]], [11.45, ladderFoot], [11.7, roofAt(-0.2, 1.0)], [12.3, roofAt(-0.2, 1.0)], [12.4, roofWait(-0.2, 1.0)], [13.25, roofWait(-0.2, 1.0)], [13.5, roofAt(-0.2, 1.0)], [13.9, roofAt(-0.2, 1.0)], [14.0, roofWait(-0.2, 1.0)], [14.75, roofWait(-0.2, 1.0)], [15.0, roofAt(-0.2, 1.0)], [16.8, roofAt(-0.2, 1.0)], [17.0, ladderFoot], [17.3, uteBack(-0.2, 2.0, 'stand', -0.9)], [18.1, uteBack(-0.2, 2.0, 'stand', -0.9)], [18.4, away], [21.5, away],
+        ]) as Key[],
         crew2: [
           [6.5, uteBack(0.9, 1.6, 'stand', -2.0)], [7.3, uteBack(0.9, 1.6, 'carry', -2.0)], [7.6, ladderFoot], [10.35, ladderFoot], [10.6, smokoSeat[2]], [11.2, smokoSeat[2]], [11.5, ladderFoot], [13.4, ladderFoot], [13.7, roofAt(0.1, -1.0)], [16.3, roofAt(0.1, -1.0)], [16.6, ladderFoot], [16.9, uteBack(0.9, 1.6, 'stand', -2.0)], [17.5, uteBack(0.9, 1.6, 'stand', -2.0)], [17.8, away], [21.5, away],
         ] as Key[],
         partner: nice ? [[6.5, away], [18.6, away], [18.9, tableSeat(0.6, 0.6, Math.PI, 'sit')], [21.5, tableSeat(0.6, 0.6, Math.PI, 'sit')]] as Key[] : [[6.5, away], [21.5, away]] as Key[],
         kid: nice ? [[6.5, away], [18.6, away], [19.0, tableSeat(0, -0.6, 0, 'sit')], [21.5, tableSeat(0, -0.6, 0, 'sit')]] as Key[] : [[6.5, away], [21.5, away]] as Key[],
+        // The customer comes to the door at the end of the day: a thank-you gift, or a complaint.
+        customer: nice ? [[6.5, away], [16.4, away], [16.7, door('gift')], [17.5, door('gift')], [17.8, away], [21.5, away]] as Key[] : [[6.5, away], [16.6, away], [16.9, door('angry')], [18.2, door('angry')], [18.5, away], [21.5, away]] as Key[],
       };
       // Without DUSA, the crew wait around at smoko and at the end of the day while the boss is on the phone.
       if (!nice) { sched.crew2[2] = [7.6, ladderFoot]; }
       const people: { p: ReturnType<typeof makePerson>; keys: Key[] }[] = [
-        { p: roofer, keys: sched.roofer as Key[] }, { p: crew1, keys: sched.crew1 }, { p: crew2, keys: sched.crew2 }, { p: partner, keys: sched.partner }, { p: kid, keys: sched.kid },
+        { p: roofer, keys: sched.roofer as Key[] }, { p: crew1, keys: sched.crew1 }, { p: crew2, keys: sched.crew2 }, { p: partner, keys: sched.partner }, { p: kid, keys: sched.kid }, { p: customer, keys: sched.customer },
       ];
+      /* What they say. Hours, who, the line, and whether it is said or thought. */
+      type Line = { from: number; to: number; who: ReturnType<typeof makePerson>; text: string; thought?: boolean };
+      const lines: Line[] = nice ? [
+        { from: 9.05, to: 9.3, who: crew1, text: "Boss, what's next up here?" },
+        { from: 9.3, to: 9.6, who: roofer, text: 'Flashing on the left, then tiles. DUSA has the phone.' },
+        { from: 10.6, to: 11.0, who: crew2, text: 'Sam booked in while we were up there?' },
+        { from: 11.0, to: 11.25, who: roofer, text: 'Yep. Priya too. Drink your coffee.' },
+        { from: 16.75, to: 17.45, who: customer, text: 'Finished already? Thank you!' },
+        { from: 19.2, to: 20.0, who: kid, text: 'Dad, you are home!' },
+      ] : [
+        { from: 9.05, to: 9.3, who: crew1, text: "Boss, what's next up here?" },
+        { from: 9.3, to: 9.5, who: roofer, text: 'Give me a minute. I have to call back a prospect I missed.' },
+        { from: 9.55, to: 9.9, who: roofer, text: 'Voicemail. Try the next one.', thought: true },
+        { from: 9.6, to: 10.0, who: crew1, text: 'Guess we wait.' },
+        { from: 10.75, to: 11.25, who: roofer, text: 'Still not picking up.', thought: true },
+        { from: 12.6, to: 13.05, who: roofer, text: 'Where did I put that quote...', thought: true },
+        { from: 12.7, to: 13.2, who: crew2, text: 'Sitting here is costing us the day.' },
+        { from: 14.2, to: 14.55, who: roofer, text: 'Dave? No... voicemail again.', thought: true },
+        { from: 16.95, to: 17.8, who: customer, text: 'You said it would be done today!' },
+        { from: 17.1, to: 17.6, who: roofer, text: 'Nearly there, I promise.' },
+      ];
+      const project = (p: THREE.Object3D, up: number) => { const v = new THREE.Vector3(0, up, 0); p.localToWorld(v); v.project(camera); return v; };
       const place = (keys: Key[], h: number) => {
         let i = 0; while (i < keys.length - 2 && h >= keys[i + 1][0]) i++;
         const [h0, a] = keys[i], [h1, b] = keys[i + 1];
@@ -626,7 +677,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const cur = { night: 0, smoko: 0, home: 0, driveOff: 0 };
       const resize = () => {
         const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false);
-        const aspect = w / h; const halfW = aspect < 1 ? 7.4 : 9.4;
+        const aspect = w / h; const halfW = aspect < 1 ? 6.4 : 9.4;
         camera.left = -halfW; camera.right = halfW; camera.top = halfW / aspect; camera.bottom = -halfW / aspect; camera.updateProjectionMatrix();
       };
       const setBeat = (b: number) => { if (b !== shownBeat) { shownBeat = b; pingAt = performance.now(); } };
@@ -659,7 +710,6 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         ute.visible = drive < 0.98 || parkedHome > 0.02;
         ute.rotation.y = Math.PI / 2 + Math.PI * smooth(leave, leave + 0.25, h) * (1 - parkedHome) ;
         if (drive > 0.02 && drive < 0.98) wheels.forEach((w) => (w.rotation.y += dt * 12));
-        trayPhone.visible = ring.visible = cur.home < 0.5;
         // Tiles.
         const prog = progressAt(h), nOn = prog * tiles.length;
         tiles.forEach((t, i) => { const want = i < nOn ? 1 : 0.001; t.scale.setScalar(damp(t.scale.x, want, 10, dt)); });
@@ -673,11 +723,6 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
           p.g.visible = s.pos.y > -2.5;
           p.tick(now, dt);
         });
-        // The tray phone rings on the moments, and keeps ringing all day without DUSA.
-        const since = (now - pingAt) / 1000;
-        const ringing = !nice && (Math.sin(h * 9) > 0.55) ? Math.sin(now / 160) * 0.5 + 0.5 : 0;
-        const pulse = Math.max(ringing, since < 1.4 ? 1 - since / 1.4 : 0);
-        ring.material.opacity = pulse * 0.9; ring.scale.setScalar(1 + (1 - pulse) * 0.6); ringLight.intensity = pulse * 1.6;
         // The island breathes.
         isle.position.y = Math.sin(now / 2600) * 0.06; isle.rotation.y = 0.35 + Math.sin(now / 5200) * 0.015;
         // Camera: isometric, sitting low in the frame so the phone up top covers nothing that matters.
@@ -686,6 +731,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         const cx = THREE.MathUtils.lerp(0, rx(hx, hz), cur.home), cz = THREE.MathUtils.lerp(0, rz(hx, hz), cur.home);
         camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 1.1 - cur.home * 0.5, cz); camera.zoom = 1 + cur.home * 0.22; camera.updateProjectionMatrix();
         renderer.render(scene, camera);
+        // Bubbles for this hour, with their screen anchors.
+        return lines.filter((l) => h >= l.from && h < l.to).map((l) => ({ key: `${nice ? 'on' : 'off'}-${l.from}-${l.text}`, text: l.text, thought: !!l.thought, ndc: project(l.who.g, 2.05) }));
       };
       return { frame, resize, start: () => { running = true; }, stop: () => { running = false; }, get running() { return running; } };
     };
@@ -708,6 +755,21 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     stage.addEventListener('mouseleave', () => { paused = false; });
     document.addEventListener('visibilitychange', () => { paused = document.hidden; });
 
+    /* ── Bubbles: DOM elements that follow heads around the island ── */
+    const bubbleBox = root.querySelector<HTMLElement>('[data-bubbles]')!;
+    const live = new Map<string, HTMLElement>();
+    const drawBubbles = (list: { key: string; text: string; thought: boolean; ndc: THREE.Vector3 }[]) => {
+      const W = stage.clientWidth, H = stage.clientHeight;
+      const keep = new Set<string>();
+      list.forEach((b) => {
+        keep.add(b.key);
+        let el = live.get(b.key);
+        if (!el) { el = document.createElement('div'); el.className = `ww__bubble ww__bubble--${world}${b.thought ? ' ww__bubble--thought' : ''}`; el.textContent = b.text; bubbleBox.appendChild(el); live.set(b.key, el); }
+        el.style.left = `${((b.ndc.x + 1) / 2) * W}px`; el.style.top = `${((1 - b.ndc.y) / 2) * H - 8}px`;
+      });
+      live.forEach((el, key) => { if (!keep.has(key)) { live.delete(key); el.classList.add('is-out'); window.setTimeout(() => el.remove(), 300); } });
+    };
+
     /* ── The loop ── */
     let lastT = 0;
     const loop = (now: number) => {
@@ -719,7 +781,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const next = b < N - 1 ? MARKS[b + 1] : DAY1;
       bars.forEach((bar, i) => { bar.style.transition = 'none'; bar.style.width = i < b ? '100%' : i === b ? `${clamp01((hour - MARKS[b]) / (next - MARKS[b])) * 100}%` : '0'; });
       if (hour >= 21.0 && beat === N - 1) endBanner();
-      worlds.forEach((w) => w.frame(now, hour, dt, b));
+      const active = worlds.map((w) => w.frame(now, hour, dt, b));
+      drawBubbles(active[world === 'on' ? 1 : 0]);
       requestAnimationFrame(loop);
     };
     const start = () => {

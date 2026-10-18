@@ -417,7 +417,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const mug = cyl(0.06, 0.05, 0.1, mat(0xf7f4ef), 0, 0, 0.02); mug.visible = false; held.add(mug);
       const phone = rbox(0.09, 0.17, 0.02, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.01, 0, 0.02, 0.05); phone.visible = false; held.add(phone);
       const phoneGlow = new THREE.PointLight(0xffffff, 0, 1.2); phoneGlow.position.set(0, 0.05, 0.12); phone.add(phoneGlow);
-      const sheet = rbox(0.5, 0.04, 0.36, mat(0x1a3a5c, { roughness: 0.6 }), 0.01, 0, -0.02, 0.2); sheet.visible = false; armL.add(sheet); sheet.position.set(0, -0.46, 0.12);
+      // The roofing sheet lives in front of the kneeling roofer, flat on the roof; it lifts and lays in a cycle.
+      const sheetM = mat(0x1a3a5c, { roughness: 0.6 });
+      const sheet = rbox(0.5, 0.04, 0.42, sheetM, 0.01, 0, 0, 0); sheet.visible = false; sheet.position.set(0, 0.08, 0.52); g.add(sheet);
       const gift = new THREE.Group(); gift.visible = false; held.add(gift);
       gift.add(rbox(0.2, 0.18, 0.2, mat(0x4ed8c2), 0.03, 0, 0, 0.08), rbox(0.22, 0.05, 0.05, mat(0xf7f4ef), 0.01, 0, 0.01, 0.08), rbox(0.05, 0.05, 0.22, mat(0xf7f4ef), 0.01, 0, 0.01, 0.08));
       g.scale.setScalar(scale); g.userData.scale = scale;
@@ -427,7 +429,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         pose = p; T.mug = p === 'sitMug'; T.phone = p === 'phone'; T.gift = p === 'gift'; T.bodyY = 0;
         T.armL.set(0.15, 0, 0.25); T.armR.set(-0.15, 0, -0.25); T.legL.set(0, 0, 0.05); T.legR.set(0, 0, -0.05);
         if (p === 'phone') { T.armR.set(-2.5, 0.2, -0.9); T.armL.set(0.3, 0, 0.3); }
-        if (p === 'hammer') { T.bodyY = -0.3; T.legL.set(-1.4, 0, 0.12); T.legR.set(-1.4, 0, -0.12); T.armL.set(-1.5, 0, 0.3); T.armR.set(-1.2, 0, -0.3); }
+        // Kneeling: shins fold back along the roof, body drops, both arms reach forward to the sheet.
+        if (p === 'hammer') { T.bodyY = -0.56; T.legL.set(1.45, 0, 0.12); T.legR.set(1.45, 0, -0.12); T.armL.set(-1.35, 0, 0.25); T.armR.set(-1.1, 0, -0.25); }
         if (p === 'gift') { T.armR.set(-1.4, 0, -0.1); T.armL.set(-1.4, 0, 0.1); }
         if (p === 'angry') { T.armR.set(-2.6, 0, -0.4); T.armL.set(-2.6, 0, 0.4); }
         if (p === 'wait') { T.armL.set(-0.5, 0, 0.9); T.armR.set(-0.5, 0, -0.9); }
@@ -441,17 +444,22 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         const k = 7;
         const lr = (grp: THREE.Group, t: THREE.Vector3, sx = 0) => { grp.rotation.x = damp(grp.rotation.x, t.x + sx, k, dt); grp.rotation.y = damp(grp.rotation.y, t.y, k, dt); grp.rotation.z = damp(grp.rotation.z, t.z, k, dt); };
         const sw = walkSpeed > 0.01 ? Math.sin(now / (rush ? 70 : 110)) * (0.55 + rush * 0.3) : 0;
-        // Roofing: the left hand lifts a sheet up and lays it, the right hand drives the nails home.
-        const cyc = (now / 1400) % 1;
-        const hammer = pose === 'hammer' ? (cyc > 0.45 ? -0.9 + Math.abs(Math.sin(now / 110)) * 1.1 : 0.2) : 0;
-        const lay = pose === 'hammer' ? (cyc < 0.45 ? -0.9 + Math.sin(cyc / 0.45 * Math.PI) * 0.9 : -0.9) : 0;
-        lr(armR, T.armR, hammer - (pose === 'phone' ? 0 : sw * 0.7)); lr(armL, T.armL, lay + sw * 0.7);
-        sheet.visible = pose === 'hammer';
+        // Roofing: both hands pull the sheet up and lay it flat, then the right hand drives the nails home.
+        const cyc = ((now + (g.userData.phase ?? 0) * 400) / 1600) % 1;
+        const roofing = pose === 'hammer';
+        const lift = roofing && cyc < 0.4 ? Math.sin(cyc / 0.4 * Math.PI) : 0;
+        const hammer = roofing && cyc >= 0.45 ? -0.5 + Math.abs(Math.sin(now / 110)) * 0.9 : 0;
+        const asw = pose === 'phone' || pose === 'carry' || pose === 'gift' ? 0 : sw * 0.7;
+        lr(armR, T.armR, hammer - lift * 0.5 - asw); lr(armL, T.armL, -lift * 0.5 + asw);
         lr(legL, T.legL, sw); lr(legR, T.legR, -sw);
         const by = damp(body.position.y - 0.86, T.bodyY, k, dt);
         const bob = walkSpeed > 0.01 ? Math.abs(Math.sin(now / (rush ? 70 : 110))) * (0.03 + rush * 0.03) : 0;
         body.position.y = 0.86 + by + bob; vest.position.y = 0.84 + by + bob; head.position.y = 1.3 + by + bob; top.position.y = 1.3 + by + bob;
         armL.position.y = 1.0 + by + bob; armR.position.y = 1.0 + by + bob;
+        legL.position.y = 0.56 + by + bob; legR.position.y = 0.56 + by + bob;
+        sheet.visible = roofing || pose === 'carry';
+        if (roofing) { sheet.position.set(0, 0.04 + lift * 0.3, 0.5 - lift * 0.1); sheet.rotation.x = -0.2 + lift * 0.7; }
+        else if (pose === 'carry') { sheet.position.set(0, 0.72 + by + bob, 0.46); sheet.rotation.x = 0.15; }
         // A stressed head: quick glances when rushing.
         top.rotation.y = rush ? Math.sin(now / 420) * 0.5 : damp(top.rotation.y, 0, 4, dt);
         head.rotation.y = top.rotation.y;
@@ -459,10 +467,11 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         if (pose === 'angry') { armR.rotation.x += Math.sin(now / 90) * 0.25; armL.rotation.x -= Math.sin(now / 90) * 0.25; }
         if (pose === 'wait') top.rotation.y = Math.sin(now / 900) * 0.3;
         // Roofing: lean over the work.
-        g.rotation.x = damp(g.rotation.x, pose === 'hammer' ? 0.5 : 0, 6, dt);
+        // Kneeling on a pitched roof: the whole figure tilts to the pitch (set by the world), plus a lean over the work.
+        g.rotation.x = damp(g.rotation.x, pose === 'hammer' ? (g.userData.tilt ?? 0) + 0.2 : 0, 6, dt);
         g.position.y = (g.userData.baseY ?? 0) + Math.sin(now / 700 + (g.userData.phase ?? 0)) * 0.01;
       };
-      return { g, setPose, setWalk, tick };
+      return { g, setPose, setWalk, tick, sheetM };
     };
 
     /* A world: the island, the customer's house by day, the roofer's own home at night. */
@@ -569,9 +578,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       /* Smoko: esky, crates, thermos. */
       const smoko = new THREE.Group(); isle.add(smoko);
       smoko.add(rbox(0.8, 0.5, 0.5, mat(P.esky), 0.08, 0, 0.25, 0), rbox(0.84, 0.1, 0.54, mat(0xf2ece0), 0.04, 0, 0.53, 0));
-      smoko.add(rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, -1.1, 0.225, 0.5), rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, 1.1, 0.225, 0.45));
+      smoko.add(rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, -1.1, 0.225, 0.4), rbox(0.55, 0.45, 0.55, mat(0xc9a27a), 0.05, 0.5, 0.225, 1.0));
       smoko.add(cyl(0.1, 0.1, 0.36, mat(nice ? 0x4ed8c2 : 0x8a8f96), 0.25, 0.76, -0.1));
-      smoko.position.set(2.6, 0, -3.0); smoko.scale.setScalar(0.001);
+      smoko.position.set(2.4, 0, -2.4); smoko.scale.setScalar(0.001);
 
       /* Home: a cut-away two-storey house on the roofer's own street. Front wall off,
          so you can see who is where: downstairs at the table, or upstairs at the desk. */
@@ -607,7 +616,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       // A TV on a low unit in front of the couch. Glowing when the family is parked in front of it.
       const tv = new THREE.Group(); tv.position.set(-1.15, 0.12, 1.05); home.add(tv);
       tv.add(rbox(1.1, 0.3, 0.35, mat(0x3a4150), 0.04, 0, 0.15, 0));
-      const tvScreen = new THREE.Mesh(new RoundedBoxGeometry(1.0, 0.58, 0.05, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0x0c0e14, emissive: 0xbfe6f5, emissiveIntensity: 0, roughness: 0.3 }));
+      const tvScreen = new THREE.Mesh(new RoundedBoxGeometry(1.0, 0.58, 0.05, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0x0c0e14, emissive: 0xbfe6f5, emissiveIntensity: 0, roughness: 0.85 }));
       tvScreen.position.set(0, 0.62, 0); tvScreen.rotation.y = Math.PI; tv.add(tvScreen);
       const tvLight = new THREE.PointLight(0xbfe6f5, 0, 3, 2); tvLight.position.set(0, 0.7, -0.4); tv.add(tvLight);
       // Upstairs: a desk with a laptop, and a bed.
@@ -618,6 +627,14 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       desk.add(rbox(0.48, 0.02, 0.32, mat(0xb8bfc8, { metalness: 0.5 }), 0.01, 0, 0.74, 0));
       const coldLight = new THREE.PointLight(0x9fd8ff, 0, 4.5, 2); coldLight.position.set(0, 1.35, 1.0); desk.add(coldLight);
       home.add(rbox(1.3, 0.3, 0.8, mat(nice ? 0xf7f4ef : 0xcfc8ba), 0.06, -1.1, HF + 0.21, -0.85), rbox(0.5, 0.12, 0.3, mat(0xffffff), 0.04, -1.4, HF + 0.42, -1.1));
+      // Chairs under every seat: three at the table, one at the desk.
+      const chairM = mat(0x8b6a4b);
+      const chair = (x: number, y: number, z: number, rot: number) => {
+        const c = new THREE.Group(); c.position.set(x, y, z); c.rotation.y = rot; home.add(c);
+        c.add(rbox(0.44, 0.06, 0.5, chairM, 0.02, 0, 0.4, -0.03), rbox(0.44, 0.42, 0.06, chairM, 0.02, 0, 0.62, -0.26));
+        for (const [lx, lz] of [[-0.18, -0.24], [0.18, -0.24], [-0.18, 0.18], [0.18, 0.18]]) c.add(rbox(0.05, 0.4, 0.05, chairM, 0.01, lx, 0.2, lz));
+      };
+      chair(-0.2, 0.12, 1.3, Math.PI); chair(0.95, 0.12, 1.3, Math.PI); chair(0.4, 0.12, -0.1, 0); chair(0.95, HF + 0.06, -0.2, Math.PI);
       // The street side: a driveway to the road, a picket fence, flowers.
       home.add(rbox(1.7, 0.1, 2.5, mat(P.drive), 0.04, 2.9, 0.05, 2.3));
       if (nice) {
@@ -625,7 +642,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         for (let fx = -3.2; fx <= 1.7; fx += 0.3) home.add(rbox(0.09, 0.55, 0.05, fenceM, 0.03, fx, 0.28, 2.6));
         home.add(rbox(5.0, 0.05, 0.04, fenceM, 0.02, -0.75, 0.36, 2.6));
       }
-      home.scale.setScalar(0.001);
+      home.scale.set(1, 0.001, 1); home.visible = false;
       /* Home-local marks → island coordinates (the home set sits turned around on the far side). */
       const hm = (hx: number, hy: number, hz: number, rot: number, pose: Pose): Mark => M(V(4.0 - hx, hy, -0.3 - hz), rot + Math.PI, pose);
       const UTE_HOME = V(4.0 - 2.9, 0, -0.3 - 1.4);
@@ -638,6 +655,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const kid = makePerson(nice ? 0x4ed8c2 : 0xb0aaa0, 0, 0, 0xd9a98a, false, 0.7); isle.add(kid.g);
       const customer = makePerson(nice ? 0xf7c53a : 0xb8a46a, 0, 0, 0xc98a6a, false, 1.1); isle.add(customer.g);
       [partner, kid, customer].forEach((p) => { p.g.children.forEach((c) => { if ((c as THREE.Mesh).geometry instanceof RoundedBoxGeometry && c.position.y > 0.8 && c.position.y < 0.9) c.visible = false; }); });
+      [roofer, crew1, crew2].forEach((p) => { p.sheetM.color.set(P.roof); p.g.userData.tilt = -Math.atan2(1.35, W / 2 + 0.35); });
 
 
       /* ── Marks and schedules. Hours of the day → where each person is. ── */
@@ -645,24 +663,26 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       type Mark = { p: THREE.Vector3; r: number; pose: Pose };
       const M = (p: THREE.Vector3, r: number, pose: Pose): Mark => ({ p, r, pose });
       const slopeY = (dx: number) => H + 1.35 - (Math.abs(dx) / (W / 2 + 0.35)) * 1.35 + 0.12;
-      const roofAt = (dx: number, dz = 0, pose: Pose = 'hammer') => M(V(HX + dx, slopeY(dx), HZ + dz), dx > 0 ? -Math.PI / 2 : Math.PI / 2, pose);
-      const ladderFoot = M(V(HX + W / 2 + 1.5, 0, HZ + 1.2), -2.4, 'stand');
+      const roofAt = (dx: number, dz = 0, pose: Pose = 'hammer') => M(V(HX + dx, slopeY(dx) - (pose === 'hammer' ? 0.08 : 0), HZ + dz), dx > 0 ? -Math.PI / 2 : Math.PI / 2, pose);
+      const ladderFoot = M(V(HX + W / 2 + 1.5, 0, HZ + 0.5), -Math.PI / 2, 'stand');
+      const LT = V(HX + W / 2 + 0.25, H + 0.2, HZ + 0.5); // top of the ladder, on the eave
       const uteBack = (dx: number, dz: number, pose: Pose = 'stand', r = 0.9) => M(V(UX + dx, 0, UZ + dz), r, pose);
       // Three spots around the tray that read apart on screen (spread along the camera's right axis).
       const tray = [(pose: Pose = 'stand') => uteBack(-1.3, -1.4, pose, 1.42), (pose: Pose = 'stand') => uteBack(0, -2.3, pose, 0), (pose: Pose = 'stand') => uteBack(1.3, -2.2, pose, -0.96)];
-      const smokoSeat = [M(V(2.6, 0, -3.0), 0.5, 'sitMug'), M(V(1.5, 0, -2.5), 1.0, 'sitMug'), M(V(3.7, 0, -2.55), -0.9, 'sitMug')];
+      const smokoSeat = [M(V(2.4, 0, -2.4), 0.5, 'sitMug'), M(V(1.3, 0, -2.0), 1.2, 'sitMug'), M(V(2.9, 0, -1.4), 2.6, 'sitMug')];
       const paceA = M(V(-5.6, 0, 2.7), 0, 'phone'), paceB = M(V(-2.6, 0, 3.3), 0, 'phone');
       const pacing = (from: number, to: number): Key[] => { const k: Key[] = []; let t = from, i = 0; while (t < to) { k.push([t, i % 2 ? paceB : paceA]); t += 0.17; i++; } return k; };
       const away = M(V(0, -3, 0), 0, 'stand');
       const roofWait = (dx: number, dz: number) => M(V(HX + dx, slopeY(dx), HZ + dz), 0.3, 'wait');
       const inside = M(V(HX, 0, HZ + D / 2 - 0.7), 0, 'stand');
       const stackMark = M(V(HX + W / 2 + 2.3, 0, HZ + 2.6), -2.0, 'carry');
-      const ladderWait = M(V(HX + W / 2 + 1.5, 0, HZ + 1.2), -2.4, 'wait');
+      const ladderWait = M(V(HX + W / 2 + 1.6, 0, HZ + 1.3), -2.4, 'wait');
       // The third man ferries sheets: tile stack, up the ladder, lay one, back down.
-      const ferry = (from: number, to: number): Key[] => { const k: Key[] = []; let t = from; while (t + 0.45 <= to) { k.push([t, stackMark], [t + 0.12, ladderFoot], [t + 0.28, roofAt(1.4, -1.0)], [t + 0.38, roofAt(1.4, -1.0)], [t + 0.45, ladderFoot]); t += 0.55; } return k; };
+      const ladderCarry = M(ladderFoot.p, ladderFoot.r, 'carry');
+      const ferry = (from: number, to: number): Key[] => { const k: Key[] = []; let t = from; while (t + 0.45 <= to) { k.push([t, stackMark], [t + 0.12, ladderCarry], [t + 0.28, roofAt(1.4, -1.0)], [t + 0.38, roofAt(1.4, -1.0)], [t + 0.45, ladderFoot]); t += 0.55; } return k; };
       // She comes out of the door and turns to face him; he meets her on the path in front of the house.
-      const door = (pose: Pose) => M(V(HX + 1.0, 0, HZ + D / 2 + 0.9), nice ? 1.03 : 1.8, pose);
-      const meet = (pose: Pose) => M(V(HX + 2.0, 0, HZ + D / 2 + 1.5), -2.1, pose);
+      const door = (pose: Pose) => M(V(HX + 1.0, 0, HZ + D / 2 + 0.9), nice ? 1.82 : 1.8, pose);
+      const meet = (pose: Pose) => M(V(HX + 2.2, 0, HZ + D / 2 + 0.6), -1.33, pose);
       type Key = [number, Mark];
       const LEAVE = nice ? 17.7 : 18.45;
       const uteDoor = M(V(1.1 + 0.9, 0, -1.7 + 0.5), 2.2, 'stand');
@@ -672,17 +692,17 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         roofer: nice ? [
           [6.5, tray[0]('carry')], [7.1, tray[0]('carry')], [7.4, ladderFoot], [7.7, roofAt(1.0, 0.2)], [10.35, roofAt(1.0, 0.2)], [10.5, smokoSeat[0]], [11.2, smokoSeat[0]], [11.4, ladderFoot], [11.65, roofAt(1.0, 0.2)], [12.4, roofAt(1.0, 0.2)], [12.55, smokoSeat[0]], [13.0, smokoSeat[0]], [13.15, ladderFoot], [13.4, roofAt(1.0, 0.2)], [16.3, roofAt(1.0, 0.2)], [16.5, ladderFoot], [16.75, meet('stand')], [17.05, meet('stand')], [17.1, meet('gift')], [17.4, meet('gift')], [17.6, tray[0]('gift')], [17.65, away], [LEAVE + 1.35, away], [LEAVE + 1.4, uteDoor], [LEAVE + 1.7, seatsOn.roofer], [21.5, seatsOn.roofer],
         ] as Key[] : ([
-          ...pacing(6.5, 7.4), [7.4, ladderFoot], [7.7, roofAt(1.0, 0.2)], [9.2, roofAt(1.0, 0.2)], [9.3, ladderFoot], ...pacing(9.45, 9.95), [10.05, ladderFoot], [10.3, roofAt(1.0, 0.2)], [10.45, roofAt(1.0, 0.2)], [10.55, ladderFoot], ...pacing(10.7, 11.3), [11.45, ladderFoot], [11.7, roofAt(1.0, 0.2)], [12.3, roofAt(1.0, 0.2)], [12.4, ladderFoot], ...pacing(12.55, 13.1), [13.25, ladderFoot], [13.5, roofAt(1.0, 0.2)], [13.9, roofAt(1.0, 0.2)], [14.0, ladderFoot], ...pacing(14.15, 14.65), [14.75, ladderFoot], [15.0, roofAt(1.0, 0.2)], [17.9, roofAt(1.0, 0.2)], [18.1, ladderFoot], [18.3, tray[0]('carry')], [18.4, away], [LEAVE + 1.35, away], [LEAVE + 1.4, uteDoor], [LEAVE + 1.75, seatsOff.roofer], [21.5, seatsOff.roofer],
+          ...pacing(6.5, 7.4), [7.4, ladderFoot], [7.7, roofAt(1.0, 0.2)], [9.2, roofAt(1.0, 0.2)], [9.3, ladderFoot], ...pacing(9.45, 9.95), [10.05, ladderFoot], [10.3, roofAt(1.0, 0.2)], [10.45, roofAt(1.0, 0.2)], [10.55, ladderFoot], ...pacing(10.7, 11.3), [11.45, ladderFoot], [11.7, roofAt(1.0, 0.2)], [12.3, roofAt(1.0, 0.2)], [12.4, ladderFoot], ...pacing(12.55, 13.1), [13.25, ladderFoot], [13.5, roofAt(1.0, 0.2)], [13.9, roofAt(1.0, 0.2)], [14.0, ladderFoot], ...pacing(14.15, 14.65), [14.75, ladderFoot], [15.0, roofAt(1.0, 0.2)], [17.9, roofAt(1.0, 0.2)], [18.1, ladderFoot], [18.3, tray[0]('stand')], [18.4, tray[0]('stand')], [18.43, away], [LEAVE + 1.35, away], [LEAVE + 1.4, uteDoor], [LEAVE + 1.75, seatsOff.roofer], [21.5, seatsOff.roofer],
         ] as Key[]),
         crew1: (nice ? [
           [6.5, tray[1]('carry')], [7.2, tray[1]('carry')], [7.5, ladderFoot], [7.8, roofAt(0.5, 1.1)], [10.35, roofAt(0.5, 1.1)], [10.55, smokoSeat[1]], [11.2, smokoSeat[1]], [11.45, ladderFoot], [11.7, roofAt(0.5, 1.1)], [12.4, roofAt(0.5, 1.1)], [12.55, smokoSeat[1]], [13.0, smokoSeat[1]], [13.2, ladderFoot], [13.45, roofAt(0.5, 1.1)], [16.3, roofAt(0.5, 1.1)], [16.55, ladderFoot], [16.8, tray[1]('carry')], [17.6, tray[1]('stand')], [17.65, away], [21.5, away],
         ] : [
-          [6.5, tray[1]('carry')], [7.2, tray[1]('carry')], [7.5, ladderFoot], [7.8, roofAt(0.5, 1.1)], [9.25, roofAt(0.5, 1.1)], [9.3, roofWait(0.5, 1.1)], [10.05, roofWait(0.5, 1.1)], [10.3, roofAt(0.5, 1.1)], [10.45, roofAt(0.5, 1.1)], [10.55, smokoSeat[1]], [11.2, smokoSeat[1]], [11.45, ladderFoot], [11.7, roofAt(0.5, 1.1)], [12.3, roofAt(0.5, 1.1)], [12.4, ladderFoot], [12.55, smokoSeat[1]], [13.1, smokoSeat[1]], [13.25, ladderFoot], [13.5, roofAt(0.5, 1.1)], [13.9, roofAt(0.5, 1.1)], [14.0, roofWait(0.5, 1.1)], [14.75, roofWait(0.5, 1.1)], [15.0, roofAt(0.5, 1.1)], [16.8, roofAt(0.5, 1.1)], [17.0, ladderFoot], [17.3, tray[1]('stand')], [18.1, tray[1]('stand')], [18.4, away], [21.5, away],
+          [6.5, tray[1]('carry')], [7.2, tray[1]('carry')], [7.5, ladderFoot], [7.8, roofAt(0.5, 1.1)], [9.25, roofAt(0.5, 1.1)], [9.3, roofWait(0.5, 1.1)], [10.05, roofWait(0.5, 1.1)], [10.3, roofAt(0.5, 1.1)], [10.45, roofAt(0.5, 1.1)], [10.55, smokoSeat[1]], [11.2, smokoSeat[1]], [11.45, ladderFoot], [11.7, roofAt(0.5, 1.1)], [12.3, roofAt(0.5, 1.1)], [12.4, ladderFoot], [12.55, smokoSeat[1]], [13.1, smokoSeat[1]], [13.25, ladderFoot], [13.5, roofAt(0.5, 1.1)], [13.9, roofAt(0.5, 1.1)], [14.0, roofWait(0.5, 1.1)], [14.75, roofWait(0.5, 1.1)], [15.0, roofAt(0.5, 1.1)], [17.75, roofAt(0.5, 1.1)], [17.95, ladderFoot], [18.2, tray[1]('stand')], [18.4, tray[1]('stand')], [18.43, away], [21.5, away],
         ]) as Key[],
         crew2: (nice ? [
           [6.5, tray[2]('stand')], [7.3, tray[2]('carry')], [7.6, stackMark], ...ferry(7.7, 10.3), [10.35, stackMark], [10.6, smokoSeat[2]], [11.2, smokoSeat[2]], [11.5, stackMark], ...ferry(11.6, 12.4), [12.5, smokoSeat[2]], [13.0, smokoSeat[2]], [13.2, stackMark], ...ferry(13.3, 16.2), [16.4, ladderFoot], [16.9, tray[2]('stand')], [17.6, tray[2]('stand')], [17.65, away], [21.5, away],
         ] : [
-          [6.5, tray[2]('stand')], [7.3, tray[2]('carry')], [7.6, stackMark], ...ferry(7.8, 9.2), [9.3, ladderWait], [10.05, ladderWait], [10.3, stackMark], [10.45, stackMark], [10.6, smokoSeat[2]], [11.2, smokoSeat[2]], [11.5, stackMark], ...ferry(11.7, 12.3), [12.5, smokoSeat[2]], [13.1, smokoSeat[2]], [13.3, ladderWait], [13.5, stackMark], ...ferry(13.55, 13.9), [14.0, ladderWait], [14.75, ladderWait], [15.0, stackMark], ...ferry(15.05, 16.8), [17.0, ladderFoot], [17.3, tray[2]('stand')], [18.1, tray[2]('stand')], [18.4, away], [21.5, away],
+          [6.5, tray[2]('stand')], [7.3, tray[2]('carry')], [7.6, stackMark], ...ferry(7.8, 9.2), [9.3, ladderWait], [10.05, ladderWait], [10.3, stackMark], [10.45, stackMark], [10.6, smokoSeat[2]], [11.2, smokoSeat[2]], [11.5, stackMark], ...ferry(11.7, 12.3), [12.5, smokoSeat[2]], [13.1, smokoSeat[2]], [13.3, ladderWait], [13.5, stackMark], ...ferry(13.55, 13.9), [14.0, ladderWait], [14.75, ladderWait], [15.0, stackMark], ...ferry(15.05, 17.7), [17.8, ladderFoot], [18.1, tray[2]('stand')], [18.4, tray[2]('stand')], [18.43, away], [21.5, away],
         ]) as Key[],
         partner: nice ? [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOn.partner], [21.5, seatsOn.partner]] as Key[] : [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOff.partner], [21.5, seatsOff.partner]] as Key[],
         kid: nice ? [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOn.kid], [21.5, seatsOn.kid]] as Key[] : [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOff.kid], [21.5, seatsOff.kid]] as Key[],
@@ -695,17 +715,17 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       /* What they say. Hours, who, the line, and whether it is said or thought. */
       type Line = { from: number; to: number; who: ReturnType<typeof makePerson>; text: string; thought?: boolean };
       const lines: Line[] = nice ? [
-        { from: 9.05, to: 9.3, who: crew1, text: "Boss, what's next?" },
-        { from: 9.3, to: 9.6, who: roofer, text: 'Tiles. DUSA has the phone.' },
-        { from: 10.6, to: 11.0, who: crew2, text: 'Sam booked in?' },
-        { from: 11.0, to: 11.25, who: roofer, text: 'Yep. Priya too.' },
+        { from: 9.05, to: 9.28, who: crew1, text: "Boss, what's next?" },
+        { from: 9.35, to: 9.6, who: roofer, text: 'Tiles. DUSA has the phone.' },
+        { from: 10.6, to: 10.95, who: crew2, text: 'Sam booked in?' },
+        { from: 11.02, to: 11.25, who: roofer, text: 'Yep. Priya too.' },
         { from: 12.6, to: 12.95, who: crew1, text: 'Lunch. Dave paid the deposit.' },
-        { from: 16.85, to: 17.15, who: customer, text: 'Done already? Thank you!' },
-        { from: 17.15, to: 17.45, who: roofer, text: 'Easy. Cheers!' },
+        { from: 16.85, to: 17.12, who: customer, text: 'Done already? Thank you!' },
+        { from: 17.2, to: 17.45, who: roofer, text: 'Easy. Cheers!' },
         { from: 19.2, to: 19.8, who: kid, text: "Dad's home!" },
         { from: 19.9, to: 20.6, who: partner, text: 'Dinner is on the table.' },
       ] : [
-        { from: 9.05, to: 9.3, who: crew1, text: "Boss, what's next?" },
+        { from: 9.05, to: 9.25, who: crew1, text: "Boss, what's next?" },
         { from: 9.3, to: 9.5, who: roofer, text: 'One minute. Missed a prospect.' },
         { from: 9.55, to: 9.9, who: roofer, text: 'Voicemail. Next one.', thought: true },
         { from: 9.6, to: 10.0, who: crew1, text: 'Guess we wait.' },
@@ -713,8 +733,8 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         { from: 12.6, to: 13.05, who: roofer, text: 'No lunch. Where is that quote?', thought: true },
         { from: 12.7, to: 13.2, who: crew2, text: 'Boss, eat something.' },
         { from: 14.2, to: 14.55, who: roofer, text: 'Voicemail. Again.', thought: true },
-        { from: 16.95, to: 17.8, who: customer, text: 'You said today!' },
-        { from: 17.1, to: 17.6, who: roofer, text: 'Nearly there...' },
+        { from: 17.0, to: 17.45, who: customer, text: 'You said today!' },
+        { from: 17.5, to: 17.85, who: roofer, text: 'Nearly there...' },
       ];
       const project = (p: THREE.Object3D, up: number) => { const v = new THREE.Vector3(0, up, 0); p.localToWorld(v); v.project(camera); return v; };
       const place = (keys: Key[], h: number) => {
@@ -724,13 +744,20 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         // In or out of the scene: nobody walks up through the ground. Shrink away, pop up at the other end.
         if (a.p.y < -2.5 || b.p.y < -2.5) { const here = t < 0.5 ? a : b; return { pos: here.p.clone(), rot: here.r, pose: here.pose, speed: 0, nextPose: b.pose, fade: t < 0.5 ? 1 - t * 2 : t * 2 - 1 }; }
         const moving = a.p.distanceToSquared(b.p) > 0.01;
-        const pos = a.p.clone().lerp(b.p, moving ? smooth(0, 1, t) : t);
-        // Climbing: lift through the arc so nobody walks through the wall.
-        if (moving && Math.abs(a.p.y - b.p.y) > 1) pos.y = Math.max(a.p.y, b.p.y) * Math.sin(t * Math.PI / 2) ** 0.6 * (b.p.y > a.p.y ? 1 : 0) + (b.p.y > a.p.y ? 0 : Math.max(a.p.y, b.p.y) * Math.cos(t * Math.PI / 2) ** 0.6);
-        const speed = moving ? a.p.distanceTo(b.p) / (h1 - h0) : 0;
+        const tt = moving ? smooth(0, 1, t) : t;
+        let pos = a.p.clone().lerp(b.p, tt);
         let rot = moving ? Math.atan2(b.p.x - a.p.x, b.p.z - a.p.z) : b.r;
+        // Between ground and roof, everyone goes via the top of the ladder: up it, then across the roof.
+        const climb = moving && Math.abs(a.p.y - b.p.y) > 1;
+        if (climb) {
+          const up = b.p.y > a.p.y;
+          if (tt < 0.5) { pos = a.p.clone().lerp(up ? LT : LT, tt * 2); if (up) pos.y = a.p.y + (LT.y - a.p.y) * tt * 2; rot = up ? -Math.PI / 2 : Math.atan2(LT.x - a.p.x, LT.z - a.p.z); }
+          else { pos = LT.clone().lerp(b.p, (tt - 0.5) * 2); rot = up ? Math.atan2(b.p.x - LT.x, b.p.z - LT.z) : -Math.PI / 2; }
+          if (!up && tt >= 0.5) pos.y = LT.y + (b.p.y - LT.y) * (tt - 0.5) * 2;
+        }
+        const speed = moving ? a.p.distanceTo(b.p) / (h1 - h0) : 0;
         if (moving && t > 0.9) rot = b.r;
-        const keep = a.pose === b.pose && (a.pose === 'phone' || a.pose === 'gift');
+        const keep = a.pose === 'carry' || (a.pose === b.pose && (a.pose === 'phone' || a.pose === 'gift'));
         return { pos, rot, pose: moving ? ((keep ? a.pose : 'walk') as Pose) : b.pose, speed, nextPose: b.pose, fade: 1 };
       };
       // Roof progress: tiles go on while the boss is on the roof. Precomputed per hour.
@@ -740,7 +767,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const progressAt = (h: number) => clamp01(onRoofHours[Math.min(onRoofHours.length - 1, Math.max(0, Math.round((h - 6.5) / 0.05)))] / total);
 
       let lastT = 0, running = false, pingAt = -1e9, shownBeat = -1;
-      const cur = { night: 0, smoko: 0, home: 0, driveOff: 0 };
+      const cur = { night: 0, smoko: 0, home: 0, job: 1, driveOff: 0 };
       const resize = () => {
         const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false);
         const aspect = w / h; const halfW = aspect < 1 ? 6.4 : 9.4;
@@ -755,9 +782,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         const night = smooth(18.2, 19.4, h), dawn = 1 - smooth(6.5, 8.5, h), dusk = smooth(16.5, 18.3, h) * (1 - night);
         cur.night = night;
         sun.position.set(Math.cos(Math.PI - sunT * Math.PI) * 10, 2 + elev * 10, 5 + elev * 2);
-        sun.intensity = 0.35 + elev * 2.4 * (1 - night);
-        sun.color.set(0xffffff).lerp(new THREE.Color(0xffa070), Math.max(dawn, dusk) * 0.8).lerp(new THREE.Color(0x6f86b8), night);
-        hemi.intensity = 0.3 + elev * 0.9 * (1 - night) + 0.05 * night;
+        sun.intensity = 0.35 + (elev * 2.0 + dawn * 1.3) * (1 - night);
+        sun.color.set(0xffffff).lerp(new THREE.Color(0xffc090), Math.max(dawn, dusk) * 0.7).lerp(new THREE.Color(0x6f86b8), night);
+        hemi.intensity = 0.3 + (elev * 0.8 + dawn * 0.7) * (1 - night) + 0.05 * night;
         hemi.color.set(0xdff2ff).lerp(new THREE.Color(0x3b5a8c), night);
         warmLight.intensity = night * (nice ? 3.4 : 2.6); bulb.material.emissiveIntensity = night * 1.5;
         coldLight.intensity = nice ? 0 : night * 6;
@@ -769,9 +796,12 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         // under it to the street he lives on; the ute keeps driving and turns into his driveway.
         const T = h - LEAVE;
         const flip = smooth(0.3, 1.0, T);
-        const homeAmt = smooth(0.5, 0.9, T);
-        cur.home = damp(cur.home, homeAmt, 8, dt);
-        job.scale.setScalar(Math.max(0.001, 1 - cur.home)); home.scale.setScalar(Math.max(0.001, cur.home));
+        const homeAmt = smooth(0.55, 0.95, T), jobAmt = 1 - smooth(0.3, 0.6, T);
+        cur.home = damp(cur.home, homeAmt, 10, dt); cur.job = damp(cur.job, jobAmt, 10, dt);
+        // The two sets swap while the island turns: the job sinks into the ground first, then the home rises in place.
+        // Squashed flat, a set still leaves its footprint on the grass, so it also drops below the turf and hides early.
+        job.scale.y = Math.max(0.001, cur.job); job.position.y = -0.3 * (1 - cur.job); job.visible = cur.job > 0.08;
+        home.scale.y = Math.max(0.001, cur.home); home.position.y = -0.3 * (1 - cur.home); home.visible = cur.home > 0.08;
         let moving = false;
         if (T > 0 && T <= 0.25) { const k = smooth(0, 0.25, T); ute.position.set(UX, 0, THREE.MathUtils.lerp(UZ, -3.7, k)); ute.rotation.y = -Math.PI / 2; moving = true; }
         else if (T > 0.25 && T <= 1.05) { const k = smooth(0.25, 1.05, T); ute.position.set(THREE.MathUtils.lerp(UX, 1.1, k), 0, -3.7); ute.rotation.y = THREE.MathUtils.lerp(-Math.PI / 2, -Math.PI, smooth(0.25, 0.4, T)); moving = true; }
@@ -802,7 +832,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         const rx = (x: number, z: number) => x * Math.cos(0.35) + z * Math.sin(0.35), rz = (x: number, z: number) => -x * Math.sin(0.35) + z * Math.cos(0.35);
         const hx = HX + 1.4, hz = HZ + 1.0;
         const cx = THREE.MathUtils.lerp(0, rx(hx, hz), cur.home), cz = THREE.MathUtils.lerp(0, rz(hx, hz), cur.home);
-        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 1.1 + cur.home * 0.6, cz); camera.zoom = 1 + cur.home * 0.3; camera.updateProjectionMatrix();
+        // On phones the evening banner sits over the top of the stage, so the home is framed lower.
+        const portrait = stage.clientWidth < stage.clientHeight;
+        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 1.1 + cur.home * (portrait ? 2.4 : 0.6), cz); camera.zoom = 1 + cur.home * 0.3; camera.updateProjectionMatrix();
         renderer.render(scene, camera);
         // Bubbles for this hour, with their screen anchors.
         return lines.filter((l) => h >= l.from && h < l.to).map((l) => ({ key: `${nice ? 'on' : 'off'}-${l.from}-${l.text}`, text: l.text, thought: !!l.thought, ndc: project(l.who.g, 2.05) }));
@@ -825,20 +857,31 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     };
     times.forEach((t, i) => t.addEventListener('click', () => { hour = MARKS[i] + 0.001; }));
     document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+    let hold = false;
+    if (location.hostname === 'localhost') (window as any).__ww = { set: (h: number, w?: 'on' | 'off') => { hour = h; hold = true; if (w) setWorld(w); }, play: () => { hold = false; } };
 
     /* ── Bubbles: DOM elements that follow heads around the island ── */
     const bubbleBox = root.querySelector<HTMLElement>('[data-bubbles]')!;
     const live = new Map<string, HTMLElement>();
-    const drawBubbles = (list: { key: string; text: string; thought: boolean; ndc: THREE.Vector3 }[]) => {
+    const drawBubbles = (list: { key: string; text: string; thought: boolean; ndc: THREE.Vector3 }[], now: number) => {
       const W = stage.clientWidth, H = stage.clientHeight;
       const keep = new Set<string>();
+      // Keep bubbles clear of the notification stack (desktop: top-right of the stage).
+      const sr = stage.getBoundingClientRect(), br = bannerList.children.length ? bannerList.getBoundingClientRect() : null;
+      const avoid = br && br.width > 0 ? { l: br.left - sr.left - 10, b: br.bottom - sr.top + 10, wide: br.width > W * 0.7 } : null;
       list.forEach((b) => {
         keep.add(b.key);
         let el = live.get(b.key);
         if (!el) { el = document.createElement('div'); el.className = `ww__bubble ww__bubble--${world}${b.thought ? ' ww__bubble--thought' : ''}`; el.textContent = b.text; bubbleBox.appendChild(el); live.set(b.key, el); }
-        el.style.left = `${((b.ndc.x + 1) / 2) * W}px`; el.style.top = `${((1 - b.ndc.y) / 2) * H - 8}px`;
+        let x = ((b.ndc.x + 1) / 2) * W, y = ((1 - b.ndc.y) / 2) * H - 8;
+        const half = el.offsetWidth / 2 || 60, hgt = el.offsetHeight || 32;
+        if (avoid && y - hgt < avoid.b && x + half > avoid.l) { if (avoid.wide) y = avoid.b + hgt; else x = avoid.l - half; }
+        x = Math.min(W - half - 6, Math.max(half + 6, x)); y = Math.max(hgt + 14, y);
+        el.style.left = `${x}px`; el.style.top = `${y}px`;
       });
-      live.forEach((el, key) => { if (!keep.has(key)) { live.delete(key); el.classList.add('is-out'); window.setTimeout(() => el.remove(), 300); } });
+      live.forEach((el, key) => { if (!keep.has(key)) { live.delete(key); el.classList.add('is-out'); el.dataset.out = String(now); } });
+      // Sweep: anything fading for longer than its transition is gone, timers or not.
+      bubbleBox.querySelectorAll<HTMLElement>('.is-out').forEach((el) => { if (now - Number(el.dataset.out || 0) > 320) el.remove(); });
     };
 
     /* ── The loop ── */
@@ -846,14 +889,15 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     const loop = (now: number) => {
       if (!playing) return;
       const dt = Math.min(0.05, (now - lastT) / 1000 || 0.016); lastT = now;
-      if (!paused && !reduced) { hour += dt * 1000 / LOOP_MS * (DAY1 - DAY0); if (hour >= DAY1) hour = DAY0; }
+      // The evening lingers: once everyone is home the clock runs at a third of the pace so the ending can be read.
+      if (!paused && !reduced && !hold) { hour += dt * 1000 / LOOP_MS * (DAY1 - DAY0) * (hour >= 20.4 ? 0.33 : 1); if (hour >= DAY1) hour = DAY0; }
       const b = beatOf(hour);
       showBeat(b);
       const next = b < N - 1 ? MARKS[b + 1] : DAY1;
       bars.forEach((bar, i) => { bar.style.transition = 'none'; bar.style.width = i < b ? '100%' : i === b ? `${clamp01((hour - MARKS[b]) / (next - MARKS[b])) * 100}%` : '0'; });
       if (hour >= 21.0 && beat === N - 1) endBanner();
       const active = worlds.map((w) => w.frame(now, hour, dt, b));
-      drawBubbles(active[world === 'on' ? 1 : 0]);
+      drawBubbles(active[world === 'on' ? 1 : 0], now);
       requestAnimationFrame(loop);
     };
     const start = () => {

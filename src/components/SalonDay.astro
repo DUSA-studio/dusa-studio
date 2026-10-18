@@ -1,0 +1,915 @@
+---
+/**
+ * SalonDay.astro
+ *
+ * A studio owner's Saturday, with and without DUSA. Same stage as RooferDay
+ * (your phone is the phone: the island fills the screen, notifications drop
+ * in from the top edge, one glass pill flips the day to the DUSA version at
+ * the same moment on the clock, and at 9pm the last notification is the
+ * invitation), with a new set: a cut-away beauty studio with three rooms,
+ * massage on the left, hair and reception in the middle, injectables on the
+ * right. Clients walk in off the street. Without DUSA the owner leaves a
+ * client in foils to chase the phone, a no-show leaves the massage table
+ * empty, lunch is spent replying to DMs, a client who waited posts a two-star
+ * review, and the night is bookings on the laptop. With DUSA the phone is
+ * handled, the table is full, lunch is together, the client rebooks on the
+ * way out, and the night is dinner with the family.
+ */
+interface Moment { time: string; label?: string; off: { app: string; title: string; body: string; line: string }; on: { app: string; title: string; body: string; line: string } }
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  headingAccent?: string;
+  sub?: string;
+  labelOff?: string;
+  labelOn?: string;
+  switchOn?: string;
+  switchOff?: string;
+  endTitle?: string;
+  endBody?: string;
+  endCta?: string;
+  endDemo?: string;
+  cta?: string;
+  ctaDemo?: string;
+  moments?: Moment[];
+}
+const {
+  eyebrow = "A studio owner's Saturday",
+  heading = 'Your Saturday,',
+  headingAccent = 'with and without DUSA.',
+  sub = 'Same studio, same team, same clients. Watch the day, then switch.',
+  switchOn = 'Switch to DUSA',
+  switchOff = 'Switch back',
+  endTitle = 'This could be your Saturday.',
+  endBody = 'Set up in a day. Free for 14 days, cancel in one tap.',
+  endCta = 'Start free',
+  endDemo = 'Book a 20-minute call',
+  labelOff = 'Without DUSA',
+  labelOn = 'With DUSA',
+  cta = 'Start free for 14 days',
+  ctaDemo = 'Book a free demo',
+  moments = [
+    { time: '7:30',
+      off: { app: 'Instagram', title: '3 DMs unread overnight', body: 'Two asked for today. One booked elsewhere.', line: 'Three enquiries. Two walked.' },
+      on:  { app: 'DUSA', title: '3 enquiries booked overnight', body: 'Replied in seconds. Mia 10:30, Jess 11:30, Priya 3pm.', line: 'Three enquiries. Three booked.' } },
+    { time: '9:15',
+      off: { app: 'Phone', title: 'Client called. Missed.', body: 'Foils in, hands full. No voicemail.', line: 'Phone rang. Foils left waiting.' },
+      on:  { app: 'DUSA', title: 'Client called. Booked.', body: 'Texted back in 8 seconds. Lip filler, Thursday 2pm.', line: 'Phone rang. Booked, mid-foils.' } },
+    { time: '10:30',
+      off: { app: 'Calendar', title: '10:30 massage: no-show', body: 'No reminder went out. Table empty for an hour.', line: 'Empty table. Nothing to fill it.' },
+      on:  { app: 'DUSA', title: '10:30 massage: confirmed', body: 'Reminder sent yesterday. Mia is on the table.', line: 'Full table. Confirmed yesterday.' } },
+    { time: '11:30',
+      off: { app: 'Reminders', title: '$180 still owed', body: "Last week's colour. Awkward text to write.", line: "Chasing last week's colour." },
+      on:  { app: 'DUSA', title: 'Deposit paid: $90', body: 'Taken at booking. Nothing to chase.', line: 'Deposit taken at booking.' } },
+    { time: '1:30', label: 'Lunch',
+      off: { app: 'Instagram', title: '6 DMs waiting', body: 'Lunch is for replying.', line: 'Lunch at reception, replying.' },
+      on:  { app: 'DUSA', title: '6 DMs answered', body: 'Two booked. Four nurtured.', line: 'Lunch with the team.' } },
+    { time: '4:45',
+      off: { app: 'Google', title: 'New 2-star review', body: '"Waited 40 minutes." Posted. Unanswered.', line: 'Kept her waiting. She posted.' },
+      on:  { app: 'DUSA', title: 'New 5-star review', body: '"Loved it." Rebooked in six weeks on the way out.', line: 'Rebooked on the way out.' } },
+    { time: '9:00',
+      off: { app: 'Reminders', title: 'Tomorrow unconfirmed', body: 'Nine bookings, zero reminders. Laptop night.', line: 'Upstairs with the laptop.' },
+      on:  { app: 'DUSA', title: 'Tomorrow confirmed', body: 'Nine of nine. Phone face down.', line: 'Downstairs with the family.' } },
+  ],
+} = Astro.props;
+const BOOK = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
+---
+
+<section class="ww section section--dark" id="studio-day" data-ww>
+  <div class="container">
+    <div class="ww__header">
+      <span class="label">{eyebrow}</span>
+      <h1 class="ww__h1">{heading} <span class="gradient-text">{headingAccent}</span></h1>
+      <p class="ww__sub">{sub}</p>
+    </div>
+
+    <div class="ww__stage" data-stage data-beat="0" data-world="off" data-end-title={endTitle} data-end-body={endBody} data-end-cta={endCta} data-end-demo={endDemo} data-book={BOOK}>
+      <div class="ww__sky" aria-hidden="true"><span class="ww__stars"></span></div>
+      <canvas class="ww__world ww__world--off" data-world="off" aria-hidden="true"></canvas>
+      <canvas class="ww__world ww__world--on" data-world="on" aria-hidden="true"></canvas>
+      <div class="ww__vignette" aria-hidden="true"></div>
+
+      <ol class="ww__banners" data-banners aria-live="polite"></ol>
+      <div class="ww__bubbles" data-bubbles aria-hidden="true"></div>
+
+      <div class="ww__bottom">
+        <div class="ww__lines">
+          {moments.map((m, i) => (
+            <p class="ww__line" data-line={i} hidden={i !== 0 ? true : undefined}><span data-side="off">{m.off.line}</span><span data-side="on">{m.on.line}</span></p>
+          ))}
+        </div>
+        <button type="button" class="ww__switch" data-switch aria-pressed="false">
+          <span class="ww__switch-dot" aria-hidden="true"></span>
+          <span data-switch-label data-on={switchOn} data-off={switchOff}>{switchOn}</span>
+        </button>
+        <div class="ww__timeline" role="tablist" aria-label="Moments of the day">
+          {moments.map((m, i) => (
+            <button type="button" class={`ww__time${i === 0 ? ' is-on' : ''}`} role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-time={i}>
+              <span class="ww__time-bar" aria-hidden="true"><span></span></span>
+              <b>{m.time}<small>{ampm(i)}</small></b>
+              {m.label && <span class="ww__time-label">{m.label}</span>}
+            </button>
+          ))}
+        </div>
+      </div>
+
+    </div>
+
+    <script type="application/json" data-moments set:html={JSON.stringify(moments.map((m) => ({ off: { app: m.off.app, title: m.off.title, body: m.off.body }, on: { app: m.on.app, title: m.on.title, body: m.on.body } })))} />
+
+    <div class="ww__ctas">
+      <a href="/start" data-page="start" class="btn btn--primary">{cta}</a>
+      <a href={BOOK} target="_blank" rel="noopener noreferrer" class="btn btn--outline">{ctaDemo}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ww { position: relative; padding-top: calc(74px + var(--space-xl)); overflow: hidden; }
+  .ww__header { text-align: center; max-width: 680px; margin: 0 auto var(--space-lg); }
+  .ww__h1 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1; margin: 0 0 0.6rem; color: var(--warm-white); }
+  .ww__sub { font-size: 1.0625rem; color: rgba(247, 244, 239, 0.66); margin: 0 auto; max-width: 560px; }
+
+  /* ── Stage ── */
+  .ww__stage {
+    position: relative;
+    width: 100%; max-width: 1100px; margin: 0 auto;
+    aspect-ratio: 16 / 10;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--deep-black);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.06), 0 30px 80px rgba(0, 0, 0, 0.35);
+    user-select: none; -webkit-user-select: none;
+    --sky1: #2b2f4a; --sky2: #8d6b7a;
+  }
+  .ww__sky { position: absolute; inset: 0; background: linear-gradient(180deg, var(--sky1), var(--sky2)); transition: background 1.4s ease; }
+  .ww__stars { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s;
+    background-image: radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 30% 9%, #fff 50%, transparent 55%), radial-gradient(1.5px 1.5px at 48% 22%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 63% 12%, #fff 50%, transparent 55%), radial-gradient(1.5px 1.5px at 78% 26%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 90% 8%, #fff 50%, transparent 55%), radial-gradient(1px 1px at 22% 34%, #fff 50%, transparent 55%), radial-gradient(1.2px 1.2px at 85% 40%, #fff 50%, transparent 55%); }
+  .ww__stage[data-beat="0"] { --sky1: #35628f; --sky2: #c9a9ac; }
+  .ww__stage[data-beat="1"] { --sky1: #3f7fb5; --sky2: #a9cfe4; }
+  .ww__stage[data-beat="2"] { --sky1: #4789bf; --sky2: #b6d8ec; }
+  .ww__stage[data-beat="3"] { --sky1: #4b93c9; --sky2: #bcdcef; }
+  .ww__stage[data-beat="4"] { --sky1: #478dc2; --sky2: #b6d6ea; }
+  .ww__stage[data-beat="5"] { --sky1: #3d5f8f; --sky2: #e2a06b; }
+  .ww__stage[data-beat="6"] { --sky1: #06080f; --sky2: #15213a; }
+  .ww__stage[data-beat="6"] .ww__stars { opacity: 1; }
+  /* Without DUSA the sky is a little flatter too. */
+  .ww__stage[data-world="off"] .ww__sky { filter: saturate(0.6); }
+
+  .ww__world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: opacity 0.7s ease; }
+  .ww__world--off { filter: saturate(0.8) brightness(0.92); }
+  .ww__world--on { opacity: 0; }
+  .ww__stage[data-world="on"] .ww__world--on { opacity: 1; }
+  .ww__stage[data-world="on"] .ww__world--off { opacity: 0; }
+  .ww__vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%); }
+
+  /* ── Notifications, the way the phone does them ── */
+  /* On a desktop the banners sit top-right, clear of the house; on a phone they sit where the phone puts them. */
+  :global(.ww__banners) { position: absolute; right: 14px; top: 12px; width: min(380px, calc(100% - 24px)); margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; z-index: 3; }
+  :global(.ww__banner) {
+    display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: start;
+    padding: 10px 12px 11px; border-radius: 22px;
+    background: rgba(28, 30, 38, 0.55);
+    backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.22), 0 10px 40px rgba(0, 0, 0, 0.35);
+    color: #fff; font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+    animation: bannerIn 0.55s cubic-bezier(0.22, 1.2, 0.36, 1);
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  :global(.ww__banner.is-out) { opacity: 0; transform: translateY(-20px) scale(0.98); }
+  :global(.ww__banner.is-old) { opacity: 0.8; transform: scale(0.97); }
+  @keyframes bannerIn { from { opacity: 0; transform: translateY(-36px) scale(0.96); } to { opacity: 1; transform: none; } }
+  :global(.ww__banner-icon) { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; overflow: hidden; }
+  :global(.ww__banner-icon--off) { background: linear-gradient(160deg, #ff6b5e, #d93b2f); color: #fff; }
+  :global(.ww__banner-icon--on) { background: linear-gradient(160deg, #1f4472, #0f2440 70%, #0b1a30); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.35); }
+  :global(.ww__banner-icon img) { width: 22px; height: 22px; }
+  :global(.ww__banner-icon svg) { width: 18px; height: 18px; }
+  :global(.ww__banner-body) { display: grid; gap: 2px; min-width: 0; }
+  :global(.ww__banner-row) { display: flex; justify-content: space-between; align-items: baseline; }
+  :global(.ww__banner-row b) { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.92); }
+  :global(.ww__banner-row em) { font-style: normal; font-size: 11px; color: rgba(255, 255, 255, 0.55); }
+  :global(.ww__banner-title) { font-size: 13.5px; font-weight: 600; line-height: 1.25; }
+  :global(.ww__banner--off .ww__banner-title) { color: #ffb3aa; }
+  :global(.ww__banner--on .ww__banner-title) { color: #8ff2e1; }
+  :global(.ww__banner-text) { font-size: 12.5px; color: rgba(255, 255, 255, 0.8); line-height: 1.3; }
+  /* The last one: the invitation. It glows and it stays. */
+  :global(.ww__banner--end) { background: linear-gradient(135deg, rgba(26, 58, 92, 0.72), rgba(12, 14, 20, 0.7)); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.5), 0 0 0 6px rgba(78, 216, 194, 0.08), 0 16px 50px rgba(78, 216, 194, 0.22); animation: bannerIn 0.6s cubic-bezier(0.22, 1.2, 0.36, 1), endGlow 2.6s ease-in-out 0.6s infinite; }
+  @keyframes endGlow { 0%, 100% { box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.5), 0 0 0 6px rgba(78, 216, 194, 0.08), 0 16px 50px rgba(78, 216, 194, 0.22); } 50% { box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.8), 0 0 0 10px rgba(78, 216, 194, 0.12), 0 16px 60px rgba(78, 216, 194, 0.4); } }
+  :global(.ww__banner--end .ww__banner-title) { color: #fff; font-size: 15px; }
+  :global(.ww__banner-actions) { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  :global(.ww__banner-btn) { display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 100px; font-size: 12.5px; font-weight: 600; color: #fff; text-decoration: none; background: rgba(255, 255, 255, 0.12); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.25); }
+  :global(.ww__banner-btn--primary) { background: linear-gradient(135deg, #4ed8c2, #6aaacf); color: var(--deep-black); box-shadow: 0 6px 18px rgba(78, 216, 194, 0.35); }
+
+  /* ── Bottom: the line, the switch, the clock ── */
+  .ww__bottom { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 14px; display: grid; gap: 12px; justify-items: center; z-index: 2; }
+  .ww__lines { width: 100%; max-width: 640px; text-align: center; }
+  .ww__line { margin: 0; font-size: 1rem; line-height: 1.4; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); max-width: none; }
+  .ww__line[hidden] { display: none; }
+  .ww__line [data-side="on"] { display: none; }
+  .ww__stage[data-world="on"] .ww__line [data-side="on"] { display: inline; }
+  .ww__stage[data-world="on"] .ww__line [data-side="off"] { display: none; }
+  .ww__switch {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.8rem 1.4rem; border-radius: 100px; border: 1px solid rgba(160, 245, 230, 0.7);
+    background: linear-gradient(135deg, rgba(78, 216, 194, 0.55), rgba(78, 216, 194, 0.22));
+    backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+    color: #fff; font: inherit; font-weight: 600; font-size: 1rem; letter-spacing: 0.01em; cursor: pointer;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -10px 24px rgba(78, 216, 194, 0.35), 0 0 28px rgba(78, 216, 194, 0.55), 0 10px 30px rgba(0, 0, 0, 0.25);
+    animation: switchGlow 2.2s ease-in-out infinite;
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+  }
+  @keyframes switchGlow { 0%, 100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -10px 24px rgba(78, 216, 194, 0.35), 0 0 22px rgba(78, 216, 194, 0.45), 0 10px 30px rgba(0, 0, 0, 0.25); } 50% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -10px 28px rgba(78, 216, 194, 0.55), 0 0 40px rgba(78, 216, 194, 0.8), 0 10px 30px rgba(0, 0, 0, 0.25); } }
+  /* Speech and thought bubbles, pinned above heads from the 3D scene. */
+  :global(.ww__bubbles) { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+  :global(.ww__bubble) {
+    position: absolute; transform: translate(-50%, -100%); max-width: 190px;
+    padding: 7px 11px; border-radius: 14px;
+    background: rgba(255, 255, 255, 0.94); color: #0c0e14;
+    font-size: 12.5px; font-weight: 500; line-height: 1.3; text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    animation: bubbleIn 0.35s cubic-bezier(0.22, 1.2, 0.36, 1);
+    transition: opacity 0.3s;
+  }
+  :global(.ww__bubble::after) { content: ''; position: absolute; left: 50%; bottom: -5px; width: 12px; height: 12px; background: inherit; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+  :global(.ww__bubble--thought) { font-style: italic; background: rgba(255, 255, 255, 0.82); }
+  :global(.ww__bubble--thought::after) { width: 8px; height: 8px; border-radius: 50%; transform: translateX(-50%); bottom: -11px; box-shadow: -8px 8px 0 -2px rgba(255, 255, 255, 0.82); }
+  :global(.ww__bubble--on) { background: #4ed8c2; }
+  :global(.ww__bubble--off) { background: #ffb3aa; }
+  :global(.ww__bubble.is-out) { opacity: 0; }
+  @keyframes bubbleIn { from { opacity: 0; transform: translate(-50%, -90%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -100%) scale(1); } }
+  .ww__switch-dot { width: 9px; height: 9px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff; }
+  .ww__switch[aria-pressed="true"] { animation: none; background: rgba(12, 14, 20, 0.45); border-color: rgba(247, 244, 239, 0.25); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 10px 30px rgba(0, 0, 0, 0.3); }
+  .ww__switch[aria-pressed="true"] .ww__switch-dot { background: #4ed8c2; box-shadow: 0 0 10px #4ed8c2; }
+  .ww__switch:focus-visible { outline: 2px solid var(--reef-aqua); outline-offset: 3px; }
+
+  .ww__timeline { display: flex; gap: 0.4rem; width: 100%; max-width: 720px; padding: 0.55rem 0.8rem 0.45rem; border-radius: 16px; background: rgba(12, 14, 20, 0.4); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12); }
+  .ww__time { flex: 1; position: relative; background: none; border: 0; padding: 0.15rem 0 0; cursor: pointer; color: rgba(247, 244, 239, 0.55); font: inherit; text-align: left; }
+  .ww__time b { display: block; font-family: var(--font-headline); font-weight: 600; font-size: 0.8rem; margin-top: 0.3rem; transition: color 0.3s; white-space: nowrap; }
+  .ww__time b small { font-size: 0.7em; margin-left: 1px; font-weight: 500; }
+  .ww__time-label { display: block; font-size: 0.62rem; color: var(--reef-aqua); margin-top: 0; }
+  .ww__time-bar { display: block; height: 3px; border-radius: 2px; background: rgba(247, 244, 239, 0.16); overflow: hidden; }
+  .ww__time-bar span { display: block; height: 100%; width: 0; background: var(--reef-aqua); }
+  .ww__time.is-on { color: var(--warm-white); }
+  .ww__time:hover b { color: var(--warm-white); }
+
+  .ww__ctas { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg); }
+
+  /* ── Phones: the stage is the screen ── */
+  @media (max-width: 760px) {
+    .ww { padding-top: calc(74px + var(--space-md)); }
+    .ww__header { margin-bottom: var(--space-sm); }
+    .ww__h1 { font-size: 1.6rem; }
+    .ww__sub { font-size: 0.9375rem; }
+    .ww__stage { aspect-ratio: auto; width: 100vw; margin-left: calc(50% - 50vw); height: 100svh; max-height: none; border-radius: 0; border: 0; box-shadow: none; }
+    :global(.ww__banners) { left: 50%; right: auto; transform: translateX(-50%); top: max(10px, env(safe-area-inset-top)); width: calc(100% - 20px); }
+    :global(html.ww-immersed .ww__banners) { position: fixed; z-index: 1200; }
+    .ww__bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+    .ww__bottom { padding: 0 10px 10px; gap: 10px; }
+    .ww__line { font-size: 0.9375rem; }
+    .ww__switch { padding: 0.75rem 1.25rem; font-size: 0.9375rem; }
+    .ww__timeline { gap: 0.25rem; padding: 0.45rem 0.6rem 0.4rem; }
+    .ww__time b { font-size: 0.66rem; }
+    .ww__time b small { display: none; }
+    .ww__time-label { display: none; }
+    .ww__ctas .btn { width: 100%; text-align: center; }
+  }
+  /* While the stage is in view, the nav steps out of the way. */
+  :global(html.ww-immersed .nav) { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+  :global(.nav) { transition: opacity 0.4s; }
+
+  @media (prefers-reduced-motion: reduce) {
+  :global(.ww__banner), :global(.ww__banner--end) { animation: none; }
+    .ww__switch { animation: none; }
+  }
+
+  /* ── Light mode ── */
+  :global(html[data-theme="light"]) .ww__h1 { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .ww__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .ww__stage { border-color: rgba(12, 14, 20, 0.1); box-shadow: 0 30px 70px rgba(12, 14, 20, 0.18); }
+</style>
+
+<script>
+  import * as THREE from 'three';
+  import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+
+  document.querySelectorAll<HTMLElement>('[data-ww]').forEach((root) => {
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const times = [...root.querySelectorAll<HTMLButtonElement>('[data-time]')];
+    const bars = times.map((t) => t.querySelector<HTMLElement>('.ww__time-bar span')!);
+    const lines = [...root.querySelectorAll<HTMLElement>('[data-line]')];
+    const bannerList = root.querySelector<HTMLElement>('[data-banners]')!;
+    const switchBtn = root.querySelector<HTMLButtonElement>('[data-switch]')!;
+    const switchLabel = root.querySelector<HTMLElement>('[data-switch-label]')!;
+    const momentsData = JSON.parse(root.querySelector('[data-moments]')!.textContent || '[]') as { off: { app: string; title: string; body: string }; on: { app: string; title: string; body: string } }[];
+    const canvases = { off: root.querySelector<HTMLCanvasElement>('canvas[data-world="off"]')!, on: root.querySelector<HTMLCanvasElement>('canvas[data-world="on"]')! };
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── The clock. One loop is a working day, 6:30am to 9:30pm. ── */
+    const DAY0 = 6.5, DAY1 = 21.5, LOOP_MS = 64000;
+    const MARKS = [7.5, 9.25, 10.5, 11.5, 13.5, 16.75, 21.0]; // the seven moments on the timeline
+    const N = MARKS.length;
+    let hour = MARKS[0], beat = -1, playing = false, paused = false, started = false;
+    const beatOf = (h: number) => { let b = 0; for (let i = 0; i < N; i++) if (h >= MARKS[i]) b = i; return b; };
+    const fmt = (h: number) => { const hh = Math.floor(h), mm = Math.floor((h - hh) * 60); const h12 = ((hh + 11) % 12) + 1; return `${h12}:${mm < 10 ? '0' : ''}${mm}`; };
+
+    /* ── The switch: one tap flips the whole day to the DUSA version. ── */
+    let world: 'off' | 'on' = 'off';
+    const setWorld = (w: 'off' | 'on') => {
+      world = w;
+      stage.setAttribute('data-world', w);
+      switchBtn.setAttribute('aria-pressed', w === 'on' ? 'true' : 'false');
+      switchLabel.textContent = w === 'on' ? (switchLabel.dataset.off || 'Switch back') : (switchLabel.dataset.on || 'Switch to DUSA');
+    };
+    switchBtn.addEventListener('click', () => { setWorld(world === 'on' ? 'off' : 'on'); if (beat >= 0) banner(beat, true); });
+
+    /* ── Notifications: they drop in from the top edge, stack two deep, and leave on their own. ── */
+    const PHONE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>';
+    let lastBanner = -1;
+    const banner = (i: number, force = false) => {
+      if (!force && i === lastBanner) return;
+      lastBanner = i;
+      const m = momentsData[i][world];
+      const li = document.createElement('li');
+      li.className = `ww__banner ww__banner--${world}`;
+      li.innerHTML = `<span class="ww__banner-icon ww__banner-icon--${world}">${world === 'on' ? '<img src="/dusa-logo.webp" alt="" width="22" height="22" decoding="async">' : PHONE_SVG}</span><span class="ww__banner-body"><span class="ww__banner-row"><b></b><em>now</em></span><span class="ww__banner-title"></span><span class="ww__banner-text"></span></span>`;
+      li.querySelector('b')!.textContent = m.app;
+      li.querySelector('.ww__banner-title')!.textContent = m.title;
+      li.querySelector('.ww__banner-text')!.textContent = m.body;
+      // Newest on top; the one before it shrinks; anything older goes.
+      [...bannerList.children].forEach((c, k) => { if (c.classList.contains('ww__banner--end')) return; if (k >= 1) dismiss(c as HTMLElement); else c.classList.add('is-old'); });
+      bannerList.prepend(li);
+      window.setTimeout(() => dismiss(li), 5200);
+    };
+    const dismiss = (el: HTMLElement) => { if (!el.isConnected || el.classList.contains('ww__banner--end')) return; el.classList.add('is-out'); window.setTimeout(() => el.remove(), 380); };
+    let ended = false;
+    const endBanner = () => {
+      if (ended) return; ended = true;
+      [...bannerList.children].forEach((c) => dismiss(c as HTMLElement));
+      const li = document.createElement('li');
+      li.className = 'ww__banner ww__banner--end';
+      li.innerHTML = `<span class="ww__banner-icon ww__banner-icon--on"><img src="/dusa-logo.webp" alt="" width="22" height="22" decoding="async"></span><span class="ww__banner-body"><span class="ww__banner-row"><b>DUSA</b><em>now</em></span><span class="ww__banner-title"></span><span class="ww__banner-text"></span><span class="ww__banner-actions"><a class="ww__banner-btn ww__banner-btn--primary" href="/start" data-page="start"></a><a class="ww__banner-btn" target="_blank" rel="noopener noreferrer"></a></span></span>`;
+      li.querySelector('.ww__banner-title')!.textContent = stage.dataset.endTitle || '';
+      li.querySelector('.ww__banner-text')!.textContent = stage.dataset.endBody || '';
+      const [a1, a2] = [...li.querySelectorAll<HTMLAnchorElement>('a')];
+      a1.textContent = stage.dataset.endCta || 'Start free'; a2.textContent = stage.dataset.endDemo || 'Book a call'; a2.href = stage.dataset.book || '#';
+      bannerList.prepend(li);
+    };
+    const clearEnd = () => { if (!ended) return; ended = false; bannerList.querySelectorAll('.ww__banner--end').forEach((e) => e.remove()); };
+
+    /* ════════════════════════════════════════════════════════════════════
+       The diorama. Clay-style: rounded boxes, soft shadows, flat colours.
+       ════════════════════════════════════════════════════════════════════ */
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const smooth = (a: number, b: number, v: number) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+    const damp = (a: number, b: number, k: number, dt: number) => a + (b - a) * (1 - Math.exp(-k * dt));
+    const V = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
+
+    const mat = (color: number, extra: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
+      new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.02, ...extra });
+    const rbox = (w: number, h: number, d: number, m: THREE.Material, r = 0.08, x = 0, y = 0, z = 0) => {
+      const o = new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 3, Math.min(r, Math.min(w, h, d) / 2)), m);
+      o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+    const cyl = (rt: number, rb: number, h: number, m: THREE.Material, x = 0, y = 0, z = 0, seg = 24) => {
+      const o = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), m);
+      o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+    const sph = (r: number, m: THREE.Material, x = 0, y = 0, z = 0) => {
+      const o = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 18), m);
+      o.position.set(x, y, z); o.castShadow = true; o.receiveShadow = true; return o;
+    };
+    const cap = (r: number, len: number, m: THREE.Material) => { const o = new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 6, 12), m); o.castShadow = true; o.receiveShadow = true; return o; };
+
+    /* Two palettes: the brand on the DUSA side, the same scene gone bland on the other. */
+    const PAL = {
+      on:  { grass: 0x49b39a, grassTop: 0x5cc9ad, soil: 0x1a3a5c, road: 0x4a5d75, dash: 0xf7f4ef, drive: 0x9fbfd6, path: 0xd9d4ca, wall: 0xf7f4ef, inner: 0xfaf7f2, floor: 0xd9b48a, roof: 0x1a3a5c, awning: 0x4ed8c2, accent: 0x4ed8c2, accent2: 0x6aaacf, counter: 0x1a3a5c, car: 0x6aaacf, carDark: 0x1a3a5c, tree: 0x2f8f7c, treeTrunk: 0x6b4a36, uniform: 0x1a3a5c, home: 0xf7f4ef, homeRoof: 0x1a3a5c, flower: [0x4ed8c2, 0xf7f4ef, 0x6aaacf] },
+      off: { grass: 0x8e9a8a, grassTop: 0x9aa697, soil: 0x5e5752, road: 0x5b5f66, dash: 0xc9c5bd, drive: 0x8d9299, path: 0xb8b3a9, wall: 0xd9d4ca, inner: 0xe3ded5, floor: 0xb8a287, roof: 0x5b6572, awning: 0x8a8f96, accent: 0x9aa0a8, accent2: 0x8a8f96, counter: 0x5b6572, car: 0x6e7784, carDark: 0x3c424c, tree: 0x6f8a78, treeTrunk: 0x6b5a4c, uniform: 0x6b7280, home: 0xcfc8ba, homeRoof: 0x6b6f78, flower: [0xb9b4a8, 0xa8927a, 0x9aa697] },
+    };
+
+    /* A person: capsule body, round head, hair, limbs that pose and walk. Studio poses on top of the usual ones. */
+    type Pose = 'stand' | 'walk' | 'phone' | 'sit' | 'sitMug' | 'laptop' | 'wait' | 'angry' | 'cut' | 'massage' | 'lie' | 'recline' | 'inject' | 'wave' | 'cross' | 'carry';
+    const makePerson = (shirt: number, hairC: number, skin = 0xd9a98a, scale = 1, long = false) => {
+      const g = new THREE.Group();
+      const shirtM = mat(shirt), skinM = mat(skin), pantsM = mat(0x3b4555), hairM = mat(hairC);
+      const body = cap(0.21, 0.36, shirtM); body.position.y = 0.86; g.add(body);
+      const head = sph(0.17, skinM, 0, 1.3, 0); g.add(head);
+      const top = new THREE.Group(); top.position.y = 1.3; g.add(top);
+      const hair = new THREE.Mesh(new THREE.SphereGeometry(0.185, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.1), hairM); hair.position.y = 0.01; top.add(hair);
+      if (long) { const back = rbox(0.26, 0.34, 0.14, hairM, 0.06, 0, -0.12, -0.13); top.add(back); }
+      const arm = (side: number) => { const p = new THREE.Group(); p.position.set(side * 0.26, 1.0, 0); const a = cap(0.065, 0.34, shirtM); a.position.y = -0.22; p.add(a); p.add(sph(0.07, skinM, 0, -0.44, 0)); g.add(p); return p; };
+      const leg = (side: number) => { const p = new THREE.Group(); p.position.set(side * 0.11, 0.56, 0); const l = cap(0.085, 0.34, pantsM); l.position.y = -0.24; p.add(l); p.add(rbox(0.17, 0.1, 0.26, mat(0x2a2522), 0.04, 0, -0.5, 0.04)); g.add(p); return p; };
+      const armL = arm(-1), armR = arm(1), legL = leg(-1), legR = leg(1);
+      const held = new THREE.Group(); held.position.set(0, -0.44, 0); armR.add(held);
+      const mug = cyl(0.06, 0.05, 0.1, mat(0xf7f4ef), 0, 0, 0.02); mug.visible = false; held.add(mug);
+      const phone = rbox(0.09, 0.17, 0.02, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.01, 0, 0.02, 0.05); phone.visible = false; held.add(phone);
+      const phoneGlow = new THREE.PointLight(0xffffff, 0, 1.2); phoneGlow.position.set(0, 0.05, 0.12); phone.add(phoneGlow);
+      // Tools of the trade: scissors in the right hand, a syringe in the right hand.
+      const scissors = new THREE.Group(); scissors.visible = false; held.add(scissors);
+      scissors.add(rbox(0.03, 0.2, 0.02, mat(0xc8ced6, { metalness: 0.7, roughness: 0.3 }), 0.005, -0.02, 0.1, 0.03), rbox(0.03, 0.2, 0.02, mat(0xc8ced6, { metalness: 0.7, roughness: 0.3 }), 0.005, 0.02, 0.1, 0.03));
+      const syringe = cyl(0.025, 0.025, 0.2, mat(0xf7f4ef), 0, 0.08, 0.05); syringe.visible = false; held.add(syringe);
+      const bag = rbox(0.22, 0.26, 0.1, mat(0x8b6a4b), 0.04, 0, -0.1, 0); bag.visible = false; held.add(bag);
+      g.scale.setScalar(scale); g.userData.scale = scale;
+      const T = { armL: V(), armR: V(), legL: V(), legR: V(), bodyY: 0, lie: 0, lean: 0 };
+      let pose: Pose = 'stand', walkSpeed = 0, rush = 0;
+      const setPose = (p: Pose) => {
+        pose = p; T.bodyY = 0; T.lie = 0; T.lean = 0;
+        T.armL.set(0.15, 0, 0.25); T.armR.set(-0.15, 0, -0.25); T.legL.set(0, 0, 0.05); T.legR.set(0, 0, -0.05);
+        if (p === 'phone') { T.armR.set(-2.5, 0.2, -0.9); T.armL.set(0.3, 0, 0.3); }
+        if (p === 'angry') { T.armR.set(-2.6, 0, -0.4); T.armL.set(-2.6, 0, 0.4); }
+        if (p === 'wait') { T.armL.set(-0.5, 0, 0.9); T.armR.set(-0.5, 0, -0.9); }
+        if (p === 'cross') { T.armL.set(-1.3, 0, 1.1); T.armR.set(-1.3, 0, -1.1); }
+        if (p === 'wave') { T.armR.set(-2.9, 0, -0.5); T.armL.set(0.15, 0, 0.25); }
+        if (p === 'carry') { T.armL.set(0.15, 0, 0.25); T.armR.set(-0.3, 0, -0.2); }
+        if (p === 'sit' || p === 'sitMug' || p === 'laptop') { T.bodyY = -0.12; T.legL.set(-1.25, 0, 0.12); T.legR.set(-1.25, 0, -0.12); T.armL.set(-0.9, 0, 0.3); T.armR.set(-0.9, 0, -0.3); }
+        if (p === 'sitMug') T.armR.set(-1.6, 0.3, -0.5);
+        if (p === 'laptop') { T.armL.set(-1.3, 0, 0.1); T.armR.set(-1.3, 0, -0.1); }
+        // Behind the chair, hands up at head height, snipping.
+        if (p === 'cut') { T.armL.set(-2.0, 0, 0.5); T.armR.set(-2.2, 0, -0.4); }
+        // Over the table, arms down and forward, leaning in.
+        if (p === 'massage') { T.armL.set(-1.0, 0, 0.35); T.armR.set(-1.0, 0, -0.35); T.lean = 0.35; }
+        // Face down on the table.
+        if (p === 'lie') { T.lie = 1; T.armL.set(0.2, 0, 0.5); T.armR.set(0.2, 0, -0.5); }
+        // Leaning back in the treatment chair.
+        if (p === 'recline') { T.bodyY = -0.12; T.legL.set(-0.9, 0, 0.12); T.legR.set(-0.9, 0, -0.12); T.armL.set(-0.6, 0, 0.3); T.armR.set(-0.6, 0, -0.3); T.lean = -0.4; }
+        // One hand steady on the client's face, the other with the syringe.
+        if (p === 'inject') { T.armL.set(-1.6, 0, 0.6); T.armR.set(-1.8, 0, -0.3); T.lean = 0.3; }
+      };
+      const setWalk = (speed: number, r: number) => { walkSpeed = speed; rush = r; };
+      const tick = (now: number, dt: number) => {
+        const k = 7;
+        const lr = (grp: THREE.Group, t: THREE.Vector3, sx = 0) => { grp.rotation.x = damp(grp.rotation.x, t.x + sx, k, dt); grp.rotation.y = damp(grp.rotation.y, t.y, k, dt); grp.rotation.z = damp(grp.rotation.z, t.z, k, dt); };
+        const sw = walkSpeed > 0.01 ? Math.sin(now / (rush ? 70 : 110)) * (0.55 + rush * 0.3) : 0;
+        const still = pose === 'phone' || pose === 'carry' || pose === 'wave' || pose === 'cross';
+        const asw = still ? 0 : sw * 0.7;
+        // Working hands: snip, knead, dab.
+        const snip = pose === 'cut' ? Math.sin(now / 160) * 0.18 : 0;
+        const knead = pose === 'massage' ? Math.sin(now / 420) * 0.25 : 0;
+        const dab = pose === 'inject' ? Math.max(0, Math.sin(now / 900)) * 0.2 : 0;
+        lr(armR, T.armR, snip - dab - asw); lr(armL, T.armL, knead * 0.5 + asw);
+        lr(legL, T.legL, sw); lr(legR, T.legR, -sw);
+        const by = damp(body.position.y - 0.86, T.bodyY, k, dt);
+        const bob = walkSpeed > 0.01 ? Math.abs(Math.sin(now / (rush ? 70 : 110))) * (0.03 + rush * 0.03) : 0;
+        body.position.y = 0.86 + by + bob; head.position.y = 1.3 + by + bob; top.position.y = 1.3 + by + bob;
+        armL.position.y = 1.0 + by + bob; armR.position.y = 1.0 + by + bob;
+        legL.position.y = 0.56 + by + bob; legR.position.y = 0.56 + by + bob;
+        // Massage: the therapist rocks forward over the table.
+        if (pose === 'massage') body.position.z = Math.sin(now / 420) * 0.04; else body.position.z = 0;
+        // A stressed head: quick glances when rushing; a waiting head looks about.
+        top.rotation.y = rush ? Math.sin(now / 420) * 0.5 : damp(top.rotation.y, 0, 4, dt);
+        if (pose === 'wait' || pose === 'cross') top.rotation.y = Math.sin(now / 900) * 0.3;
+        head.rotation.y = top.rotation.y;
+        mug.visible = pose === 'sitMug'; phone.visible = pose === 'phone' || pose === 'laptop' && false; phoneGlow.intensity = pose === 'phone' ? 0.9 : 0;
+        scissors.visible = pose === 'cut'; syringe.visible = pose === 'inject'; bag.visible = pose === 'carry';
+        if (pose === 'angry') { armR.rotation.x += Math.sin(now / 90) * 0.25; armL.rotation.x -= Math.sin(now / 90) * 0.25; }
+        if (pose === 'wave') armR.rotation.z = -0.5 + Math.sin(now / 160) * 0.3;
+        // Lying flat on the table (face down), or leaning in over the work, or leaning back in the chair.
+        const lie = damp(g.userData.lie ?? 0, T.lie, k, dt); g.userData.lie = lie;
+        g.rotation.x = damp(g.rotation.x, T.lean + lie * -Math.PI / 2, 6, dt);
+        g.position.y = (g.userData.baseY ?? 0) + Math.sin(now / 700 + (g.userData.phase ?? 0)) * 0.01;
+      };
+      return { g, setPose, setWalk, tick };
+    };
+
+    /* A world: the island, the studio by day, the owner's own home at night. */
+    const makeWorld = (nice: boolean, canvas: HTMLCanvasElement) => {
+      const P = nice ? PAL.on : PAL.off;
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+      renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 100);
+      const hemi = new THREE.HemisphereLight(0xdff2ff, 0x5b7c6a, 1.1); scene.add(hemi);
+      const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+      sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+      sun.shadow.camera.left = -10; sun.shadow.camera.right = 10; sun.shadow.camera.top = 10; sun.shadow.camera.bottom = -10;
+      sun.shadow.camera.near = 1; sun.shadow.camera.far = 60; sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.04; sun.shadow.radius = 4;
+      scene.add(sun, sun.target);
+      const fill = new THREE.DirectionalLight(0x9fd8ff, 0.35); fill.position.set(-6, 4, -8); scene.add(fill);
+
+      const isle = new THREE.Group(); scene.add(isle);
+      isle.add(rbox(13, 0.5, 9, mat(P.grassTop), 0.22, 0, -0.25, 0));
+      isle.add(rbox(12.7, 1.1, 8.7, mat(P.soil), 0.3, 0, -1.05, 0));
+      const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d')!; const r = g.createRadialGradient(128, 128, 20, 128, 128, 128); r.addColorStop(0, 'rgba(0,0,0,0.55)'); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 256, 256); return new THREE.CanvasTexture(c); })();
+      const drop = new THREE.Mesh(new THREE.PlaneGeometry(18, 13), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+      drop.rotation.x = -Math.PI / 2; drop.position.y = -2.4; scene.add(drop);
+      // Road and driveway sit clearly above the grass so nothing flickers.
+      isle.add(rbox(13, 0.1, 1.7, mat(P.road), 0.04, 0, 0.05, -3.7));
+      for (let i = -5.6; i <= 5.6; i += 1.4) isle.add(rbox(0.6, 0.04, 0.08, mat(P.dash), 0.01, i, 0.11, -3.7));
+      const UX = 4.6, UZ = -1.2;
+
+      /* Scene sets: the studio by day, the owner's home at night (on the flip side). */
+      const job = new THREE.Group(); isle.add(job);
+      job.add(rbox(2.6, 0.1, 2.9, mat(P.drive), 0.04, UX, 0.06, UZ - 0.15));
+      const home = new THREE.Group(); home.position.set(4.0, 0, -0.3); home.rotation.y = Math.PI; isle.add(home);
+
+      /* The studio: a cut-away shopfront, three rooms in a row, open at the front and
+         open above the front half, so you see who is in which room. Massage on the
+         left, hair and reception in the middle, injectables on the right. */
+      const SX = -1.2, SZ = -0.9, SW = 7.2, SD = 3.0, SH = 2.6;
+      const studio = new THREE.Group(); studio.position.set(SX, 0, SZ); job.add(studio);
+      const sWall = mat(P.wall), sInner = mat(P.inner), sFloor = mat(P.floor), sAccent = mat(P.accent), sWood = mat(0x8b6a4b), sWhite = mat(0xf7f4ef), sMetal = mat(0xc8ced6, { metalness: 0.6, roughness: 0.3 });
+      studio.add(rbox(SW, 0.12, SD, sFloor, 0.03, 0, 0.06, 0));
+      studio.add(rbox(SW, SH, 0.16, sInner, 0.04, 0, SH / 2, -SD / 2 + 0.08));
+      // Side walls and partitions are cut down to waist height at the front so the camera sees into every room.
+      const lowWall = (x: number, w: number, m: THREE.Material) => { studio.add(rbox(w, SH, SD / 2 + 0.2, m, 0.04, x, SH / 2, -SD / 4 + 0.1), rbox(w, 1.1, SD / 2 - 0.2, m, 0.04, x, 0.55, SD / 4 + 0.1)); };
+      lowWall(-SW / 2 + 0.08, 0.16, sWall); lowWall(SW / 2 - 0.08, 0.16, sWall);
+      for (const px of [-1.2, 1.2]) lowWall(px, 0.12, sInner);
+      // Roof over the back half only; a fascia along the front with the studio's colour.
+      studio.add(rbox(SW + 0.4, 0.14, SD / 2 + 0.45, mat(P.roof, { roughness: 0.65 }), 0.04, 0, SH + 0.07, -SD / 4 + 0.05));
+      studio.add(rbox(SW + 0.4, 0.3, 0.12, sAccent, 0.04, 0, SH + 0.2, SD / 2 + 0.08));
+      for (const px of [-SW / 2 + 0.1, SW / 2 - 0.1]) studio.add(rbox(0.1, SH, 0.1, sWall, 0.03, px, SH / 2, SD / 2 + 0.05));
+      // Massage room: the table, a towel, a side table with a candle, a plant.
+      const mt = new THREE.Group(); mt.position.set(-2.4, 0.12, 0); studio.add(mt);
+      mt.add(rbox(0.72, 0.1, 1.9, mat(nice ? 0x6aaacf : 0x8a8f96), 0.04, 0, 0.65, 0), rbox(0.6, 0.04, 1.7, sWhite, 0.02, 0, 0.72, 0));
+      for (const [lx, lz] of [[-0.28, -0.8], [0.28, -0.8], [-0.28, 0.8], [0.28, 0.8]]) mt.add(rbox(0.06, 0.6, 0.06, sWood, 0.02, lx, 0.3, lz));
+      mt.add(rbox(0.4, 0.5, 0.4, sWood, 0.03, -0.75, 0.25, -1.1), cyl(0.05, 0.05, 0.12, sWhite, -0.75, 0.56, -1.1));
+      const candle = sph(0.035, mat(0xffe3a3, { emissive: 0xffd58a, emissiveIntensity: 0.9 }), -0.75, 0.64, -1.1); candle.castShadow = false; mt.add(candle);
+      const candleLight = new THREE.PointLight(0xffb36b, 0.5, 2.0, 2); candleLight.position.set(-0.75, 0.7, -1.1); mt.add(candleLight);
+      mt.add(cyl(0.14, 0.11, 0.26, mat(0xcfc7bb), 0.95, 0.13, -1.15), sph(0.26, mat(P.tree), 0.95, 0.46, -1.15));
+      // Hair and reception: a counter with the phone, the chair, the mirror, a waiting bench.
+      const rc = new THREE.Group(); rc.position.set(-0.65, 0.12, 0.95); studio.add(rc);
+      rc.add(rbox(1.1, 0.9, 0.46, mat(P.counter), 0.05, 0, 0.45, 0), rbox(1.16, 0.05, 0.52, sWood, 0.02, 0, 0.92, 0));
+      rc.add(rbox(0.1, 0.17, 0.03, mat(0x14161c, { roughness: 0.4, metalness: 0.5 }), 0.01, 0.3, 0.96, -0.08), rbox(0.3, 0.02, 0.2, mat(0xbfe6f5, { roughness: 0.2 }), 0.01, -0.25, 0.955, 0));
+      const hc = new THREE.Group(); hc.position.set(0.3, 0.12, -0.45); studio.add(hc);
+      hc.add(cyl(0.22, 0.26, 0.06, sMetal, 0, 0.03, 0), cyl(0.05, 0.05, 0.4, sMetal, 0, 0.25, 0), rbox(0.56, 0.1, 0.56, mat(nice ? 0x1a3a5c : 0x5b6572), 0.04, 0, 0.48, 0), rbox(0.56, 0.5, 0.1, mat(nice ? 0x1a3a5c : 0x5b6572), 0.04, 0, 0.78, -0.26));
+      const mirror = new THREE.Mesh(new RoundedBoxGeometry(0.9, 1.1, 0.04, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0xdfe9f2, roughness: 0.1, metalness: 0.6 })); mirror.position.set(0.3, 1.55, -SD / 2 + 0.19); studio.add(mirror);
+      for (const my of [1.0, 2.1]) { const bar = rbox(1.0, 0.05, 0.05, mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.6 }), 0.02, 0.3, my, -SD / 2 + 0.2); bar.castShadow = false; studio.add(bar); }
+      const bench = (x: number, z: number, parent: THREE.Group, len = 1.0) => { const b = new THREE.Group(); b.position.set(x, 0.12, z); parent.add(b); b.add(rbox(len, 0.08, 0.42, sWood, 0.03, 0, 0.45, 0), rbox(len, 0.3, 0.06, sWood, 0.02, 0, 0.62, -0.18)); for (const lx of [-len / 2 + 0.08, len / 2 - 0.08]) b.add(rbox(0.06, 0.42, 0.36, sWood, 0.02, lx, 0.21, 0)); return b; };
+      bench(-0.75, -0.95, studio);
+      // Treatment room: a reclining chair, a trolley with bottles, a ring light.
+      const tr = new THREE.Group(); tr.position.set(2.4, 0.12, -0.25); studio.add(tr);
+      tr.add(cyl(0.26, 0.3, 0.06, sMetal, 0, 0.03, 0), rbox(0.64, 0.14, 0.9, sWhite, 0.05, 0, 0.45, 0.1), rbox(0.64, 0.8, 0.14, sWhite, 0.05, 0, 0.82, -0.5));
+      tr.children[2].rotation.x = 0.35;
+      tr.add(rbox(0.5, 0.78, 0.4, sMetal, 0.03, 0.75, 0.39, 0.75));
+      for (const [bx, bz, bc] of [[0.62, 0.65, 0xf7f4ef], [0.78, 0.7, 0x4ed8c2], [0.9, 0.62, 0xf7f4ef]] as [number, number, number][]) tr.add(cyl(0.035, 0.035, 0.14, mat(nice ? bc : 0xcfc7bb), bx, 0.86, bz));
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.26, 0.035, 10, 32), mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.5 })); ring.position.set(-0.85, 1.55, 0.35); ring.rotation.y = 0.6; ring.castShadow = false; tr.add(ring, cyl(0.03, 0.03, 1.5, sMetal, -0.85, 0.75, 0.35), cyl(0.18, 0.2, 0.04, sMetal, -0.85, 0.02, 0.35));
+      // Out the front: the footpath, planters, the lunch bench, and the way in from the street.
+      job.add(rbox(9.8, 0.08, 1.0, mat(P.path), 0.03, SX - 0.2, 0.05, SZ + SD / 2 + 0.75));
+      job.add(rbox(3.4, 0.08, 1.0, mat(P.path), 0.03, 4.9, 0.05, SZ + SD / 2 + 0.75));
+      for (const px of [SX - SW / 2 + 0.5, SX + SW / 2 - 0.5]) { job.add(rbox(0.5, 0.42, 0.5, sWood, 0.04, px, 0.22, SZ + SD / 2 + 0.5)); for (let i = 0; i < 3; i++) { const f = sph(0.1, mat(P.flower[i]), px - 0.14 + i * 0.14, 0.5, SZ + SD / 2 + 0.5 + (i % 2) * 0.1); f.castShadow = false; job.add(f); } }
+      bench(3.6, 2.3, job, 1.9);
+      // The lunch things come out at lunchtime: mugs and a box on a crate beside the bench.
+      const smoko = new THREE.Group(); job.add(smoko);
+      smoko.add(rbox(0.5, 0.42, 0.5, sWood, 0.04, 0, 0.21, 0), rbox(0.36, 0.14, 0.26, sWhite, 0.03, 0, 0.5, 0), cyl(0.06, 0.05, 0.1, mat(nice ? 0x4ed8c2 : 0x8a8f96), -0.14, 0.48, 0.14));
+      smoko.position.set(4.9, 0, 2.3); smoko.scale.setScalar(0.001);
+
+      /* Trees, flowers */
+      const tree = (x: number, z: number, s = 1) => {
+        const g = new THREE.Group(); g.add(cyl(0.1 * s, 0.13 * s, 0.9 * s, mat(P.treeTrunk), 0, 0.45 * s, 0));
+        const lm = mat(P.tree);
+        g.add(sph(0.62 * s, lm, 0, 1.25 * s, 0), sph(0.48 * s, lm, 0.42 * s, 1.0 * s, 0.2 * s), sph(0.45 * s, lm, -0.4 * s, 1.05 * s, -0.2 * s), sph(0.4 * s, lm, 0.05 * s, 1.72 * s, -0.05 * s));
+        g.position.set(x, 0, z); isle.add(g); return g;
+      };
+      // Trees keep to the corners: nothing stands between the camera and the rooms, the path or the bench.
+      tree(-6.3, -0.6, 0.9); tree(6.0, 3.9, 0.9); tree(-5.6, 3.6, 0.8); tree(6.1, -2.4, 0.8);
+      for (let i = 0; i < 7; i++) { const f = sph(0.09, mat(P.flower[i % 3]), -1.6 + i * 0.3, 0.09, 1.65 + (i % 2) * 0.2); f.castShadow = false; home.add(f); }
+
+      /* The car, parked beside the studio by day and in the driveway at night. */
+      const ute = new THREE.Group(); isle.add(ute);
+      const uteM = mat(P.car, { roughness: nice ? 0.35 : 0.6, metalness: nice ? 0.3 : 0.1 });
+      ute.add(rbox(2.1, 0.5, 1.1, uteM, 0.12, 0, 0.5, 0));
+      ute.add(rbox(1.3, 0.6, 1.0, uteM, 0.16, -0.05, 1.0, 0));
+      ute.add(rbox(1.26, 0.38, 0.92, mat(0xbfe6f5, { roughness: 0.15, metalness: 0.4 }), 0.1, -0.05, 1.04, 0));
+      const lampM = mat(0xfff2c2, { emissive: 0xfff2c2, emissiveIntensity: 0.3 });
+      ute.add(rbox(0.12, 0.08, 0.3, lampM, 0.02, 1.06, 0.55, 0.3), rbox(0.12, 0.08, 0.3, lampM, 0.02, 1.06, 0.55, -0.3));
+      const tyreM = mat(0x1d1f24, { roughness: 0.9 }), hubM = mat(0xc8ced6, { metalness: 0.6, roughness: 0.3 });
+      const wheels: THREE.Mesh[] = [];
+      for (const [wx, wz] of [[-0.7, 0.58], [-0.7, -0.58], [0.7, 0.58], [0.7, -0.58]]) { const t = cyl(0.27, 0.27, 0.22, tyreM, wx, 0.27, wz, 28); t.rotation.x = Math.PI / 2; ute.add(t); wheels.push(t); const h = cyl(0.12, 0.12, 0.24, hubM, wx, 0.27, wz, 20); h.rotation.x = Math.PI / 2; ute.add(h); }
+      ute.position.set(UX, 0, UZ); ute.rotation.y = -Math.PI / 2;
+      /* Home: a cut-away two-storey house on the owner's own street. Front wall off,
+         so you can see who is where: downstairs at the table, or upstairs at the desk. */
+      const HW = 4.0, HD = 2.6, HF = 1.7;
+      const wallM = mat(P.home), floorM = mat(0xd9b48a), innerM = mat(nice ? 0xf7f4ef : 0xcfc8ba);
+      home.add(rbox(HW, 0.12, HD, floorM, 0.03, 0, 0.06, 0));
+      home.add(rbox(HW, HF * 2, 0.16, innerM, 0.04, 0, HF, -HD / 2 + 0.08));
+      home.add(rbox(0.16, HF * 2, HD, wallM, 0.04, -HW / 2 + 0.08, HF, 0), rbox(0.16, HF * 2, HD, wallM, 0.04, HW / 2 - 0.08, HF, 0));
+      // The upstairs floor stops short with a torn edge, so you see straight down into the living room.
+      // Most of it is gone: a strip along the back wall and a ragged fringe, so the whole living room is open from above.
+      // Without DUSA the two columns under the desk run longer so the desk and chair have a floor.
+      home.add(rbox(HW, 0.12, 0.6, floorM, 0.03, 0, HF, -HD / 2 + 0.3));
+      (nice ? [0.35, 0.2, 0.4, 0.15, 0.3, 0.25, 0.35, 0.2] : [0.35, 0.2, 0.4, 0.15, 0.3, 0.75, 0.85, 0.3]).forEach((len, i) => { const w = HW / 8; home.add(rbox(w + 0.01, 0.12, len, floorM, 0.02, -HW / 2 + w * (i + 0.5), HF, -HD / 2 + 0.6 + len / 2)); });
+      {
+        // Only the far half of the roof, so the upstairs is open to the sky on the near side.
+        const shape = new THREE.Shape(); shape.moveTo(-HW / 2 - 0.35, 0); shape.lineTo(0.1, 0); shape.lineTo(0.1, 1.33); shape.lineTo(0, 1.3); shape.closePath();
+        const geo = new THREE.ExtrudeGeometry(shape, { depth: HD + 0.6, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 2 }); geo.translate(0, 0, -(HD + 0.6) / 2);
+        const roof = new THREE.Mesh(geo, mat(P.homeRoof, { roughness: 0.65 })); roof.position.y = HF * 2; roof.castShadow = true; roof.receiveShadow = true; home.add(roof);
+        home.add(rbox(0.4, 0.7, 0.4, mat(0xcfc7bb), 0.05, HW * 0.3, HF * 2 + 1.0, -0.4));
+      }
+      // Downstairs: table and chairs, a couch, a lamp.
+      const dining = new THREE.Group(); dining.position.set(0.4, 0.12, 0.6); home.add(dining);
+      dining.add(rbox(1.3, 0.07, 0.7, floorM, 0.03, 0, 0.7, 0));
+      for (const [tx, tz] of [[-0.55, 0.25], [0.55, 0.25], [-0.55, -0.25], [0.55, -0.25]]) dining.add(rbox(0.06, 0.68, 0.06, mat(0x8b6a4b), 0.02, tx, 0.34, tz));
+      for (const [px, pz] of [[-0.4, 0.15], [0.4, 0.15], [0, -0.15]]) dining.add(cyl(0.1, 0.1, 0.02, mat(0xf7f4ef), px, 0.75, pz));
+      // A floor lamp beside the table (the ceiling above it is gone).
+      const lamp = new THREE.Group(); lamp.position.set(1.5, 0.12, 0.2); home.add(lamp);
+      lamp.add(cyl(0.14, 0.14, 0.04, mat(0x8b6a4b), 0, 0.02, 0), cyl(0.02, 0.02, 1.3, mat(0x8b6a4b), 0, 0.65, 0), cyl(0.2, 0.12, 0.2, mat(0xf2ece0), 0, 1.35, 0));
+      const warmLight = new THREE.PointLight(0xffb36b, 0, 4.5, 2); warmLight.position.set(0, 1.2, 0); lamp.add(warmLight);
+      const bulb = sph(0.05, mat(0xffe3a3, { emissive: 0xffd58a, emissiveIntensity: 0 }), 0, 1.24, 0); lamp.add(bulb);
+      const couch = new THREE.Group(); couch.position.set(-1.15, 0.12, 0.2); home.add(couch);
+      couch.add(rbox(1.3, 0.36, 0.6, mat(nice ? 0x6aaacf : 0x8a8f96), 0.08, 0, 0.18, 0), rbox(1.3, 0.42, 0.18, mat(nice ? 0x6aaacf : 0x8a8f96), 0.08, 0, 0.5, -0.24));
+      // A TV on a low unit in front of the couch. Glowing when the family is parked in front of it.
+      const tv = new THREE.Group(); tv.position.set(-1.15, 0.12, 1.05); home.add(tv);
+      tv.add(rbox(1.1, 0.3, 0.35, mat(0x3a4150), 0.04, 0, 0.15, 0));
+      const tvScreen = new THREE.Mesh(new RoundedBoxGeometry(1.0, 0.58, 0.05, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0x0c0e14, emissive: 0xbfe6f5, emissiveIntensity: 0, roughness: 0.85 }));
+      tvScreen.position.set(0, 0.62, 0); tvScreen.rotation.y = Math.PI; tv.add(tvScreen);
+      const tvLight = new THREE.PointLight(0xbfe6f5, 0, 3, 2); tvLight.position.set(0, 0.7, -0.4); tv.add(tvLight);
+      // Upstairs: a desk with a laptop, and a bed.
+      const desk = new THREE.Group(); desk.position.set(0.95, HF + 0.06, -0.7); home.add(desk);
+      desk.add(rbox(1.0, 0.06, 0.55, floorM, 0.02, 0, 0.7, 0), rbox(0.06, 0.68, 0.06, mat(0x8b6a4b), 0.02, -0.45, 0.34, -0.2), rbox(0.06, 0.68, 0.06, mat(0x8b6a4b), 0.02, 0.45, 0.34, -0.2));
+      const laptopScreen = new THREE.Mesh(new RoundedBoxGeometry(0.48, 0.32, 0.03, 2, 0.02), new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0x9fd8ff, emissiveIntensity: 0 }));
+      laptopScreen.position.set(0, 0.92, -0.18); laptopScreen.rotation.x = -0.3; desk.add(laptopScreen);
+      desk.add(rbox(0.48, 0.02, 0.32, mat(0xb8bfc8, { metalness: 0.5 }), 0.01, 0, 0.74, 0));
+      const coldLight = new THREE.PointLight(0x9fd8ff, 0, 4.5, 2); coldLight.position.set(0, 1.35, 1.0); desk.add(coldLight);
+      home.add(rbox(1.3, 0.3, 0.8, mat(nice ? 0xf7f4ef : 0xcfc8ba), 0.06, -1.1, HF + 0.21, -0.85), rbox(0.5, 0.12, 0.3, mat(0xffffff), 0.04, -1.4, HF + 0.42, -1.1));
+      // Chairs under every seat: three at the table, one at the desk.
+      const chairM = mat(0x8b6a4b);
+      const chair = (x: number, y: number, z: number, rot: number) => {
+        const c = new THREE.Group(); c.position.set(x, y, z); c.rotation.y = rot; home.add(c);
+        c.add(rbox(0.44, 0.06, 0.5, chairM, 0.02, 0, 0.4, -0.03), rbox(0.44, 0.42, 0.06, chairM, 0.02, 0, 0.62, -0.26));
+        for (const [lx, lz] of [[-0.18, -0.24], [0.18, -0.24], [-0.18, 0.18], [0.18, 0.18]]) c.add(rbox(0.05, 0.4, 0.05, chairM, 0.01, lx, 0.2, lz));
+      };
+      chair(-0.2, 0.12, 1.3, Math.PI); chair(0.95, 0.12, 1.3, Math.PI); chair(0.4, 0.12, -0.1, 0); chair(0.95, HF + 0.06, -0.2, Math.PI);
+      // The street side: a driveway to the road, a picket fence, flowers.
+      home.add(rbox(1.7, 0.1, 2.5, mat(P.drive), 0.04, 2.9, 0.05, 2.3));
+      if (nice) {
+        const fenceM = mat(0xf7f4ef, { roughness: 0.6 });
+        for (let fx = -3.2; fx <= 1.7; fx += 0.3) home.add(rbox(0.09, 0.55, 0.05, fenceM, 0.03, fx, 0.28, 2.6));
+        home.add(rbox(5.0, 0.05, 0.04, fenceM, 0.02, -0.75, 0.36, 2.6));
+      }
+      home.scale.set(1, 0.001, 1); home.visible = false;
+      /* Home-local marks → island coordinates (the home set sits turned around on the far side). */
+      const hm = (hx: number, hy: number, hz: number, rot: number, pose: Pose): Mark => M(V(4.0 - hx, hy, -0.3 - hz), rot + Math.PI, pose);
+      const UTE_HOME = V(4.0 - 2.9, 0, -0.3 - 1.4);
+
+      /* People: the owner (hair and the front desk), a massage therapist, a cosmetic nurse, the clients, and the family. */
+      const owner = makePerson(P.uniform, 0x4a3326, 0xd9a98a, 1.1, true); isle.add(owner.g);
+      const thera = makePerson(nice ? 0x6aaacf : 0x8a9099, 0x2b2118, 0xc98a6a, 1.08, false); thera.g.userData.phase = 1.2; isle.add(thera.g);
+      const nurse = makePerson(0xf7f4ef, 0x8b5a3c, 0xd9a98a, 1.08, true); nurse.g.userData.phase = 2.4; isle.add(nurse.g);
+      const cA = makePerson(nice ? 0xf7c53a : 0xb8a46a, 0x4a3326, 0xd9a98a, 1.06, true); isle.add(cA.g);
+      const cB = makePerson(nice ? 0x4ed8c2 : 0x9aa697, 0x2b2118, 0xc98a6a, 1.06, true); isle.add(cB.g);
+      const cC = makePerson(nice ? 0xe7a2c2 : 0xb0a4ab, 0x6b4a36, 0xd9a98a, 1.06, true); isle.add(cC.g);
+      const cD = makePerson(nice ? 0x6aaacf : 0x8d9299, 0x2b2118, 0x8a5a3c, 1.06, true); isle.add(cD.g);
+      const cE = makePerson(nice ? 0xf7f4ef : 0xcfc8ba, 0x8b5a3c, 0xd9a98a, 1.06, false); isle.add(cE.g);
+      const cF = makePerson(nice ? 0xffb36b : 0xb8a46a, 0x4a3326, 0xc98a6a, 1.06, true); isle.add(cF.g);
+      const cH = makePerson(nice ? 0x9fd8ff : 0xa8b0b8, 0x2b2118, 0xd9a98a, 1.06, true); isle.add(cH.g);
+      const partner = makePerson(nice ? 0x6aaacf : 0x9a948c, 0x2b2118, 0xd9a98a, 1.08, false); isle.add(partner.g);
+      const kid = makePerson(nice ? 0x4ed8c2 : 0xb0aaa0, 0x4a3326, 0xd9a98a, 0.7, false); isle.add(kid.g);
+
+      /* ── Marks and schedules. Hours of the day → where each person is. ── */
+      type Mark = { p: THREE.Vector3; r: number; pose: Pose };
+      const M = (p: THREE.Vector3, r: number, pose: Pose): Mark => ({ p, r, pose });
+      // Studio-local → island.
+      const sm = (x: number, z: number, r: number, pose: Pose, y = 0) => M(V(SX + x, y, SZ + z), r, pose);
+      const away = M(V(0, -3, 0), 0, 'stand');
+      const entry = (pose: Pose = 'stand') => M(V(6.1, 0, SZ + SD / 2 + 0.75), -Math.PI / 2, pose);
+      const doorway = (pose: Pose = 'stand', r = Math.PI) => sm(0.1, 1.95, r, pose);
+      const recep = (pose: Pose) => sm(-0.65, 0.35, 0, pose);
+      const cutSpot = sm(0.3, 0.3, Math.PI, 'cut');
+      const chairSeat = (pose: Pose = 'sit') => sm(0.3, -0.42, Math.PI, pose, 0.11);
+      const tableLie = sm(-2.4, 0.62, 0, 'lie', 0.94);
+      const massageSpot = sm(-1.85, -0.1, -Math.PI / 2, 'massage');
+      const theraIdle = (pose: Pose = 'cross') => sm(-2.9, 0.95, 0.5, pose);
+      const reclineSeat = sm(2.4, -0.1, 0, 'recline', 0.08);
+      const nurseSpot = sm(2.98, -0.15, -Math.PI / 2, 'inject');
+      const nurseIdle = (pose: Pose = 'cross') => sm(1.9, 0.95, -0.4, pose);
+      const waitBench = (pose: Pose = 'sit') => sm(-0.75, -0.9, 0, pose, 0.06);
+      const lunchSeat = [M(V(3.0, 0.06, 2.3), 0, 'sitMug'), M(V(3.6, 0.06, 2.3), 0, 'sitMug'), M(V(4.2, 0.06, 2.3), 0, 'sitMug')];
+      type Key = [number, Mark];
+      const LEAVE = nice ? 17.7 : 18.45;
+      const uteDoor = M(V(1.1 + 0.9, 0, -1.7 + 0.5), 2.2, 'stand');
+      const seatsOn = { roofer: hm(-0.2, 0.12, 1.3, Math.PI, 'sit'), partner: hm(0.95, 0.12, 1.3, Math.PI, 'sit'), kid: hm(0.4, 0.12, -0.1, 0, 'sit') };
+      const seatsOff = { roofer: hm(0.95, 1.82, -0.2, Math.PI, 'laptop'), partner: hm(-1.45, 0.12, 0.4, 0, 'sit'), kid: hm(-0.85, 0.12, 0.4, 0, 'sit') };
+      // A client's visit: in off the street, a moment at the front, the seat, and out again.
+      const visit = (inAt: number, seat: Mark, seatedAt: number, upAt: number, outAt: number, outPose: Pose = 'stand'): Key[] => [[inAt, entry()], [inAt + 0.2, doorway()], [seatedAt, seat], [upAt, seat], [upAt + 0.12, doorway(outPose, 0)], [outAt, doorway(outPose, 0)], [outAt + 0.2, entry()], [outAt + 0.22, away]];
+      const sched = {
+        owner: nice ? [
+          [6.5, away], [7.2, away], [7.22, entry('carry')], [7.45, recep('stand')], [8.4, recep('stand')], [8.5, doorway()], [8.65, cutSpot], [10.55, cutSpot], [10.7, doorway()], [11.0, recep('stand')], [11.5, recep('stand')], [11.6, doorway()], [11.75, cutSpot], [13.2, cutSpot], [13.3, lunchSeat[1]], [14.0, lunchSeat[1]], [14.1, recep('stand')], [15.4, recep('stand')], [15.5, doorway()], [15.65, cutSpot], [16.6, cutSpot], [16.7, sm(0.8, 1.6, Math.PI / 2, 'wave')], [17.15, sm(0.8, 1.6, Math.PI / 2, 'wave')], [17.3, recep('stand')], [17.5, recep('stand')], [17.65, away], [LEAVE + 1.35, away], [LEAVE + 1.4, uteDoor], [LEAVE + 1.7, seatsOn.roofer], [21.5, seatsOn.roofer],
+        ] as Key[] : [
+          [6.5, away], [7.2, away], [7.22, entry('carry')], [7.45, recep('phone')], [8.4, recep('phone')], [8.5, doorway()], [8.65, cutSpot], [9.2, cutSpot], [9.3, recep('phone')], [9.5, recep('phone')], [9.6, cutSpot], [10.75, cutSpot], [10.85, recep('laptop')], [11.45, recep('laptop')], [11.5, recep('phone')], [12.0, recep('phone')], [12.1, cutSpot], [13.3, cutSpot], [13.35, recep('phone')], [14.05, recep('phone')], [14.15, cutSpot], [15.25, cutSpot], [15.35, recep('phone')], [15.7, recep('phone')], [15.8, cutSpot], [16.95, cutSpot], [17.1, recep('laptop')], [18.4, recep('laptop')], [18.43, away], [LEAVE + 1.35, away], [LEAVE + 1.4, uteDoor], [LEAVE + 1.75, seatsOff.roofer], [21.5, seatsOff.roofer],
+        ] as Key[],
+        thera: nice ? [
+          [6.5, away], [7.35, away], [7.37, entry()], [7.6, theraIdle()], [10.45, theraIdle()], [10.55, massageSpot], [11.45, massageSpot], [11.55, theraIdle('wave')], [11.9, theraIdle()], [13.25, theraIdle()], [13.35, lunchSeat[0]], [14.0, lunchSeat[0]], [14.1, theraIdle()], [14.35, theraIdle()], [14.45, massageSpot], [15.4, massageSpot], [15.5, theraIdle()], [17.5, theraIdle()], [17.65, away], [21.5, away],
+        ] as Key[] : [
+          [6.5, away], [7.35, away], [7.37, entry()], [7.6, theraIdle()], [10.4, theraIdle()], [10.5, theraIdle('wait')], [11.5, theraIdle('wait')], [11.6, theraIdle()], [13.25, theraIdle()], [13.35, lunchSeat[0]], [14.0, lunchSeat[0]], [14.1, theraIdle()], [14.35, theraIdle()], [14.45, massageSpot], [15.4, massageSpot], [15.5, theraIdle()], [18.35, theraIdle()], [18.43, away], [21.5, away],
+        ] as Key[],
+        nurse: nice ? [
+          [6.5, away], [7.4, away], [7.42, entry()], [7.65, nurseIdle()], [8.95, nurseIdle()], [9.05, nurseSpot], [9.7, nurseSpot], [9.8, nurseIdle()], [13.25, nurseIdle()], [13.35, lunchSeat[2]], [14.0, lunchSeat[2]], [14.1, nurseIdle()], [14.95, nurseIdle()], [15.05, nurseSpot], [15.75, nurseSpot], [15.85, nurseIdle()], [17.5, nurseIdle()], [17.65, away], [21.5, away],
+        ] as Key[] : [
+          [6.5, away], [7.4, away], [7.42, entry()], [7.65, nurseIdle()], [8.95, nurseIdle()], [9.05, nurseSpot], [9.7, nurseSpot], [9.8, nurseIdle()], [13.25, nurseIdle()], [13.35, lunchSeat[2]], [14.0, lunchSeat[2]], [14.1, nurseIdle()], [14.95, nurseIdle()], [15.05, nurseSpot], [15.75, nurseSpot], [15.85, nurseIdle()], [18.35, nurseIdle()], [18.43, away], [21.5, away],
+        ] as Key[],
+        // Morning hair client: foils in. Without DUSA she sits and waits while the phone is chased.
+        cA: ([[6.5, away], [8.3, away]] as Key[]).concat(visit(8.32, chairSeat(), 8.6, nice ? 10.5 : 10.7, nice ? 10.75 : 10.95)),
+        // The 10:30 massage. With DUSA she comes (the reminder went out). Without, nobody does.
+        cB: nice ? ([[6.5, away], [10.25, away]] as Key[]).concat(visit(10.27, tableLie, 10.55, 11.45, 11.75)) : [[6.5, away], [21.5, away]] as Key[],
+        // The 9am injectables client, both worlds.
+        cC: ([[6.5, away], [8.75, away]] as Key[]).concat(visit(8.77, reclineSeat, 9.05, 9.7, 9.95)),
+        // Midday hair client, both worlds.
+        // Midday hair client. Without DUSA her colour runs hours late: the owner keeps leaving the chair for the phone.
+        cE: ([[6.5, away], [nice ? 11.4 : 11.9, away]] as Key[]).concat(visit(nice ? 11.42 : 11.92, chairSeat(), nice ? 11.75 : 12.1, nice ? 13.15 : 16.9, nice ? 13.4 : 17.15)),
+        // Afternoon massage, both worlds.
+        cF: ([[6.5, away], [14.15, away]] as Key[]).concat(visit(14.17, tableLie, 14.45, 15.4, 15.65)),
+        // Afternoon injectables, both worlds.
+        cH: ([[6.5, away], [14.75, away]] as Key[]).concat(visit(14.77, reclineSeat, 15.05, 15.75, 16.0)),
+        // The 3:30 hair client. With DUSA: on time, done, rebooked, waves goodbye. Without: the chair is still taken, she waits, then leaves and posts.
+        cD: nice ? ([[6.5, away], [15.35, away]] as Key[]).concat(visit(15.37, chairSeat(), 15.65, 16.6, 17.15, 'wave')) : [
+          [6.5, away], [15.35, away], [15.37, entry()], [15.6, doorway()], [15.75, waitBench()], [16.3, waitBench()], [16.35, waitBench('cross')], [16.65, waitBench('cross')], [16.75, doorway('angry', 0)], [17.1, doorway('angry', 0)], [17.15, doorway('phone', 0)], [17.4, doorway('phone', 0)], [17.6, entry()], [17.62, away], [21.5, away],
+        ] as Key[],
+        partner: nice ? [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOn.partner], [21.5, seatsOn.partner]] as Key[] : [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOff.partner], [21.5, seatsOff.partner]] as Key[],
+        kid: nice ? [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOn.kid], [21.5, seatsOn.kid]] as Key[] : [[6.5, away], [LEAVE + 1.4, away], [LEAVE + 1.45, seatsOff.kid], [21.5, seatsOff.kid]] as Key[],
+      };
+      const people: { p: ReturnType<typeof makePerson>; keys: Key[] }[] = [
+        { p: owner, keys: sched.owner }, { p: thera, keys: sched.thera }, { p: nurse, keys: sched.nurse }, { p: cA, keys: sched.cA }, { p: cB, keys: sched.cB }, { p: cC, keys: sched.cC }, { p: cD, keys: sched.cD }, { p: cE, keys: sched.cE }, { p: cF, keys: sched.cF }, { p: cH, keys: sched.cH }, { p: partner, keys: sched.partner }, { p: kid, keys: sched.kid },
+      ];
+      /* What they say. Hours, who, the line, and whether it is said or thought. */
+      type Line = { from: number; to: number; who: ReturnType<typeof makePerson>; text: string; thought?: boolean };
+      const lines: Line[] = nice ? [
+        { from: 7.6, to: 8.0, who: owner, text: 'Three booked overnight. Easy.', thought: true },
+        { from: 9.3, to: 9.6, who: owner, text: 'DUSA has the phone. Keep cutting.', thought: true },
+        { from: 10.6, to: 10.95, who: thera, text: 'Right on time, Mia.' },
+        { from: 11.65, to: 11.95, who: owner, text: "Deposit's in. Nothing to chase." },
+        { from: 13.45, to: 13.9, who: nurse, text: 'Lunch. All of us.' },
+        { from: 16.65, to: 16.95, who: cD, text: 'Loved it. See you in six weeks!' },
+        { from: 17.0, to: 17.25, who: owner, text: 'Already booked. Bye!' },
+        { from: 19.2, to: 19.8, who: kid, text: "Mum's home!" },
+        { from: 19.9, to: 20.6, who: partner, text: 'Dinner is on the table.' },
+      ] : [
+        { from: 7.6, to: 8.0, who: owner, text: 'Three DMs. One went elsewhere.', thought: true },
+        { from: 9.3, to: 9.5, who: owner, text: 'Missed it. No voicemail.', thought: true },
+        { from: 9.32, to: 9.58, who: cA, text: 'Um... my foils?' },
+        { from: 10.6, to: 11.1, who: thera, text: 'No-show. Again.', thought: true },
+        { from: 11.55, to: 11.95, who: owner, text: "Hi Jess, about last week's $180..." },
+        { from: 13.45, to: 13.9, who: owner, text: 'Lunch later. DMs first.', thought: true },
+        { from: 15.4, to: 15.7, who: cE, text: 'Four hours. Still here.', thought: true },
+        { from: 15.85, to: 16.25, who: cD, text: 'I booked 3:30.' },
+        { from: 16.4, to: 16.65, who: cD, text: 'Still waiting.', thought: true },
+        { from: 16.8, to: 17.1, who: cD, text: '40 minutes. Forget it.' },
+        { from: 17.17, to: 17.4, who: cD, text: 'Two stars. Posted.', thought: true },
+        { from: 17.3, to: 17.9, who: owner, text: "Tomorrow's reminders, after this.", thought: true },
+      ];
+      const project = (p: THREE.Object3D, up: number) => { const v = new THREE.Vector3(0, up, 0); p.localToWorld(v); v.project(camera); return v; };
+      const place = (keys: Key[], h: number) => {
+        let i = 0; while (i < keys.length - 2 && h >= keys[i + 1][0]) i++;
+        const [h0, a] = keys[i], [h1, b] = keys[i + 1];
+        const t = clamp01((h - h0) / Math.max(0.0001, h1 - h0));
+        // In or out of the scene: nobody walks up through the ground. Shrink away, pop up at the other end.
+        if (a.p.y < -2.5 || b.p.y < -2.5) { const here = t < 0.5 ? a : b; return { pos: here.p.clone(), rot: here.r, pose: here.pose, speed: 0, nextPose: b.pose, fade: t < 0.5 ? 1 - t * 2 : t * 2 - 1 }; }
+        const moving = a.p.distanceToSquared(b.p) > 0.01;
+        const tt = moving ? smooth(0, 1, t) : t;
+        const pos = a.p.clone().lerp(b.p, tt);
+        let rot = moving ? Math.atan2(b.p.x - a.p.x, b.p.z - a.p.z) : b.r;
+        const speed = moving ? a.p.distanceTo(b.p) / (h1 - h0) : 0;
+        if (moving && t > 0.9) rot = b.r;
+        const keep = a.pose === b.pose && (a.pose === 'phone' || a.pose === 'carry');
+        return { pos, rot, pose: moving ? ((keep ? a.pose : 'walk') as Pose) : b.pose, speed, nextPose: b.pose, fade: 1 };
+      };
+      let lastT = 0, running = false, pingAt = -1e9, shownBeat = -1;
+      const cur = { night: 0, smoko: 0, home: 0, job: 1, driveOff: 0 };
+      const resize = () => {
+        const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false);
+        const aspect = w / h; const halfW = aspect < 1 ? 6.4 : 9.4;
+        camera.left = -halfW; camera.right = halfW; camera.top = halfW / aspect; camera.bottom = -halfW / aspect; camera.updateProjectionMatrix();
+      };
+      const setBeat = (b: number) => { if (b !== shownBeat) { shownBeat = b; pingAt = performance.now(); } };
+
+      const frame = (now: number, h: number, dt: number, b: number) => {
+        setBeat(b);
+        // Sun on its arc, warm at the ends, blue at night.
+        const sunT = clamp01((h - 6) / 13), elev = Math.sin(sunT * Math.PI);
+        const night = smooth(18.2, 19.4, h), dawn = 1 - smooth(6.5, 8.5, h), dusk = smooth(16.5, 18.3, h) * (1 - night);
+        cur.night = night;
+        sun.position.set(Math.cos(Math.PI - sunT * Math.PI) * 10, 2 + elev * 10, 5 + elev * 2);
+        sun.intensity = 0.35 + (elev * 2.0 + dawn * 1.3) * (1 - night);
+        sun.color.set(0xffffff).lerp(new THREE.Color(0xffc090), Math.max(dawn, dusk) * 0.7).lerp(new THREE.Color(0x6f86b8), night);
+        hemi.intensity = 0.3 + (elev * 0.8 + dawn * 0.7) * (1 - night) + 0.05 * night;
+        hemi.color.set(0xdff2ff).lerp(new THREE.Color(0x3b5a8c), night);
+        warmLight.intensity = night * (nice ? 3.4 : 2.6); bulb.material.emissiveIntensity = night * 1.5;
+        coldLight.intensity = nice ? 0 : night * 6;
+        tvScreen.material.emissiveIntensity = night * (nice ? 0.15 : 1.6); tvLight.intensity = night * (nice ? 0 : 4.5); laptopScreen.material.emissiveIntensity = nice ? 0 : night * 2.2;
+        // Lunch things come out at lunchtime.
+        const smokoAmt = smooth(13.25, 13.4, h) * (1 - smooth(14.0, 14.15, h));
+        cur.smoko = damp(cur.smoko, smokoAmt, 8, dt); smoko.scale.setScalar(Math.max(0.001, cur.smoko));
+        // Closing: the car reverses out, heads down the road, and the whole island turns over
+        // under it to the street she lives on; the car keeps driving and turns into her driveway.
+        const T = h - LEAVE;
+        const flip = smooth(0.3, 1.0, T);
+        const homeAmt = smooth(0.55, 0.95, T), jobAmt = 1 - smooth(0.3, 0.6, T);
+        cur.home = damp(cur.home, homeAmt, 10, dt); cur.job = damp(cur.job, jobAmt, 10, dt);
+        // The two sets swap while the island turns: the job sinks into the ground first, then the home rises in place.
+        // Squashed flat, a set still leaves its footprint on the grass, so it also drops below the turf and hides early.
+        job.scale.y = Math.max(0.001, cur.job); job.position.y = -0.3 * (1 - cur.job); job.visible = cur.job > 0.08;
+        home.scale.y = Math.max(0.001, cur.home); home.position.y = -0.3 * (1 - cur.home); home.visible = cur.home > 0.08;
+        let moving = false;
+        if (T > 0 && T <= 0.25) { const k = smooth(0, 0.25, T); ute.position.set(UX, 0, THREE.MathUtils.lerp(UZ, -3.7, k)); ute.rotation.y = -Math.PI / 2; moving = true; }
+        else if (T > 0.25 && T <= 1.05) { const k = smooth(0.25, 1.05, T); ute.position.set(THREE.MathUtils.lerp(UX, 1.1, k), 0, -3.7); ute.rotation.y = THREE.MathUtils.lerp(-Math.PI / 2, -Math.PI, smooth(0.25, 0.4, T)); moving = true; }
+        else if (T > 1.05 && T <= 1.3) { const k = smooth(1.05, 1.3, T); ute.position.set(1.1, 0, THREE.MathUtils.lerp(-3.7, -1.7, k)); ute.rotation.y = THREE.MathUtils.lerp(-Math.PI, -Math.PI / 2, smooth(1.05, 1.15, T)); moving = true; }
+        else if (T > 1.3) { ute.position.set(1.1, 0, -1.7); ute.rotation.y = -Math.PI / 2; }
+        else { ute.position.set(UX, 0, UZ); ute.rotation.y = -Math.PI / 2; }
+        if (moving) wheels.forEach((w) => (w.rotation.y += dt * 12));
+        // People follow their schedules.
+        people.forEach(({ p, keys }) => {
+          const s = place(keys, h);
+          p.g.position.x = s.pos.x; p.g.position.z = s.pos.z; p.g.userData.baseY = s.pos.y;
+          let dr = s.rot - p.g.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); p.g.rotation.y += dr * (1 - Math.exp(-8 * dt));
+          p.setPose(s.pose === 'walk' ? 'stand' : s.pose);
+          p.setWalk(s.speed, !nice && p === owner && s.speed > 0 ? 1 : 0);
+          p.g.scale.setScalar((p.g.userData.scale ?? 1) * Math.max(0.001, s.fade));
+          p.g.visible = s.pos.y > -2.5 && s.fade > 0.02;
+          p.tick(now, dt);
+        });
+        // The island breathes.
+        isle.position.y = Math.sin(now / 2600) * 0.06; isle.rotation.y = 0.35 + Math.PI * flip + Math.sin(now / 5200) * 0.015;
+        // Camera: isometric, sitting low in the frame so the phone up top covers nothing that matters.
+        const rx = (x: number, z: number) => x * Math.cos(0.35) + z * Math.sin(0.35), rz = (x: number, z: number) => -x * Math.sin(0.35) + z * Math.cos(0.35);
+        const hx = -4.0 + 1.4, hz = 0.3 + 1.0;
+        const cx = THREE.MathUtils.lerp(0, rx(hx, hz), cur.home), cz = THREE.MathUtils.lerp(0, rz(hx, hz), cur.home);
+        // On phones the evening banner sits over the top of the stage, so the home is framed lower.
+        const portrait = stage.clientWidth < stage.clientHeight;
+        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 1.1 + cur.home * (portrait ? 2.4 : 0.6), cz); camera.zoom = (portrait ? 1.22 : 1) + cur.home * 0.3; camera.updateProjectionMatrix();
+        renderer.render(scene, camera);
+        // Bubbles for this hour, with their screen anchors.
+        return lines.filter((l) => h >= l.from && h < l.to).map((l) => ({ key: `${nice ? 'on' : 'off'}-${l.from}-${l.text}`, text: l.text, thought: !!l.thought, ndc: project(l.who.g, 2.05) }));
+      };
+      return { frame, resize, start: () => { running = true; }, stop: () => { running = false; }, get running() { return running; } };
+    };
+
+    const worlds = [makeWorld(false, canvases.off), makeWorld(true, canvases.on)];
+    window.addEventListener('resize', () => worlds.forEach((w) => w.resize()));
+
+    /* ── UI per beat: the line under the island, the banner, the timeline ── */
+    const showBeat = (b: number) => {
+      if (b === beat) return;
+      beat = b;
+      stage.setAttribute('data-beat', String(beat));
+      times.forEach((t, i) => { t.classList.toggle('is-on', i === beat); t.setAttribute('aria-selected', i === beat ? 'true' : 'false'); });
+      lines.forEach((l, i) => { if (i === beat) l.removeAttribute('hidden'); else l.setAttribute('hidden', ''); });
+      banner(beat);
+      if (beat < N - 1) clearEnd();
+    };
+    times.forEach((t, i) => t.addEventListener('click', () => { hour = MARKS[i] + 0.001; }));
+    document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+    let hold = false;
+    if (location.hostname === 'localhost') (window as any).__ww = { set: (h: number, w?: 'on' | 'off') => { hour = h; hold = true; if (w) setWorld(w); }, play: () => { hold = false; } };
+
+    /* ── Bubbles: DOM elements that follow heads around the island ── */
+    const bubbleBox = root.querySelector<HTMLElement>('[data-bubbles]')!;
+    const live = new Map<string, HTMLElement>();
+    const drawBubbles = (list: { key: string; text: string; thought: boolean; ndc: THREE.Vector3 }[], now: number) => {
+      const W = stage.clientWidth, H = stage.clientHeight;
+      const keep = new Set<string>();
+      const placed: { x: number; y: number; half: number; hgt: number }[] = [];
+      // Keep bubbles clear of the notification stack (desktop: top-right of the stage).
+      const sr = stage.getBoundingClientRect(), br = bannerList.children.length ? bannerList.getBoundingClientRect() : null;
+      const avoid = br && br.width > 0 ? { l: br.left - sr.left - 10, b: br.bottom - sr.top + 10, wide: br.width > W * 0.7 } : null;
+      list.forEach((b) => {
+        keep.add(b.key);
+        let el = live.get(b.key);
+        if (!el) { el = document.createElement('div'); el.className = `ww__bubble ww__bubble--${world}${b.thought ? ' ww__bubble--thought' : ''}`; el.textContent = b.text; bubbleBox.appendChild(el); live.set(b.key, el); }
+        let x = ((b.ndc.x + 1) / 2) * W, y = ((1 - b.ndc.y) / 2) * H - 8;
+        const half = el.offsetWidth / 2 || 60, hgt = el.offsetHeight || 32;
+        if (avoid && y - hgt < avoid.b && x + half > avoid.l) { if (avoid.wide) y = avoid.b + hgt; else x = avoid.l - half; }
+        x = Math.min(W - half - 6, Math.max(half + 6, x)); y = Math.max(hgt + 14, y);
+        // Two people talking close together: the second bubble steps up above the first.
+        for (const r of placed) { if (Math.abs(r.x - x) < r.half + half && y > r.y - r.hgt - 6 && y - hgt < r.y + 6) y = r.y - r.hgt - 10; }
+        placed.push({ x, y, half, hgt });
+        el.style.left = `${x}px`; el.style.top = `${y}px`;
+      });
+      live.forEach((el, key) => { if (!keep.has(key)) { live.delete(key); el.classList.add('is-out'); el.dataset.out = String(now); } });
+      // Sweep: anything fading for longer than its transition is gone, timers or not.
+      bubbleBox.querySelectorAll<HTMLElement>('.is-out').forEach((el) => { if (now - Number(el.dataset.out || 0) > 320) el.remove(); });
+    };
+
+    /* ── The loop ── */
+    let lastT = 0;
+    const loop = (now: number) => {
+      if (!playing) return;
+      const dt = Math.min(0.05, (now - lastT) / 1000 || 0.016); lastT = now;
+      // The evening lingers: once everyone is home the clock runs at a third of the pace so the ending can be read.
+      if (!paused && !reduced && !hold) { hour += dt * 1000 / LOOP_MS * (DAY1 - DAY0) * (hour >= 20.4 ? 0.33 : 1); if (hour >= DAY1) hour = DAY0; }
+      const b = beatOf(hour);
+      showBeat(b);
+      const next = b < N - 1 ? MARKS[b + 1] : DAY1;
+      bars.forEach((bar, i) => { bar.style.transition = 'none'; bar.style.width = i < b ? '100%' : i === b ? `${clamp01((hour - MARKS[b]) / (next - MARKS[b])) * 100}%` : '0'; });
+      if (hour >= 21.0 && beat === N - 1) endBanner();
+      const active = worlds.map((w) => w.frame(now, hour, dt, b));
+      drawBubbles(active[world === 'on' ? 1 : 0], now);
+      requestAnimationFrame(loop);
+    };
+    const start = () => {
+      if (!started) { started = true; setWorld('off'); }
+      if (playing) return; playing = true; lastT = performance.now(); worlds.forEach((w) => w.resize()); requestAnimationFrame(loop);
+    };
+    const stop = () => { playing = false; };
+    worlds.forEach((w) => w.resize());
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.2 }).observe(stage);
+      // Deep in the stage, the site steps aside: the nav fades so the banners read as the phone's.
+      new IntersectionObserver((entries) => entries.forEach((e) => document.documentElement.classList.toggle('ww-immersed', e.isIntersecting)), { threshold: 0.72 }).observe(stage);
+    } else start();
+  });
+</script>

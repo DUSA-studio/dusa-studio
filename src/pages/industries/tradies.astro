@@ -1,23 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import t from '../../i18n/translations/en.json';
+import RooferDay from '../../components/RooferDay.astro';
 ---
 
 <BaseLayout t={t} title="CRM for Tradies and Trade Businesses | DUSA.studio" description="Never miss a job enquiry again. Automated text-back, quote pipeline, job scheduling, and Google review requests built for tradies. Try DUSA free.">
 
-  <!-- Hero -->
-  <section class="ind-hero section section--dark">
-    <div class="container">
-      <div class="ind-hero__content">
-        <span class="label">Tradies</span>
-        <h1>Win more jobs.<br/>Chase less <span class="gradient-text">paperwork</span>.</h1>
-        <p class="ind-hero__sub">
-          When you are on the tools, leads slip through the cracks. DUSA catches every enquiry, sends quotes, and follows up so you can focus on the work.
-        </p>
-        <a href="/start" class="btn btn--primary">Get Started Free</a>
-      </div>
-    </div>
-  </section>
+  <!-- Hero: a roofer's Tuesday in 3D -->
+  <RooferDay />
 
   <!-- Pain Points -->
   <section class="ind-pain section--dark">

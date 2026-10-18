@@ -1,0 +1,544 @@
+---
+/**
+ * RooferDay.astro
+ *
+ * A roofer's Tuesday, told as a scroll-driven 3D diorama. The visitor scrolls
+ * through the day: the sun crosses the sky, the ute drives from home to the
+ * job and back, the roofer climbs the roof, and a glass phone floats beside
+ * him lighting up each time DUSA does something. Six beats, each a card that
+ * says what happened and what it meant.
+ *
+ * The scene is low-poly Three.js in the brand palette, rendered only while
+ * the section is on screen, with the pixel ratio capped so phones stay cool.
+ * Under prefers-reduced-motion the day plays as a static list.
+ */
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  headingAccent?: string;
+  sub?: string;
+  hint?: string;
+  cta?: string;
+  ctaDemo?: string;
+  beats?: { time: string; title: string; text: string; chip: string }[];
+}
+const {
+  eyebrow = "A roofer's Tuesday",
+  heading = 'You are on the roof.',
+  headingAccent = 'DUSA runs the office.',
+  sub = 'One day, start to finish. Everything the phone does here happens without you touching it.',
+  hint = 'Scroll to move through the day',
+  cta = 'Start free for 14 days',
+  ctaDemo = 'Book a free demo',
+  beats = [
+    { time: '6:40am', title: 'Three enquiries came in overnight. All answered.', text: 'DUSA replied to each one in seconds, asked the right questions and offered times. You wake up to two site visits booked, not three voicemails.', chip: 'Site visit booked · Thu 9:00am' },
+    { time: '9:15am', title: 'On the roof. A new customer calls. You miss it.', text: 'Eight seconds later they get a text from your number: sorry we missed you, what do you need? They reply, and DUSA keeps the conversation going while your hands stay free.', chip: 'New enquiry · Re-roof, Belmont' },
+    { time: '11:30am', title: 'Quote sent from the ute. Deposit paid by lunch.', text: 'You tap a template, DUSA fills in the numbers and sends it. They accept on their phone and pay the deposit. No evening at the kitchen table.', chip: 'Deposit received · $1,200' },
+    { time: '1:30pm', title: "Tomorrow's customer gets a reminder.", text: 'Address, arrival time, what to move off the driveway. If they need to change it, they tap once and your calendar updates itself.', chip: 'Reminder sent · Thu 7:00am' },
+    { time: '4:45pm', title: 'Job done. Invoice sent before you are off the ladder.', text: 'One tap. Paid by card while you pack the ute. The review request goes out two hours later, on its own.', chip: 'Invoice #2041 paid · $4,800' },
+    { time: '7:00pm', title: 'Home for dinner. A five-star review lands.', text: 'DUSA replies to it for you. Tomorrow is already booked. Nothing is waiting for you on the laptop.', chip: 'New 5-star review on Google' },
+  ],
+} = Astro.props;
+const BOOK = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+---
+
+<section class="rd" id="roofer-day" data-rd style={`--beats:${beats.length}`}>
+  <div class="rd__stage">
+    <canvas class="rd__canvas" data-rd-canvas aria-hidden="true"></canvas>
+    <div class="rd__glow" aria-hidden="true"></div>
+
+    <div class="rd__head">
+      <span class="label">{eyebrow}</span>
+      <h1 class="rd__h1">{heading}<br/><span class="gradient-text">{headingAccent}</span></h1>
+      <p class="rd__sub">{sub}</p>
+      <div class="rd__ctas">
+        <a href="/start" data-page="start" class="btn btn--primary">{cta}</a>
+        <a href={BOOK} target="_blank" rel="noopener noreferrer" class="btn btn--outline">{ctaDemo}</a>
+      </div>
+    </div>
+
+    <div class="rd__clock glass-pill" aria-live="polite">
+      <b data-rd-time>{beats[0].time}</b>
+      <span data-rd-sky>Dawn</span>
+    </div>
+
+    <ol class="rd__cards" aria-label={eyebrow}>
+      {beats.map((b, i) => (
+        <li class="rd__card" data-beat={i} aria-current={i === 0 ? 'step' : undefined}>
+          <span class="rd__card-time">{b.time}</span>
+          <p class="rd__card-title">{b.title}</p>
+          <p class="rd__card-text">{b.text}</p>
+          <span class="rd__chip"><i aria-hidden="true"></i>{b.chip}</span>
+        </li>
+      ))}
+    </ol>
+
+    <div class="rd__foot">
+      <div class="rd__dots" aria-hidden="true">
+        {beats.map((b, i) => <span class="rd__dot" data-dot={i}><em>{b.time}</em></span>)}
+      </div>
+      <p class="rd__hint" data-rd-hint>{hint}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rd {
+    position: relative;
+    /* One screen per beat, plus one to settle on the last card. */
+    height: calc(100vh * (var(--beats) + 1));
+    height: calc(100svh * (var(--beats) + 1));
+    margin: 0;
+  }
+  .rd__stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    padding-top: 74px;
+    box-sizing: border-box;
+  }
+  .rd__canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  }
+  .rd__glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 50% at 62% 58%, rgba(78, 216, 194, 0.08), transparent 70%);
+  }
+
+  /* ── Header, top-left ── */
+  .rd__head {
+    position: absolute; left: 0; right: 0; top: 74px;
+    padding: var(--space-lg) var(--space-md) 0;
+    max-width: 1200px; margin: 0 auto;
+    width: 100%; box-sizing: border-box;
+    pointer-events: none;
+  }
+  .rd__head > * { pointer-events: auto; }
+  .rd__h1 { font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.08; margin: 0 0 0.6rem; max-width: 560px; color: var(--warm-white); }
+  :global(html[data-theme="light"]) .rd__h1 { color: var(--deep-black); }
+  .rd__sub { font-size: 1.0625rem; color: rgba(247, 244, 239, 0.68); max-width: 440px; line-height: 1.55; margin: 0 0 var(--space-md); }
+  .rd__ctas { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+
+  /* ── Clock, top-right ── */
+  .rd__clock {
+    position: absolute; right: var(--space-md); top: calc(74px + var(--space-lg));
+    gap: 0.6rem; padding: 0.55rem 1rem;
+  }
+  .rd__clock b { font-family: var(--font-headline); font-weight: 700; font-size: 1.0625rem; letter-spacing: -0.01em; }
+  .rd__clock span { font-size: 0.75rem; color: rgba(247, 244, 239, 0.62); }
+
+  /* ── Cards, right column, one at a time ── */
+  .rd__cards {
+    position: absolute; right: var(--space-md); bottom: 112px;
+    width: min(400px, calc(100% - 2 * var(--space-md)));
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+  }
+  .rd__card {
+    grid-area: 1 / 1;
+    padding: 1.2rem 1.35rem 1.25rem;
+    border-radius: 20px;
+    border: 1px solid rgba(78, 216, 194, 0.22);
+    background: linear-gradient(135deg, rgba(247, 244, 239, 0.08), rgba(247, 244, 239, 0.03));
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.1), 0 20px 50px rgba(0, 0, 0, 0.35);
+    opacity: 0; transform: translateY(18px) scale(0.98);
+    transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+    pointer-events: none;
+  }
+  .rd__card[aria-current="step"] { opacity: 1; transform: none; pointer-events: auto; }
+  .rd__card-time { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--reef-aqua); }
+  .rd__card-title { font-family: var(--font-headline); font-weight: 600; font-size: 1.125rem; line-height: 1.3; color: var(--warm-white); margin: 0.35rem 0 0.4rem; max-width: none; }
+  .rd__card-text { font-size: 0.9375rem; line-height: 1.55; color: rgba(247, 244, 239, 0.7); margin: 0 0 0.85rem; max-width: none; }
+  .rd__chip {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 0.8rem; border-radius: 100px;
+    font-size: 0.8125rem; font-weight: 500; color: var(--warm-white);
+    border: 1px solid rgba(78, 216, 194, 0.35); background: rgba(78, 216, 194, 0.1);
+  }
+  .rd__chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--reef-aqua); box-shadow: 0 0 10px rgba(78, 216, 194, 0.9); animation: rdPing 1.8s ease-in-out infinite; }
+  @keyframes rdPing { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+
+  /* ── Timeline dots and hint, bottom ── */
+  .rd__foot {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0 var(--space-md) var(--space-md);
+    max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-md);
+  }
+  .rd__dots { display: flex; gap: 0.5rem; align-items: center; }
+  .rd__dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: rgba(247, 244, 239, 0.18); transition: background 0.3s, transform 0.3s; }
+  .rd__dot em { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font-style: normal; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: rgba(247, 244, 239, 0.55); opacity: 0; transition: opacity 0.3s; white-space: nowrap; }
+  .rd__dot.is-on { background: var(--reef-aqua); transform: scale(1.3); box-shadow: 0 0 12px rgba(78, 216, 194, 0.6); }
+  .rd__dot.is-on em { opacity: 1; }
+  .rd__dot.is-past { background: rgba(78, 216, 194, 0.45); }
+  .rd__hint { margin: 0; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); transition: opacity 0.4s; max-width: none; }
+  .rd__hint.is-done { opacity: 0; }
+
+  /* ── Phones: header on top, scene in the middle, card as a bottom sheet ── */
+  @media (max-width: 900px) {
+    .rd__head { padding-top: var(--space-md); }
+    .rd__h1 { font-size: clamp(1.5rem, 6.5vw, 2rem); max-width: none; }
+    .rd__sub { display: none; }
+    .rd__ctas { display: none; }
+    .rd__clock { top: auto; bottom: calc(100% - 74px - var(--space-md) - 2.6rem); right: var(--space-sm); display: none; }
+    .rd__cards { right: var(--space-sm); left: var(--space-sm); width: auto; bottom: 64px; }
+    .rd__card { padding: 1rem 1.05rem 1.05rem; }
+    .rd__card-title { font-size: 1rem; }
+    .rd__card-text { font-size: 0.875rem; }
+    .rd__foot { padding: 0 var(--space-sm) var(--space-sm); }
+    .rd__hint { display: none; }
+  }
+  @media (max-width: 900px) and (orientation: landscape) {
+    .rd__cards { width: min(380px, 50%); left: auto; }
+  }
+
+  /* ── Reduced motion: the whole day as a list, no scroll theatre ── */
+  @media (prefers-reduced-motion: reduce) {
+    .rd { height: auto; }
+    .rd__stage { position: relative; height: auto; overflow: visible; padding: calc(74px + var(--space-xl)) var(--space-md) var(--space-xl); }
+    .rd__canvas, .rd__glow, .rd__foot, .rd__clock { display: none; }
+    .rd__head { position: static; padding: 0 0 var(--space-lg); }
+    .rd__cards { position: static; width: auto; max-width: 720px; display: grid; gap: var(--space-sm); }
+    .rd__card { grid-area: auto; opacity: 1; transform: none; pointer-events: auto; }
+  }
+
+  /* ── Light mode ── */
+  :global(html[data-theme="light"]) .rd__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .rd__clock span { color: rgba(12, 14, 20, 0.62); }
+  :global(html[data-theme="light"]) .rd__card { border-color: rgba(26, 58, 92, 0.25); background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.5)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 44px rgba(12, 14, 20, 0.1); }
+  :global(html[data-theme="light"]) .rd__card-time { color: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .rd__card-title { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .rd__card-text { color: rgba(12, 14, 20, 0.68); }
+  :global(html[data-theme="light"]) .rd__chip { color: var(--deep-black); border-color: rgba(26, 58, 92, 0.3); background: rgba(26, 58, 92, 0.07); }
+  :global(html[data-theme="light"]) .rd__chip i { background: var(--deep-ocean); box-shadow: none; }
+  :global(html[data-theme="light"]) .rd__dot { background: rgba(12, 14, 20, 0.15); }
+  :global(html[data-theme="light"]) .rd__dot.is-on { background: var(--deep-ocean); box-shadow: none; }
+  :global(html[data-theme="light"]) .rd__dot.is-past { background: rgba(26, 58, 92, 0.45); }
+  :global(html[data-theme="light"]) .rd__dot em, :global(html[data-theme="light"]) .rd__hint { color: rgba(12, 14, 20, 0.55); }
+  :global(html[data-theme="light"]) .rd__glow { background: radial-gradient(60% 50% at 62% 58%, rgba(26, 58, 92, 0.08), transparent 70%); }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  const root = document.querySelector<HTMLElement>('[data-rd]');
+  const canvas = root?.querySelector<HTMLCanvasElement>('[data-rd-canvas]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (root && canvas && !reduced) {
+    const stage = root.querySelector<HTMLElement>('.rd__stage')!;
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-beat]')];
+    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
+    const timeEl = root.querySelector<HTMLElement>('[data-rd-time]')!;
+    const skyEl = root.querySelector<HTMLElement>('[data-rd-sky]')!;
+    const hintEl = root.querySelector<HTMLElement>('[data-rd-hint]')!;
+    const BEATS = cards.length;
+    const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
+
+    /* ── Palette ── */
+    const C = {
+      ocean: 0x1a3a5c, mist: 0x6aaacf, aqua: 0x4ed8c2, warm: 0xf7f4ef, ink: 0x0c0e14,
+      ground: 0x1b2334, groundLight: 0xdfe6ec, road: 0x1f2633, roadLight: 0xb9c3cc,
+      wall: 0xe9e4da, roof: 0x234a73, roof2: 0x2b5a8a, trim: 0x9fb3c4, wood: 0xc9a27a, hivis: 0x4ed8c2,
+    };
+
+    /* ── Renderer, scene, camera ── */
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+    renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x223044, 0.9);
+    scene.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.camera.left = -9; sun.shadow.camera.right = 9;
+    sun.shadow.camera.top = 9; sun.shadow.camera.bottom = -9;
+    sun.shadow.camera.near = 1; sun.shadow.camera.far = 40;
+    sun.shadow.bias = -0.0015;
+    scene.add(sun, sun.target);
+    const ambientNight = new THREE.AmbientLight(0x3b5a8c, 0);
+    scene.add(ambientNight);
+
+    const mat = (color: number, extra: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
+      new THREE.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0.05, ...extra });
+    const box = (w: number, h: number, d: number, m: THREE.Material, x = 0, y = 0, z = 0, shadow = true) => {
+      const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
+      o.position.set(x, y, z); o.castShadow = shadow; o.receiveShadow = true; return o;
+    };
+
+    /* ── Ground: a soft disc with an aqua rim, and a road across it ── */
+    const groundMat = mat(C.ground, { roughness: 1 });
+    const ground = new THREE.Mesh(new THREE.CircleGeometry(8.2, 64), groundMat);
+    ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true;
+    scene.add(ground);
+    const rim = new THREE.Mesh(new THREE.RingGeometry(8.15, 8.3, 96), new THREE.MeshBasicMaterial({ color: C.aqua, transparent: true, opacity: 0.35, side: THREE.DoubleSide }));
+    rim.rotation.x = -Math.PI / 2; rim.position.y = 0.005; scene.add(rim);
+    const roadMat = mat(C.road, { roughness: 0.95 });
+    const road = new THREE.Mesh(new THREE.PlaneGeometry(14.5, 1.6), roadMat);
+    road.rotation.x = -Math.PI / 2; road.position.set(0, 0.01, 1.9); road.receiveShadow = true; scene.add(road);
+    for (let i = -6; i <= 6; i += 1.2) {
+      const dash = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.06), new THREE.MeshBasicMaterial({ color: C.trim, transparent: true, opacity: 0.5 }));
+      dash.rotation.x = -Math.PI / 2; dash.position.set(i, 0.015, 1.9); scene.add(dash);
+    }
+
+    /* ── Houses ── */
+    const windowMat = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0xffc97a, emissiveIntensity: 0, roughness: 0.3 });
+    const house = (x: number, z: number, w: number, d: number, h: number, roofColor: number, ry = 0) => {
+      const g = new THREE.Group();
+      g.add(box(w, h, d, mat(C.wall), 0, h / 2, 0));
+      // Gable roof: a triangular prism.
+      const shape = new THREE.Shape();
+      shape.moveTo(-w / 2 - 0.25, 0); shape.lineTo(w / 2 + 0.25, 0); shape.lineTo(0, w * 0.42); shape.closePath();
+      const roofGeo = new THREE.ExtrudeGeometry(shape, { depth: d + 0.5, bevelEnabled: false });
+      roofGeo.translate(0, 0, -(d + 0.5) / 2);
+      const roof = new THREE.Mesh(roofGeo, mat(roofColor, { roughness: 0.6 }));
+      roof.position.y = h; roof.castShadow = true; roof.receiveShadow = true;
+      g.add(roof);
+      g.add(box(0.3, 0.5, 0.3, mat(C.trim), w * 0.28, h + w * 0.3, 0));
+      g.add(box(0.5, 0.9, 0.06, mat(C.ocean), 0, 0.45, d / 2 + 0.03));
+      const win = (wx: number) => g.add(box(0.5, 0.45, 0.06, windowMat, wx, h * 0.62, d / 2 + 0.03, false));
+      win(-w * 0.3); win(w * 0.3);
+      g.position.set(x, 0, z); g.rotation.y = ry;
+      return { g, roof, h, w, d };
+    };
+    const home = house(-3.6, -0.6, 2.2, 1.8, 1.2, C.roof);
+    const job = house(3.6, -0.9, 2.6, 2.1, 1.3, C.roof2);
+    scene.add(home.g, job.g);
+    // Ladder on the job house, and a few tiles stacked beside it.
+    const ladder = new THREE.Group();
+    const rail = mat(C.wood);
+    ladder.add(box(0.05, 2.2, 0.05, rail, -0.2, 1.1, 0), box(0.05, 2.2, 0.05, rail, 0.2, 1.1, 0));
+    for (let i = 0; i < 7; i++) ladder.add(box(0.4, 0.04, 0.04, rail, 0, 0.25 + i * 0.3, 0));
+    ladder.position.set(3.6 - 0.9, 0, -0.9 + 1.05 + 0.2); ladder.rotation.x = -0.28;
+    scene.add(ladder);
+    scene.add(box(0.7, 0.25, 0.5, mat(C.roof2), 5.4, 0.125, 0.4));
+    // Trees: a few soft blobs.
+    const tree = (x: number, z: number, s = 1) => {
+      const g = new THREE.Group();
+      g.add(box(0.14, 0.5 * s, 0.14, mat(C.wood), 0, 0.25 * s, 0));
+      const leaf = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42 * s, 1), mat(0x2d5f5a, { roughness: 0.9 }));
+      leaf.position.y = 0.72 * s; leaf.castShadow = true; g.add(leaf);
+      g.position.set(x, 0, z); scene.add(g);
+    };
+    tree(-6.2, -2.2, 1.1); tree(-1.2, -3.4, 0.9); tree(6.4, -3, 1.2); tree(1.6, -3.6, 0.8); tree(-5.6, 3.8, 0.9); tree(5.8, 3.9, 1);
+
+    /* ── Ute ── */
+    const ute = new THREE.Group();
+    const uteBody = mat(C.ocean, { roughness: 0.5, metalness: 0.2 });
+    // Cab at +x, so heading 0 drives toward +x (home to job) nose first.
+    ute.add(box(1.7, 0.36, 0.8, uteBody, 0, 0.42, 0));
+    ute.add(box(0.7, 0.42, 0.78, uteBody, 0.35, 0.8, 0));
+    ute.add(box(0.72, 0.2, 0.7, mat(0x9fd8ea, { roughness: 0.2, metalness: 0.3 }), 0.35, 0.84, 0, false));
+    ute.add(box(0.85, 0.14, 0.78, mat(C.ink), -0.45, 0.66, 0));
+    ute.add(box(0.5, 0.05, 0.3, mat(C.aqua, { emissive: C.aqua, emissiveIntensity: 0.4 }), -0.1, 0.61, 0, false));
+    const wheelGeo = new THREE.CylinderGeometry(0.17, 0.17, 0.14, 16);
+    const wheelMat = mat(C.ink, { roughness: 0.9 });
+    const wheels: THREE.Mesh[] = [];
+    for (const [wx, wz] of [[-0.55, 0.42], [-0.55, -0.42], [0.55, 0.42], [0.55, -0.42]]) {
+      const w = new THREE.Mesh(wheelGeo, wheelMat); w.rotation.x = Math.PI / 2; w.position.set(wx, 0.17, wz); w.castShadow = true; ute.add(w); wheels.push(w);
+    }
+    const head1 = new THREE.PointLight(0xfff1cc, 0, 4); head1.position.set(0.8, 0.5, 0.25); ute.add(head1);
+    const head2 = head1.clone(); head2.position.z = -0.25; ute.add(head2);
+    scene.add(ute);
+
+    /* ── Roofer ── */
+    const roofer = new THREE.Group();
+    roofer.add(box(0.26, 0.4, 0.2, mat(C.hivis, { emissive: C.aqua, emissiveIntensity: 0.15 }), 0, 0.5, 0));
+    roofer.add(box(0.24, 0.32, 0.18, mat(0x3a4150), 0, 0.16, 0));
+    const headM = new THREE.Mesh(new THREE.SphereGeometry(0.12, 14, 12), mat(0xd9b08c)); headM.position.y = 0.82; headM.castShadow = true; roofer.add(headM);
+    roofer.add(box(0.3, 0.06, 0.3, mat(C.warm), 0, 0.93, 0));
+    const arm = box(0.08, 0.34, 0.08, mat(C.hivis), 0.2, 0.62, 0);
+    arm.geometry.translate(0, -0.14, 0); roofer.add(arm);
+    const hammer = box(0.05, 0.3, 0.05, mat(C.wood), 0, -0.36, 0); arm.add(hammer);
+    hammer.add(box(0.16, 0.07, 0.08, mat(0x8a94a6), 0, -0.14, 0));
+    scene.add(roofer);
+
+    /* ── Phone: a floating glass slab with a glowing screen ── */
+    const phone = new THREE.Group();
+    const phoneGlass = new THREE.MeshPhysicalMaterial({ color: 0x8fb6c9, transparent: true, opacity: 0.55, roughness: 0.15, metalness: 0.1, clearcoat: 1, clearcoatRoughness: 0.1 });
+    const screenMat = new THREE.MeshStandardMaterial({ color: 0x0c0e14, emissive: C.aqua, emissiveIntensity: 0.6, roughness: 0.3 });
+    phone.add(box(0.46, 0.9, 0.06, phoneGlass, 0, 0, 0, false));
+    const screen = box(0.38, 0.78, 0.02, screenMat, 0, 0, 0.03, false); phone.add(screen);
+    const ping = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.018, 8, 48), new THREE.MeshBasicMaterial({ color: C.aqua, transparent: true, opacity: 0 }));
+    phone.add(ping);
+    const phoneLight = new THREE.PointLight(C.aqua, 0.6, 3); phoneLight.position.set(0, 0, 0.4); phone.add(phoneLight);
+    scene.add(phone);
+
+    /* ── Sun and moon on their arc, and a field of stars ── */
+    const sunBall = new THREE.Mesh(new THREE.SphereGeometry(0.42, 20, 16), new THREE.MeshBasicMaterial({ color: 0xffd58a }));
+    const moonBall = new THREE.Mesh(new THREE.SphereGeometry(0.3, 20, 16), new THREE.MeshBasicMaterial({ color: 0xdde7f5 }));
+    scene.add(sunBall, moonBall);
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(220 * 3);
+    for (let i = 0; i < 220; i++) {
+      const a = Math.random() * Math.PI * 2, r = 12 + Math.random() * 10, y = 4 + Math.random() * 9;
+      starPos.set([Math.cos(a) * r, y, Math.sin(a) * r], i * 3);
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.06, transparent: true, opacity: 0 }));
+    scene.add(stars);
+
+    /* ── Helpers ── */
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const smooth = (a: number, b: number, v: number) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const col = new THREE.Color();
+    const mix = (a: number, b: number, t: number) => col.set(a).lerp(new THREE.Color(b), clamp01(t));
+
+    const HOME_X = -3.6, JOB_X = 3.6, ROAD_Z = 1.9;
+    // Ute timeline in day progress p: at home, drive out, parked at job, drive home, parked.
+    const uteX = (p: number) => {
+      if (p < 0.07) return HOME_X;
+      if (p < 0.2) return lerp(HOME_X, JOB_X, smooth(0.07, 0.2, p));
+      if (p < 0.8) return JOB_X;
+      if (p < 0.92) return lerp(JOB_X, HOME_X, smooth(0.8, 0.92, p));
+      return HOME_X;
+    };
+    const isDriving = (p: number) => (p >= 0.07 && p < 0.2) || (p >= 0.8 && p < 0.92);
+    const onRoof = (p: number) => smooth(0.2, 0.25, p) * (1 - smooth(0.76, 0.8, p));
+
+    /* ── Scroll state ── */
+    let progress = 0, beat = -1, running = false, lastT = 0, dark = !isLight();
+    const applyTheme = () => {
+      dark = !isLight();
+      groundMat.color.set(dark ? C.ground : C.groundLight);
+      roadMat.color.set(dark ? C.road : C.roadLight);
+      rim.material.opacity = dark ? 0.35 : 0.5;
+      hemi.groundColor.set(dark ? 0x223044 : 0x9aa7b5);
+    };
+    applyTheme();
+    new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    const setBeat = (b: number) => {
+      if (b === beat) return;
+      beat = b;
+      cards.forEach((c, i) => { if (i === b) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current'); });
+      dots.forEach((d, i) => { d.classList.toggle('is-on', i === b); d.classList.toggle('is-past', i < b); });
+      timeEl.textContent = cards[b].querySelector('.rd__card-time')?.textContent || '';
+      hintEl.classList.toggle('is-done', b > 0);
+      pingAt = performance.now();
+    };
+    let pingAt = -1e9;
+
+    const readScroll = () => {
+      const rect = root.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = rect.height - vh;
+      progress = clamp01(-rect.top / Math.max(1, total));
+      const b = Math.min(BEATS - 1, Math.floor(progress * BEATS));
+      setBeat(b);
+    };
+
+    const resize = () => {
+      const w = stage.clientWidth, h = stage.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      // Keep a fixed horizontal field of view so the whole diorama fits at any width.
+      const hFov = (w < 900 ? 62 : 46) * Math.PI / 180;
+      camera.fov = (2 * Math.atan(Math.tan(hFov / 2) / camera.aspect)) * 180 / Math.PI;
+      camera.updateProjectionMatrix();
+    };
+
+    /* ── Frame ── */
+    const tmp = new THREE.Vector3();
+    const frame = (now: number) => {
+      if (!running) return;
+      const dt = Math.min(0.05, (now - lastT) / 1000 || 0); lastT = now;
+      const p = progress;
+      const narrow = stage.clientWidth < 900;
+
+      // Time of day: 6:30am → 7:30pm across the scroll.
+      const hour = 6.5 + p * 13;
+      const sunT = clamp01((hour - 6) / 13);
+      const elev = Math.sin(sunT * Math.PI);
+      const night = smooth(17.6, 19.2, hour);
+      const dawn = 1 - smooth(6.5, 8.5, hour);
+      const dusk = smooth(16, 18, hour) * (1 - night);
+      sun.position.set(Math.cos(Math.PI - sunT * Math.PI) * 10, 2 + elev * 9, -5 + elev * 2);
+      sun.intensity = 1.1 + elev * 2.6 * (1 - night);
+      sun.color.copy(mix(0xfff4e0, 0xffa06a, Math.max(dawn, dusk)));
+      hemi.intensity = 0.9 + elev * 0.8 * (1 - night) + 0.1 * night;
+      hemi.color.copy(mix(dark ? 0xb9d8ff : 0xffffff, 0x3b5a8c, night));
+      ambientNight.intensity = night * 0.9;
+      sunBall.position.set(Math.cos(Math.PI - sunT * Math.PI) * 9, 1 + elev * 7.5, -7);
+      (sunBall.material as THREE.MeshBasicMaterial).color.copy(mix(0xffd58a, 0xff8c5a, Math.max(dawn, dusk)));
+      sunBall.visible = elev > 0.02 && night < 0.95;
+      const moonT = clamp01((hour - 17.5) / 2.5);
+      moonBall.position.set(-6 + moonT * 2, 1 + moonT * 7, -7.5);
+      moonBall.visible = night > 0.05;
+      (stars.material as THREE.PointsMaterial).opacity = night * (dark ? 0.9 : 0.3);
+      windowMat.emissiveIntensity = night * 1.6 + dawn * 0.5;
+      head1.intensity = head2.intensity = (night > 0.2 || dawn > 0.4) && isDriving(p) ? 2.5 : 0;
+      skyEl.textContent = hour < 8 ? 'Dawn' : hour < 12 ? 'Morning' : hour < 17 ? 'Afternoon' : hour < 18.6 ? 'Dusk' : 'Evening';
+
+      // Camera: a slow orbit around the diorama, pulling in a touch at night.
+      const ang = -0.95 + p * 1.75;
+      const radius = (narrow ? 13 : 18) - night * 1.2;
+      camera.position.set(Math.sin(ang) * radius, (narrow ? 6.4 : 8.6) - night * 0.6, Math.cos(ang) * radius);
+      // On phones the card sits over the lower half, so the diorama is framed higher.
+      camera.lookAt(0, narrow ? -1.6 : 0.6, 0);
+
+      // Ute.
+      const ux = uteX(p);
+      ute.position.set(ux, 0, ROAD_Z);
+      const heading = p < 0.5 ? 0 : Math.PI;
+      ute.rotation.y = heading;
+      if (isDriving(p)) wheels.forEach((w) => (w.rotation.y += dt * 9));
+      // Parking nudge: off the road beside the house when stopped.
+      const parkedAtJob = smooth(0.19, 0.21, p) * (1 - smooth(0.79, 0.81, p));
+      const parkedHome = 1 - smooth(0.06, 0.08, p) + smooth(0.91, 0.93, p);
+      ute.position.z = ROAD_Z + 0.75 * Math.min(1, parkedAtJob + clamp01(parkedHome));
+
+      // Roofer: on the roof while the job runs, by the ute otherwise, hidden while driving.
+      const r = onRoof(p);
+      const driving = isDriving(p);
+      roofer.visible = !driving;
+      if (!driving) {
+        const atHome = p < 0.07 || p >= 0.92;
+        const baseX = atHome ? HOME_X + 1.6 : JOB_X - 1.9;
+        const baseZ = ROAD_Z - 0.55;
+        const roofX = JOB_X - 0.3, roofY = job.h + 0.42, roofZ = -0.9 + 0.55;
+        roofer.position.set(lerp(baseX, roofX, r), lerp(0, roofY, r), lerp(baseZ, roofZ, r));
+        roofer.rotation.y = lerp(-0.4, -1.1, r);
+        arm.rotation.x = r > 0.5 ? -0.9 + Math.sin(now / 160) * 0.7 : 0.1;
+      }
+
+      // Phone: floats beside the roofer, or above the ute while driving.
+      tmp.copy(driving ? ute.position : roofer.position);
+      const bob = Math.sin(now / 900) * 0.06;
+      phone.position.set(tmp.x + (driving ? 0 : 0.55), tmp.y + (driving ? 1.5 : 1.35) + bob, tmp.z + (driving ? 0 : 0.2));
+      phone.lookAt(camera.position);
+      const since = (now - pingAt) / 1000;
+      const pulse = since < 1.6 ? 1 - since / 1.6 : 0;
+      ping.scale.setScalar(1 + (1 - pulse) * 0.9);
+      (ping.material as THREE.MeshBasicMaterial).opacity = pulse * 0.9;
+      screenMat.emissiveIntensity = 0.45 + pulse * 1.4 + night * 0.4;
+      phoneLight.intensity = 0.4 + pulse * 2 + night * 0.6;
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(frame);
+    };
+
+    /* ── Lifecycle: render only while on screen ── */
+    const start = () => { if (running) return; running = true; lastT = performance.now(); resize(); readScroll(); requestAnimationFrame(frame); };
+    const stop = () => { running = false; };
+    new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.01 }).observe(root);
+    window.addEventListener('scroll', readScroll, { passive: true });
+    window.addEventListener('resize', () => { resize(); readScroll(); });
+    resize(); readScroll(); renderer.render(scene, camera);
+  } else if (root && reduced) {
+    root.querySelectorAll('[data-beat]').forEach((c) => c.setAttribute('aria-current', 'step'));
+  }
+</script>

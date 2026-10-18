@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^5.0.0",
-    "three": "^0.186.1"
+    "astro": "^5.0.0"
   },
   "devDependencies": {
     "esbuild": "^0.27.7"

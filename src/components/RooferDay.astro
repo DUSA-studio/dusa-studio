@@ -2,678 +2,594 @@
 /**
  * RooferDay.astro
  *
- * Two roofers, the same Tuesday, side by side. One runs his business the old
- * way: the phone rings in the ute while he is on the roof, quotes go out at
- * 10pm, invoices on Sunday, and at 9pm he is still at the kitchen table.
- * The other has DUSA: every call is answered, every quote and invoice goes
- * out from the roof, and he is home for dinner. Same street, same job, same
- * hours of daylight. Only the admin is different, and over a year that is
- * the nicer house, the picket fence and the newer ute.
+ * A roofer's Tuesday, with and without DUSA, in one picture. An iPhone sits
+ * in the middle of an illustrated scene and a divider runs straight through
+ * it. Left of the line is the day without DUSA (red: missed, later, overdue),
+ * right of the line is the same day with it (green: replied, booked, paid).
+ * Drag the line and red turns green.
  *
- * One scroll drives both dioramas (Three.js, two viewports on one canvas).
- * Each roofer carries a phone that pulses when something lands on it and
- * floats up to the corner of its half when he cannot reach it. Six beats,
- * each a pair of cards: what happened without DUSA, what happened with it.
- * Reduced motion gets the cards as a plain list.
+ * The day plays on its own: six moments on a timeline under the phone,
+ * advancing every few seconds, tap any time to jump. Each moment swaps the
+ * notifications on both halves of the phone and nudges the scene (sun, ute,
+ * evening). The last moment is 9pm: a laptop at the kitchen table on the
+ * left, the family on the deck on the right.
+ *
+ * All HTML/SVG/CSS. No 3D, no scroll-jacking. The two halves are the same
+ * markup rendered twice, the right copy clipped by the slider, so every row
+ * lines up and the line cuts through each one.
  */
-interface Beat { time: string; off: { title: string; text: string; note: string }; on: { title: string; text: string; note: string } }
+interface Moment { time: string; off: { app: string; title: string; body: string; line: string }; on: { app: string; title: string; body: string; line: string } }
 interface Props {
   eyebrow?: string;
   heading?: string;
   headingAccent?: string;
+  sub?: string;
   labelOff?: string;
   labelOn?: string;
-  hint?: string;
+  date?: string;
   cta?: string;
   ctaDemo?: string;
-  beats?: Beat[];
+  moments?: Moment[];
 }
 const {
-  eyebrow = 'Two roofers. Same Tuesday.',
-  heading = 'Same jobs, same hours of daylight.',
-  headingAccent = 'One of them has DUSA.',
+  eyebrow = "A roofer's Tuesday",
+  heading = 'Slide to see your Tuesday',
+  headingAccent = 'with DUSA.',
+  sub = 'Same roofer, same jobs, same phone. Only the admin is different.',
   labelOff = 'Without DUSA',
   labelOn = 'With DUSA',
-  hint = 'Scroll through the day',
+  date = 'Tuesday 21 October',
   cta = 'Start free for 14 days',
   ctaDemo = 'Book a free demo',
-  beats = [
-    { time: '6:40am',
-      off: { title: 'Three voicemails from last night.', text: 'He will call them back at lunch, if he remembers. Two have already rung the next roofer on the list.', note: 'Missed call (3)' },
-      on:  { title: 'Three enquiries, all answered overnight.', text: 'DUSA replied in seconds, asked the right questions and offered times. He wakes up to two site visits booked.', note: 'Site visit booked, Thu 9am' } },
-    { time: '9:15am',
-      off: { title: 'On the roof. The phone rings in the ute.', text: 'It goes to voicemail. The customer does not leave one. That job is gone.', note: 'Missed call' },
-      on:  { title: 'On the roof. The call is missed, the customer is not.', text: 'Eight seconds later they get a text from his number. They reply, and DUSA keeps the conversation going while his hands stay on the tools.', note: 'Reply sent in 8 sec' } },
-    { time: '11:30am',
-      off: { title: '"I will send the quote tonight."', text: 'It goes out at 10pm from the kitchen table, typed with two thumbs, if it goes out at all.', note: 'Quote: later' },
-      on:  { title: 'Quote sent from the ute. Deposit paid by lunch.', text: 'He taps a template, DUSA fills in the numbers and sends it. They accept on their phone and pay the deposit.', note: 'Deposit received $1,200' } },
-    { time: '1:30pm',
-      off: { title: "Tomorrow's customer has no idea he is coming.", text: 'He meant to text them. Half of them will not be ready, and one will not be home.', note: 'Reminder: not sent' },
-      on:  { title: "Tomorrow's customer gets a reminder.", text: 'Address, arrival time, what to move off the driveway. If they need to change it, one tap and his calendar updates itself.', note: 'Reminder sent, Thu 7am' } },
-    { time: '4:45pm',
-      off: { title: 'Job done. Invoice on Sunday. Paid in three weeks.', text: 'He stays on the roof until the light goes, because the next job is already behind.', note: 'Invoice: pending' },
-      on:  { title: 'Invoice sent before he is off the ladder.', text: 'One tap. Paid by card while he packs the ute. The review request goes out two hours later on its own.', note: 'Invoice #2041 paid $4,800' } },
-    { time: '9:00pm',
-      off: { title: 'Kitchen table. Laptop. Quotes, invoices, follow-ups.', text: 'The kids are asleep. Same again tomorrow.', note: '4 follow-ups overdue' } ,
-      on:  { title: 'Home by 5:30. Dinner with the family.', text: 'A five-star review landed and DUSA replied to it. Tomorrow is already booked. Nothing is waiting on the laptop.', note: 'New 5-star review on Google' } },
+  moments = [
+    { time: '6:40',
+      off: { app: 'Phone', title: 'Voicemail (3)', body: 'Sam, Priya, unknown. Call back at lunch.', line: 'Three voicemails. Two have already rung the next roofer.' },
+      on:  { app: 'DUSA', title: 'Site visits booked', body: 'Sam, Thu 9:00am. Priya, Fri 7:30am.', line: 'Three enquiries answered overnight. Two site visits booked.' } },
+    { time: '9:15',
+      off: { app: 'Phone', title: 'Missed call', body: 'Dave M. No voicemail.', line: 'Phone rang in the ute. Job gone.' },
+      on:  { app: 'DUSA', title: 'Replied in 8 seconds', body: 'Dave M: "Re-roof in Belmont, can you quote?"', line: 'Texted back in 8 seconds. Job booked.' } },
+    { time: '11:30',
+      off: { app: 'Reminders', title: 'Send Dave the quote', body: 'Tonight. If there is time.', line: 'Quote goes out at 10pm from the kitchen table.' },
+      on:  { app: 'DUSA', title: 'Deposit received', body: '$1,200 from Dave M. Job booked Monday.', line: 'Quote sent from the ute. Deposit paid by lunch.' } },
+    { time: '1:30',
+      off: { app: 'Reminders', title: "Text tomorrow's customer", body: 'Harbour St. Confirm 7am.', line: "Tomorrow's customer has no idea he is coming." },
+      on:  { app: 'DUSA', title: 'Reminder sent', body: 'Thu 7:00am, 14 Harbour St. Confirmed.', line: "Tomorrow's customer is confirmed. Driveway cleared." } },
+    { time: '4:45',
+      off: { app: 'Reminders', title: 'Invoice Harbour St', body: 'Sunday. Paid in three weeks.', line: 'Invoice on Sunday. Paid in three weeks.' },
+      on:  { app: 'DUSA', title: 'Invoice #2041 paid', body: '$4,800 by card. Review request queued.', line: 'Invoice sent from the ladder. Paid before the ute is packed.' } },
+    { time: '9:00',
+      off: { app: 'Reminders', title: '4 follow-ups overdue', body: 'Quotes, invoices, Priya, Sam.', line: 'Kitchen table. Laptop. Same again tomorrow.' },
+      on:  { app: 'DUSA', title: 'New 5-star review', body: '"Booked in minutes." Reply posted.', line: 'Home by 5:30. Review landed, replied. Tomorrow booked.' } },
   ],
 } = Astro.props;
 const BOOK = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+const pm = (i: number) => i >= 3;
+const clock = (m: Moment, i: number) => m.time;
+const ampm = (i: number) => (pm(i) ? 'pm' : 'am');
+
+/* One scene, drawn once, stamped into both layers. The `only-off` and
+   `only-on` classes hide parts per layer: the laptop glow versus the family,
+   the bin versus the picket fence. */
+const scene = `
+<svg class="ww__svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs>
+    <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" class="sky1"/><stop offset="1" class="sky2"/>
+    </linearGradient>
+    <radialGradient id="sunG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ffd58a" stop-opacity="0.9"/><stop offset="1" stop-color="#ffd58a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="warmG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#ffb36b" stop-opacity="0.55"/><stop offset="1" stop-color="#ffb36b" stop-opacity="0"/></radialGradient>
+    <radialGradient id="coldG" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#9fd8ff" stop-opacity="0.55"/><stop offset="1" stop-color="#9fd8ff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect class="sky" width="1200" height="675" fill="url(#skyG)"/>
+  <g class="stars">
+    <circle cx="120" cy="80" r="1.6"/><circle cx="300" cy="140" r="1.2"/><circle cx="520" cy="60" r="1.4"/><circle cx="700" cy="120" r="1"/><circle cx="900" cy="70" r="1.6"/><circle cx="1050" cy="160" r="1.2"/><circle cx="1130" cy="60" r="1"/><circle cx="200" cy="210" r="1"/><circle cx="820" cy="190" r="1.3"/><circle cx="1000" cy="250" r="0.9"/>
+  </g>
+  <g class="sun"><circle class="sunHalo" r="110" fill="url(#sunG)"/><circle r="26" class="sunBall"/></g>
+  <g class="moon"><circle r="18" class="moonBall"/></g>
+  <path class="hill" d="M0 470 C 200 430 380 440 600 455 C 820 470 1000 440 1200 460 L1200 675 L0 675 Z"/>
+  <path class="road" d="M0 560 L1200 540 L1200 600 L0 620 Z"/>
+  <path class="roadLine" d="M40 590 L160 587 M240 585 L360 582 M440 580 L560 577 M640 575 L760 572 M840 570 L960 567 M1040 565 L1160 562"/>
+
+  <!-- Job site: house, ladder, roofer on the roof -->
+  <g class="job">
+    <g class="tree" transform="translate(150 455)"><path d="M0 0v-40"/><circle cy="-70" r="34"/></g>
+    <g class="tree" transform="translate(1080 445)"><path d="M0 0v-36"/><circle cy="-62" r="30"/></g>
+    <g class="house" transform="translate(330 300)">
+      <path class="wall" d="M-120 160 V40 H120 V160 Z"/>
+      <path class="roof" d="M-150 44 L0 -60 L150 44 Z"/>
+      <path d="M-150 44 H150"/>
+      <rect x="-88" y="70" width="40" height="36" rx="3" class="win"/>
+      <rect x="48" y="70" width="40" height="36" rx="3" class="win"/>
+      <rect x="-18" y="96" width="36" height="64" rx="3" class="door"/>
+      <rect x="60" y="-40" width="20" height="40" class="chim"/>
+      <!-- ladder on the side wall -->
+      <g class="ladder" transform="translate(-150 160) rotate(-20)">
+        <path d="M-9 0 V-150 M9 0 V-150"/>
+        <path d="M-9 -20 H9 M-9 -45 H9 M-9 -70 H9 M-9 -95 H9 M-9 -120 H9"/>
+      </g>
+      <!-- roofer, sitting astride the ridge -->
+      <g class="roofer" transform="translate(-40 -40)">
+        <circle cx="0" cy="-30" r="10"/>
+        <path class="hat" d="M-13 -36 Q0 -48 13 -36"/>
+        <path d="M0 -20 V8 M0 -8 L-14 10 M0 8 L-10 26 M0 8 L12 24"/>
+        <g class="arm"><path d="M0 -14 L16 -2"/><path class="hammer" d="M16 -2 L26 -12 M22 -16 L30 -8"/></g>
+      </g>
+      <!-- the phone, down in the ute: rings on the left only -->
+    </g>
+    <g class="ute" transform="translate(840 560)">
+      <path class="body" d="M-110 -6 H-20 V-46 H40 L70 -16 H110 V-6 Q118 -6 118 2 V14 H-118 V2 Q-118 -6 -110 -6 Z"/>
+      <path class="glass" d="M-12 -40 H34 L58 -16 H-12 Z"/>
+      <circle cx="-72" cy="16" r="16"/><circle cx="72" cy="16" r="16"/>
+      <circle cx="-72" cy="16" r="6"/><circle cx="72" cy="16" r="6"/>
+      <path class="rack only-on" d="M-18 -50 H42"/>
+      <g class="ring only-off" transform="translate(-60 -30)"><path d="M14 -10 a16 16 0 0 1 0 20"/><path d="M22 -18 a28 28 0 0 1 0 36"/></g>
+      <g class="reply only-on" transform="translate(-60 -34)"><path d="M-26 -8 h40 a6 6 0 0 1 6 6 v12 a6 6 0 0 1 -6 6 h-28 l-8 7 v-7 h-4 a6 6 0 0 1 -6 -6 v-12 a6 6 0 0 1 6 -6z"/><path d="M-18 2 h22 M-18 8 h14"/></g>
+    </g>
+    <g class="customer only-off" transform="translate(990 540)">
+      <circle cy="-70" r="9"/><path d="M0 -61 V-32 M0 -50 L-12 -36 M0 -50 L12 -38 M0 -32 L-9 -8 M0 -32 L9 -8"/>
+      <path class="walk" d="M24 -56 l10 -6 M24 -44 l12 -2 M24 -32 l10 6"/>
+    </g>
+  </g>
+
+  <!-- Home, 9pm: left is a laptop at the table, right is the family on the deck -->
+  <g class="home">
+    <g class="tree" transform="translate(120 450)"><path d="M0 0v-44"/><circle cy="-76" r="36"/></g>
+    <g class="tree only-on" transform="translate(1010 455)"><path d="M0 0v-34"/><circle cy="-60" r="28"/></g>
+    <g class="house" transform="translate(300 300)">
+      <path class="wall" d="M-140 160 V40 H140 V160 Z"/>
+      <path class="roof" d="M-170 44 L0 -70 L170 44 Z"/>
+      <path d="M-170 44 H170"/>
+      <rect x="-104" y="70" width="44" height="38" rx="3" class="win winCold only-off"/>
+      <rect x="-104" y="70" width="44" height="38" rx="3" class="win winWarm only-on"/>
+      <rect x="60" y="70" width="44" height="38" rx="3" class="win winWarm"/>
+      <rect x="-20" y="96" width="40" height="64" rx="3" class="door doorNice"/>
+      <rect x="70" y="-46" width="22" height="46" class="chim"/>
+      <!-- deck and table out front -->
+      <path class="deck" d="M-170 160 H190 V176 H-170 Z"/>
+      <g class="table" transform="translate(40 140)">
+        <path d="M-40 0 H40 M-32 0 V28 M32 0 V28"/>
+        <!-- without: laptop, cold glow -->
+        <g class="only-off"><circle class="glow cold" cx="0" cy="-10" r="60" fill="url(#coldG)" stroke="none"/><path class="laptop" d="M-18 0 V-22 H14 V0 M-20 0 H16"/></g>
+        <!-- with: lamp, warm glow, plates -->
+        <g class="only-on"><circle class="glow warm" cx="0" cy="-14" r="80" fill="url(#warmG)" stroke="none"/><path d="M0 0 V-26 M-10 -26 H10 L6 -36 H-6 Z"/><circle cx="-22" cy="-3" r="5"/><circle cx="22" cy="-3" r="5"/></g>
+      </g>
+      <!-- the roofer at the table (both), partner and kid (right only) -->
+      <g class="person" transform="translate(-10 122)"><circle cy="-30" r="9"/><path d="M0 -21 V4 M0 -12 L-12 0 M0 -12 L12 -2 M0 4 L-8 20 M0 4 L8 20"/></g>
+      <g class="person only-on" transform="translate(92 122)"><circle cy="-30" r="9"/><path d="M0 -21 V4 M0 -12 L12 0 M0 -12 L-12 -2 M0 4 L-8 20 M0 4 L8 20"/></g>
+      <g class="person only-on" transform="translate(50 134)"><circle cy="-20" r="6.5"/><path d="M0 -13 V2 M0 -7 L-8 0 M0 -7 L8 0 M0 2 L-5 12 M0 2 L5 12"/></g>
+    </g>
+    <!-- picket fence, right only -->
+    <g class="fence only-on" transform="translate(300 500)">
+      <path d="M-220 0 H220 M-220 -14 H220"/>
+      <path d="M-210 4 V-26 l5 -6 l5 6 V4 M-180 4 V-26 l5 -6 l5 6 V4 M-150 4 V-26 l5 -6 l5 6 V4 M-120 4 V-26 l5 -6 l5 6 V4 M-90 4 V-26 l5 -6 l5 6 V4 M-60 4 V-26 l5 -6 l5 6 V4 M70 4 V-26 l5 -6 l5 6 V4 M100 4 V-26 l5 -6 l5 6 V4 M130 4 V-26 l5 -6 l5 6 V4 M160 4 V-26 l5 -6 l5 6 V4 M190 4 V-26 l5 -6 l5 6 V4"/>
+    </g>
+    <g class="bin only-off" transform="translate(470 500)"><path d="M-14 0 V-30 H14 V0 Z M-18 -30 H18"/></g>
+    <g class="ute" transform="translate(880 560)">
+      <path class="body" d="M-110 -6 H-20 V-46 H40 L70 -16 H110 V-6 Q118 -6 118 2 V14 H-118 V2 Q-118 -6 -110 -6 Z"/>
+      <path class="glass" d="M-12 -40 H34 L58 -16 H-12 Z"/>
+      <circle cx="-72" cy="16" r="16"/><circle cx="72" cy="16" r="16"/>
+      <circle cx="-72" cy="16" r="6"/><circle cx="72" cy="16" r="6"/>
+      <path class="rack only-on" d="M-18 -50 H42"/>
+    </g>
+  </g>
+</svg>`;
 ---
 
-<section class="rd" id="roofer-day" data-rd style={`--beats:${beats.length}`}>
-  <div class="rd__stage">
-    <div class="rd__sky" aria-hidden="true"></div>
-    <canvas class="rd__canvas" data-rd-canvas aria-hidden="true"></canvas>
-    <div class="rd__divider" aria-hidden="true"></div>
-
-    <div class="rd__head">
+<section class="ww section section--dark" id="roofer-day" data-ww>
+  <div class="container">
+    <div class="ww__header">
       <span class="label">{eyebrow}</span>
-      <h1 class="rd__h1">{heading} <span class="gradient-text">{headingAccent}</span></h1>
+      <h1 class="ww__h1">{heading} <span class="gradient-text">{headingAccent}</span></h1>
+      <p class="ww__sub">{sub}</p>
     </div>
 
-    <div class="rd__clock glass-pill" aria-live="polite">
-      <b data-rd-time>{beats[0].time}</b>
-      <span data-rd-sky>Dawn</span>
-    </div>
-
-    <div class="rd__halves">
+    <div class="ww__stage" data-stage data-beat="0" style="--x: 50%">
       {(['off', 'on'] as const).map((side) => (
-        <div class={`rd__half rd__half--${side}`}>
-          <span class={`rd__tag rd__tag--${side}`}><i aria-hidden="true"></i>{side === 'off' ? labelOff : labelOn}</span>
-          <ol class="rd__cards" aria-label={side === 'off' ? labelOff : labelOn}>
-            {beats.map((b, i) => (
-              <li class="rd__card" data-beat={i} aria-current={i === 0 ? 'step' : undefined}>
-                <span class="rd__card-time">{b.time}</span>
-                <p class="rd__card-title">{b[side].title}</p>
-                <p class="rd__card-text">{b[side].text}</p>
-                <span class="rd__chip"><i aria-hidden="true"></i>{b[side].note}</span>
-              </li>
-            ))}
-          </ol>
+        <div class={`ww__layer ww__layer--${side}`} aria-hidden={side === 'off' ? undefined : 'true'}>
+          <Fragment set:html={scene.split('skyG').join('skyG-' + side).split('sunG').join('sunG-' + side).split('warmG').join('warmG-' + side).split('coldG').join('coldG-' + side)} />
+          <div class={`ph ph--${side}`}>
+            <div class="ph__frame">
+              <div class="ph__screen">
+                <div class="ph__island"></div>
+                <div class="ph__lock">
+                  <span class="ph__date">{date}</span>
+                  <span class="ph__clock" data-clock>{moments[0].time}</span>
+                </div>
+                <ol class="ph__notifs">
+                  {moments.map((m, i) => (
+                    <li class="ph__notif" data-notif={i} hidden={i !== 0 ? true : undefined}>
+                      <span class={`ph__icon ph__icon--${side}`}>
+                        {side === 'on'
+                          ? <img src="/dusa-logo.webp" alt="" width="20" height="20" loading="lazy" decoding="async" />
+                          : <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>}
+                      </span>
+                      <span class="ph__body">
+                        <span class="ph__row"><b>{m[side].app}</b><em>now</em></span>
+                        <span class="ph__title">{m[side].title}</span>
+                        <span class="ph__text">{m[side].body}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+                <div class="ph__home"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <span class="ww__tag ww__tag--off"><i aria-hidden="true"></i>{labelOff}</span>
+      <span class="ww__tag ww__tag--on"><i aria-hidden="true"></i>{labelOn}</span>
+
+      <div class="ww__handle" data-handle role="slider" tabindex="0" aria-label="Slide between without and with DUSA" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+        <span class="ww__line"></span>
+        <span class="ww__grip" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="ww__timeline" role="tablist" aria-label="Moments of the day">
+      {moments.map((m, i) => (
+        <button type="button" class={`ww__time${i === 0 ? ' is-on' : ''}`} role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-time={i}>
+          <span class="ww__time-bar" aria-hidden="true"><span></span></span>
+          <b>{clock(m, i)}<small>{ampm(i)}</small></b>
+        </button>
+      ))}
+    </div>
+
+    <div class="ww__lines" aria-live="polite">
+      {moments.map((m, i) => (
+        <div class="ww__pair" data-pair={i} hidden={i !== 0 ? true : undefined}>
+          <p class="ww__line-off"><i aria-hidden="true"></i>{m.off.line}</p>
+          <p class="ww__line-on"><i aria-hidden="true"></i>{m.on.line}</p>
         </div>
       ))}
     </div>
 
-    <div class="rd__foot">
-      <div class="rd__dots" aria-hidden="true">
-        {beats.map((b, i) => <span class="rd__dot" data-dot={i}><em>{b.time}</em></span>)}
-      </div>
-      <p class="rd__hint" data-rd-hint>{hint}</p>
-      <div class="rd__ctas">
-        <a href="/start" data-page="start" class="btn btn--primary">{cta}</a>
-        <a href={BOOK} target="_blank" rel="noopener noreferrer" class="btn btn--outline">{ctaDemo}</a>
-      </div>
+    <div class="ww__ctas">
+      <a href="/start" data-page="start" class="btn btn--primary">{cta}</a>
+      <a href={BOOK} target="_blank" rel="noopener noreferrer" class="btn btn--outline">{ctaDemo}</a>
     </div>
   </div>
 </section>
 
 <style>
-  .rd {
+  .ww { position: relative; padding-top: calc(74px + var(--space-xl)); overflow: hidden; }
+  .ww__header { text-align: center; max-width: 680px; margin: 0 auto var(--space-lg); }
+  .ww__h1 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1; margin: 0 0 0.6rem; color: var(--warm-white); }
+  .ww__sub { font-size: 1.0625rem; color: rgba(247, 244, 239, 0.66); margin: 0 auto; max-width: 520px; }
+
+  /* ── Stage: two layers, the right one clipped at --x ── */
+  .ww__stage {
     position: relative;
-    height: calc(100vh * (var(--beats) + 1));
-    height: calc(100svh * (var(--beats) + 1));
-    margin: 0;
-    --day: 0;
-  }
-  .rd__stage {
-    position: sticky; top: 0;
-    height: 100vh; height: 100svh;
+    width: 100%; max-width: 1100px; margin: 0 auto;
+    aspect-ratio: 16 / 10;
+    border-radius: 28px;
     overflow: hidden;
-    box-sizing: border-box;
+    background: var(--deep-black);
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.06), 0 30px 80px rgba(0, 0, 0, 0.35);
+    touch-action: pan-y;
+    user-select: none; -webkit-user-select: none;
+    cursor: ew-resize;
   }
-  .rd__sky {
-    position: absolute; inset: 0; pointer-events: none;
-    opacity: var(--day);
-    background: linear-gradient(180deg, rgba(106, 170, 207, 0.55) 0%, rgba(106, 170, 207, 0.22) 55%, rgba(78, 216, 194, 0.06) 100%);
-    transition: opacity 0.2s linear;
-  }
-  .rd__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .rd__divider {
-    position: absolute; left: 50%; top: 110px; bottom: 120px; width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(247, 244, 239, 0.22) 20%, rgba(247, 244, 239, 0.22) 80%, transparent);
-    pointer-events: none;
-  }
+  .ww__layer { position: absolute; inset: 0; }
+  .ww__layer--on { clip-path: inset(0 0 0 var(--x)); }
+  :global(.ww__svg) { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
-  /* ── Header, centred top ── */
-  .rd__head {
-    position: absolute; left: 0; right: 0; top: 74px;
-    padding: var(--space-md) var(--space-md) 0;
-    text-align: center; pointer-events: none;
+  /* The world: line art in warm white, with the sky and sun following the clock. */
+  :global(.ww__svg) { --sky1: #0e1a2b; --sky2: #1a2a40; --ink: rgba(247, 244, 239, 0.78); --fill: rgba(247, 244, 239, 0.05); }
+  .ww__layer--on :global(.ww__svg) { --ink: rgba(247, 244, 239, 0.88); }
+  :global(.ww__svg .sky1) { stop-color: var(--sky1); transition: stop-color 1.4s ease; }
+  :global(.ww__svg .sky2) { stop-color: var(--sky2); transition: stop-color 1.4s ease; }
+  :global(.ww__svg :where(path, circle:not(.glow):not(.sunHalo), rect:not(.sky))) { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  :global(.ww__svg .sky) { stroke: none; }
+  :global(.ww__svg .stars circle) { fill: rgba(247, 244, 239, 0.9); stroke: none; opacity: 0; transition: opacity 1.4s; }
+  :global(.ww__svg .hill) { fill: rgba(78, 216, 194, 0.08); stroke: rgba(247, 244, 239, 0.28); transition: fill 1.4s; }
+  :global(.ww__svg .road) { fill: rgba(247, 244, 239, 0.05); stroke: rgba(247, 244, 239, 0.22); }
+  :global(.ww__svg .roadLine) { stroke: rgba(247, 244, 239, 0.3); stroke-dasharray: none; }
+  :global(.ww__svg .wall) { fill: var(--fill); }
+  :global(.ww__svg .roof) { fill: rgba(106, 170, 207, 0.14); }
+  .ww__layer--on :global(.ww__svg .roof) { fill: rgba(78, 216, 194, 0.16); }
+  :global(.ww__svg .win) { fill: rgba(12, 14, 20, 0.5); transition: fill 1.4s; }
+  :global(.ww__svg .door) { fill: rgba(26, 58, 92, 0.6); }
+  .ww__layer--on :global(.ww__svg .doorNice) { fill: rgba(78, 216, 194, 0.55); }
+  :global(.ww__svg .chim) { fill: var(--fill); }
+  :global(.ww__svg .deck) { fill: rgba(201, 162, 122, 0.18); stroke: rgba(201, 162, 122, 0.6); }
+  :global(.ww__svg .tree circle) { fill: rgba(47, 106, 98, 0.35); }
+  :global(.ww__svg .ute .body) { fill: rgba(26, 58, 92, 0.6); }
+  .ww__layer--on :global(.ww__svg .ute .body) { fill: rgba(106, 170, 207, 0.55); }
+  :global(.ww__svg .ute .glass) { fill: rgba(159, 216, 234, 0.35); }
+  :global(.ww__svg .sunBall) { fill: #ffd58a; stroke: none; }
+  :global(.ww__svg .moonBall) { fill: #dde7f5; stroke: none; }
+  :global(.ww__svg .sun), :global(.ww__svg .moon) { transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.4s; }
+  :global(.ww__svg .glow) { stroke: none; }
+  :global(.ww__svg .hat) { stroke-width: 3; }
+  :global(.ww__svg .ring), :global(.ww__svg .reply) { stroke: var(--accent); }
+  :global(.ww__svg .ring path) { animation: wwRing 1.6s ease-out infinite; }
+  :global(.ww__svg .ring path:nth-child(2)) { animation-delay: 0.3s; }
+  @keyframes wwRing { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+  :global(.ww__svg .arm) { transform-box: fill-box; transform-origin: 2% 12%; animation: wwHammer 0.9s ease-in-out infinite; }
+  @keyframes wwHammer { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-28deg); } }
+  :global(.ww__svg .customer) { animation: wwWalk 6s linear infinite; }
+  @keyframes wwWalk { 0%, 30% { transform: translate(990px, 540px); opacity: 1; } 100% { transform: translate(1240px, 540px); opacity: 0; } }
+  .ww__layer--off { --accent: #ff6b5e; }
+  .ww__layer--on { --accent: #4ed8c2; }
+
+  /* Only-left / only-right parts */
+  .ww__layer--off :global(.ww__svg .only-on) { display: none; }
+  .ww__layer--on :global(.ww__svg .only-off) { display: none; }
+
+  /* The two scenes: job by day, home at 9pm */
+  :global(.ww__svg .home) { opacity: 0; transition: opacity 1s; }
+  :global(.ww__svg .job) { opacity: 1; transition: opacity 1s; }
+  .ww__stage[data-beat="5"] :global(.ww__svg .home) { opacity: 1; }
+  .ww__stage[data-beat="5"] :global(.ww__svg .job) { opacity: 0; }
+
+  /* Clock-driven sky and sun. The sun walks an arc from left to right. */
+  .ww__stage[data-beat="0"] :global(.ww__svg) { --sky1: #2b2f4a; --sky2: #8d6b7a; }
+  .ww__stage[data-beat="1"] :global(.ww__svg) { --sky1: #4a86b8; --sky2: #a9cfe4; }
+  .ww__stage[data-beat="2"] :global(.ww__svg) { --sky1: #4f93c7; --sky2: #bcdcef; }
+  .ww__stage[data-beat="3"] :global(.ww__svg) { --sky1: #4a8cc0; --sky2: #b6d6ea; }
+  .ww__stage[data-beat="4"] :global(.ww__svg) { --sky1: #3d5f8f; --sky2: #e2a06b; }
+  .ww__stage[data-beat="5"] :global(.ww__svg) { --sky1: #070b14; --sky2: #16233a; }
+  .ww__stage[data-beat="0"] :global(.ww__svg .sun) { transform: translate(140px, 440px); }
+  .ww__stage[data-beat="1"] :global(.ww__svg .sun) { transform: translate(330px, 200px); }
+  .ww__stage[data-beat="2"] :global(.ww__svg .sun) { transform: translate(600px, 90px); }
+  .ww__stage[data-beat="3"] :global(.ww__svg .sun) { transform: translate(820px, 130px); }
+  .ww__stage[data-beat="4"] :global(.ww__svg .sun) { transform: translate(1060px, 380px); }
+  .ww__stage[data-beat="5"] :global(.ww__svg .sun) { transform: translate(1200px, 560px); opacity: 0; }
+  :global(.ww__svg .moon) { transform: translate(1000px, 700px); opacity: 0; }
+  .ww__stage[data-beat="5"] :global(.ww__svg .moon) { transform: translate(980px, 120px); opacity: 1; }
+  .ww__stage[data-beat="5"] :global(.ww__svg .stars circle) { opacity: 1; }
+  .ww__stage[data-beat="5"] :global(.ww__svg .winWarm) { fill: rgba(255, 201, 122, 0.85); }
+  .ww__stage[data-beat="5"] :global(.ww__svg .winCold) { fill: rgba(159, 216, 255, 0.75); }
+  .ww__stage[data-beat="5"] :global(.ww__svg .hill) { fill: rgba(78, 216, 194, 0.04); }
+  /* Without DUSA is a little greyer. The line makes the point before the words do. */
+  .ww__layer--off :global(.ww__svg) { filter: saturate(0.55) brightness(0.82); }
+
+  /* ── The iPhone ── */
+  .ph {
+    position: absolute; left: 50%; top: 50%;
+    width: 256px; aspect-ratio: 9 / 19.5;
+    transform: translate(-50%, -50%);
+    font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif;
   }
-  .rd__head > * { pointer-events: auto; }
-  .rd__head .label { margin-bottom: 0.5rem; }
-  .rd__h1 { font-size: clamp(1.35rem, 2.3vw, 1.9rem); line-height: 1.2; margin: 0 auto; max-width: 720px; color: var(--warm-white); }
+  .ph__frame {
+    position: absolute; inset: 0;
+    border-radius: 48px;
+    background: linear-gradient(160deg, #3a3c43, #1a1b20 40%, #26272d 100%);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.22),
+      inset 0 0 0 4px #121318,
+      0 1px 0 rgba(255, 255, 255, 0.12),
+      0 40px 90px rgba(0, 0, 0, 0.6),
+      0 0 60px rgba(78, 216, 194, 0.08);
+  }
+  /* side buttons */
+  .ph__frame::before { content: ''; position: absolute; left: -3px; top: 22%; width: 3px; height: 26px; border-radius: 2px 0 0 2px; background: #2c2d33; box-shadow: 0 46px 0 #2c2d33, 0 86px 0 #2c2d33; }
+  .ph__frame::after { content: ''; position: absolute; right: -3px; top: 30%; width: 3px; height: 52px; border-radius: 0 2px 2px 0; background: #2c2d33; }
+  .ph__screen {
+    position: absolute; inset: 9px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: radial-gradient(120% 70% at 50% 0%, #27405e 0%, #0f1a2b 55%, #0a0f18 100%);
+    color: #fff;
+  }
+  .ph--on .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #1c4a4f 0%, #0f2432 55%, #0a0f18 100%); }
+  .ph--off .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #3b2c35 0%, #1a1420 55%, #0b0a10 100%); }
+  .ph__island { position: absolute; left: 50%; top: 12px; width: 92px; height: 28px; transform: translateX(-50%); border-radius: 20px; background: #000; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
+  .ph__lock { position: absolute; left: 0; right: 0; top: 52px; text-align: center; line-height: 1; }
+  .ph__date { display: block; font-size: 13px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.8); }
+  .ph__clock { display: block; font-size: 68px; font-weight: 600; letter-spacing: -0.03em; color: #fff; margin-top: 4px; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25); }
+  .ph__notifs { position: absolute; left: 10px; right: 10px; top: 168px; margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+  .ph__notif {
+    display: grid; grid-template-columns: 36px 1fr; gap: 10px; align-items: start;
+    padding: 10px 12px 11px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
+    animation: phIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ph__notif[hidden] { display: none; }
+  @keyframes phIn { from { opacity: 0; transform: translateY(-10px) scale(0.97); } to { opacity: 1; transform: none; } }
+  .ph__icon { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; overflow: hidden; }
+  .ph__icon--off { background: linear-gradient(160deg, #ff6b5e, #d93b2f); color: #fff; }
+  .ph__icon--on { background: linear-gradient(160deg, #35e0b8, #1a3a5c); }
+  .ph__icon img { width: 22px; height: 22px; }
+  .ph__body { display: grid; gap: 2px; min-width: 0; }
+  .ph__row { display: flex; justify-content: space-between; align-items: baseline; }
+  .ph__row b { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.92); }
+  .ph__row em { font-style: normal; font-size: 11px; color: rgba(255, 255, 255, 0.55); }
+  .ph__title { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.25; }
+  .ph--off .ph__title { color: #ffb3aa; }
+  .ph--on .ph__title { color: #8ff2e1; }
+  .ph__text { font-size: 12px; color: rgba(255, 255, 255, 0.78); line-height: 1.3; }
+  .ph__home { position: absolute; left: 50%; bottom: 8px; width: 110px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform: translateX(-50%); }
 
-  /* ── Clock, top-right ── */
-  .rd__clock { position: absolute; right: var(--space-md); top: calc(74px + var(--space-md)); gap: 0.6rem; padding: 0.5rem 0.95rem; }
-  .rd__clock b { font-family: var(--font-headline); font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
-  .rd__clock span { font-size: 0.75rem; color: rgba(247, 244, 239, 0.62); }
-
-  /* ── The two halves ── */
-  .rd__halves { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; pointer-events: none; }
-  .rd__half { position: relative; }
-  .rd__tag {
-    position: absolute; left: var(--space-md); top: calc(74px + var(--space-md));
+  /* ── Labels, handle ── */
+  .ww__tag {
+    position: absolute; top: 14px;
     display: inline-flex; align-items: center; gap: 0.5rem;
     padding: 0.4rem 0.85rem; border-radius: 100px;
-    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em;
-    border: 1px solid rgba(247, 244, 239, 0.16); background: rgba(12, 14, 20, 0.45);
+    font-size: 0.8125rem; font-weight: 600;
+    border: 1px solid rgba(247, 244, 239, 0.16); background: rgba(12, 14, 20, 0.5);
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    color: rgba(247, 244, 239, 0.8);
+    color: rgba(247, 244, 239, 0.9); pointer-events: none;
   }
-  .rd__tag i { width: 8px; height: 8px; border-radius: 50%; background: rgba(247, 244, 239, 0.4); }
-  .rd__tag--on { color: var(--warm-white); border-color: rgba(78, 216, 194, 0.4); }
-  .rd__tag--on i { background: var(--reef-aqua); box-shadow: 0 0 10px rgba(78, 216, 194, 0.8); }
-  .rd__half--on .rd__tag { left: auto; right: var(--space-md); top: calc(74px + var(--space-md) + 3rem); }
+  .ww__tag i { width: 8px; height: 8px; border-radius: 50%; }
+  .ww__tag--off { left: 14px; }
+  .ww__tag--off i { background: #ff6b5e; box-shadow: 0 0 10px rgba(255, 107, 94, 0.8); }
+  .ww__tag--on { right: 14px; }
+  .ww__tag--on i { background: #30d158; box-shadow: 0 0 10px rgba(48, 209, 88, 0.8); }
 
-  .rd__cards {
-    position: absolute; left: var(--space-md); right: var(--space-md); bottom: 128px;
-    max-width: 420px; margin: 0 auto;
-    list-style: none; padding: 0;
-    display: grid;
+  .ww__handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 0; outline: none; }
+  .ww__line { position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: rgba(247, 244, 239, 0.9); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 18px rgba(247, 244, 239, 0.5); }
+  .ww__grip {
+    position: absolute; left: 50%; top: 50%; width: 52px; height: 52px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%; display: grid; place-items: center;
+    color: var(--deep-black);
+    background: linear-gradient(160deg, #ffffff, #d9e4ea);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 #fff;
+    transition: transform 0.2s;
   }
-  .rd__card {
-    grid-area: 1 / 1;
-    padding: 1.05rem 1.2rem 1.1rem;
-    border-radius: 18px;
-    border: 1px solid rgba(247, 244, 239, 0.14);
-    background: linear-gradient(135deg, rgba(12, 14, 20, 0.62), rgba(12, 14, 20, 0.45));
-    backdrop-filter: blur(16px) saturate(140%); -webkit-backdrop-filter: blur(16px) saturate(140%);
-    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.08), 0 20px 50px rgba(0, 0, 0, 0.35);
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
-    pointer-events: none;
-  }
-  .rd__half--on .rd__card { border-color: rgba(78, 216, 194, 0.3); }
-  .rd__card[aria-current="step"] { opacity: 1; transform: none; pointer-events: auto; }
-  .rd__card-time { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); }
-  .rd__half--on .rd__card-time { color: var(--reef-aqua); }
-  .rd__card-title { font-family: var(--font-headline); font-weight: 600; font-size: 1.0625rem; line-height: 1.3; color: var(--warm-white); margin: 0.3rem 0 0.35rem; max-width: none; }
-  .rd__card-text { font-size: 0.875rem; line-height: 1.5; color: rgba(247, 244, 239, 0.68); margin: 0 0 0.75rem; max-width: none; }
-  .rd__chip {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.35rem 0.75rem; border-radius: 100px;
-    font-size: 0.78rem; font-weight: 500; color: rgba(247, 244, 239, 0.85);
-    border: 1px solid rgba(247, 244, 239, 0.16); background: rgba(247, 244, 239, 0.05);
-  }
-  .rd__chip i { width: 7px; height: 7px; border-radius: 50%; background: #e8907a; box-shadow: 0 0 8px rgba(232, 144, 122, 0.8); }
-  .rd__half--on .rd__chip { color: var(--warm-white); border-color: rgba(78, 216, 194, 0.35); background: rgba(78, 216, 194, 0.1); }
-  .rd__half--on .rd__chip i { background: var(--reef-aqua); box-shadow: 0 0 10px rgba(78, 216, 194, 0.9); animation: rdPing 1.8s ease-in-out infinite; }
-  @keyframes rdPing { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+  .ww__stage.is-dragging .ww__grip, .ww__handle:focus-visible .ww__grip { transform: translate(-50%, -50%) scale(1.08); }
+  .ww__handle:focus-visible .ww__line { background: var(--reef-aqua); }
+  .ww__stage.is-nudging .ww__handle { transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .ww__stage.is-nudging .ww__layer--on { transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
 
-  /* ── Foot: dots, hint, CTAs ── */
-  .rd__foot {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 0 var(--space-md) var(--space-md);
-    display: flex; align-items: center; justify-content: space-between; gap: var(--space-md);
-  }
-  .rd__dots { display: flex; gap: 0.5rem; align-items: center; }
-  .rd__dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: rgba(247, 244, 239, 0.18); transition: background 0.3s, transform 0.3s; }
-  .rd__dot em { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); font-style: normal; font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: rgba(247, 244, 239, 0.55); opacity: 0; transition: opacity 0.3s; white-space: nowrap; }
-  .rd__dot.is-on { background: var(--reef-aqua); transform: scale(1.3); box-shadow: 0 0 12px rgba(78, 216, 194, 0.6); }
-  .rd__dot.is-on em { opacity: 1; }
-  .rd__dot.is-past { background: rgba(78, 216, 194, 0.45); }
-  .rd__hint { margin: 0; font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 239, 0.5); transition: opacity 0.4s; max-width: none; }
-  .rd__hint.is-done { opacity: 0; }
-  .rd__ctas { display: flex; gap: var(--space-sm); }
+  /* ── Timeline ── */
+  .ww__timeline { display: flex; gap: 0.5rem; max-width: 1100px; margin: var(--space-md) auto 0; }
+  .ww__time { flex: 1; background: none; border: 0; padding: 0.25rem 0 0; cursor: pointer; color: rgba(247, 244, 239, 0.5); font: inherit; text-align: left; }
+  .ww__time b { display: block; font-family: var(--font-headline); font-weight: 600; font-size: 0.95rem; margin-top: 0.45rem; transition: color 0.3s; }
+  .ww__time b small { font-size: 0.7em; margin-left: 1px; font-weight: 500; }
+  .ww__time-bar { display: block; height: 3px; border-radius: 2px; background: rgba(247, 244, 239, 0.12); overflow: hidden; }
+  .ww__time-bar span { display: block; height: 100%; width: 0; background: var(--reef-aqua); }
+  .ww__time.is-past .ww__time-bar span { width: 100%; }
+  .ww__time.is-on { color: var(--warm-white); }
+  .ww__time.is-on .ww__time-bar span { width: 100%; transition: width var(--hold, 6s) linear; }
+  .ww__time:hover b { color: var(--warm-white); }
 
-  /* ── Phones: halves stack top and bottom, cards shrink to a line ── */
-  @media (max-width: 900px) {
-    .rd__halves { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-    .rd__divider { left: var(--space-sm); right: var(--space-sm); top: 50%; bottom: auto; width: auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(247, 244, 239, 0.22) 20%, rgba(247, 244, 239, 0.22) 80%, transparent); }
-    .rd__head { padding-top: var(--space-sm); }
-    .rd__head .label { display: none; }
-    .rd__h1 { font-size: 1.05rem; max-width: 300px; }
-    .rd__clock { display: none; }
-    .rd__tag { top: auto; bottom: calc(50% + 0.5rem); left: var(--space-sm); font-size: 0.72rem; padding: 0.3rem 0.65rem; }
-    .rd__half--off .rd__tag { top: calc(74px + 3.4rem); bottom: auto; }
-    .rd__half--on .rd__tag { top: 0.6rem; bottom: auto; left: var(--space-sm); right: auto; }
-    .rd__cards { left: var(--space-sm); right: var(--space-sm); bottom: 0.5rem; max-width: none; }
-    .rd__half--on .rd__cards { bottom: 3.6rem; }
-    .rd__card { padding: 0.7rem 0.85rem 0.75rem; border-radius: 14px; }
-    .rd__card-title { font-size: 0.9rem; margin: 0.15rem 0 0.25rem; }
-    .rd__card-text { display: none; }
-    .rd__chip { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
-    .rd__foot { padding: 0 var(--space-sm) 0.6rem; }
-    .rd__hint, .rd__ctas { display: none; }
+  /* ── The one-liners ── */
+  .ww__lines { max-width: 1100px; margin: var(--space-md) auto 0; }
+  .ww__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+  .ww__pair[hidden] { display: none; }
+  .ww__pair p { margin: 0; display: flex; gap: 0.6rem; align-items: flex-start; font-size: 1rem; line-height: 1.45; max-width: none; }
+  .ww__pair i { flex-shrink: 0; width: 9px; height: 9px; border-radius: 50%; margin-top: 0.45rem; }
+  .ww__line-off { color: rgba(247, 244, 239, 0.66); }
+  .ww__line-off i { background: #ff6b5e; }
+  .ww__line-on { color: var(--warm-white); font-weight: 500; }
+  .ww__line-on i { background: #30d158; box-shadow: 0 0 10px rgba(48, 209, 88, 0.7); }
+  .ww__ctas { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg); }
+
+  /* ── Phones ── */
+  @media (max-width: 760px) {
+    .ww { padding-top: calc(74px + var(--space-lg)); }
+    .ww__stage { aspect-ratio: 4 / 5; border-radius: 22px; }
+    .ph { width: 166px; transform: translate(-50%, -46%); }
+    .ph__frame { border-radius: 32px; }
+    .ph__screen { inset: 6px; border-radius: 27px; }
+    .ph__island { width: 58px; height: 18px; top: 8px; }
+    .ph__lock { top: 32px; }
+    .ph__clock { font-size: 44px; }
+    .ph__date { font-size: 9.5px; }
+    .ph__notifs { top: 106px; left: 6px; right: 6px; gap: 5px; }
+    .ph__notif { padding: 7px 8px 8px; border-radius: 13px; grid-template-columns: 24px 1fr; gap: 7px; }
+    .ph__icon { width: 24px; height: 24px; border-radius: 6px; }
+    .ph__icon img { width: 15px; height: 15px; }
+    .ph__icon svg { width: 13px; height: 13px; }
+    .ph__row b { font-size: 9.5px; } .ph__row em { font-size: 8.5px; }
+    .ph__title { font-size: 10.5px; } .ph__text { font-size: 9.5px; }
+    .ph__home { width: 70px; height: 4px; bottom: 6px; }
+    .ww__tag { top: 10px; font-size: 0.72rem; padding: 0.3rem 0.65rem; }
+    .ww__tag--off { left: 10px; } .ww__tag--on { right: 10px; }
+    .ww__grip { width: 44px; height: 44px; }
+    .ww__time b { font-size: 0.8rem; }
+    .ww__pair { grid-template-columns: 1fr; gap: 0.5rem; }
+    .ww__pair p { font-size: 0.9375rem; }
+    .ww__ctas .btn { width: 100%; text-align: center; }
   }
 
-  /* ── Reduced motion: the whole day as two lists ── */
   @media (prefers-reduced-motion: reduce) {
-    .rd { height: auto; }
-    .rd__stage { position: relative; height: auto; overflow: visible; padding: calc(74px + var(--space-xl)) var(--space-md) var(--space-xl); }
-    .rd__canvas, .rd__sky, .rd__divider, .rd__clock { display: none; }
-    .rd__head { position: static; padding: 0 0 var(--space-lg); }
-    .rd__halves { position: static; gap: var(--space-md); pointer-events: auto; }
-    .rd__tag { position: static; margin-bottom: var(--space-sm); }
-    .rd__cards { position: static; max-width: none; display: grid; gap: var(--space-sm); }
-    .rd__card { grid-area: auto; opacity: 1; transform: none; pointer-events: auto; }
-    .rd__card-text { display: block; }
-    .rd__foot { position: static; padding: var(--space-lg) 0 0; }
+    :global(.ww__svg *) { animation: none !important; transition: none !important; }
+    .ph__notif { animation: none; }
+    .ww__time.is-on .ww__time-bar span { transition: none; }
   }
 
   /* ── Light mode ── */
-  :global(html[data-theme="light"]) .rd__h1 { color: var(--deep-black); }
-  :global(html[data-theme="light"]) .rd__sky { background: linear-gradient(180deg, rgba(106, 170, 207, 0.45) 0%, rgba(106, 170, 207, 0.15) 55%, rgba(255, 255, 255, 0) 100%); }
-  :global(html[data-theme="light"]) .rd__divider { background: linear-gradient(180deg, transparent, rgba(12, 14, 20, 0.18) 20%, rgba(12, 14, 20, 0.18) 80%, transparent); }
-  :global(html[data-theme="light"]) .rd__clock span { color: rgba(12, 14, 20, 0.62); }
-  :global(html[data-theme="light"]) .rd__tag { color: rgba(12, 14, 20, 0.8); border-color: rgba(12, 14, 20, 0.12); background: rgba(255, 255, 255, 0.55); }
-  :global(html[data-theme="light"]) .rd__tag i { background: rgba(12, 14, 20, 0.3); }
-  :global(html[data-theme="light"]) .rd__tag--on { color: var(--deep-black); border-color: rgba(26, 58, 92, 0.35); }
-  :global(html[data-theme="light"]) .rd__tag--on i { background: var(--deep-ocean); box-shadow: none; }
-  :global(html[data-theme="light"]) .rd__card { border-color: rgba(12, 14, 20, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.6)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 44px rgba(12, 14, 20, 0.1); }
-  :global(html[data-theme="light"]) .rd__half--on .rd__card { border-color: rgba(26, 58, 92, 0.3); }
-  :global(html[data-theme="light"]) .rd__card-time { color: rgba(12, 14, 20, 0.5); }
-  :global(html[data-theme="light"]) .rd__half--on .rd__card-time { color: var(--deep-ocean); }
-  :global(html[data-theme="light"]) .rd__card-title { color: var(--deep-black); }
-  :global(html[data-theme="light"]) .rd__card-text { color: rgba(12, 14, 20, 0.68); }
-  :global(html[data-theme="light"]) .rd__chip { color: rgba(12, 14, 20, 0.8); border-color: rgba(12, 14, 20, 0.14); background: rgba(12, 14, 20, 0.04); }
-  :global(html[data-theme="light"]) .rd__half--on .rd__chip { color: var(--deep-black); border-color: rgba(26, 58, 92, 0.3); background: rgba(26, 58, 92, 0.07); }
-  :global(html[data-theme="light"]) .rd__half--on .rd__chip i { background: var(--deep-ocean); box-shadow: none; }
-  :global(html[data-theme="light"]) .rd__dot { background: rgba(12, 14, 20, 0.15); }
-  :global(html[data-theme="light"]) .rd__dot.is-on { background: var(--deep-ocean); box-shadow: none; }
-  :global(html[data-theme="light"]) .rd__dot.is-past { background: rgba(26, 58, 92, 0.45); }
-  :global(html[data-theme="light"]) .rd__dot em, :global(html[data-theme="light"]) .rd__hint { color: rgba(12, 14, 20, 0.55); }
+  :global(html[data-theme="light"]) .ww__h1 { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .ww__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .ww__stage { background: #0f1a2b; border-color: rgba(12, 14, 20, 0.1); box-shadow: 0 30px 70px rgba(12, 14, 20, 0.18); }
+  :global(html[data-theme="light"]) .ww__time { color: rgba(12, 14, 20, 0.5); }
+  :global(html[data-theme="light"]) .ww__time.is-on, :global(html[data-theme="light"]) .ww__time:hover b { color: var(--deep-black); }
+  :global(html[data-theme="light"]) .ww__time-bar { background: rgba(12, 14, 20, 0.1); }
+  :global(html[data-theme="light"]) .ww__time-bar span { background: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .ww__line-off { color: rgba(12, 14, 20, 0.62); }
+  :global(html[data-theme="light"]) .ww__line-on { color: var(--deep-black); }
 </style>
 
 <script>
-  import * as THREE from 'three';
+  document.querySelectorAll<HTMLElement>('[data-ww]').forEach((root) => {
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const handle = root.querySelector<HTMLElement>('[data-handle]')!;
+    const times = [...root.querySelectorAll<HTMLButtonElement>('[data-time]')];
+    const pairs = [...root.querySelectorAll<HTMLElement>('[data-pair]')];
+    const clocks = [...root.querySelectorAll<HTMLElement>('[data-clock]')];
+    const notifSets = [...root.querySelectorAll<HTMLElement>('.ph__notifs')].map((ol) => [...ol.querySelectorAll<HTMLElement>('[data-notif]')]);
+    const N = times.length;
+    const HOLD = 6000;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    stage.style.setProperty('--hold', `${HOLD}ms`);
 
-  const root = document.querySelector<HTMLElement>('[data-rd]');
-  const canvas = root?.querySelector<HTMLCanvasElement>('[data-rd-canvas]');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (root && canvas && !reduced) {
-    const stage = root.querySelector<HTMLElement>('.rd__stage')!;
-    const halves = [...root.querySelectorAll<HTMLElement>('.rd__half')];
-    const cardSets = halves.map((h) => [...h.querySelectorAll<HTMLElement>('[data-beat]')]);
-    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
-    const timeEl = root.querySelector<HTMLElement>('[data-rd-time]')!;
-    const skyEl = root.querySelector<HTMLElement>('[data-rd-sky]')!;
-    const hintEl = root.querySelector<HTMLElement>('[data-rd-hint]')!;
-    const BEATS = cardSets[0].length;
-    const isLight = () => document.documentElement.getAttribute('data-theme') === 'light';
-    const notes = cardSets.map((set) => set.map((c) => ({ time: c.querySelector('.rd__card-time')?.textContent || '', text: c.querySelector('.rd__chip')?.textContent || '' })));
-
-    /* ── Palette ── */
-    const C = {
-      ocean: 0x1a3a5c, mist: 0x6aaacf, aqua: 0x4ed8c2, warm: 0xf7f4ef, ink: 0x0c0e14, coral: 0xe8907a,
-      groundNight: 0x1f2838, groundDay: 0x4a7a6c, groundLightNight: 0xb8c6d2, groundLightDay: 0xcfe3d6, roadNight: 0x2a3344, roadDay: 0x6b7686, roadLight: 0xb4bfc9,
-      wall: 0xe9e4da, wallNice: 0xf4f1ea, roof: 0x2b4a6b, roofNice: 0x2f6a9c, trim: 0x9fb3c4, wood: 0xc9a27a, leaf: 0x2f6a62,
+    /* ── Slider ── */
+    let x = 50, dragging = false;
+    const setX = (v: number) => {
+      x = Math.min(96, Math.max(4, v));
+      stage.style.setProperty('--x', `${x}%`);
+      handle.setAttribute('aria-valuenow', String(Math.round(x)));
     };
+    const fromEvent = (e: PointerEvent) => { const r = stage.getBoundingClientRect(); return ((e.clientX - r.left) / r.width) * 100; };
+    stage.addEventListener('pointerdown', (e) => {
+      if ((e.target as HTMLElement).closest('a, button')) return;
+      dragging = true; stage.classList.add('is-dragging'); stage.classList.remove('is-nudging');
+      stage.setPointerCapture(e.pointerId); setX(fromEvent(e)); pause();
+    });
+    stage.addEventListener('pointermove', (e) => { if (dragging) setX(fromEvent(e)); });
+    const endDrag = () => { if (!dragging) return; dragging = false; stage.classList.remove('is-dragging'); resume(); };
+    stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
+    handle.addEventListener('keydown', (e) => {
+      const step = e.shiftKey ? 10 : 3;
+      if (e.key === 'ArrowLeft') { setX(x - step); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { setX(x + step); e.preventDefault(); }
+      if (e.key === 'Home') { setX(4); e.preventDefault(); }
+      if (e.key === 'End') { setX(96); e.preventDefault(); }
+    });
 
-    /* ── Renderer ── */
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
-    renderer.setClearColor(0x000000, 0);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
-    renderer.setScissorTest(true);
-
-    const mat = (color: number, extra: Partial<THREE.MeshStandardMaterialParameters> = {}) =>
-      new THREE.MeshStandardMaterial({ color, roughness: 0.85, metalness: 0.05, ...extra });
-    const box = (w: number, h: number, d: number, m: THREE.Material, x = 0, y = 0, z = 0, shadow = true) => {
-      const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m);
-      o.position.set(x, y, z); o.castShadow = shadow; o.receiveShadow = true; return o;
-    };
-    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
-    const smooth = (a: number, b: number, v: number) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-    const tmpCol = new THREE.Color();
-    const mix = (a: number, b: number, t: number) => tmpCol.set(a).lerp(new THREE.Color(b), clamp01(t));
-
-    /* ── A person: shirt, pants, head, hat ── */
-    const person = (shirt: number, scale = 1, hat = true) => {
-      const g = new THREE.Group();
-      g.add(box(0.26, 0.4, 0.2, mat(shirt), 0, 0.5, 0));
-      g.add(box(0.24, 0.32, 0.18, mat(0x3a4150), 0, 0.16, 0));
-      const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 14, 12), mat(0xd9b08c)); head.position.y = 0.82; head.castShadow = true; g.add(head);
-      if (hat) g.add(box(0.3, 0.06, 0.3, mat(C.warm), 0, 0.93, 0));
-      const arm = box(0.08, 0.34, 0.08, mat(shirt), 0.2, 0.62, 0);
-      arm.geometry.translate(0, -0.14, 0); g.add(arm);
-      g.scale.setScalar(scale);
-      return { g, arm };
-    };
-
-    /* ── The phone: a real phone shape with a live screen ── */
-    const makePhone = (nice: boolean) => {
-      const g = new THREE.Group();
-      const body = new THREE.Mesh(new THREE.BoxGeometry(0.62, 1.26, 0.08), mat(nice ? 0x1b2433 : 0x161a22, { roughness: 0.35, metalness: 0.4 }));
-      body.castShadow = true; g.add(body);
-      g.add(box(0.66, 1.3, 0.04, mat(nice ? 0x5b7ea0 : 0x3a4150, { roughness: 0.3, metalness: 0.6 }), 0, 0, -0.01, false));
-      const cv = document.createElement('canvas'); cv.width = 256; cv.height = 520;
-      const ctx = cv.getContext('2d')!;
-      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
-      const screen = new THREE.Mesh(new THREE.PlaneGeometry(0.56, 1.18), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
-      screen.position.z = 0.045; g.add(screen);
-      g.add(box(0.18, 0.04, 0.02, mat(C.ink), 0, 0.55, 0.05, false));
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.02, 8, 48), new THREE.MeshBasicMaterial({ color: nice ? C.aqua : C.coral, transparent: true, opacity: 0 }));
-      g.add(ring);
-      const light = new THREE.PointLight(nice ? C.aqua : C.coral, 0, 3.5); light.position.set(0, 0, 0.5); g.add(light);
-      const draw = (time: string, items: string[], night: number) => {
-        ctx.clearRect(0, 0, 256, 520);
-        ctx.fillStyle = '#0c0e14'; ctx.fillRect(0, 0, 256, 520);
-        const grad = ctx.createLinearGradient(0, 0, 0, 520);
-        grad.addColorStop(0, nice ? '#10233a' : '#171b24'); grad.addColorStop(1, '#0c0e14');
-        ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 520);
-        ctx.fillStyle = '#f7f4ef'; ctx.font = '600 44px Inter, system-ui, sans-serif'; ctx.textAlign = 'center';
-        ctx.fillText(time, 128, 92);
-        ctx.font = '500 18px Inter, system-ui, sans-serif'; ctx.fillStyle = 'rgba(247,244,239,0.55)';
-        ctx.fillText(nice ? 'DUSA . studio' : 'Phone', 128, 120);
-        ctx.textAlign = 'left';
-        const shown = items.slice(-3).reverse();
-        shown.forEach((t, i) => {
-          const y = 150 + i * 92;
-          ctx.fillStyle = nice ? 'rgba(78,216,194,0.14)' : 'rgba(232,144,122,0.14)';
-          ctx.beginPath(); ctx.roundRect(16, y, 224, 78, 16); ctx.fill();
-          ctx.strokeStyle = nice ? 'rgba(78,216,194,0.5)' : 'rgba(232,144,122,0.45)'; ctx.lineWidth = 2; ctx.stroke();
-          ctx.fillStyle = nice ? '#4ed8c2' : '#e8907a'; ctx.beginPath(); ctx.arc(38, y + 26, 7, 0, Math.PI * 2); ctx.fill();
-          ctx.fillStyle = '#f7f4ef'; ctx.font = '600 19px Inter, system-ui, sans-serif';
-          ctx.fillText(nice ? 'DUSA' : 'Missed', 56, y + 32);
-          ctx.fillStyle = 'rgba(247,244,239,0.8)'; ctx.font = '400 18px Inter, system-ui, sans-serif';
-          const words = t.split(' '); let line = '', ly = y + 58;
-          for (const w of words) { const test = line ? line + ' ' + w : w; if (ctx.measureText(test).width > 200 && line) { ctx.fillText(line, 30, ly); line = w; ly += 20; if (ly > y + 72) break; } else line = test; }
-          if (ly <= y + 72) ctx.fillText(line, 30, ly);
-        });
-        tex.needsUpdate = true;
-        (screen.material as THREE.MeshBasicMaterial).color.setScalar(0.75 + night * 0.35);
-      };
-      return { g, ring, light, draw };
-    };
-
-    /* ── One roofer's world ── */
-    const HOME_X = -3.8, JOB_X = 3.8, ROAD_Z = 2.0;
-    const makeWorld = (nice: boolean) => {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 120);
-      const hemi = new THREE.HemisphereLight(0xffffff, 0x223044, 1); scene.add(hemi);
-      const sun = new THREE.DirectionalLight(0xffffff, 2.5);
-      sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
-      sun.shadow.camera.left = -10; sun.shadow.camera.right = 10; sun.shadow.camera.top = 10; sun.shadow.camera.bottom = -10;
-      sun.shadow.camera.near = 1; sun.shadow.camera.far = 50; sun.shadow.bias = -0.0015;
-      scene.add(sun, sun.target);
-      const nightAmb = new THREE.AmbientLight(0x3b5a8c, 0); scene.add(nightAmb);
-
-      // Ground, rim, road
-      const groundMat = mat(C.groundNight, { roughness: 1 });
-      const ground = new THREE.Mesh(new THREE.CircleGeometry(8.4, 64), groundMat); ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-      const rim = new THREE.Mesh(new THREE.RingGeometry(8.35, 8.5, 96), new THREE.MeshBasicMaterial({ color: nice ? C.aqua : C.trim, transparent: true, opacity: 0.35, side: THREE.DoubleSide }));
-      rim.rotation.x = -Math.PI / 2; rim.position.y = 0.005; scene.add(rim);
-      const roadMat = mat(C.roadNight, { roughness: 0.95 });
-      const road = new THREE.Mesh(new THREE.PlaneGeometry(15, 1.6), roadMat); road.rotation.x = -Math.PI / 2; road.position.set(0, 0.01, ROAD_Z); road.receiveShadow = true; scene.add(road);
-      for (let i = -6.5; i <= 6.5; i += 1.3) { const d = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.06), new THREE.MeshBasicMaterial({ color: C.trim, transparent: true, opacity: 0.5 })); d.rotation.x = -Math.PI / 2; d.position.set(i, 0.015, ROAD_Z); scene.add(d); }
-
-      // Houses
-      const windowMat = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0xffc97a, emissiveIntensity: 0, roughness: 0.3 });
-      const laptopWinMat = new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0x9fd8ff, emissiveIntensity: 0, roughness: 0.3 });
-      const house = (x: number, z: number, w: number, d: number, h: number, wall: number, roofColor: number, door: number, winMat: THREE.Material) => {
-        const g = new THREE.Group();
-        g.add(box(w, h, d, mat(wall), 0, h / 2, 0));
-        const shape = new THREE.Shape();
-        shape.moveTo(-w / 2 - 0.25, 0); shape.lineTo(w / 2 + 0.25, 0); shape.lineTo(0, w * 0.4); shape.closePath();
-        const roofGeo = new THREE.ExtrudeGeometry(shape, { depth: d + 0.5, bevelEnabled: false }); roofGeo.translate(0, 0, -(d + 0.5) / 2);
-        const roof = new THREE.Mesh(roofGeo, mat(roofColor, { roughness: 0.6 })); roof.position.y = h; roof.castShadow = true; roof.receiveShadow = true; g.add(roof);
-        g.add(box(0.3, 0.5, 0.3, mat(C.trim), w * 0.28, h + w * 0.28, 0));
-        g.add(box(0.5, 0.9, 0.06, mat(door), 0, 0.45, d / 2 + 0.03));
-        g.add(box(0.5, 0.45, 0.06, winMat, -w * 0.3, h * 0.62, d / 2 + 0.03, false));
-        g.add(box(0.5, 0.45, 0.06, winMat, w * 0.3, h * 0.62, d / 2 + 0.03, false));
-        g.position.set(x, 0, z);
-        return { g, h, w, d };
-      };
-      const home = nice
-        ? house(HOME_X, -0.8, 3.0, 2.2, 1.45, C.wallNice, C.roofNice, C.aqua, windowMat)
-        : house(HOME_X, -0.6, 2.2, 1.8, 1.2, C.wall, C.roof, C.ocean, laptopWinMat);
-      const job = house(JOB_X, -0.9, 2.6, 2.1, 1.3, C.wall, C.roof, C.ocean, windowMat);
-      scene.add(home.g, job.g);
-
-      if (nice) {
-        // White picket fence along the front, with a gap for the path.
-        const picket = mat(C.warm, { roughness: 0.7 });
-        const fz = -0.8 + 1.1 + 1.0;
-        for (let fx = -2.1; fx <= 2.1; fx += 0.24) { if (Math.abs(fx) < 0.42) continue; scene.add(box(0.07, 0.48, 0.04, picket, HOME_X + fx, 0.24, fz)); }
-        scene.add(box(1.7, 0.04, 0.03, picket, HOME_X - 1.28, 0.34, fz), box(1.7, 0.04, 0.03, picket, HOME_X + 1.28, 0.34, fz));
-        const path = new THREE.Mesh(new THREE.PlaneGeometry(0.7, 1.9), mat(0xb9c3cc, { roughness: 1 })); path.rotation.x = -Math.PI / 2; path.position.set(HOME_X, 0.012, 0.4); path.receiveShadow = true; scene.add(path);
-        for (const [gx, gz] of [[-1.5, 0.75], [-0.9, 0.75], [0.9, 0.75], [1.5, 0.75]]) { const f = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 8), mat(0xf2c3b0)); f.position.set(HOME_X + gx, 0.13, gz); f.castShadow = true; scene.add(f); }
-      } else {
-        scene.add(box(0.9, 0.3, 0.6, mat(0x3a4150), HOME_X + 1.5, 0.15, 0.6)); // the bin, and a tile pile that never got put away
-        scene.add(box(0.8, 0.22, 0.5, mat(C.roof), HOME_X - 1.6, 0.11, 0.8));
-      }
-
-      // Ladder: leaning on the side wall of the job house, feet on the ground.
-      const ladder = new THREE.Group();
-      const rail = mat(C.wood);
-      const LL = 1.75;
-      ladder.add(box(0.05, LL, 0.05, rail, 0, LL / 2, -0.2), box(0.05, LL, 0.05, rail, 0, LL / 2, 0.2));
-      for (let i = 0; i < 6; i++) ladder.add(box(0.04, 0.04, 0.4, rail, 0, 0.2 + i * 0.27, 0));
-      ladder.position.set(JOB_X - job.w / 2 - 0.62, 0, -0.9 + 0.2); ladder.rotation.z = -0.5;
-      scene.add(ladder);
-      scene.add(box(0.7, 0.25, 0.5, mat(C.roof), JOB_X + 1.9, 0.125, 0.5));
-
-      const tree = (x: number, z: number, s = 1) => {
-        const g = new THREE.Group();
-        g.add(box(0.14, 0.5 * s, 0.14, mat(C.wood), 0, 0.25 * s, 0));
-        const leaf = new THREE.Mesh(new THREE.IcosahedronGeometry(0.42 * s, 1), mat(C.leaf, { roughness: 0.9 })); leaf.position.y = 0.72 * s; leaf.castShadow = true; g.add(leaf);
-        g.position.set(x, 0, z); scene.add(g);
-      };
-      tree(-6.6, -2.4, 1.1); tree(-1.4, -3.5, 0.9); tree(6.6, -3.1, 1.2); tree(1.6, -3.7, 0.8); tree(-6, 4.1, 0.9); tree(6, 4.2, 1);
-      if (nice) { tree(-6.2, 0.6, 0.8); tree(-1.3, -1.9, 0.7); }
-
-      // Ute: the nice one is newer, lighter, with a roof rack.
-      const ute = new THREE.Group();
-      const uteBody = mat(nice ? C.mist : C.ocean, { roughness: nice ? 0.35 : 0.6, metalness: nice ? 0.35 : 0.15 });
-      ute.add(box(1.7, 0.36, 0.8, uteBody, 0, 0.42, 0));
-      ute.add(box(0.7, 0.42, 0.78, uteBody, 0.35, 0.8, 0));
-      ute.add(box(0.72, 0.2, 0.7, mat(0x9fd8ea, { roughness: 0.2, metalness: 0.3 }), 0.35, 0.84, 0, false));
-      ute.add(box(0.85, 0.14, 0.78, mat(C.ink), -0.45, 0.66, 0));
-      if (nice) { ute.add(box(0.74, 0.03, 0.82, mat(0x9fb3c4, { metalness: 0.6, roughness: 0.3 }), 0.35, 1.03, 0)); ute.add(box(0.06, 0.08, 0.82, mat(0x9fb3c4, { metalness: 0.6, roughness: 0.3 }), 0.8, 0.5, 0)); }
-      else ute.add(box(0.5, 0.05, 0.3, mat(0x7a5a3a), -0.1, 0.61, 0, false));
-      const wheelGeo = new THREE.CylinderGeometry(0.17, 0.17, 0.14, 16);
-      const wheels: THREE.Mesh[] = [];
-      for (const [wx, wz] of [[-0.55, 0.42], [-0.55, -0.42], [0.55, 0.42], [0.55, -0.42]]) { const w = new THREE.Mesh(wheelGeo, mat(C.ink, { roughness: 0.9 })); w.rotation.x = Math.PI / 2; w.position.set(wx, 0.17, wz); w.castShadow = true; ute.add(w); wheels.push(w); }
-      const head1 = new THREE.PointLight(0xfff1cc, 0, 4); head1.position.set(0.8, 0.5, 0.25); ute.add(head1);
-      const head2 = head1.clone(); head2.position.z = -0.25; ute.add(head2);
-      scene.add(ute);
-
-      // People
-      const roofer = person(nice ? C.aqua : 0xd6d0c4);
-      scene.add(roofer.g);
-      const family = new THREE.Group();
-      const partner = person(nice ? C.mist : 0x8f8a80, 0.95, false); partner.g.position.set(0.5, 0, 0.1); family.add(partner.g);
-      const kid = person(nice ? C.warm : 0x8f8a80, 0.6, false); kid.g.position.set(-0.45, 0, 0.25); family.add(kid.g);
-      family.position.set(HOME_X + 0.2, 0, 1.0); family.visible = false; scene.add(family);
-      // Evening props: a table. The nice one gets a warm lamp; the other a cold laptop.
-      const table = new THREE.Group();
-      table.add(box(0.9, 0.05, 0.6, mat(C.wood), 0, 0.5, 0), box(0.06, 0.5, 0.06, mat(C.wood), -0.4, 0.25, -0.25), box(0.06, 0.5, 0.06, mat(C.wood), 0.4, 0.25, 0.25), box(0.06, 0.5, 0.06, mat(C.wood), -0.4, 0.25, 0.25), box(0.06, 0.5, 0.06, mat(C.wood), 0.4, 0.25, -0.25));
-      const laptopScreen = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.26, 0.02), new THREE.MeshStandardMaterial({ color: 0x1c2a3e, emissive: 0x9fd8ff, emissiveIntensity: 0 }));
-      laptopScreen.position.set(0, 0.66, -0.1); laptopScreen.rotation.x = -0.25;
-      const laptopBase = box(0.36, 0.02, 0.24, mat(0x8a94a6), 0, 0.53, 0.02);
-      if (!nice) table.add(laptopScreen, laptopBase);
-      const tableLight = new THREE.PointLight(nice ? 0xffb36b : 0x9fd8ff, 0, 4); tableLight.position.set(0, 1.1, 0); table.add(tableLight);
-      table.position.set(HOME_X + 0.2, 0, 0.9); table.visible = false; scene.add(table);
-      const porchLight = new THREE.PointLight(0xffc97a, 0, 5); porchLight.position.set(HOME_X, 1.6, home.d / 2 - 0.6 + 0.6); scene.add(porchLight);
-
-      // Phone
-      const phone = makePhone(nice);
-      scene.add(phone.g);
-
-      // Sky
-      const sunBall = new THREE.Mesh(new THREE.SphereGeometry(0.5, 20, 16), new THREE.MeshBasicMaterial({ color: 0xffd58a })); scene.add(sunBall);
-      const moonBall = new THREE.Mesh(new THREE.SphereGeometry(0.32, 20, 16), new THREE.MeshBasicMaterial({ color: 0xdde7f5 })); scene.add(moonBall);
-      const starGeo = new THREE.BufferGeometry(); const sp = new Float32Array(200 * 3);
-      for (let i = 0; i < 200; i++) { const a = Math.random() * Math.PI * 2, r = 12 + Math.random() * 12, y = 4 + Math.random() * 10; sp.set([Math.cos(a) * r, y, Math.sin(a) * r], i * 3); }
-      starGeo.setAttribute('position', new THREE.BufferAttribute(sp, 3));
-      const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.07, transparent: true, opacity: 0 })); scene.add(stars);
-
-      // Timeline per roofer. The one without DUSA works late: stays on the job until the light goes.
-      const leave = 0.07, arrive = 0.2, depart = nice ? 0.74 : 0.86, arriveHome = nice ? 0.84 : 0.95;
-      const uteX = (p: number) => p < leave ? HOME_X : p < arrive ? lerp(HOME_X, JOB_X, smooth(leave, arrive, p)) : p < depart ? JOB_X : p < arriveHome ? lerp(JOB_X, HOME_X, smooth(depart, arriveHome, p)) : HOME_X;
-      const driving = (p: number) => (p >= leave && p < arrive) || (p >= depart && p < arriveHome);
-      const onRoof = (p: number) => smooth(arrive, arrive + 0.05, p) * (1 - smooth(depart - 0.04, depart, p));
-      const evening = (p: number) => smooth(arriveHome, arriveHome + 0.03, p);
-
-      let pingAt = -1e9, shownBeat = -1;
-      const items: string[] = [];
-      const hudTarget = new THREE.Vector3(), worldTarget = new THREE.Vector3(), phonePos = new THREE.Vector3();
-      let phoneHud = 0;
-
-      const applyTheme = (dark: boolean) => {
-        hemi.groundColor.set(dark ? 0x223044 : 0x9aa7b5);
-      };
-
-      const update = (p: number, now: number, dt: number, sky: { hour: number; elev: number; sunT: number; night: number; dawn: number; dusk: number; dark: boolean }, beat: number, narrow: boolean) => {
-        const { hour, elev, sunT, night, dawn, dusk, dark } = sky;
-        const ev = evening(p);
-        // Light
-        sun.position.set(Math.cos(Math.PI - sunT * Math.PI) * 10, 2 + elev * 10, -5 + elev * 2);
-        sun.intensity = 1.0 + elev * 3.2 * (1 - night);
-        sun.color.copy(mix(0xfff4e0, 0xffa06a, Math.max(dawn, dusk)));
-        hemi.intensity = 0.8 + elev * 1.0 * (1 - night) + 0.1 * night;
-        hemi.color.copy(mix(dark ? 0xcfe3ff : 0xffffff, 0x3b5a8c, night));
-        nightAmb.intensity = night * 0.8;
-        // The ground greens up with the daylight and goes slate at night.
-        const dayAmt = clamp01(elev * 1.4) * (1 - night);
-        groundMat.color.copy(mix(dark ? C.groundNight : C.groundLightNight, dark ? C.groundDay : C.groundLightDay, dayAmt));
-        roadMat.color.copy(mix(dark ? C.roadNight : 0x8a95a3, dark ? C.roadDay : C.roadLight, dayAmt));
-        sunBall.position.set(Math.cos(Math.PI - sunT * Math.PI) * 9, 1 + elev * 7.5, -7.5);
-        (sunBall.material as THREE.MeshBasicMaterial).color.copy(mix(0xffd58a, 0xff8c5a, Math.max(dawn, dusk)));
-        sunBall.visible = elev > 0.02 && night < 0.95;
-        const moonT = clamp01((hour - 17.5) / 3);
-        moonBall.position.set(-6 + moonT * 3, 1 + moonT * 7, -8); moonBall.visible = night > 0.05;
-        (stars.material as THREE.PointsMaterial).opacity = night * (dark ? 0.9 : 0.25);
-        windowMat.emissiveIntensity = night * 1.6 + dawn * 0.5;
-        laptopWinMat.emissiveIntensity = night * ev * 1.8;
-        head1.intensity = head2.intensity = (night > 0.2 || dawn > 0.4) && driving(p) ? 2.5 : 0;
-
-        // Camera: slow orbit, a touch closer at night.
-        const ang = -0.8 + p * 1.45;
-        const radius = 17.5 - ev * 6;
-        const look = new THREE.Vector3(lerp(0, HOME_X + 0.6, ev), (narrow ? -0.6 : 0.3) - ev * 0.2, lerp(0, 0.6, ev));
-        camera.position.set(look.x + Math.sin(ang) * radius, 8.2 - ev * 3.2, look.z + Math.cos(ang) * radius);
-        camera.lookAt(look);
-
-        // Ute
-        ute.position.set(uteX(p), 0, ROAD_Z);
-        ute.rotation.y = p < 0.5 ? 0 : Math.PI;
-        if (driving(p)) wheels.forEach((w) => (w.rotation.y += dt * 9));
-        const parkedJob = smooth(arrive - 0.01, arrive + 0.01, p) * (1 - smooth(depart - 0.01, depart + 0.01, p));
-        const parkedHome = clamp01(1 - smooth(leave - 0.01, leave + 0.01, p) + smooth(arriveHome - 0.01, arriveHome + 0.01, p));
-        ute.position.z = ROAD_Z + 0.8 * Math.min(1, parkedJob + parkedHome);
-
-        // Roofer
-        const r = onRoof(p), drv = driving(p);
-        roofer.g.visible = !drv;
-        if (!drv) {
-          const atHome = p < leave || p >= arriveHome;
-          const baseX = atHome ? HOME_X + (ev > 0 ? 0.2 : 1.4) : JOB_X - 2.1;
-          const baseZ = atHome ? (ev > 0 ? 1.45 : ROAD_Z - 0.5) : ROAD_Z - 0.5;
-          const roofX = JOB_X - 0.3, roofY = job.h + 0.42, roofZ = -0.9 + 0.55;
-          roofer.g.position.set(lerp(baseX, roofX, r), lerp(0, roofY, r), lerp(baseZ, roofZ, r));
-          roofer.g.rotation.y = atHome && ev > 0 ? Math.PI : lerp(-0.4, -1.1, r);
-          roofer.arm.rotation.x = r > 0.5 ? -0.9 + Math.sin(now / 160) * 0.7 : atHome && ev > 0 && !nice ? -1.2 : 0.1;
-        }
-        // Evening: a table outside the house. Family for the one who got home.
-        table.visible = ev > 0.01; family.visible = nice && ev > 0.01;
-        table.scale.setScalar(Math.max(0.001, ev)); family.scale.setScalar(Math.max(0.001, ev));
-        tableLight.intensity = ev * (nice ? 2.6 : 1.4) * Math.max(0.3, night);
-        laptopScreen.material.emissiveIntensity = ev * 2.2;
-        porchLight.intensity = nice ? night * 2.2 : 0;
-
-        // Phone: beside the roofer, or up in the corner of this half when he cannot reach it.
-        const wantHud = r > 0.5 || drv;
-        phoneHud += ((wantHud ? 1 : 0) - phoneHud) * Math.min(1, dt * 3.5);
-        worldTarget.copy(drv ? ute.position : roofer.g.position).add(new THREE.Vector3(drv ? 0 : 0.6, drv ? 1.5 : 1.35 - ev * 0.3, drv ? 0 : 0.25 + ev * 0.3));
-        hudTarget.set(nice ? 0.58 : -0.58, narrow ? 0.1 : 0.38, 0.5).unproject(camera).sub(camera.position).normalize().multiplyScalar(6.5).add(camera.position);
-        phonePos.lerpVectors(worldTarget, hudTarget, phoneHud);
-        phone.g.position.copy(phonePos);
-        phone.g.position.y += Math.sin(now / 900) * 0.05;
-        phone.g.lookAt(camera.position);
-        phone.g.scale.setScalar(lerp(0.9, 1.3, phoneHud) * (1 - ev * 0.4));
-
-        // Notifications land on the screen once per beat.
-        if (beat !== shownBeat) {
-          shownBeat = beat; pingAt = now;
-          items.length = 0; for (let i = 0; i <= beat; i++) items.push(notes[nice ? 1 : 0][i].text);
-          phone.draw(notes[nice ? 1 : 0][beat].time, items, night);
-        }
-        const since = (now - pingAt) / 1000;
-        const pulse = since < 1.6 ? 1 - since / 1.6 : 0;
-        phone.ring.scale.setScalar(1 + (1 - pulse) * 0.9);
-        (phone.ring.material as THREE.MeshBasicMaterial).opacity = pulse * 0.9;
-        phone.light.intensity = 0.3 + pulse * 2.4 + night * 0.5;
-      };
-      return { scene, camera, update, applyTheme };
-    };
-
-    const worlds = [makeWorld(false), makeWorld(true)];
-
-    /* ── Scroll state ── */
-    let progress = 0, beat = -1, running = false, lastT = 0, dark = !isLight();
-    const applyTheme = () => { dark = !isLight(); worlds.forEach((w) => w.applyTheme(dark)); };
-    applyTheme();
-    new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-    const setBeat = (b: number) => {
-      if (b === beat) return;
-      beat = b;
-      cardSets.forEach((set) => set.forEach((c, i) => { if (i === b) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current'); }));
-      dots.forEach((d, i) => { d.classList.toggle('is-on', i === b); d.classList.toggle('is-past', i < b); });
-      timeEl.textContent = notes[0][b].time;
-      hintEl.classList.toggle('is-done', b > 0);
-    };
-    const readScroll = () => {
-      const rect = root.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      progress = clamp01(-rect.top / Math.max(1, total));
-      setBeat(Math.min(BEATS - 1, Math.floor(progress * BEATS)));
-    };
-
-    let W = 1, H = 1, narrow = false;
-    const resize = () => {
-      W = stage.clientWidth; H = stage.clientHeight; narrow = W < 900;
-      renderer.setSize(W, H, false);
-      const vw = narrow ? W : W / 2, vh = narrow ? H / 2 : H;
-      const hFov = (narrow ? 60 : 50) * Math.PI / 180;
-      worlds.forEach((w) => { w.camera.aspect = vw / vh; w.camera.fov = (2 * Math.atan(Math.tan(hFov / 2) / w.camera.aspect)) * 180 / Math.PI; w.camera.updateProjectionMatrix(); });
-    };
-
-    /* ── Frame ── */
-    const frame = (now: number) => {
-      if (!running) return;
-      const dt = Math.min(0.05, (now - lastT) / 1000 || 0); lastT = now;
-      const p = progress;
-      // 6:30am to 9:30pm across the scroll.
-      const hour = 6.5 + p * 15;
-      const sunT = clamp01((hour - 6) / 13);
-      const elev = Math.sin(sunT * Math.PI);
-      const night = smooth(17.8, 19.6, hour);
-      const dawn = 1 - smooth(6.5, 8.5, hour);
-      const dusk = smooth(16.2, 18.2, hour) * (1 - night);
-      const sky = { hour, elev, sunT, night, dawn, dusk, dark };
-      root.style.setProperty('--day', String(clamp01(elev * 1.3) * (1 - night)));
-      skyEl.textContent = hour < 8 ? 'Dawn' : hour < 12 ? 'Morning' : hour < 17 ? 'Afternoon' : hour < 18.8 ? 'Dusk' : 'Night';
-
-      const pr = renderer.getPixelRatio();
-      worlds.forEach((w, i) => {
-        w.update(p, now, dt, sky, beat, narrow);
-        const x = narrow ? 0 : i * (W / 2), y = narrow ? (i === 0 ? H / 2 : 0) : 0;
-        const vw = narrow ? W : W / 2, vh = narrow ? H / 2 : H;
-        renderer.setViewport(x, y, vw, vh); renderer.setScissor(x, y, vw, vh);
-        renderer.render(w.scene, w.camera);
+    /* ── Timeline ── */
+    let beat = 0, timer = 0, paused = false, started = false;
+    const show = (b: number) => {
+      beat = (b + N) % N;
+      stage.setAttribute('data-beat', String(beat));
+      times.forEach((t, i) => {
+        t.classList.toggle('is-on', i === beat); t.classList.toggle('is-past', i < beat);
+        t.setAttribute('aria-selected', i === beat ? 'true' : 'false');
+        const bar = t.querySelector<HTMLElement>('.ww__time-bar span');
+        if (bar && i === beat) { bar.style.transition = 'none'; bar.style.width = '0'; void bar.offsetWidth; bar.style.transition = ''; bar.style.width = ''; }
       });
-      void pr;
-      requestAnimationFrame(frame);
+      pairs.forEach((p, i) => { if (i === beat) p.removeAttribute('hidden'); else p.setAttribute('hidden', ''); });
+      clocks.forEach((c) => (c.textContent = times[beat].querySelector('b')?.firstChild?.textContent || ''));
+      // The phone shows the newest moment on top, with the two before it beneath.
+      notifSets.forEach((set) => {
+        const order: HTMLElement[] = [];
+        set.forEach((n, i) => { if (i <= beat && i > beat - 3) order.push(n); else n.setAttribute('hidden', ''); });
+        order.reverse().forEach((n, k) => { n.removeAttribute('hidden'); n.style.order = String(k); n.style.opacity = k === 0 ? '1' : k === 1 ? '0.85' : '0.65'; n.style.transform = k === 0 ? '' : `scale(${1 - k * 0.03})`; });
+      });
     };
+    const queue = () => { clearTimeout(timer); if (paused || reduced) return; timer = window.setTimeout(() => { show(beat + 1); queue(); }, HOLD); };
+    const pause = () => { paused = true; clearTimeout(timer); };
+    const resume = () => { paused = false; queue(); };
+    times.forEach((t, i) => t.addEventListener('click', () => { show(i); queue(); }));
+    stage.addEventListener('mouseenter', () => clearTimeout(timer));
+    stage.addEventListener('mouseleave', () => { if (!dragging) queue(); });
+    document.addEventListener('visibilitychange', () => (document.hidden ? clearTimeout(timer) : queue()));
 
-    const start = () => { if (running) return; running = true; lastT = performance.now(); resize(); readScroll(); requestAnimationFrame(frame); };
-    const stop = () => { running = false; };
-    new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.01 }).observe(root);
-    window.addEventListener('scroll', readScroll, { passive: true });
-    window.addEventListener('resize', () => { resize(); readScroll(); });
-    resize(); readScroll();
-  } else if (root && reduced) {
-    root.querySelectorAll('[data-beat]').forEach((c) => c.setAttribute('aria-current', 'step'));
-  }
+    /* ── Start when seen; nudge the handle once so people know it moves ── */
+    show(0);
+    const start = () => {
+      if (started) return; started = true;
+      queue();
+      if (reduced) return;
+      stage.classList.add('is-nudging');
+      setTimeout(() => setX(62), 600);
+      setTimeout(() => setX(44), 1500);
+      setTimeout(() => setX(50), 2400);
+      setTimeout(() => stage.classList.remove('is-nudging'), 3200);
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) start(); }), { threshold: 0.35 }).observe(stage);
+    } else start();
+  });
 </script>

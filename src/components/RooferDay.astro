@@ -747,9 +747,9 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         sun.color.set(0xffffff).lerp(new THREE.Color(0xffa070), Math.max(dawn, dusk) * 0.8).lerp(new THREE.Color(0x6f86b8), night);
         hemi.intensity = 0.3 + elev * 0.9 * (1 - night) + 0.05 * night;
         hemi.color.set(0xdff2ff).lerp(new THREE.Color(0x3b5a8c), night);
-        warmLight.intensity = night * (nice ? 3.4 : 1.6); bulb.material.emissiveIntensity = night * 1.5;
+        warmLight.intensity = night * (nice ? 3.4 : 2.6); bulb.material.emissiveIntensity = night * 1.5;
         coldLight.intensity = nice ? 0 : night * 6;
-        tvScreen.material.emissiveIntensity = night * (nice ? 0.15 : 1.4); tvLight.intensity = night * (nice ? 0 : 1.6); laptopScreen.material.emissiveIntensity = nice ? 0 : night * 2.2;
+        tvScreen.material.emissiveIntensity = night * (nice ? 0.15 : 1.6); tvLight.intensity = night * (nice ? 0 : 4.5); laptopScreen.material.emissiveIntensity = nice ? 0 : night * 2.2;
         // Smoko props come and go on the clock.
         const smokoAmt = smooth(10.4, 10.55, h) * (1 - smooth(11.25, 11.4, h)) + smooth(12.4, 12.55, h) * (1 - smooth(13.05, 13.2, h));
         cur.smoko = damp(cur.smoko, smokoAmt, 8, dt); smoko.scale.setScalar(Math.max(0.001, cur.smoko));

@@ -2,6 +2,13 @@
 /**
  * RooferDay.astro
  *
+ * Your phone is the phone. The visitor's own screen plays the roofer's phone:
+ * the island fills the stage, notifications drop in from the top edge the
+ * way real ones do (red while you are without DUSA, green once you switch),
+ * and one glass pill at the bottom flips the whole day to the DUSA version
+ * at the same moment on the clock. At 9pm the last notification is the
+ * invitation.
+ *
  * A roofer's Tuesday, with and without DUSA, in one picture. An iPhone sits
  * in the middle of a floating 3D diorama and a divider runs straight through
  * both. Left of the line is the day without DUSA (red: missed, later,
@@ -26,19 +33,29 @@ interface Props {
   sub?: string;
   labelOff?: string;
   labelOn?: string;
-  date?: string;
+  switchOn?: string;
+  switchOff?: string;
+  endTitle?: string;
+  endBody?: string;
+  endCta?: string;
+  endDemo?: string;
   cta?: string;
   ctaDemo?: string;
   moments?: Moment[];
 }
 const {
   eyebrow = "A roofer's Tuesday",
-  heading = 'Slide to see your Tuesday',
-  headingAccent = 'with DUSA.',
-  sub = 'Same roofer, same crew, same jobs, same phone. Only the admin is different.',
+  heading = 'Your Tuesday,',
+  headingAccent = 'with and without DUSA.',
+  sub = 'Same roofer, same crew, same job. Watch the day, then switch.',
+  switchOn = 'Switch to DUSA',
+  switchOff = 'Switch back',
+  endTitle = 'This could be your Tuesday.',
+  endBody = 'Set up in a day. Free for 14 days, cancel in one tap.',
+  endCta = 'Start free',
+  endDemo = 'Book a 20-minute call',
   labelOff = 'Without DUSA',
   labelOn = 'With DUSA',
-  date = 'Tuesday 21 October',
   cta = 'Start free for 14 days',
   ctaDemo = 'Book a free demo',
   moments = [
@@ -77,73 +94,38 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       <p class="ww__sub">{sub}</p>
     </div>
 
-    <div class="ww__stage" data-stage data-beat="0" style="--x: 50%">
+    <div class="ww__stage" data-stage data-beat="0" data-world="off" data-end-title={endTitle} data-end-body={endBody} data-end-cta={endCta} data-end-demo={endDemo} data-book={BOOK}>
       <div class="ww__sky" aria-hidden="true"><span class="ww__stars"></span></div>
       <canvas class="ww__world ww__world--off" data-world="off" aria-hidden="true"></canvas>
       <canvas class="ww__world ww__world--on" data-world="on" aria-hidden="true"></canvas>
+      <div class="ww__vignette" aria-hidden="true"></div>
 
-      {(['off', 'on'] as const).map((side) => (
-        <div class={`ww__layer ww__layer--${side}`} aria-hidden={side === 'off' ? undefined : 'true'}>
-          <div class={`ph ph--${side}`}>
-            <div class="ph__frame">
-              <div class="ph__screen">
-                <div class="ph__island"></div>
-                <div class="ph__lock">
-                  <span class="ph__date">{date}</span>
-                  <span class="ph__clock" data-clock>{moments[0].time}</span>
-                </div>
-                <ol class="ph__notifs">
-                  {moments.map((m, i) => (
-                    <li class="ph__notif" data-notif={i} hidden={i !== 0 ? true : undefined}>
-                      <span class={`ph__icon ph__icon--${side}`}>
-                        {side === 'on'
-                          ? <img src="/dusa-logo.webp" alt="" width="20" height="20" loading="lazy" decoding="async" />
-                          : <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>}
-                      </span>
-                      <span class="ph__body">
-                        <span class="ph__row"><b>{m[side].app}</b><em>now</em></span>
-                        <span class="ph__title">{m[side].title}</span>
-                        <span class="ph__text">{m[side].body}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-                <div class="ph__home"></div>
-              </div>
-            </div>
-          </div>
+      <ol class="ww__banners" data-banners aria-live="polite"></ol>
+
+      <div class="ww__bottom">
+        <div class="ww__lines">
+          {moments.map((m, i) => (
+            <p class="ww__line" data-line={i} hidden={i !== 0 ? true : undefined}><span data-side="off">{m.off.line}</span><span data-side="on">{m.on.line}</span></p>
+          ))}
         </div>
-      ))}
-
-      <span class="ww__tag ww__tag--off">{labelOff}</span>
-      <span class="ww__tag ww__tag--on">{labelOn}</span>
-
-      <div class="ww__handle" data-handle role="slider" tabindex="0" aria-label="Slide between without and with DUSA" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
-        <span class="ww__line"></span>
-        <span class="ww__grip" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg>
-        </span>
-      </div>
-    </div>
-
-    <div class="ww__timeline" role="tablist" aria-label="Moments of the day">
-      {moments.map((m, i) => (
-        <button type="button" class={`ww__time${i === 0 ? ' is-on' : ''}`} role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-time={i}>
-          <span class="ww__time-bar" aria-hidden="true"><span></span></span>
-          <b>{m.time}<small>{ampm(i)}</small></b>
-          {m.label && <span class="ww__time-label">{m.label}</span>}
+        <button type="button" class="ww__switch" data-switch aria-pressed="false">
+          <span class="ww__switch-dot" aria-hidden="true"></span>
+          <span data-switch-label data-on={switchOn} data-off={switchOff}>{switchOn}</span>
         </button>
-      ))}
+        <div class="ww__timeline" role="tablist" aria-label="Moments of the day">
+          {moments.map((m, i) => (
+            <button type="button" class={`ww__time${i === 0 ? ' is-on' : ''}`} role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-time={i}>
+              <span class="ww__time-bar" aria-hidden="true"><span></span></span>
+              <b>{m.time}<small>{ampm(i)}</small></b>
+              {m.label && <span class="ww__time-label">{m.label}</span>}
+            </button>
+          ))}
+        </div>
+      </div>
+
     </div>
 
-    <div class="ww__lines" aria-live="polite">
-      {moments.map((m, i) => (
-        <div class="ww__pair" data-pair={i} hidden={i !== 0 ? true : undefined}>
-          <p class="ww__line-off">{m.off.line}</p>
-          <p class="ww__line-on">{m.on.line}</p>
-        </div>
-      ))}
-    </div>
+    <script type="application/json" data-moments set:html={JSON.stringify(moments.map((m) => ({ off: { app: m.off.app, title: m.off.title, body: m.off.body }, on: { app: m.on.app, title: m.on.title, body: m.on.body } })))} />
 
     <div class="ww__ctas">
       <a href="/start" data-page="start" class="btn btn--primary">{cta}</a>
@@ -168,9 +150,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     background: var(--deep-black);
     border: 1px solid rgba(247, 244, 239, 0.1);
     box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.06), 0 30px 80px rgba(0, 0, 0, 0.35);
-    touch-action: pan-y;
     user-select: none; -webkit-user-select: none;
-    cursor: ew-resize;
     --sky1: #2b2f4a; --sky2: #8d6b7a;
   }
   .ww__sky { position: absolute; inset: 0; background: linear-gradient(180deg, var(--sky1), var(--sky2)); transition: background 1.4s ease; }
@@ -184,173 +164,119 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
   .ww__stage[data-beat="5"] { --sky1: #3d5f8f; --sky2: #e2a06b; }
   .ww__stage[data-beat="6"] { --sky1: #06080f; --sky2: #15213a; }
   .ww__stage[data-beat="6"] .ww__stars { opacity: 1; }
+  /* Without DUSA the sky is a little flatter too. */
+  .ww__stage[data-world="off"] .ww__sky { filter: saturate(0.6); }
 
-  .ww__world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ww__world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: opacity 0.7s ease; }
   .ww__world--off { filter: saturate(0.8) brightness(0.92); }
-  .ww__world--on { clip-path: inset(0 0 0 var(--x)); }
-  .ww__layer { position: absolute; inset: 0; pointer-events: none; }
-  .ww__layer--on { clip-path: inset(0 0 0 var(--x)); }
+  .ww__world--on { opacity: 0; }
+  .ww__stage[data-world="on"] .ww__world--on { opacity: 1; }
+  .ww__stage[data-world="on"] .ww__world--off { opacity: 0; }
+  .ww__vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%); }
 
-  /* ── The iPhone ── */
-  .ph {
-    position: absolute; left: 50%; top: 16px;
-    width: 190px; aspect-ratio: 9 / 19.5;
-    transform: translateX(-50%);
-    --s: 0.742;
-    font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+  /* ── Notifications, the way the phone does them ── */
+  :global(.ww__banners) { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: min(380px, calc(100% - 24px)); margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; z-index: 3; }
+  :global(.ww__banner) {
+    display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: start;
+    padding: 10px 12px 11px; border-radius: 22px;
+    background: rgba(28, 30, 38, 0.55);
+    backdrop-filter: blur(24px) saturate(160%); -webkit-backdrop-filter: blur(24px) saturate(160%);
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.22), 0 10px 40px rgba(0, 0, 0, 0.35);
+    color: #fff; font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+    animation: bannerIn 0.55s cubic-bezier(0.22, 1.2, 0.36, 1);
+    transition: transform 0.35s ease, opacity 0.35s ease;
   }
-  .ph__frame {
-    position: absolute; inset: 0;
-    border-radius: 36px;
-    background: linear-gradient(160deg, #3a3c43, #1a1b20 40%, #26272d 100%);
-    box-shadow:
-      inset 0 0 0 1.5px rgba(255, 255, 255, 0.22),
-      inset 0 0 0 4px #121318,
-      0 1px 0 rgba(255, 255, 255, 0.12),
-      0 40px 90px rgba(0, 0, 0, 0.6);
-  }
-  .ph__frame::before { content: ''; position: absolute; left: -3px; top: 22%; width: 3px; height: 26px; border-radius: 2px 0 0 2px; background: #2c2d33; box-shadow: 0 46px 0 #2c2d33, 0 86px 0 #2c2d33; }
-  .ph__frame::after { content: ''; position: absolute; right: -3px; top: 30%; width: 3px; height: 52px; border-radius: 0 2px 2px 0; background: #2c2d33; }
-  .ph__screen { position: absolute; inset: 7px; border-radius: 30px; overflow: hidden; color: #fff; }
-  .ph--on .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #1c4a4f 0%, #0f2432 55%, #0a0f18 100%); }
-  .ph--off .ph__screen { background: radial-gradient(120% 70% at 50% 0%, #3b2c35 0%, #1a1420 55%, #0b0a10 100%); }
-  .ph__island { position: absolute; left: 50%; top: 9px; width: 68px; height: 21px; transform: translateX(-50%); border-radius: 20px; background: #000; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
-  .ph__lock { position: absolute; left: 0; right: 0; top: 38px; text-align: center; line-height: 1; }
-  .ph__date { display: block; font-size: 10px; font-weight: 500; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.8); }
-  .ph__clock { display: block; font-size: 50px; font-weight: 600; letter-spacing: -0.03em; color: #fff; margin-top: 4px; text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25); }
-  .ph__notifs { position: absolute; left: 7px; right: 7px; top: 124px; margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; }
-  .ph__notif {
-    display: grid; grid-template-columns: 27px 1fr; gap: 7px; align-items: start;
-    padding: 7px 9px 8px; border-radius: 15px;
-    background: rgba(255, 255, 255, 0.14);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
-    animation: phIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .ph__notif[hidden] { display: none; }
-  @keyframes phIn { from { opacity: 0; transform: translateY(-10px) scale(0.97); } to { opacity: 1; transform: none; } }
-  .ph__icon { width: 27px; height: 27px; border-radius: 7px; display: grid; place-items: center; overflow: hidden; }
-  .ph__icon--off { background: linear-gradient(160deg, #ff6b5e, #d93b2f); color: #fff; }
-  /* The DUSA app icon: the lotus on the app's navy. */
-  .ph__icon--on { background: linear-gradient(160deg, #1f4472, #0f2440 70%, #0b1a30); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.35); }
-  .ph__icon img { width: 16px; height: 16px; }
-  .ph__icon svg { width: 14px; height: 14px; }
-  .ph__body { display: grid; gap: 2px; min-width: 0; }
-  .ph__row { display: flex; justify-content: space-between; align-items: baseline; }
-  .ph__row b { font-size: 9.5px; font-weight: 600; color: rgba(255, 255, 255, 0.92); }
-  .ph__row em { font-style: normal; font-size: 8.5px; color: rgba(255, 255, 255, 0.55); }
-  .ph__title { font-size: 10.5px; font-weight: 600; color: #fff; line-height: 1.25; }
-  .ph--off .ph__title { color: #ffb3aa; }
-  .ph--on .ph__title { color: #8ff2e1; }
-  .ph__text { font-size: 9.5px; color: rgba(255, 255, 255, 0.78); line-height: 1.3; }
-  .ph__home { position: absolute; left: 50%; bottom: 6px; width: 80px; height: 4px; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform: translateX(-50%); }
+  :global(.ww__banner.is-out) { opacity: 0; transform: translateY(-20px) scale(0.98); }
+  :global(.ww__banner.is-old) { opacity: 0.8; transform: scale(0.97); }
+  @keyframes bannerIn { from { opacity: 0; transform: translateY(-36px) scale(0.96); } to { opacity: 1; transform: none; } }
+  :global(.ww__banner-icon) { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; overflow: hidden; }
+  :global(.ww__banner-icon--off) { background: linear-gradient(160deg, #ff6b5e, #d93b2f); color: #fff; }
+  :global(.ww__banner-icon--on) { background: linear-gradient(160deg, #1f4472, #0f2440 70%, #0b1a30); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.35); }
+  :global(.ww__banner-icon img) { width: 22px; height: 22px; }
+  :global(.ww__banner-icon svg) { width: 18px; height: 18px; }
+  :global(.ww__banner-body) { display: grid; gap: 2px; min-width: 0; }
+  :global(.ww__banner-row) { display: flex; justify-content: space-between; align-items: baseline; }
+  :global(.ww__banner-row b) { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.92); }
+  :global(.ww__banner-row em) { font-style: normal; font-size: 11px; color: rgba(255, 255, 255, 0.55); }
+  :global(.ww__banner-title) { font-size: 13.5px; font-weight: 600; line-height: 1.25; }
+  :global(.ww__banner--off .ww__banner-title) { color: #ffb3aa; }
+  :global(.ww__banner--on .ww__banner-title) { color: #8ff2e1; }
+  :global(.ww__banner-text) { font-size: 12.5px; color: rgba(255, 255, 255, 0.8); line-height: 1.3; }
+  /* The last one: the invitation. It glows and it stays. */
+  :global(.ww__banner--end) { background: linear-gradient(135deg, rgba(26, 58, 92, 0.72), rgba(12, 14, 20, 0.7)); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.5), 0 0 0 6px rgba(78, 216, 194, 0.08), 0 16px 50px rgba(78, 216, 194, 0.22); animation: bannerIn 0.6s cubic-bezier(0.22, 1.2, 0.36, 1), endGlow 2.6s ease-in-out 0.6s infinite; }
+  @keyframes endGlow { 0%, 100% { box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.5), 0 0 0 6px rgba(78, 216, 194, 0.08), 0 16px 50px rgba(78, 216, 194, 0.22); } 50% { box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.8), 0 0 0 10px rgba(78, 216, 194, 0.12), 0 16px 60px rgba(78, 216, 194, 0.4); } }
+  :global(.ww__banner--end .ww__banner-title) { color: #fff; font-size: 15px; }
+  :global(.ww__banner-actions) { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  :global(.ww__banner-btn) { display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 100px; font-size: 12.5px; font-weight: 600; color: #fff; text-decoration: none; background: rgba(255, 255, 255, 0.12); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.25); }
+  :global(.ww__banner-btn--primary) { background: linear-gradient(135deg, #4ed8c2, #6aaacf); color: var(--deep-black); box-shadow: 0 6px 18px rgba(78, 216, 194, 0.35); }
 
-  /* ── Frosted tags, red and mint ── */
-  .ww__tag {
-    position: absolute; top: 14px;
-    padding: 0.45rem 0.95rem; border-radius: 100px;
-    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.01em;
-    color: #fff; pointer-events: none;
-    backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%);
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  /* ── Bottom: the line, the switch, the clock ── */
+  .ww__bottom { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 14px; display: grid; gap: 12px; justify-items: center; z-index: 2; }
+  .ww__lines { width: 100%; max-width: 640px; text-align: center; }
+  .ww__line { margin: 0; font-size: 1rem; line-height: 1.4; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); max-width: none; }
+  .ww__line[hidden] { display: none; }
+  .ww__line [data-side="on"] { display: none; }
+  .ww__stage[data-world="on"] .ww__line [data-side="on"] { display: inline; }
+  .ww__stage[data-world="on"] .ww__line [data-side="off"] { display: none; }
+  .ww__switch {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.8rem 1.4rem; border-radius: 100px; border: 1px solid rgba(160, 245, 230, 0.7);
+    background: linear-gradient(135deg, rgba(78, 216, 194, 0.55), rgba(78, 216, 194, 0.22));
+    backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+    color: #fff; font: inherit; font-weight: 600; font-size: 1rem; letter-spacing: 0.01em; cursor: pointer;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px rgba(78, 216, 194, 0.35), 0 0 0 0 rgba(78, 216, 194, 0.5);
+    animation: switchPulse 2.4s ease-out infinite;
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
   }
-  .ww__tag--off {
-    left: 14px;
-    background: linear-gradient(135deg, rgba(255, 70, 58, 0.72), rgba(255, 70, 58, 0.4));
-    border: 1px solid rgba(255, 160, 150, 0.65);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 24px rgba(255, 107, 94, 0.25);
-  }
-  .ww__tag--on {
-    right: 14px;
-    background: linear-gradient(135deg, rgba(78, 216, 194, 0.6), rgba(78, 216, 194, 0.28));
-    border: 1px solid rgba(160, 245, 230, 0.7);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 8px 24px rgba(78, 216, 194, 0.25);
-  }
+  @keyframes switchPulse { 0% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px rgba(78, 216, 194, 0.35), 0 0 0 0 rgba(78, 216, 194, 0.55); } 100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 10px 30px rgba(78, 216, 194, 0.35), 0 0 0 22px rgba(78, 216, 194, 0); } }
+  .ww__switch-dot { width: 9px; height: 9px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff; }
+  .ww__switch[aria-pressed="true"] { animation: none; background: rgba(12, 14, 20, 0.45); border-color: rgba(247, 244, 239, 0.25); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 10px 30px rgba(0, 0, 0, 0.3); }
+  .ww__switch[aria-pressed="true"] .ww__switch-dot { background: #4ed8c2; box-shadow: 0 0 10px #4ed8c2; }
+  .ww__switch:focus-visible { outline: 2px solid var(--reef-aqua); outline-offset: 3px; }
 
-  /* ── Handle ── */
-  .ww__handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 0; outline: none; }
-  .ww__line { position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: rgba(247, 244, 239, 0.92); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 18px rgba(247, 244, 239, 0.5); }
-  .ww__grip {
-    position: absolute; left: 50%; top: 50%; width: 52px; height: 52px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%; display: grid; place-items: center;
-    color: var(--deep-black);
-    background: linear-gradient(160deg, #ffffff, #d9e4ea);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 #fff;
-    transition: transform 0.2s;
-  }
-  .ww__stage.is-dragging .ww__grip, .ww__handle:focus-visible .ww__grip { transform: translate(-50%, -50%) scale(1.08); }
-  .ww__handle:focus-visible .ww__line { background: var(--reef-aqua); }
-  .ww__stage.is-nudging .ww__handle { transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
-  .ww__stage.is-nudging .ww__layer--on, .ww__stage.is-nudging .ww__world--on { transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
-
-  /* ── Timeline ── */
-  .ww__timeline { display: flex; gap: 0.5rem; max-width: 1100px; margin: var(--space-md) auto 0; }
-  .ww__time { flex: 1; position: relative; background: none; border: 0; padding: 0.25rem 0 0; cursor: pointer; color: rgba(247, 244, 239, 0.5); font: inherit; text-align: left; }
-  .ww__time b { display: block; font-family: var(--font-headline); font-weight: 600; font-size: 0.95rem; margin-top: 0.45rem; transition: color 0.3s; }
+  .ww__timeline { display: flex; gap: 0.4rem; width: 100%; max-width: 720px; padding: 0.55rem 0.8rem 0.45rem; border-radius: 16px; background: rgba(12, 14, 20, 0.4); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12); }
+  .ww__time { flex: 1; position: relative; background: none; border: 0; padding: 0.15rem 0 0; cursor: pointer; color: rgba(247, 244, 239, 0.55); font: inherit; text-align: left; }
+  .ww__time b { display: block; font-family: var(--font-headline); font-weight: 600; font-size: 0.8rem; margin-top: 0.3rem; transition: color 0.3s; white-space: nowrap; }
   .ww__time b small { font-size: 0.7em; margin-left: 1px; font-weight: 500; }
-  .ww__time-label { display: block; font-size: 0.72rem; color: var(--reef-aqua); margin-top: 0.1rem; }
-  .ww__time-bar { display: block; height: 3px; border-radius: 2px; background: rgba(247, 244, 239, 0.12); overflow: hidden; }
+  .ww__time-label { display: block; font-size: 0.62rem; color: var(--reef-aqua); margin-top: 0; }
+  .ww__time-bar { display: block; height: 3px; border-radius: 2px; background: rgba(247, 244, 239, 0.16); overflow: hidden; }
   .ww__time-bar span { display: block; height: 100%; width: 0; background: var(--reef-aqua); }
-  .ww__time.is-past .ww__time-bar span { width: 100%; }
   .ww__time.is-on { color: var(--warm-white); }
-  .ww__time.is-on .ww__time-bar span { width: 100%; transition: width var(--hold, 6s) linear; }
   .ww__time:hover b { color: var(--warm-white); }
 
-  /* ── The one-liners ── */
-  .ww__lines { max-width: 1100px; margin: var(--space-md) auto 0; }
-  .ww__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
-  .ww__pair[hidden] { display: none; }
-  .ww__pair p { margin: 0; padding-left: 1rem; border-left: 3px solid; font-size: 1rem; line-height: 1.45; max-width: none; }
-  .ww__line-off { color: rgba(247, 244, 239, 0.66); border-color: rgba(255, 107, 94, 0.8); }
-  .ww__line-on { color: var(--warm-white); font-weight: 500; border-color: #4ed8c2; }
   .ww__ctas { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg); }
 
-  /* ── Phones ── */
+  /* ── Phones: the stage is the screen ── */
   @media (max-width: 760px) {
-    .ww { padding-top: calc(74px + var(--space-lg)); }
-    .ww__stage { aspect-ratio: 4 / 5; border-radius: 22px; }
-    .ph { width: 150px; top: 12px; }
-    .ph__frame { border-radius: 28px; }
-    .ph__screen { inset: 5px; border-radius: 24px; }
-    .ph__island { width: 52px; height: 16px; top: 7px; }
-    .ph__lock { top: 29px; }
-    .ph__clock { font-size: 38px; }
-    .ph__date { font-size: 8.5px; }
-    .ph__notifs { top: 96px; left: 5px; right: 5px; gap: 4px; }
-    .ph__notif { padding: 6px 7px 7px; border-radius: 11px; grid-template-columns: 21px 1fr; gap: 6px; }
-    .ph__icon { width: 21px; height: 21px; border-radius: 5px; }
-    .ph__icon img { width: 13px; height: 13px; }
-    .ph__icon svg { width: 11px; height: 11px; }
-    .ph__row b { font-size: 8.5px; } .ph__row em { font-size: 7.5px; }
-    .ph__title { font-size: 9.5px; } .ph__text { font-size: 8.5px; }
-    .ph__home { width: 60px; height: 3px; bottom: 5px; }
-    .ww__tag { top: 10px; font-size: 0.72rem; padding: 0.32rem 0.7rem; }
-    .ww__tag--off { left: 10px; } .ww__tag--on { right: 10px; }
-    .ww__grip { width: 44px; height: 44px; }
-    .ww__time b { font-size: 0.78rem; }
-    .ww__time-label { font-size: 0.62rem; }
-    .ww__pair { grid-template-columns: 1fr; gap: 0.5rem; }
-    .ww__pair p { font-size: 0.9375rem; }
+    .ww { padding-top: calc(74px + var(--space-md)); }
+    .ww__header { margin-bottom: var(--space-sm); }
+    .ww__h1 { font-size: 1.6rem; }
+    .ww__sub { font-size: 0.9375rem; }
+    .ww__stage { aspect-ratio: auto; height: calc(100svh - 74px - 1rem); max-height: 760px; border-radius: 22px; }
+  :global(.ww__banners) { top: 10px; width: calc(100% - 20px); }
+    .ww__bottom { padding: 0 10px 10px; gap: 10px; }
+    .ww__line { font-size: 0.9375rem; }
+    .ww__switch { padding: 0.75rem 1.25rem; font-size: 0.9375rem; }
+    .ww__timeline { gap: 0.25rem; padding: 0.45rem 0.6rem 0.4rem; }
+    .ww__time b { font-size: 0.66rem; }
+    .ww__time b small { display: none; }
+    .ww__time-label { display: none; }
     .ww__ctas .btn { width: 100%; text-align: center; }
   }
+  /* While the stage is in view, the nav steps out of the way. */
+  :global(html.ww-immersed .nav) { opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+  :global(.nav) { transition: opacity 0.4s; }
 
   @media (prefers-reduced-motion: reduce) {
-    .ph__notif { animation: none; }
-    .ww__time.is-on .ww__time-bar span { transition: none; }
+  :global(.ww__banner), :global(.ww__banner--end) { animation: none; }
+    .ww__switch { animation: none; }
   }
 
   /* ── Light mode ── */
   :global(html[data-theme="light"]) .ww__h1 { color: var(--deep-black); }
   :global(html[data-theme="light"]) .ww__sub { color: rgba(12, 14, 20, 0.66); }
   :global(html[data-theme="light"]) .ww__stage { border-color: rgba(12, 14, 20, 0.1); box-shadow: 0 30px 70px rgba(12, 14, 20, 0.18); }
-  :global(html[data-theme="light"]) .ww__time { color: rgba(12, 14, 20, 0.5); }
-  :global(html[data-theme="light"]) .ww__time.is-on, :global(html[data-theme="light"]) .ww__time:hover b { color: var(--deep-black); }
-  :global(html[data-theme="light"]) .ww__time-bar { background: rgba(12, 14, 20, 0.1); }
-  :global(html[data-theme="light"]) .ww__time-bar span { background: var(--deep-ocean); }
-  :global(html[data-theme="light"]) .ww__time-label { color: var(--deep-ocean); }
-  :global(html[data-theme="light"]) .ww__line-off { color: rgba(12, 14, 20, 0.62); }
-  :global(html[data-theme="light"]) .ww__line-on { color: var(--deep-black); border-color: var(--deep-ocean); }
 </style>
 
 <script>
@@ -359,13 +285,14 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
 
   document.querySelectorAll<HTMLElement>('[data-ww]').forEach((root) => {
     const stage = root.querySelector<HTMLElement>('[data-stage]')!;
-    const handle = root.querySelector<HTMLElement>('[data-handle]')!;
     const times = [...root.querySelectorAll<HTMLButtonElement>('[data-time]')];
     const bars = times.map((t) => t.querySelector<HTMLElement>('.ww__time-bar span')!);
-    const pairs = [...root.querySelectorAll<HTMLElement>('[data-pair]')];
-    const clocks = [...root.querySelectorAll<HTMLElement>('[data-clock]')];
-    const notifSets = [...root.querySelectorAll<HTMLElement>('.ph__notifs')].map((ol) => [...ol.querySelectorAll<HTMLElement>('[data-notif]')]);
-    const canvases = { off: root.querySelector<HTMLCanvasElement>('[data-world="off"]')!, on: root.querySelector<HTMLCanvasElement>('[data-world="on"]')! };
+    const lines = [...root.querySelectorAll<HTMLElement>('[data-line]')];
+    const bannerList = root.querySelector<HTMLElement>('[data-banners]')!;
+    const switchBtn = root.querySelector<HTMLButtonElement>('[data-switch]')!;
+    const switchLabel = root.querySelector<HTMLElement>('[data-switch-label]')!;
+    const momentsData = JSON.parse(root.querySelector('[data-moments]')!.textContent || '[]') as { off: { app: string; title: string; body: string }; on: { app: string; title: string; body: string } }[];
+    const canvases = { off: root.querySelector<HTMLCanvasElement>('canvas[data-world="off"]')!, on: root.querySelector<HTMLCanvasElement>('canvas[data-world="on"]')! };
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ── The clock. One loop is a working day, 6:30am to 9:30pm. ── */
@@ -376,25 +303,49 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     const beatOf = (h: number) => { let b = 0; for (let i = 0; i < N; i++) if (h >= MARKS[i]) b = i; return b; };
     const fmt = (h: number) => { const hh = Math.floor(h), mm = Math.floor((h - hh) * 60); const h12 = ((hh + 11) % 12) + 1; return `${h12}:${mm < 10 ? '0' : ''}${mm}`; };
 
-    /* ── Slider ── */
-    let x = 50, dragging = false;
-    const setX = (v: number) => { x = Math.min(96, Math.max(4, v)); stage.style.setProperty('--x', `${x}%`); handle.setAttribute('aria-valuenow', String(Math.round(x))); };
-    const fromEvent = (e: PointerEvent) => { const r = stage.getBoundingClientRect(); return ((e.clientX - r.left) / r.width) * 100; };
-    stage.addEventListener('pointerdown', (e) => {
-      if ((e.target as HTMLElement).closest('a, button')) return;
-      dragging = true; stage.classList.add('is-dragging'); stage.classList.remove('is-nudging');
-      stage.setPointerCapture(e.pointerId); setX(fromEvent(e)); paused = true;
-    });
-    stage.addEventListener('pointermove', (e) => { if (dragging) setX(fromEvent(e)); });
-    const endDrag = () => { if (!dragging) return; dragging = false; stage.classList.remove('is-dragging'); paused = false; };
-    stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
-    handle.addEventListener('keydown', (e) => {
-      const step = e.shiftKey ? 10 : 3;
-      if (e.key === 'ArrowLeft') { setX(x - step); e.preventDefault(); }
-      if (e.key === 'ArrowRight') { setX(x + step); e.preventDefault(); }
-      if (e.key === 'Home') { setX(4); e.preventDefault(); }
-      if (e.key === 'End') { setX(96); e.preventDefault(); }
-    });
+    /* ── The switch: one tap flips the whole day to the DUSA version. ── */
+    let world: 'off' | 'on' = 'off';
+    const setWorld = (w: 'off' | 'on') => {
+      world = w;
+      stage.setAttribute('data-world', w);
+      switchBtn.setAttribute('aria-pressed', w === 'on' ? 'true' : 'false');
+      switchLabel.textContent = w === 'on' ? (switchLabel.dataset.off || 'Switch back') : (switchLabel.dataset.on || 'Switch to DUSA');
+    };
+    switchBtn.addEventListener('click', () => { setWorld(world === 'on' ? 'off' : 'on'); if (beat >= 0) banner(beat, true); });
+
+    /* ── Notifications: they drop in from the top edge, stack two deep, and leave on their own. ── */
+    const PHONE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>';
+    let lastBanner = -1;
+    const banner = (i: number, force = false) => {
+      if (!force && i === lastBanner) return;
+      lastBanner = i;
+      const m = momentsData[i][world];
+      const li = document.createElement('li');
+      li.className = `ww__banner ww__banner--${world}`;
+      li.innerHTML = `<span class="ww__banner-icon ww__banner-icon--${world}">${world === 'on' ? '<img src="/dusa-logo.webp" alt="" width="22" height="22" decoding="async">' : PHONE_SVG}</span><span class="ww__banner-body"><span class="ww__banner-row"><b></b><em>now</em></span><span class="ww__banner-title"></span><span class="ww__banner-text"></span></span>`;
+      li.querySelector('b')!.textContent = m.app;
+      li.querySelector('.ww__banner-title')!.textContent = m.title;
+      li.querySelector('.ww__banner-text')!.textContent = m.body;
+      // Newest on top; the one before it shrinks; anything older goes.
+      [...bannerList.children].forEach((c, k) => { if (c.classList.contains('ww__banner--end')) return; if (k >= 1) dismiss(c as HTMLElement); else c.classList.add('is-old'); });
+      bannerList.prepend(li);
+      window.setTimeout(() => dismiss(li), 5200);
+    };
+    const dismiss = (el: HTMLElement) => { if (!el.isConnected || el.classList.contains('ww__banner--end')) return; el.classList.add('is-out'); window.setTimeout(() => el.remove(), 380); };
+    let ended = false;
+    const endBanner = () => {
+      if (ended) return; ended = true;
+      [...bannerList.children].forEach((c) => dismiss(c as HTMLElement));
+      const li = document.createElement('li');
+      li.className = 'ww__banner ww__banner--end';
+      li.innerHTML = `<span class="ww__banner-icon ww__banner-icon--on"><img src="/dusa-logo.webp" alt="" width="22" height="22" decoding="async"></span><span class="ww__banner-body"><span class="ww__banner-row"><b>DUSA</b><em>now</em></span><span class="ww__banner-title"></span><span class="ww__banner-text"></span><span class="ww__banner-actions"><a class="ww__banner-btn ww__banner-btn--primary" href="/start" data-page="start"></a><a class="ww__banner-btn" target="_blank" rel="noopener noreferrer"></a></span></span>`;
+      li.querySelector('.ww__banner-title')!.textContent = stage.dataset.endTitle || '';
+      li.querySelector('.ww__banner-text')!.textContent = stage.dataset.endBody || '';
+      const [a1, a2] = [...li.querySelectorAll<HTMLAnchorElement>('a')];
+      a1.textContent = stage.dataset.endCta || 'Start free'; a2.textContent = stage.dataset.endDemo || 'Book a call'; a2.href = stage.dataset.book || '#';
+      bannerList.prepend(li);
+    };
+    const clearEnd = () => { if (!ended) return; ended = false; bannerList.querySelectorAll('.ww__banner--end').forEach((e) => e.remove()); };
 
     /* ════════════════════════════════════════════════════════════════════
        The diorama. Clay-style: rounded boxes, soft shadows, flat colours.
@@ -675,7 +626,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       const cur = { night: 0, smoko: 0, home: 0, driveOff: 0 };
       const resize = () => {
         const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false);
-        const aspect = w / h; const halfW = aspect < 1 ? 7.8 : 10.0;
+        const aspect = w / h; const halfW = aspect < 1 ? 7.4 : 9.4;
         camera.left = -halfW; camera.right = halfW; camera.top = halfW / aspect; camera.bottom = -halfW / aspect; camera.updateProjectionMatrix();
       };
       const setBeat = (b: number) => { if (b !== shownBeat) { shownBeat = b; pingAt = performance.now(); } };
@@ -733,7 +684,7 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
         const rx = (x: number, z: number) => x * Math.cos(0.35) + z * Math.sin(0.35), rz = (x: number, z: number) => -x * Math.sin(0.35) + z * Math.cos(0.35);
         const hx = HX + 3.4, hz = HZ + 1.2;
         const cx = THREE.MathUtils.lerp(0, rx(hx, hz), cur.home), cz = THREE.MathUtils.lerp(0, rz(hx, hz), cur.home);
-        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 2.3 - cur.home * 0.8, cz); camera.zoom = 1 + cur.home * 0.22; camera.updateProjectionMatrix();
+        camera.position.set(cx + 14, 12.5, cz + 14); camera.lookAt(cx, 1.1 - cur.home * 0.5, cz); camera.zoom = 1 + cur.home * 0.22; camera.updateProjectionMatrix();
         renderer.render(scene, camera);
       };
       return { frame, resize, start: () => { running = true; }, stop: () => { running = false; }, get running() { return running; } };
@@ -742,26 +693,23 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
     const worlds = [makeWorld(false, canvases.off), makeWorld(true, canvases.on)];
     window.addEventListener('resize', () => worlds.forEach((w) => w.resize()));
 
-    /* ── UI per beat: cards, notifications, timeline ── */
+    /* ── UI per beat: the line under the island, the banner, the timeline ── */
     const showBeat = (b: number) => {
       if (b === beat) return;
       beat = b;
       stage.setAttribute('data-beat', String(beat));
-      times.forEach((t, i) => { t.classList.toggle('is-on', i === beat); t.classList.toggle('is-past', i < beat); t.setAttribute('aria-selected', i === beat ? 'true' : 'false'); });
-      pairs.forEach((p, i) => { if (i === beat) p.removeAttribute('hidden'); else p.setAttribute('hidden', ''); });
-      notifSets.forEach((set) => {
-        const order: HTMLElement[] = [];
-        set.forEach((n, i) => { if (i <= beat && i > beat - 3) order.push(n); else n.setAttribute('hidden', ''); });
-        order.reverse().forEach((n, k) => { n.removeAttribute('hidden'); n.style.order = String(k); n.style.opacity = k === 0 ? '1' : k === 1 ? '0.85' : '0.65'; n.style.transform = k === 0 ? '' : `scale(${1 - k * 0.03})`; });
-      });
+      times.forEach((t, i) => { t.classList.toggle('is-on', i === beat); t.setAttribute('aria-selected', i === beat ? 'true' : 'false'); });
+      lines.forEach((l, i) => { if (i === beat) l.removeAttribute('hidden'); else l.setAttribute('hidden', ''); });
+      banner(beat);
+      if (beat < N - 1) clearEnd();
     };
     times.forEach((t, i) => t.addEventListener('click', () => { hour = MARKS[i] + 0.001; }));
     stage.addEventListener('mouseenter', () => { paused = true; });
-    stage.addEventListener('mouseleave', () => { if (!dragging) paused = false; });
+    stage.addEventListener('mouseleave', () => { paused = false; });
     document.addEventListener('visibilitychange', () => { paused = document.hidden; });
 
     /* ── The loop ── */
-    let lastT = 0, lastClock = '';
+    let lastT = 0;
     const loop = (now: number) => {
       if (!playing) return;
       const dt = Math.min(0.05, (now - lastT) / 1000 || 0.016); lastT = now;
@@ -770,20 +718,20 @@ const ampm = (i: number) => (i >= 4 ? 'pm' : 'am');
       showBeat(b);
       const next = b < N - 1 ? MARKS[b + 1] : DAY1;
       bars.forEach((bar, i) => { bar.style.transition = 'none'; bar.style.width = i < b ? '100%' : i === b ? `${clamp01((hour - MARKS[b]) / (next - MARKS[b])) * 100}%` : '0'; });
-      const c = fmt(hour); if (c !== lastClock) { lastClock = c; clocks.forEach((el) => (el.textContent = c)); }
+      if (hour >= 21.0 && beat === N - 1) endBanner();
       worlds.forEach((w) => w.frame(now, hour, dt, b));
       requestAnimationFrame(loop);
     };
     const start = () => {
-      if (!started) {
-        started = true;
-        if (!reduced) { stage.classList.add('is-nudging'); setTimeout(() => setX(62), 600); setTimeout(() => setX(44), 1500); setTimeout(() => setX(50), 2400); setTimeout(() => stage.classList.remove('is-nudging'), 3200); }
-      }
+      if (!started) { started = true; setWorld('off'); }
       if (playing) return; playing = true; lastT = performance.now(); worlds.forEach((w) => w.resize()); requestAnimationFrame(loop);
     };
     const stop = () => { playing = false; };
     worlds.forEach((w) => w.resize());
-    if ('IntersectionObserver' in window) new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.2 }).observe(stage);
-    else start();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())), { threshold: 0.2 }).observe(stage);
+      // Deep in the stage, the site steps aside: the nav fades so the banners read as the phone's.
+      new IntersectionObserver((entries) => entries.forEach((e) => document.documentElement.classList.toggle('ww-immersed', e.isIntersecting)), { threshold: 0.72 }).observe(stage);
+    } else start();
   });
 </script>

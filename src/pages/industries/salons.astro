@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import t from '../../i18n/translations/en.json';
-import SalonDay from '../../components/SalonDay.astro';
 ---
 
 <BaseLayout t={t} title="Booking Automation for Salons & Spas | DUSA . studio" description="Automate bookings, reduce no-shows, and keep clients coming back. DUSA gives salons and spas a complete growth system with reminders, rebooking campaigns, and review requests.">
@@ -16,8 +15,20 @@ import SalonDay from '../../components/SalonDay.astro';
     ]
   })} />
 
-  <!-- Hero: a studio owner's Saturday in 3D -->
-  <SalonDay />
+  <!-- Hero -->
+  <section class="industry-hero section section--dark">
+    <div class="container">
+      <div class="industry-hero__content">
+        <span class="label">Salons &amp; Spas</span>
+        <h1>Stop losing revenue to<br/><span class="gradient-text">no-shows and missed rebookings</span></h1>
+        <p class="industry-hero__sub">DUSA gives your salon a single system to fill your chair, keep clients coming back, and build a reputation that grows on autopilot.</p>
+        <div class="industry-hero__actions">
+          <a href="/start" class="btn btn--primary">Get started</a>
+          <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Pain Points -->
   <section class="pain-points section section--dark">

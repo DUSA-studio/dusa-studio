@@ -1,0 +1,398 @@
+{
+ "currency": "AUD",
+ "gst": 0.1,
+ "plans": {
+  "launchpad": 47,
+  "starter": 149,
+  "growth": 297
+ },
+ "bundleDiscount": 0.1,
+ "setupDiscount": 0.25,
+ "items": {
+  "SUP-S": {
+   "service": "Support Pack",
+   "size": "S",
+   "incl": "2 hours a month: fixes, how-tos, small builds. Unused hours do not roll over.",
+   "setup": 0,
+   "monthly": 150,
+   "guided": null
+  },
+  "SUP-M": {
+   "service": "Support Pack",
+   "size": "M",
+   "incl": "5 hours a month, priority replies, screen-share sessions.",
+   "setup": 0,
+   "monthly": 380,
+   "guided": null
+  },
+  "SUP-L": {
+   "service": "Support Pack",
+   "size": "L",
+   "incl": "10 hours a month plus a 30-minute monthly strategy call with Eliah.",
+   "setup": 0,
+   "monthly": 860,
+   "guided": null
+  },
+  "AIR-S": {
+   "service": "AI Receptionist",
+   "size": "S",
+   "incl": "Missed-call text-back, AI chat on the website, Facebook and Instagram DMs, booking link.",
+   "setup": 690,
+   "monthly": 119,
+   "guided": 139
+  },
+  "AIR-M": {
+   "service": "AI Receptionist",
+   "size": "M",
+   "incl": "Plus an AI voice agent that answers after hours, books into the calendar and texts you the job.",
+   "setup": 1290,
+   "monthly": 269,
+   "guided": 319
+  },
+  "AIR-L": {
+   "service": "AI Receptionist",
+   "size": "L",
+   "incl": "Plus AI voice 24/7, live transfer rules, multiple numbers, monthly script tuning.",
+   "setup": 1990,
+   "monthly": 449,
+   "guided": 539
+  },
+  "REV-S": {
+   "service": "Reviews Engine",
+   "size": "S",
+   "incl": "Review request after every job or visit, AI replies to every Google review.",
+   "setup": 390,
+   "monthly": 79,
+   "guided": 89
+  },
+  "REV-M": {
+   "service": "Reviews Engine",
+   "size": "M",
+   "incl": "Plus unhappy-customer catch, review widget on the website, monthly review report.",
+   "setup": 690,
+   "monthly": 149,
+   "guided": 179
+  },
+  "REV-L": {
+   "service": "Reviews Engine",
+   "size": "L",
+   "incl": "Plus past-customer review campaign, multi-location, quarterly competitor benchmark.",
+   "setup": 990,
+   "monthly": 249,
+   "guided": 299
+  },
+  "DBR-S": {
+   "service": "Database Reactivation (one-off campaign)",
+   "size": "S",
+   "incl": "Up to 1,000 past contacts, 1 offer, SMS and email over 21 days, AI handles replies and books.",
+   "setup": 990,
+   "monthly": 0,
+   "guided": 0
+  },
+  "DBR-M": {
+   "service": "Database Reactivation (one-off campaign)",
+   "size": "M",
+   "incl": "Up to 5,000 contacts, 2 offers, 30 days.",
+   "setup": 1790,
+   "monthly": 0,
+   "guided": 0
+  },
+  "DBR-L": {
+   "service": "Database Reactivation (one-off campaign)",
+   "size": "L",
+   "incl": "Up to 15,000 contacts, segmented with 3 offers, 45 days, a human calls the hot replies.",
+   "setup": 2990,
+   "monthly": 0,
+   "guided": 0
+  },
+  "FUP-S": {
+   "service": "Lead Follow-up Engine",
+   "size": "S",
+   "incl": "Pipeline, instant new-lead reply, 3-touch quote follow-up, appointment reminders.",
+   "setup": 990,
+   "monthly": 99,
+   "guided": 119
+  },
+  "FUP-M": {
+   "service": "Lead Follow-up Engine",
+   "size": "M",
+   "incl": "Plus no-show recovery, nurture for quotes not won, deposit requests, monthly optimisation.",
+   "setup": 1890,
+   "monthly": 199,
+   "guided": 239
+  },
+  "FUP-L": {
+   "service": "Lead Follow-up Engine",
+   "size": "L",
+   "incl": "Plus multi-service pipelines, rebooking cycles, referral asks, weekly optimisation.",
+   "setup": 2890,
+   "monthly": 349,
+   "guided": 419
+  },
+  "SOC-S": {
+   "service": "Social Media",
+   "size": "S",
+   "incl": "12 posts a month on 2 platforms, written, designed and scheduled.",
+   "setup": 590,
+   "monthly": 590,
+   "guided": 709
+  },
+  "SOC-M": {
+   "service": "Social Media",
+   "size": "M",
+   "incl": "20 posts and 4 short videos a month on 3 platforms, comment replies.",
+   "setup": 890,
+   "monthly": 990,
+   "guided": 1189
+  },
+  "SOC-L": {
+   "service": "Social Media",
+   "size": "L",
+   "incl": "30 posts and 8 short videos on 4 platforms, daily community management.",
+   "setup": 1190,
+   "monthly": 1790,
+   "guided": 2149
+  },
+  "CON-S": {
+   "service": "Content Creation (time-based)",
+   "size": "S",
+   "incl": "5 hours a month: video editing, photo selection, captions. Set-up builds the content plan and brand kit.",
+   "setup": 490,
+   "monthly": 375,
+   "guided": 449
+  },
+  "CON-M": {
+   "service": "Content Creation (time-based)",
+   "size": "M",
+   "incl": "10 hours a month plus a quarterly half-day shoot.",
+   "setup": 790,
+   "monthly": 890,
+   "guided": 1069
+  },
+  "CON-L": {
+   "service": "Content Creation (time-based)",
+   "size": "L",
+   "incl": "20 hours a month plus a monthly half-day shoot.",
+   "setup": 990,
+   "monthly": 1820,
+   "guided": 2179
+  },
+  "GAD-S": {
+   "service": "Google Ads",
+   "size": "S",
+   "incl": "1 search campaign, up to A$2,000/mo ad spend, call and form tracking into DUSA.",
+   "setup": 1190,
+   "monthly": 890,
+   "guided": 1069
+  },
+  "GAD-M": {
+   "service": "Google Ads",
+   "size": "M",
+   "incl": "Up to 3 campaigns plus Local Services Ads, up to A$5,000/mo spend, landing page tests.",
+   "setup": 1690,
+   "monthly": 1090,
+   "guided": 1309
+  },
+  "GAD-L": {
+   "service": "Google Ads",
+   "size": "L",
+   "incl": "Full account, up to A$10,000/mo spend, weekly optimisation, offline conversion import.",
+   "setup": 2490,
+   "monthly": 1790,
+   "guided": 2149
+  },
+  "MAD-S": {
+   "service": "Meta Ads",
+   "size": "S",
+   "incl": "1 campaign, up to A$1,500/mo spend, 3 ad creatives a month.",
+   "setup": 790,
+   "monthly": 790,
+   "guided": 949
+  },
+  "MAD-M": {
+   "service": "Meta Ads",
+   "size": "M",
+   "incl": "Up to 3 campaigns, up to A$4,000/mo spend, 6 creatives, retargeting.",
+   "setup": 1290,
+   "monthly": 1390,
+   "guided": 1669
+  },
+  "MAD-L": {
+   "service": "Meta Ads",
+   "size": "L",
+   "incl": "Full funnel, up to A$8,000/mo spend, 10 creatives, lead forms straight into DUSA follow-up.",
+   "setup": 1990,
+   "monthly": 1990,
+   "guided": 2389
+  },
+  "GBP-S": {
+   "service": "Google Business Profile",
+   "size": "S",
+   "incl": "Profile optimised, 4 posts a month, Q&A and photo updates.",
+   "setup": 390,
+   "monthly": 169,
+   "guided": 199
+  },
+  "GBP-M": {
+   "service": "Google Business Profile",
+   "size": "M",
+   "incl": "8 posts a month, offers and events, citations clean-up, monthly insights.",
+   "setup": 690,
+   "monthly": 349,
+   "guided": 419
+  },
+  "GBP-L": {
+   "service": "Google Business Profile",
+   "size": "L",
+   "incl": "Up to 3 locations, weekly posts, local rank tracking.",
+   "setup": 890,
+   "monthly": 399,
+   "guided": 479
+  },
+  "SEO-S": {
+   "service": "Local SEO",
+   "size": "S",
+   "incl": "Technical audit, 5 service pages optimised, 1 local article a month.",
+   "setup": 990,
+   "monthly": 890,
+   "guided": 1069
+  },
+  "SEO-M": {
+   "service": "Local SEO",
+   "size": "M",
+   "incl": "Plus 2 articles a month, location pages, backlink outreach.",
+   "setup": 1290,
+   "monthly": 1390,
+   "guided": 1669
+  },
+  "SEO-L": {
+   "service": "Local SEO",
+   "size": "L",
+   "incl": "Plus 4 articles a month, multi-location, digital PR.",
+   "setup": 1890,
+   "monthly": 2290,
+   "guided": 2749
+  },
+  "WEB-S": {
+   "service": "Website on DUSA",
+   "size": "S",
+   "incl": "1-page site or funnel with booking and chat built in. Monthly = hosting and care.",
+   "setup": 1690,
+   "monthly": 49,
+   "guided": 59
+  },
+  "WEB-M": {
+   "service": "Website on DUSA",
+   "size": "M",
+   "incl": "5-page site, copy written, booking, reviews and chat.",
+   "setup": 4090,
+   "monthly": 99,
+   "guided": 119
+  },
+  "WEB-L": {
+   "service": "Website on DUSA",
+   "size": "L",
+   "incl": "Up to 12 pages, service-area pages, blog, store or memberships.",
+   "setup": 7190,
+   "monthly": 149,
+   "guided": 179
+  },
+  "EML-S": {
+   "service": "Email and SMS Campaigns",
+   "size": "S",
+   "incl": "1 email a month to your list, written and designed.",
+   "setup": 390,
+   "monthly": 249,
+   "guided": 299
+  },
+  "EML-M": {
+   "service": "Email and SMS Campaigns",
+   "size": "M",
+   "incl": "2 emails and 1 SMS offer a month, segmented.",
+   "setup": 590,
+   "monthly": 449,
+   "guided": 539
+  },
+  "EML-L": {
+   "service": "Email and SMS Campaigns",
+   "size": "L",
+   "incl": "Weekly email, 2 SMS offers, birthday and win-back automations.",
+   "setup": 890,
+   "monthly": 790,
+   "guided": 949
+  },
+  "GRM-S": {
+   "service": "Growth Manager and Reporting",
+   "size": "S",
+   "incl": "Monthly report and a 30-minute call.",
+   "setup": 0,
+   "monthly": 290,
+   "guided": 349
+  },
+  "GRM-M": {
+   "service": "Growth Manager and Reporting",
+   "size": "M",
+   "incl": "Fortnightly call, monthly report, quarterly growth plan.",
+   "setup": 0,
+   "monthly": 590,
+   "guided": 709
+  },
+  "GRM-L": {
+   "service": "Growth Manager and Reporting",
+   "size": "L",
+   "incl": "Weekly call, named growth manager, quarterly planning session.",
+   "setup": 0,
+   "monthly": 990,
+   "guided": 1189
+  },
+  "ONB-S": {
+   "service": "Onboarding and Migration (one-off)",
+   "size": "S",
+   "incl": "Import contacts, connect phone, calendar and socials, set up the branded app.",
+   "setup": 690,
+   "monthly": 0,
+   "guided": 0
+  },
+  "ONB-M": {
+   "service": "Onboarding and Migration (one-off)",
+   "size": "M",
+   "incl": "Plus rebuild pipelines, forms and automations from your old tools.",
+   "setup": 1790,
+   "monthly": 0,
+   "guided": 0
+  },
+  "ONB-L": {
+   "service": "Onboarding and Migration (one-off)",
+   "size": "L",
+   "incl": "Multi-tool migration, website move, team training.",
+   "setup": 3490,
+   "monthly": 0,
+   "guided": 0
+  },
+  "PAY-S": {
+   "service": "Payments and Invoicing",
+   "size": "S",
+   "incl": "Stripe connected, invoices and text-to-pay.",
+   "setup": 390,
+   "monthly": 0,
+   "guided": 0
+  },
+  "PAY-M": {
+   "service": "Payments and Invoicing",
+   "size": "M",
+   "incl": "Plus quote and estimate templates, deposits on booking.",
+   "setup": 790,
+   "monthly": 0,
+   "guided": 0
+  },
+  "PAY-L": {
+   "service": "Payments and Invoicing",
+   "size": "L",
+   "incl": "Plus Xero sync, payment plans and subscriptions.",
+   "setup": 1290,
+   "monthly": 49,
+   "guided": 59
+  }
+ },
+ "source": "DUSA-Growth-Engine-Catalogue.xlsx (regenerate with scripts/export-catalogue.py)"
+}

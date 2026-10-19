@@ -1,0 +1,11 @@
+---
+// PREVIEW ONLY: the "Ride with DUSA" package builder (animated questionnaire).
+// noindex, excluded from the sitemap. Moves onto /pricing once signed off.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RideWithDusa from '../../components/RideWithDusa.astro';
+import t from '../../i18n/translations/en.json';
+---
+
+<BaseLayout t={t} noindex={true} title="Preview: Ride with DUSA | DUSA . studio" description="Internal preview of the package builder.">
+  <div style="padding-top: 90px"><RideWithDusa /></div>
+</BaseLayout>

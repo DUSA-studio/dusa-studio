@@ -1,16 +1,15 @@
 ---
 /**
- * RideWithDusa.astro
+ * RideWithDusa.astro (v2)
  *
- * The package builder as a short ride. You are standing in the rain with a
- * newspaper over your head; a DUSA car pulls up with its roof sign lit, the
- * Growth Lead holds an umbrella over you and asks a few questions on the way
- * home: what you do, what is slowing you down, who drives, how far. The trip
- * sheet on the dash fills in as you answer, and when you arrive the fare is
- * your quote, priced from the catalogue (src/data/catalogue-au.json).
+ * The package builder as a short ride across town. A top-down night city
+ * (think the old GTA view, kept very simple) with the DUSA car driving its
+ * route, and a messages-app chat with your driver. Every answer moves the car
+ * a block further; when you get home, the fare is your quote, priced from the
+ * catalogue (src/data/catalogue-au.json).
  *
- * Everything you see is either UI or flat vector art; there is no character
- * animation. You are the passenger, so you are never drawn.
+ * You can tap the quick replies or type with your keyboard; typed answers are
+ * matched to the closest option.
  */
 import catalogue from '../data/catalogue-au.json';
 interface Props { webhook?: string; book?: string; growthLead?: string; phone?: string }
@@ -27,146 +26,62 @@ const {
     <div class="ride__head">
       <span class="label">Build your engine</span>
       <h2 class="ride__h2">Need a lift? <span class="gradient-text">Hop in.</span></h2>
-      <p class="ride__sub">A two-minute ride. Tell us where you're headed and you'll get the fare before you're home.</p>
+      <p class="ride__sub">Two minutes with your driver. Your quote is waiting when you get home.</p>
     </div>
 
-    <div class="ride__stage" data-stage data-scene="street">
-      <!-- Street -->
-      <svg class="ride__svg ride__svg--street" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <div class="ride__stage" data-stage>
+      <svg class="ride__map" data-map aria-hidden="true">
         <defs>
-          <linearGradient id="rSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070b14"/><stop offset=".55" stop-color="#13243a"/><stop offset="1" stop-color="#1f3b5a"/></linearGradient>
-          <radialGradient id="rLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe2a8" stop-opacity="0"/></radialGradient>
-          <linearGradient id="rRoad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1624"/><stop offset="1" stop-color="#070b12"/></linearGradient>
-          <linearGradient id="rBeam" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
-          <linearGradient id="rBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#24507d"/><stop offset=".55" stop-color="#1a3a5c"/><stop offset="1" stop-color="#0f2440"/></linearGradient>
-          <linearGradient id="rGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b4f73"/><stop offset=".5" stop-color="#0c1726"/><stop offset="1" stop-color="#173252"/></linearGradient>
-          <linearGradient id="rSpill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd59a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd59a" stop-opacity="0"/></linearGradient>
-          <linearGradient id="rRefl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ed8c2" stop-opacity=".45"/><stop offset="1" stop-color="#4ed8c2" stop-opacity="0"/></linearGradient>
-          <filter id="rGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          <filter id="rSoft"><feGaussianBlur stdDeviation="14"/></filter>
+          <radialGradient id="mLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".45"/><stop offset="1" stop-color="#ffe2a8" stop-opacity="0"/></radialGradient>
+          <radialGradient id="mHome" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd59a" stop-opacity=".55"/><stop offset="1" stop-color="#ffd59a" stop-opacity="0"/></radialGradient>
+          <radialGradient id="mSign" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#4ed8c2" stop-opacity=".8"/><stop offset="1" stop-color="#4ed8c2" stop-opacity="0"/></radialGradient>
+          <linearGradient id="mBeam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity=".5"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
+          <linearGradient id="mCar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16324f"/><stop offset=".5" stop-color="#2a5a8a"/><stop offset="1" stop-color="#16324f"/></linearGradient>
         </defs>
-        <rect width="1600" height="1000" fill="url(#rSky)"/>
-        <g class="ride__city" data-city></g>
-        <!-- street lamp -->
-        <g class="ride__lamp"><circle cx="330" cy="430" r="220" fill="url(#rLamp)"/>
-        <rect x="322" y="440" width="12" height="300" rx="5" fill="#1b2a3e"/>
-        <path d="M328 444 Q330 420 360 420 L392 420" stroke="#1b2a3e" stroke-width="10" fill="none" stroke-linecap="round"/>
-        <rect x="376" y="420" width="44" height="14" rx="6" fill="#ffe2a8"/></g>
-        <!-- footpath, kerb, road -->
-        <rect x="0" y="700" width="1600" height="60" fill="#1c2a3d"/>
-        <rect x="0" y="758" width="1600" height="8" fill="#2a3c54"/>
-        <rect x="0" y="766" width="1600" height="234" fill="url(#rRoad)"/>
-        <g opacity=".6"><rect x="380" y="770" width="40" height="200" fill="url(#rLamp)" filter="url(#rSoft)"/></g>
-        <g class="ride__dashes">{[...Array(9)].map((_, i) => <rect x={i * 200 + 40} y="880" width="110" height="8" rx="4" fill="#3b4c63"/>)}</g>
-        <!-- the car -->
-        <g class="ride__cab" data-cab>
-          <g transform="translate(0 780)">
-            <polygon class="ride__beam" points="20,-112 -520,-60 -520,60 30,-90" fill="url(#rBeam)"/>
-            <rect class="ride__spill" x="330" y="-40" width="190" height="90" fill="url(#rSpill)"/>
-            <ellipse cx="300" cy="8" rx="320" ry="16" fill="#000" opacity=".45"/>
-            <rect x="80" y="10" width="440" height="120" fill="url(#rRefl)" opacity=".35"/>
-            <path d="M8 -58 Q0 -118 52 -138 L170 -150 Q210 -238 300 -246 L430 -246 Q500 -240 548 -152 L590 -140 Q616 -128 614 -70 L612 -44 Q610 -28 590 -28 L30 -28 Q10 -28 8 -58 Z" fill="url(#rBody)"/>
-            <path d="M190 -152 Q228 -228 302 -234 L338 -234 L338 -152 Z" fill="url(#rGlass)"/>
-            <path d="M350 -234 L428 -234 Q488 -230 528 -152 L350 -152 Z" fill="url(#rGlass)"/>
-            <path d="M200 -150 Q236 -212 296 -224" stroke="#9fd8ff" stroke-opacity=".35" stroke-width="5" fill="none"/>
-            <rect class="ride__door" x="344" y="-150" width="190" height="118" rx="6" fill="#ffd59a" opacity="0"/>
-            <line x1="342" y1="-152" x2="342" y2="-32" stroke="#0b1a2e" stroke-width="3"/>
-            <line x1="182" y1="-148" x2="182" y2="-34" stroke="#0b1a2e" stroke-width="2" opacity=".6"/>
-            <rect x="40" y="-92" width="560" height="4" rx="2" fill="#c8ced6" opacity=".5"/>
-            <rect x="300" y="-108" width="26" height="6" rx="3" fill="#c8ced6"/>
-            <rect x="470" y="-108" width="26" height="6" rx="3" fill="#c8ced6"/>
-            <rect x="6" y="-120" width="34" height="18" rx="8" fill="#fff6d8"/>
-            <rect x="596" y="-118" width="18" height="22" rx="6" fill="#ff5a5a"/>
-            <!-- roof sign -->
-            <g filter="url(#rGlow)">
-              <rect class="ride__sign" x="306" y="-292" width="120" height="44" rx="12" fill="#4ed8c2"/>
-            </g>
-            <text x="366" y="-262" text-anchor="middle" font-family="Space Grotesk, system-ui, sans-serif" font-weight="700" font-size="24" letter-spacing="3" fill="#0c1a2c">DUSA</text>
-            <g class="ride__wheel" style="transform-origin:140px -20px"><circle cx="140" cy="-20" r="54" fill="#0a0f18"/><circle cx="140" cy="-20" r="30" fill="#1a2433" stroke="#4ed8c2" stroke-width="4"/><rect x="136" y="-48" width="8" height="56" rx="3" fill="#2c3a4e"/></g>
-            <g class="ride__wheel" style="transform-origin:476px -20px"><circle cx="476" cy="-20" r="54" fill="#0a0f18"/><circle cx="476" cy="-20" r="30" fill="#1a2433" stroke="#4ed8c2" stroke-width="4"/><rect x="472" y="-48" width="8" height="56" rx="3" fill="#2c3a4e"/></g>
+        <g data-world>
+          <rect x="-400" y="-400" width="2200" height="2200" fill="#0b1220"/>
+          <g data-city></g>
+          <path data-route d="" fill="none" stroke="#4ed8c2" stroke-width="5" stroke-dasharray="2 16" stroke-linecap="round" opacity=".55"/>
+          <g data-pickup>
+            <circle r="34" fill="url(#mLamp)"/>
+            <circle r="13" fill="#0f2440" stroke="#4ed8c2" stroke-width="3"/>
+            <path d="M-13 0 H13 M0 -13 V13 M-9 -9 L9 9 M-9 9 L9 -9" stroke="#4ed8c2" stroke-width="1.4" opacity=".7"/>
+            <circle r="4" fill="#d9a98a"/>
+          </g>
+          <g data-home>
+            <circle r="90" fill="url(#mHome)"/>
+            <rect x="-34" y="-30" width="68" height="60" rx="4" fill="#1a3a5c"/>
+            <path d="M-34 -30 L0 0 L34 -30 Z M-34 30 L0 0 L34 30 Z" fill="#24507d"/>
+            <path d="M-34 -30 L0 0 L-34 30 Z M34 -30 L0 0 L34 30 Z" fill="#1f4672"/>
+            <rect x="-6" y="30" width="12" height="18" fill="#4ed8c2" opacity=".85"/>
+          </g>
+          <g data-car>
+            <polygon points="-11,-26 11,-26 34,-120 -34,-120" fill="url(#mBeam)"/>
+            <circle r="30" fill="url(#mSign)" opacity=".6"/>
+            <rect x="-12" y="-23" width="24" height="46" rx="8" fill="url(#mCar)" stroke="#0a1626" stroke-width="1.5"/>
+            <rect x="-9" y="-14" width="18" height="9" rx="3" fill="#0c1726"/>
+            <rect x="-9" y="9" width="18" height="7" rx="3" fill="#0c1726"/>
+            <rect x="-7" y="-3" width="14" height="6" rx="2" fill="#4ed8c2"/>
+            <rect x="-10" y="-25" width="5" height="3" rx="1.5" fill="#fff6d8"/><rect x="5" y="-25" width="5" height="3" rx="1.5" fill="#fff6d8"/>
+            <rect x="-10" y="22" width="5" height="3" rx="1.5" fill="#ff5a5a"/><rect x="5" y="22" width="5" height="3" rx="1.5" fill="#ff5a5a"/>
           </g>
         </g>
-        <!-- home, for the end of the ride -->
-        <g class="ride__home" data-home opacity="0">
-          <rect x="1040" y="420" width="420" height="300" rx="10" fill="#132338"/>
-          <path d="M1010 430 L1250 280 L1490 430 Z" fill="#0f1c2e"/>
-          <rect x="1090" y="480" width="90" height="80" rx="6" fill="#ffd59a"/>
-          <rect x="1320" y="480" width="90" height="80" rx="6" fill="#ffd59a"/>
-          <rect x="1215" y="560" width="70" height="160" rx="6" fill="#4ed8c2" opacity=".9"/>
-          <circle cx="1270" cy="640" r="5" fill="#0c1a2c"/>
-          <rect x="1040" y="700" width="420" height="10" fill="#0d1726"/>
-          <circle cx="1250" cy="520" r="230" fill="url(#rLamp)" opacity=".5"/>
-        </g>
       </svg>
+      <div class="ride__rain" aria-hidden="true"></div>
+      <div class="ride__vignette" aria-hidden="true"></div>
 
-      <!-- Inside the car: the windscreen view -->
-      <svg class="ride__svg ride__svg--inside" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <defs>
-          <linearGradient id="iSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#060a12"/><stop offset="1" stop-color="#17304d"/></linearGradient>
-          <linearGradient id="iRoad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1320"/><stop offset="1" stop-color="#1a2738"/></linearGradient>
-          <radialGradient id="iBokeh" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe2a8" stop-opacity="0"/></radialGradient>
-          <radialGradient id="iBokehA" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#4ed8c2" stop-opacity=".9"/><stop offset="1" stop-color="#4ed8c2" stop-opacity="0"/></radialGradient>
-        </defs>
-        <rect width="1600" height="1000" fill="url(#iSky)"/>
-        <g class="ride__lights" data-lights></g>
-        <rect x="0" y="500" width="1600" height="40" fill="#1a3a5c" opacity=".35"/><polygon points="690,520 910,520 1700,1000 -100,1000" fill="url(#iRoad)"/><line x1="690" y1="520" x2="-100" y2="1000" stroke="#d9e2ec" stroke-width="6" opacity=".35"/><line x1="910" y1="520" x2="1700" y2="1000" stroke="#d9e2ec" stroke-width="6" opacity=".35"/>
-        <line class="ride__lane" x1="800" y1="520" x2="800" y2="1000" stroke="#d9e2ec" stroke-width="10" stroke-dasharray="40 60" opacity=".5"/>
-        <!-- cabin: roof edge, headrests, dash -->
-        <path d="M0 0 H1600 V120 Q800 40 0 120 Z" fill="#05070c"/>
-        <path d="M0 1000 V770 Q800 690 1600 770 V1000 Z" fill="#070a10"/>
-        <rect x="380" y="610" width="230" height="250" rx="70" fill="#0b0f17"/>
-        <rect x="990" y="610" width="230" height="250" rx="70" fill="#0b0f17"/>
-        <circle cx="1105" cy="600" r="70" fill="#12182a"/>
-        <path d="M1060 560 Q1105 520 1150 560 L1150 575 L1060 575 Z" fill="#1a3a5c"/>
-        <rect x="1052" y="570" width="106" height="12" rx="4" fill="#0f2440"/>
-        <g class="ride__wipers"><line class="ride__wiper ride__wiper--l" x1="360" y1="772" x2="760" y2="742" stroke="#020306" stroke-width="7" stroke-linecap="round"/><line class="ride__wiper ride__wiper--r" x1="840" y1="772" x2="1240" y2="742" stroke="#020306" stroke-width="7" stroke-linecap="round"/></g>
-      </svg>
-
-      <canvas class="ride__rain" data-rain aria-hidden="true"></canvas>
-
-      <!-- First person: the newspaper over your head, then the umbrella -->
-      <div class="ride__paper" data-paper aria-hidden="true">
-        <span class="ride__paper-mast">THE DAILY GRIND</span>
-        <span class="ride__paper-head">Small business owner works 70-hour week, still misses calls</span>
-        <span class="ride__paper-cols"><i></i><i></i><i></i><i></i></span>
-      </div>
-      <svg class="ride__umbrella" data-umbrella viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M-40 250 Q140 40 800 10 Q1460 40 1640 250 Q1500 205 1360 250 Q1220 205 1080 250 Q940 205 800 250 Q660 205 520 250 Q380 205 240 250 Q100 205 -40 250 Z" fill="#0f2440"/>
-        <path d="M-40 250 Q100 205 240 250 Q380 205 520 250 Q660 205 800 250 Q940 205 1080 250 Q1220 205 1360 250 Q1500 205 1640 250" fill="none" stroke="#4ed8c2" stroke-width="6"/>
-        <path d="M800 10 L800 250 M520 40 L520 250 M1080 40 L1080 250 M240 120 L240 250 M1360 120 L1360 250" stroke="#1a3a5c" stroke-width="4" opacity=".7"/>
-      </svg>
-
-      <!-- Trip sheet on the dash -->
-      <aside class="ride__trip" data-trip hidden>
-        <p class="ride__trip-title"><img src="/lotus.svg" alt="" width="16" height="16" /> Trip sheet</p>
-        <dl>
-          <div data-row="name" hidden><dt>Passenger</dt><dd></dd></div>
-          <div data-row="business" hidden><dt>Business</dt><dd></dd></div>
-          <div data-row="industry" hidden><dt>Line of work</dt><dd></dd></div>
-          <div data-row="needs" hidden><dt>Fixing</dt><dd></dd></div>
-          <div data-row="seat" hidden><dt>Seat</dt><dd></dd></div>
-          <div data-row="distance" hidden><dt>Trip</dt><dd></dd></div>
-        </dl>
-        <p class="ride__meter" data-meter hidden><span>Meter</span><b data-meter-val>$0</b><small>/mo</small></p>
-      </aside>
-
-      <!-- The conversation -->
-      <div class="ride__talk" data-talk>
-        <div class="ride__who"><span class="ride__avatar"><img src="/lotus.svg" alt="" width="20" height="20" /></span><span><b>Your DUSA Growth Lead</b><small data-where>Pulling up</small></span></div>
-        <p class="ride__line" data-line aria-live="polite"></p>
-        <div class="ride__answers" data-answers></div>
-      </div>
-
-      <!-- The fare -->
-      <div class="ride__fare" data-fare hidden>
-        <p class="ride__fare-top"><span>DUSA</span><span data-fare-ref></span></p>
-        <h3 class="ride__fare-h">Your fare</h3>
-        <p class="ride__fare-for" data-fare-for></p>
-        <ul class="ride__fare-lines" data-fare-lines></ul>
-        <div class="ride__fare-total"><span>Monthly</span><b data-fare-monthly></b></div>
-        <div class="ride__fare-total ride__fare-total--sub"><span data-fare-setup-label>Set-up, one-off</span><b data-fare-setup></b></div>
-        <p class="ride__fare-nudge" data-fare-nudge hidden></p>
-        <p class="ride__fare-note">AUD ex GST. Month to month. AI, SMS and ad spend billed at cost. <span data-fare-self>Rather drive yourself? DUSA from $47 a month.</span></p>
+      <div class="ride__app" data-app>
+        <header class="ride__bar">
+          <span class="ride__avatar"><img src="/lotus.svg" alt="" width="18" height="18" /></span>
+          <span class="ride__bar-who"><b>Your DUSA driver</b><small data-status>Pulling up</small></span>
+          <span class="ride__meter" data-meter hidden><small>Meter</small><b data-meter-val>$0</b></span>
+        </header>
+        <div class="ride__msgs" data-msgs aria-live="polite"></div>
+        <div class="ride__quick" data-quick></div>
+        <form class="ride__compose" data-compose>
+          <input class="ride__input" data-input type="text" placeholder="Message your driver" autocomplete="off" aria-label="Message your driver" />
+          <button class="ride__send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
       </div>
     </div>
 
@@ -180,140 +95,77 @@ const {
   .ride__h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0.6rem 0; color: var(--warm-white); }
   .ride__sub { color: rgba(247, 244, 239, 0.66); margin: 0 auto; }
 
-  .ride__stage { position: relative; max-width: 1180px; margin: 0 auto; aspect-ratio: 16 / 10; border-radius: 28px; overflow: hidden; background: #070b14; border: 1px solid rgba(247, 244, 239, 0.1); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
-  .ride__svg { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 0.9s ease; }
-  .ride__svg--inside { opacity: 0; }
-  .ride__stage[data-scene="inside"] .ride__svg--inside { opacity: 1; }
-  .ride__stage[data-scene="inside"] .ride__svg--street { opacity: 0; }
-  .ride__rain { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .ride__stage { position: relative; max-width: 1180px; margin: 0 auto; aspect-ratio: 16 / 10; border-radius: 28px; overflow: hidden; background: #0b1220; border: 1px solid rgba(247, 244, 239, 0.1); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
+  .ride__map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ride__rain { position: absolute; inset: 0; pointer-events: none; opacity: 0.35; background-image: repeating-linear-gradient(105deg, transparent 0 22px, rgba(190, 215, 240, 0.18) 22px 23px, transparent 23px 47px); background-size: 200% 200%; animation: rideRain 0.9s linear infinite; }
+  @keyframes rideRain { to { background-position: -60px 140px; } }
+  .ride__vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 35% 50%, transparent 40%, rgba(5, 8, 14, 0.65) 100%); }
 
-  /* The car arrives from the right, parks at the kerb, the door glows. */
-  :global(.ride__cab) { transform: translateX(1700px); transition: transform 2.6s cubic-bezier(0.16, 0.84, 0.3, 1); }
-  :global(.ride__stage.is-arrived .ride__cab) { transform: translateX(var(--park, 760px)); }
-  :global(.ride__stage.is-leaving .ride__cab) { transform: translateX(-900px); transition-duration: 1.6s; transition-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
-  :global(.ride__stage.is-home .ride__cab) { transform: translateX(var(--park-home, 560px)); transition: transform 2.4s cubic-bezier(0.16, 0.84, 0.3, 1); }
-  :global(.ride__wheel) { animation: rideSpin 0.5s linear infinite; animation-play-state: paused; }
-  :global(.ride__stage.is-moving .ride__wheel) { animation-play-state: running; }
-  @keyframes rideSpin { to { transform: rotate(-360deg); } }
-  :global(.ride__door) { transition: opacity 0.8s ease 0.3s; }
-  :global(.ride__spill) { opacity: 0; transition: opacity 0.8s ease 0.3s; }
-  :global(.ride__stage.is-open .ride__door) { opacity: 0.55; }
-  :global(.ride__stage.is-open .ride__spill) { opacity: 1; }
-  :global(.ride__sign) { animation: rideSign 2.4s ease-in-out infinite; }
-  @keyframes rideSign { 0%, 100% { opacity: 1; } 50% { opacity: 0.82; } }
-  :global(.ride__home) { transition: opacity 1.2s ease; transform: translateX(var(--home-x, -940px)); }
-  :global(.ride__stage.is-home .ride__home) { opacity: 1; }
-  :global(.ride__stage.is-home .ride__city) { opacity: 0.35; transition: opacity 1.2s; }
-  :global(.ride__lamp) { transition: opacity 1s; }
-  :global(.ride__stage.is-home .ride__lamp) { opacity: 0; }
-
-  /* Inside: the road rolls, the wipers sweep. */
-  :global(.ride__lane) { animation: rideLane 0.6s linear infinite; }
-  @keyframes rideLane { to { stroke-dashoffset: -100; } }
-  :global(.ride__wiper) { transform-box: fill-box; }
-  :global(.ride__wiper--l) { transform-origin: 0% 100%; animation: rideWipe 2.6s ease-in-out infinite; }
-  :global(.ride__wiper--r) { transform-origin: 0% 100%; animation: rideWipe 2.6s ease-in-out infinite 0.08s; }
-  @keyframes rideWipe { 0%, 60%, 100% { transform: rotate(0deg); } 30% { transform: rotate(-62deg); } }
-
-  /* First person: newspaper, then umbrella. */
-  .ride__paper { position: absolute; left: -4%; right: -4%; top: -6%; height: 30%; background: #e9e4d8; transform: rotate(-2.5deg); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); padding: 4% 9% 0; display: grid; align-content: start; gap: 0.5rem; color: #2a2a2a; font-family: Georgia, 'Times New Roman', serif; transition: transform 0.8s cubic-bezier(0.6, 0, 0.4, 1), opacity 0.8s; z-index: 3; }
-  .ride__paper::after { content: ''; position: absolute; left: 0; right: 0; bottom: -10px; height: 12px; background: repeating-linear-gradient(90deg, transparent 0 34px, rgba(170, 200, 230, 0.7) 34px 37px, transparent 37px 90px); filter: blur(0.6px); }
-  .ride__paper-mast { font-weight: 700; letter-spacing: 0.3em; font-size: clamp(0.6rem, 1.3vw, 0.85rem); border-bottom: 2px solid #2a2a2a; padding-bottom: 0.3rem; }
-  .ride__paper-head { font-size: clamp(0.85rem, 2vw, 1.5rem); font-weight: 700; line-height: 1.15; max-width: 34ch; }
-  .ride__paper-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-  .ride__paper-cols i { height: 40px; background: repeating-linear-gradient(180deg, rgba(42, 42, 42, 0.35) 0 2px, transparent 2px 7px); }
-  .ride__stage.has-umbrella .ride__paper, .ride__stage.is-dry .ride__paper { transform: translateY(-120%) rotate(-8deg); opacity: 0; }
-  .ride__umbrella { position: absolute; left: 0; top: 0; width: 100%; height: 22%; transform: translateY(-110%); transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.1); z-index: 3; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.45)); }
-  .ride__stage.has-umbrella .ride__umbrella { transform: none; }
-  .ride__stage[data-scene="inside"] .ride__umbrella, .ride__stage[data-scene="inside"] .ride__paper { opacity: 0; }
-
-  /* Trip sheet */
-  .ride__trip { position: absolute; top: 16px; right: 16px; width: min(300px, 44%); padding: 14px 16px; border-radius: 18px; background: rgba(12, 20, 34, 0.62); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18), 0 14px 40px rgba(0, 0, 0, 0.35); color: #fff; z-index: 4; animation: rideIn 0.5s ease; }
-  .ride__trip[hidden], .ride__fare[hidden] { display: none; }
-  .ride__trip-title { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.5rem; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
-  .ride__trip-title img { filter: invert(78%) sepia(30%) saturate(600%) hue-rotate(115deg); }
-  .ride__trip dl { margin: 0; display: grid; gap: 0.35rem; }
-  .ride__trip dl div { display: grid; grid-template-columns: 88px 1fr; gap: 0.5rem; font-size: 0.8rem; animation: rideIn 0.4s ease; }
-  .ride__trip dl div[hidden] { display: none; }
-  .ride__trip dt { color: rgba(255, 255, 255, 0.55); }
-  .ride__trip dd { margin: 0; color: #fff; font-weight: 500; }
-  .ride__meter { display: flex; align-items: baseline; gap: 0.4rem; margin: 0.7rem 0 0; padding-top: 0.6rem; border-top: 1px dashed rgba(255, 255, 255, 0.18); font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); }
-  .ride__meter[hidden] { display: none; }
-  .ride__meter b { font-family: var(--font-headline); font-size: 1.3rem; color: var(--reef-aqua); margin-left: auto; font-variant-numeric: tabular-nums; }
-  @keyframes rideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
-  /* Conversation */
-  .ride__talk { position: absolute; left: 16px; bottom: 16px; width: min(560px, calc(100% - 32px)); padding: 16px 18px 18px; border-radius: 22px; background: rgba(12, 20, 34, 0.7); backdrop-filter: blur(22px) saturate(150%); -webkit-backdrop-filter: blur(22px) saturate(150%); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 20px 50px rgba(0, 0, 0, 0.45); color: #fff; z-index: 5; opacity: 0; transform: translateY(14px); transition: opacity 0.5s, transform 0.5s; }
-  .ride__talk.is-on { opacity: 1; transform: none; }
-  .ride__who { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
-  .ride__who b { display: block; font-size: 0.85rem; }
-  .ride__who small { display: block; font-size: 0.72rem; color: var(--reef-aqua); }
-  .ride__avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(160deg, #1f4472, #0f2440); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.45); }
+  /* The phone: a messages app */
+  .ride__app { position: absolute; top: 16px; right: 16px; bottom: 16px; width: min(380px, 44%); display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: rgba(10, 16, 28, 0.78); backdrop-filter: blur(22px) saturate(150%); -webkit-backdrop-filter: blur(22px) saturate(150%); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 24px 60px rgba(0, 0, 0, 0.5); color: #fff; }
+  .ride__bar { display: flex; align-items: center; gap: 0.6rem; padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  .ride__avatar { width: 34px; height: 34px; flex: none; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(160deg, #1f4472, #0f2440); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.45); }
   .ride__avatar img { filter: invert(78%) sepia(30%) saturate(600%) hue-rotate(115deg); }
-  .ride__line { margin: 0 0 0.8rem; font-size: 1.05rem; line-height: 1.45; min-height: 1.45em; max-width: none; }
-  .ride__answers { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-  .ride__answers:empty { display: none; }
-  :global(.ride__chip) { appearance: none; border: 0; cursor: pointer; font: inherit; font-size: 0.9rem; color: #fff; padding: 0.55rem 0.95rem; border-radius: 100px; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.28); transition: background 0.2s, box-shadow 0.2s, transform 0.15s; text-align: left; animation: rideIn 0.35s ease backwards; }
-  :global(.ride__chip:hover) { background: rgba(255, 255, 255, 0.18); }
-  :global(.ride__chip:active) { transform: scale(0.97); }
-  :global(.ride__chip.is-on) { background: rgba(78, 216, 194, 0.28); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.85); }
-  :global(.ride__chip small) { display: block; font-size: 0.72rem; color: rgba(255, 255, 255, 0.6); }
-  :global(.ride__chip--go) { background: linear-gradient(135deg, #4ed8c2, #6aaacf); color: var(--deep-black); font-weight: 600; }
-  :global(.ride__chip--go:hover) { background: linear-gradient(135deg, #63e3cf, #7db8da); }
-  :global(.ride__chip--ghost) { background: none; box-shadow: none; color: rgba(255, 255, 255, 0.7); text-decoration: underline; text-underline-offset: 3px; }
-  :global(.ride__chip--seat) { flex: 1 1 calc(50% - 0.45rem); border-radius: 16px; padding: 0.7rem 0.9rem; }
-  :global(.ride__chip em) { white-space: nowrap; font-style: normal; font-size: 0.66rem; color: var(--deep-black); background: var(--reef-aqua); border-radius: 100px; padding: 0.1rem 0.45rem; margin-left: 0.35rem; vertical-align: 1px; }
-  :global(.ride__field) { display: flex; gap: 0.45rem; width: 100%; }
-  :global(.ride__input) { flex: 1; min-width: 0; font: inherit; font-size: 1rem; color: #fff; padding: 0.6rem 0.9rem; border-radius: 100px; border: 0; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.3); outline: none; }
-  :global(.ride__input:focus) { box-shadow: inset 0 0 0 1.5px var(--reef-aqua); }
-  :global(.ride__input::placeholder) { color: rgba(255, 255, 255, 0.45); }
-  :global(.ride__chip:focus-visible), :global(.ride__input:focus-visible) { outline: 2px solid var(--reef-aqua); outline-offset: 2px; }
-
-  /* The fare: a receipt that slides up */
-  .ride__fare { position: absolute; top: 16px; right: 16px; width: min(360px, calc(100% - 32px)); max-height: calc(100% - 32px); overflow: auto; padding: 18px 20px; border-radius: 18px; background: #f7f4ef; color: #0c0e14; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); z-index: 6; animation: rideFare 0.8s cubic-bezier(0.2, 0.9, 0.3, 1.05); }
-  @keyframes rideFare { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
-  .ride__fare-top { display: flex; justify-content: space-between; margin: 0; font-family: var(--font-headline); font-weight: 700; letter-spacing: 0.2em; font-size: 0.75rem; color: #1a3a5c; border-bottom: 2px dashed rgba(12, 14, 20, 0.2); padding-bottom: 0.5rem; }
-  .ride__fare-top span:last-child { letter-spacing: 0.05em; font-weight: 500; color: rgba(12, 14, 20, 0.5); }
-  .ride__fare-h { margin: 0.7rem 0 0.1rem; font-size: 1.4rem; color: #0c0e14; }
-  .ride__fare-for { margin: 0 0 0.7rem; font-size: 0.85rem; color: rgba(12, 14, 20, 0.6); }
-  .ride__fare-lines { list-style: none; margin: 0 0 0.7rem; padding: 0; display: grid; gap: 0.4rem; font-size: 0.85rem; }
-  :global(.ride__fare-lines li) { display: grid; grid-template-columns: 1fr auto; gap: 0.6rem; }
-  :global(.ride__fare-lines small) { display: block; color: rgba(12, 14, 20, 0.55); font-size: 0.74rem; }
-  :global(.ride__fare-lines b) { font-weight: 600; white-space: nowrap; }
-  .ride__fare-total { display: flex; justify-content: space-between; align-items: baseline; border-top: 2px dashed rgba(12, 14, 20, 0.2); padding-top: 0.5rem; }
-  .ride__fare-total b { font-family: var(--font-headline); font-size: 1.6rem; color: #1a3a5c; }
-  .ride__fare-total--sub { border: 0; padding-top: 0.1rem; }
-  .ride__fare-total--sub b { font-size: 1.05rem; }
-  .ride__fare-nudge { margin: 0.6rem 0 0; padding: 0.5rem 0.7rem; border-radius: 10px; background: rgba(78, 216, 194, 0.2); font-size: 0.82rem; color: #0f3d36; }
-  .ride__fare-nudge[hidden] { display: none; }
-  .ride__fare-note { margin: 0.7rem 0 0; font-size: 0.74rem; color: rgba(12, 14, 20, 0.55); }
-  .ride__fare-note span { display: block; margin-top: 0.3rem; font-weight: 600; color: #1a3a5c; }
-
-  .ride__stage.is-fare .ride__trip { display: none; }
+  .ride__bar-who b { display: block; font-size: 0.88rem; }
+  .ride__bar-who small { display: block; font-size: 0.72rem; color: var(--reef-aqua); }
+  .ride__meter { margin-left: auto; text-align: right; line-height: 1.1; }
+  .ride__meter[hidden] { display: none; }
+  .ride__meter small { display: block; font-size: 0.62rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+  .ride__meter b { font-family: var(--font-headline); font-size: 1.05rem; color: var(--reef-aqua); font-variant-numeric: tabular-nums; }
+  .ride__msgs { flex: 1; overflow-y: auto; padding: 14px 12px 6px; display: flex; flex-direction: column; gap: 6px; scroll-behavior: smooth; }
+  :global(.ride__msg) { max-width: 82%; padding: 9px 13px; border-radius: 18px; font-size: 0.92rem; line-height: 1.35; animation: rideMsg 0.3s ease; }
+  :global(.ride__msg--them) { align-self: flex-start; background: rgba(255, 255, 255, 0.1); border-bottom-left-radius: 6px; }
+  :global(.ride__msg--me) { align-self: flex-end; background: linear-gradient(135deg, #4ed8c2, #3fb9a7); color: #06231e; border-bottom-right-radius: 6px; }
+  :global(.ride__msg--typing) { display: inline-flex; gap: 4px; padding: 12px 14px; }
+  :global(.ride__msg--typing i) { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); animation: rideDot 1s infinite; }
+  :global(.ride__msg--typing i:nth-child(2)) { animation-delay: 0.15s; }
+  :global(.ride__msg--typing i:nth-child(3)) { animation-delay: 0.3s; }
+  @keyframes rideDot { 0%, 60%, 100% { opacity: 0.3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+  @keyframes rideMsg { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  /* Proof card: three things that help */
+  :global(.ride__card) { align-self: stretch; max-width: none; padding: 12px; border-radius: 16px; background: rgba(78, 216, 194, 0.08); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.4); animation: rideMsg 0.3s ease; }
+  :global(.ride__card ol) { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: c; }
+  :global(.ride__card li) { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 0.88rem; line-height: 1.3; counter-increment: c; }
+  :global(.ride__card li::before) { content: counter(c); width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; font-weight: 700; background: var(--reef-aqua); color: #06231e; }
+  :global(.ride__card em) { display: block; font-style: normal; font-size: 0.7rem; color: var(--reef-aqua); margin-top: 2px; }
+  /* Fare: a receipt in the chat */
+  :global(.ride__fare) { align-self: stretch; max-width: none; padding: 14px 14px 12px; border-radius: 16px; background: #f7f4ef; color: #0c0e14; animation: rideMsg 0.4s ease; }
+  :global(.ride__fare h4) { margin: 0; font-size: 0.7rem; letter-spacing: 0.2em; color: #1a3a5c; display: flex; justify-content: space-between; border-bottom: 2px dashed rgba(12, 14, 20, 0.18); padding-bottom: 6px; }
+  :global(.ride__fare h4 span) { letter-spacing: 0.04em; font-weight: 500; color: rgba(12, 14, 20, 0.5); }
+  :global(.ride__fare p) { margin: 6px 0 8px; font-size: 0.78rem; color: rgba(12, 14, 20, 0.6); }
+  :global(.ride__fare ul) { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 0.8rem; }
+  :global(.ride__fare li) { display: flex; justify-content: space-between; gap: 8px; }
+  :global(.ride__fare li.is-save) { color: #0f6b5c; }
+  :global(.ride__fare .t) { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 6px; border-top: 2px dashed rgba(12, 14, 20, 0.18); }
+  :global(.ride__fare .t b) { font-family: var(--font-headline); font-size: 1.35rem; color: #1a3a5c; }
+  :global(.ride__fare .s) { display: flex; justify-content: space-between; font-size: 0.82rem; margin-top: 2px; }
+  :global(.ride__fare small) { display: block; margin-top: 8px; font-size: 0.68rem; color: rgba(12, 14, 20, 0.55); }
+  :global(.ride__fare small b) { display: block; color: #1a3a5c; margin-top: 2px; }
+  /* Quick replies and the keyboard */
+  .ride__quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 12px 4px; justify-content: flex-end; }
+  .ride__quick:empty { display: none; }
+  :global(.ride__chip) { appearance: none; border: 0; cursor: pointer; font: inherit; font-size: 0.84rem; color: #fff; padding: 7px 12px; border-radius: 100px; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.55); transition: background 0.15s, transform 0.12s; animation: rideMsg 0.25s ease backwards; }
+  :global(.ride__chip:hover) { background: rgba(78, 216, 194, 0.18); }
+  :global(.ride__chip:active) { transform: scale(0.96); }
+  :global(.ride__chip.is-on) { background: rgba(78, 216, 194, 0.32); }
+  :global(.ride__chip--go) { background: linear-gradient(135deg, #4ed8c2, #6aaacf); color: #06231e; font-weight: 600; box-shadow: none; }
+  :global(.ride__chip--ghost) { box-shadow: none; color: rgba(255, 255, 255, 0.65); text-decoration: underline; text-underline-offset: 3px; background: none; }
+  :global(.ride__chip em) { font-style: normal; font-size: 0.64rem; font-weight: 700; margin-left: 5px; padding: 1px 6px; border-radius: 100px; background: var(--reef-aqua); color: #06231e; white-space: nowrap; }
+  .ride__compose { display: flex; gap: 8px; padding: 8px 10px 12px; }
+  .ride__input { flex: 1; min-width: 0; font: inherit; font-size: 0.95rem; color: #fff; padding: 10px 14px; border-radius: 100px; border: 0; outline: none; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.25); }
+  .ride__input:focus { box-shadow: inset 0 0 0 1.5px var(--reef-aqua); }
+  .ride__input::placeholder { color: rgba(255, 255, 255, 0.4); }
+  .ride__send { width: 40px; height: 40px; flex: none; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center; background: var(--reef-aqua); color: #06231e; }
+  .ride__send:focus-visible, :global(.ride__chip:focus-visible) { outline: 2px solid #fff; outline-offset: 2px; }
 
   @media (max-width: 760px) {
-    .ride__stage { --park: 500px; --park-home: 760px; --home-x: -520px; }
-    .ride__trip { top: 76px !important; }
-    .ride__fare { top: 76px !important; max-height: calc(100% - 330px) !important; }
-    :global(.ride__fare-lines small) { display: none; }
-    :global(.ride__fare-lines li) { font-size: 0.82rem; }
-    .ride__fare-h { font-size: 1.15rem; margin-top: 0.4rem; }
-    .ride__stage { aspect-ratio: auto; height: min(100svh, 860px); width: 100vw; margin-left: calc(50% - 50vw); border-radius: 0; border: 0; }
-    .ride__trip { left: 10px; right: 10px; width: auto; top: 10px; padding: 10px 12px; }
-    .ride__trip dl { grid-template-columns: 1fr 1fr; column-gap: 0.8rem; }
-    .ride__trip dl div { grid-template-columns: 1fr; gap: 0; font-size: 0.74rem; }
-    .ride__talk { left: 10px; right: 10px; bottom: 10px; width: auto; padding: 14px; }
-    .ride__line { font-size: 0.98rem; }
-    :global(.ride__chip) { font-size: 0.86rem; }
-    :global(.ride__chip--seat) { flex-basis: 100%; }
-    .ride__fare { left: 10px; right: 10px; width: auto; top: 10px; max-height: 58%; }
-    .ride__paper { height: 24%; }
-    .ride__umbrella { height: 16%; }
+    .ride__stage { aspect-ratio: auto; height: min(100svh, 820px); width: 100vw; margin-left: calc(50% - 50vw); border-radius: 0; border: 0; }
+    .ride__app { top: 34%; left: 0; right: 0; bottom: 0; width: auto; border-radius: 22px 22px 0 0; }
+    .ride__vignette { background: linear-gradient(180deg, rgba(5, 8, 14, 0.5) 0%, transparent 25%, transparent 70%, rgba(5, 8, 14, 0.6) 100%); }
+    .ride__input { font-size: 16px; }
+    .ride__compose { padding-right: 74px; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    :global(.ride__cab), .ride__umbrella, .ride__paper { transition: none !important; }
-    :global(.ride__lane), :global(.ride__wiper), :global(.ride__sign), :global(.ride__wheel) { animation: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce) { .ride__rain { animation: none; } }
   :global(html[data-theme="light"]) .ride__h2 { color: var(--deep-black); }
   :global(html[data-theme="light"]) .ride__sub { color: rgba(12, 14, 20, 0.66); }
 </style>
@@ -325,322 +177,289 @@ const {
   document.querySelectorAll<HTMLElement>('[data-ride]').forEach((root) => {
     const stage = root.querySelector<HTMLElement>('[data-stage]')!;
     const cat = JSON.parse(root.querySelector('[data-catalogue]')!.textContent || '{}') as Cat;
-    const lineEl = root.querySelector<HTMLElement>('[data-line]')!;
-    const answers = root.querySelector<HTMLElement>('[data-answers]')!;
-    const talk = root.querySelector<HTMLElement>('[data-talk]')!;
-    const where = root.querySelector<HTMLElement>('[data-where]')!;
-    const trip = root.querySelector<HTMLElement>('[data-trip]')!;
+    const msgs = root.querySelector<HTMLElement>('[data-msgs]')!;
+    const quick = root.querySelector<HTMLElement>('[data-quick]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-compose]')!;
+    const input = root.querySelector<HTMLInputElement>('[data-input]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
     const meter = root.querySelector<HTMLElement>('[data-meter]')!;
     const meterVal = root.querySelector<HTMLElement>('[data-meter-val]')!;
-    const fare = root.querySelector<HTMLElement>('[data-fare]')!;
     const PHONE = root.dataset.phone || '';
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const money = (n: number) => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-AU');
-    const wait = (ms: number) => new Promise((r) => setTimeout(r, reduced ? Math.min(ms, 150) : ms));
+    const wait = (ms: number) => new Promise((r) => setTimeout(r, reduced ? Math.min(ms, 120) : ms));
 
-    /* ── What we learn on the way ── */
-    const lead: Record<string, any> = { industry: '', needs: [] as string[], seat: '', distance: '', name: '', business: '', email: '', phone: '', callOk: null };
+    const lead: Record<string, any> = { name: '', business: '', industry: '', industryText: '', needs: [] as string[], seat: '', distance: '', email: '', phone: '', callOk: null };
 
-    /* ── Plain-English menus ── */
-    const INDUSTRIES: [string, string, string][] = [
-      ['trades', 'Trades and construction', "Trades. So the phone rings the second you're up a ladder. Classic."],
-      ['beauty', 'Hair, beauty or spa', 'Hair, beauty or spa. Hands full of foils when the phone goes. Been there.'],
-      ['fitness', 'Health and fitness', 'Health and fitness. Bookings, no-shows and memberships, I reckon.'],
-      ['hospo', 'Cafés and restaurants', 'Food and hospo. Busy nights, quiet Tuesdays, and reviews that make or break you.'],
-      ['pro', 'Professional services', 'Professional services. Plenty of enquiries, never enough hours to follow them up.'],
-      ['property', 'Real estate', "Real estate. Every lead is a listing, and none of them can wait."],
-      ['retail', 'A shop, online or in person', 'A shop. Customers love you, then forget you exist. We can fix that.'],
-      ['other', 'Something else', "Love that. Every business has the same three headaches: the phone, the follow-up and getting paid."],
+    /* ══ What we say, kept short ══ */
+    // id, label, keywords, plural, top three (need id + outcome)
+    const INDUSTRIES: { id: string; label: string; kw: string[]; plural: string; top: [string, string][] }[] = [
+      { id: 'trades', label: 'Trades', kw: ['trade', 'tradie', 'roof', 'plumb', 'electr', 'build', 'carpent', 'landscap', 'paint', 'tile', 'concret', 'construct', 'hvac', 'air con'], plural: 'tradies', top: [['calls', 'More time back'], ['followup', 'More profit'], ['reviews', 'Easier to win work']] },
+      { id: 'beauty', label: 'Hair, beauty, spa', kw: ['hair', 'salon', 'beauty', 'spa', 'nail', 'lash', 'brow', 'inject', 'massage', 'barber', 'skin', 'clinic'], plural: 'salons and studios', top: [['comeback', 'More profit'], ['calls', 'More time back'], ['reviews', 'Easier to fill the book']] },
+      { id: 'fitness', label: 'Health and fitness', kw: ['gym', 'fitness', 'trainer', ' pt', 'pilates', 'yoga', 'physio', 'chiro', 'health', 'crossfit'], plural: 'gyms and studios', top: [['followup', 'More profit'], ['comeback', 'Members who stay'], ['reviews', 'Easier to grow']] },
+      { id: 'hospo', label: 'Café or restaurant', kw: ['cafe', 'café', 'restaurant', 'bar', 'food', 'coffee', 'bakery', 'hospo', 'catering'], plural: 'cafés and restaurants', top: [['reviews', 'More bookings'], ['comeback', 'More profit'], ['socials', 'Less to manage']] },
+      { id: 'pro', label: 'Professional services', kw: ['account', 'law', 'legal', 'consult', 'bookkeep', 'agency', 'coach', 'finance', 'broker', 'advis'], plural: 'firms like yours', top: [['followup', 'More profit'], ['calls', 'More time back'], ['google', 'Easier to be found']] },
+      { id: 'property', label: 'Real estate', kw: ['real estate', 'property', 'realtor', 'agent', 'rental'], plural: 'agents', top: [['followup', 'More listings'], ['calls', 'More time back'], ['comeback', 'More referrals']] },
+      { id: 'retail', label: 'A shop', kw: ['shop', 'store', 'retail', 'ecommerce', 'e-commerce', 'boutique', 'online'], plural: 'shops like yours', top: [['comeback', 'More profit'], ['reviews', 'More trust'], ['socials', 'Less to manage']] },
+      { id: 'other', label: 'Something else', kw: [], plural: 'businesses like yours', top: [['calls', 'More time back'], ['followup', 'More profit'], ['reviews', 'Less to manage']] },
     ];
-    // id, label, catalogue codes it pulls in, what we say back
-    const SHORT: Record<string, string> = { calls: 'Missed calls', followup: 'Cold quotes', reviews: 'Reviews', google: 'Google', comeback: 'Repeat customers', newleads: 'New enquiries', socials: 'Socials', website: 'Website' };
-    const NEEDS: [string, string, string[], string][] = [
-      ['calls', "I miss calls when I'm busy", ['AIR'], 'every caller gets a text back in seconds, even when you are flat out'],
-      ['followup', 'Enquiries and quotes go cold', ['FUP'], 'every enquiry and quote gets followed up without you lifting a finger'],
-      ['reviews', 'I need more 5-star reviews', ['REV'], 'happy customers get asked for a review the moment you finish'],
-      ['google', "People can't find me on Google", ['GBP', 'SEO'], 'you show up when locals search for what you do'],
-      ['comeback', "Old customers don't come back", ['DBR', 'EML'], 'we message everyone who has bought from you before and bring them back'],
-      ['newleads', 'I need more new enquiries', ['GAD', 'MAD'], 'ads bring in new enquiries and DUSA answers them on the spot'],
-      ['socials', 'Socials feel like a second job', ['SOC'], 'your socials get posted for you, every week'],
-      ['website', "My website isn't pulling its weight", ['WEB'], 'your website books jobs instead of just sitting there'],
+    // need id, how it reads, catalogue codes
+    const NEEDS: Record<string, { text: string; codes: string[]; short: string }> = {
+      calls: { text: 'Every call answered, even mid-job', codes: ['AIR'], short: 'Never miss a call' },
+      followup: { text: 'Every quote followed up for you', codes: ['FUP'], short: 'Follow up every quote' },
+      reviews: { text: '5-star reviews on autopilot', codes: ['REV'], short: 'More 5-star reviews' },
+      comeback: { text: 'Return business, no chasing', codes: ['DBR', 'EML'], short: 'Get return business' },
+      google: { text: 'Found first on Google', codes: ['GBP', 'SEO'], short: 'Get found on Google' },
+      newleads: { text: 'Ads that bring new enquiries', codes: ['GAD', 'MAD'], short: 'More new enquiries' },
+      socials: { text: 'Socials posted for you', codes: ['SOC'], short: 'Socials done for me' },
+      website: { text: 'A website that books work', codes: ['WEB'], short: 'A better website' },
+    };
+    const SEATS = [
+      { id: 'back', label: "You drive, I'll sit back", tag: 'Best value', kw: ['back', 'you drive', 'done for', 'all of it'], reply: "Sit back then. I'll report in once a month." },
+      { id: 'front', label: "You drive, I'll navigate", kw: ['navigat', 'front', 'approve', 'control'], reply: "Up front with me. You approve every turn." },
+      { id: 'copilot', label: "I'll drive, you help", kw: ['help', 'support', 'ride', 'i drive', "i'll drive", 'shotgun'], reply: "You drive, I'll ride shotgun." },
+      { id: 'self', label: 'Just the keys', kw: ['key', 'myself', 'diy', 'self', 'platform', 'software'], reply: "Keys are yours. Call me any time." },
     ];
-    const SEATS: [string, string, string, string][] = [
-      ['back', 'You drive, I sit in the back', 'Done for you. A report each month, a plan each quarter.', "Sit back. I'll drive. You get a report each month and a plan each quarter, and it's the best value too: fewer stops on the way."],
-      ['front', "You drive, I'll navigate", 'Done for you, and you approve every turn.', "Up front with me then. You'll see and approve every turn. It costs a little more, because approvals take time."],
-      ['copilot', "I'll drive, you ride along", 'You run DUSA, we help every month.', "You drive, I'll ride shotgun. Hours of help every month, whenever you want them."],
-      ['self', 'Give me the keys', 'Just the platform. You run everything.', "Here are the keys. DUSA's all yours, and I'm one call away if you need a hand."],
-    ];
-    const DIST: [string, string, string][] = [
-      ['S', 'Just around the corner', 'Get the basics running'],
-      ['M', 'Across town', 'Grow steadily'],
-      ['L', 'The long haul', 'Go all in'],
+    const DIST = [
+      { id: 'S', label: 'Around the corner', kw: ['corner', 'small', 'basic', 'start', 'light'] },
+      { id: 'M', label: 'Across town', kw: ['town', 'medium', 'steady', 'grow', 'mid'] },
+      { id: 'L', label: 'The long haul', kw: ['long', 'haul', 'all', 'big', 'full', 'large', 'scale'] },
     ];
     const SEAT_NAME: Record<string, string> = { self: 'Self-drive', copilot: 'Co-pilot', back: 'Back seat', front: 'Front seat' };
     const PLAIN: Record<string, string> = {
-      AIR: 'Every call and message answered', FUP: 'Every enquiry and quote followed up', REV: '5-star reviews on autopilot',
-      GBP: 'Found on Google Maps', SEO: 'Found on Google search', DBR: 'Bring past customers back (one-off campaign)', EML: 'Emails and texts to your customers',
-      GAD: 'Google Ads', MAD: 'Facebook and Instagram ads', SOC: 'Social media, done for you', WEB: 'A website that books jobs',
-      GRM: 'Monthly report and check-in', SUP: 'Help hours every month',
+      AIR: 'Every call answered', FUP: 'Every quote followed up', REV: '5-star reviews', GBP: 'Google Maps', SEO: 'Google search',
+      DBR: 'Return business campaign', EML: 'Emails and texts to customers', GAD: 'Google Ads', MAD: 'Facebook and Instagram ads',
+      SOC: 'Social media', WEB: 'Website', GRM: 'Monthly report and check-in', SUP: 'Help hours each month',
     };
-    const SIZE_NAME: Record<string, string> = { S: 'Light', M: 'Steady', L: 'Full' };
+    const SIZE: Record<string, string> = { S: 'Light', M: 'Steady', L: 'Full' };
+    const matchOpt = <T extends { kw: string[] }>(text: string, opts: T[]) => { const t = ` ${text.toLowerCase()} `; return opts.find((o) => o.kw.some((k) => t.includes(k))); };
 
-    /* ── The price, from the catalogue ── */
+    /* ══ Price, from the catalogue ══ */
     const codesFor = (): string[] => {
       const d = lead.distance || 'S';
       const needs: string[] = lead.needs.length ? lead.needs : ['calls', 'followup'];
       const out: string[] = [];
-      needs.forEach((n) => {
-        const entry = NEEDS.find((x) => x[0] === n); if (!entry) return;
-        entry[2].forEach((code, k) => {
-          // second code in a pair only comes along on longer trips
-          if (k > 0 && d !== 'L') return;
-          out.push(`${code}-${d}`);
-        });
-      });
-      if (lead.needs.includes('calls') && !lead.needs.includes('followup')) out.push(`FUP-${d}`); // the receptionist needs somewhere to send the lead
+      needs.forEach((n) => NEEDS[n]?.codes.forEach((c, k) => { if (k > 0 && d !== 'L') return; out.push(`${c}-${d}`); }));
+      if (needs.includes('calls') && !needs.includes('followup')) out.push(`FUP-${d}`);
       return [...new Set(out)].filter((c) => cat.items[c]);
     };
     const quote = () => {
-      const seat = lead.seat || 'back';
-      const d = lead.distance || 'S';
-      const lines: { label: string; sub: string; price: number; oneoff?: boolean }[] = [];
-      let monthly = 0, setup = 0, nudge = '';
+      const seat = lead.seat || 'back', d = lead.distance || 'S';
+      const lines: { label: string; price: number; save?: boolean; oneoff?: number }[] = [];
       if (seat === 'self') {
-        const plan = d === 'S' ? ['Launchpad', cat.plans.launchpad] : d === 'M' ? ['Starter', cat.plans.starter] : ['Growth', cat.plans.growth];
-        lines.push({ label: `DUSA ${plan[0]} plan`, sub: 'The whole platform. You run it.', price: plan[1] as number });
-        monthly = plan[1] as number;
-        return { lines, monthly, setup, nudge };
+        const [n, p] = d === 'S' ? ['Launchpad', cat.plans.launchpad] : d === 'M' ? ['Starter', cat.plans.starter] : ['Growth', cat.plans.growth];
+        lines.push({ label: `DUSA ${n} plan`, price: p as number });
+        return { lines, monthly: p as number, setup: 0, nudge: '' };
       }
-      lines.push({ label: 'DUSA Growth plan', sub: 'The vehicle: CRM, inbox, bookings, payments, AI', price: cat.plans.growth });
-      monthly = cat.plans.growth;
-      if (seat === 'copilot') {
-        const it = cat.items[`SUP-${d}`];
-        lines.push({ label: PLAIN.SUP, sub: it.incl, price: it.monthly });
-        monthly += it.monthly;
-        return { lines, monthly, setup, nudge };
-      }
-      const codes = codesFor();
-      if (seat === 'back') codes.push('GRM-S');
+      lines.push({ label: 'DUSA Growth plan', price: cat.plans.growth });
+      let monthly = cat.plans.growth, setup = 0, nudge = '';
+      if (seat === 'copilot') { const it = cat.items[`SUP-${d}`]; lines.push({ label: PLAIN.SUP, price: it.monthly }); return { lines, monthly: monthly + it.monthly, setup, nudge }; }
+      const codes = codesFor(); if (seat === 'back') codes.push('GRM-S');
       let bolt = 0, boltFront = 0, set = 0;
       codes.forEach((c) => {
-        const it = cat.items[c]; const base = c.split('-')[0];
-        const isOneOff = it.monthly === 0;
-        const p = seat === 'front' ? (it.guided ?? it.monthly) : it.monthly;
+        const it = cat.items[c], base = c.split('-')[0];
         bolt += it.monthly; boltFront += it.guided ?? it.monthly; set += it.setup;
-        lines.push({ label: `${PLAIN[base] || it.service} · ${SIZE_NAME[it.size]}`, sub: isOneOff ? `One-off: ${money(it.setup)}` : it.incl, price: isOneOff ? 0 : p, oneoff: isOneOff });
+        if (it.monthly === 0) lines.push({ label: `${PLAIN[base]} (one-off)`, price: 0, oneoff: it.setup });
+        else lines.push({ label: `${PLAIN[base]} · ${SIZE[it.size]}`, price: seat === 'front' ? (it.guided ?? it.monthly) : it.monthly });
       });
       if (seat === 'back') {
         const engine = Math.round((bolt * (1 - cat.bundleDiscount)) / 10) * 10 - 3;
-        lines.push({ label: 'Growth Engine saving', sub: `${Math.round(cat.bundleDiscount * 100)}% off when we drive`, price: engine - bolt });
-        monthly += engine;
-        setup = Math.round((set * (1 - cat.setupDiscount)) / 10) * 10;
+        lines.push({ label: 'Growth Engine saving', price: engine - bolt, save: true });
+        monthly += engine; setup = Math.round((set * (1 - cat.setupDiscount)) / 10) * 10;
       } else {
-        monthly += boltFront;
-        setup = set;
-        const backMonthly = cat.plans.growth + Math.round(((bolt + cat.items['GRM-S'].monthly) * (1 - cat.bundleDiscount)) / 10) * 10 - 3;
-        if (backMonthly < monthly) nudge = `Happy in the back seat? Same trip for ${money(backMonthly)} a month, and we report to you monthly instead.`;
+        const chk = cat.items['GRM-M'];
+        lines.push({ label: 'Weekly check-ins and approvals', price: chk.monthly });
+        monthly += boltFront + chk.monthly; setup = set;
+        const back = cat.plans.growth + Math.round(((bolt + cat.items['GRM-S'].monthly) * (1 - cat.bundleDiscount)) / 10) * 10 - 3;
+        if (back < monthly) nudge = `Same trip from the back seat: ${money(back)}/mo.`;
       }
       return { lines, monthly, setup, nudge };
     };
 
-    /* ── The trip sheet ── */
-    const sheet = (row: string, value: string) => {
-      trip.hidden = false;
-      const el = trip.querySelector<HTMLElement>(`[data-row="${row}"]`); if (!el) return;
-      el.hidden = !value; el.querySelector('dd')!.textContent = value;
+    /* ══ The city ══ */
+    const svg = root.querySelector<SVGSVGElement>('[data-map]')!;
+    const world = root.querySelector<SVGGElement>('[data-world]')!;
+    const cityG = root.querySelector<SVGGElement>('[data-city]')!;
+    const carG = root.querySelector<SVGGElement>('[data-car]')!;
+    const routeEl = root.querySelector<SVGPathElement>('[data-route]')!;
+    const G = 220, ROAD = 44, N = 7; // blocks
+    let seed = 7; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+    let city = '';
+    for (let i = 0; i <= N; i++) { const p = i * G; city += `<rect x="${p - ROAD / 2}" y="-200" width="${ROAD}" height="${N * G + 400}" fill="#1a2433"/><rect x="-200" y="${p - ROAD / 2}" width="${N * G + 400}" height="${ROAD}" fill="#1a2433"/>`; }
+    for (let i = 0; i <= N; i++) { const p = i * G; city += `<line x1="${p}" y1="-200" x2="${p}" y2="${N * G + 200}" stroke="#3b4c63" stroke-width="2" stroke-dasharray="14 16"/><line x1="-200" y1="${p}" x2="${N * G + 200}" y2="${p}" stroke="#3b4c63" stroke-width="2" stroke-dasharray="14 16"/>`; }
+    const ROOFS = ['#16263b', '#1b2e47', '#132235', '#1f3550', '#182a40'];
+    for (let bx = 0; bx < N; bx++) for (let by = 0; by < N; by++) {
+      const x0 = bx * G + ROAD / 2 + 6, y0 = by * G + ROAD / 2 + 6, s = G - ROAD - 12;
+      city += `<rect x="${x0 - 4}" y="${y0 - 4}" width="${s + 8}" height="${s + 8}" rx="6" fill="#222f40"/>`;
+      if (rnd() < 0.16) { // park
+        city += `<rect x="${x0}" y="${y0}" width="${s}" height="${s}" rx="10" fill="#183c35"/>`;
+        for (let k = 0; k < 7; k++) { const tx = x0 + 18 + rnd() * (s - 36), ty = y0 + 18 + rnd() * (s - 36), r = 9 + rnd() * 10; city += `<circle cx="${tx + 3}" cy="${ty + 4}" r="${r}" fill="#0b1a18" opacity=".6"/><circle cx="${tx}" cy="${ty}" r="${r}" fill="${rnd() < 0.3 ? '#2f8f7c' : '#22695c'}"/>`; }
+        continue;
+      }
+      const cols = rnd() < 0.5 ? 2 : 1, rows = rnd() < 0.5 ? 2 : 1, gap = 8, w = (s - gap * (cols - 1)) / cols, h = (s - gap * (rows - 1)) / rows;
+      for (let c = 0; c < cols; c++) for (let r = 0; r < rows; r++) {
+        const x = x0 + c * (w + gap), y = y0 + r * (h + gap);
+        city += `<rect x="${x + 5}" y="${y + 6}" width="${w}" height="${h}" rx="4" fill="#05080d" opacity=".55"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${ROOFS[Math.floor(rnd() * ROOFS.length)]}" stroke="#2a3d55" stroke-width="1.5"/>`;
+        if (rnd() < 0.6) city += `<rect x="${x + w * 0.2}" y="${y + h * 0.25}" width="${w * 0.18}" height="${h * 0.14}" rx="2" fill="#2a3d55"/>`;
+        if (rnd() < 0.35) city += `<rect x="${x + w * 0.55}" y="${y + h * 0.55}" width="${w * 0.3}" height="${h * 0.25}" rx="3" fill="#1f5a52"/>`;
+        if (rnd() < 0.25) city += `<circle cx="${x + w * 0.7}" cy="${y + h * 0.3}" r="${Math.min(w, h) * 0.08}" fill="#4ed8c2" opacity=".55"/>`;
+      }
+    }
+    for (let i = 0; i <= N; i++) for (let j = 0; j <= N; j++) if ((i + j) % 2 === 0) city += `<circle cx="${i * G + ROAD / 2 + 4}" cy="${j * G + ROAD / 2 + 4}" r="46" fill="url(#mLamp)"/><circle cx="${i * G + ROAD / 2 + 4}" cy="${j * G + ROAD / 2 + 4}" r="3" fill="#ffe2a8"/>`;
+    cityG.innerHTML = city;
+    // The route: pickup bottom-left, home top-right, one block per answer.
+    const ROUTE: [number, number][] = [[0, 6], [0, 5], [1, 5], [1, 4], [2, 4], [2, 3], [3, 3], [3, 2], [4, 2], [4, 1], [5, 1], [6, 1], [6, 0]].map(([a, b]) => [a * G, b * G]);
+    const pickup: [number, number] = [ROUTE[0][0] + 0, ROUTE[0][1] + 56];
+    const homeP: [number, number] = [ROUTE[ROUTE.length - 1][0] + 110, ROUTE[ROUTE.length - 1][1] - 0];
+    root.querySelector('[data-pickup]')!.setAttribute('transform', `translate(${pickup[0] + 34} ${pickup[1]})`);
+    root.querySelector('[data-home]')!.setAttribute('transform', `translate(${homeP[0] + 40} ${homeP[1] - 70})`);
+    const PTS: [number, number][] = [pickup, ...ROUTE, homeP];
+    routeEl.setAttribute('d', 'M' + PTS.map((p) => p.join(' ')).join(' L'));
+    const segs = PTS.slice(1).map((p, i) => Math.hypot(p[0] - PTS[i][0], p[1] - PTS[i][1]));
+    const TOTAL = segs.reduce((a, b) => a + b, 0);
+    const at = (d: number) => { let i = 0; while (i < segs.length - 1 && d > segs[i]) { d -= segs[i]; i++; } const a = PTS[i], b = PTS[i + 1], k = Math.min(1, d / segs[i]); return { x: a[0] + (b[0] - a[0]) * k, y: a[1] + (b[1] - a[1]) * k, ang: Math.atan2(b[1] - a[1], b[0] - a[0]) }; };
+    let carD = -260, targetD = 0, cam = { x: pickup[0], y: pickup[1], z: 1.5 }, ang = -Math.PI / 2;
+    const STEPS = 9; let step = 0;
+    const advance = (to?: number) => { step = to ?? Math.min(STEPS, step + 1); targetD = (TOTAL * step) / STEPS; };
+    let W = 0, H = 0;
+    const size = () => { const r = stage.getBoundingClientRect(); W = r.width; H = r.height; svg.setAttribute('viewBox', `0 0 ${W} ${H}`); };
+    size(); addEventListener('resize', size);
+    let last = performance.now(), visible = false;
+    const tick = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const speed = 260;
+      if (carD < targetD) carD = Math.min(targetD, carD + speed * dt * (reduced ? 20 : 1));
+      const p = carD < 0 ? { x: pickup[0] + 0, y: pickup[1] - carD, ang: -Math.PI / 2 } : at(carD);
+      let da = p.ang - ang; da = Math.atan2(Math.sin(da), Math.cos(da)); ang += da * Math.min(1, dt * 8);
+      carG.setAttribute('transform', `translate(${p.x} ${p.y}) rotate(${(ang * 180) / Math.PI + 90})`);
+      const phone = W < 760;
+      const z = phone ? 1.25 : W > 1000 ? 1.6 : 1.4;
+      cam.x += (p.x - cam.x) * Math.min(1, dt * 3); cam.y += (p.y - cam.y) * Math.min(1, dt * 3); cam.z += (z - cam.z) * Math.min(1, dt * 2);
+      const cx = phone ? W / 2 : (W - Math.min(380, W * 0.44) - 16) / 2, cy = phone ? H * 0.19 : H / 2;
+      world.setAttribute('transform', `translate(${cx} ${cy}) scale(${cam.z}) translate(${-cam.x} ${-cam.y})`);
+      if (visible) requestAnimationFrame(tick);
     };
+
+    /* ══ The chat ══ */
+    const scroll = () => { msgs.scrollTop = msgs.scrollHeight; };
+    const typingBubble = () => { const t = document.createElement('div'); t.className = 'ride__msg ride__msg--them ride__msg--typing'; t.innerHTML = '<i></i><i></i><i></i>'; msgs.appendChild(t); scroll(); return t; };
+    const say = async (text: string, pause = 650) => {
+      const t = typingBubble(); await wait(Math.min(1200, pause + text.length * 8)); t.remove();
+      const m = document.createElement('div'); m.className = 'ride__msg ride__msg--them'; m.textContent = text; msgs.appendChild(m); scroll(); await wait(220);
+    };
+    const me = (text: string) => { const m = document.createElement('div'); m.className = 'ride__msg ride__msg--me'; m.textContent = text; msgs.appendChild(m); scroll(); };
+    const card = async (html: string, cls = 'ride__card') => { const t = typingBubble(); await wait(700); t.remove(); const c = document.createElement('div'); c.className = cls; c.innerHTML = html; msgs.appendChild(c); scroll(); await wait(250); };
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+    let onType: ((v: string) => void) | null = null;
+    form.addEventListener('submit', (e) => { e.preventDefault(); const v = input.value.trim(); if (!v || !onType) return; input.value = ''; onType(v); });
+    const setInput = (placeholder: string, type = 'text') => { input.type = type; input.placeholder = placeholder; input.autocomplete = type === 'email' ? 'email' : type === 'tel' ? 'tel' : type === 'text' && placeholder.includes('name') ? 'given-name' : 'off'; };
+    // Ask: quick replies and/or typing. Resolves with { value, label }.
+    const ask = <T,>(opts: { label: string; value: T; tag?: string; cls?: string }[], o: { placeholder?: string; type?: string; free?: (v: string) => T | null; echo?: boolean } = {}) => new Promise<T>((resolve) => {
+      quick.innerHTML = '';
+      setInput(o.placeholder || 'Message your driver', o.type || 'text');
+      const done = (v: T, label: string) => { quick.innerHTML = ''; onType = null; if (o.echo !== false) me(label); setInput('Message your driver'); resolve(v); };
+      opts.forEach((op, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = `ride__chip ${op.cls || ''}`; b.style.animationDelay = `${i * 40}ms`; b.innerHTML = `${esc(op.label)}${op.tag ? `<em>${esc(op.tag)}</em>` : ''}`; b.addEventListener('click', () => done(op.value, op.label)); quick.appendChild(b); });
+      requestAnimationFrame(scroll);
+      onType = (v) => { const r = o.free ? o.free(v) : null; if (r !== null && r !== undefined) done(r, v); else { me(v); say("Sorry, didn't catch that. Tap one of these?"); } };
+      if (!opts.length || o.type) setTimeout(() => { if (matchMedia('(hover: hover)').matches) input.focus({ preventScroll: true }); }, 60);
+    });
+    const multi = (keys: string[], preset: string[]) => new Promise<string[]>((resolve) => {
+      quick.innerHTML = '';
+      const chosen = new Set(preset);
+      keys.forEach((k, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = `ride__chip${chosen.has(k) ? ' is-on' : ''}`; b.style.animationDelay = `${i * 30}ms`; b.textContent = NEEDS[k].short; b.addEventListener('click', () => { chosen.has(k) ? chosen.delete(k) : chosen.add(k); b.classList.toggle('is-on'); }); quick.appendChild(b); });
+      const go = document.createElement('button'); go.type = 'button'; go.className = 'ride__chip ride__chip--go'; go.textContent = 'Done';
+      go.addEventListener('click', () => { quick.innerHTML = ''; const v = [...chosen]; me(v.map((k) => NEEDS[k].short).join(', ') || 'Not sure yet'); resolve(v); });
+      quick.appendChild(go); requestAnimationFrame(scroll);
+      onType = (v) => { const t = v.toLowerCase(); Object.keys(NEEDS).forEach((k) => { if (NEEDS[k].short.toLowerCase().split(' ').some((w) => w.length > 4 && t.includes(w))) chosen.add(k); }); quick.innerHTML = ''; me(v); resolve([...chosen]); };
+    });
+
     let meterNow = 0;
     const tickMeter = () => {
-      if (!lead.seat) return;
       meter.hidden = false;
       const to = quote().monthly, from = meterNow, t0 = performance.now();
-      const step = (t: number) => { const k = Math.min(1, (t - t0) / 700); meterNow = from + (to - from) * k; meterVal.textContent = money(meterNow); if (k < 1) requestAnimationFrame(step); };
+      const step = (t: number) => { const k = Math.min(1, (t - t0) / 700); meterNow = from + (to - from) * k; meterVal.textContent = `${money(meterNow)}/mo`; if (k < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step);
     };
-
-    /* ── Talking ── */
-    let typing = 0;
-    const say = async (text: string, whereText?: string) => {
-      if (whereText) where.textContent = whereText;
-      const id = ++typing;
-      talk.classList.add('is-on');
-      answers.innerHTML = '';
-      lineEl.textContent = '';
-      if (reduced) { lineEl.textContent = text; return; }
-      for (let i = 1; i <= text.length; i++) {
-        if (id !== typing) return;
-        lineEl.textContent = text.slice(0, i);
-        await new Promise((r) => setTimeout(r, text[i - 1] === '.' || text[i - 1] === '?' ? 140 : 16));
-      }
-    };
-    const chip = (label: string, opts: { sub?: string; cls?: string; tag?: string; delay?: number } = {}) => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = `ride__chip ${opts.cls || ''}`;
-      b.innerHTML = `<span></span>${opts.tag ? `<em>${opts.tag}</em>` : ''}${opts.sub ? `<small></small>` : ''}`;
-      b.querySelector('span')!.textContent = label;
-      if (opts.sub) b.querySelector('small')!.textContent = opts.sub;
-      b.style.animationDelay = `${opts.delay ?? 0}ms`;
-      answers.appendChild(b); return b;
-    };
-    const pick = <T,>(items: { label: string; value: T; sub?: string; cls?: string; tag?: string }[]) => new Promise<T>((resolve) => {
-      items.forEach((it, i) => chip(it.label, { sub: it.sub, cls: it.cls, tag: it.tag, delay: i * 50 }).addEventListener('click', () => resolve(it.value)));
-    });
-    const ask = (placeholder: string, type = 'text', cta = 'Next', skip?: string) => new Promise<string>((resolve) => {
-      const f = document.createElement('form'); f.className = 'ride__field';
-      f.innerHTML = `<input class="ride__input" /><button class="ride__chip ride__chip--go" type="submit"></button>`;
-      const input = f.querySelector('input')!; input.type = type; input.placeholder = placeholder; input.required = !skip;
-      input.autocomplete = type === 'email' ? 'email' : type === 'tel' ? 'tel' : 'off';
-      f.querySelector('button')!.textContent = cta;
-      f.addEventListener('submit', (e) => { e.preventDefault(); const v = input.value.trim(); if (v || skip) resolve(v); });
-      answers.appendChild(f);
-      if (skip) chip(skip, { cls: 'ride__chip--ghost' }).addEventListener('click', () => resolve(''));
-      setTimeout(() => input.focus({ preventScroll: true }), 50);
-    });
-
-    /* ── The ride ── */
-    const showFare = () => {
-      const q = quote();
-      stage.classList.add('is-fare');
-      fare.hidden = false;
-      root.querySelector<HTMLElement>('[data-fare-ref]')!.textContent = `#${String(Date.now()).slice(-5)}`;
-      root.querySelector<HTMLElement>('[data-fare-for]')!.textContent = `${lead.name || 'Passenger'}${lead.business ? `, ${lead.business}` : ''} · ${SEAT_NAME[lead.seat]}`;
-      const ul = root.querySelector<HTMLElement>('[data-fare-lines]')!; ul.innerHTML = '';
-      q.lines.forEach((l) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<span><span></span><small></small></span><b></b>`;
-        li.querySelector('span span')!.textContent = l.label;
-        li.querySelector('small')!.textContent = l.sub;
-        li.querySelector('b')!.textContent = l.oneoff ? 'one-off' : money(l.price);
-        ul.appendChild(li);
-      });
-      root.querySelector<HTMLElement>('[data-fare-monthly]')!.textContent = money(q.monthly);
-      root.querySelector<HTMLElement>('[data-fare-setup]')!.textContent = q.setup ? money(q.setup) : 'None';
-      root.querySelector<HTMLElement>('[data-fare-setup-label]')!.textContent = lead.seat === 'back' ? 'Set-up (Growth Engine rate)' : 'Set-up, one-off';
-      const nudge = root.querySelector<HTMLElement>('[data-fare-nudge]')!; nudge.hidden = !q.nudge; nudge.textContent = q.nudge;
-      root.querySelector<HTMLElement>('[data-fare-self]')!.hidden = lead.seat === 'self';
-      lead.quote = q;
-    };
     const send = async (event: string) => {
-      const payload = { event, ...lead, codes: codesFor(), page: location.pathname, at: new Date().toISOString() };
+      const payload = { event, ...lead, codes: codesFor(), quote: quote(), page: location.pathname, at: new Date().toISOString() };
       (window as any).__rideLead = payload;
       const hook = root.dataset.webhook;
       if (!hook) { console.info('[ride] no webhook yet', payload); return; }
       try { await fetch(hook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }); } catch (e) { console.warn('[ride] send failed', e); }
     };
 
+    /* ══ The ride ══ */
     const run = async () => {
-      stage.classList.add('is-moving');
-      await wait(300); stage.classList.add('is-arrived');
-      await wait(2500); stage.classList.remove('is-moving'); stage.classList.add('is-open');
-      await say("Evening! Bit wet to be standing about. Need a lift?", 'At the kerb');
-      const hello = await pick([{ label: 'Yes please', value: 1 }, { label: 'Yes, and I could use a hand with my business too', value: 2 }]);
-      stage.classList.add('has-umbrella', 'is-dry');
-      await say(hello === 2 ? "Ha, you're in the right car. Let's get you dry first. What do you do for work?" : "Let's get you out of the rain. What do you do for work?");
-      lead.industry = await pick(INDUSTRIES.map(([v, l]) => ({ label: l, value: v })));
-      const ind = INDUSTRIES.find((i) => i[0] === lead.industry)!;
-      sheet('industry', ind[1]);
-      await say(`${ind[2]} What's slowing you down? Pick as many as you like.`);
-      lead.needs = await new Promise<string[]>((resolve) => {
-        const chosen = new Set<string>();
-        NEEDS.forEach(([v, l], i) => { const b = chip(l, { delay: i * 40 }); b.addEventListener('click', () => { chosen.has(v) ? chosen.delete(v) : chosen.add(v); b.classList.toggle('is-on'); sheet('needs', [...chosen].map((c) => SHORT[c]).join(', ')); }); });
-        chip("That's the lot", { cls: 'ride__chip--go', delay: 400 }).addEventListener('click', () => resolve([...chosen]));
-      });
-      if (!lead.needs.length) sheet('needs', 'Missed calls');
-      await say(lead.needs.length ? `Right. ${lead.needs.length === 1 ? 'One thing' : `${lead.needs.length} things`} to sort. We fix all of those every day. Hop in.` : "No worries. We'll start with the one everyone needs: never missing a call. Hop in.");
-      await wait(1200);
-      stage.classList.add('is-moving', 'is-leaving');
-      await wait(1100);
-      stage.dataset.scene = 'inside';
-      stage.classList.remove('is-leaving', 'is-arrived', 'is-open', 'has-umbrella');
-      await say('So, how would you like to get there?', 'On the road');
-      lead.seat = await new Promise<string>((resolve) => {
-        SEATS.forEach(([v, l, sub], i) => chip(l, { sub, cls: 'ride__chip--seat', tag: v === 'back' ? 'Best value' : undefined, delay: i * 60 }).addEventListener('click', () => resolve(v)));
-      });
-      const seat = SEATS.find((s) => s[0] === lead.seat)!;
-      sheet('seat', SEAT_NAME[lead.seat]);
-      await say(`${seat[3]} And how far are we going today?`);
-      lead.distance = await pick(DIST.map(([v, l, sub]) => ({ label: l, value: v, sub })));
-      sheet('distance', DIST.find((d) => d[0] === lead.distance)![1]);
-      tickMeter();
-      await say("Bit of a drive. Who've I got in the car?");
-      lead.name = await ask('Your first name');
-      sheet('name', lead.name);
-      await say(`Nice to meet you, ${lead.name}. What's the business called?`);
-      lead.business = await ask('Business name');
-      sheet('business', lead.business);
-      send('profile');
-      const pitches = (lead.needs.length ? lead.needs : ['calls']).slice(0, 2).map((n: string) => NEEDS.find((x) => x[0] === n)![3]);
-      await say(`So for ${lead.business}: ${pitches.join(', and ')}.`);
-      await wait(2600);
-      await say('Here we are. Home.', 'Arriving');
-      stage.dataset.scene = 'street';
-      stage.classList.add('is-home', 'is-moving');
-      await wait(2400);
-      stage.classList.remove('is-moving');
-      showFare();
-      await say(`That's your fare, ${lead.name}. Want a proper quote in your inbox?`, 'Home');
-      lead.email = await ask('Email address', 'email', 'Send my quote', 'Not now');
-      if (lead.email) send('quote');
-      await say(lead.email ? 'Done, it is on its way. Okay if we give you a call to arrange your next pick-up?' : 'No worries. Okay if we give you a call to arrange your next pick-up?');
-      const call = await pick([{ label: 'Yes, call me', value: true }, { label: "No thanks, I'll call you", value: false }]);
-      lead.callOk = call;
-      if (call) {
+      status.textContent = 'Pulling up';
+      await wait(900);
+      await say("Hey! Jump in out of the rain.");
+      await say("I'm your DUSA driver. What's your name?");
+      lead.name = (await ask<string>([], { placeholder: 'Your first name', free: (v) => v.split(' ')[0].replace(/^./, (c) => c.toUpperCase()) }));
+      advance(); status.textContent = 'On the way';
+      await say(`Lovely to meet you, ${lead.name}. What's your business called?`);
+      lead.business = await ask<string>([], { placeholder: 'Business name', free: (v) => v });
+      advance();
+      await say(`${lead.business}. Love it. What do you do?`);
+      const ind = await ask(INDUSTRIES.map((i) => ({ label: i.label, value: i.id })), { placeholder: 'Or type it', free: (v) => { lead.industryText = v; return matchOpt(v, INDUSTRIES)?.id || 'other'; } });
+      lead.industry = ind; const I = INDUSTRIES.find((i) => i.id === ind)!;
+      advance();
+      await say(`We look after plenty of ${I.plural}, ${lead.name}.`);
+      await card(`<ol>${I.top.map(([k, o]) => `<li><span>${esc(NEEDS[k].text)}<em>${esc(o)}</em></span></li>`).join('')}</ol>`);
+      await say('Those three help them most. Sound like you?');
+      const fit = await ask([{ label: 'Yes, all three', value: 'all' }, { label: 'Some of them', value: 'some' }, { label: 'Something else', value: 'else' }], { free: (v) => (/^(y|yes|yep|yeah|all)/i.test(v) ? 'all' : /some|few|two|one/i.test(v) ? 'some' : 'else') });
+      const top = I.top.map(([k]) => k);
+      if (fit === 'all') lead.needs = top;
+      else if (fit === 'some') { await say('Tap the ones that fit.'); lead.needs = await multi(top, top); }
+      else { await say('Tell me, or tap what fits.'); lead.needs = await multi(Object.keys(NEEDS), []); }
+      advance();
+      await say(lead.needs.length ? 'Easy. We fix those every day.' : "No worries. We'll start with never missing a call.");
+      await say('So how do you want to get there?');
+      lead.seat = await ask(SEATS.map((s) => ({ label: s.label, value: s.id, tag: s.tag })), { free: (v) => matchOpt(v, SEATS)?.id || null });
+      const S = SEATS.find((s) => s.id === lead.seat)!;
+      advance();
+      await say(S.reply);
+      await say('And how far are we going?');
+      lead.distance = await ask(DIST.map((d) => ({ label: d.label, value: d.id })), { free: (v) => matchOpt(v, DIST)?.id || null });
+      tickMeter(); advance(); send('profile');
+      if (lead.seat !== 'self') { await say(`Right. For ${lead.business}: ${lead.needs.slice(0, 2).map((k: string) => NEEDS[k].short.toLowerCase()).join(' and ') || 'never miss a call'}.`); advance(); }
+      advance(STEPS - 1);
+      await wait(1600);
+      status.textContent = 'Arriving';
+      await say(`Here we are, ${lead.name}. Home.`);
+      advance(STEPS);
+      const q = quote(); lead.quote = q;
+      await card(`<h4>DUSA FARE <span>#${String(Date.now()).slice(-5)}</span></h4><p>${esc(lead.name)}, ${esc(lead.business)} · ${SEAT_NAME[lead.seat]}</p><ul>${q.lines.map((l) => `<li class="${l.save ? 'is-save' : ''}"><span>${esc(l.label)}</span><b>${l.oneoff ? money(l.oneoff) + ' once' : money(l.price)}</b></li>`).join('')}</ul><div class="t"><span>Monthly</span><b>${money(q.monthly)}</b></div><div class="s"><span>Set-up, one-off</span><b>${q.setup ? money(q.setup) : 'None'}</b></div><small>AUD ex GST. Month to month. AI, SMS and ad spend at cost.${q.nudge ? `<b>${esc(q.nudge)}</b>` : ''}${lead.seat !== 'self' ? '<b>Rather drive yourself? DUSA from $47/mo.</b>' : ''}</small>`, 'ride__fare');
+      status.textContent = 'Home';
+      await say('Want this in your inbox?');
+      const email = await ask<string>([{ label: 'Not now', value: '', cls: 'ride__chip--ghost' }], { placeholder: 'Your email', type: 'email', free: (v) => (/\S+@\S+\.\S+/.test(v) ? v : null) });
+      lead.email = email; if (email) send('quote');
+      await say(email ? 'Sent. Okay if we call to book your next pick-up?' : 'Okay if we call to book your next pick-up?');
+      lead.callOk = await ask([{ label: 'Yes, call me', value: true }, { label: "I'll call you", value: false }], { free: (v) => (/^(y|yes|sure|ok|yep|yeah)/i.test(v) ? true : /^(n|no|nah)/i.test(v) ? false : null) });
+      if (lead.callOk) {
         await say('Best number?');
-        lead.phone = await ask('Mobile number', 'tel', 'Save');
+        lead.phone = await ask<string>([], { placeholder: 'Mobile number', type: 'tel', free: (v) => (v.replace(/\D/g, '').length >= 8 ? v : null) });
         send('callback');
-        await say("Perfect. We'll be in touch. Ready to book the trip?");
+        await say(`Thanks ${lead.name}. Talk soon.`);
       } else {
-        await say(`All good. Call us any time on ${PHONE}. Ready to book the trip?`);
+        await say(`All good. Call us any time: ${PHONE}.`);
       }
       const doneFor = lead.seat === 'back' || lead.seat === 'front';
-      const go = chip(doneFor ? 'Pay set-up and book your kick-off' : 'Start your 14-day free trial', { cls: 'ride__chip--go' });
-      go.addEventListener('click', () => { send(doneFor ? 'pay' : 'trial'); location.href = doneFor ? (root.dataset.book || '/start') : '/start'; });
-      chip('Talk to the Growth Lead first (10 min)').addEventListener('click', () => { send('talk'); window.open(root.dataset.lead, '_blank', 'noopener'); });
-      if (lead.seat !== 'self') chip('Rather drive yourself? From $47', { cls: 'ride__chip--ghost' }).addEventListener('click', () => { location.href = '/start'; });
+      const end = await ask([
+        { label: doneFor ? 'Pay set-up and book kick-off' : 'Start my free trial', value: 'go', cls: 'ride__chip--go' },
+        { label: 'Talk to the Growth Lead (10 min)', value: 'talk' },
+        ...(lead.seat !== 'self' ? [{ label: 'Drive myself, from $47', value: 'self', cls: 'ride__chip--ghost' }] : []),
+      ], { echo: false });
+      send(end);
+      if (end === 'talk') window.open(root.dataset.lead, '_blank', 'noopener');
+      else location.href = end === 'go' && doneFor ? (root.dataset.book || '/start') : '/start';
     };
 
-    /* City lights for the street, passing lights for the drive. */
-    const city = root.querySelector('[data-city]')!;
-    let html = '';
-    const rnd = (a: number, b: number) => a + Math.random() * (b - a);
-    for (let x = -20; x < 1620; x += rnd(90, 170)) {
-      const w = rnd(80, 150), h = rnd(160, 420), y = 700 - h;
-      html += `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#0f1c2e"/>`;
-      for (let wy = y + 20; wy < 680; wy += 34) for (let wx = x + 12; wx < x + w - 16; wx += 26) if (Math.random() < 0.28) html += `<rect x="${wx}" y="${wy}" width="12" height="16" rx="2" fill="${Math.random() < 0.25 ? '#4ed8c2' : '#ffd59a'}" opacity="${rnd(0.35, 0.85).toFixed(2)}"/>`;
-    }
-    city.innerHTML = html;
-    const lights = root.querySelector('[data-lights]')!;
-    lights.innerHTML = [...Array(18)].map(() => `<circle cx="${rnd(0, 1600).toFixed(0)}" cy="${rnd(200, 520).toFixed(0)}" r="${rnd(10, 46).toFixed(0)}" fill="url(#${Math.random() < 0.3 ? 'iBokehA' : 'iBokeh'})" opacity="${rnd(0.25, 0.7).toFixed(2)}"/>`).join('');
-
-    /* Rain: streaks outside, drops on the glass inside. */
-    const canvas = root.querySelector<HTMLCanvasElement>('[data-rain]')!;
-    const ctx = canvas.getContext('2d')!;
-    let W = 0, H = 0;
-    const size = () => { const r = stage.getBoundingClientRect(); const dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-    size(); addEventListener('resize', size);
-    const streaks = [...Array(160)].map(() => ({ x: Math.random(), y: Math.random(), l: rnd(10, 26), v: rnd(0.9, 1.6) }));
-    const drops = [...Array(70)].map(() => ({ x: Math.random(), y: Math.random(), r: rnd(1.5, 4), v: Math.random() < 0.2 ? rnd(0.02, 0.08) : 0 }));
-    let visible = false, running = false;
-    const draw = () => {
-      if (!visible) { running = false; return; }
-      ctx.clearRect(0, 0, W, H);
-      const inside = stage.dataset.scene === 'inside';
-      if (!inside) {
-        ctx.strokeStyle = 'rgba(190, 215, 240, 0.35)'; ctx.lineWidth = 1.2; ctx.beginPath();
-        streaks.forEach((s) => { s.y += s.v * 0.012; s.x -= s.v * 0.002; if (s.y > 1) { s.y = -0.05; s.x = Math.random() * 1.1; } const x = s.x * W, y = s.y * H; ctx.moveTo(x, y); ctx.lineTo(x - s.l * 0.25, y + s.l); });
-        ctx.stroke();
-      } else {
-        drops.forEach((d) => { d.y += d.v * 0.01; if (d.y > 1) { d.y = 0; d.x = Math.random(); } const x = d.x * W, y = d.y * H; ctx.beginPath(); ctx.arc(x, y, d.r, 0, Math.PI * 2); ctx.fillStyle = 'rgba(200, 225, 245, 0.28)'; ctx.fill(); ctx.beginPath(); ctx.arc(x - d.r * 0.3, y - d.r * 0.3, d.r * 0.35, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fill(); });
-      }
-      requestAnimationFrame(draw);
-    };
     let started = false;
     new IntersectionObserver((es) => es.forEach((e) => {
-      visible = e.isIntersecting;
-      if (visible && !running && !reduced) { running = true; requestAnimationFrame(draw); }
-      if (visible && !started && e.intersectionRatio > 0.45) { started = true; run(); }
+      const was = visible; visible = e.isIntersecting;
+      if (visible && !was) { last = performance.now(); requestAnimationFrame(tick); }
+      if (visible && !started && e.intersectionRatio > 0.45) { started = true; targetD = 0; run(); }
     }), { threshold: [0, 0.45] }).observe(stage);
-
     if (location.hostname === 'localhost') (window as any).__ride = { lead, quote, codesFor };
   });
 </script>

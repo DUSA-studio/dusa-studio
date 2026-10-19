@@ -1,15 +1,18 @@
 ---
 /**
- * RideWithDusa.astro (v2)
+ * RideWithDusa.astro (v3)
  *
- * The package builder as a short ride across town. A top-down night city
- * (think the old GTA view, kept very simple) with the DUSA car driving its
- * route, and a messages-app chat with your driver. Every answer moves the car
- * a block further; when you get home, the fare is your quote, priced from the
- * catalogue (src/data/catalogue-au.json).
+ * The package builder as a short ride, drawn in the same simple style as the
+ * SmashX "how it works" journey: a light isometric street (plain boxes, flat
+ * low-poly trees, soft shadows), one navy DUSA car with a lit roof sign and the
+ * logo on the door, and a phone on the right where you chat with your Growth
+ * Lead. It is raining when you are picked up; the weather clears as the ride
+ * goes on. Every answer moves the car further down the road, and when you get
+ * home your quote is waiting in the chat, priced from the catalogue
+ * (src/data/catalogue-au.json).
  *
- * You can tap the quick replies or type with your keyboard; typed answers are
- * matched to the closest option.
+ * Tap the quick replies or type with the keyboard (typed answers are matched to
+ * the closest option). "Skip the small talk" keeps it to the questions only.
  */
 import catalogue from '../data/catalogue-au.json';
 interface Props { webhook?: string; book?: string; growthLead?: string; phone?: string }
@@ -19,6 +22,7 @@ const {
   growthLead = 'https://link.dusa.studio/widget/bookings/dusa-demo',
   phone = '+61 488 825 686',
 } = Astro.props;
+const CHAPTERS = ['Pick-up', 'About you', 'What you need', 'Your route', 'Home'];
 ---
 
 <section class="ride section section--dark" data-ride data-webhook={webhook} data-book={book} data-lead={growthLead} data-phone={phone}>
@@ -26,61 +30,29 @@ const {
     <div class="ride__head">
       <span class="label">Build your engine</span>
       <h2 class="ride__h2">Need a lift? <span class="gradient-text">Hop in.</span></h2>
-      <p class="ride__sub">Two minutes with your driver. Your quote is waiting when you get home.</p>
+      <p class="ride__sub">Two minutes with your Growth Lead. Your quote is waiting when you get home.</p>
     </div>
 
     <div class="ride__stage" data-stage>
-      <svg class="ride__map" data-map aria-hidden="true">
-        <defs>
-          <radialGradient id="mLamp" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffe2a8" stop-opacity=".45"/><stop offset="1" stop-color="#ffe2a8" stop-opacity="0"/></radialGradient>
-          <radialGradient id="mHome" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd59a" stop-opacity=".55"/><stop offset="1" stop-color="#ffd59a" stop-opacity="0"/></radialGradient>
-          <radialGradient id="mSign" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#4ed8c2" stop-opacity=".8"/><stop offset="1" stop-color="#4ed8c2" stop-opacity="0"/></radialGradient>
-          <linearGradient id="mBeam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff6d8" stop-opacity=".5"/><stop offset="1" stop-color="#fff6d8" stop-opacity="0"/></linearGradient>
-          <linearGradient id="mCar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#16324f"/><stop offset=".5" stop-color="#2a5a8a"/><stop offset="1" stop-color="#16324f"/></linearGradient>
-        </defs>
-        <g data-world>
-          <rect x="-400" y="-400" width="2200" height="2200" fill="#0b1220"/>
-          <g data-city></g>
-          <path data-route d="" fill="none" stroke="#4ed8c2" stroke-width="5" stroke-dasharray="2 16" stroke-linecap="round" opacity=".55"/>
-          <g data-pickup>
-            <circle r="34" fill="url(#mLamp)"/>
-            <circle r="13" fill="#0f2440" stroke="#4ed8c2" stroke-width="3"/>
-            <path d="M-13 0 H13 M0 -13 V13 M-9 -9 L9 9 M-9 9 L9 -9" stroke="#4ed8c2" stroke-width="1.4" opacity=".7"/>
-            <circle r="4" fill="#d9a98a"/>
-          </g>
-          <g data-home>
-            <circle r="90" fill="url(#mHome)"/>
-            <rect x="-34" y="-30" width="68" height="60" rx="4" fill="#1a3a5c"/>
-            <path d="M-34 -30 L0 0 L34 -30 Z M-34 30 L0 0 L34 30 Z" fill="#24507d"/>
-            <path d="M-34 -30 L0 0 L-34 30 Z M34 -30 L0 0 L34 30 Z" fill="#1f4672"/>
-            <rect x="-6" y="30" width="12" height="18" fill="#4ed8c2" opacity=".85"/>
-          </g>
-          <g data-car>
-            <polygon points="-11,-26 11,-26 34,-120 -34,-120" fill="url(#mBeam)"/>
-            <circle r="30" fill="url(#mSign)" opacity=".6"/>
-            <rect x="-12" y="-23" width="24" height="46" rx="8" fill="url(#mCar)" stroke="#0a1626" stroke-width="1.5"/>
-            <rect x="-9" y="-14" width="18" height="9" rx="3" fill="#0c1726"/>
-            <rect x="-9" y="9" width="18" height="7" rx="3" fill="#0c1726"/>
-            <rect x="-7" y="-3" width="14" height="6" rx="2" fill="#4ed8c2"/>
-            <rect x="-10" y="-25" width="5" height="3" rx="1.5" fill="#fff6d8"/><rect x="5" y="-25" width="5" height="3" rx="1.5" fill="#fff6d8"/>
-            <rect x="-10" y="22" width="5" height="3" rx="1.5" fill="#ff5a5a"/><rect x="5" y="22" width="5" height="3" rx="1.5" fill="#ff5a5a"/>
-          </g>
-        </g>
-      </svg>
-      <div class="ride__rain" aria-hidden="true"></div>
-      <div class="ride__vignette" aria-hidden="true"></div>
+      <canvas class="ride__scene" data-scene aria-hidden="true"></canvas>
 
-      <div class="ride__app" data-app>
+      <ol class="ride__chapters" data-chapters aria-hidden="true">
+        {CHAPTERS.map((c, i) => <li class={i === 0 ? 'is-on' : ''}>{c}</li>)}
+      </ol>
+
+      <div class="ride__phone" data-phone-ui>
+        <div class="ride__notch" aria-hidden="true"></div>
+        <div class="ride__statusbar" aria-hidden="true"><span data-clock>7:42</span><span class="ride__sig"><i></i><i></i><i></i><b></b></span></div>
         <header class="ride__bar">
-          <span class="ride__avatar"><img src="/lotus.svg" alt="" width="18" height="18" /></span>
-          <span class="ride__bar-who"><b>Your DUSA driver</b><small data-status>Pulling up</small></span>
-          <span class="ride__meter" data-meter hidden><small>Meter</small><b data-meter-val>$0</b></span>
+          <span class="ride__avatar"><img src="/lotus.svg" alt="" width="16" height="16" /></span>
+          <span class="ride__bar-who"><b>Your Growth Lead</b><small data-status>Pulling up</small></span>
+          <span class="ride__meter" data-meter hidden><small>Your engine</small><b data-meter-val>$0</b></span>
         </header>
         <div class="ride__msgs" data-msgs aria-live="polite"></div>
         <div class="ride__quick" data-quick></div>
         <form class="ride__compose" data-compose>
-          <input class="ride__input" data-input type="text" placeholder="Message your driver" autocomplete="off" aria-label="Message your driver" />
-          <button class="ride__send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <input class="ride__input" data-input type="text" placeholder="Message" autocomplete="off" aria-label="Message your Growth Lead" />
+          <button class="ride__send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
         </form>
       </div>
     </div>
@@ -95,82 +67,93 @@ const {
   .ride__h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; margin: 0.6rem 0; color: var(--warm-white); }
   .ride__sub { color: rgba(247, 244, 239, 0.66); margin: 0 auto; }
 
-  .ride__stage { position: relative; max-width: 1180px; margin: 0 auto; aspect-ratio: 16 / 10; border-radius: 28px; overflow: hidden; background: #0b1220; border: 1px solid rgba(247, 244, 239, 0.1); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
-  .ride__map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .ride__rain { position: absolute; inset: 0; pointer-events: none; opacity: 0.35; background-image: repeating-linear-gradient(105deg, transparent 0 22px, rgba(190, 215, 240, 0.18) 22px 23px, transparent 23px 47px); background-size: 200% 200%; animation: rideRain 0.9s linear infinite; }
-  @keyframes rideRain { to { background-position: -60px 140px; } }
-  .ride__vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 35% 50%, transparent 40%, rgba(5, 8, 14, 0.65) 100%); }
+  .ride__stage { position: relative; max-width: 1180px; margin: 0 auto; aspect-ratio: 16 / 10; border-radius: 28px; overflow: hidden; background: #e9eaec; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); }
+  .ride__scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
-  /* The phone: a messages app */
-  .ride__app { position: absolute; top: 16px; right: 16px; bottom: 16px; width: min(380px, 44%); display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: rgba(10, 16, 28, 0.78); backdrop-filter: blur(22px) saturate(150%); -webkit-backdrop-filter: blur(22px) saturate(150%); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 24px 60px rgba(0, 0, 0, 0.5); color: #fff; }
-  .ride__bar { display: flex; align-items: center; gap: 0.6rem; padding: 12px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-  .ride__avatar { width: 34px; height: 34px; flex: none; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(160deg, #1f4472, #0f2440); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.45); }
+  /* Chapter pills, bottom left */
+  .ride__chapters { position: absolute; left: 18px; bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; z-index: 2; }
+  :global(.ride__chapters li) { font-size: 0.8rem; font-weight: 500; padding: 6px 12px; border-radius: 100px; background: rgba(255, 255, 255, 0.85); color: #1a3a5c; box-shadow: inset 0 0 0 1px rgba(26, 58, 92, 0.14); transition: background 0.3s, color 0.3s; }
+  :global(.ride__chapters li.is-done) { color: rgba(26, 58, 92, 0.5); }
+  :global(.ride__chapters li.is-on) { background: #1a3a5c; color: #fff; box-shadow: none; }
+
+  /* The phone */
+  .ride__phone { position: absolute; top: 4%; bottom: 4%; right: 3%; aspect-ratio: 9 / 19; max-width: 46%; display: flex; flex-direction: column; border-radius: 46px; border: 9px solid #0b0d12; overflow: hidden; background: linear-gradient(180deg, #1f4472 0%, #12294a 55%, #0c1b33 100%); box-shadow: 0 0 0 1.5px #3a3f4a, 0 30px 60px rgba(12, 26, 50, 0.35); color: #fff; z-index: 3; font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif; }
+  .ride__notch { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 34%; height: 24px; border-radius: 20px; background: #0b0d12; z-index: 2; }
+  .ride__statusbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 22px 2px 26px; font-size: 0.72rem; font-weight: 600; }
+  .ride__sig { display: inline-flex; align-items: flex-end; gap: 2px; }
+  .ride__sig i { width: 3px; background: #fff; border-radius: 1px; }
+  .ride__sig i:nth-child(1) { height: 4px; } .ride__sig i:nth-child(2) { height: 6px; } .ride__sig i:nth-child(3) { height: 8px; }
+  .ride__sig b { width: 18px; height: 9px; margin-left: 5px; border-radius: 3px; border: 1px solid rgba(255, 255, 255, 0.8); background: linear-gradient(90deg, #fff 70%, transparent 70%); background-clip: content-box; padding: 1px; }
+  .ride__bar { display: flex; align-items: center; gap: 0.55rem; padding: 8px 14px 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .ride__avatar { width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; background: #0f2440; box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.5); }
   .ride__avatar img { filter: invert(78%) sepia(30%) saturate(600%) hue-rotate(115deg); }
-  .ride__bar-who b { display: block; font-size: 0.88rem; }
-  .ride__bar-who small { display: block; font-size: 0.72rem; color: var(--reef-aqua); }
+  .ride__bar-who b { display: block; font-size: 0.82rem; }
+  .ride__bar-who small { display: block; font-size: 0.68rem; color: var(--reef-aqua); }
   .ride__meter { margin-left: auto; text-align: right; line-height: 1.1; }
   .ride__meter[hidden] { display: none; }
-  .ride__meter small { display: block; font-size: 0.62rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.08em; }
-  .ride__meter b { font-family: var(--font-headline); font-size: 1.05rem; color: var(--reef-aqua); font-variant-numeric: tabular-nums; }
-  .ride__msgs { flex: 1; overflow-y: auto; padding: 14px 12px 6px; display: flex; flex-direction: column; gap: 6px; scroll-behavior: smooth; }
-  :global(.ride__msg) { max-width: 82%; padding: 9px 13px; border-radius: 18px; font-size: 0.92rem; line-height: 1.35; animation: rideMsg 0.3s ease; }
-  :global(.ride__msg--them) { align-self: flex-start; background: rgba(255, 255, 255, 0.1); border-bottom-left-radius: 6px; }
-  :global(.ride__msg--me) { align-self: flex-end; background: linear-gradient(135deg, #4ed8c2, #3fb9a7); color: #06231e; border-bottom-right-radius: 6px; }
-  :global(.ride__msg--typing) { display: inline-flex; gap: 4px; padding: 12px 14px; }
+  .ride__meter small { display: block; font-size: 0.58rem; color: rgba(255, 255, 255, 0.55); }
+  .ride__meter b { font-size: 0.95rem; color: var(--reef-aqua); font-variant-numeric: tabular-nums; }
+  .ride__msgs { flex: 1; overflow-y: auto; padding: 12px 10px 6px; display: flex; flex-direction: column; gap: 5px; scroll-behavior: smooth; scrollbar-width: none; }
+  .ride__msgs::-webkit-scrollbar { display: none; }
+  :global(.ride__msg) { max-width: 84%; padding: 8px 12px; border-radius: 17px; font-size: 0.86rem; line-height: 1.32; animation: rideMsg 0.3s ease; }
+  :global(.ride__msg--them) { align-self: flex-start; background: rgba(255, 255, 255, 0.14); border-bottom-left-radius: 5px; }
+  :global(.ride__msg--me) { align-self: flex-end; background: #4ed8c2; color: #06231e; border-bottom-right-radius: 5px; }
+  :global(.ride__msg--typing) { display: inline-flex; gap: 4px; padding: 11px 13px; }
   :global(.ride__msg--typing i) { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); animation: rideDot 1s infinite; }
   :global(.ride__msg--typing i:nth-child(2)) { animation-delay: 0.15s; }
   :global(.ride__msg--typing i:nth-child(3)) { animation-delay: 0.3s; }
   @keyframes rideDot { 0%, 60%, 100% { opacity: 0.3; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
   @keyframes rideMsg { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  /* Proof card: three things that help */
-  :global(.ride__card) { align-self: stretch; max-width: none; padding: 12px; border-radius: 16px; background: rgba(78, 216, 194, 0.08); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.4); animation: rideMsg 0.3s ease; }
-  :global(.ride__card ol) { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: c; }
-  :global(.ride__card li) { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: 0.88rem; line-height: 1.3; counter-increment: c; }
-  :global(.ride__card li::before) { content: counter(c); width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; font-weight: 700; background: var(--reef-aqua); color: #06231e; }
-  :global(.ride__card em) { display: block; font-style: normal; font-size: 0.7rem; color: var(--reef-aqua); margin-top: 2px; }
-  /* Fare: a receipt in the chat */
-  :global(.ride__fare) { align-self: stretch; max-width: none; padding: 14px 14px 12px; border-radius: 16px; background: #f7f4ef; color: #0c0e14; animation: rideMsg 0.4s ease; }
-  :global(.ride__fare h4) { margin: 0; font-size: 0.7rem; letter-spacing: 0.2em; color: #1a3a5c; display: flex; justify-content: space-between; border-bottom: 2px dashed rgba(12, 14, 20, 0.18); padding-bottom: 6px; }
+  :global(.ride__card) { align-self: stretch; padding: 10px 11px; border-radius: 15px; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 0.5px rgba(78, 216, 194, 0.5); animation: rideMsg 0.3s ease; }
+  :global(.ride__card ol) { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; counter-reset: c; }
+  :global(.ride__card li) { display: grid; grid-template-columns: 20px 1fr; gap: 8px; font-size: 0.82rem; line-height: 1.28; counter-increment: c; }
+  :global(.ride__card li::before) { content: counter(c); width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 0.68rem; font-weight: 700; background: var(--reef-aqua); color: #06231e; }
+  :global(.ride__card em) { display: block; font-style: normal; font-size: 0.68rem; color: var(--reef-aqua); margin-top: 1px; }
+  :global(.ride__fare) { align-self: stretch; padding: 12px 12px 10px; border-radius: 15px; background: #f7f4ef; color: #0c0e14; animation: rideMsg 0.4s ease; }
+  :global(.ride__fare h4) { margin: 0; font-size: 0.66rem; letter-spacing: 0.18em; color: #1a3a5c; display: flex; justify-content: space-between; border-bottom: 2px dashed rgba(12, 14, 20, 0.18); padding-bottom: 5px; }
   :global(.ride__fare h4 span) { letter-spacing: 0.04em; font-weight: 500; color: rgba(12, 14, 20, 0.5); }
-  :global(.ride__fare p) { margin: 6px 0 8px; font-size: 0.78rem; color: rgba(12, 14, 20, 0.6); }
-  :global(.ride__fare ul) { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 0.8rem; }
+  :global(.ride__fare p) { margin: 5px 0 7px; font-size: 0.74rem; color: rgba(12, 14, 20, 0.6); }
+  :global(.ride__fare ul) { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; font-size: 0.76rem; }
   :global(.ride__fare li) { display: flex; justify-content: space-between; gap: 8px; }
   :global(.ride__fare li.is-save) { color: #0f6b5c; }
-  :global(.ride__fare .t) { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; padding-top: 6px; border-top: 2px dashed rgba(12, 14, 20, 0.18); }
-  :global(.ride__fare .t b) { font-family: var(--font-headline); font-size: 1.35rem; color: #1a3a5c; }
-  :global(.ride__fare .s) { display: flex; justify-content: space-between; font-size: 0.82rem; margin-top: 2px; }
-  :global(.ride__fare small) { display: block; margin-top: 8px; font-size: 0.68rem; color: rgba(12, 14, 20, 0.55); }
+  :global(.ride__fare .t) { display: flex; justify-content: space-between; align-items: baseline; margin-top: 7px; padding-top: 5px; border-top: 2px dashed rgba(12, 14, 20, 0.18); }
+  :global(.ride__fare .t b) { font-family: var(--font-headline); font-size: 1.25rem; color: #1a3a5c; }
+  :global(.ride__fare .s) { display: flex; justify-content: space-between; font-size: 0.78rem; margin-top: 2px; }
+  :global(.ride__fare small) { display: block; margin-top: 7px; font-size: 0.64rem; color: rgba(12, 14, 20, 0.55); }
   :global(.ride__fare small b) { display: block; color: #1a3a5c; margin-top: 2px; }
-  /* Quick replies and the keyboard */
-  .ride__quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 12px 4px; justify-content: flex-end; }
+  .ride__quick { display: flex; flex-wrap: wrap; gap: 5px; padding: 4px 10px; justify-content: flex-end; }
   .ride__quick:empty { display: none; }
-  :global(.ride__chip) { appearance: none; border: 0; cursor: pointer; font: inherit; font-size: 0.84rem; color: #fff; padding: 7px 12px; border-radius: 100px; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.55); transition: background 0.15s, transform 0.12s; animation: rideMsg 0.25s ease backwards; }
-  :global(.ride__chip:hover) { background: rgba(78, 216, 194, 0.18); }
+  :global(.ride__chip) { appearance: none; border: 0; cursor: pointer; font: inherit; font-size: 0.8rem; color: #fff; padding: 6px 11px; border-radius: 100px; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(78, 216, 194, 0.6); transition: background 0.15s, transform 0.12s; animation: rideMsg 0.25s ease backwards; }
+  :global(.ride__chip:hover) { background: rgba(78, 216, 194, 0.2); }
   :global(.ride__chip:active) { transform: scale(0.96); }
-  :global(.ride__chip.is-on) { background: rgba(78, 216, 194, 0.32); }
-  :global(.ride__chip--go) { background: linear-gradient(135deg, #4ed8c2, #6aaacf); color: #06231e; font-weight: 600; box-shadow: none; }
-  :global(.ride__chip--ghost) { box-shadow: none; color: rgba(255, 255, 255, 0.65); text-decoration: underline; text-underline-offset: 3px; background: none; }
-  :global(.ride__chip em) { font-style: normal; font-size: 0.64rem; font-weight: 700; margin-left: 5px; padding: 1px 6px; border-radius: 100px; background: var(--reef-aqua); color: #06231e; white-space: nowrap; }
-  .ride__compose { display: flex; gap: 8px; padding: 8px 10px 12px; }
-  .ride__input { flex: 1; min-width: 0; font: inherit; font-size: 0.95rem; color: #fff; padding: 10px 14px; border-radius: 100px; border: 0; outline: none; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.25); }
+  :global(.ride__chip.is-on) { background: rgba(78, 216, 194, 0.35); }
+  :global(.ride__chip--go) { background: #4ed8c2; color: #06231e; font-weight: 600; box-shadow: none; }
+  :global(.ride__chip--ghost) { box-shadow: none; color: rgba(255, 255, 255, 0.7); text-decoration: underline; text-underline-offset: 3px; background: none; }
+  :global(.ride__chip em) { font-style: normal; font-size: 0.6rem; font-weight: 700; margin-left: 5px; padding: 1px 6px; border-radius: 100px; background: var(--reef-aqua); color: #06231e; white-space: nowrap; }
+  .ride__compose { display: flex; gap: 6px; padding: 6px 10px 16px; }
+  .ride__input { flex: 1; min-width: 0; font: inherit; font-size: 0.88rem; color: #fff; padding: 8px 13px; border-radius: 100px; border: 0; outline: none; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.3); }
   .ride__input:focus { box-shadow: inset 0 0 0 1.5px var(--reef-aqua); }
-  .ride__input::placeholder { color: rgba(255, 255, 255, 0.4); }
-  .ride__send { width: 40px; height: 40px; flex: none; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center; background: var(--reef-aqua); color: #06231e; }
+  .ride__input::placeholder { color: rgba(255, 255, 255, 0.45); }
+  .ride__send { width: 32px; height: 32px; flex: none; align-self: center; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center; background: var(--reef-aqua); color: #06231e; }
   .ride__send:focus-visible, :global(.ride__chip:focus-visible) { outline: 2px solid #fff; outline-offset: 2px; }
 
   @media (max-width: 760px) {
-    .ride__stage { aspect-ratio: auto; height: min(100svh, 820px); width: 100vw; margin-left: calc(50% - 50vw); border-radius: 0; border: 0; }
-    .ride__app { top: 34%; left: 0; right: 0; bottom: 0; width: auto; border-radius: 22px 22px 0 0; }
-    .ride__vignette { background: linear-gradient(180deg, rgba(5, 8, 14, 0.5) 0%, transparent 25%, transparent 70%, rgba(5, 8, 14, 0.6) 100%); }
+    .ride__stage { aspect-ratio: auto; height: min(100svh, 820px); width: 100vw; margin-left: calc(50% - 50vw); border-radius: 0; }
+    .ride__phone { top: 38%; left: 0; right: 0; bottom: 0; max-width: none; aspect-ratio: auto; border: 0; border-radius: 24px 24px 0 0; box-shadow: 0 -10px 40px rgba(12, 26, 50, 0.25); }
+    .ride__notch, .ride__statusbar { display: none; }
+    .ride__bar { padding-top: 12px; }
+    .ride__chapters { top: 12px; bottom: auto; left: 10px; right: 10px; gap: 4px; }
+    :global(.ride__chapters li) { font-size: 0.66rem; padding: 4px 8px; }
     .ride__input { font-size: 16px; }
-    .ride__compose { padding-right: 74px; }
+    .ride__compose { padding-right: 74px; padding-bottom: max(14px, env(safe-area-inset-bottom)); }
   }
-  @media (prefers-reduced-motion: reduce) { .ride__rain { animation: none; } }
   :global(html[data-theme="light"]) .ride__h2 { color: var(--deep-black); }
   :global(html[data-theme="light"]) .ride__sub { color: rgba(12, 14, 20, 0.66); }
+  :global(html[data-theme="light"]) .ride__stage { box-shadow: 0 30px 70px rgba(12, 14, 20, 0.16); }
 </style>
 
 <script>
+  import * as T from 'three';
   type Item = { service: string; size: string; incl: string; setup: number; monthly: number; guided: number | null };
   type Cat = { plans: { launchpad: number; starter: number; growth: number }; bundleDiscount: number; setupDiscount: number; items: Record<string, Item> };
 
@@ -184,15 +167,19 @@ const {
     const status = root.querySelector<HTMLElement>('[data-status]')!;
     const meter = root.querySelector<HTMLElement>('[data-meter]')!;
     const meterVal = root.querySelector<HTMLElement>('[data-meter-val]')!;
+    const chapters = [...root.querySelectorAll<HTMLElement>('[data-chapters] li')];
+    const phoneUI = root.querySelector<HTMLElement>('[data-phone-ui]')!;
     const PHONE = root.dataset.phone || '';
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const money = (n: number) => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-AU');
     const wait = (ms: number) => new Promise((r) => setTimeout(r, reduced ? Math.min(ms, 120) : ms));
+    const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+    const lerp = (a: number, b: number, k: number) => a + (b - a) * k;
+    const chapter = (i: number) => chapters.forEach((c, k) => { c.classList.toggle('is-on', k === i); c.classList.toggle('is-done', k < i); });
 
-    const lead: Record<string, any> = { name: '', business: '', industry: '', industryText: '', needs: [] as string[], seat: '', distance: '', email: '', phone: '', callOk: null };
+    const lead: Record<string, any> = { name: '', business: '', industry: '', industryText: '', needs: [] as string[], seat: '', distance: '', email: '', phone: '', callOk: null, quiet: false };
 
-    /* ══ What we say, kept short ══ */
-    // id, label, keywords, plural, top three (need id + outcome)
+    /* ══ The words ══ */
     const INDUSTRIES: { id: string; label: string; kw: string[]; plural: string; top: [string, string][] }[] = [
       { id: 'trades', label: 'Trades', kw: ['trade', 'tradie', 'roof', 'plumb', 'electr', 'build', 'carpent', 'landscap', 'paint', 'tile', 'concret', 'construct', 'hvac', 'air con'], plural: 'tradies', top: [['calls', 'More time back'], ['followup', 'More profit'], ['reviews', 'Easier to win work']] },
       { id: 'beauty', label: 'Hair, beauty, spa', kw: ['hair', 'salon', 'beauty', 'spa', 'nail', 'lash', 'brow', 'inject', 'massage', 'barber', 'skin', 'clinic'], plural: 'salons and studios', top: [['comeback', 'More profit'], ['calls', 'More time back'], ['reviews', 'Easier to fill the book']] },
@@ -203,7 +190,6 @@ const {
       { id: 'retail', label: 'A shop', kw: ['shop', 'store', 'retail', 'ecommerce', 'e-commerce', 'boutique', 'online'], plural: 'shops like yours', top: [['comeback', 'More profit'], ['reviews', 'More trust'], ['socials', 'Less to manage']] },
       { id: 'other', label: 'Something else', kw: [], plural: 'businesses like yours', top: [['calls', 'More time back'], ['followup', 'More profit'], ['reviews', 'Less to manage']] },
     ];
-    // need id, how it reads, catalogue codes
     const NEEDS: Record<string, { text: string; codes: string[]; short: string }> = {
       calls: { text: 'Every call answered, even mid-job', codes: ['AIR'], short: 'Never miss a call' },
       followup: { text: 'Every quote followed up for you', codes: ['FUP'], short: 'Follow up every quote' },
@@ -215,10 +201,10 @@ const {
       website: { text: 'A website that books work', codes: ['WEB'], short: 'A better website' },
     };
     const SEATS = [
-      { id: 'back', label: "You drive, I'll sit back", tag: 'Best value', kw: ['back', 'you drive', 'done for', 'all of it'], reply: "Sit back then. I'll report in once a month." },
-      { id: 'front', label: "You drive, I'll navigate", kw: ['navigat', 'front', 'approve', 'control'], reply: "Up front with me. You approve every turn." },
-      { id: 'copilot', label: "I'll drive, you help", kw: ['help', 'support', 'ride', 'i drive', "i'll drive", 'shotgun'], reply: "You drive, I'll ride shotgun." },
-      { id: 'self', label: 'Just the keys', kw: ['key', 'myself', 'diy', 'self', 'platform', 'software'], reply: "Keys are yours. Call me any time." },
+      { id: 'back', label: 'You drive, I sit back', tag: 'Best value', kw: ['back', 'you drive', 'done for', 'all of it'], reply: "Sit back then. I'll report in once a month." },
+      { id: 'front', label: "You drive, I'll navigate", kw: ['navigat', 'front', 'approve', 'control'], reply: 'Up front with me. You approve every turn.' },
+      { id: 'copilot', label: "I'll drive, you help", kw: ['help', 'support', 'i drive', "i'll drive", 'shotgun'], reply: "You drive, I'll ride shotgun." },
+      { id: 'self', label: 'Just the keys', kw: ['key', 'myself', 'diy', 'self', 'platform', 'software'], reply: 'Keys are yours. Call me any time.' },
     ];
     const DIST = [
       { id: 'S', label: 'Around the corner', kw: ['corner', 'small', 'basic', 'start', 'light'] },
@@ -232,9 +218,9 @@ const {
       SOC: 'Social media', WEB: 'Website', GRM: 'Monthly report and check-in', SUP: 'Help hours each month',
     };
     const SIZE: Record<string, string> = { S: 'Light', M: 'Steady', L: 'Full' };
-    const matchOpt = <T extends { kw: string[] }>(text: string, opts: T[]) => { const t = ` ${text.toLowerCase()} `; return opts.find((o) => o.kw.some((k) => t.includes(k))); };
+    const matchOpt = <X extends { kw: string[] }>(text: string, opts: X[]) => { const t = ` ${text.toLowerCase()} `; return opts.find((o) => o.kw.some((k) => t.includes(k))); };
 
-    /* ══ Price, from the catalogue ══ */
+    /* ══ The price ══ */
     const codesFor = (): string[] => {
       const d = lead.distance || 'S';
       const needs: string[] = lead.needs.length ? lead.needs : ['calls', 'followup'];
@@ -276,110 +262,224 @@ const {
       return { lines, monthly, setup, nudge };
     };
 
-    /* ══ The city ══ */
-    const svg = root.querySelector<SVGSVGElement>('[data-map]')!;
-    const world = root.querySelector<SVGGElement>('[data-world]')!;
-    const cityG = root.querySelector<SVGGElement>('[data-city]')!;
-    const carG = root.querySelector<SVGGElement>('[data-car]')!;
-    const routeEl = root.querySelector<SVGPathElement>('[data-route]')!;
-    const G = 220, ROAD = 44, N = 7; // blocks
-    let seed = 7; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
-    let city = '';
-    for (let i = 0; i <= N; i++) { const p = i * G; city += `<rect x="${p - ROAD / 2}" y="-200" width="${ROAD}" height="${N * G + 400}" fill="#1a2433"/><rect x="-200" y="${p - ROAD / 2}" width="${N * G + 400}" height="${ROAD}" fill="#1a2433"/>`; }
-    for (let i = 0; i <= N; i++) { const p = i * G; city += `<line x1="${p}" y1="-200" x2="${p}" y2="${N * G + 200}" stroke="#3b4c63" stroke-width="2" stroke-dasharray="14 16"/><line x1="-200" y1="${p}" x2="${N * G + 200}" y2="${p}" stroke="#3b4c63" stroke-width="2" stroke-dasharray="14 16"/>`; }
-    const ROOFS = ['#16263b', '#1b2e47', '#132235', '#1f3550', '#182a40'];
-    for (let bx = 0; bx < N; bx++) for (let by = 0; by < N; by++) {
-      const x0 = bx * G + ROAD / 2 + 6, y0 = by * G + ROAD / 2 + 6, s = G - ROAD - 12;
-      city += `<rect x="${x0 - 4}" y="${y0 - 4}" width="${s + 8}" height="${s + 8}" rx="6" fill="#222f40"/>`;
-      if (rnd() < 0.16) { // park
-        city += `<rect x="${x0}" y="${y0}" width="${s}" height="${s}" rx="10" fill="#183c35"/>`;
-        for (let k = 0; k < 7; k++) { const tx = x0 + 18 + rnd() * (s - 36), ty = y0 + 18 + rnd() * (s - 36), r = 9 + rnd() * 10; city += `<circle cx="${tx + 3}" cy="${ty + 4}" r="${r}" fill="#0b1a18" opacity=".6"/><circle cx="${tx}" cy="${ty}" r="${r}" fill="${rnd() < 0.3 ? '#2f8f7c' : '#22695c'}"/>`; }
-        continue;
-      }
-      const cols = rnd() < 0.5 ? 2 : 1, rows = rnd() < 0.5 ? 2 : 1, gap = 8, w = (s - gap * (cols - 1)) / cols, h = (s - gap * (rows - 1)) / rows;
-      for (let c = 0; c < cols; c++) for (let r = 0; r < rows; r++) {
-        const x = x0 + c * (w + gap), y = y0 + r * (h + gap);
-        city += `<rect x="${x + 5}" y="${y + 6}" width="${w}" height="${h}" rx="4" fill="#05080d" opacity=".55"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${ROOFS[Math.floor(rnd() * ROOFS.length)]}" stroke="#2a3d55" stroke-width="1.5"/>`;
-        if (rnd() < 0.6) city += `<rect x="${x + w * 0.2}" y="${y + h * 0.25}" width="${w * 0.18}" height="${h * 0.14}" rx="2" fill="#2a3d55"/>`;
-        if (rnd() < 0.35) city += `<rect x="${x + w * 0.55}" y="${y + h * 0.55}" width="${w * 0.3}" height="${h * 0.25}" rx="3" fill="#1f5a52"/>`;
-        if (rnd() < 0.25) city += `<circle cx="${x + w * 0.7}" cy="${y + h * 0.3}" r="${Math.min(w, h) * 0.08}" fill="#4ed8c2" opacity=".55"/>`;
-      }
+    /* ═════════ The street, SmashX style ═════════ */
+    const canvas = root.querySelector<HTMLCanvasElement>('[data-scene]')!;
+    const renderer = new T.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+    const scene = new T.Scene();
+    const BG_RAIN = new T.Color(0xe6e9ee), BG_SUN = new T.Color(0xf1f0ed);
+    scene.background = BG_RAIN.clone();
+    const cam = new T.OrthographicCamera(-10, 10, 10, -10, 0.1, 400);
+    const CAMDIR = new T.Vector3(22, 27, 32).normalize();
+    const hemi = new T.HemisphereLight(0xffffff, 0xe6e1d6, 0.8); scene.add(hemi);
+    const sun = new T.DirectionalLight(0xffffff, 0.35); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+    Object.assign(sun.shadow.camera, { left: -40, right: 40, top: 40, bottom: -40, near: 1, far: 160 }); sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.02;
+    scene.add(sun, sun.target);
+    const C = { ground: 0xedebe6, road: 0xd2cec6, lane: 0xfbfaf7, path: 0xe5e2db, kerb: 0xcfcbc2, navy: 0x1a3a5c, deep: 0x0f2440, ink: 0x13223f, aqua: 0x4ed8c2, glass: 0x3b4456, sage: 0xa9cfc4, sage2: 0x8dbcb0, trunk: 0x8f7d6b, skin: 0xd8b39a, steel: 0xc9cdd4, brick: 0xe9e6e0, roofA: 0xcbc4b7, roofB: 0xdad4c9, tail: 0xc2453a, warm: 0xffd59a };
+    const cache: Record<string, T.MeshStandardMaterial> = {};
+    const mm = (c: number, o: Partial<T.MeshStandardMaterialParameters> = {}) => { const k = c + JSON.stringify(o); return cache[k] || (cache[k] = new T.MeshStandardMaterial({ color: c, roughness: 0.82, metalness: 0, ...o })); };
+    const box = (w: number, h: number, d: number, m: T.Material, x = 0, y = 0, z = 0, ns = false) => { const g = new T.Mesh(new T.BoxGeometry(w, h, d), m); g.position.set(x, y, z); g.castShadow = !ns; g.receiveShadow = true; return g; };
+    const cyl = (a: number, b: number, h: number, m: T.Material, s = 16) => { const g = new T.Mesh(new T.CylinderGeometry(a, b, h, s), m); g.castShadow = true; g.receiveShadow = true; return g; };
+    const sph = (r: number, m: T.Material) => { const g = new T.Mesh(new T.SphereGeometry(r, 16, 12), m); g.castShadow = true; return g; };
+    let seed = 11; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+    const textTex = (text: string, fg: string, bg: string, w = 512, h = 128, font = 700) => {
+      const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d')!;
+      if (bg) { g.fillStyle = bg; g.fillRect(0, 0, w, h); }
+      g.fillStyle = fg; g.font = `${font} ${Math.round(h * 0.62)}px "Space Grotesk", system-ui, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, w / 2, h / 2 + 2);
+      const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; return t;
+    };
+
+    const world = new T.Group(); scene.add(world);
+    const END = 230, HOME_X = END;
+    // ground, road, lane marks, footpaths, kerbs
+    world.add(box(400, 0.2, 80, mm(C.ground), 110, -0.1, 0, true));
+    world.add(box(400, 0.06, 6.4, mm(C.road), 110, 0.03, 0, true));
+    for (let x = -60; x < 300; x += 6) world.add(box(2.6, 0.02, 0.18, mm(C.lane), x, 0.07, 0, true));
+    world.add(box(400, 0.12, 3.2, mm(C.path), 110, 0.06, 4.9, true), box(400, 0.12, 3.2, mm(C.path), 110, 0.06, -4.9, true));
+    world.add(box(400, 0.18, 0.22, mm(C.kerb), 110, 0.09, 3.3, true), box(400, 0.18, 0.22, mm(C.kerb), 110, 0.09, -3.3, true));
+    const tree = (x: number, z: number, s = 1) => {
+      const g = new T.Group(); const tr = cyl(0.16 * s, 0.22 * s, 1.3 * s, mm(C.trunk), 8); tr.position.y = 0.65 * s; g.add(tr);
+      const a = new T.Mesh(new T.IcosahedronGeometry(1.15 * s, 0), mm(C.sage, { flatShading: true })); a.position.y = 2.05 * s; a.castShadow = true; g.add(a);
+      const b = new T.Mesh(new T.IcosahedronGeometry(0.8 * s, 0), mm(C.sage2, { flatShading: true })); b.position.set(0.35 * s, 2.75 * s, 0.2 * s); b.castShadow = true; g.add(b);
+      g.position.set(x, 0, z); world.add(g); return g;
+    };
+    const building = (x: number, z: number, w: number, d: number, h: number, roof: number) => {
+      const g = new T.Group(); g.add(box(w, h, d, mm(C.brick), 0, h / 2, 0)); g.add(box(w + 0.3, 0.35, d + 0.3, mm(roof), 0, h + 0.17, 0));
+      const win = mm(C.glass, { roughness: 0.25, metalness: 0.15 });
+      for (let i = 0; i < Math.floor(w / 2.4); i++) for (let j = 0; j < Math.floor((h - 1) / 2.2); j++) g.add(box(1.1, 1.1, 0.06, win, -w / 2 + 1.4 + i * 2.4, 1.6 + j * 2.2, d / 2 + 0.02, true));
+      g.position.set(x, 0, z); world.add(g); return g;
+    };
+    const lamp = (x: number, z: number) => { const g = new T.Group(); const p = cyl(0.07, 0.09, 4.2, mm(C.steel, { roughness: 0.5 }), 8); p.position.y = 2.1; g.add(p); g.add(box(1.1, 0.1, 0.18, mm(C.steel), -0.5, 4.2, 0)); g.add(box(0.4, 0.08, 0.22, mm(0xffffff, { emissive: 0xfff2c2, emissiveIntensity: 0.6 }), -0.95, 4.13, 0, true)); g.position.set(x, 0, z); g.rotation.y = z > 0 ? Math.PI / 2 : -Math.PI / 2; world.add(g); };
+    // Back of the street: a row of buildings. Front: footpath, low trees spaced well apart.
+    for (let x = -50; x < 300; x += 7 + rnd() * 3) { if (Math.abs(x - HOME_X) < 12) continue; const w = 5 + rnd() * 2.5, h = 4 + rnd() * 6; building(x, -10.5 - rnd() * 1.5, w, 6, h, rnd() < 0.5 ? C.roofA : C.roofB); }
+    for (let x = -40; x < 300; x += 9 + rnd() * 4) tree(x, -7.2, 0.8 + rnd() * 0.3);
+    for (let x = -30; x < 300; x += 22 + rnd() * 8) { if (Math.abs(x - 6) < 8 || Math.abs(x - HOME_X) < 10) continue; tree(x, 8.2 + rnd() * 2, 0.75 + rnd() * 0.25); }
+    for (let x = -30; x < 300; x += 18) lamp(x, -6.8);
+    // Home: a warm house set back behind a front garden, lights on.
+    const home = new T.Group(); home.position.set(HOME_X, 0, -10.5); world.add(home);
+    home.add(box(9, 4.2, 7, mm(0xf7f4ef), 0, 2.1, 0));
+    const roofShape = new T.Shape(); roofShape.moveTo(-5.2, 0); roofShape.lineTo(5.2, 0); roofShape.lineTo(0, 3); roofShape.closePath();
+    const roof = new T.Mesh(new T.ExtrudeGeometry(roofShape, { depth: 7.6, bevelEnabled: false }), mm(C.navy)); roof.position.set(0, 4.2, -3.8); roof.castShadow = true; home.add(roof);
+    const homeWin = mm(0xffe6b8, { emissive: C.warm, emissiveIntensity: 0.25 });
+    home.add(box(1.6, 1.4, 0.08, homeWin, -2.6, 2.4, 3.52, true), box(1.6, 1.4, 0.08, homeWin, 2.6, 2.4, 3.52, true), box(1.3, 2.4, 0.1, mm(C.aqua), 0, 1.2, 3.54, true));
+    home.add(box(1.6, 0.1, 5.6, mm(C.path), 0, 0.06, 6.3, true));
+    for (let k = -4; k <= 4; k += 0.8) if (Math.abs(k) > 1) home.add(box(0.12, 0.7, 0.12, mm(0xffffff), k, 0.35, 8.9));
+    home.add(box(8.4, 0.08, 0.06, mm(0xffffff), 0, 0.6, 8.9, true));
+    tree(HOME_X - 7, -6.5, 0.9); tree(HOME_X + 7.5, -6.8, 1);
+
+    // The DUSA car: the SmashX car, navy, with a lit roof sign and the logo on the door.
+    const car = new T.Group(); world.add(car);
+    const bodyM = mm(C.navy, { roughness: 0.45, metalness: 0.15 });
+    const glassM = mm(C.glass, { roughness: 0.18, metalness: 0.12 }), dk = mm(C.ink, { roughness: 0.9 });
+    car.add(box(4.3, 0.72, 1.9, bodyM, 0, 0.74, 0), box(4.06, 0.26, 1.86, bodyM, 0, 1.22, 0), box(2.36, 0.74, 1.72, glassM, -0.25, 1.7, 0), box(2.16, 0.12, 1.74, bodyM, -0.32, 2.1, 0));
+    car.add(box(4.32, 0.06, 1.92, mm(C.aqua), 0, 1.06, 0, true)); // aqua waistline
+    const wheels: T.Group[] = [];
+    for (const [x, z] of [[1.35, 0.95], [-1.35, 0.95], [1.35, -0.95], [-1.35, -0.95]]) {
+      const w = new T.Group(); const t = cyl(0.43, 0.43, 0.32, dk, 18); t.rotation.x = Math.PI / 2; w.add(t);
+      const h = cyl(0.19, 0.19, 0.34, mm(C.aqua, { roughness: 0.4 }), 12); h.rotation.x = Math.PI / 2; w.add(h); w.add(box(0.5, 0.08, 0.35, mm(C.steel), 0, 0, 0, true));
+      w.position.set(x, 0.43, z); car.add(w); wheels.push(w);
     }
-    for (let i = 0; i <= N; i++) for (let j = 0; j <= N; j++) if ((i + j) % 2 === 0) city += `<circle cx="${i * G + ROAD / 2 + 4}" cy="${j * G + ROAD / 2 + 4}" r="46" fill="url(#mLamp)"/><circle cx="${i * G + ROAD / 2 + 4}" cy="${j * G + ROAD / 2 + 4}" r="3" fill="#ffe2a8"/>`;
-    cityG.innerHTML = city;
-    // The route: pickup bottom-left, home top-right, one block per answer.
-    const ROUTE: [number, number][] = [[0, 6], [0, 5], [1, 5], [1, 4], [2, 4], [2, 3], [3, 3], [3, 2], [4, 2], [4, 1], [5, 1], [6, 1], [6, 0]].map(([a, b]) => [a * G, b * G]);
-    const pickup: [number, number] = [ROUTE[0][0] + 0, ROUTE[0][1] + 56];
-    const homeP: [number, number] = [ROUTE[ROUTE.length - 1][0] + 110, ROUTE[ROUTE.length - 1][1] - 0];
-    root.querySelector('[data-pickup]')!.setAttribute('transform', `translate(${pickup[0] + 34} ${pickup[1]})`);
-    root.querySelector('[data-home]')!.setAttribute('transform', `translate(${homeP[0] + 40} ${homeP[1] - 70})`);
-    const PTS: [number, number][] = [pickup, ...ROUTE, homeP];
-    routeEl.setAttribute('d', 'M' + PTS.map((p) => p.join(' ')).join(' L'));
-    const segs = PTS.slice(1).map((p, i) => Math.hypot(p[0] - PTS[i][0], p[1] - PTS[i][1]));
-    const TOTAL = segs.reduce((a, b) => a + b, 0);
-    const at = (d: number) => { let i = 0; while (i < segs.length - 1 && d > segs[i]) { d -= segs[i]; i++; } const a = PTS[i], b = PTS[i + 1], k = Math.min(1, d / segs[i]); return { x: a[0] + (b[0] - a[0]) * k, y: a[1] + (b[1] - a[1]) * k, ang: Math.atan2(b[1] - a[1], b[0] - a[0]) }; };
-    let carD = -260, targetD = 0, cam = { x: pickup[0], y: pickup[1], z: 1.5 }, ang = -Math.PI / 2;
-    const STEPS = 9; let step = 0;
-    const advance = (to?: number) => { step = to ?? Math.min(STEPS, step + 1); targetD = (TOTAL * step) / STEPS; };
+    const headM = new T.MeshStandardMaterial({ color: 0xffffff, emissive: 0xfff7e0, emissiveIntensity: 0.6 });
+    for (const z of [0.6, -0.6]) { car.add(box(0.06, 0.16, 0.42, headM, 2.16, 0.86, z, true)); car.add(box(0.06, 0.16, 0.42, new T.MeshStandardMaterial({ color: C.tail, emissive: 0xff2a1a, emissiveIntensity: 0.25 }), -2.16, 0.86, z, true)); }
+    // Roof sign, lit, DUSA on both sides.
+    const signM = new T.MeshStandardMaterial({ color: C.aqua, emissive: C.aqua, emissiveIntensity: 0.55, roughness: 0.4 });
+    car.add(box(1.2, 0.42, 0.42, signM, -0.32, 2.37, 0));
+    const signTex = textTex('DUSA', '#0f2440', '', 512, 160, 800);
+    for (const z of [0.215, -0.215]) { const p = new T.Mesh(new T.PlaneGeometry(1.1, 0.34), new T.MeshBasicMaterial({ map: signTex, transparent: true })); p.position.set(-0.32, 2.37, z); if (z < 0) p.rotation.y = Math.PI; car.add(p); }
+    const signGlow = new T.PointLight(C.aqua, 0.8, 6); signGlow.position.set(-0.32, 2.8, 0); car.add(signGlow);
+    // Door logo on the camera side.
+    const doorTex = textTex('DUSA.studio', '#4ed8c2', '', 1024, 160, 700);
+    const door = new T.Mesh(new T.PlaneGeometry(2.3, 0.36), new T.MeshBasicMaterial({ map: doorTex, transparent: true })); door.position.set(-0.1, 0.78, 0.952); car.add(door);
+    const doorB = door.clone(); doorB.position.z = -0.952; doorB.rotation.y = Math.PI; car.add(doorB);
+    // Headlight beams for the rain.
+    const beamM = new T.MeshBasicMaterial({ color: 0xfff6d8, transparent: true, opacity: 0.18, depthWrite: false });
+    const beam = new T.Mesh(new T.ConeGeometry(1.4, 6, 20, 1, true), beamM); beam.rotation.z = Math.PI / 2; beam.position.set(5.1, 0.8, 0); car.add(beam);
+
+    // People in the SmashX style: you, and your Growth Lead.
+    const person = (jacket: number, hair: number, ponytail = false) => {
+      const g = new T.Group(); const pants = mm(C.ink, { roughness: 0.9 }); const legs: T.Group[] = [];
+      for (const z of [0.12, -0.12]) { const l = new T.Group(); l.add(box(0.2, 0.74, 0.2, pants, 0, -0.37, 0)); l.position.set(0, 0.74, z); g.add(l); legs.push(l); }
+      const body = cyl(0.27, 0.31, 0.86, mm(jacket, { roughness: 0.7 }), 14); body.position.y = 1.17; g.add(body);
+      const arms: T.Group[] = []; for (const z of [0.36, -0.36]) { const a = new T.Group(); a.add(box(0.15, 0.66, 0.15, mm(jacket, { roughness: 0.7 }), 0, -0.31, 0)); const hd = sph(0.1, mm(C.skin, { roughness: 0.55 })); hd.position.y = -0.66; a.add(hd); a.position.set(0, 1.55, z); g.add(a); arms.push(a); }
+      const head = sph(0.24, mm(C.skin, { roughness: 0.6 })); head.position.y = 1.86; g.add(head);
+      const hr = new T.Mesh(new T.SphereGeometry(0.255, 16, 10, 0, Math.PI * 2, 0, Math.PI * 0.55), mm(hair, { roughness: 0.8 })); hr.position.y = 1.9; hr.castShadow = true; g.add(hr);
+      for (const z of [0.085, -0.085]) { const e = new T.Mesh(new T.SphereGeometry(0.034, 8, 6), mm(C.ink, { roughness: 0.4 })); e.position.set(0.225, 1.88, z); g.add(e); }
+      if (ponytail) { const p = sph(0.13, mm(hair, { roughness: 0.8 })); p.position.set(-0.2, 1.82, 0); g.add(p); }
+      g.userData = { legs, arms }; world.add(g); return g;
+    };
+    const you = person(0x7e8f7a, 0x3a2a20);
+    const paper = new T.Group(); paper.add(box(0.95, 0.04, 0.7, mm(0xf3efe6), 0, 0, 0)); paper.add(box(0.7, 0.045, 0.06, mm(0x9aa0a8), 0, 0.005, 0.18, true)); paper.position.set(0.05, 2.32, 0); paper.rotation.z = 0.08; you.add(paper);
+    for (const a of you.userData.arms) a.rotation.x = 0; you.userData.arms[0].rotation.z = 2.6; you.userData.arms[1].rotation.z = 2.6;
+    const lead_ = person(C.navy, 0x2b2118, true);
+    const umb = new T.Group();
+    const canopy = new T.Mesh(new T.ConeGeometry(1.35, 0.55, 8, 1, true), mm(C.navy, { side: T.DoubleSide, flatShading: true })); canopy.position.y = 2.75; canopy.castShadow = true; umb.add(canopy);
+    const rim = new T.Mesh(new T.TorusGeometry(1.34, 0.03, 4, 8), mm(C.aqua)); rim.rotation.x = Math.PI / 2; rim.rotation.z = Math.PI / 8; rim.position.y = 2.48; umb.add(rim);
+    const shaft = cyl(0.025, 0.025, 1.4, mm(C.steel), 6); shaft.position.y = 2.1; umb.add(shaft);
+    umb.position.set(0, 0, 0.5); lead_.add(umb);
+
+    // Rain: short streaks around the camera, fading out as the weather clears.
+    const RAIN = 900; const rainGeo = new T.BufferGeometry(); const rainPos = new Float32Array(RAIN * 6);
+    const rainSeed = [...Array(RAIN)].map(() => [rnd() * 60 - 30, rnd() * 18, rnd() * 40 - 20, 0.6 + rnd() * 0.6]);
+    rainGeo.setAttribute('position', new T.BufferAttribute(rainPos, 3));
+    const rainM = new T.LineBasicMaterial({ color: 0x8c9bb0, transparent: true, opacity: 0.5 });
+    const rain = new T.LineSegments(rainGeo, rainM); rain.frustumCulled = false; scene.add(rain);
+
+    // Positions and the plan.
+    const PICK_X = 6;
+    const state = { carX: -34, carTarget: -34, youVis: 1, leadOut: 0, board: 0, step: 0, rainAmt: 1, homeLights: 0 };
+    you.position.set(PICK_X + 1.4, 0.12, 4.6); you.rotation.y = -Math.PI / 2 + 0.5;
+    lead_.visible = false;
+    const STEPS = 10; const stepX = (s: number) => PICK_X + ((HOME_X - PICK_X) * s) / STEPS;
+    const goStep = (s: number) => { state.step = s; state.carTarget = stepX(s); state.rainAmt = clamp01(1 - (s - 1) / 4); };
+
+    const camPos = new T.Vector3(PICK_X, 0, 0); let camZoom = 7.5;
     let W = 0, H = 0;
-    const size = () => { const r = stage.getBoundingClientRect(); W = r.width; H = r.height; svg.setAttribute('viewBox', `0 0 ${W} ${H}`); };
+    const size = () => { const r = stage.getBoundingClientRect(); W = r.width; H = r.height; renderer.setSize(W, H, false); };
     size(); addEventListener('resize', size);
-    let last = performance.now(), visible = false;
+    let last = performance.now(), visible = false, t0 = performance.now();
     const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000); last = now;
-      const speed = 260;
-      if (carD < targetD) carD = Math.min(targetD, carD + speed * dt * (reduced ? 20 : 1));
-      const p = carD < 0 ? { x: pickup[0] + 0, y: pickup[1] - carD, ang: -Math.PI / 2 } : at(carD);
-      let da = p.ang - ang; da = Math.atan2(Math.sin(da), Math.cos(da)); ang += da * Math.min(1, dt * 8);
-      carG.setAttribute('transform', `translate(${p.x} ${p.y}) rotate(${(ang * 180) / Math.PI + 90})`);
+      const dt = Math.min(0.05, (now - last) / 1000); last = now; const t = (now - t0) / 1000;
+      // the car
+      const dx = state.carTarget - state.carX; const v = Math.sign(dx) * Math.min(Math.abs(dx), (reduced ? 200 : 16) * dt * Math.min(1, Math.abs(dx) / 4 + 0.25));
+      state.carX += v; car.position.set(state.carX, 0, 1.55); wheels.forEach((w) => (w.rotation.z -= v / 0.43));
+      car.position.y = Math.abs(v) > 0.001 ? Math.sin(t * 30) * 0.012 : 0;
+      // the pick-up: lead steps out with the umbrella, then both get in
+      const atKerb = Math.abs(state.carX - PICK_X) < 0.05 && state.step === 0;
+      if (atKerb) state.leadOut = Math.min(1, state.leadOut + dt * 0.8);
+      if (state.board > 0 && state.board < 1) state.board = Math.min(1, state.board + dt * 0.7);
+      const lo = state.leadOut, bo = state.board;
+      lead_.visible = lo > 0.01 && bo < 0.98 && state.step === 0;
+      const meetX = PICK_X + 0.6, meetZ = 4.1;
+      const lx = lerp(lerp(PICK_X + 0.4, meetX, clamp01(lo * 1.4 - 0.2)), PICK_X + 0.4, bo), lz = lerp(lerp(2.7, meetZ, clamp01(lo * 1.4 - 0.2)), 2.7, bo);
+      lead_.position.set(lx, 0.12, lz); lead_.rotation.y = bo > 0 ? Math.PI / 2 : Math.atan2(meetX - lx + 1, meetZ - lz + 0.01) - Math.PI / 2;
+      const walking = (lo > 0.15 && lo < 0.85) || (bo > 0.05 && bo < 0.9);
+      lead_.userData.legs.forEach((l: T.Group, i: number) => (l.rotation.z = walking ? Math.sin(t * 9 + i * Math.PI) * 0.5 : 0));
+      lead_.userData.arms[0].rotation.z = 2.2; umb.visible = true;
+      you.visible = state.step === 0 && bo < 0.98;
+      if (you.visible) {
+        const yx = lerp(PICK_X + 1.4, PICK_X + 0.9, bo), yz = lerp(4.6, 2.7, bo);
+        you.position.set(yx, 0.12, yz);
+        paper.visible = lo < 0.75;
+        const sheltered = lo >= 0.75; you.userData.arms[0].rotation.z = sheltered ? 0.1 : 2.6; you.userData.arms[1].rotation.z = sheltered ? 0.1 : 2.6;
+        you.userData.legs.forEach((l: T.Group, i: number) => (l.rotation.z = bo > 0.05 && bo < 0.9 ? Math.sin(t * 9 + i * Math.PI) * 0.5 : 0));
+      }
+      // weather
+      const ra = state.rainAmt; rainM.opacity = 0.5 * ra; rain.visible = ra > 0.02;
+      scene.background = BG_RAIN.clone().lerp(BG_SUN, 1 - ra);
+      // three r155+ uses physical light units: these match the SmashX r128 look (0.72 / 0.78) times pi.
+      sun.intensity = lerp(1.4, 2.25, 1 - ra); hemi.intensity = lerp(2.3, 2.45, 1 - ra);
+      headM.emissiveIntensity = lerp(0.2, 0.9, ra); beamM.opacity = 0.16 * ra; signM.emissiveIntensity = lerp(0.35, 0.65, ra);
+      homeWin.emissiveIntensity = lerp(0.25, 1.1, clamp01((state.carX - (HOME_X - 60)) / 50));
+      if (rain.visible) { for (let i = 0; i < RAIN; i++) { const r = rainSeed[i]; r[1] -= dt * 22 * r[3]; if (r[1] < 0) r[1] += 18; const x = camPos.x + r[0], y = r[1], z = r[2]; rainPos.set([x, y, z, x - 0.12, y + 0.7 * r[3], z - 0.06], i * 6); } rainGeo.attributes.position.needsUpdate = true; }
+      // camera: follows the car, close at the kerb, wider on the road, sitting left of the phone on desktop
       const phone = W < 760;
-      const z = phone ? 1.25 : W > 1000 ? 1.6 : 1.4;
-      cam.x += (p.x - cam.x) * Math.min(1, dt * 3); cam.y += (p.y - cam.y) * Math.min(1, dt * 3); cam.z += (z - cam.z) * Math.min(1, dt * 2);
-      const cx = phone ? W / 2 : (W - Math.min(380, W * 0.44) - 16) / 2, cy = phone ? H * 0.19 : H / 2;
-      world.setAttribute('transform', `translate(${cx} ${cy}) scale(${cam.z}) translate(${-cam.x} ${-cam.y})`);
+      const want = state.step === 0 ? 7.2 : state.step >= STEPS ? 9.5 : 11.5;
+      camZoom = lerp(camZoom, phone ? want * 0.9 : want, Math.min(1, dt * 1.6));
+      const tx = state.step >= STEPS ? HOME_X + 1 : state.carX + (state.step === 0 ? 1 : 3);
+      camPos.x = lerp(camPos.x, tx, Math.min(1, dt * 2.4)); camPos.z = lerp(camPos.z, state.step >= STEPS ? -3 : 1.4, Math.min(1, dt * 2));
+      const aspect = W / Math.max(1, H);
+      const vh = aspect < 1 ? (camZoom * 0.75) / aspect : camZoom, vw = vh * aspect;
+      const offX = phone ? 0 : vw * 0.3, offY = phone ? -vh * 0.42 : 0;
+      cam.left = -vw + offX; cam.right = vw + offX; cam.top = vh + offY; cam.bottom = -vh + offY;
+      cam.position.copy(camPos).addScaledVector(CAMDIR, 80); cam.lookAt(camPos); cam.updateProjectionMatrix();
+      sun.position.set(camPos.x - 18, 40, camPos.z + 24); sun.target.position.copy(camPos);
+      renderer.render(scene, cam);
       if (visible) requestAnimationFrame(tick);
     };
 
-    /* ══ The chat ══ */
+    /* ═════════ The chat ═════════ */
     const scroll = () => { msgs.scrollTop = msgs.scrollHeight; };
-    const typingBubble = () => { const t = document.createElement('div'); t.className = 'ride__msg ride__msg--them ride__msg--typing'; t.innerHTML = '<i></i><i></i><i></i>'; msgs.appendChild(t); scroll(); return t; };
-    const say = async (text: string, pause = 650) => {
-      const t = typingBubble(); await wait(Math.min(1200, pause + text.length * 8)); t.remove();
-      const m = document.createElement('div'); m.className = 'ride__msg ride__msg--them'; m.textContent = text; msgs.appendChild(m); scroll(); await wait(220);
+    const typingBubble = () => { const tb = document.createElement('div'); tb.className = 'ride__msg ride__msg--them ride__msg--typing'; tb.innerHTML = '<i></i><i></i><i></i>'; msgs.appendChild(tb); scroll(); return tb; };
+    const say = async (text: string, pause = 550) => {
+      const tb = typingBubble(); await wait(Math.min(1100, pause + text.length * 7)); tb.remove();
+      const m = document.createElement('div'); m.className = 'ride__msg ride__msg--them'; m.textContent = text; msgs.appendChild(m); scroll(); await wait(200);
     };
     const me = (text: string) => { const m = document.createElement('div'); m.className = 'ride__msg ride__msg--me'; m.textContent = text; msgs.appendChild(m); scroll(); };
-    const card = async (html: string, cls = 'ride__card') => { const t = typingBubble(); await wait(700); t.remove(); const c = document.createElement('div'); c.className = cls; c.innerHTML = html; msgs.appendChild(c); scroll(); await wait(250); };
+    const card = async (html: string, cls = 'ride__card') => { const tb = typingBubble(); await wait(650); tb.remove(); const c = document.createElement('div'); c.className = cls; c.innerHTML = html; msgs.appendChild(c); scroll(); await wait(220); };
     const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
     let onType: ((v: string) => void) | null = null;
     form.addEventListener('submit', (e) => { e.preventDefault(); const v = input.value.trim(); if (!v || !onType) return; input.value = ''; onType(v); });
-    const setInput = (placeholder: string, type = 'text') => { input.type = type; input.placeholder = placeholder; input.autocomplete = type === 'email' ? 'email' : type === 'tel' ? 'tel' : type === 'text' && placeholder.includes('name') ? 'given-name' : 'off'; };
-    // Ask: quick replies and/or typing. Resolves with { value, label }.
-    const ask = <T,>(opts: { label: string; value: T; tag?: string; cls?: string }[], o: { placeholder?: string; type?: string; free?: (v: string) => T | null; echo?: boolean } = {}) => new Promise<T>((resolve) => {
+    const setInput = (placeholder: string, type = 'text') => { input.type = type; input.placeholder = placeholder; input.autocomplete = type === 'email' ? 'email' : type === 'tel' ? 'tel' : placeholder.includes('name') && !placeholder.includes('Business') ? 'given-name' : 'off'; };
+    const ask = <X,>(opts: { label: string; value: X; tag?: string; cls?: string }[], o: { placeholder?: string; type?: string; free?: (v: string) => X | null; echo?: boolean } = {}) => new Promise<X>((resolve) => {
       quick.innerHTML = '';
-      setInput(o.placeholder || 'Message your driver', o.type || 'text');
-      const done = (v: T, label: string) => { quick.innerHTML = ''; onType = null; if (o.echo !== false) me(label); setInput('Message your driver'); resolve(v); };
+      setInput(o.placeholder || 'Message', o.type || 'text');
+      const done = (v: X, label: string) => { quick.innerHTML = ''; onType = null; if (o.echo !== false) me(label); setInput('Message'); resolve(v); };
       opts.forEach((op, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = `ride__chip ${op.cls || ''}`; b.style.animationDelay = `${i * 40}ms`; b.innerHTML = `${esc(op.label)}${op.tag ? `<em>${esc(op.tag)}</em>` : ''}`; b.addEventListener('click', () => done(op.value, op.label)); quick.appendChild(b); });
       requestAnimationFrame(scroll);
       onType = (v) => { const r = o.free ? o.free(v) : null; if (r !== null && r !== undefined) done(r, v); else { me(v); say("Sorry, didn't catch that. Tap one of these?"); } };
       if (!opts.length || o.type) setTimeout(() => { if (matchMedia('(hover: hover)').matches) input.focus({ preventScroll: true }); }, 60);
     });
     const multi = (keys: string[], preset: string[]) => new Promise<string[]>((resolve) => {
-      quick.innerHTML = '';
-      const chosen = new Set(preset);
+      quick.innerHTML = ''; const chosen = new Set(preset);
       keys.forEach((k, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = `ride__chip${chosen.has(k) ? ' is-on' : ''}`; b.style.animationDelay = `${i * 30}ms`; b.textContent = NEEDS[k].short; b.addEventListener('click', () => { chosen.has(k) ? chosen.delete(k) : chosen.add(k); b.classList.toggle('is-on'); }); quick.appendChild(b); });
       const go = document.createElement('button'); go.type = 'button'; go.className = 'ride__chip ride__chip--go'; go.textContent = 'Done';
       go.addEventListener('click', () => { quick.innerHTML = ''; const v = [...chosen]; me(v.map((k) => NEEDS[k].short).join(', ') || 'Not sure yet'); resolve(v); });
       quick.appendChild(go); requestAnimationFrame(scroll);
-      onType = (v) => { const t = v.toLowerCase(); Object.keys(NEEDS).forEach((k) => { if (NEEDS[k].short.toLowerCase().split(' ').some((w) => w.length > 4 && t.includes(w))) chosen.add(k); }); quick.innerHTML = ''; me(v); resolve([...chosen]); };
+      onType = (v) => { const tl = v.toLowerCase(); Object.keys(NEEDS).forEach((k) => { if (NEEDS[k].short.toLowerCase().split(' ').some((w) => w.length > 4 && tl.includes(w))) chosen.add(k); }); quick.innerHTML = ''; me(v); resolve([...chosen]); };
     });
-
     let meterNow = 0;
-    const tickMeter = () => {
-      meter.hidden = false;
-      const to = quote().monthly, from = meterNow, t0 = performance.now();
-      const step = (t: number) => { const k = Math.min(1, (t - t0) / 700); meterNow = from + (to - from) * k; meterVal.textContent = `${money(meterNow)}/mo`; if (k < 1) requestAnimationFrame(step); };
-      requestAnimationFrame(step);
-    };
+    const tickMeter = () => { meter.hidden = false; const to = quote().monthly, from = meterNow, s0 = performance.now(); const st = (tt: number) => { const k = Math.min(1, (tt - s0) / 700); meterNow = from + (to - from) * k; meterVal.textContent = `${money(meterNow)}/mo`; if (k < 1) requestAnimationFrame(st); }; requestAnimationFrame(st); };
     const send = async (event: string) => {
       const payload = { event, ...lead, codes: codesFor(), quote: quote(), page: location.pathname, at: new Date().toISOString() };
       (window as any).__rideLead = payload;
@@ -387,62 +487,64 @@ const {
       if (!hook) { console.info('[ride] no webhook yet', payload); return; }
       try { await fetch(hook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }); } catch (e) { console.warn('[ride] send failed', e); }
     };
+    const clock = root.querySelector<HTMLElement>('[data-clock]')!;
+    const setClock = () => { const d = new Date(); clock.textContent = `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, '0')}`; };
+    setClock(); setInterval(setClock, 30000);
 
-    /* ══ The ride ══ */
+    /* ═════════ The ride ═════════ */
     const run = async () => {
-      status.textContent = 'Pulling up';
-      await wait(900);
-      await say("Hey! Jump in out of the rain.");
-      await say("I'm your DUSA driver. What's your name?");
-      lead.name = (await ask<string>([], { placeholder: 'Your first name', free: (v) => v.split(' ')[0].replace(/^./, (c) => c.toUpperCase()) }));
-      advance(); status.textContent = 'On the way';
-      await say(`Lovely to meet you, ${lead.name}. What's your business called?`);
+      state.carTarget = PICK_X; chapter(0);
+      await wait(2600);
+      status.textContent = 'At the kerb';
+      await say("Hey! Grab the umbrella.");
+      await say("I'm your DUSA Growth Lead. Want a chat on the way, or straight to the price?");
+      const mode = await ask([{ label: "Let's chat", value: 'chat' }, { label: 'Skip the small talk', value: 'quiet', cls: 'ride__chip--ghost' }], { free: (v) => (/skip|price|quick|straight/i.test(v) ? 'quiet' : 'chat') });
+      lead.quiet = mode === 'quiet';
+      await say(lead.quiet ? 'Easy. First name?' : "Lovely. What's your name?");
+      chapter(1);
+      lead.name = await ask<string>([], { placeholder: 'Your first name', free: (v) => v.trim().split(/\s+/)[0].replace(/^./, (c) => c.toUpperCase()) });
+      if (!lead.quiet) await say(`Nice to meet you, ${lead.name}. Jump in, let's get you out of the rain.`);
+      state.board = 0.01; await wait(1500); goStep(1); status.textContent = 'On the way';
+      await say(lead.quiet ? 'Business name?' : "What's the business called?");
       lead.business = await ask<string>([], { placeholder: 'Business name', free: (v) => v });
-      advance();
-      await say(`${lead.business}. Love it. What do you do?`);
+      goStep(2);
+      await say(lead.quiet ? 'What do you do?' : `${lead.business}. Love it. What do you do?`);
       const ind = await ask(INDUSTRIES.map((i) => ({ label: i.label, value: i.id })), { placeholder: 'Or type it', free: (v) => { lead.industryText = v; return matchOpt(v, INDUSTRIES)?.id || 'other'; } });
       lead.industry = ind; const I = INDUSTRIES.find((i) => i.id === ind)!;
-      advance();
-      await say(`We look after plenty of ${I.plural}, ${lead.name}.`);
+      goStep(3); chapter(2);
+      if (!lead.quiet) await say(`We look after plenty of ${I.plural}, ${lead.name}. What helps them most:`);
       await card(`<ol>${I.top.map(([k, o]) => `<li><span>${esc(NEEDS[k].text)}<em>${esc(o)}</em></span></li>`).join('')}</ol>`);
-      await say('Those three help them most. Sound like you?');
+      await say(lead.quiet ? 'Want all three?' : 'Sound like you?');
       const fit = await ask([{ label: 'Yes, all three', value: 'all' }, { label: 'Some of them', value: 'some' }, { label: 'Something else', value: 'else' }], { free: (v) => (/^(y|yes|yep|yeah|all)/i.test(v) ? 'all' : /some|few|two|one/i.test(v) ? 'some' : 'else') });
       const top = I.top.map(([k]) => k);
       if (fit === 'all') lead.needs = top;
       else if (fit === 'some') { await say('Tap the ones that fit.'); lead.needs = await multi(top, top); }
-      else { await say('Tell me, or tap what fits.'); lead.needs = await multi(Object.keys(NEEDS), []); }
-      advance();
-      await say(lead.needs.length ? 'Easy. We fix those every day.' : "No worries. We'll start with never missing a call.");
-      await say('So how do you want to get there?');
+      else { await say('Tap what fits.'); lead.needs = await multi(Object.keys(NEEDS), []); }
+      goStep(4);
+      if (!lead.quiet) await say(lead.needs.length ? 'Easy. We fix those every day.' : "No worries. We'll start with never missing a call.");
+      chapter(3);
+      await say('How do you want to get there?');
       lead.seat = await ask(SEATS.map((s) => ({ label: s.label, value: s.id, tag: s.tag })), { free: (v) => matchOpt(v, SEATS)?.id || null });
       const S = SEATS.find((s) => s.id === lead.seat)!;
-      advance();
-      await say(S.reply);
+      goStep(6);
+      if (!lead.quiet) await say(S.reply);
       await say('And how far are we going?');
       lead.distance = await ask(DIST.map((d) => ({ label: d.label, value: d.id })), { free: (v) => matchOpt(v, DIST)?.id || null });
-      tickMeter(); advance(); send('profile');
-      if (lead.seat !== 'self') { await say(`Right. For ${lead.business}: ${lead.needs.slice(0, 2).map((k: string) => NEEDS[k].short.toLowerCase()).join(' and ') || 'never miss a call'}.`); advance(); }
-      advance(STEPS - 1);
-      await wait(1600);
-      status.textContent = 'Arriving';
+      tickMeter(); goStep(8); send('profile');
+      if (!lead.quiet && lead.seat !== 'self') await say(`Right. For ${lead.business}: ${lead.needs.slice(0, 2).map((k: string) => NEEDS[k].short.toLowerCase()).join(' and ') || 'never miss a call'}.`);
+      goStep(STEPS); chapter(4); status.textContent = 'Arriving';
+      await wait(2600);
       await say(`Here we are, ${lead.name}. Home.`);
-      advance(STEPS);
       const q = quote(); lead.quote = q;
-      await card(`<h4>DUSA FARE <span>#${String(Date.now()).slice(-5)}</span></h4><p>${esc(lead.name)}, ${esc(lead.business)} · ${SEAT_NAME[lead.seat]}</p><ul>${q.lines.map((l) => `<li class="${l.save ? 'is-save' : ''}"><span>${esc(l.label)}</span><b>${l.oneoff ? money(l.oneoff) + ' once' : money(l.price)}</b></li>`).join('')}</ul><div class="t"><span>Monthly</span><b>${money(q.monthly)}</b></div><div class="s"><span>Set-up, one-off</span><b>${q.setup ? money(q.setup) : 'None'}</b></div><small>AUD ex GST. Month to month. AI, SMS and ad spend at cost.${q.nudge ? `<b>${esc(q.nudge)}</b>` : ''}${lead.seat !== 'self' ? '<b>Rather drive yourself? DUSA from $47/mo.</b>' : ''}</small>`, 'ride__fare');
+      await card(`<h4>DUSA · YOUR TRIP <span>#${String(Date.now()).slice(-5)}</span></h4><p>${esc(lead.name)}, ${esc(lead.business)} · ${SEAT_NAME[lead.seat]}</p><ul>${q.lines.map((l) => `<li class="${l.save ? 'is-save' : ''}"><span>${esc(l.label)}</span><b>${l.oneoff ? money(l.oneoff) + ' once' : money(l.price)}</b></li>`).join('')}</ul><div class="t"><span>Monthly</span><b>${money(q.monthly)}</b></div><div class="s"><span>Set-up, one-off</span><b>${q.setup ? money(q.setup) : 'None'}</b></div><small>AUD ex GST. Month to month. AI, SMS and ad spend at cost.${q.nudge ? `<b>${esc(q.nudge)}</b>` : ''}${lead.seat !== 'self' ? '<b>Rather drive yourself? DUSA from $47/mo.</b>' : ''}</small>`, 'ride__fare');
       status.textContent = 'Home';
       await say('Want this in your inbox?');
       const email = await ask<string>([{ label: 'Not now', value: '', cls: 'ride__chip--ghost' }], { placeholder: 'Your email', type: 'email', free: (v) => (/\S+@\S+\.\S+/.test(v) ? v : null) });
       lead.email = email; if (email) send('quote');
-      await say(email ? 'Sent. Okay if we call to book your next pick-up?' : 'Okay if we call to book your next pick-up?');
+      await say(email ? 'Sent. Okay if we give you a call?' : 'Okay if we give you a call?');
       lead.callOk = await ask([{ label: 'Yes, call me', value: true }, { label: "I'll call you", value: false }], { free: (v) => (/^(y|yes|sure|ok|yep|yeah)/i.test(v) ? true : /^(n|no|nah)/i.test(v) ? false : null) });
-      if (lead.callOk) {
-        await say('Best number?');
-        lead.phone = await ask<string>([], { placeholder: 'Mobile number', type: 'tel', free: (v) => (v.replace(/\D/g, '').length >= 8 ? v : null) });
-        send('callback');
-        await say(`Thanks ${lead.name}. Talk soon.`);
-      } else {
-        await say(`All good. Call us any time: ${PHONE}.`);
-      }
+      if (lead.callOk) { await say('Best number?'); lead.phone = await ask<string>([], { placeholder: 'Mobile number', type: 'tel', free: (v) => (v.replace(/\D/g, '').length >= 8 ? v : null) }); send('callback'); await say(`Thanks ${lead.name}. Talk soon.`); }
+      else await say(`All good. Call us any time: ${PHONE}.`);
       const doneFor = lead.seat === 'back' || lead.seat === 'front';
       const end = await ask([
         { label: doneFor ? 'Pay set-up and book kick-off' : 'Start my free trial', value: 'go', cls: 'ride__chip--go' },
@@ -458,8 +560,10 @@ const {
     new IntersectionObserver((es) => es.forEach((e) => {
       const was = visible; visible = e.isIntersecting;
       if (visible && !was) { last = performance.now(); requestAnimationFrame(tick); }
-      if (visible && !started && e.intersectionRatio > 0.45) { started = true; targetD = 0; run(); }
+      if (visible && !started && e.intersectionRatio > 0.45) { started = true; run(); }
     }), { threshold: [0, 0.45] }).observe(stage);
-    if (location.hostname === 'localhost') (window as any).__ride = { lead, quote, codesFor };
+    renderer.render(scene, cam);
+    if (location.hostname === 'localhost') (window as any).__ride = { lead, quote, codesFor, state, goStep };
+    void phoneUI;
   });
 </script>

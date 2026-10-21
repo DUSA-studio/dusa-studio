@@ -874,7 +874,7 @@
         },
         {
           "q": "Minkä päälle DUSA on rakennettu?",
-          "a": "DUSA toimii HighLevelin päällä, alustalla, joka pyörittää 2,2 miljoonaa yritystä eri puolilla maailmaa, ja DUSA on palveluntarjoajasi. Saat sen moottorin sekä kaiken, mitä lisäämme sen päälle: käyttöönoton yhdessä kanssasi ensimmäisen viikon aikana, australialaisen tuen, laskutuksen valuutassa {currency}, Ask AI jokaisessa paketissa ja AI Employee -tekoälytyöntekijän Growth-paketissa. Tietosi ovat sinun ja voit viedä ne milloin tahansa. Vertailemme avoimesti DUSAa ja suoraan HighLevelille menemistä HighLevel-vertailusivullamme."
+          "a": "DUSA toimii HighLevelin päällä, alustalla, joka pyörittää 2,2 miljoonaa yritystä eri puolilla maailmaa, ja DUSA on palveluntarjoajasi. Saat sen moottorin sekä kaiken, mitä lisäämme sen päälle: käyttöönoton yhdessä kanssasi ensimmäisen viikon aikana, australialaisen tuen, laskutuksen valuutassa {currency}, Ask AI jokaisessa paketissa ja AI Employee -tekoälytyöntekijän Growth-paketissa. Tietosi ovat sinun ja voit viedä ne milloin tahansa."
         },
         {
           "q": "Ovatko kaikki hinnat valuutassa {currency}?",
@@ -1280,7 +1280,7 @@
       },
       {
         "q": "Minkä päälle se on rakennettu?",
-        "a": "DUSA toimii HighLevelin päällä, alustalla 2,2 miljoonan yrityksen takana, joten infrastruktuuri on koeteltu ja tietosi ovat turvassa ja vietävissä. DUSA lisää sen moottorin päälle käyttöönoton, tuen Sydneystä, hinnat AUD-valuutassa ja tekoälyominaisuudet. Vertailemme näitä kahta avoimesti HighLevel-vertailusivullamme."
+        "a": "DUSA toimii HighLevelin päällä, alustalla 2,2 miljoonan yrityksen takana, joten infrastruktuuri on koeteltu ja tietosi ovat turvassa ja vietävissä. DUSA lisää sen moottorin päälle käyttöönoton, tuen Sydneystä, hinnat AUD-valuutassa ja tekoälyominaisuudet."
       },
       {
         "q": "Pitääkö minun olla tekninen?",

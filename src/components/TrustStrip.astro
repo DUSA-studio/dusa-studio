@@ -36,13 +36,13 @@ const stats: [string, string][] = (s && s.stats) || [
   ['US$5.2B', 'in sales, 2025'],
 ];
 const source = (s && s.source) || 'HighLevel, published figures';
-const linkHref = '/compare/highlevel';
+const linkHref = '/pricing#faq';
 ---
 
 {show && (
 <section class={`trust${tight ? ' trust--tight' : ''}`} aria-label={(s && s.aria) || 'Platform trust facts'}>
   <div class="trust__bar">
-    <a class="trust__brand" href={linkHref} data-page="compare/highlevel" aria-label={lead}>
+    <a class="trust__brand" href={linkHref} aria-label={lead}>
       <span class="trust__chip" aria-hidden="true">
         <span class="trust__cube">
           {['front', 'right', 'back', 'left', 'top', 'bottom'].map((f) => (

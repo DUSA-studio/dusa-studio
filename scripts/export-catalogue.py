@@ -26,7 +26,7 @@ for r in range(5, c.max_row + 1):
     }
 data = {
     "currency": "AUD", "gst": i["B13"].value,
-    "plans": {"launchpad": i["B15"].value, "starter": i["B16"].value, "growth": i["B17"].value},
+    "plans": {"starter": i["B15"].value, "growth": i["B16"].value, "scale": i["B17"].value},
     "bundleDiscount": i["B10"].value, "setupDiscount": i["B11"].value, "items": items,
     "source": "DUSA-Growth-Engine-Catalogue.xlsx (regenerate with scripts/export-catalogue.py)",
 }

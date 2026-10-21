@@ -8,7 +8,7 @@
  * Prices are converted from the AUD base with convertPrice (same rule as the
  * pricing page). Checkout still goes to the AUD Stripe links.
  */
-import { SAAS_PLANS } from '../../config/saas-links';
+import { SAAS_PLANS, isReady } from '../../config/saas-links';
 import { getRegion, convertPrice } from '../../i18n/regions.js';
 
 interface Props {
@@ -25,13 +25,14 @@ const fmt = (tpl: string, vars: Record<string, string>) => String(tpl || '').rep
 const zero = `${sym}0`;
 /* Thousands separators follow the region (sv/da/nb use a space, nl a dot). */
 const num = (n: number) => n >= 1000 ? n.toLocaleString(region.locale || 'en-AU').replace(/\u00a0/g, ' ') : String(n);
-const linksReady = SAAS_PLANS.every((p) => p.links.monthly !== '#pending');
+const linksReady = SAAS_PLANS.some(isReady);
 const plans = SAAS_PLANS.map((p) => {
   const dict = (s.plans && s.plans[p.id]) || {};
   const monthly = convertPrice(p.monthlyPrice, regionKey);
   const annual = convertPrice(p.annualPrice, regionKey);
   return {
     ...p,
+    ready: isReady(p),
     name: dict.name || p.name,
     blurb: dict.blurb || p.blurb,
     features: dict.features || p.features,
@@ -115,9 +116,15 @@ const valueIcons = [
                 </li>
               ))}
             </ul>
-            <a class={`btn ${plan.highlight ? 'btn--primary' : 'btn--outline'} activate__btn`} href={plan.links.monthly} data-monthly={plan.links.monthly} data-annual={plan.links.annual} target="_blank" rel="noopener">
-              {s.startTrial}
-            </a>
+            {plan.ready ? (
+              <a class={`btn ${plan.highlight ? 'btn--primary' : 'btn--outline'} activate__btn`} href={plan.links.monthly} data-monthly={plan.links.monthly} data-annual={plan.links.annual} target="_blank" rel="noopener">
+                {s.startTrial}
+              </a>
+            ) : (
+              <a class={`btn ${plan.highlight ? 'btn--primary' : 'btn--outline'} activate__btn`} href="#trial" data-monthly="#trial" data-annual="#trial">
+                {s.setUpWithUs || 'Set it up with us'}
+              </a>
+            )}
             <p class="activate__note" data-monthly={plan.noteMonthly} data-annual={plan.noteAnnual}>{plan.noteMonthly}</p>
           </div>
         ))}

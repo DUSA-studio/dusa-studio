@@ -216,7 +216,7 @@ const pct = Math.round(SHARE * 100);
           Their payment goes through, your cut follows. There's no cap on it
           and no expiry date while the licence is live and you're still
           selling with us. Ten clients on Growth is
-          {money(monthly(PLANS[2]) * 10)} a month arriving whether you sold
+          {money(monthly(PLANS[1]) * 10)} a month arriving whether you sold
           anything that month or not.
         </p>
       </article>
@@ -228,7 +228,7 @@ const pct = Math.round(SHARE * 100);
           Annual clients get a discount, so they're charged the equivalent of
           {ANNUAL_MONTHS_CHARGED} months rather than 12. Your {pct}% comes off
           what they actually pay. One Growth client signing annually is
-          {money(upfront(PLANS[2]))} in a single hit.
+          {money(upfront(PLANS[1]))} in a single hit.
         </p>
       </article>
     </div>
@@ -272,7 +272,7 @@ const pct = Math.round(SHARE * 100);
             <span class="calc__row-name">{p.name}<i>{money(p.price)}/mo</i></span>
             <span class="calc__row-ctrl">
               <button type="button" data-step={`${p.id}:-1`} aria-label={`One fewer ${p.name} client`}>&minus;</button>
-              <input type="number" min="0" max="999" value={p.id === 'starter' ? 5 : 0}
+              <input type="number" min="0" max="999" value={p.id === 'growth' ? 5 : 0}
                      data-plan={p.id} data-price={p.price} aria-label={`${p.name} clients`} />
               <button type="button" data-step={`${p.id}:1`} aria-label={`One more ${p.name} client`}>+</button>
             </span>

@@ -157,7 +157,7 @@ const CHAPTERS = ['Pick-up', 'Destination', 'Your line of work', 'Your ride', 'Y
 <script>
   import * as T from 'three';
   type Item = { service: string; size: string; incl: string; setup: number; monthly: number; guided: number | null };
-  type Cat = { plans: { launchpad: number; starter: number; growth: number }; bundleDiscount: number; setupDiscount: number; items: Record<string, Item> };
+  type Cat = { plans: { starter: number; growth: number; scale: number }; bundleDiscount: number; setupDiscount: number; items: Record<string, Item> };
 
   document.querySelectorAll<HTMLElement>('[data-ride]').forEach((root) => {
     const stage = root.querySelector<HTMLElement>('[data-stage]')!;
@@ -237,7 +237,7 @@ const CHAPTERS = ['Pick-up', 'Destination', 'Your line of work', 'Your ride', 'Y
       const seat = o.seat || lead.seat || 'back', d = o.distance || lead.distance || 'S';
       const lines: { label: string; price: number; save?: boolean; oneoff?: number }[] = [];
       if (seat === 'self') {
-        const [n, p] = d === 'S' ? ['Launchpad', cat.plans.launchpad] : d === 'M' ? ['Starter', cat.plans.starter] : ['Growth', cat.plans.growth];
+        const [n, p] = d === 'S' ? ['Starter', cat.plans.starter] : d === 'M' ? ['Growth', cat.plans.growth] : ['Scale', cat.plans.scale];
         lines.push({ label: `DUSA ${n} plan`, price: p as number });
         return { lines, monthly: p as number, setup: 0, nudge: '' };
       }
@@ -580,7 +580,7 @@ const CHAPTERS = ['Pick-up', 'Destination', 'Your line of work', 'Your ride', 'Y
       await driveTo(STOPS[5]);
       const q = quote(); lead.quote = q;
       await say(`Here we are, ${lead.name}. Your fare:`);
-      await card(`<h4>DUSA · YOUR ENGINE <span>${esc(SEAT_NAME[lead.seat])}</span></h4><ul>${q.lines.map((l) => `<li class="${l.save ? 'is-save' : ''}"><span>${esc(l.label)}</span><b>${l.oneoff ? money(l.oneoff) + ' once' : money(l.price)}</b></li>`).join('')}</ul><div class="t"><span>Monthly</span><b>${money(q.monthly)}</b></div><div class="s"><span>Set-up</span><b>${q.setup ? money(q.setup) : 'None'}</b></div><small>AUD ex GST. Month to month.${q.nudge ? `<b>${esc(q.nudge)}</b>` : ''}${lead.seat !== 'self' ? '<b>Or drive yourself from $47/mo.</b>' : ''}</small>`, 'ride__fare');
+      await card(`<h4>DUSA · YOUR ENGINE <span>${esc(SEAT_NAME[lead.seat])}</span></h4><ul>${q.lines.map((l) => `<li class="${l.save ? 'is-save' : ''}"><span>${esc(l.label)}</span><b>${l.oneoff ? money(l.oneoff) + ' once' : money(l.price)}</b></li>`).join('')}</ul><div class="t"><span>Monthly</span><b>${money(q.monthly)}</b></div><div class="s"><span>Set-up</span><b>${q.setup ? money(q.setup) : 'None'}</b></div><small>AUD ex GST. Month to month.${q.nudge ? `<b>${esc(q.nudge)}</b>` : ''}${lead.seat !== 'self' ? `<b>Or drive yourself from ${money(cat.plans.starter)}/mo.</b>` : ''}</small>`, 'ride__fare');
       status.textContent = 'Home';
       await say('Where should I send it?');
       lead.email = await ask<string>([{ label: 'Not now', value: '', cls: 'ride__chip--ghost' }], { placeholder: 'Your email', type: 'email', free: (v) => (/\S+@\S+\.\S+/.test(v) ? v : null) });
@@ -597,7 +597,7 @@ const CHAPTERS = ['Pick-up', 'Destination', 'Your line of work', 'Your ride', 'Y
       const end = await ask([
         { label: doneFor ? 'Pay set-up and book kick-off' : 'Start my free trial', value: 'go', cls: 'ride__chip--go' },
         { label: `Talk to ${LEAD} (10 min)`, value: 'talk' },
-        ...(lead.seat !== 'self' ? [{ label: 'Drive myself, from $47', value: 'self', cls: 'ride__chip--ghost' }] : []),
+        ...(lead.seat !== 'self' ? [{ label: `Drive myself, from ${money(cat.plans.starter)}`, value: 'self', cls: 'ride__chip--ghost' }] : []),
       ], { echo: () => null });
       send(end);
       if (end === 'talk') window.open(root.dataset.lead, '_blank', 'noopener');

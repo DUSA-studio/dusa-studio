@@ -24,9 +24,10 @@ interface Props {
   };
   t: Record<string, any>;
   prices: {
-    launchpad: number;
     starter: number;
     growth: number;
+    scale: number;
+    engine: number;
   };
   regionKey: string;
 }
@@ -49,25 +50,24 @@ function convertToolCost(audCost: number): number {
 }
 
 /* ─── Add-on prices (AUD base, converted like the plan prices) ─── */
-const extraUserPrice = convertPrice(29, regionKey);
-const unlimitedAiPrice = convertPrice(197, regionKey);
 const assistRate = convertPrice(75, regionKey);
 const expertRate = convertPrice(225, regionKey);
-const deltaStarterVal = prices.starter - prices.launchpad;
 const deltaGrowthVal = prices.growth - prices.starter;
+const deltaScaleVal = prices.scale - prices.growth;
+/* Thousands separator for the Growth Engine from-price (1,057 not 1057). */
+const num = (n: number) => n.toLocaleString(region.locale);
 
 /* Fill the price placeholders used across the plan copy. Every string that can
    carry a price (English or dictionary) runs through this once at build. */
 const fill = (tpl: string) => String(tpl)
-  .replace(/\{launchpad\}/g, `${sym}${prices.launchpad}`)
   .replace(/\{starter\}/g, `${sym}${prices.starter}`)
   .replace(/\{growth\}/g, `${sym}${prices.growth}`)
-  .replace(/\{extraUser\}/g, `${sym}${extraUserPrice}`)
-  .replace(/\{unlimitedAi\}/g, `${sym}${unlimitedAiPrice}`)
+  .replace(/\{scale\}/g, `${sym}${prices.scale}`)
+  .replace(/\{engine\}/g, `${sym}${num(prices.engine)}`)
   .replace(/\{assist\}/g, `${sym}${assistRate}`)
   .replace(/\{expert\}/g, `${sym}${expertRate}`)
-  .replace(/\{deltaStarter\}/g, `${sym}${deltaStarterVal}`)
   .replace(/\{deltaGrowth\}/g, `${sym}${deltaGrowthVal}`)
+  .replace(/\{deltaScale\}/g, `${sym}${deltaScaleVal}`)
   .replace(/\{currency\}/g, region.currency)
   .replace(/\{regionLabel\}/g, region.label);
 
@@ -76,57 +76,37 @@ const L: any = (p as any).data || null;
 
 /* Comparison-table cell labels. Plain numbers stay as they are. */
 const cells = {
-  pick1: (L && L.cells && L.cells.pick1) || 'Pick 1',
   unlimited: (L && L.cells && L.cells.unlimited) || 'Unlimited',
   included: (L && L.cells && L.cells.included) || 'Included',
   payg: (L && L.cells && L.cells.payg) || 'Pay as you go',
   aiReplies: (L && L.cells && L.cells.aiReplies) || '1,000 replies/mo',
   aiMinutes: (L && L.cells && L.cells.aiMinutes) || '100 min/mo',
-  extraUser: fill((L && L.cells && L.cells.extraUser) || '{extraUser}/mo each'),
+  unlimitedFair: (L && L.cells && L.cells.unlimitedFair) || 'Unlimited, fair use',
+  fairUse: (L && L.cells && L.cells.fairUse) || 'Fair use',
   helpHours: (L && L.cells && L.cells.helpHours) || '3 hrs, first 3 months',
+  helpMonthly: (L && L.cells && L.cells.helpMonthly) || '2 hrs every month',
   extraHelp: fill((L && L.cells && L.cells.extraHelp) || '{assist}/hr, {expert}/hr expert'),
   byArrangement: (L && L.cells && L.cells.byArrangement) || 'By arrangement',
 };
 
 const tiers = [
   {
-    id: 'launchpad',
-    name: p.tierLaunchpad,
-    price: String(prices.launchpad),
-    period: p.perMonth,
-    tagline: p.launchpadTagline,
-    description: p.launchpadDesc,
-    highlights: [
-      '1 core system of your choice',
-      '9 systems to choose from',
-      'Ask AI assistant, pay as you go',
-      '1 user, 500 contacts',
-      'Full dashboard and basic analytics',
-      'AI chat support and community',
-    ],
-    delta: p.deltaLaunchpad || '{deltaStarter}/mo more gets you all 9 systems on Starter',
-    cta: p.getStarted,
-    ctaLink: '/start',
-    highlight: false,
-    badge: p.badgeEntry,
-    style: 'entry',
-  },
-  {
     id: 'starter',
     name: p.tierStarter,
     price: String(prices.starter),
+    from: false,
     period: p.perMonth,
     tagline: p.starterTagline,
     description: p.starterDesc,
     highlights: [
       'All 9 core systems included',
-      'CRM, pipeline and 2,500 contacts',
+      'Unlimited users and contacts',
       'Email and SMS marketing',
       'Funnel and website builder',
       'Booking, social and reputation',
       'Unlimited workflow automations',
-      'Ask AI assistant, pay as you go',
-      '1 user, add more for {extraUser}/mo',
+      'Ask AI and the AI Employee, pay as you go',
+      '3 hours of hands-on help to get started',
     ],
     delta: p.deltaStarter || '{deltaGrowth}/mo more gets you the AI Employee on Growth',
     cta: p.getStarted,
@@ -139,6 +119,7 @@ const tiers = [
     id: 'growth',
     name: p.tierGrowth,
     price: String(prices.growth),
+    from: false,
     period: p.perMonth,
     tagline: p.growthTagline,
     description: p.growthDesc,
@@ -148,11 +129,11 @@ const tiers = [
       'AI answers your calls, chats and messages',
       '100 AI call minutes and 1,000 AI replies a month',
       'Ask AI usage included',
-      'Unlimited contacts, 3 users',
       'Premium automations, custom dashboards, API',
       'Priority support and AI setup session',
+      'Free done-for-you set-up on annual plans',
     ],
-    delta: p.deltaGrowth || 'Need unlimited AI or more users? See Bespoke',
+    delta: p.deltaGrowth || 'Want unlimited AI and monthly help? See Scale',
     cta: p.getStarted,
     ctaLink: '/start',
     highlight: true,
@@ -160,27 +141,51 @@ const tiers = [
     style: 'pop',
   },
   {
-    id: 'bespoke',
-    name: p.tierBespoke,
-    price: null,
-    period: null,
-    tagline: p.bespokeTagline,
-    description: p.bespokeDesc,
+    id: 'scale',
+    name: p.tierScale,
+    price: String(prices.scale),
+    from: false,
+    period: p.perMonth,
+    tagline: p.scaleTagline,
+    description: p.scaleDesc,
     highlights: [
       'Everything in Growth',
-      'Unlimited AI calls and conversations',
-      'Unlimited users',
-      'Multi-location support',
-      'Custom integrations and automation builds',
-      'Dedicated account manager',
-      'Monthly strategy reviews',
-      'Phone support line',
+      'Unlimited AI calls and conversations, fair use',
+      '2 hours of hands-on help every month',
+      'Free done-for-you set-up',
+      'A named Growth Lead',
+      'Phone support in business hours',
+      'Top of the support queue',
     ],
-    delta: p.deltaBespoke || 'No lock-in contracts on any plan',
-    cta: p.letsTalk,
+    delta: p.deltaScale || 'No lock-in contracts on any plan',
+    cta: p.getStarted,
+    ctaLink: '/start',
+    highlight: false,
+    badge: null,
+    style: 'default',
+  },
+  {
+    id: 'engine',
+    name: p.tierEngine,
+    price: String(prices.engine),
+    from: true,
+    period: p.perMonth,
+    tagline: p.engineTagline,
+    description: p.engineDesc,
+    highlights: [
+      'Everything in Growth',
+      'We run the marketing you pick',
+      'Calls answered, quotes followed up, reviews in',
+      'Ads, socials and Google, as you need them',
+      'Monthly report and quarterly plan',
+      'A named Growth Lead',
+      'Set-up discounted on every bundle',
+    ],
+    delta: p.deltaEngine || 'Priced on the outcomes you pick',
+    cta: p.engineCta,
     ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo',
     highlight: false,
-    badge: p.badgeCustom,
+    badge: p.badgeEngine,
     style: 'premium',
   },
 ];
@@ -284,91 +289,93 @@ const medianCosts = displayReplacements.map(r => median(r.tools.map(t => t.displ
 const defaultTotal = displayReplacements.reduce((sum, r) => sum + r.tools[0].displayCost, 0);
 
 /* ─── Feature Comparison Categories ─── */
+const ALL = { starter: true, growth: true, scale: true, engine: true };
+const FROM_GROWTH = { starter: false, growth: true, scale: true, engine: true };
+const FROM_SCALE = { starter: false, growth: false, scale: true, engine: true };
+const ENGINE_ONLY = { starter: false, growth: false, scale: false, engine: true };
 const featureCategories = [
   {
     name: 'Core platform',
     features: [
-      { label: 'CRM & pipeline management', desc: 'Store every lead, customer, and conversation in one place. Visual drag-and-drop pipelines to track deals, forecast revenue, and never let an opportunity slip.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Funnel & website builder', desc: 'Build high-converting landing pages, opt-in funnels, and a full business website with drag-and-drop. Custom domain, SEO tools, and SSL included.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Email marketing', desc: 'Send beautiful branded emails, build automated nurture sequences, and track opens, clicks, and conversions. No per-send fees on any plan.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'SMS marketing', desc: 'Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Message usage is billed separately as you use it.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Booking & calendar system', desc: 'Let clients book appointments directly from your website or links. Syncs with Google Calendar, sends automatic reminders, and reduces no-shows.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Social media planner', desc: 'Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Reputation management', desc: 'Automatically request reviews from happy customers, monitor your online reputation, and respond to reviews from one dashboard.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Invoicing & payments', desc: 'Send professional invoices, accept payments online, and track who has paid. Integrates with Stripe for seamless transactions.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
-      { label: 'Forms & surveys', desc: 'Capture leads with custom forms and gather feedback with surveys. Embed anywhere and trigger automations from submissions.', launchpad: cells.pick1, starter: true, growth: true, bespoke: true },
+      { label: 'CRM & pipeline management', desc: 'Store every lead, customer, and conversation in one place. Visual drag-and-drop pipelines to track deals, forecast revenue, and never let an opportunity slip.', ...ALL },
+      { label: 'Funnel & website builder', desc: 'Build high-converting landing pages, opt-in funnels, and a full business website with drag-and-drop. Custom domain, SEO tools, and SSL included.', ...ALL },
+      { label: 'Email marketing', desc: 'Send beautiful branded emails, build automated nurture sequences, and track opens, clicks, and conversions. Sending is billed at low usage rates as you go.', ...ALL },
+      { label: 'SMS marketing', desc: 'Reach customers directly with text campaigns, appointment reminders, and two-way conversations. Message usage is billed separately as you use it.', ...ALL },
+      { label: 'Booking & calendar system', desc: 'Let clients book appointments directly from your website or links. Syncs with Google Calendar, sends automatic reminders, and reduces no-shows.', ...ALL },
+      { label: 'Social media planner', desc: 'Schedule and publish posts across Facebook, Instagram, Google, and more. Plan your content calendar and track engagement from one place.', ...ALL },
+      { label: 'Reputation management', desc: 'Automatically request reviews from happy customers, monitor your online reputation, and respond to reviews from one dashboard.', ...ALL },
+      { label: 'Invoicing & payments', desc: 'Send professional invoices, accept payments online, and track who has paid. Integrates with Stripe for seamless transactions.', ...ALL },
+      { label: 'Forms & surveys', desc: 'Capture leads with custom forms and gather feedback with surveys. Embed anywhere and trigger automations from submissions.', ...ALL },
     ],
   },
   {
     name: 'Automation',
     features: [
-      { label: 'Workflow automations', desc: 'Build unlimited automated workflows: follow up new leads, confirm bookings, chase invoices and nurture contacts on autopilot, with delays, conditions and multiple actions.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'Trigger-based sequences', desc: 'Automatically start sequences when contacts take specific actions like visiting a page, opening an email, or booking an appointment.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'Conditional logic & branching', desc: 'Create intelligent workflows that branch based on contact behaviour, deal value, or custom field values. Different paths for different scenarios.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'Premium workflow actions', desc: 'Unlock the premium automation steps: AI decisions inside workflows, webhooks, Google Sheets, Slack, custom code and more. A few cents per run, drawn from your balance.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Custom automation builds', desc: 'Our team builds bespoke automations tailored to your exact business processes. Complex integrations and custom logic built for you.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Workflow automations', desc: 'Build unlimited automated workflows: follow up new leads, confirm bookings, chase invoices and nurture contacts on autopilot, with delays, conditions and multiple actions.', ...ALL },
+      { label: 'Trigger-based sequences', desc: 'Automatically start sequences when contacts take specific actions like visiting a page, opening an email, or booking an appointment.', ...ALL },
+      { label: 'Conditional logic & branching', desc: 'Create intelligent workflows that branch based on contact behaviour, deal value, or custom field values. Different paths for different scenarios.', ...ALL },
+      { label: 'Premium workflow actions', desc: 'Unlock the premium automation steps: AI decisions inside workflows, webhooks, Google Sheets, Slack, custom code and more. A few cents per run, drawn from your balance.', ...FROM_GROWTH },
+      { label: 'Custom automation builds', desc: 'Our team builds automations tailored to your exact business processes. Complex integrations and custom logic built for you.', ...ENGINE_ONLY },
     ],
   },
   {
     name: 'AI Employee',
     features: [
-      { label: 'Ask AI assistant', desc: 'Your assistant inside the platform. Ask it to write a campaign, build a workflow, tag and segment your contacts, or explain your numbers, and it does the work in your account. Light usage billed in cents on Launchpad and Starter, included on Growth.', launchpad: cells.payg, starter: cells.payg, growth: cells.included, bespoke: cells.included },
-      { label: 'Conversation AI', desc: 'AI replies to leads on SMS, web chat, email, Instagram and Facebook Messenger, answers questions from your knowledge base and books appointments straight into your calendar.', launchpad: false, starter: false, growth: cells.aiReplies, bespoke: cells.unlimited },
-      { label: 'Voice AI phone agent', desc: 'An AI receptionist answers your calls 24/7, qualifies the caller, books the appointment and sends you the summary. Never miss a call again.', launchpad: false, starter: false, growth: cells.aiMinutes, bespoke: cells.unlimited },
-      { label: 'Reviews AI', desc: 'Replies to your Google and Facebook reviews automatically, in your tone, so every review gets a response.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Content AI', desc: 'Writes emails, social posts and landing page copy, and generates images on demand from inside the builder.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Extra AI usage', desc: 'On Growth, AI usage past the monthly allowance continues at pay as you go rates from your balance, or switch to Unlimited AI for {unlimitedAi}/mo. Standard call and SMS charges apply on every plan.', launchpad: false, starter: false, growth: cells.payg, bespoke: cells.unlimited },
+      { label: 'Ask AI assistant', desc: 'Your assistant inside the platform. Ask it to write a campaign, build a workflow, tag and segment your contacts, or explain your numbers, and it does the work in your account. Light usage billed in cents on Starter, included from Growth up.', starter: cells.payg, growth: cells.included, scale: cells.included, engine: cells.included },
+      { label: 'Conversation AI', desc: 'AI replies to leads on SMS, web chat, email, Instagram and Facebook Messenger, answers questions from your knowledge base and books appointments straight into your calendar.', starter: cells.payg, growth: cells.aiReplies, scale: cells.unlimitedFair, engine: cells.aiReplies },
+      { label: 'Voice AI phone agent', desc: 'An AI receptionist answers your calls 24/7, qualifies the caller, books the appointment and sends you the summary. Never miss a call again.', starter: cells.payg, growth: cells.aiMinutes, scale: cells.unlimitedFair, engine: cells.aiMinutes },
+      { label: 'Reviews AI', desc: 'Replies to your Google and Facebook reviews automatically, in your tone, so every review gets a response.', starter: cells.payg, growth: true, scale: true, engine: true },
+      { label: 'Content AI', desc: 'Writes emails, social posts and landing page copy, and generates images on demand from inside the builder.', starter: cells.payg, growth: true, scale: true, engine: true },
+      { label: 'Extra AI usage', desc: 'On Starter, every AI feature runs on pay as you go rates from your balance. On Growth, usage past the monthly allowance continues at those rates, or move to Scale for unlimited AI under fair use. Standard call and SMS charges apply on every plan.', starter: cells.payg, growth: cells.payg, scale: cells.fairUse, engine: cells.payg },
     ],
   },
   {
     name: 'Contacts & users',
     features: [
-      { label: 'Contact records', desc: 'Store and manage your leads and customers with detailed profiles, activity history, notes, and custom data fields.', launchpad: '500', starter: '2,500', growth: cells.unlimited, bespoke: cells.unlimited },
-      { label: 'Users included', desc: 'Team logins with role-based permissions, each with their own calendar and inbox view. Add extra users to any plan for {extraUser}/mo each.', launchpad: '1', starter: '1', growth: '3', bespoke: cells.unlimited },
-      { label: 'Extra users', desc: 'Add team members whenever you need them. Each extra user gets their own login, calendar and permissions.', launchpad: cells.extraUser, starter: cells.extraUser, growth: cells.extraUser, bespoke: cells.included },
-      { label: 'Tags & segments', desc: 'Organise contacts with tags and create dynamic segments based on behaviour, demographics, or custom criteria for targeted campaigns.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Import / export contacts', desc: 'Easily bring in your existing contacts via CSV upload or export your data anytime. Your data is always yours.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Smart lists & filters', desc: 'Create dynamic lists that auto-update based on contact activity, tags, or field values. Always have the right audience ready.', launchpad: false, starter: true, growth: true, bespoke: true },
+      { label: 'Contact records', desc: 'Store and manage your leads and customers with detailed profiles, activity history, notes, and custom data fields. No cap on any plan.', starter: cells.unlimited, growth: cells.unlimited, scale: cells.unlimited, engine: cells.unlimited },
+      { label: 'Users included', desc: 'Team logins with role-based permissions, each with their own calendar and inbox view. Unlimited on every plan, with no per-seat fees.', starter: cells.unlimited, growth: cells.unlimited, scale: cells.unlimited, engine: cells.unlimited },
+      { label: 'Tags & segments', desc: 'Organise contacts with tags and create dynamic segments based on behaviour, demographics, or custom criteria for targeted campaigns.', ...ALL },
+      { label: 'Import / export contacts', desc: 'Easily bring in your existing contacts via CSV upload or export your data anytime. Your data is always yours.', ...ALL },
+      { label: 'Smart lists & filters', desc: 'Create dynamic lists that auto-update based on contact activity, tags, or field values. Always have the right audience ready.', ...ALL },
     ],
   },
   {
     name: 'Reporting & analytics',
     features: [
-      { label: 'Basic dashboard', desc: 'See your key metrics at a glance including new leads, active deals, appointments, and revenue in a clean overview dashboard.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Campaign performance reports', desc: 'Track email open rates, click rates, SMS delivery, and conversion rates across all your marketing campaigns.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'Pipeline & revenue reporting', desc: 'Visualise your sales pipeline value, conversion rates by stage, and revenue forecasts to make data-driven decisions.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'Custom reporting dashboards', desc: 'Build your own dashboards with the exact metrics and visualisations you need. Drag and drop widgets to create your perfect view.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Attribution tracking', desc: 'See exactly which channels and campaigns are driving leads and revenue. Know where to invest your marketing budget.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Scheduled report emails', desc: 'Automatically receive your key reports by email on a daily, weekly, or monthly schedule. Stay informed without logging in.', launchpad: false, starter: false, growth: true, bespoke: true },
+      { label: 'Basic dashboard', desc: 'See your key metrics at a glance including new leads, active deals, appointments, and revenue in a clean overview dashboard.', ...ALL },
+      { label: 'Campaign performance reports', desc: 'Track email open rates, click rates, SMS delivery, and conversion rates across all your marketing campaigns.', ...ALL },
+      { label: 'Pipeline & revenue reporting', desc: 'Visualise your sales pipeline value, conversion rates by stage, and revenue forecasts to make data-driven decisions.', ...ALL },
+      { label: 'Custom reporting dashboards', desc: 'Build your own dashboards with the exact metrics and visualisations you need. Drag and drop widgets to create your perfect view.', ...FROM_GROWTH },
+      { label: 'Attribution tracking', desc: 'See exactly which channels and campaigns are driving leads and revenue. Know where to invest your marketing budget.', ...FROM_GROWTH },
+      { label: 'Scheduled report emails', desc: 'Automatically receive your key reports by email on a daily, weekly, or monthly schedule. Stay informed without logging in.', ...FROM_GROWTH },
     ],
   },
   {
     name: 'Support & community',
     features: [
-      { label: 'Knowledge base & guides', desc: 'Access step-by-step guides, video tutorials, and best-practice documentation to get the most out of every DUSA feature.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'AI assistant (24/7)', desc: 'Call or chat with your AI assistant anytime. It walks you through anything DUSA-related, from setup to strategy. If you hit a blocker, we book you in with a growth specialist.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'DUSA community access', desc: 'Join a private community of business owners using DUSA. Share strategies, ask questions, and learn from real results.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Email support', desc: 'Reach our support team by email for technical questions, troubleshooting, and account help during business hours.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Priority support queue', desc: 'Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Onboarding and AI setup session', desc: 'A one-on-one session with a growth consultant to map out your setup, migrate your data, build your first automations and train your AI Employee on your business.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Hands-on help included', desc: 'Three hours of a real person helping you set up, fix or build things in your account, included on every plan for your first three months as a customer. The hours open up with your first payment, after the free trial. Book a time or reply to any email from us.', launchpad: cells.helpHours, starter: cells.helpHours, growth: cells.helpHours, bespoke: cells.included },
-      { label: 'Extra help, when you want it', desc: 'After your included hours, help is charged by the hour: {assist} for general assistance and execution, {expert} for expert work such as strategy, consulting and anything outside the platform. You always approve the time first.', launchpad: cells.extraHelp, starter: cells.extraHelp, growth: cells.extraHelp, bespoke: cells.byArrangement },
-      { label: 'Dedicated account manager', desc: 'A named account manager who knows your business inside and out. Your single point of contact for everything DUSA.', launchpad: false, starter: false, growth: false, bespoke: true },
-      { label: 'Phone support', desc: 'Direct phone access to our support team for urgent issues or complex questions that need a real conversation.', launchpad: false, starter: false, growth: false, bespoke: true },
-      { label: 'Monthly strategy reviews', desc: 'Regular check-ins with your account manager to review performance, optimise your setup, and plan your next growth moves.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Knowledge base & guides', desc: 'Access step-by-step guides, video tutorials, and best-practice documentation to get the most out of every DUSA feature.', ...ALL },
+      { label: 'AI assistant (24/7)', desc: 'Chat with your AI assistant anytime. It walks you through anything DUSA-related, from setup to strategy. If you hit a blocker, we book you in with a growth specialist.', ...ALL },
+      { label: 'DUSA community access', desc: 'Join a private community of business owners using DUSA. Share strategies, ask questions, and learn from real results.', ...ALL },
+      { label: 'Email support', desc: 'Reach our support team by email for technical questions, troubleshooting, and account help during business hours.', ...ALL },
+      { label: 'Priority support queue', desc: 'Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention.', ...FROM_GROWTH },
+      { label: 'Onboarding and AI setup session', desc: 'A one-on-one session with a growth consultant to map out your setup, migrate your data, build your first automations and train your AI Employee on your business.', ...FROM_GROWTH },
+      { label: 'Hands-on help included', desc: 'A real person helping you set up, fix or build things in your account. Starter and Growth include three hours in your first three months, opening up with your first payment after the free trial. Scale includes two hours every month. Book a time or reply to any email from us.', starter: cells.helpHours, growth: cells.helpHours, scale: cells.helpMonthly, engine: cells.included },
+      { label: 'Extra help, when you want it', desc: 'After your included hours, help is charged by the hour: {assist} for general assistance and execution, {expert} for expert work such as strategy, consulting and anything outside the platform. You always approve the time first.', starter: cells.extraHelp, growth: cells.extraHelp, scale: cells.extraHelp, engine: cells.byArrangement },
+      { label: 'Named Growth Lead', desc: 'A named person at DUSA who knows your business inside and out. Your single point of contact for everything DUSA.', ...FROM_SCALE },
+      { label: 'Phone support', desc: 'Direct phone access to our support team in business hours for urgent issues or complex questions that need a real conversation.', ...FROM_SCALE },
+      { label: 'Monthly strategy reviews', desc: 'Regular check-ins with your Growth Lead to review performance, optimise your setup, and plan your next growth moves.', ...ENGINE_ONLY },
     ],
   },
   {
     name: 'Platform & integrations',
     features: [
-      { label: 'Members portal access', desc: 'Your private portal for managing your account, accessing training, and submitting support requests all in one place.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Mobile app', desc: 'Manage leads, respond to messages, check your pipeline, and track activity from your phone with the DUSA mobile app.', launchpad: true, starter: true, growth: true, bespoke: true },
-      { label: 'Zapier integration', desc: 'Connect DUSA to thousands of other apps through Zapier. Sync data, trigger actions, and build custom workflows across your tools.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'API access', desc: 'Full REST API access for custom integrations, data syncing, and building on top of the DUSA platform.', launchpad: false, starter: false, growth: true, bespoke: true },
-      { label: 'Custom domain', desc: 'Host your DUSA-built website, funnels, and portals on your own branded domain with SSL included.', launchpad: false, starter: true, growth: true, bespoke: true },
-      { label: 'White-label client portal', desc: 'Remove DUSA branding and present the platform as your own to clients. Perfect for agencies and consultants.', launchpad: false, starter: false, growth: false, bespoke: true },
-      { label: 'Multi-location management', desc: 'Manage multiple business locations from a single account with separate pipelines, contacts, and reporting per location.', launchpad: false, starter: false, growth: false, bespoke: true },
-      { label: 'Custom integrations', desc: 'Our team builds bespoke integrations to connect DUSA with your existing tools, databases, and internal systems.', launchpad: false, starter: false, growth: false, bespoke: true },
+      { label: 'Members portal access', desc: 'Your private portal for managing your account, accessing training, and submitting support requests all in one place.', ...ALL },
+      { label: 'Mobile app', desc: 'Manage leads, respond to messages, check your pipeline, and track activity from your phone with the DUSA mobile app.', ...ALL },
+      { label: 'Zapier integration', desc: 'Connect DUSA to thousands of other apps through Zapier. Sync data, trigger actions, and build custom workflows across your tools.', ...ALL },
+      { label: 'API access', desc: 'Full REST API access for custom integrations, data syncing, and building on top of the DUSA platform.', ...FROM_GROWTH },
+      { label: 'Custom domain', desc: 'Host your DUSA-built website, funnels, and portals on your own branded domain with SSL included.', ...ALL },
+      { label: 'Multi-location management', desc: 'Run more than one location, each with its own pipelines, contacts and reporting. Each extra location is its own account, priced with you.', starter: false, growth: false, scale: cells.byArrangement, engine: cells.byArrangement },
+      { label: 'Custom integrations', desc: 'Our team builds integrations to connect DUSA with your existing tools, databases, and internal systems.', ...ENGINE_ONLY },
     ],
   },
 ];
@@ -377,31 +384,31 @@ const featureCategories = [
 const faqs = [
   {
     q: 'What is DUSA and how does it help small businesses?',
-    a: 'DUSA is an all-in-one growth platform that replaces the scattered tools small businesses use for CRM, email marketing, SMS, funnels, booking, and reputation management. Instead of paying for five or six separate subscriptions, everything lives in one connected system, with AI built in.',
+    a: 'DUSA is an all-in-one growth platform that replaces the scattered tools small businesses use for CRM, email marketing, SMS, funnels, booking, and reputation management. Instead of paying for five or six separate subscriptions, everything lives in one connected system, with AI built in. And if you would rather not run it yourself, our team can run your growth for you.',
   },
   {
     q: 'How much does the DUSA platform cost per month?',
-    a: 'Plans start from {launchpad} {currency} per month for a single core system on our Launchpad plan. Starter includes all 9 core systems for {starter}/mo, and Growth adds your AI Employee, unlimited contacts, 3 users and priority support for {growth}/mo. Ask AI is on every plan. All prices are in {currency} with no hidden fees.',
+    a: 'Starter is {starter} {currency} per month for the whole platform, with unlimited users and contacts. Growth adds your AI Employee, priority support and an AI setup session for {growth}/mo. Scale adds unlimited AI under fair use, 2 hours of hands-on help every month and a named Growth Lead for {scale}/mo. If you want us to run your marketing for you, a Growth Engine starts from {engine}/mo. All prices are in {currency}.',
   },
   {
-    q: 'What is included in the Launchpad plan?',
-    a: 'Launchpad gives you access to one core system of your choice from nine options: CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, or forms and surveys. It includes Ask AI, full dashboard access, basic analytics, AI chat support and community access, for 1 user and up to 500 contacts. It is designed for sole operators who want to start small and scale up.',
+    q: 'What is included in the Starter plan?',
+    a: 'Starter is the whole DUSA platform to run yourself: all 9 core systems (CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, and forms and surveys), unlimited workflow automations, unlimited users and contacts, and Ask AI and the AI Employee on pay as you go. It also includes 3 hours of hands-on help in your first 3 months.',
   },
   {
     q: 'What is Ask AI and which plans include it?',
-    a: 'Ask AI is the assistant built into every DUSA plan. Ask it to write an email campaign, build a workflow, tag and segment your contacts, or explain a report, and it does the work inside your account. It is on every plan. On Launchpad and Starter the small amount of AI usage it consumes is billed from your balance, usually cents per task. On Growth and Bespoke, Ask AI usage is included.',
+    a: 'Ask AI is the assistant built into every DUSA plan. Ask it to write an email campaign, build a workflow, tag and segment your contacts, or explain a report, and it does the work inside your account. On Starter the small amount of AI usage it consumes is billed from your balance, usually cents per task. On Growth, Scale and the Growth Engine, Ask AI usage is included.',
   },
   {
-    q: 'What is the AI Employee on the Growth plan?',
-    a: 'The AI Employee is a set of AI staff that work inside your account. Conversation AI replies to leads on SMS, web chat, email, Instagram and Facebook and books appointments. Voice AI answers your phone, qualifies callers and books them in. Reviews AI replies to your Google reviews. Content AI writes emails, posts and images. Growth includes 100 AI call minutes and 1,000 AI conversation replies a month, plus unlimited Reviews AI and Content AI. If you go past the included allowance, usage continues at pay as you go rates from your balance, or you can move to Unlimited AI for {unlimitedAi}/mo. Standard call and SMS charges still apply.',
+    q: 'What is the AI Employee?',
+    a: 'The AI Employee is a set of AI staff that work inside your account. Conversation AI replies to leads on SMS, web chat, email, Instagram and Facebook and books appointments. Voice AI answers your phone, qualifies callers and books them in. Reviews AI replies to your Google reviews. Content AI writes emails, posts and images. On Starter it runs on pay as you go. Growth includes 100 AI call minutes and 1,000 AI conversation replies a month, plus Reviews AI and Content AI, with pay as you go past the allowance. Scale includes unlimited AI under a fair use policy. Standard call and SMS charges still apply.',
   },
   {
-    q: 'What is the difference between Starter and Growth?',
-    a: 'Starter gives you the whole platform to run yourself: all 9 systems, unlimited workflows, 2,500 contacts and 1 user, with Ask AI to help. Growth is for businesses that want the platform to run itself. It adds the AI Employee that answers your calls and messages and books appointments, included Ask AI usage, premium automation steps, unlimited contacts, 3 users, custom dashboards, attribution, API access, priority support and an onboarding and AI setup session. The step up is {deltaGrowth}/mo.',
+    q: 'What is the difference between Starter, Growth and Scale?',
+    a: 'Starter gives you the whole platform to run yourself, with AI on pay as you go. Growth is for businesses that want the platform to run itself: it adds an AI Employee allowance that answers your calls and messages and books appointments, included Ask AI usage, premium automation steps, custom dashboards, attribution, API access, priority support and an onboarding and AI setup session, for {deltaGrowth}/mo more. Scale is for busy teams: unlimited AI under fair use, 2 hours of hands-on help every month, free done-for-you set-up, phone support and a named Growth Lead.',
   },
   {
-    q: 'How many users can I add?',
-    a: 'Launchpad and Starter include 1 user. Growth includes 3 users. Extra users are {extraUser}/mo each on any plan, with their own login, calendar and permissions. Bespoke includes unlimited users.',
+    q: 'How many users and contacts can I have?',
+    a: 'Unlimited, on every plan. Add your whole team, each with their own login, calendar and permissions, and keep every contact you have. There are no per-seat fees.',
   },
   {
     q: 'Can I upgrade my plan at any time?',
@@ -409,15 +416,15 @@ const faqs = [
   },
   {
     q: 'Are there any setup fees or hidden costs?',
-    a: 'There are no setup fees on any plan. Your plan price covers platform access. Message, call and email usage, and any AI usage beyond what your plan includes, is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees.',
+    a: 'There are no compulsory setup fees. Done-for-you set-up is optional, and free on Scale and on annual Growth plans. Your plan price covers platform access. Message, call and email usage, and any AI usage beyond what your plan includes, is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees.',
   },
   {
     q: 'What kind of support does DUSA offer?',
-    a: 'Every plan includes unlimited AI chat support available 24/7 through your members portal, plus access to the DUSA community and email support. Growth plans get priority support and an onboarding and AI setup session. Bespoke clients receive a dedicated account manager, phone support, and monthly strategy reviews.',
+    a: 'Every plan includes AI chat support available 24/7 through your members portal, plus access to the DUSA community and email support. Growth adds priority support and an onboarding and AI setup session. Scale adds 2 hours of hands-on help every month, phone support in business hours and a named Growth Lead. Growth Engine clients also get a monthly report, strategy reviews and a quarterly plan.',
   },
   {
     q: 'Is DUSA suitable for sole operators and freelancers?',
-    a: 'Absolutely. The DUSA platform was built for sole operators, freelancers, and small business owners who need professional tools without enterprise complexity. The Launchpad plan at {launchpad}/mo is specifically designed as a low-commitment entry point so you can try one tool and expand as you grow.',
+    a: 'Absolutely. The DUSA platform was built for sole operators, freelancers, and small business owners who need professional tools without enterprise complexity. Starter at {starter}/mo gives you the whole platform with no per-user fees, so you can start on your own and add people as you grow.',
   },
   {
     q: 'What is the DUSA community?',
@@ -429,15 +436,19 @@ const faqs = [
   },
   {
     q: 'How long does it take to set up DUSA?',
-    a: 'Most businesses are up and running within 48 hours. Our Launchpad plan can be live in under an hour. Growth and Bespoke plans include an onboarding and AI setup session where we help you configure everything for your specific business.',
+    a: 'Most businesses are up and running within 48 hours. Growth, Scale and Growth Engine plans include an onboarding and AI setup session where we help you configure everything for your specific business, and Scale includes done-for-you set-up.',
   },
   {
     q: 'What if I get stuck, or want someone to do it for me?',
-    a: 'Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Every plan includes 3 hours of hands-on help in your first 3 months as a customer, opening up with your first payment after the free trial: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used.',
+    a: 'Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Starter and Growth include 3 hours of hands-on help in your first 3 months, opening up with your first payment after the free trial, and Scale includes 2 hours every month: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used. If you want it all done for you, that is the Growth Engine.',
+  },
+  {
+    q: 'What is the Growth Engine?',
+    a: 'The Growth Engine is our team running your growth for you, on the Growth plan. You pick the outcomes you want, like every call answered, every quote followed up, more 5-star reviews or ads that bring in work, and we build and run them. You get a monthly report and a quarterly plan, with a named Growth Lead. Bundles start from {engine}/mo, set-up is discounted on every bundle, and ad spend is billed separately.',
   },
   {
     q: 'What is DUSA built on?',
-    a: 'DUSA runs on HighLevel, the platform powering 2.2 million businesses worldwide, with DUSA as your provider. You get that engine plus everything we add on top: setup with you in the first week, Australian support, {currency} billing, Ask AI on every plan and the AI Employee included on Growth. Your data is yours and exports at any time.',
+    a: 'DUSA runs on HighLevel, the platform powering 2.2 million businesses worldwide, with DUSA as your provider. You get that engine plus everything we add on top: setup with you in the first week, Australian support, {currency} billing, Ask AI on every plan and the AI Employee included from Growth up. Your data is yours and exports at any time.',
   },
   {
     q: 'All prices are in {currency}?',
@@ -470,20 +481,20 @@ if (L) {
 tiers.forEach((tier) => { tier.highlights = tier.highlights.map(fill); tier.delta = fill(tier.delta); });
 featureCategories.forEach((cat) => cat.features.forEach((row: any) => { row.desc = fill(row.desc); }));
 faqs.forEach((f) => { f.q = fill(f.q); f.a = fill(f.a); });
-const supportHoursLine = fill(p.supportHoursLine || 'Every plan includes 3 hours of hands-on help in your first 3 months as a customer, from your first payment. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.');
-const addonsLine = fill(p.addonsLine || 'Add-ons: extra users {extraUser}/mo each on any plan. Unlimited AI {unlimitedAi}/mo on Growth.');
+const supportHoursLine = fill(p.supportHoursLine || 'Starter and Growth include 3 hours of hands-on help in your first 3 months, from your first payment. Scale includes 2 hours every month. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.');
+const addonsLine = fill(p.addonsLine || 'Unlimited users and contacts on every plan. No per-seat fees, no lock-in contracts.');
 
 /* Mobile plan selector reads the same (localised) tiers + feature table */
 const mpsData = {
   plans: [
-    { name: p.tierLaunchpad, price: `${sym}${prices.launchpad}`, period: `${p.perMonth} ${region.currency}`, cta: `${p.startFor} ${sym}${prices.launchpad}`, ctaLink: `${langPrefix}/start` },
-    { name: p.tierStarter, price: `${sym}${prices.starter}`, period: `${p.perMonth} ${region.currency}`, cta: p.getStarter, ctaLink: `${langPrefix}/start` },
-    { name: p.tierGrowth, price: `${sym}${prices.growth}`, period: `${p.perMonth} ${region.currency}`, cta: p.scaleFaster, ctaLink: `${langPrefix}/start` },
-    { name: p.tierBespoke, price: p.custom || 'Custom', period: '', custom: true, cta: p.letsTalk, ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' },
+    { name: p.tierStarter, price: `${sym}${prices.starter}`, period: `${p.perMonth} ${region.currency}`, cta: `${p.startFor} ${sym}${prices.starter}`, ctaLink: `${langPrefix}/start?plan=starter` },
+    { name: p.tierGrowth, price: `${sym}${prices.growth}`, period: `${p.perMonth} ${region.currency}`, cta: p.getGrowth, ctaLink: `${langPrefix}/start?plan=growth` },
+    { name: p.tierScale, price: `${sym}${prices.scale}`, period: `${p.perMonth} ${region.currency}`, cta: p.getScale, ctaLink: `${langPrefix}/start?plan=scale` },
+    { name: p.tierEngine, price: `${p.fromLabel} ${sym}${num(prices.engine)}`, period: `${p.perMonth} ${region.currency}`, cta: p.engineCta, ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' },
   ],
   categories: featureCategories.map((cat: any) => ({
     name: cat.name,
-    features: cat.features.map((f: any) => ({ label: f.label, vals: [f.launchpad, f.starter, f.growth, f.bespoke] })),
+    features: cat.features.map((f: any) => ({ label: f.label, vals: [f.starter, f.growth, f.scale, f.engine] })),
   })),
 };
 const regionData = JSON.stringify({ sym, currency: region.currency, rate: region.rate, prices, mps: mpsData,
@@ -524,8 +535,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
             <div class="pricing-card__price-row">
               {tier.price ? (
                 <>
+                  {tier.from && <span class="pricing-card__from">{p.fromLabel}</span>}
                   <span class="pricing-card__dollar">{sym}</span>
-                  <span class="pricing-card__amount">{tier.price}</span>
+                  <span class={`pricing-card__amount${tier.from ? ' pricing-card__amount--from' : ''}`}>{tier.from ? num(Number(tier.price)) : tier.price}</span>
                   <span class="pricing-card__period">{tier.period}</span>
                   <sup class="pricing-card__ast" aria-hidden="true">*</sup>
                 </>
@@ -735,7 +747,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
           </div>
           <h3 class="support__card-title">{p.supportPriorityTitle}</h3>
           <p class="support__card-desc">{p.supportPriorityDesc}</p>
-          <span class="support__card-plans">{p.growthAndBespoke}</span>
+          <span class="support__card-plans">{p.growthAndUp}</span>
         </div>
       </div>
       <p class="usage-note usage-note--support">{supportHoursLine}</p>
@@ -756,17 +768,17 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
           <thead>
             <tr>
               <th class="compare__feature-col"></th>
-              <th class="compare__plan-col compare__plan-col--launchpad">{p.tierLaunchpad}</th>
               <th class="compare__plan-col compare__plan-col--starter">{p.tierStarter}</th>
               <th class="compare__plan-col compare__plan-col--growth">{p.tierGrowth}</th>
-              <th class="compare__plan-col compare__plan-col--bespoke">{p.tierBespoke}</th>
+              <th class="compare__plan-col compare__plan-col--scale">{p.tierScale}</th>
+              <th class="compare__plan-col compare__plan-col--engine">{p.tierEngine}</th>
             </tr>
             <tr class="compare__price-row">
               <td></td>
-              <td class="compare__plan-price compare__cell--launchpad">{sym}{prices.launchpad}{p.perMonth}<sup aria-hidden="true">*</sup></td>
               <td class="compare__plan-price compare__cell--starter">{sym}{prices.starter}{p.perMonth}<sup aria-hidden="true">*</sup></td>
               <td class="compare__plan-price compare__cell--growth">{sym}{prices.growth}{p.perMonth}<sup aria-hidden="true">*</sup></td>
-              <td class="compare__plan-price compare__cell--bespoke">{p.custom}</td>
+              <td class="compare__plan-price compare__cell--scale">{sym}{prices.scale}{p.perMonth}<sup aria-hidden="true">*</sup></td>
+              <td class="compare__plan-price compare__cell--engine"><small class="compare__from">{p.fromLabel}</small> {sym}{num(prices.engine)}{p.perMonth}</td>
             </tr>
           </thead>
           <tbody>
@@ -784,7 +796,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
                           <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                       </td>
-                      {['launchpad', 'starter', 'growth', 'bespoke'].map((plan) => (
+                      {['starter', 'growth', 'scale', 'engine'].map((plan) => (
                         <td class={`compare__cell compare__cell--${plan}`}>
                           {f[plan] === true ? (
                             <svg class="compare__check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label={(p as any).included || 'Included'}>
@@ -816,26 +828,26 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       <!-- CTA row aligned to table columns -->
       <div class="compare__cta-row">
         <div class="compare__cta-label"></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline compare__cta-btn">{p.startFor} {sym}{prices.launchpad}</a></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline compare__cta-btn">{p.getStarter}</a></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--primary compare__cta-btn">{p.scaleFaster}</a></div>
-        <div class="compare__cta-cell"><a href="/start" data-page="start" class="btn btn--outline compare__cta-btn">{p.letsTalk}</a></div>
+        <div class="compare__cta-cell"><a href="/start?plan=starter" data-page="start" class="btn btn--outline compare__cta-btn">{p.startFor} {sym}{prices.starter}</a></div>
+        <div class="compare__cta-cell"><a href="/start?plan=growth" data-page="start" class="btn btn--primary compare__cta-btn">{p.getGrowth}</a></div>
+        <div class="compare__cta-cell"><a href="/start?plan=scale" data-page="start" class="btn btn--outline compare__cta-btn">{p.getScale}</a></div>
+        <div class="compare__cta-cell"><a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener" class="btn btn--outline compare__cta-btn">{p.engineCta}</a></div>
       </div>
 
       <!-- MOBILE PLAN SELECTOR -->
       <div class="mps" id="mobile-plan-selector">
         <div class="mps__tabs" id="mps-tabs">
-          <button class="mps__tab mps__tab--active" data-plan="0">{p.tierLaunchpad}</button>
-          <button class="mps__tab" data-plan="1">{p.tierStarter}</button>
-          <button class="mps__tab" data-plan="2">{p.tierGrowth}</button>
-          <button class="mps__tab" data-plan="3">{p.tierBespoke}</button>
+          <button class="mps__tab" data-plan="0">{p.tierStarter}</button>
+          <button class="mps__tab mps__tab--active" data-plan="1">{p.tierGrowth}</button>
+          <button class="mps__tab" data-plan="2">{p.tierScale}</button>
+          <button class="mps__tab" data-plan="3">{p.tierEngine}</button>
         </div>
         <div class="mps__price" id="mps-price">
-          <span class="mps__price-amount">{sym}{prices.launchpad}</span><span class="mps__price-period">{p.perMonth} {region.currency}</span><sup class="mps__ast" aria-hidden="true">*</sup>
+          <span class="mps__price-amount">{sym}{prices.growth}</span><span class="mps__price-period">{p.perMonth} {region.currency}</span><sup class="mps__ast" aria-hidden="true">*</sup>
         </div>
         <div class="mps__features" id="mps-features"></div>
         <div class="mps__cta">
-          <a href="/start" data-page="start" class="btn btn--primary mps__cta-btn" id="mps-cta">{p.startFor} {sym}{prices.launchpad}</a>
+          <a href="/start?plan=growth" data-page="start" class="btn btn--primary mps__cta-btn" id="mps-cta">{p.getGrowth}</a>
         </div>
       </div>
 
@@ -1168,6 +1180,18 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     letter-spacing: 0.05em;
     margin-left: 0.25rem;
   }
+
+  .pricing-card__from {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247, 244, 239, 0.62);
+    align-self: flex-start;
+    margin: 0.85rem 0.35rem 0 0;
+  }
+  html[data-theme="light"] .pricing-card__from { color: rgba(12, 14, 20, 0.62); }
+  .pricing-card__amount--from { font-size: 2.75rem; }
 
   .pricing-card__custom {
     font-family: var(--font-headline);
@@ -1729,15 +1753,16 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   .compare__cell { text-align: center; vertical-align: middle; }
 
   /* Per-column tinting (dark mode) */
-  .compare__cell--launchpad { background: rgba(247, 244, 239, 0.015); }
-  .compare__cell--starter { background: rgba(106, 170, 207, 0.04); }
+  .compare__cell--starter { background: rgba(247, 244, 239, 0.015); }
   .compare__cell--growth { background: rgba(78, 216, 194, 0.06); position: relative; }
-  .compare__cell--bespoke { background: rgba(106, 170, 207, 0.025); }
+  .compare__cell--scale { background: rgba(106, 170, 207, 0.04); }
+  .compare__cell--engine { background: rgba(106, 170, 207, 0.025); }
 
-  .compare__plan-col--launchpad { background: rgba(247, 244, 239, 0.015); }
-  .compare__plan-col--starter { background: rgba(106, 170, 207, 0.04); }
+  .compare__plan-col--starter { background: rgba(247, 244, 239, 0.015); }
   .compare__plan-col--growth { color: var(--reef-aqua); background: rgba(78, 216, 194, 0.06); border-top: 2px solid var(--reef-aqua); }
-  .compare__plan-col--bespoke { background: rgba(106, 170, 207, 0.025); }
+  .compare__plan-col--scale { background: rgba(106, 170, 207, 0.04); }
+  .compare__plan-col--engine { background: rgba(106, 170, 207, 0.025); }
+  .compare__from { font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; }
   .compare__plan-price.compare__cell--growth { color: var(--reef-aqua); }
 
   .compare__check { width: 18px; height: 18px; color: var(--reef-aqua); display: inline-block; }
@@ -2000,10 +2025,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .compare__plan-col { color: var(--deep-black); }
   html[data-theme="light"] .compare__plan-col--growth { color: var(--deep-ocean); }
   html[data-theme="light"] .compare__plan-price.compare__cell--growth { color: var(--deep-ocean); }
-  html[data-theme="light"] .compare__plan-col--launchpad { background: rgba(237, 233, 227, 0.5); }
-  html[data-theme="light"] .compare__plan-col--starter { background: rgba(106, 170, 207, 0.08); }
+  html[data-theme="light"] .compare__plan-col--starter { background: rgba(237, 233, 227, 0.5); }
   html[data-theme="light"] .compare__plan-col--growth { background: rgba(78, 216, 194, 0.09); }
-  html[data-theme="light"] .compare__plan-col--bespoke { background: rgba(26, 58, 92, 0.05); }
+  html[data-theme="light"] .compare__plan-col--scale { background: rgba(106, 170, 207, 0.08); }
+  html[data-theme="light"] .compare__plan-col--engine { background: rgba(26, 58, 92, 0.05); }
   html[data-theme="light"] .compare__plan-price { color: rgba(12, 14, 20, 0.62); }
   html[data-theme="light"] .compare__feature-name { color: rgba(12, 14, 20, 0.7); }
   html[data-theme="light"] .compare__feature-row td { border-bottom-color: rgba(12, 14, 20, 0.06); }
@@ -2012,10 +2037,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   html[data-theme="light"] .compare__dash { color: rgba(12, 14, 20, 0.2); }
   html[data-theme="light"] .compare__text { color: var(--deep-ocean); opacity: 0.85; }
   html[data-theme="light"] .compare__expand-icon { color: rgba(12, 14, 20, 0.6); }
-  html[data-theme="light"] .compare__cell--launchpad { background: rgba(237, 233, 227, 0.4); }
-  html[data-theme="light"] .compare__cell--starter { background: rgba(106, 170, 207, 0.06); }
+  html[data-theme="light"] .compare__cell--starter { background: rgba(237, 233, 227, 0.4); }
   html[data-theme="light"] .compare__cell--growth { background: rgba(78, 216, 194, 0.07); }
-  html[data-theme="light"] .compare__cell--bespoke { background: rgba(26, 58, 92, 0.04); }
+  html[data-theme="light"] .compare__cell--scale { background: rgba(106, 170, 207, 0.06); }
+  html[data-theme="light"] .compare__cell--engine { background: rgba(26, 58, 92, 0.04); }
   html[data-theme="light"] .faq__item:hover { background: rgba(26, 58, 92, 0.04); }
   html[data-theme="light"] .faq__item[open] { background: rgba(26, 58, 92, 0.04); }
   html[data-theme="light"] .compare__desc-cell { border-bottom-color: rgba(26, 58, 92, 0.12) !important; }
@@ -2234,17 +2259,15 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     if (!rackDiscs) return;
     let animating = false;
 
-    const rd = window.__dusaRegion || { sym: '$', currency: 'AUD', rate: 1, prices: { launchpad: 47, starter: 149, growth: 297 } };
+    const rd = window.__dusaRegion || { sym: '$', currency: 'AUD', rate: 1, prices: { starter: 149, growth: 249, scale: 449 } };
     const sym = rd.sym;
 
     function getDusaPrice(toolCount) {
       if (toolCount <= 0) return 0;
-      if (toolCount === 1) return rd.prices.launchpad;
       return rd.prices.starter;
     }
     function getDusaTier(toolCount) {
       if (toolCount <= 0) return '';
-      if (toolCount === 1) return 'Launchpad';
       return 'Starter';
     }
 
@@ -2735,7 +2758,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     var mps = document.getElementById('mobile-plan-selector');
     if (!mps) return;
 
-    var rd = window.__dusaRegion || { sym: '$', currency: 'AUD', prices: { launchpad: 47, starter: 149, growth: 297 } };
+    var rd = window.__dusaRegion || { sym: '$', currency: 'AUD', prices: { starter: 149, growth: 249, scale: 449 } };
     var s = rd.sym;
 
     // Detect regional prefix for /start links
@@ -2743,15 +2766,15 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     var startLink = regionMatch ? '/' + regionMatch[1] + '/start' : '/start';
 
     var plans = (rd.mps && rd.mps.plans) || [
-      { name: 'Launchpad', price: s + rd.prices.launchpad, period: '/mo ' + rd.currency, cta: 'Start for ' + s + rd.prices.launchpad, ctaLink: startLink },
-      { name: 'Starter', price: s + rd.prices.starter, period: '/mo ' + rd.currency, cta: 'Get Starter', ctaLink: startLink },
-      { name: 'Growth', price: s + rd.prices.growth, period: '/mo ' + rd.currency, cta: 'Scale Faster', ctaLink: startLink },
-      { name: 'Bespoke', price: 'Custom', period: '', custom: true, cta: "Let's Talk", ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
+      { name: 'Starter', price: s + rd.prices.starter, period: '/mo ' + rd.currency, cta: 'Start for ' + s + rd.prices.starter, ctaLink: startLink },
+      { name: 'Growth', price: s + rd.prices.growth, period: '/mo ' + rd.currency, cta: 'Get Growth', ctaLink: startLink },
+      { name: 'Scale', price: s + rd.prices.scale, period: '/mo ' + rd.currency, cta: 'Get Scale', ctaLink: startLink },
+      { name: 'Growth Engine', price: 'Custom', period: '', custom: true, cta: 'Build my Growth Engine', ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
     ];
 
     var categories = (rd.mps && rd.mps.categories) || [];
 
-    var currentPlan = 0;
+    var currentPlan = 1;
     var tabs = mps.querySelectorAll('.mps__tab');
     var priceEl = document.getElementById('mps-price');
     var featuresEl = document.getElementById('mps-features');
@@ -2831,7 +2854,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       }
     }, { passive: true });
 
-    selectPlan(0);
+    selectPlan(1);
   }
 
   if (document.readyState === 'loading') {

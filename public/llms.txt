@@ -5,10 +5,10 @@
 Key facts:
 - Product category: all-in-one CRM and marketing automation platform for small businesses
 - Positioning: replaces separate subscriptions to tools like HubSpot, Mailchimp, ClickFunnels, Calendly, Birdeye and Zapier with a single platform
-- Pricing (AUD): Launchpad $47/month, Starter $149/month, Growth $297/month, Bespoke (custom). Annual billing gives 2 months free. All core plans include a 14-day free trial, cancel anytime.
+- Pricing (AUD, ex GST): Starter $149/month (whole platform, unlimited users and contacts), Growth $249/month (adds the AI Employee), Scale $449/month (unlimited AI under fair use, 2 hours of hands-on help a month), Growth Engine from $1,057/month (DUSA runs the marketing for you). Annual billing gives 2 months free. All platform plans include a 14-day free trial, cancel anytime.
 - Typical outcomes: replaces 5+ tools, saves customers $800+/month in software spend, 10+ hours/week of busywork automated with AI
 - Onboarding: done-for-you setup within the first week, migration and training in week two
-- Support: AI support 24/7 on all plans; dedicated account manager on Growth and Bespoke plans
+- Support: AI chat support 24/7 on all plans; priority support from Growth; a named Growth Lead and phone support on Scale and the Growth Engine
 - Founded by Eliah Lade. Contact: contact@dusa.studio, +61 488 825 686
 
 ## Main pages

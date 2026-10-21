@@ -2,9 +2,9 @@
  "currency": "AUD",
  "gst": 0.1,
  "plans": {
-  "launchpad": 47,
   "starter": 149,
-  "growth": 297
+  "growth": 249,
+  "scale": 449
  },
  "bundleDiscount": 0.1,
  "setupDiscount": 0.25,

@@ -29,9 +29,9 @@ export interface Plan {
 }
 
 export const PLANS: Plan[] = [
-  { id: 'launchpad', name: 'Launchpad', price: 47,  blurb: 'One core system' },
-  { id: 'starter',   name: 'Starter',   price: 149, blurb: 'The full platform' },
-  { id: 'growth',    name: 'Growth',    price: 297, blurb: 'Unlimited plus AI' },
+  { id: 'starter', name: 'Starter', price: 149, blurb: 'The full platform' },
+  { id: 'growth',  name: 'Growth',  price: 249, blurb: 'Plus the AI Employee' },
+  { id: 'scale',   name: 'Scale',   price: 449, blurb: 'Unlimited AI and monthly help' },
 ];
 
 /**

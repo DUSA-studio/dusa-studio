@@ -19,36 +19,20 @@ export interface SaasPlan {
 
 export const SAAS_PLANS: SaasPlan[] = [
   {
-    id: 'launchpad',
-    name: 'Launchpad',
-    blurb: 'Pick any single core system and get started today.',
-    monthlyPrice: 47,
-    annualPrice: 470,
-    highlight: false,
-    features: [
-      '1 core system of your choice',
-      'Ask AI assistant',
-      'Full dashboard and basic analytics',
-      'AI chat support, 1 user',
-    ],
-    links: {
-      monthly: 'https://buy.stripe.com/fZudRb9o6dSD4Tv0QweAg0c',
-      annual: 'https://buy.stripe.com/9B6dRb0RA5m785H42IeAg0d',
-    },
-  },
-  {
     id: 'starter',
     name: 'Starter',
-    blurb: 'Everything connected. All 9 core systems under one login.',
+    blurb: 'The whole platform, to run yourself.',
     monthlyPrice: 149,
     annualPrice: 1490,
     highlight: false,
     features: [
       'All 9 core systems',
-      'CRM, email, SMS, funnels and booking',
+      'Unlimited users and contacts',
       'Unlimited workflow automations',
-      'Ask AI assistant, 1 user',
+      'Ask AI and AI Employee, pay as you go',
     ],
+    // Same price as before. The GHL plan needs its user/contact limits lifted to
+    // unlimited in the SaaS Configurator before pricing v3 goes to production.
     links: {
       monthly: 'https://buy.stripe.com/28E9AVgQybKvfy99n2eAg0e',
       annual: 'https://buy.stripe.com/14A7sN6bU29V5Xz8iYeAg0f',
@@ -58,18 +42,35 @@ export const SAAS_PLANS: SaasPlan[] = [
     id: 'growth',
     name: 'Growth',
     blurb: 'Your AI team, included. The platform that runs itself.',
-    monthlyPrice: 297,
-    annualPrice: 2970,
+    monthlyPrice: 249,
+    annualPrice: 2490,
     highlight: true,
     features: [
       'Everything in Starter',
       'AI Employee answers calls, chats and messages',
       'Ask AI usage included',
-      'Unlimited contacts, 3 users, priority support',
+      'Priority support and AI setup session',
     ],
-    links: {
-      monthly: 'https://buy.stripe.com/6oU28tgQy8yjgCd8iYeAg0k',
-      annual: 'https://buy.stripe.com/cNi4gB2ZI3dZdq142IeAg0l',
-    },
+    // New price: needs a new Growth A$249 / A$2,490 plan + sale links from the SaaS Configurator.
+    links: { monthly: '#pending', annual: '#pending' },
+  },
+  {
+    id: 'scale',
+    name: 'Scale',
+    blurb: 'More AI, more help, for busy teams.',
+    monthlyPrice: 449,
+    annualPrice: 4490,
+    highlight: false,
+    features: [
+      'Everything in Growth',
+      'Unlimited AI, fair use',
+      '2 hours of hands-on help every month',
+      'Free done-for-you set-up',
+    ],
+    // New plan: needs a Scale A$449 / A$4,490 plan + sale links from the SaaS Configurator.
+    links: { monthly: '#pending', annual: '#pending' },
   },
 ];
+
+/** A plan is checkout-ready once its sale link exists. Pending plans route to the set-up form. */
+export const isReady = (p: SaasPlan) => p.links.monthly !== '#pending';

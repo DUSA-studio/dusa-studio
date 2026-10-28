@@ -407,10 +407,7 @@ body .askai-composer-bar .hr-input-wrapper {
   background: transparent !important;
 }
 /* voice + send: ocean liquid orb with a mint / white glyph that always shows */
-body .askai-composer-actions__voice-btn,
-body .askai-composer-actions__right .hr-button--primary-type,
-body .askai-composer-actions__right button[aria-label*="end" i],
-body .askai-composer-actions__right button[aria-label*="ubmit" i] {
+body .askai-composer-actions__voice-btn {
   --n-color: transparent !important;
   background: var(--dz-btn-dark) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 8px 18px -10px rgba(0, 47, 95, .8) !important;
@@ -418,10 +415,9 @@ body .askai-composer-actions__right button[aria-label*="ubmit" i] {
 }
 body .askai-composer-actions__voice-btn .hr-button__border,
 body .askai-composer-actions__right .hr-button--primary-type .hr-button__border { border-color: transparent !important; }
-body .askai-composer-actions__right .hr-button--primary-type *,
-body .askai-composer-actions__right button[aria-label*="end" i] * { color: #F7F4EF !important; }
-body .askai-composer-actions__right .hr-button--primary-type svg [stroke]:not([stroke="none"]),
-body .askai-composer-actions__right button[aria-label*="end" i] svg [stroke]:not([stroke="none"]) { stroke: #F7F4EF !important; }
+/* send = mint primary orb (from the button rules) with a dark arrow */
+body .askai-composer-actions__right .hr-button--primary-type svg [stroke]:not([stroke="none"]) { stroke: #0C1E2E !important; }
+body .askai-composer-actions__right .hr-button--primary-type svg [fill]:not([fill="none"]) { fill: #0C1E2E !important; }
 body .askai-composer-actions__voice-btn svg rect,
 body .askai-composer-actions__voice-btn svg path { fill: #8AEBD9 !important; }
 /* empty-state CTA ("Start a new chat"): primary liquid button, visible icon */
@@ -522,8 +518,7 @@ body .hr-drawer.hr-drawer, body .hr-notification.hr-notification { background-co
 body .askai-sidebar__left-panel { background: transparent !important; }
 body .askai-composer-bar .hr-input__state-border, body .askai-composer-bar .hr-input__border { border-color: transparent !important; box-shadow: none !important; }
 body .askai-composer-bar textarea, body .askai-composer-bar textarea:focus { border: 0 !important; box-shadow: none !important; outline: none !important; }
-body .askai-composer-actions .askai-composer-actions__voice-btn.hr-button,
-body .askai-composer-actions__right button.hr-button.hr-button--primary-type { background: var(--dz-btn-dark) !important; }
+body .askai-composer-actions .askai-composer-actions__voice-btn.hr-button { background: var(--dz-btn-dark) !important; }
 body .askai-left-panel .hr-button.askai-left-panel__history-item,
 body .askai-left-panel .hr-button.askai-left-panel__account-row,
 body .askai-left-panel .askai-left-panel__account .hr-button { background: transparent !important; box-shadow: none !important; }

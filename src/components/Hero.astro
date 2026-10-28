@@ -1014,10 +1014,10 @@ const notifJson = JSON.stringify(notifTranslations);
     border: 1px solid rgba(247, 244, 239, 0.1);
     border-radius: 8px;
     background: rgba(247, 244, 239, 0.04);
-    color: rgba(247, 244, 239, 0.6);
-    font-size: 0.65rem;
+    color: rgba(247, 244, 239, 0.66);
+    font-size: 0.75rem;
     font-family: var(--font-mono);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
@@ -1106,14 +1106,15 @@ const notifJson = JSON.stringify(notifTranslations);
   }
 
   .hero__cap-sub {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: rgba(247, 244, 239, 0.58);
     line-height: 1.4;
   }
 
   /* --- Scroll Indicator --- */
   /* Sits where the capabilities' bottom margin used to be; keeps the scroll cue clear. */
-  .hero__foundation { margin: calc(-1 * var(--space-2xl) + var(--space-md)) auto var(--space-3xl); }
+  /* Bottom room only needs to clear the scroll cue (about 90px), not a full 160px section gap */
+  .hero__foundation { margin: calc(-1 * var(--space-2xl) + var(--space-md)) auto calc(var(--space-xl) + 40px); }
   .hero__foundation :global(.trust) { padding: 0; margin: 0 auto; max-width: none; }
 
   .hero__scroll-indicator {
@@ -1130,7 +1131,7 @@ const notifJson = JSON.stringify(notifTranslations);
 
   .hero__scroll-text {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     color: rgba(247, 244, 239, 0.55);
@@ -1320,7 +1321,7 @@ const notifJson = JSON.stringify(notifTranslations);
     }
 
     .hero__cap-sub {
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
     }
 
     .hero__scroll-indicator {
@@ -1507,7 +1508,7 @@ const notifJson = JSON.stringify(notifTranslations);
     }
 
     .hero__cap-sub {
-      font-size: 0.625rem;
+      font-size: 0.75rem;
     }
   }
 
@@ -1581,6 +1582,11 @@ const notifJson = JSON.stringify(notifTranslations);
     height: 100%;
     z-index: 1;
     pointer-events: auto;
+    /* The field starts under the nav, but cubes used to drift above it and sit
+       behind the (transparent at top) nav links. The mask clips that overflow
+       and fades the top edge in. */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 48px);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 48px);
   }
 
   /* Soft dark pool behind the copy so it stays readable over the globe */

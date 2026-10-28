@@ -243,9 +243,10 @@ const contactHref = routeExists(regionKey, '/contact') ? `${prefix}/contact` : '
   }
 
   /* ─── Responsive ─── */
+  /* 16 industries: 4 across on desktop, 2 across below that, so no row ends with a lone card */
   @media (max-width: 1024px) {
     .ind-grid__cards {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

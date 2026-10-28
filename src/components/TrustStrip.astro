@@ -155,7 +155,7 @@ const linkHref = '/pricing#faq';
     border: 1px solid rgba(247, 244, 239, 0.16);
     background: linear-gradient(135deg, rgba(247, 244, 239, 0.1), rgba(247, 244, 239, 0.03));
     box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.14), inset 0 -1px 0 rgba(0, 0, 0, 0.25), 0 6px 18px rgba(0, 0, 0, 0.2);
-    max-width: 240px;
+    max-width: none;
   }
   .trust__lead {
     font-family: var(--font-headline);
@@ -167,20 +167,24 @@ const linkHref = '/pricing#faq';
     white-space: nowrap;
   }
   .trust__sub {
-    font-size: 0.75rem;
-    color: rgba(247, 244, 239, 0.6);
+    font-size: 0.8125rem;
+    color: rgba(247, 244, 239, 0.64);
+    white-space: nowrap;
   }
 
   /* Their numbers, as stat chips. */
   .trust__stats {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    gap: 0.4rem 0.5rem;
+    gap: 0.45rem 0.5rem;
     list-style: none;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
-    justify-content: center;
+    flex: 1;
+    justify-content: space-evenly;
   }
+  /* The 2x2 block now fills the space beside the HighLevel pill (space-evenly)
+     instead of sitting in the middle of the bar with an empty right side. */
   .trust__stat {
     display: inline-flex;
     align-items: baseline;
@@ -200,7 +204,7 @@ const linkHref = '/pricing#faq';
   }
   .trust__stat span {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: rgba(247, 244, 239, 0.66);
@@ -210,14 +214,15 @@ const linkHref = '/pricing#faq';
   @media (max-width: 1100px) {
     .trust__bar { flex-wrap: wrap; border-radius: 28px; justify-content: center; row-gap: 0.75rem; padding: 0.9rem 1rem; }
     .trust__brand { width: 100%; justify-content: center; }
-    .trust__stats { width: 100%; display: flex; flex-wrap: wrap; }
+    .trust__stats { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; flex: none; }
+    .trust__sub { white-space: normal; }
   }
   @media (max-width: 480px) {
     .trust { padding: 0 var(--space-sm); }
     .trust__pill { max-width: none; }
     .trust__stat { padding: 0.3rem 0.65rem; }
     .trust__stat b { font-size: 0.875rem; }
-    .trust__stat span { font-size: 0.625rem; }
+    .trust__stat span { font-size: 0.6875rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {

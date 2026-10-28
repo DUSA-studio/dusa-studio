@@ -595,6 +595,28 @@ body svg[style*="stroke: rgb(105, 56, 239)"] { stroke: #1A3A5C !important; }
 body[data-theme*="dark"] svg[style*="stroke: rgb(105, 56, 239)"] { stroke: #8AEBD9 !important; }
 body .fc .fc-col-header-cell-cushion { color: #3F4A57; }
 
+/* ── 7j. Ask AI announcement cards (agency "Choose what Ask AI can do") ── */
+body .askai-composer-actions__voice-btn .hr-button__content { background: transparent !important; }
+body .askai-announce {
+  background: linear-gradient(150deg, var(--dz-g-strong-top), var(--dz-g-strong-bot)) !important;
+  -webkit-backdrop-filter: var(--dz-g-blur-strong) !important;
+  backdrop-filter: var(--dz-g-blur-strong) !important;
+  border: 1px solid var(--dz-g-edge) !important;
+  box-shadow: var(--dz-g-inset), var(--dz-g-shadow) !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+body .askai-announce__art { background: linear-gradient(135deg, rgba(78, 216, 194, .16), rgba(106, 170, 207, .14)) !important; }
+body .askai-announce__badge { background: rgba(78, 216, 194, .20) !important; color: #0F5E52 !important; border-radius: 999px !important; font-weight: 600 !important; }
+body .askai-announce__copy { color: var(--dz-text-2) !important; }
+body .askai-skill-announce__seat { background: rgba(255, 255, 255, .86) !important; box-shadow: 0 1px 2px rgba(12, 30, 50, .06) !important; }
+body[data-theme*="dark"] .askai-skill-announce__seat { background: rgba(247, 244, 239, .08) !important; }
+body[data-theme*="dark"] .askai-announce__badge { color: #8AEBD9 !important; }
+body .askai-skill-announce__level--granted { background: linear-gradient(135deg, #4ED8C2, #6AAACF) !important; }
+body :is(.askai-skill-announce__avatar, .askai-skill-announce__name, .askai-skill-announce__level):not(.askai-skill-announce__level--granted) { background: rgba(26, 58, 92, .14) !important; }
+body[data-theme*="dark"] :is(.askai-skill-announce__avatar, .askai-skill-announce__name, .askai-skill-announce__level):not(.askai-skill-announce__level--granted) { background: rgba(247, 244, 239, .16) !important; }
+body[data-theme*="dark"] .askai-announce :is(h1, h2, h3, h4, strong, .askai-announce__title) { color: #F7F4EF !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

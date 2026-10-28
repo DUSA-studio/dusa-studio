@@ -1637,6 +1637,19 @@
           "value": "max-age=63072000"
         }
       ]
+    },
+    {
+      "source": "/platform/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://app.dusa.studio"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }

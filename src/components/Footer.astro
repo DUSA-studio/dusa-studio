@@ -317,6 +317,7 @@ const aiPrompt = encodeURIComponent(
 
   .footer__link--highlight {
     color: var(--reef-aqua);
+    white-space: nowrap;
   }
 
   /* ─── Trust Badges ─── */
@@ -368,7 +369,7 @@ const aiPrompt = encodeURIComponent(
   }
 
   .footer__badge-sub {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     color: var(--reef-aqua);
     letter-spacing: 0.03em;
   }
@@ -415,7 +416,8 @@ const aiPrompt = encodeURIComponent(
 
   @media (max-width: 1024px) {
     .footer__grid {
-      grid-template-columns: 1.5fr 1fr 1fr 1fr 1.25fr;
+      /* last column sizes to the email address so it never breaks mid-word */
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) max-content;
       gap: var(--space-md);
     }
 

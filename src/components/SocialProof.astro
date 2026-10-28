@@ -347,7 +347,7 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
   .proof__badge {
     display: inline-flex; align-items: center; gap: 0.2rem; margin-left: 0.35rem; vertical-align: 1px;
     padding: 0.05rem 0.4rem; border-radius: 4px;
-    font-family: var(--font-headline); font-weight: 700; font-size: 0.625rem; letter-spacing: 0.02em; font-style: normal;
+    font-family: var(--font-headline); font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.02em; font-style: normal;
     color: var(--warm-white); border: 1px solid rgba(247, 244, 239, 0.14); background: rgba(247, 244, 239, 0.05);
   }
   .proof__badge i { font-style: normal; font-size: 0.6875rem; line-height: 1; }
@@ -394,7 +394,7 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
     text-shadow: 0 0 30px rgba(78, 216, 194, 0.15);
   }
   .proof__caption {
-    font-family: var(--font-mono); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em;
+    font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
     color: rgba(247, 244, 239, 0.62); margin: 0.35rem 0 1rem;
   }
   .proof__card .proof__quote { font-size: 0.9375rem; }
@@ -642,7 +642,10 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
 
     .proof__stat {
       padding: var(--space-sm) 0.25rem;
+      min-width: 0;
     }
+    /* three stats share 335px: keep "< 48hrs" inside its third */
+    .proof__stat-value { font-size: clamp(1.45rem, 7.4vw, 2rem); }
 
     .proof__stat-label {
       font-size: 0.75rem;

@@ -545,13 +545,24 @@ html[data-theme="light"] .gradient-text {
   }
 }
 
-/* --- Adjacent dark section spacing — reduce double padding --- */
-.section--dark + .section--dark {
-  padding-top: var(--space-lg);
-}
-/* Also trim bottom padding of a dark section that precedes another dark section */
-.section--dark:has(+ .section--dark) {
-  padding-bottom: var(--space-lg);
+/* --- Adjacent dark section spacing — reduce double padding ---
+   Astro drops a <script> between most sections, which broke the plain
+   "+" sibling match: every dark-on-dark seam was getting 160px + 160px of
+   empty band. Match through up to three scripts. Only on tablet and up,
+   where the base padding is bigger than the trimmed value. */
+@media (min-width: 769px) {
+  .section--dark + .section--dark:not(.brands),
+  .section--dark + script + .section--dark:not(.brands),
+  .section--dark + script + script + .section--dark:not(.brands),
+  .section--dark + script + script + script + .section--dark:not(.brands) {
+    padding-top: 4.5rem;
+  }
+  .section--dark:not(.brands):not(.hero):has(+ .section--dark),
+  .section--dark:not(.brands):not(.hero):has(+ script + .section--dark),
+  .section--dark:not(.brands):not(.hero):has(+ script + script + .section--dark),
+  .section--dark:not(.brands):not(.hero):has(+ script + script + script + .section--dark) {
+    padding-bottom: 4.5rem;
+  }
 }
 
 /* --- Responsive --- */
@@ -922,3 +933,33 @@ chat-widget {
     opacity: 1;
   }
 }
+
+/* ─── Card grids: a short last row centres instead of hugging the left ───
+   Industry pages (108 files share these class names) list five or so
+   solution cards in a 3-up grid, which left a lone pair on the last row
+   with an empty third column. Flex-wrap keeps the same card width and
+   centres whatever is left over. "main .x.x" outranks the scoped rule. */
+main .ind-solution__grid.ind-solution__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+main .ind-solution__grid.ind-solution__grid > * {
+  flex: 0 1 calc((100% - 2 * var(--space-lg)) / 3);
+  min-width: 0;
+}
+@media (max-width: 1024px) {
+  main .ind-solution__grid.ind-solution__grid > * { flex-basis: calc((100% - var(--space-lg)) / 2); }
+}
+@media (max-width: 768px) {
+  main .ind-solution__grid.ind-solution__grid > * { flex-basis: 100%; }
+}
+
+/* About: three origin tiles stay three across down to tablet (two across
+   left tile 03 alone on its own row). */
+@media (min-width: 769px) and (max-width: 1024px) {
+  main .origin__tiles.origin__tiles { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+}
+
+/* Industry heroes: the CTA sat almost on the paragraph on phones */
+main .ind-hero__content > .btn { margin-top: var(--space-sm); }

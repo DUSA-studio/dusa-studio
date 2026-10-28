@@ -518,7 +518,8 @@ body .hr-drawer.hr-drawer, body .hr-notification.hr-notification { background-co
 body .askai-sidebar__left-panel { background: transparent !important; }
 body .askai-composer-bar .hr-input__state-border, body .askai-composer-bar .hr-input__border { border-color: transparent !important; box-shadow: none !important; }
 body .askai-composer-bar textarea, body .askai-composer-bar textarea:focus { border: 0 !important; box-shadow: none !important; outline: none !important; }
-body .askai-composer-actions .askai-composer-actions__voice-btn.hr-button { background: var(--dz-btn-dark) !important; }
+body:not(#dz-boost) .askai-composer-actions .askai-composer-actions__voice-btn.hr-button { background: var(--dz-btn-dark) !important; }
+body:not(#dz-boost) .askai-composer-actions .askai-composer-actions__voice-btn.hr-button::before { background: transparent !important; }
 body .askai-left-panel .hr-button.askai-left-panel__history-item,
 body .askai-left-panel .hr-button.askai-left-panel__account-row,
 body .askai-left-panel .askai-left-panel__account .hr-button { background: transparent !important; box-shadow: none !important; }

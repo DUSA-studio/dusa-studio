@@ -764,8 +764,8 @@ body:not(#dz-boost) header .btn-circle > :is(svg, i):not(.sr-only) {
 }
 
 /* The same old rule also boxed the sidebar sparkle and the Ask AI usage gauge */
-body:not(#dz-boost) :is(span, i, svg, img, div)[aria-label*="Ask AI"]:not([role="button"]):not(#hl_header--copilot-icon),
-body:not(#dz-boost) :is(span, i, svg, img)[class*="ask-ai"],
+body:not(#dz-boost) :is(span, i, svg, img, div)[aria-label*="Ask AI"]:not([role="button"]):not([role="img"]):not(#hl_header--copilot-icon):not(.ask-ai-sparkle-icon),
+body:not(#dz-boost) :is(span, i, svg, img)[class*="ask-ai"]:not(.ask-ai-sparkle-icon):not([role="img"]),
 body:not(#dz-boost) .ai-usage-gauge {
   background: none !important; background-color: transparent !important; border: 0 !important;
   box-shadow: none !important; border-radius: 0 !important; overflow: visible !important;

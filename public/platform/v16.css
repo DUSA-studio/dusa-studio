@@ -580,6 +580,17 @@ body[data-theme*="dark"] [data-dz-blue="text"] { color: #8AEBD9 !important; }
 body .new-pipeline-title, body .new-pipeline-action { color: #1A3A5C !important; }
 body[data-theme*="dark"] .new-pipeline-title, body[data-theme*="dark"] .new-pipeline-action { color: #8AEBD9 !important; }
 
+/* ── 7g. Overlays: the old dark rules paint every form/section solid,
+         which buries the glass. Inside overlays they stay clear. ────── */
+body[data-theme*="dark"] :is(.hr-modal, .hr-drawer, .hr-dialog, .modal-content, .hr-popover, .n-modal, .n-drawer):not(#dz-boost)
+  :is(form, section, main, article, fieldset, details, .wrapper, [class*="-content"], [class*="modal-body"], [class*="modal-header"], [class*="modal-footer"],
+      .hr-card__content, .hr-card__footer, .hr-card-header, .hr-card-header__main, .hr-drawer-content, .hr-drawer-body, .hr-drawer-header, .hr-drawer-footer) {
+  background-color: transparent !important;
+}
+/* native element inside a HighRise input never needs its own frame */
+body .hr-input .hr-input__input-el,
+body .hr-input .hr-input__textarea-el { border: 0 !important; box-shadow: none !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

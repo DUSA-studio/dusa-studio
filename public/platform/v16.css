@@ -276,28 +276,30 @@ body [id^="reporting-chart-"] {
 }
 
 /* ── 4. Buttons ────────────────────────────────────────────────────── */
+/* HighRise/Naive ship two naming schemes: type classes (--primary-type,
+   --default-type) and variant classes (--primary, --secondary). Cover both. */
 /* Secondary / default: liquid-glass capsule */
-body .hr-button.hr-button--default-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]):not(.askai-composer-actions__voice-btn),
+body :is(.hr-button, .n-button):is(.hr-button--default-type, .hr-button--secondary, .n-button--default-type):not(.hr-button--primary):not(.hr-button--primary-type):not(.hr-button--text):not(.hr-button--ghost):not(.n-button--ghost):not(.hr-button--disabled):not(.n-button--disabled):not([disabled]):not(.askai-composer-actions__voice-btn):not(.askai-left-panel__history-item),
 body .btn.btn-light,
 body .btn.btn-secondary:not(:disabled) {
   background: var(--dz-btn-glass) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), var(--dz-g-shadow-sm) !important;
   transition: transform .15s ease, box-shadow .15s ease, background .15s ease !important;
 }
-body .hr-button.hr-button--default-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]):not(.askai-composer-actions__voice-btn):hover {
+body :is(.hr-button, .n-button):is(.hr-button--default-type, .hr-button--secondary, .n-button--default-type):not(.hr-button--primary):not(.hr-button--primary-type):not(.hr-button--text):not(.hr-button--ghost):not(.n-button--ghost):not(.hr-button--disabled):not(.n-button--disabled):not([disabled]):not(.askai-composer-actions__voice-btn):not(.askai-left-panel__history-item):hover {
   background: var(--dz-btn-glass-hover) !important;
   transform: translateY(-0.5px);
 }
-body .hr-button.hr-button--default-type:not(.hr-button--text):not(.hr-button--ghost) .hr-button__border {
+body :is(.hr-button, .n-button):is(.hr-button--default-type, .hr-button--secondary, .n-button--default-type):not(.hr-button--primary):not(.hr-button--primary-type):not(.hr-button--text):not(.hr-button--ghost) :is(.hr-button__border, .n-button__border) {
   border-color: var(--dz-g-edge) !important;
 }
-body[data-theme*="dark"] .hr-button.hr-button--default-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]):not(.askai-composer-actions__voice-btn) {
+body[data-theme*="dark"] :is(.hr-button, .n-button):is(.hr-button--default-type, .hr-button--secondary, .n-button--default-type):not(.hr-button--primary):not(.hr-button--primary-type):not(.hr-button--text):not(.hr-button--ghost):not(.n-button--ghost):not(.hr-button--disabled):not(.n-button--disabled):not([disabled]):not(.askai-composer-actions__voice-btn):not(.askai-left-panel__history-item) {
   box-shadow: inset 0 1px 0 rgba(247, 244, 239, .12), var(--dz-g-shadow-sm) !important;
   color: #F7F4EF !important;
 }
 
 /* Primary: mint → mist liquid gradient, dark ink (4.5:1+), glossy top edge */
-body .hr-button.hr-button--primary-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]),
+body :is(.hr-button, .n-button):is(.hr-button--primary-type, .hr-button--primary, .n-button--primary-type):not(.hr-button--text):not(.hr-button--ghost):not(.n-button--ghost):not(.hr-button--disabled):not(.n-button--disabled):not([disabled]),
 body .btn.btn-primary:not(:disabled) {
   --n-text-color: #0C1E2E !important;
   --n-text-color-hover: #0C1E2E !important;
@@ -309,35 +311,29 @@ body .btn.btn-primary:not(:disabled) {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), inset 0 -1px 0 rgba(12, 30, 46, .10), 0 8px 18px -10px rgba(26, 120, 140, .65) !important;
   transition: transform .15s ease, box-shadow .15s ease, filter .15s ease !important;
 }
-body .hr-button.hr-button--primary-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]):hover,
+body :is(.hr-button, .n-button):is(.hr-button--primary-type, .hr-button--primary, .n-button--primary-type):not(.hr-button--text):not(.hr-button--ghost):not(.n-button--ghost):not(.hr-button--disabled):not(.n-button--disabled):not([disabled]):hover,
 body .btn.btn-primary:not(:disabled):hover {
   background: var(--dz-btn-primary-hover) !important;
   transform: translateY(-0.5px);
 }
-body .hr-button.hr-button--primary-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]) *,
-body .btn.btn-primary:not(:disabled) * {
+body :is(.hr-button, .n-button):is(.hr-button--primary-type, .hr-button--primary, .n-button--primary-type):not(.hr-button--text):not(.hr-button--ghost):not(.n-button--ghost):not(.hr-button--disabled):not(.n-button--disabled):not([disabled]) :not(svg):not(svg *),
+body .btn.btn-primary:not(:disabled) :not(svg):not(svg *) {
   color: #0C1E2E !important;
 }
-body .hr-button.hr-button--primary-type:not(.hr-button--text):not(.hr-button--ghost):not(.hr-button--disabled):not([disabled]) svg :is(path, rect, circle, line, polyline):not([fill="none"]) {
-  fill: currentColor;
-}
-body .hr-button.hr-button--primary-type:not(.hr-button--text):not(.hr-button--ghost) .hr-button__border,
-body .hr-button.hr-button--primary-type:not(.hr-button--text):not(.hr-button--ghost) .hr-button__state-border {
+body :is(.hr-button, .n-button):is(.hr-button--primary-type, .hr-button--primary, .n-button--primary-type):not(.hr-button--text):not(.hr-button--ghost) :is(.hr-button__border, .hr-button__state-border, .n-button__border, .n-button__state-border) {
   border-color: transparent !important;
 }
 /* Disabled primary: readable, clearly off */
-body .hr-button.hr-button--primary-type.hr-button--disabled,
-body .hr-button.hr-button--primary-type[disabled] {
+body :is(.hr-button, .n-button):is(.hr-button--primary-type, .hr-button--primary, .n-button--primary-type):is(.hr-button--disabled, .n-button--disabled, [disabled]) {
   background: rgba(106, 170, 207, .22) !important;
   color: rgba(12, 30, 46, .55) !important;
   box-shadow: none !important;
 }
-body[data-theme*="dark"] .hr-button.hr-button--primary-type.hr-button--disabled,
-body[data-theme*="dark"] .hr-button.hr-button--primary-type[disabled] {
+body[data-theme*="dark"] :is(.hr-button, .n-button):is(.hr-button--primary-type, .hr-button--primary, .n-button--primary-type):is(.hr-button--disabled, .n-button--disabled, [disabled]) {
   color: rgba(247, 244, 239, .5) !important;
 }
 @media (prefers-reduced-motion: reduce) {
-  body .hr-button { transition: none !important; transform: none !important; }
+  body .hr-button, body .n-button { transition: none !important; transform: none !important; }
 }
 
 /* ── 5. Ask AI ─────────────────────────────────────────────────────── */
@@ -590,6 +586,11 @@ body[data-theme*="dark"] :is(.hr-modal, .hr-drawer, .hr-dialog, .modal-content, 
 /* native element inside a HighRise input never needs its own frame */
 body .hr-input .hr-input__input-el,
 body .hr-input .hr-input__textarea-el { border: 0 !important; box-shadow: none !important; }
+
+/* ── 7h. Badges on bright fills keep dark ink in both themes ───────── */
+body .hl_new_badge_top_menu, body .hl_new_badge_top_menu * { color: #0C1E2E !important; }
+body .hero-eyebrow { color: #0F5E52 !important; }
+body[data-theme*="dark"] .hero-eyebrow { background-color: rgba(78, 216, 194, .16) !important; color: #8AEBD9 !important; }
 
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

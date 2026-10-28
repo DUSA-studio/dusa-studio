@@ -463,7 +463,7 @@ body[data-theme*="dark"] .askai-left-panel__history-item *,
 body[data-theme*="dark"] .askai-left-panel__account,
 body[data-theme*="dark"] .askai-left-panel__account-row,
 body[data-theme*="dark"] .askai-left-panel__account-row * { background-color: transparent !important; color: #F7F4EF !important; }
-body[data-theme*="dark"] .askai-composer-bar ::placeholder { color: rgba(247, 244, 239, .5) !important; -webkit-text-fill-color: rgba(247, 244, 239, .5) !important; }
+body[data-theme*="dark"] .askai-composer-bar .hr-input__placeholder { color: rgba(247, 244, 239, .5) !important; }
 body[data-theme*="dark"] .askai-page *:is(h1, h2, h3) { color: #F7F4EF !important; }
 
 /* tags / chips */
@@ -660,6 +660,11 @@ body[data-theme*="dark"]:not(#dz-boost) .bg-warning-25, body[data-theme*="dark"]
 body[data-theme*="dark"]:not(#dz-boost) .text-warning-600, body[data-theme*="dark"]:not(#dz-boost) .text-warning-700, body[data-theme*="dark"]:not(#dz-boost) .text-warning-800, body[data-theme*="dark"]:not(#dz-boost) .text-warning-900 { color: #FEC84B !important; }
 body[data-theme*="dark"] .chat-inbound-hidden { background-color: #1A2030 !important; }
 body svg.hl_pinned path { fill: #6AAACF !important; }
+
+/* ── 7m. Ask AI conversation: user bubble in brand tint ────────────── */
+body .message-bubble__user-content { background: rgba(78, 216, 194, .14) !important; border: 1px solid rgba(78, 216, 194, .22) !important; }
+body .message-bubble__user-content, body .message-bubble__user-content * { color: #0C1E2E !important; }
+body[data-theme*="dark"]:not(#dz-boost) .message-bubble__user-content, body[data-theme*="dark"]:not(#dz-boost) .message-bubble__user-content * { color: #F7F4EF !important; }
 
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

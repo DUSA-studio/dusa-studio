@@ -585,7 +585,7 @@ body .hr-input .hr-input__input-el,
 body .hr-input .hr-input__textarea-el { border: 0 !important; box-shadow: none !important; }
 
 /* ── 7h. Badges on bright fills keep dark ink in both themes ───────── */
-body .hl_new_badge_top_menu, body .hl_new_badge_top_menu * { color: #0C1E2E !important; }
+body:not(#dz-boost) .hl_new_badge_top_menu, body:not(#dz-boost) .hl_new_badge_top_menu * { color: #0C1E2E !important; }
 body .hero-eyebrow { color: #0F5E52 !important; }
 body[data-theme*="dark"] .hero-eyebrow { background-color: rgba(78, 216, 194, .16) !important; color: #8AEBD9 !important; }
 
@@ -622,6 +622,44 @@ body[data-theme*="dark"] .askai-announce :is(h1, h2, h3, h4, strong, .askai-anno
 body:not([data-theme*="dark"]):not(#dz-boost) [data-dz-mint] { color: #0E7366 !important; }
 /* settings "Go Back" pill sat flush against the window edge */
 body #backButtonv2 { margin-left: 12px !important; border-radius: 10px !important; width: auto !important; padding-right: 12px !important; }
+
+/* ── 7l. Dark: Tailwind light tints (badges, chips, notices) become translucent tints ── */
+body[data-theme*="dark"]:not(#dz-boost) .bg-teal-25, body[data-theme*="dark"]:not(#dz-boost) .bg-teal-50, body[data-theme*="dark"]:not(#dz-boost) .bg-teal-100 { background-color: rgba(78,216,194, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-teal-600, body[data-theme*="dark"]:not(#dz-boost) .text-teal-700, body[data-theme*="dark"]:not(#dz-boost) .text-teal-800, body[data-theme*="dark"]:not(#dz-boost) .text-teal-900 { color: #8AEBD9 !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-green-25, body[data-theme*="dark"]:not(#dz-boost) .bg-green-50, body[data-theme*="dark"]:not(#dz-boost) .bg-green-100 { background-color: rgba(50,213,131, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-green-600, body[data-theme*="dark"]:not(#dz-boost) .text-green-700, body[data-theme*="dark"]:not(#dz-boost) .text-green-800, body[data-theme*="dark"]:not(#dz-boost) .text-green-900 { color: #75E0A7 !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-success-25, body[data-theme*="dark"]:not(#dz-boost) .bg-success-50, body[data-theme*="dark"]:not(#dz-boost) .bg-success-100 { background-color: rgba(50,213,131, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-success-600, body[data-theme*="dark"]:not(#dz-boost) .text-success-700, body[data-theme*="dark"]:not(#dz-boost) .text-success-800, body[data-theme*="dark"]:not(#dz-boost) .text-success-900 { color: #75E0A7 !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-emerald-25, body[data-theme*="dark"]:not(#dz-boost) .bg-emerald-50, body[data-theme*="dark"]:not(#dz-boost) .bg-emerald-100 { background-color: rgba(50,213,131, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-emerald-600, body[data-theme*="dark"]:not(#dz-boost) .text-emerald-700, body[data-theme*="dark"]:not(#dz-boost) .text-emerald-800, body[data-theme*="dark"]:not(#dz-boost) .text-emerald-900 { color: #75E0A7 !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-blue-25, body[data-theme*="dark"]:not(#dz-boost) .bg-blue-50, body[data-theme*="dark"]:not(#dz-boost) .bg-blue-100 { background-color: rgba(106,170,207, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-blue-600, body[data-theme*="dark"]:not(#dz-boost) .text-blue-700, body[data-theme*="dark"]:not(#dz-boost) .text-blue-800, body[data-theme*="dark"]:not(#dz-boost) .text-blue-900 { color: #A9D2EA !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-sky-25, body[data-theme*="dark"]:not(#dz-boost) .bg-sky-50, body[data-theme*="dark"]:not(#dz-boost) .bg-sky-100 { background-color: rgba(106,170,207, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-sky-600, body[data-theme*="dark"]:not(#dz-boost) .text-sky-700, body[data-theme*="dark"]:not(#dz-boost) .text-sky-800, body[data-theme*="dark"]:not(#dz-boost) .text-sky-900 { color: #A9D2EA !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-primary-25, body[data-theme*="dark"]:not(#dz-boost) .bg-primary-50, body[data-theme*="dark"]:not(#dz-boost) .bg-primary-100 { background-color: rgba(78,216,194, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-primary-600, body[data-theme*="dark"]:not(#dz-boost) .text-primary-700, body[data-theme*="dark"]:not(#dz-boost) .text-primary-800, body[data-theme*="dark"]:not(#dz-boost) .text-primary-900 { color: #8AEBD9 !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-indigo-25, body[data-theme*="dark"]:not(#dz-boost) .bg-indigo-50, body[data-theme*="dark"]:not(#dz-boost) .bg-indigo-100 { background-color: rgba(106,170,207, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-indigo-600, body[data-theme*="dark"]:not(#dz-boost) .text-indigo-700, body[data-theme*="dark"]:not(#dz-boost) .text-indigo-800, body[data-theme*="dark"]:not(#dz-boost) .text-indigo-900 { color: #A9D2EA !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-purple-25, body[data-theme*="dark"]:not(#dz-boost) .bg-purple-50, body[data-theme*="dark"]:not(#dz-boost) .bg-purple-100 { background-color: rgba(106,170,207, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-purple-600, body[data-theme*="dark"]:not(#dz-boost) .text-purple-700, body[data-theme*="dark"]:not(#dz-boost) .text-purple-800, body[data-theme*="dark"]:not(#dz-boost) .text-purple-900 { color: #A9D2EA !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-violet-25, body[data-theme*="dark"]:not(#dz-boost) .bg-violet-50, body[data-theme*="dark"]:not(#dz-boost) .bg-violet-100 { background-color: rgba(106,170,207, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-violet-600, body[data-theme*="dark"]:not(#dz-boost) .text-violet-700, body[data-theme*="dark"]:not(#dz-boost) .text-violet-800, body[data-theme*="dark"]:not(#dz-boost) .text-violet-900 { color: #A9D2EA !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-red-25, body[data-theme*="dark"]:not(#dz-boost) .bg-red-50, body[data-theme*="dark"]:not(#dz-boost) .bg-red-100 { background-color: rgba(249,112,102, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-red-600, body[data-theme*="dark"]:not(#dz-boost) .text-red-700, body[data-theme*="dark"]:not(#dz-boost) .text-red-800, body[data-theme*="dark"]:not(#dz-boost) .text-red-900 { color: #FDA29B !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-error-25, body[data-theme*="dark"]:not(#dz-boost) .bg-error-50, body[data-theme*="dark"]:not(#dz-boost) .bg-error-100 { background-color: rgba(249,112,102, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-error-600, body[data-theme*="dark"]:not(#dz-boost) .text-error-700, body[data-theme*="dark"]:not(#dz-boost) .text-error-800, body[data-theme*="dark"]:not(#dz-boost) .text-error-900 { color: #FDA29B !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-rose-25, body[data-theme*="dark"]:not(#dz-boost) .bg-rose-50, body[data-theme*="dark"]:not(#dz-boost) .bg-rose-100 { background-color: rgba(249,112,102, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-rose-600, body[data-theme*="dark"]:not(#dz-boost) .text-rose-700, body[data-theme*="dark"]:not(#dz-boost) .text-rose-800, body[data-theme*="dark"]:not(#dz-boost) .text-rose-900 { color: #FDA29B !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-orange-25, body[data-theme*="dark"]:not(#dz-boost) .bg-orange-50, body[data-theme*="dark"]:not(#dz-boost) .bg-orange-100 { background-color: rgba(253,176,34, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-orange-600, body[data-theme*="dark"]:not(#dz-boost) .text-orange-700, body[data-theme*="dark"]:not(#dz-boost) .text-orange-800, body[data-theme*="dark"]:not(#dz-boost) .text-orange-900 { color: #FEC84B !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-amber-25, body[data-theme*="dark"]:not(#dz-boost) .bg-amber-50, body[data-theme*="dark"]:not(#dz-boost) .bg-amber-100 { background-color: rgba(253,176,34, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-amber-600, body[data-theme*="dark"]:not(#dz-boost) .text-amber-700, body[data-theme*="dark"]:not(#dz-boost) .text-amber-800, body[data-theme*="dark"]:not(#dz-boost) .text-amber-900 { color: #FEC84B !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-yellow-25, body[data-theme*="dark"]:not(#dz-boost) .bg-yellow-50, body[data-theme*="dark"]:not(#dz-boost) .bg-yellow-100 { background-color: rgba(253,176,34, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-yellow-600, body[data-theme*="dark"]:not(#dz-boost) .text-yellow-700, body[data-theme*="dark"]:not(#dz-boost) .text-yellow-800, body[data-theme*="dark"]:not(#dz-boost) .text-yellow-900 { color: #FEC84B !important; }
+body[data-theme*="dark"]:not(#dz-boost) .bg-warning-25, body[data-theme*="dark"]:not(#dz-boost) .bg-warning-50, body[data-theme*="dark"]:not(#dz-boost) .bg-warning-100 { background-color: rgba(253,176,34, .14) !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-warning-600, body[data-theme*="dark"]:not(#dz-boost) .text-warning-700, body[data-theme*="dark"]:not(#dz-boost) .text-warning-800, body[data-theme*="dark"]:not(#dz-boost) .text-warning-900 { color: #FEC84B !important; }
+body[data-theme*="dark"] .chat-inbound-hidden { background-color: #1A2030 !important; }
+body svg.hl_pinned path { fill: #6AAACF !important; }
 
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

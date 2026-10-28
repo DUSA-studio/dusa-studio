@@ -573,6 +573,13 @@ body[data-theme*="dark"] [class*="hover:bg-primary-25"]:hover,
 body[data-theme*="dark"] [class*="hover:bg-primary-50"]:hover { background-color: rgba(247, 244, 239, .07) !important; }
 body[data-theme*="dark"] .lv-pill { background-color: rgba(106, 170, 207, .16) !important; color: #DCEEF8 !important; }
 
+/* ── 7f. GHL stock blues → brand (markers from the skin fixer) ─────── */
+body [data-dz-blue="text"] { color: #1A3A5C !important; }
+body [data-dz-blue="line"] { border-color: rgba(106, 170, 207, .6) !important; }
+body[data-theme*="dark"] [data-dz-blue="text"] { color: #8AEBD9 !important; }
+body .new-pipeline-title, body .new-pipeline-action { color: #1A3A5C !important; }
+body[data-theme*="dark"] .new-pipeline-title, body[data-theme*="dark"] .new-pipeline-action { color: #8AEBD9 !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

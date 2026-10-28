@@ -1,4 +1,4 @@
-/* DUSA . studio · dark-mode neutral fixer (v16, 2026-10-28)
+/* DUSA . studio · skin fixer (v16, 2026-10-28): GHL blues → brand (both themes) + dark-mode neutral fixer
    GHL has no dark tokens, so many legacy and one-off components paint
    literal white/grey surfaces and near-black text. In dark mode only, this
    marks NEUTRAL light surfaces, light hairlines and dark-neutral text with
@@ -45,10 +45,19 @@
     return 'neutral';
   }
 
+  // GHL's stock blues (#004EEB, #155EEF, #2970FF, #1570EF, #175CD3, #2E90FA, #3B82F6, #2563EB ...)
+  function ghlBlue(c) { if (!c || c.a < 0.4) return false; var h = hue(c), ch = sat(c), L = lum(c); return h >= 205 && h <= 232 && ch > 0.45 && L > 0.06 && L < 0.42; }
+
   function visit(el) {
     if (el.nodeType !== 1 || el.closest(SKIP)) return;
     var cs = getComputedStyle(el);
     if (cs.display === 'none') return;
+    if (!el.hasAttribute('data-dz-blue')) {
+      var tc = rgb(cs.color), btc = parseFloat(cs.borderTopWidth) > 0 ? rgb(cs.borderTopColor) : null;
+      if (hasOwnText(el) && ghlBlue(tc)) el.setAttribute('data-dz-blue', 'text');
+      else if (ghlBlue(btc)) el.setAttribute('data-dz-blue', 'line');
+    }
+    if (!isDark()) return;
     var r = el.getBoundingClientRect();
     var bg = rgb(cs.backgroundColor);
     var noImg = !cs.backgroundImage || cs.backgroundImage === 'none';
@@ -81,7 +90,6 @@
   var queue = [], scheduled = false;
   function flush(deadline) {
     scheduled = false;
-    if (!isDark()) { queue.length = 0; return; }
     var t0 = performance.now();
     while (queue.length) {
       var root = queue.shift();
@@ -100,7 +108,6 @@
   function enqueue(node) { if (node && node.nodeType === 1) { queue.push(node); schedule(); } }
 
   var mo = new MutationObserver(function (list) {
-    if (!isDark()) return;
     for (var i = 0; i < list.length; i++) {
       var m = list[i];
       if (m.type === 'childList') for (var j = 0; j < m.addedNodes.length; j++) enqueue(m.addedNodes[j]);

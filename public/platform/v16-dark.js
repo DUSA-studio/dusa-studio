@@ -1,4 +1,4 @@
-/* DUSA . studio · skin fixer (v16, 2026-10-28): GHL blues → brand (both themes) + dark-mode neutral fixer
+/* DUSA . studio · skin fixer (v16, 2026-10-28; v16.4 adds hover/focus/active states): GHL blues → brand (both themes) + dark-mode neutral fixer
    GHL has no dark tokens, so many legacy and one-off components paint
    literal white/grey surfaces and near-black text. In dark mode only, this
    marks NEUTRAL light surfaces, light hairlines and dark-neutral text with
@@ -85,10 +85,175 @@
     }
   }
 
+  /* ── State colours (v16.4): hover / focus / active blues → brand ────── */
+  var COLRE = /#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi;
+  function parseCol(v) {
+    var m = /^#([0-9a-f]{3,8})$/i.exec(v.trim());
+    if (m) { var h = m[1]; if (h.length < 6) h = h.split('').map(function (x) { return x + x; }).join(''); return { r: parseInt(h.slice(0, 2), 16), g: parseInt(h.slice(2, 4), 16), b: parseInt(h.slice(4, 6), 16), a: h.length === 8 ? parseInt(h.slice(6, 8), 16) / 255 : 1 }; }
+    return rgb(v);
+  }
+  // role: 'text' | 'bg' | 'line'
+  function mapCol(c, role) {
+    var k = offBlue(c); if (!k) return null;
+    var v = role === 'text' ? 'var(--dz-m-text)' : role === 'line' ? 'var(--dz-m-line)'
+      : k === 1 ? 'var(--dz-m-tint)' : lum(c) < 0.3 ? 'var(--dz-m-bg)' : 'var(--dz-m-bg-l)';
+    if (k === 2 && c.a < 0.98) v = 'color-mix(in srgb, ' + v + ' ' + Math.round(c.a * 100) + '%, transparent)';
+    return v;
+  }
+  function mapStr(s, role) {
+    var hit = false;
+    var out = s.replace(COLRE, function (t) { var m = mapCol(parseCol(t), role); if (m) { hit = true; return m; } return t; });
+    return hit ? out : null;
+  }
+  function roleOf(p) {
+    if (/^(color|caret-color|text-decoration-color|-webkit-text-fill-color|fill|stroke)$/.test(p)) return 'text';
+    if (p === 'background-color') return 'bg';
+    if (/^(border(-(top|right|bottom|left|block|inline)(-(start|end))?)?-color|outline-color|column-rule-color|box-shadow)$/.test(p)) return 'line';
+    if (p.indexOf('--') === 0) return /border|shadow|ring|outline/i.test(p) ? 'line' : /text|caret|icon|placeholder|arrow/i.test(p) ? 'text' : 'bg';
+    return null;
+  }
+
+  // 1. Same-origin stylesheets: re-emit every :hover/:focus/:active rule that
+  //    paints a GHL blue, with brand colours and one extra ID of specificity.
+  var STATE = /:(hover|focus|focus-visible|focus-within|active|checked)\b/;
+  var SKIP_SEL = /color-?picker|swatch|chart|\.fc-|avatar|emoji|email-preview|template-preview|gjs|builder|pendo-button/i;
+  var seenSheets = typeof WeakSet === 'function' ? new WeakSet() : null, stateCss = [];
+  function boostSel(sel) {
+    var parts = [], d = 0, cur = '';
+    for (var i = 0; i < sel.length; i++) { var ch = sel[i]; if (ch === '(' || ch === '[') d++; if (ch === ')' || ch === ']') d--; if (ch === ',' && d === 0) { parts.push(cur); cur = ''; } else cur += ch; }
+    parts.push(cur);
+    return parts.map(function (p) {
+      p = p.trim(); var at = p.search(/::|:(before|after|first-line|first-letter|placeholder)\b/);
+      return at > -1 ? p.slice(0, at) + ':not(#dz-sr)' + p.slice(at) : p + ':not(#dz-sr)';
+    }).join(', ');
+  }
+  function ruleOverride(r) {
+    if (!r.selectorText || !STATE.test(r.selectorText) || SKIP_SEL.test(r.selectorText)) return '';
+    var st = r.style, decl = [];
+    for (var i = 0; i < st.length; i++) {
+      var p = st[i], role = roleOf(p); if (!role) continue;
+      var v = st.getPropertyValue(p); if (!v || !COLRE.test(v)) { COLRE.lastIndex = 0; continue; } COLRE.lastIndex = 0;
+      var m = p === 'box-shadow' ? (mapStr(v, 'line') && 'var(--dz-m-ring)') : mapStr(v, role);
+      if (m) decl.push(p + ':' + m + (st.getPropertyPriority(p) ? ' !important' : ''));
+    }
+    return decl.length ? boostSel(r.selectorText) + '{' + decl.join(';') + '}' : '';
+  }
+  function walkRules(rules, out, wrap) {
+    for (var i = 0; i < rules.length; i++) {
+      var r = rules[i];
+      if (r.cssRules && r.media) { var inner = []; walkRules(r.cssRules, inner); if (inner.length) out.push('@media ' + r.media.mediaText + '{' + inner.join('') + '}'); continue; }
+      if (r.cssRules && !r.selectorText) { walkRules(r.cssRules, out); continue; }
+      var o = ruleOverride(r); if (o) out.push(o);
+    }
+  }
+  var sheetTimer = 0;
+  function scanSheets() {
+    sheetTimer = 0;
+    var added = [];
+    for (var i = 0; i < document.styleSheets.length; i++) {
+      var ss = document.styleSheets[i], node = ss.ownerNode;
+      if (node && /^(customCss|dusa-v16|dz-state)$/.test(node.id || '')) continue;
+      if (seenSheets) { if (seenSheets.has(ss)) continue; }
+      var rules; try { rules = ss.cssRules; } catch (e) { if (seenSheets) seenSheets.add(ss); continue; }
+      if (seenSheets) seenSheets.add(ss);
+      walkRules(rules, added);
+    }
+    if (!added.length) return;
+    stateCss = stateCss.concat(added);
+    var tag = document.getElementById('dz-state');
+    if (!tag) { tag = document.createElement('style'); tag.id = 'dz-state'; }
+    tag.textContent = stateCss.join('\n');
+    (document.body || document.head).appendChild(tag);
+  }
+  function queueSheets() { if (!sheetTimer) sheetTimer = setTimeout(scanSheets, 250); }
+
+  // 2. HighRise / Naive UI write their state colours as inline variables
+  //    (--n-border-hover, --n-border-focus, --n-color-hover …). Rewrite them.
+  var styleMO = new MutationObserver(function (list) { for (var i = 0; i < list.length; i++) fixVars(list[i].target); });
+  var varWatched = typeof WeakSet === 'function' ? new WeakSet() : null;
+  function fixVars(el) {
+    var s = el.getAttribute && el.getAttribute('style');
+    if (!s || s.indexOf('--') < 0 || el.closest(SKIP_BLUE)) return;
+    var touched = false, decls = s.split(';');
+    for (var i = 0; i < decls.length; i++) {
+      var d = decls[i], c = d.indexOf(':'); if (c < 0) continue;
+      var k = d.slice(0, c).trim(); if (k.indexOf('--') !== 0) continue;
+      var v = d.slice(c + 1).trim(); if (v.indexOf('var(--dz-m-') > -1) continue;
+      var m = mapStr(v, roleOf(k)); if (m) { el.style.setProperty(k, m); touched = true; }
+    }
+    if (touched && varWatched && !varWatched.has(el)) { varWatched.add(el); styleMO.observe(el, { attributes: true, attributeFilter: ['style'] }); }
+  }
+
+  // 3. Tailwind state classes (hover:bg-blue-600, focus:ring-indigo-500 …): mark ahead of time.
+  var TW = /(?:^|\s)((?:group-)?hover|focus(?:-visible|-within)?|active):(bg|text|border|ring|fill|stroke|outline|decoration)-(blue|indigo|violet|purple|sky|blue-light|blue-dark)-(\d{2,3})(?:\/\d+)?(?=\s|$)/g;
+  function addTok(el, attr, tok) {
+    var cur = el.getAttribute(attr) || '';
+    if ((' ' + cur + ' ').indexOf(' ' + tok + ' ') < 0) el.setAttribute(attr, (cur + ' ' + tok).trim());
+  }
+  function twMark(el) {
+    var cn = typeof el.className === 'string' ? el.className : (el.className && el.className.baseVal) || '';
+    if (cn.indexOf(':') < 0) return;
+    TW.lastIndex = 0; var m;
+    while ((m = TW.exec(cn))) {
+      var v = m[1], u = m[2], shade = +m[4];
+      var attr = v === 'group-hover' ? 'data-dz-ghov' : /^focus/.test(v) ? 'data-dz-fov' : 'data-dz-hov';
+      var tok = u === 'bg' ? (shade <= 100 ? 'bg-t' : shade < 500 ? 'bg-l' : (el.matches(BTN) ? 'bg-btn' : 'bg-d'))
+        : u === 'text' ? 'tx' : u === 'fill' ? 'fi' : u === 'stroke' ? 'st' : u === 'ring' ? 'sh' : u === 'outline' ? 'ol' : 'ln';
+      addTok(el, attr, tok);
+    }
+  }
+
+  // 4. Live check while the pointer or focus is on something: catches state
+  //    rules in cross-origin stylesheets that cannot be read.
+  var HROOT = BTN + ', li, tr, label, [role="menuitem"], [role="option"], [role="tab"], [role="row"], [class*="item"], [class*="card"]';
+  function stateToks(el, cs, asBtn) {
+    var t = [];
+    if (el instanceof SVGElement) {
+      if (offBlue(rgb(cs.fill)) === 2) t.push('fi');
+      if (cs.stroke && cs.stroke !== 'none' && offBlue(rgb(cs.stroke)) === 2) t.push('st');
+      return t;
+    }
+    if (!cs.backgroundImage || cs.backgroundImage === 'none') {
+      var bk = offBlue(rgb(cs.backgroundColor));
+      if (bk === 2) t.push(asBtn ? 'bg-btn' : lum(rgb(cs.backgroundColor)) < 0.3 ? 'bg-d' : 'bg-l'); else if (bk === 1) t.push('bg-t');
+    }
+    if (hasOwnText(el) && offBlue(rgb(cs.color)) === 2) t.push('tx');
+    if ((parseFloat(cs.borderTopWidth) > 0 && offBlue(rgb(cs.borderTopColor)) === 2) || (parseFloat(cs.borderBottomWidth) > 0 && offBlue(rgb(cs.borderBottomColor)) === 2)) t.push('ln');
+    if (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0 && offBlue(rgb(cs.outlineColor)) === 2) t.push('ol');
+    if (cs.boxShadow && cs.boxShadow !== 'none' && (cs.boxShadow.match(COLRE) || []).some(function (x) { return offBlue(parseCol(x)) === 2; })) t.push('sh');
+    return t;
+  }
+  function catchState(t, attr) {
+    if (!t || !t.isConnected || t.nodeType !== 1 || t.closest(SKIP_BLUE)) return;
+    if (attr === 'data-dz-hov' && !t.matches(':hover')) return;
+    var e, i, cs, toks;
+    for (e = t, i = 0; e && e !== document.body && i < 7; e = e.parentElement, i++) {
+      cs = getComputedStyle(e); toks = stateToks(e, cs, e.matches(BTN));
+      for (var j = 0; j < toks.length; j++) addTok(e, attr, toks[j]);
+    }
+    if (attr !== 'data-dz-hov') return;
+    var root = t.closest(HROOT); if (!root || root === document.body) return;
+    var all = root.getElementsByTagName('*'), marked = false;
+    for (i = 0; i < all.length && i < 60; i++) {
+      var d = all[i]; if (d.contains(t) || d.closest(SKIP_BLUE)) continue;
+      toks = stateToks(d, getComputedStyle(d), false);
+      for (var k = 0; k < toks.length; k++) { addTok(d, 'data-dz-dhov', toks[k]); marked = true; }
+    }
+    if (marked) root.setAttribute('data-dz-hroot', '');
+  }
+  function later(fn) { requestAnimationFrame(function () { requestAnimationFrame(fn); }); }
+  document.addEventListener('pointerover', function (ev) {
+    var t = ev.target; later(function () { catchState(t, 'data-dz-hov'); }); setTimeout(function () { catchState(t, 'data-dz-hov'); }, 320);
+  }, { capture: true, passive: true });
+  document.addEventListener('focusin', function (ev) {
+    var t = ev.target; later(function () { catchState(t, 'data-dz-fov'); }); setTimeout(function () { catchState(t, 'data-dz-fov'); }, 320);
+  }, true);
+
   function visit(el) {
     if (el.nodeType !== 1) return;
     var cs = getComputedStyle(el);
     if (cs.display === 'none') return;
+    if (el.closest && !el.closest(SKIP_BLUE)) { twMark(el); fixVars(el); }
     bluePass(el, cs);
     if (el.closest(SKIP)) return;
     // light mode: brand mint text on a light backdrop reads at ~2:1; deepen it to a legible teal
@@ -150,7 +315,12 @@
   var mo = new MutationObserver(function (list) {
     for (var i = 0; i < list.length; i++) {
       var m = list[i];
-      if (m.type === 'childList') for (var j = 0; j < m.addedNodes.length; j++) enqueue(m.addedNodes[j]);
+      if (m.type === 'childList') for (var j = 0; j < m.addedNodes.length; j++) {
+        var an = m.addedNodes[j];
+        if (an.nodeName === 'STYLE' || an.nodeName === 'LINK') { if (an.id !== 'dz-state') { queueSheets(); if (an.nodeName === 'LINK') an.addEventListener('load', queueSheets); } continue; }
+        if (an.nodeType === 1 && an.querySelector && an.querySelector('style, link[rel="stylesheet"]')) queueSheets();
+        enqueue(an);
+      }
       else if (m.type === 'attributes') {
         if (m.target === document.body && m.attributeName === 'data-theme') enqueue(document.body);
         else if (m.target.nodeType === 1) { ['data-dz-bdone', 'data-dz-blue', 'data-dz-bline', 'data-dz-bbtn', 'data-dz-bbg', 'data-dz-btint'].forEach(function (a) { m.target.removeAttribute(a); }); enqueue(m.target, true); }
@@ -159,7 +329,10 @@
   });
   function start() {
     mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-theme', 'class'] });
+    mo.observe(document.head, { childList: true });
     enqueue(document.body);
+    queueSheets();
+    window.addEventListener('load', queueSheets);
   }
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
 })();

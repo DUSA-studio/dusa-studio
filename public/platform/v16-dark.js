@@ -45,18 +45,52 @@
     return isDark() ? 'neutral' : 'light';
   }
 
-  // GHL's stock blues (#004EEB, #155EEF, #2970FF, #1570EF, #175CD3, #2E90FA, #3B82F6, #2563EB ...)
-  function ghlBlue(c) { if (!c || c.a < 0.4) return false; var h = hue(c), ch = sat(c), L = lum(c); return h >= 205 && h <= 232 && ch > 0.45 && L > 0.06 && L < 0.42; }
+  // GHL's stock blues, indigos and violets (#004EEB, #155EEF, #2970FF, #2E90FA, #528BFF, #6172F3,
+  // #7A5AF8, #A5B4FC ...). 2 = strong colour, 1 = pale tint (#EFF8FF, #EEF4FF), 0 = leave alone.
+  var BRAND = [[26, 58, 92], [0, 47, 95], [106, 170, 207], [58, 106, 147], [43, 92, 134], [16, 40, 63], [169, 210, 234], [220, 238, 248]];
+  function isBrand(c) { for (var i = 0; i < BRAND.length; i++) { var b = BRAND[i]; if (Math.abs(b[0] - c.r) + Math.abs(b[1] - c.g) + Math.abs(b[2] - c.b) < 24) return true; } return false; }
+  function offBlue(c) {
+    if (!c || c.a < 0.3 || isBrand(c)) return 0;
+    var h = hue(c), ch = sat(c), L = lum(c);
+    if (h < 205 || h > 290) return 0;
+    if (ch > 0.35 && L > 0.04) return 2;
+    if (ch >= 0.045 && L > 0.72) return 1;
+    return 0;
+  }
+  function ghlBlue(c) { return offBlue(c) === 2; }
+  var SKIP_BLUE = 'img, video, canvas, iframe, picture, input[type="color"], [contenteditable="true"], [data-dz-skip], .fc-event,' +
+    ' [class*="color-picker"], [class*="colorPicker"], [class*="swatch"], .hr-avatar, [class*="avatar"], .gjs-frame-wrapper,' +
+    ' [class*="email-preview"], [class*="template-preview"], [class*="chart"], [id*="chart"], x-vue-echarts, [_echarts_instance_], [class*="highcharts"]';
+  var BTN = 'button, a, [role="button"], .btn, .hr-button, .n-button, input[type="submit"], input[type="button"]';
+
+  function bluePass(el, cs) {
+    if (el.hasAttribute('data-dz-bdone') || el.closest(SKIP_BLUE)) return;
+    el.setAttribute('data-dz-bdone', '');
+    if (el instanceof SVGElement) {
+      var f = rgb(cs.fill), st = cs.stroke && cs.stroke !== 'none' ? rgb(cs.stroke) : null;
+      if (offBlue(f) === 2) el.setAttribute('data-dz-bfill', lum(f) < 0.25 ? 'd' : 'l');
+      if (offBlue(st) === 2) el.setAttribute('data-dz-bstroke', lum(st) < 0.25 ? 'd' : 'l');
+      return;
+    }
+    if (hasOwnText(el) && ghlBlue(rgb(cs.color))) el.setAttribute('data-dz-blue', 'text');
+    if (parseFloat(cs.borderTopWidth) > 0 || parseFloat(cs.borderBottomWidth) > 0) {
+      if (ghlBlue(rgb(cs.borderTopColor)) || ghlBlue(rgb(cs.borderBottomColor))) el.setAttribute('data-dz-bline', '1');
+    }
+    var noImg = !cs.backgroundImage || cs.backgroundImage === 'none';
+    var inlineBg = /background/i.test(el.getAttribute('style') || '') && !/var\(/.test(el.getAttribute('style') || '');
+    if (noImg && !inlineBg) {
+      var k = offBlue(rgb(cs.backgroundColor));
+      if (k === 2) el.setAttribute(el.matches(BTN) ? 'data-dz-bbtn' : 'data-dz-bbg', '1');
+      else if (k === 1) el.setAttribute('data-dz-btint', '1');
+    }
+  }
 
   function visit(el) {
-    if (el.nodeType !== 1 || el.closest(SKIP)) return;
+    if (el.nodeType !== 1) return;
     var cs = getComputedStyle(el);
     if (cs.display === 'none') return;
-    if (!el.hasAttribute('data-dz-blue')) {
-      var tc = rgb(cs.color), btc = parseFloat(cs.borderTopWidth) > 0 ? rgb(cs.borderTopColor) : null;
-      if (hasOwnText(el) && ghlBlue(tc)) el.setAttribute('data-dz-blue', 'text');
-      else if (ghlBlue(btc)) el.setAttribute('data-dz-blue', 'line');
-    }
+    bluePass(el, cs);
+    if (el.closest(SKIP)) return;
     // light mode: brand mint text on a light backdrop reads at ~2:1; deepen it to a legible teal
     if (!isDark() && !el.hasAttribute('data-dz-mint') && hasOwnText(el)) {
       var mc = rgb(cs.color);
@@ -97,9 +131,10 @@
     scheduled = false;
     var t0 = performance.now();
     while (queue.length) {
-      var root = queue.shift();
+      var item = queue.shift(), root = item[0];
       if (!root.isConnected) continue;
       visit(root);
+      if (!item[1]) continue;
       var all = root.getElementsByTagName ? root.getElementsByTagName('*') : [];
       for (var i = 0; i < all.length; i++) visit(all[i]);
       if ((deadline && deadline.timeRemaining && deadline.timeRemaining() < 2) || performance.now() - t0 > 40) break;
@@ -110,17 +145,20 @@
     if (scheduled) return; scheduled = true;
     (window.requestIdleCallback || function (cb) { return setTimeout(cb, 60); })(flush, { timeout: 400 });
   }
-  function enqueue(node) { if (node && node.nodeType === 1) { queue.push(node); schedule(); } }
+  function enqueue(node, shallow) { if (node && node.nodeType === 1) { queue.push([node, !shallow]); schedule(); } }
 
   var mo = new MutationObserver(function (list) {
     for (var i = 0; i < list.length; i++) {
       var m = list[i];
       if (m.type === 'childList') for (var j = 0; j < m.addedNodes.length; j++) enqueue(m.addedNodes[j]);
-      else if (m.type === 'attributes' && m.target === document.body) enqueue(document.body);
+      else if (m.type === 'attributes') {
+        if (m.target === document.body && m.attributeName === 'data-theme') enqueue(document.body);
+        else if (m.target.nodeType === 1) { ['data-dz-bdone', 'data-dz-blue', 'data-dz-bline', 'data-dz-bbtn', 'data-dz-bbg', 'data-dz-btint'].forEach(function (a) { m.target.removeAttribute(a); }); enqueue(m.target, true); }
+      }
     }
   });
   function start() {
-    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-theme'] });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-theme', 'class'] });
     enqueue(document.body);
   }
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);

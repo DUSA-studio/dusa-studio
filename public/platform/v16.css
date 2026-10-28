@@ -621,7 +621,7 @@ body[data-theme*="dark"] .askai-announce :is(h1, h2, h3, h4, strong, .askai-anno
 /* ── 7k. Light: mint text deepened where it sits on a light backdrop (fixer marks it) ── */
 body:not([data-theme*="dark"]):not(#dz-boost) [data-dz-mint] { color: #0E7366 !important; }
 /* settings "Go Back" pill sat flush against the window edge */
-body #backButtonv2 { margin-left: 12px !important; border-radius: 10px !important; width: auto !important; padding-right: 12px !important; }
+body #backButtonv2 { margin-left: 12px !important; border-radius: 10px !important; width: fit-content !important; max-width: calc(100% - 24px) !important; align-self: flex-start !important; padding: 8px 14px 8px 10px !important; }
 
 /* ── 7l. Dark: Tailwind light tints (badges, chips, notices) become translucent tints ── */
 body[data-theme*="dark"]:not(#dz-boost) .bg-teal-25, body[data-theme*="dark"]:not(#dz-boost) .bg-teal-50, body[data-theme*="dark"]:not(#dz-boost) .bg-teal-100 { background-color: rgba(78,216,194, .14) !important; }
@@ -665,6 +665,24 @@ body svg.hl_pinned path { fill: #6AAACF !important; }
 body .message-bubble__user-content { background: rgba(78, 216, 194, .14) !important; border: 1px solid rgba(78, 216, 194, .22) !important; }
 body .message-bubble__user-content, body .message-bubble__user-content * { color: #0C1E2E !important; }
 body[data-theme*="dark"]:not(#dz-boost) .message-bubble__user-content, body[data-theme*="dark"]:not(#dz-boost) .message-bubble__user-content * { color: #F7F4EF !important; }
+
+/* ── 7n. Off-brand GHL blues/indigos marked by the fixer (both themes) ── */
+body:not(#dz-boost) [data-dz-bline] { border-color: rgba(106, 170, 207, .6) !important; }
+body:not(#dz-boost) [data-dz-bbtn] {
+  background: var(--dz-btn-primary) !important; color: #0C1E2E !important; border-color: transparent !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 8px 18px -10px rgba(26, 120, 140, .65) !important;
+}
+body:not(#dz-boost) [data-dz-bbtn] :not(svg):not(svg *) { color: #0C1E2E !important; }
+body:not(#dz-boost) [data-dz-bbtn] svg { color: #0C1E2E !important; }
+body:not(#dz-boost) [data-dz-bbg] { background-color: #1A3A5C !important; }
+body:not(#dz-boost) [data-dz-btint] { background-color: rgba(106, 170, 207, .14) !important; }
+body:not(#dz-boost) [data-dz-bfill="d"] { fill: #1A3A5C !important; }
+body:not(#dz-boost) [data-dz-bfill="l"] { fill: #6AAACF !important; }
+body:not(#dz-boost) [data-dz-bstroke="d"] { stroke: #1A3A5C !important; }
+body:not(#dz-boost) [data-dz-bstroke="l"] { stroke: #6AAACF !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-bfill="d"] { fill: #8AEBD9 !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-bstroke="d"] { stroke: #8AEBD9 !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-btint] { background-color: rgba(106, 170, 207, .16) !important; }
 
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

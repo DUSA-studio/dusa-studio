@@ -618,6 +618,11 @@ body :is(.askai-skill-announce__avatar, .askai-skill-announce__name, .askai-skil
 body[data-theme*="dark"] :is(.askai-skill-announce__avatar, .askai-skill-announce__name, .askai-skill-announce__level):not(.askai-skill-announce__level--granted) { background: rgba(247, 244, 239, .16) !important; }
 body[data-theme*="dark"] .askai-announce :is(h1, h2, h3, h4, strong, .askai-announce__title) { color: #F7F4EF !important; }
 
+/* ── 7k. Light: mint text deepened where it sits on a light backdrop (fixer marks it) ── */
+body:not([data-theme*="dark"]):not(#dz-boost) [data-dz-mint] { color: #0E7366 !important; }
+/* settings "Go Back" pill sat flush against the window edge */
+body #backButtonv2 { margin-left: 12px !important; border-radius: 10px !important; width: auto !important; padding-right: 12px !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

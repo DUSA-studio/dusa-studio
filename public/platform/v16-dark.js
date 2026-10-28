@@ -42,7 +42,7 @@
       var c = rgb(cs.backgroundColor);
       if (c && c.a > 0.5) return sat(c) > 0.18 && lum(c) > 0.08 ? 'colour' : (lum(c) < 0.25 ? 'neutral' : 'light');
     }
-    return 'neutral';
+    return isDark() ? 'neutral' : 'light';
   }
 
   // GHL's stock blues (#004EEB, #155EEF, #2970FF, #1570EF, #175CD3, #2E90FA, #3B82F6, #2563EB ...)
@@ -56,6 +56,11 @@
       var tc = rgb(cs.color), btc = parseFloat(cs.borderTopWidth) > 0 ? rgb(cs.borderTopColor) : null;
       if (hasOwnText(el) && ghlBlue(tc)) el.setAttribute('data-dz-blue', 'text');
       else if (ghlBlue(btc)) el.setAttribute('data-dz-blue', 'line');
+    }
+    // light mode: brand mint text on a light backdrop reads at ~2:1; deepen it to a legible teal
+    if (!isDark() && !el.hasAttribute('data-dz-mint') && hasOwnText(el)) {
+      var mc = rgb(cs.color);
+      if (mc && mc.a > 0.5) { var mh = hue(mc); if (mh >= 160 && mh <= 180 && sat(mc) > 0.35 && lum(mc) > 0.3 && backdropKind(el) === 'light') el.setAttribute('data-dz-mint', '1'); }
     }
     if (!isDark()) return;
     var r = el.getBoundingClientRect();

@@ -588,6 +588,12 @@ body .hl_new_badge_top_menu, body .hl_new_badge_top_menu * { color: #0C1E2E !imp
 body .hero-eyebrow { color: #0F5E52 !important; }
 body[data-theme*="dark"] .hero-eyebrow { background-color: rgba(78, 216, 194, .16) !important; color: #8AEBD9 !important; }
 
+/* ── 7i. Inline GHL purples (AI buttons in the message composer) ──── */
+body [style*="background-color: rgb(235, 233, 254)"] { background-color: rgba(78, 216, 194, .16) !important; }
+body svg[style*="stroke: rgb(105, 56, 239)"] { stroke: #1A3A5C !important; }
+body[data-theme*="dark"] svg[style*="stroke: rgb(105, 56, 239)"] { stroke: #8AEBD9 !important; }
+body .fc .fc-col-header-cell-cushion { color: #3F4A57; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

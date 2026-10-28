@@ -52,7 +52,9 @@
     var r = el.getBoundingClientRect();
     var bg = rgb(cs.backgroundColor);
     var noImg = !cs.backgroundImage || cs.backgroundImage === 'none';
-    if (bg && bg.a > 0.85 && noImg && sat(bg) < 0.07 && r.width >= 24 && r.height >= 18 && r.width * r.height >= 900) {
+    var big = r.width >= 24 && r.height >= 18 && r.width * r.height >= 900;
+    var chip = r.width >= 14 && r.height >= 12 && hasOwnText(el);
+    if (bg && bg.a > 0.85 && noImg && sat(bg) < 0.07 && (big || chip)) {
       var L = lum(bg);
       if (L > 0.86 && !el.hasAttribute('data-dz-surf')) el.setAttribute('data-dz-surf', '1');
       else if (L > 0.62 && !el.hasAttribute('data-dz-surf')) el.setAttribute('data-dz-surf', '2');

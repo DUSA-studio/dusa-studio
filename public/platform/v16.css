@@ -562,6 +562,17 @@ body[data-theme*="dark"] .text-primary-700, body[data-theme*="dark"] .text-prima
 body[data-theme*="dark"] .border-primary-300 { border-color: rgba(78, 216, 194, .45) !important; }
 body[data-theme*="dark"] [id^="toggle-transcript-btn-"] * { color: #0C1E2E !important; }
 
+/* ── 7e. Dark: hover rows and Tailwind hover fills ─────────────────── */
+body[data-theme*="dark"] .tabulator-row:hover,
+body[data-theme*="dark"] .tabulator-row.tabulator-selectable:hover,
+body[data-theme*="dark"] .tabulator-row:hover .tabulator-cell { background-color: rgba(78, 216, 194, .07) !important; }
+body[data-theme*="dark"] .tabulator-row:hover .tabulator-cell * { color: #F7F4EF !important; }
+body[data-theme*="dark"] [class*="hover:bg-white"]:hover,
+body[data-theme*="dark"] [class*="hover:bg-gray-"]:hover,
+body[data-theme*="dark"] [class*="hover:bg-primary-25"]:hover,
+body[data-theme*="dark"] [class*="hover:bg-primary-50"]:hover { background-color: rgba(247, 244, 239, .07) !important; }
+body[data-theme*="dark"] .lv-pill { background-color: rgba(106, 170, 207, .16) !important; color: #DCEEF8 !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

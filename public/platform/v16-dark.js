@@ -52,7 +52,7 @@
   function offBlue(c) {
     if (!c || c.a < 0.3 || isBrand(c)) return 0;
     var h = hue(c), ch = sat(c), L = lum(c);
-    if (h < 205 || h > 290) return 0;
+    if (h < 195 || h > 290) return 0; // 195+ also catches GHL "curious blue" / blue-light (#38A0DB, #0BA5EC)
     if (ch > 0.3 && L > 0.04) return 2;
     if (ch >= 0.045 && L > 0.72) return 1;
     return 0;

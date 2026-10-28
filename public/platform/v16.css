@@ -529,12 +529,12 @@ body[data-theme*="dark"] .askai-left-panel__history-item-more,
 body[data-theme*="dark"] .askai-left-panel__history-item-menu { background: transparent !important; }
 
 /* ── 7c. Dark: markers set by the neutral fixer (Custom JS) ───────── */
-body[data-theme*="dark"] [data-dz-surf="1"] { background-color: #161B26 !important; }
-body[data-theme*="dark"] [data-dz-surf="2"] { background-color: #1D2433 !important; }
-body[data-theme*="dark"] [data-dz-line] { border-color: rgba(247, 244, 239, .12) !important; }
-body[data-theme*="dark"] [data-dz-ink="1"] { color: #F7F4EF !important; }
-body[data-theme*="dark"] [data-dz-ink="2"] { color: rgba(247, 244, 239, .76) !important; }
-body[data-theme*="dark"] [data-dz-ink="3"] { color: #8AEBD9 !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-surf="1"] { background-color: #161B26 !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-surf="2"] { background-color: #1D2433 !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-line] { border-color: rgba(247, 244, 239, .12) !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-ink="1"] { color: #F7F4EF !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-ink="2"] { color: rgba(247, 244, 239, .76) !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-ink="3"] { color: #8AEBD9 !important; }
 
 /* ── 7d. Dark: calendar (FullCalendar reads these variables) ───────── */
 body[data-theme*="dark"] .fc {
@@ -544,14 +544,15 @@ body[data-theme*="dark"] .fc {
   --fc-today-bg-color: rgba(78, 216, 194, .08);
   --fc-now-indicator-color: #4ED8C2;
 }
+body[data-theme*="dark"]:not(#dz-boost) #fc-calendar-container-v2,
 body[data-theme*="dark"] .fc .fc-scrollgrid-section-sticky > *,
 body[data-theme*="dark"] .fc .fc-col-header,
 body[data-theme*="dark"] .fc .fc-col-header-cell { background-color: #10141C !important; }
 body[data-theme*="dark"] .fc .fc-col-header-cell-cushion { color: #8AEBD9 !important; }
 body[data-theme*="dark"] .fc-v-event, body[data-theme*="dark"] .fc-h-event { border-color: rgba(247, 244, 239, .18) !important; }
-body[data-theme*="dark"] .text-primary-700, body[data-theme*="dark"] .text-primary-600 { color: #8AEBD9 !important; }
+body[data-theme*="dark"]:not(#dz-boost) .text-primary-700, body[data-theme*="dark"]:not(#dz-boost) .text-primary-600 { color: #8AEBD9 !important; }
 body[data-theme*="dark"] .border-primary-300 { border-color: rgba(78, 216, 194, .45) !important; }
-body[data-theme*="dark"] [id^="toggle-transcript-btn-"] * { color: #0C1E2E !important; }
+body[data-theme*="dark"]:not(#dz-boost) [id^="toggle-transcript-btn-"] * { color: #0C1E2E !important; }
 
 /* ── 7e. Dark: hover rows and Tailwind hover fills ─────────────────── */
 body[data-theme*="dark"] .tabulator-row:hover,
@@ -565,9 +566,9 @@ body[data-theme*="dark"] [class*="hover:bg-primary-50"]:hover { background-color
 body[data-theme*="dark"] .lv-pill { background-color: rgba(106, 170, 207, .16) !important; color: #DCEEF8 !important; }
 
 /* ── 7f. GHL stock blues → brand (markers from the skin fixer) ─────── */
-body [data-dz-blue="text"] { color: #1A3A5C !important; }
-body [data-dz-blue="line"] { border-color: rgba(106, 170, 207, .6) !important; }
-body[data-theme*="dark"] [data-dz-blue="text"] { color: #8AEBD9 !important; }
+body:not(#dz-boost) [data-dz-blue="text"] { color: #1A3A5C !important; }
+body:not(#dz-boost) [data-dz-blue="line"] { border-color: rgba(106, 170, 207, .6) !important; }
+body[data-theme*="dark"]:not(#dz-boost) [data-dz-blue="text"] { color: #8AEBD9 !important; }
 body .new-pipeline-title, body .new-pipeline-action { color: #1A3A5C !important; }
 body[data-theme*="dark"] .new-pipeline-title, body[data-theme*="dark"] .new-pipeline-action { color: #8AEBD9 !important; }
 

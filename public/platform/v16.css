@@ -497,7 +497,6 @@ body[data-theme*="dark"] .chat-bubble-inbound * { color: #F7F4EF !important; }
 body[data-theme*="dark"] .chat-bubble-inbound { background-color: #1A2030 !important; }
 body[data-theme*="dark"] [id^="conv-menu-item-"].menu-item { background-color: rgba(78, 216, 194, .10) !important; }
 /* avatars with mint fill need dark ink */
-body[data-theme*="dark"] .hr-avatar[style*="138, 235, 217"] *,
 body[data-theme*="dark"] .hr-avatar .hr-text { color: #0C1E2E !important; }
 /* segment tabs */
 body[data-theme*="dark"] .hr-tabs-nav--segment-type,
@@ -519,6 +518,49 @@ body[data-theme*="dark"] .border-gray-100 { border-color: rgba(247, 244, 239, .1
 body[data-theme*="dark"] [id^="toggle-transcript-btn-"] { color: #0C1E2E !important; }
 /* keyboard hint chip */
 body[data-theme*="dark"] .search-shortcut { background: rgba(247, 244, 239, .10) !important; color: #F7F4EF !important; }
+
+/* ── 7b. Glass surfaces must not keep GHL's own fill under the gradient ── */
+body .askai-left-panel.askai-left-panel, body #sidebar-v2#sidebar-v2, body header.hl_header.hl_header, body .askai-composer-bar.askai-composer-bar,
+body .hr-popover.hr-popover:not(.hr-tooltip):not(.hr-popover--raw), body .hr-modal.hr-modal, body .hr-dialog.hr-dialog,
+body .hr-drawer.hr-drawer, body .hr-notification.hr-notification { background-color: transparent !important; }
+body .askai-sidebar__left-panel { background: transparent !important; }
+body .askai-composer-bar .hr-input__state-border, body .askai-composer-bar .hr-input__border { border-color: transparent !important; box-shadow: none !important; }
+body .askai-composer-bar textarea, body .askai-composer-bar textarea:focus { border: 0 !important; box-shadow: none !important; outline: none !important; }
+body .askai-composer-actions .askai-composer-actions__voice-btn.hr-button,
+body .askai-composer-actions__right button.hr-button.hr-button--primary-type { background: var(--dz-btn-dark) !important; }
+body .askai-left-panel .hr-button.askai-left-panel__history-item,
+body .askai-left-panel .hr-button.askai-left-panel__account-row,
+body .askai-left-panel .askai-left-panel__account .hr-button { background: transparent !important; box-shadow: none !important; }
+body .askai-left-panel .hr-button.askai-left-panel__history-item:hover { background: rgba(78, 216, 194, .12) !important; }
+body[data-theme*="dark"] .askai-left-panel__icon,
+body[data-theme*="dark"] img.askai-left-panel__icon { filter: brightness(0) invert(1); opacity: .86; }
+body[data-theme*="dark"] .askai-left-panel__history-item-more,
+body[data-theme*="dark"] .askai-left-panel__history-item-menu { background: transparent !important; }
+
+/* ── 7c. Dark: markers set by the neutral fixer (Custom JS) ───────── */
+body[data-theme*="dark"] [data-dz-surf="1"] { background-color: #161B26 !important; }
+body[data-theme*="dark"] [data-dz-surf="2"] { background-color: #1D2433 !important; }
+body[data-theme*="dark"] [data-dz-line] { border-color: rgba(247, 244, 239, .12) !important; }
+body[data-theme*="dark"] [data-dz-ink="1"] { color: #F7F4EF !important; }
+body[data-theme*="dark"] [data-dz-ink="2"] { color: rgba(247, 244, 239, .76) !important; }
+body[data-theme*="dark"] [data-dz-ink="3"] { color: #8AEBD9 !important; }
+
+/* ── 7d. Dark: calendar (FullCalendar reads these variables) ───────── */
+body[data-theme*="dark"] .fc {
+  --fc-page-bg-color: #10141C;
+  --fc-neutral-bg-color: rgba(247, 244, 239, .04);
+  --fc-border-color: rgba(247, 244, 239, .10);
+  --fc-today-bg-color: rgba(78, 216, 194, .08);
+  --fc-now-indicator-color: #4ED8C2;
+}
+body[data-theme*="dark"] .fc .fc-scrollgrid-section-sticky > *,
+body[data-theme*="dark"] .fc .fc-col-header,
+body[data-theme*="dark"] .fc .fc-col-header-cell { background-color: #10141C !important; }
+body[data-theme*="dark"] .fc .fc-col-header-cell-cushion { color: #8AEBD9 !important; }
+body[data-theme*="dark"] .fc-v-event, body[data-theme*="dark"] .fc-h-event { border-color: rgba(247, 244, 239, .18) !important; }
+body[data-theme*="dark"] .text-primary-700, body[data-theme*="dark"] .text-primary-600 { color: #8AEBD9 !important; }
+body[data-theme*="dark"] .border-primary-300 { border-color: rgba(78, 216, 194, .45) !important; }
+body[data-theme*="dark"] [id^="toggle-transcript-btn-"] * { color: #0C1E2E !important; }
 
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {

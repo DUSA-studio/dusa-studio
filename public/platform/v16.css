@@ -849,6 +849,12 @@ body:not(#dz-a):not(#dz-b) [data-dz-bpseudo~="after-line"]::after { border-color
 body:not(#dz-a):not(#dz-b) [data-dz-bpseudo~="before-tx"]::before { color: var(--dz-m-text) !important; }
 body:not(#dz-a):not(#dz-b) [data-dz-bpseudo~="after-tx"]::after { color: var(--dz-m-text) !important; }
 
+/* Memberships "Your Brand. Your App." promo: GHL pink-to-purple wash behind the
+   phone artwork becomes the DUSA ocean wash (artwork layer kept as is) */
+body:not(#dz-boost) a.branded-banner {
+  background-image: url("https://storage.googleapis.com/revex-client-portal-staging/assets/promotional_banner.png"), linear-gradient(90deg, #10283F 0%, #1A3A5C 38%, #2B5C86 70%, #4E8FB8 100%) !important;
+}
+
 /* Ask AI voice button: the deep ocean gradient read as black at 32px; lift it a step */
 body:not(#dz-boost) .askai-composer-actions__voice-btn:not(#dz-b) { background: linear-gradient(160deg, #4A7FA8 0%, #2B5C86 55%, #1A3A5C 100%) !important; }
 

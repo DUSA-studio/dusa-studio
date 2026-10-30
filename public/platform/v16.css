@@ -778,6 +778,12 @@ body:not(#dz-boost) .ai-usage-gauge__trigger {
 }
 body:not(#dz-boost) .ai-usage-gauge__trigger:hover { background: var(--dz-btn-glass-hover) !important; }
 body[data-theme*="dark"]:not(#dz-boost) .askai-composer-actions__voice-btn { box-shadow: inset 0 0 0 1px rgba(247, 244, 239, .16), 0 6px 16px -8px rgba(0, 0, 0, .6) !important; }
+/* Header Ask AI button: round, like the other header circles (the old rule set 8px corners) */
+body:not(#dz-a):not(#dz-b) header #hl_header--copilot-icon {
+  border-radius: 999px !important; border: 0 !important;
+  background: linear-gradient(135deg, #2B5C86 0%, #002F5F 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 2px 6px rgba(12, 30, 50, .18) !important;
+}
 /* Header help "?" keeps its gradient; drop GHL's blue fill underneath */
 body:not(#dz-boost) header.hl_header #hl_header--help-icon { background-color: transparent !important; }
 

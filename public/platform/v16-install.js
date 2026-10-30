@@ -28,6 +28,27 @@
     return { css: out, n: n };
   }
 
+  /* The old (v13-v15) header rules for the Ask AI button used selectors like
+     [class*="ask-ai"] * and [aria-label*="Ask AI"] with no header scope, so on
+     the Ask AI admin pages they painted warm-white text on white tables, navy
+     blocks behind headings and white glyphs on white tiles. Scope every such
+     selector to the app header. Idempotent: scoped parts are left alone. */
+  function scopeAskAi(css) {
+    function split(s) { var parts = [], d = 0, cur = ''; for (var i = 0; i < s.length; i++) { var ch = s[i]; if (ch === '(' || ch === '[') d++; if (ch === ')' || ch === ']') d--; if (ch === ',' && d === 0) { parts.push(cur); cur = ''; } else cur += ch; } parts.push(cur); return parts; }
+    var n = 0;
+    var out = css.replace(/([^{}]+)\{([^{}]*)\}/g, function (m, sel, decl) {
+      if (sel.indexOf('hl_header--copilot-icon') < 0) return m;
+      return split(sel).map(function (p) {
+        var t = p.trim(), lead = p.match(/^\s*/)[0];
+        if (/^header(?=[\s\[:>])/.test(t)) { n++; return lead + t.replace(/^header/, 'header.hl_header'); }
+        if (/^(header\.|\.hl_header|#hl_header|#sidebar-v2)/.test(t)) return p;
+        n++; return lead + 'header.hl_header ' + t;
+      }).join(',') + '{' + decl + '}';
+    });
+    return { css: out, n: n };
+  }
+  window.__dzScopeAskAi = scopeAskAi;
+
   function arm(i) {
     var c = document.querySelectorAll('.cm-content')[i];
     c.focus();
@@ -65,9 +86,10 @@
       var marker = cur.indexOf('SKIN v16');
       var base = marker > -1 ? cur.slice(0, cur.lastIndexOf('/*', marker)).replace(/\s+$/, '') : cur.replace(/\s+$/, '');
       if (base.indexOf(':not([class*="__"])') < 0) base = xform(base).css;
+      var sc = scopeAskAi(base); base = sc.css;
       var v16 = await (await fetch(BASE + 'v16.css?t=' + Date.now())).text();
       window.__dzNewCss = base + '\n\n' + v16.trim() + '\n';
-      return { base: base.length, v16: v16.length, total: window.__dzNewCss.length, cut: cut };
+      return { base: base.length, v16: v16.length, total: window.__dzNewCss.length, cut: cut, askAiScoped: sc.n };
     },
     buildJs: async function () {
       var cur = doc(0), marker = cur.indexOf('<script>/* DUSA . studio · skin fixer');

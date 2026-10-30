@@ -32,7 +32,12 @@
   var skin = document.getElementById('customCss');
   if (skin) {
     window.__origSkin = window.__origSkin || skin.textContent;
-    if (window.__origSkin.indexOf('end DUSA v16') < 0) skin.textContent = window.__dzXform(window.__origSkin).css;
+    var base = window.__origSkin;
+    if (base.indexOf('end DUSA v16') > -1) base = base.slice(0, base.lastIndexOf('/*', base.indexOf('SKIN v16')));
+    if (base.indexOf(':not([class*="__"])') < 0) base = window.__dzXform(base).css;
+    // same Ask AI header scoping the installer applies (loaded from v16-install.js)
+    try { var inst = await (await fetch(BASE + 'v16-install.js' + bust)).text(); (0, eval)(inst); base = window.__dzScopeAskAi(base).css; } catch (e) {}
+    skin.textContent = base;
   }
   document.querySelectorAll('style[id^="dusa-v16"]').forEach(function (s) { s.remove(); });
   var css = await (await fetch(BASE + 'v16.css' + bust)).text();

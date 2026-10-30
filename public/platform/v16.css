@@ -820,6 +820,22 @@ body[data-theme*="dark"]:not(#dz-boost) #sidebar-v2 .hl_collapse-button {
 body[data-theme*="dark"]:not(#dz-boost) #sidebar-v2 .hl_collapse-button::before { background-color: #F7F4EF !important; }
 body[data-theme*="dark"]:not(#dz-boost) #sidebar-v2 .hl_collapse-button:hover::before { background-color: #8AEBD9 !important; }
 
+/* ── 7s. Contrast rescue (marks from the skin fixer) ───────────────────
+   Icons and text that measured under 1.6:1 against their real backdrop.
+   "l" = sits on a light surface, gets deep ocean; "d" = sits on a dark
+   surface, gets warm white. Two ID boosts beat GHL inline/!important colours. */
+body:not(#dz-a):not(#dz-b) [data-dz-rc="l"] { color: #1A3A5C !important; -webkit-text-fill-color: currentColor !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rc="d"] { color: rgba(247, 244, 239, .9) !important; -webkit-text-fill-color: currentColor !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rf="l"] { fill: #2B5C86 !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rf="d"] { fill: rgba(247, 244, 239, .86) !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rs="l"] { stroke: #2B5C86 !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rs="d"] { stroke: rgba(247, 244, 239, .86) !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rb="l"] { background-color: #2B5C86 !important; }
+body:not(#dz-a):not(#dz-b) [data-dz-rb="d"] { background-color: rgba(247, 244, 239, .86) !important; }
+
+/* Ask AI voice button: the deep ocean gradient read as black at 32px; lift it a step */
+body:not(#dz-boost) .askai-composer-actions__voice-btn:not(#dz-b) { background: linear-gradient(160deg, #4A7FA8 0%, #2B5C86 55%, #1A3A5C 100%) !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

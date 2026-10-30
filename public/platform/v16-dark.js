@@ -1,4 +1,4 @@
-/* DUSA . studio · skin fixer (v16, 2026-10-28; v16.4 adds hover/focus/active states): GHL blues → brand (both themes) + dark-mode neutral fixer
+/* DUSA . studio · skin fixer (v16, 2026-10-28; v16.4 adds hover/focus/active states; v16.5 adds contrast rescue): GHL blues → brand (both themes) + dark-mode neutral fixer
    GHL has no dark tokens, so many legacy and one-off components paint
    literal white/grey surfaces and near-black text. In dark mode only, this
    marks NEUTRAL light surfaces, light hairlines and dark-neutral text with
@@ -249,12 +249,95 @@
     var t = ev.target; later(function () { catchState(t, 'data-dz-fov'); }); setTimeout(function () { catchState(t, 'data-dz-fov'); }, 320);
   }, true);
 
+  /* ── Contrast rescue (v16.5) ───────────────────────────────────────────
+     Any icon or text that nearly disappears into what is actually behind it
+     (white glyph on a white tile, navy icon on a dark panel, grey on grey)
+     gets a brand ink that reads: deep ocean on light, warm white on dark.
+     The backdrop is composited from every translucent layer up the tree,
+     including absolutely positioned ::before/::after fills. Only near-invisible
+     pairs are touched (under 1.6:1), so intentionally muted text is left alone. */
+  var RC_ATTRS = ['data-dz-rc', 'data-dz-rf', 'data-dz-rs', 'data-dz-rb'];
+  var RC_SKIP = 'img, video, canvas, iframe, picture, [contenteditable="true"], [data-dz-skip], .fc-event, [class*="color-picker"], [class*="swatch"],' +
+    ' [class*="chart"], [id*="chart"], [_echarts_instance_], [class*="highcharts"], .gjs-frame-wrapper, [class*="email-preview"], [class*="template-preview"], [class*="avatar"], [class*="logo"], .sr-only';
+  var bgCache = typeof WeakMap === 'function' ? new WeakMap() : null;
+  function mixC(top, bot) { var a = top.a; return { r: top.r * a + bot.r * (1 - a), g: top.g * a + bot.g * (1 - a), b: top.b * a + bot.b * (1 - a), a: 1 }; }
+  function gradAvg(s) {
+    var cs = (s.match(COLRE) || []).map(parseCol).filter(Boolean); COLRE.lastIndex = 0;
+    if (!cs.length) return null;
+    var o = { r: 0, g: 0, b: 0, a: 0 }; cs.forEach(function (c) { o.r += c.r; o.g += c.g; o.b += c.b; o.a += c.a; });
+    return { r: o.r / cs.length, g: o.g / cs.length, b: o.b / cs.length, a: o.a / cs.length };
+  }
+  function ownLayers(e) {
+    // Paint layers this element adds, topmost first; .opaque says nothing below shows through
+    var res = { layers: [], opaque: false }, cs = getComputedStyle(e);
+    ['::after', '::before'].forEach(function (ps) {
+      var p = getComputedStyle(e, ps);
+      if (!p.content || p.content === 'none' || p.content === 'normal' || p.position !== 'absolute') return;
+      var op = +p.opacity, g = p.backgroundImage && p.backgroundImage.indexOf('gradient') > -1 ? gradAvg(p.backgroundImage) : null, c = rgb(p.backgroundColor);
+      var L = g && g.a > 0.3 ? g : (c && c.a > 0.3 ? c : null);
+      if (L) { L = { r: L.r, g: L.g, b: L.b, a: L.a * op }; res.layers.push(L); if (L.a > 0.95) res.opaque = true; }
+    });
+    var g2 = cs.backgroundImage && cs.backgroundImage !== 'none' && cs.backgroundImage.indexOf('gradient') > -1 ? gradAvg(cs.backgroundImage) : null;
+    if (g2 && g2.a > 0.05) { res.layers.push(g2); if (g2.a > 0.95) res.opaque = true; }
+    var c2 = rgb(cs.backgroundColor);
+    if (c2 && c2.a > 0.05) { res.layers.push(c2); if (c2.a > 0.95) res.opaque = true; }
+    return res;
+  }
+  function effBg(el) {
+    // Composited colour behind el's own content (el's own fills included)
+    if (!el || el === document.documentElement) return isDark() ? { r: 12, g: 14, b: 20, a: 1 } : { r: 242, g: 245, b: 246, a: 1 };
+    if (bgCache && bgCache.has(el)) return bgCache.get(el);
+    var own = ownLayers(el), base = own.opaque ? { r: 0, g: 0, b: 0, a: 1 } : effBg(el.parentElement), out = base;
+    for (var i = own.layers.length - 1; i >= 0; i--) out = mixC(own.layers[i], out);
+    if (bgCache) bgCache.set(el, out);
+    return out;
+  }
+  function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  var SHAPES = 'path, circle, rect, line, polyline, polygon, ellipse';
+  function rescue(el, cs) {
+    if (el.closest(RC_SKIP)) return;
+    var r = el.getBoundingClientRect(); if (r.width < 6 || r.height < 6) return;
+    if (+cs.opacity < 0.35) return;
+    var bg, side;
+    if (el instanceof SVGSVGElement) {
+      if (el.parentElement && el.parentElement.closest('svg')) return;
+      bg = effBg(el.parentElement); side = lum(bg) > 0.4 ? 'l' : 'd';
+      var shapes = el.querySelectorAll(SHAPES);
+      for (var i = 0; i < shapes.length && i < 40; i++) {
+        var s = shapes[i], ss = getComputedStyle(s);
+        if (ss.fill && ss.fill !== 'none' && ss.fill.indexOf('url') < 0) { var f = rgb(ss.fill); if (f && f.a > 0.3 && ratio(mixC(f, bg), bg) < 1.6) s.setAttribute('data-dz-rf', side); }
+        if (ss.stroke && ss.stroke !== 'none' && ss.stroke.indexOf('url') < 0 && parseFloat(ss.strokeWidth) > 0) { var k = rgb(ss.stroke); if (k && k.a > 0.3 && ratio(mixC(k, bg), bg) < 1.6) s.setAttribute('data-dz-rs', side); }
+      }
+      return;
+    }
+    if (el instanceof SVGElement) return;
+    var mk = cs.webkitMaskImage || cs.maskImage;
+    if (mk && mk !== 'none' && mk.indexOf('url') > -1) {
+      var mc = rgb(cs.backgroundColor); if (!mc || mc.a < 0.3) return;
+      bg = effBg(el.parentElement);
+      if (ratio(mixC(mc, bg), bg) < 1.6) el.setAttribute('data-dz-rb', lum(bg) > 0.4 ? 'l' : 'd');
+      return;
+    }
+    var isFont = el.tagName === 'I' && (function () { var b = getComputedStyle(el, '::before'); return b.content && b.content !== 'none' && b.content !== 'normal'; })();
+    if (!isFont && !hasOwnText(el)) return;
+    if (cs.webkitTextFillColor && /rgba\(0, 0, 0, 0\)/.test(cs.webkitTextFillColor)) return;
+    var fc = rgb(cs.color); if (!fc || fc.a < 0.25) return;
+    bg = effBg(el);
+    if (ratio(mixC(fc, bg), bg) < 1.6) el.setAttribute('data-dz-rc', lum(bg) > 0.4 ? 'l' : 'd');
+  }
+
   function visit(el) {
     if (el.nodeType !== 1) return;
     var cs = getComputedStyle(el);
     if (cs.display === 'none') return;
     if (el.closest && !el.closest(SKIP_BLUE)) { twMark(el); fixVars(el); }
     bluePass(el, cs);
+    neutralPass(el, cs);
+    // last, so it sees the colours the other passes just applied
+    try { rescue(el, getComputedStyle(el)); } catch (e) { /* never let the rescue break the fixer */ }
+  }
+
+  function neutralPass(el, cs) {
     if (el.closest(SKIP)) return;
     // light mode: brand mint text on a light backdrop reads at ~2:1; deepen it to a legible teal
     if (!isDark() && !el.hasAttribute('data-dz-mint') && hasOwnText(el)) {
@@ -294,6 +377,7 @@
   var queue = [], scheduled = false;
   function flush(deadline) {
     scheduled = false;
+    if (bgCache) bgCache = new WeakMap(); // backdrops can change between passes (hover, theme, marks)
     var t0 = performance.now();
     while (queue.length) {
       var item = queue.shift(), root = item[0];
@@ -322,8 +406,17 @@
         enqueue(an);
       }
       else if (m.type === 'attributes') {
-        if (m.target === document.body && m.attributeName === 'data-theme') enqueue(document.body);
-        else if (m.target.nodeType === 1) { ['data-dz-bdone', 'data-dz-blue', 'data-dz-bline', 'data-dz-bbtn', 'data-dz-bbg', 'data-dz-btint'].forEach(function (a) { m.target.removeAttribute(a); }); enqueue(m.target, true); }
+        if (m.target === document.body && m.attributeName === 'data-theme') {
+          // a different theme means different backdrops: drop every rescue mark and re-measure
+          if (bgCache) bgCache = new WeakMap();
+          document.querySelectorAll('[data-dz-rc],[data-dz-rf],[data-dz-rs],[data-dz-rb]').forEach(function (n) { RC_ATTRS.forEach(function (a) { n.removeAttribute(a); }); });
+          enqueue(document.body);
+        }
+        else if (m.target.nodeType === 1) {
+          ['data-dz-bdone', 'data-dz-blue', 'data-dz-bline', 'data-dz-bbtn', 'data-dz-bbg', 'data-dz-btint'].concat(RC_ATTRS).forEach(function (a) { m.target.removeAttribute(a); });
+          if (bgCache) bgCache.delete(m.target);
+          enqueue(m.target, true);
+        }
       }
     }
   });

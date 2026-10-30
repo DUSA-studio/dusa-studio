@@ -824,14 +824,22 @@ body[data-theme*="dark"]:not(#dz-boost) #sidebar-v2 .hl_collapse-button:hover::b
    Icons and text that measured under 1.6:1 against their real backdrop.
    "l" = sits on a light surface, gets deep ocean; "d" = sits on a dark
    surface, gets warm white. Two ID boosts beat GHL inline/!important colours. */
-body:not(#dz-a):not(#dz-b) [data-dz-rc="l"] { color: #1A3A5C !important; -webkit-text-fill-color: currentColor !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rc="d"] { color: rgba(247, 244, 239, .9) !important; -webkit-text-fill-color: currentColor !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rf="l"] { fill: #2B5C86 !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rf="d"] { fill: rgba(247, 244, 239, .86) !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rs="l"] { stroke: #2B5C86 !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rs="d"] { stroke: rgba(247, 244, 239, .86) !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rb="l"] { background-color: #2B5C86 !important; }
-body:not(#dz-a):not(#dz-b) [data-dz-rb="d"] { background-color: rgba(247, 244, 239, .86) !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rc-lt="l"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rc-dk="l"] { color: #1A3A5C !important; -webkit-text-fill-color: currentColor !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rc-lt="d"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rc-dk="d"] { color: rgba(247, 244, 239, .9) !important; -webkit-text-fill-color: currentColor !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rf-lt="l"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rf-dk="l"] { fill: #2B5C86 !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rf-lt="d"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rf-dk="d"] { fill: rgba(247, 244, 239, .86) !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rs-lt="l"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rs-dk="l"] { stroke: #2B5C86 !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rs-lt="d"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rs-dk="d"] { stroke: rgba(247, 244, 239, .86) !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rb-lt="l"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rb-dk="l"] { background-color: #2B5C86 !important; }
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) [data-dz-rb-lt="d"],
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) [data-dz-rb-dk="d"] { background-color: rgba(247, 244, 239, .86) !important; }
 
 /* GHL blue drawn by ::before / ::after (tab underlines, active bars, dots, rings) */
 body:not(#dz-a):not(#dz-b) [data-dz-bpseudo~="before-bg"]::before { background-color: #4ED8C2 !important; }

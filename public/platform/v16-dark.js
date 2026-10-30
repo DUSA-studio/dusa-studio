@@ -265,9 +265,13 @@
      gets a brand ink that reads: deep ocean on light, warm white on dark.
      The backdrop is composited from every translucent layer up the tree,
      including absolutely positioned ::before/::after fills. Only near-invisible
-     pairs are touched (icons under 1.7:1, text under 2:1), so intentionally
+     pairs are touched (icons under 1.9:1, text under 2:1), so intentionally
      muted text is left alone. */
-  var RC_ATTRS = ['data-dz-rc', 'data-dz-rf', 'data-dz-rs', 'data-dz-rb'];
+  // Marks carry the theme they were measured in (-lt light, -dk dark), so a theme
+  // switch never shows the other theme's verdict while the page is re-measured.
+  var RC_BASE = ['data-dz-rc', 'data-dz-rf', 'data-dz-rs', 'data-dz-rb'];
+  var RC_ATTRS = RC_BASE.map(function (a) { return a + '-lt'; }).concat(RC_BASE.map(function (a) { return a + '-dk'; }));
+  function rcName(a) { return a + (isDark() ? '-dk' : '-lt'); }
   var RC_SKIP = 'img, video, canvas, iframe, picture, [contenteditable="true"], [data-dz-skip], .fc-event, [class*="color-picker"], [class*="swatch"],' +
     ' [class*="chart"], [id*="chart"], [_echarts_instance_], [class*="highcharts"], .gjs-frame-wrapper, [class*="email-preview"], [class*="template-preview"], [class*="logo"], .sr-only';
   var bgCache = typeof WeakMap === 'function' ? new WeakMap() : null;
@@ -310,9 +314,10 @@
   function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
   var SHAPES = 'path, circle, rect, line, polyline, polygon, ellipse';
   // Near-invisible only: intentionally muted greys sit around 2.5:1 and are left alone
-  var ICON_MIN = 1.7, TEXT_MIN = 2.0;
+  var ICON_MIN = 1.9, TEXT_MIN = 2.0;
   function rescue(el, cs) {
     if (el.closest(RC_SKIP)) return;
+    if (el.hasAttribute(rcName('data-dz-rc')) || el.hasAttribute(rcName('data-dz-rb'))) { el.removeAttribute(rcName('data-dz-rc')); el.removeAttribute(rcName('data-dz-rb')); cs = getComputedStyle(el); }
     var r = el.getBoundingClientRect(); if (r.width < 6 || r.height < 6) return;
     if (+cs.opacity < 0.35) return;
     var bg, side;
@@ -322,9 +327,11 @@
       bg = effBg(el.parentElement); side = lum(bg) > 0.4 ? 'l' : 'd';
       var shapes = el.querySelectorAll(SHAPES);
       for (var i = 0; i < shapes.length && i < 40; i++) {
-        var s = shapes[i], ss = getComputedStyle(s);
-        if (ss.fill && ss.fill !== 'none' && ss.fill.indexOf('url') < 0) { var f = rgb(ss.fill); if (f && f.a > 0.3 && ratio(mixC(f, bg), bg) < ICON_MIN) s.setAttribute('data-dz-rf', side); }
-        if (ss.stroke && ss.stroke !== 'none' && ss.stroke.indexOf('url') < 0 && parseFloat(ss.strokeWidth) > 0) { var k = rgb(ss.stroke); if (k && k.a > 0.3 && ratio(mixC(k, bg), bg) < ICON_MIN) s.setAttribute('data-dz-rs', side); }
+        var s = shapes[i], ss;
+        s.removeAttribute(rcName('data-dz-rf')); s.removeAttribute(rcName('data-dz-rs'));
+        ss = getComputedStyle(s);
+        if (ss.fill && ss.fill !== 'none' && ss.fill.indexOf('url') < 0) { var f = rgb(ss.fill); if (f && f.a > 0.3 && ratio(mixC(f, bg), bg) < ICON_MIN) s.setAttribute(rcName('data-dz-rf'), side); }
+        if (ss.stroke && ss.stroke !== 'none' && ss.stroke.indexOf('url') < 0 && parseFloat(ss.strokeWidth) > 0) { var k = rgb(ss.stroke); if (k && k.a > 0.3 && ratio(mixC(k, bg), bg) < ICON_MIN) s.setAttribute(rcName('data-dz-rs'), side); }
       }
       return;
     }
@@ -333,7 +340,7 @@
     if (mk && mk !== 'none' && mk.indexOf('url') > -1) {
       var mc = rgb(cs.backgroundColor); if (!mc || mc.a < 0.3) return;
       bg = effBg(el.parentElement);
-      if (ratio(mixC(mc, bg), bg) < ICON_MIN) el.setAttribute('data-dz-rb', lum(bg) > 0.4 ? 'l' : 'd');
+      if (ratio(mixC(mc, bg), bg) < ICON_MIN) el.setAttribute(rcName('data-dz-rb'), lum(bg) > 0.4 ? 'l' : 'd');
       return;
     }
     var isFont = el.tagName === 'I' && (function () { var b = getComputedStyle(el, '::before'); return b.content && b.content !== 'none' && b.content !== 'normal'; })();
@@ -341,7 +348,7 @@
     if (cs.webkitTextFillColor && /rgba\(0, 0, 0, 0\)/.test(cs.webkitTextFillColor)) return;
     var fc = rgb(cs.color); if (!fc || fc.a < 0.25) return;
     bg = effBg(el);
-    if (ratio(mixC(fc, bg), bg) < (isFont ? ICON_MIN : TEXT_MIN)) el.setAttribute('data-dz-rc', lum(bg) > 0.4 ? 'l' : 'd');
+    if (ratio(mixC(fc, bg), bg) < (isFont ? ICON_MIN : TEXT_MIN)) el.setAttribute(rcName('data-dz-rc'), lum(bg) > 0.4 ? 'l' : 'd');
   }
 
   function visit(el) {
@@ -425,9 +432,8 @@
       }
       else if (m.type === 'attributes') {
         if (m.target === document.body && m.attributeName === 'data-theme') {
-          // a different theme means different backdrops: drop every rescue mark and re-measure
+          // a different theme means different backdrops: re-measure (marks are per theme)
           if (bgCache) bgCache = new WeakMap();
-          document.querySelectorAll('[data-dz-rc],[data-dz-rf],[data-dz-rs],[data-dz-rb]').forEach(function (n) { RC_ATTRS.forEach(function (a) { n.removeAttribute(a); }); });
           enqueue(document.body);
         }
         else if (m.target.nodeType === 1) {

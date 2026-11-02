@@ -325,13 +325,24 @@
       if (el.parentElement && el.parentElement.closest('svg')) return;
       if (el.closest('[class*="avatar"]')) return;
       bg = effBg(el.parentElement); side = lum(bg) > 0.4 ? 'l' : 'd';
-      var shapes = el.querySelectorAll(SHAPES);
-      for (var i = 0; i < shapes.length && i < 40; i++) {
-        var s = shapes[i], ss;
+      var shapes = el.querySelectorAll(SHAPES), n = Math.min(shapes.length, 40), boxes = [], tiles = [];
+      for (var j = 0; j < n; j++) boxes.push(shapes[j].getBoundingClientRect());
+      function inside(a, b) { return a.left >= b.left - 1 && a.top >= b.top - 1 && a.right <= b.right + 1 && a.bottom <= b.bottom + 1; }
+      for (var i = 0; i < n; i++) {
+        var s = shapes[i], ss, b = boxes[i], sbg = bg;
         s.removeAttribute(rcName('data-dz-rf')); s.removeAttribute(rcName('data-dz-rs'));
         ss = getComputedStyle(s);
-        if (ss.fill && ss.fill !== 'none' && ss.fill.indexOf('url') < 0) { var f = rgb(ss.fill); if (f && f.a > 0.3 && ratio(mixC(f, bg), bg) < ICON_MIN) s.setAttribute(rcName('data-dz-rf'), side); }
-        if (ss.stroke && ss.stroke !== 'none' && ss.stroke.indexOf('url') < 0 && parseFloat(ss.strokeWidth) > 0) { var k = rgb(ss.stroke); if (k && k.a > 0.3 && ratio(mixC(k, bg), bg) < ICON_MIN) s.setAttribute(rcName('data-dz-rs'), side); }
+        // A tile/backdrop shape (icon card, badge disc) has later shapes drawn inside it, or
+        // carries a drop shadow: its own colour is the design's surface, never "invisible".
+        var tile = /^(rect|circle|ellipse)$/i.test(s.tagName) && b.width >= 18 && b.height >= 18 &&
+          (s.hasAttribute('filter') || boxes.some(function (o, k) { return k > i && o.width > 2 && inside(o, b); }));
+        var unknown = false;
+        for (var t = tiles.length - 1; t >= 0; t--) if (inside(b, tiles[t].box)) { if (tiles[t].col) sbg = mixC(tiles[t].col, bg); else unknown = true; break; }
+        if (unknown) continue; // drawn on a gradient/pattern tile we can't measure: leave as designed
+        var f = ss.fill && ss.fill !== 'none' && ss.fill.indexOf('url') < 0 ? rgb(ss.fill) : null;
+        if (tile) { if (f && f.a > 0.3) tiles.push({ box: b, col: f }); else if (ss.fill && ss.fill.indexOf('url') > -1) tiles.push({ box: b, col: null }); continue; }
+        if (f && f.a > 0.3 && ratio(mixC(f, sbg), sbg) < ICON_MIN) s.setAttribute(rcName('data-dz-rf'), lum(sbg) > 0.4 ? 'l' : 'd');
+        if (ss.stroke && ss.stroke !== 'none' && ss.stroke.indexOf('url') < 0 && parseFloat(ss.strokeWidth) > 0) { var k = rgb(ss.stroke); if (k && k.a > 0.3 && ratio(mixC(k, sbg), sbg) < ICON_MIN) s.setAttribute(rcName('data-dz-rs'), lum(sbg) > 0.4 ? 'l' : 'd'); }
       }
       return;
     }

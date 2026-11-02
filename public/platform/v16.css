@@ -866,6 +866,17 @@ body:not(#dz-boost) .askai-composer-actions__voice-btn:not(#dz-b) { background: 
 /* GHL now paints a solid black disc on the inner content layer (cross-origin sheet, !important) */
 body:not(#dz-a):not(#dz-b) .askai-composer-actions__voice-btn .hr-button__content { background: transparent !important; background-color: transparent !important; }
 
+/* AI Agents landing (ai-agents/getting-started): GHL's pink, orange and blue icon
+   strokes on the orbit tiles and stat chips become one brand colour */
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) .hero-orbital svg g[stroke]:not([stroke="none"]),
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) .hero-orbital svg g[stroke]:not([stroke="none"]) *,
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) .hero-stats-icon svg,
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) .hero-stats-icon svg * { stroke: #2B5C86 !important; }
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-orbital svg g[stroke]:not([stroke="none"]),
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-orbital svg g[stroke]:not([stroke="none"]) *,
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-stats-icon svg,
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-stats-icon svg * { stroke: #4ED8C2 !important; }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

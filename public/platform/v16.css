@@ -877,6 +877,17 @@ body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-orbital svg g[stroke]:not([
 body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-stats-icon svg,
 body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-stats-icon svg * { stroke: #4ED8C2 !important; }
 
+/* Ask AI Computer avatar: the DUSA visor bot (animated SVG: float, blink, antenna
+   pulse) replaces the stock robot at every size; GHL's status pip stays on top.
+   While it works (any state but idle) the bot gets a soft mint glow. */
+body:not(#dz-a) .askai-agent-avatar {
+  background: url("https://dusa.studio/platform/askai-bot.svg") center / contain no-repeat !important;
+}
+body:not(#dz-a) .askai-agent-avatar > svg.askai-agent-avatar__svg { visibility: hidden !important; }
+@keyframes dz-bot-busy { 0%, 100% { filter: drop-shadow(0 0 0 rgba(78, 216, 194, 0)); } 50% { filter: drop-shadow(0 0 10px rgba(78, 216, 194, .55)); } }
+body:not(#dz-a) .askai-agent-avatar:not([data-state="idle"]) { animation: dz-bot-busy 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { body:not(#dz-a) .askai-agent-avatar { animation: none !important; } }
+
 /* ── 8. Fallbacks ──────────────────────────────────────────────────── */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   body #sidebar-v2, body header.hl_header, body .askai-left-panel { background: #F7F4EF !important; }

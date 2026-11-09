@@ -1,198 +1,90 @@
 ---
-// SocialProof.astro — Testimonials carousel + results metrics
-const testimonials = [
+// SocialProof.astro — Trust, borrowed honestly.
+// DUSA runs on HighLevel. Until DUSA has its own body of client reviews, this
+// section shows HighLevel's public ratings and real HighLevel reviews, quoted
+// word for word with a link to each original. Never add a quote here that
+// cannot be linked to the review it came from.
+// Checked 9 Nov 2026: Trustpilot 4.9 (15,298 reviews), G2 4.6 (665 reviews).
+const TRUSTPILOT_URL = 'https://www.trustpilot.com/review/www.gohighlevel.com';
+const G2_URL = 'https://www.g2.com/products/highlevel/reviews';
+
+const reviews = [
   {
-    quote: 'Before this, I was using so many different tools for each client. Time spent learning and setting up marketing systems has been drastically reduced. The automation workflows are my favourite part.',
-    name: 'Orlando M.',
-    role: 'Web Developer',
-    stars: 5,
-    source: 'G2',
+    name: 'Aaron Brooks', place: 'United States', date: '13 Sep 2026', stars: 4,
+    url: 'https://www.trustpilot.com/reviews/6adbd9287af86ebe88d1e615',
+    text: 'Been running my small marketing agency on HighLevel for about eight months and it replaced three separate subscriptions for me. The pipelines and follow up workflows are what I touch daily and the snapshots made spinning up new client accounts quick.',
   },
   {
-    quote: 'An all-in-one solution that saves time, effort, and money. Funnel builder, smart automations, email marketing, calling, and AI implemented in everything. The UI is very user friendly.',
-    name: 'Chandan M.',
-    role: 'Marketing Consultant',
-    stars: 5,
-    source: 'G2',
+    name: 'Bob G.', place: 'United States', date: '29 Dec 2024', stars: 5,
+    url: 'https://www.trustpilot.com/reviews/67734376e81126a9ec7a2cec',
+    text: 'The all-in-one platform has replaced multiple software subscriptions, streamlining my workflow and saving me both time and money. Its intuitive interface allowed me to get up and running quickly… Automating follow-ups and managing client relationships has never been easier.',
   },
   {
-    quote: 'Everything was well communicated throughout the process and the issue was resolved. The support team genuinely cares about getting you set up properly.',
-    name: 'Gavin J.',
-    role: 'Business Owner',
-    stars: 5,
-    source: 'Trustpilot',
+    name: 'Bill Lupo', place: 'United States', date: '3 Feb 2025', stars: 5,
+    url: 'https://www.trustpilot.com/reviews/67a1102743f3050bbe584245',
+    text: 'GoHighLevel has completely transformed the way I manage my business and interact with clients… it eliminates the need for multiple software subscriptions, saving both time and money.',
   },
   {
-    quote: 'The onboarding experience was hands down the best I have ever seen. The professionalism and calm demeanor are truly unmatched. I felt guided every step of the way.',
-    name: 'Nik',
-    role: 'Agency Owner',
-    stars: 5,
-    source: 'Trustpilot',
+    name: 'Simon Lual', place: 'United States', date: '6 Nov 2026', stars: 5,
+    url: 'https://www.trustpilot.com/reviews/6aede974a42e7cb72ca34485',
+    text: 'In less than 15 minutes, he explained the issue, solved it, and outlined the right next steps. I was struggling with A2P for over 2 months, trying to do it alone.',
   },
   {
-    quote: 'We replaced five separate tools and cut our monthly software spend by more than half. Setup took days, not months. Everything actually connects now.',
-    name: 'Rachel K.',
-    role: 'Property Manager',
-    stars: 5,
-    source: 'G2',
+    name: 'Nik', place: 'Canada', date: '2 May 2026', stars: 5,
+    url: 'https://www.trustpilot.com/reviews/69f66c24ef0194dda48dc851',
+    text: 'I just had the most incredible onboarding experience, hands down the best I’ve ever seen! Huge shoutout to Gurvinder Singh, whose professionalism and calm demeanor are truly unmatched. His thoroughness in setting up the GoHighLevel CRM was absolutely world-class…',
   },
   {
-    quote: 'The automated review requests alone have been worth it. We went from 12 Google reviews to over 80 in three months without lifting a finger.',
-    name: 'David P.',
-    role: 'Dental Practice Owner',
-    stars: 5,
-    source: 'Trustpilot',
-  },
-  {
-    quote: 'Patient, professional, and took time to understand the issues. The support is the best I have experienced across any platform.',
-    name: 'Danny N.',
-    role: 'Small Business Owner',
-    stars: 5,
-    source: 'Trustpilot',
-  },
-  {
-    quote: 'The AI booking assistant handles appointment scheduling, sends reminders, and follows up with no-shows automatically. I have cut my admin time in half.',
-    name: 'Tom W.',
-    role: 'Physiotherapy Clinic Owner',
-    stars: 4.5,
-    source: 'G2',
-  },
-  {
-    quote: 'We tried three other platforms before this one. None of them had the depth of automation combined with simplicity. This is the one that stuck.',
-    name: 'Aisha N.',
-    role: 'Digital Agency CEO',
-    stars: 4.5,
-    source: 'G2',
-  },
-  {
-    quote: 'The SMS marketing alone has been a game changer for our restaurant. We send a lunch promo and see a spike in orders within the hour.',
-    name: 'Sofia G.',
-    role: 'Restaurant Manager',
-    stars: 5,
-    source: 'Trustpilot',
-  },
-  {
-    quote: 'I run three businesses and manage all of them from one dashboard. The multi-location support saved me from needing a full-time virtual assistant.',
-    name: 'Nina S.',
-    role: 'Multi-Business Owner',
-    stars: 4,
-    source: 'G2',
-  },
-  {
-    quote: 'Our membership community launched in a weekend. Course hosting, drip content, community chat. All inside the same platform we use for CRM.',
-    name: 'Emma J.',
-    role: 'Online Course Creator',
-    stars: 5,
-    source: 'G2',
-  },
-  {
-    quote: 'My email open rates jumped from 18% to 42% after switching. The built-in templates and AI copywriting tools are seriously underrated.',
-    name: 'Chris B.',
-    role: 'Marketing Lead',
-    stars: 4.5,
-    source: 'Trustpilot',
-  },
-  {
-    quote: 'It completely replaced our old CRM and landing page builder. We are getting an insanely good tech stack for a fraction of what we used to pay.',
-    name: 'Lena C.',
-    role: 'Agency Founder',
-    stars: 5,
-    source: 'G2',
-  },
-  {
-    quote: 'I was skeptical about an all-in-one platform, but the depth here is real. Funnels, email sequences, reputation management. It just works.',
-    name: 'Dan F.',
-    role: 'Consulting Firm Owner',
-    stars: 4,
-    source: 'G2',
-  },
-  {
-    quote: 'The support team went above and beyond. They took the time to actually understand my setup and guided me through every change. Extremely thorough.',
-    name: 'Marcus L.',
-    role: 'Creative Agency Founder',
-    stars: 5,
-    source: 'Trustpilot',
+    name: 'Gavin Johnston', place: 'Canada', date: '3 May 2026', stars: 5,
+    url: 'https://www.trustpilot.com/reviews/69f815f852cc781329755cc7',
+    text: 'Everything was well communicated throughout the process and the issue was resolved.',
   },
 ];
 
-interface Props {
-  t?: Record<string, any>;
-}
+interface Props { t?: Record<string, any>; }
 const { t = {} } = Astro.props;
-
-// Two-letter initials for the avatar fallback when no photo is provided.
-// To use a real client photo, add `photo: '/testimonials/name.jpg'` to the
-// testimonial entry above and drop the image in public/testimonials/.
-function initials(name: string) {
-  const parts = name.replace(/\./g, '').split(/\s+/).filter(Boolean);
-  return (parts[0]?.[0] || '') + (parts[1]?.[0] || '');
-}
-
 const sp = t?.socialProof || {};
-/* Translated quotes and roles come from the dictionary (socialProof.testimonials);
-   names, stars and sources stay as they are. */
-if (Array.isArray(sp.testimonials) && sp.testimonials.length === testimonials.length) {
-  testimonials.forEach((x, i) => { const l = sp.testimonials[i]; if (l && l.quote) { x.quote = l.quote; x.role = l.role || x.role; } });
-}
-const spLabel = sp.resultsLabel || 'Results That Speak';
-const spHeading = sp.heading || 'Businesses grow faster with';
-const spHeadingAccent = sp.headingAccent || 'AI and everything connected';
 
-/* Three outcome numbers. Money first: it is the one figure every visitor
-   can hold onto, and it reconciles with the pricing page ($990 − $149). */
+const label = sp.trustLabel || 'Built on HighLevel';
+const heading = sp.trustHeading || 'Rated 4.9 by over 15,000 businesses.';
+const headingAccent = sp.trustHeadingAccent || 'DUSA runs on the same platform.';
+const sub = sp.trustSub || 'HighLevel powers more than 2 million businesses worldwide. DUSA sets it up for you, adds AI that works for your business, and supports you in Australia. Here is what HighLevel users say, word for word.';
+const readLabel = sp.readReview || 'Read review';
+const openLabel = sp.openOriginal || 'Open on Trustpilot';
+const verifiedLabel = sp.verifiedOn || 'Review of HighLevel on Trustpilot';
+const footLine = sp.trustFoot || 'Reviews of HighLevel, the platform DUSA is built on. Quoted word for word, each linked to the original.';
+const closeLabel = sp.close || 'Close';
+
 const stats = [
   { value: sp.stat4Value || '$800+', label: sp.stat4Label || 'Saved monthly' },
   { value: sp.stat1Value || '5+', label: sp.stat1Label || 'Tools replaced' },
   { value: sp.stat5Value || '< 48hrs', label: sp.stat5Label || 'Setup time' },
 ];
 
-/* Three featured stories, one per buyer fear (results, marketing, cost),
-   each led by the number inside the quote. Indices point into the array
-   above so translated quotes flow through. */
-const captions: string[] = Array.isArray(sp.featuredCaptions) && sp.featuredCaptions.length === 3
-  ? sp.featuredCaptions
-  : ['Google reviews in three months', 'Email open rate after switching', 'Monthly software spend'];
-const shortQuotes: string[] = Array.isArray(sp.featuredQuotes) && sp.featuredQuotes.length === 3 ? sp.featuredQuotes : [];
-/* from/to drive the count-up and the before/after bar; `show` is the static
-   fallback text (reduced motion, no JS). */
-const featured = [
-  { idx: 5,  from: 12, to: 80, prefix: '',  mid: ' → ', suffix: '+', unit: '',  caption: captions[0], bar: [12, 80] },
-  { idx: 12, from: 18, to: 42, prefix: '',  mid: ' → ', suffix: '',  unit: '%', caption: captions[1], bar: [18, 42] },
-  { idx: 4,  from: 0,  to: 50, prefix: '−', mid: '',    suffix: '',  unit: '%', caption: captions[2], bar: [100, 50] },
-].map((f, i) => ({ ...f, ...testimonials[f.idx], quote: shortQuotes[i] || testimonials[f.idx].quote }));
-
-/* Rating summary from the reviews on this page: honest, and it needs no
-   third-party badge to be true. */
-const reviewCount = testimonials.length;
-const avgRating = Math.round((testimonials.reduce((n, t) => n + t.stars, 0) / reviewCount) * 10) / 10;
-const ratingLine = (sp.ratingLine || '{avg} average across {n} reviews').replace('{avg}', avgRating.toFixed(1)).replace('{n}', String(reviewCount));
-const businessesLine = sp.businessesLine || '20+ businesses on DUSA';
-const rest = testimonials.filter((_, i) => ![5, 12, 4].includes(i));
-const moreLabel = sp.moreStories || 'More customer stories';
-const fewerLabel = sp.fewerStories || 'Show fewer stories';
-const trustLine = sp.trustLine || 'Real reviews, collected on G2 and Trustpilot';
-
-/* 'full' | 'half' | 'empty' per star; the template draws them. */
-const starKinds = (stars: number) => [1, 2, 3, 4, 5].map((i) =>
-  i <= Math.floor(stars) ? 'full' : (i === Math.ceil(stars) && stars % 1 !== 0) ? 'half' : 'empty');
 const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49-4-3.9 5.53-.8z';
+const initials = (n: string) => n.replace(/\./g, '').split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('');
+const clip = (s: string, n = 150) => (s.length > n ? s.slice(0, s.lastIndexOf(' ', n)).replace(/[,.…]+$/, '') + '…' : s);
 ---
 
 <section class="proof section section--dark" id="proof">
   <div class="container">
     <div class="proof__header reveal">
-      <span class="label">{spLabel}</span>
-      <h2>{spHeading} <span class="gradient-text">{spHeadingAccent}</span></h2>
-      <p class="proof__rating" aria-label={ratingLine}>
-        <span class="proof__stars proof__stars--lg" aria-hidden="true">{starKinds(avgRating).map((k, si) => k === 'full'
-          ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d={STAR}/></svg>
-          : k === 'half'
-            ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-avg-${si}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d={STAR} fill="currentColor" clip-path={`url(#half-avg-${si})`}/><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>
-            : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>)}</span>
-        <span class="proof__rating-text"><b>{avgRating.toFixed(1)}</b> {ratingLine.replace(avgRating.toFixed(1), '').trim()}</span>
-        <span class="proof__rating-sep" aria-hidden="true">·</span>
-        <span class="proof__rating-text">{businessesLine}</span>
-      </p>
+      <span class="label">{label}</span>
+      <h2>{heading} <span class="gradient-text">{headingAccent}</span></h2>
+      <p class="proof__sub">{sub}</p>
+    </div>
+
+    <div class="proof__ratings reveal">
+      <button type="button" class="proof__rating-card" data-review-open="tp">
+        <span class="proof__rating-brand proof__rating-brand--tp"><svg viewBox="0 0 20 20" aria-hidden="true"><path d={STAR} fill="currentColor"/></svg> Trustpilot</span>
+        <span class="proof__rating-score">4.9<small>/5</small></span>
+        <span class="proof__rating-meta">15,000+ reviews · Excellent</span>
+      </button>
+      <button type="button" class="proof__rating-card" data-review-open="g2">
+        <span class="proof__rating-brand proof__rating-brand--g2">G2</span>
+        <span class="proof__rating-score">4.6<small>/5</small></span>
+        <span class="proof__rating-meta">660+ reviews</span>
+      </button>
     </div>
 
     <div class="proof__stats reveal">
@@ -204,547 +96,171 @@ const STAR = 'M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.26 5.06 16.7l.94-5.49
       ))}
     </div>
 
-    <!-- Three number-led stories -->
-    <div class="proof__featured reveal">
-      {featured.map((f, i) => (
-        <article class="proof__card">
-          <div class="proof__num" data-count data-from={f.from} data-to={f.to}>
-            {f.prefix}{f.mid ? <><span class="proof__num-from">{f.from}{f.unit}</span>{f.mid}</> : null}<span class="proof__num-to">{f.to}{f.unit}</span>{f.suffix}
-          </div>
-          <div class="proof__caption">{f.caption}</div>
-          <div class="proof__bar" aria-hidden="true" style={`--before:${f.bar[0] >= f.bar[1] ? 100 : Math.round(f.bar[0] / f.bar[1] * 100)}%;--after:${f.bar[0] >= f.bar[1] ? Math.round(f.bar[1] / f.bar[0] * 100) : 100}%`}>
-            <span class="proof__bar-before"></span><span class="proof__bar-after"></span>
-          </div>
-          <blockquote class="proof__quote">&ldquo;{f.quote}&rdquo;</blockquote>
-          <div class="proof__bottom">
-            <div class="proof__stars" aria-label={`${f.stars} out of 5 stars`}>{starKinds(f.stars).map((k, si) => k === 'full'
-                ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d={STAR}/></svg>
-                : k === 'half'
-                  ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-f${i}-${si}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d={STAR} fill="currentColor" clip-path={`url(#half-f${i}-${si})`}/><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>
-                  : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>)}</div>
-            <div class="proof__author">
-              {(f as any).photo
-                ? <img class="proof__author-photo" src={(f as any).photo} alt={f.name} loading="lazy" width="40" height="40" />
-                : <div class="proof__author-avatar">{initials(f.name)}</div>}
-              <div>
-                <div class="proof__author-name">{f.name}</div>
-                <div class="proof__author-role">{f.role} <span class={`proof__badge proof__badge--${f.source.toLowerCase()}`}>{f.source === 'Trustpilot' ? <i aria-hidden="true">★</i> : null}{f.source}</span></div>
-              </div>
-            </div>
-          </div>
-        </article>
+    <div class="proof__grid reveal">
+      {reviews.map((r, i) => (
+        <button type="button" class="proof__review" data-review-open={String(i)} aria-haspopup="dialog">
+          <span class="proof__review-stars" aria-label={`${r.stars} out of 5 stars`}>
+            {[1, 2, 3, 4, 5].map((n) => <i class={n <= r.stars ? 'on' : ''} aria-hidden="true"></i>)}
+          </span>
+          <span class="proof__review-text">&ldquo;{clip(r.text)}&rdquo;</span>
+          <span class="proof__review-foot">
+            <span class="proof__review-avatar" aria-hidden="true">{initials(r.name)}</span>
+            <span class="proof__review-who"><b>{r.name}</b><small>{r.place} · {r.date}</small></span>
+            <span class="proof__review-read">{readLabel}</span>
+          </span>
+        </button>
       ))}
     </div>
 
-    <div class="proof__trust reveal">
-      <span class="proof__trust-line">{trustLine}</span>
-      <button class="proof__more-btn" type="button" aria-expanded="false" aria-controls="proof-more" data-more={moreLabel} data-fewer={fewerLabel}>
-        {moreLabel}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-    </div>
-
-    <!-- The other thirteen, in the slow carousel, only when asked for -->
-    <div class="proof__more" id="proof-more" hidden>
-      <div class="proof__carousel" aria-label="Customer testimonials">
-        <div class="proof__track">
-          {[...rest, ...rest].map((t, loopIdx) => (
-            <div class="proof__testimonial" aria-hidden={loopIdx >= rest.length ? 'true' : undefined}>
-              <blockquote class="proof__quote">&ldquo;{t.quote}&rdquo;</blockquote>
-              <div class="proof__bottom">
-                <div class="proof__stars" aria-label={`${t.stars} out of 5 stars`}>{starKinds(t.stars).map((k, si) => k === 'full'
-                ? <svg class="proof__star" viewBox="0 0 20 20" fill="currentColor"><path d={STAR}/></svg>
-                : k === 'half'
-                  ? <svg class="proof__star proof__star--half" viewBox="0 0 20 20"><defs><clipPath id={`half-r${loopIdx}-${si}`}><rect x="0" y="0" width="10" height="20"/></clipPath></defs><path d={STAR} fill="currentColor" clip-path={`url(#half-r${loopIdx}-${si})`}/><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>
-                  : <svg class="proof__star proof__star--empty" viewBox="0 0 20 20"><path d={STAR} fill="none" stroke="currentColor" stroke-width="1"/></svg>)}</div>
-                <div class="proof__author">
-                  {(t as any).photo
-                    ? <img class="proof__author-photo" src={(t as any).photo} alt={t.name} loading="lazy" width="40" height="40" />
-                    : <div class="proof__author-avatar">{initials(t.name)}</div>}
-                  <div>
-                    <div class="proof__author-name">{t.name}</div>
-                    <div class="proof__author-role">{t.role} <span class={`proof__badge proof__badge--${t.source.toLowerCase()}`}>{t.source === 'Trustpilot' ? <i aria-hidden="true">★</i> : null}{t.source}</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <p class="proof__foot reveal">{footLine}</p>
   </div>
+
+  <dialog class="proof__modal" id="proof-modal" aria-labelledby="proof-modal-name">
+    <div class="proof__modal-card">
+      <button type="button" class="proof__modal-close" data-review-close aria-label={closeLabel}>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <span class="proof__modal-source" data-m="source"></span>
+      <span class="proof__review-stars proof__modal-stars" data-m="stars"></span>
+      <blockquote class="proof__modal-text" data-m="text"></blockquote>
+      <div class="proof__modal-who"><b id="proof-modal-name" data-m="name"></b><small data-m="meta"></small></div>
+      <a class="btn btn--outline proof__modal-open" data-m="link" target="_blank" rel="noopener nofollow"><span data-m="linklabel"></span>
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+      </a>
+    </div>
+  </dialog>
+  <script type="application/json" id="proof-data" set:html={JSON.stringify({
+    reviews, verifiedLabel, openLabel,
+    tp: { name: 'HighLevel on Trustpilot', meta: 'TrustScore 4.9 out of 5 · 15,000+ reviews · rated Excellent', text: 'HighLevel, the platform DUSA is built on, is rated Excellent by its users on Trustpilot. 97% of reviews are 5 stars.', url: TRUSTPILOT_URL, stars: 5, label: openLabel },
+    g2: { name: 'HighLevel on G2', meta: '4.6 out of 5 · 660+ verified reviews', text: 'On G2, the business software review site, HighLevel is rated 4.6 out of 5, with reviewers praising its automation and its all-in-one value.', url: G2_URL, stars: 5, label: 'Open on G2' },
+  })}></script>
 </section>
 
 <script>
-  /* The featured numbers roll up to their value the first time the cards
-     come into view; the before/after bars grow with them. */
   (() => {
-    const cards = [...document.querySelectorAll('.proof__card')];
-    if (!cards.length) return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const run = (card) => {
-      card.classList.add('is-counted');
-      const num = card.querySelector('[data-count]');
-      const to = num && num.querySelector('.proof__num-to');
-      if (!num || !to || reduced) return;
-      const start = Number(num.getAttribute('data-from')) || 0, end = Number(num.getAttribute('data-to')) || 0;
-      const unit = to.textContent.replace(/[\d.,\s]/g, '');
-      const t0 = performance.now(), dur = 1400;
-      const step = (now) => {
-        const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-        to.textContent = Math.round(start + (end - start) * e) + unit;
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
+    const modal = document.getElementById('proof-modal') as HTMLDialogElement | null;
+    const dataEl = document.getElementById('proof-data');
+    if (!modal || !dataEl) return;
+    const D = JSON.parse(dataEl.textContent || '{}');
+    const q = (k: string) => modal.querySelector(`[data-m="${k}"]`) as HTMLElement;
+    const open = (key: string) => {
+      const r = key === 'tp' || key === 'g2' ? D[key] : D.reviews[Number(key)];
+      if (!r) return;
+      const isReview = !(key === 'tp' || key === 'g2');
+      q('source').textContent = isReview ? D.verifiedLabel : (key === 'tp' ? 'Trustpilot' : 'G2');
+      q('stars').innerHTML = [1, 2, 3, 4, 5].map((n) => `<i class="${n <= r.stars ? 'on' : ''}"></i>`).join('');
+      q('text').textContent = isReview ? `“${r.text}”` : r.text;
+      q('name').textContent = r.name;
+      q('meta').textContent = isReview ? `${r.place} · ${r.date}` : r.meta;
+      const a = q('link') as HTMLAnchorElement;
+      a.href = r.url;
+      q('linklabel').textContent = r.label || D.openLabel;
+      if (typeof modal.showModal !== 'function') { window.open(r.url, '_blank', 'noopener'); return; }
+      const y = window.scrollY;
+      modal.showModal();
+      if (Math.abs(window.scrollY - y) > 2) window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior });
     };
-    if (!('IntersectionObserver' in window)) { cards.forEach(run); return; }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } });
-    }, { threshold: 0.4 });
-    cards.forEach((c) => io.observe(c));
-  })();
-
-  document.querySelectorAll('.proof__more-btn').forEach((btn) => {
-    const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
-    if (!panel) return;
-    btn.addEventListener('click', () => {
-      const open = panel.hidden;
-      panel.hidden = !open;
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.firstChild.textContent = (open ? btn.getAttribute('data-fewer') : btn.getAttribute('data-more')) + ' ';
-      btn.classList.toggle('is-open', open);
-      if (open) panel.querySelectorAll('.proof__testimonial').forEach((el) => el.classList.add('is-visible'));
+    document.querySelectorAll('[data-review-open]').forEach((el) => {
+      el.addEventListener('click', () => open((el as HTMLElement).dataset.reviewOpen || ''));
     });
-  });
+    modal.querySelector('[data-review-close]')?.addEventListener('click', () => modal.close());
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+  })();
 </script>
 
 <style>
-  .proof__header {
-    max-width: 700px;
-    margin: 0 auto var(--space-lg);
-    text-align: center;
+  .proof__header { text-align: center; max-width: 820px; margin: 0 auto var(--space-lg); }
+  .proof__header h2 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; margin: 0.7rem 0 0.9rem; }
+  .proof__header h2 .gradient-text { display: block; }
+  .proof__sub { margin: 0 auto; max-width: 640px; font-size: 1.05rem; line-height: 1.6; color: rgba(247, 244, 239, 0.72); }
+
+  .proof__ratings { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 0 auto var(--space-lg); }
+  .proof__rating-card {
+    display: grid; grid-template-columns: auto auto; grid-template-areas: 'brand brand' 'score meta';
+    align-items: end; column-gap: 0.9rem; row-gap: 0.35rem; text-align: left; cursor: pointer;
+    min-width: 250px; padding: 1rem 1.3rem 1.05rem; border-radius: 20px; font: inherit; color: inherit;
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    background: linear-gradient(150deg, rgba(247, 244, 239, 0.09), rgba(247, 244, 239, 0.025));
+    -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.14), 0 18px 40px -22px rgba(0, 0, 0, 0.6);
+    transition: transform 0.25s ease, border-color 0.25s ease;
   }
+  .proof__rating-card:hover { transform: translateY(-2px); border-color: rgba(78, 216, 194, 0.45); }
+  .proof__rating-brand { grid-area: brand; display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-headline); font-weight: 700; font-size: 0.95rem; }
+  .proof__rating-brand svg { width: 18px; height: 18px; }
+  .proof__rating-brand--tp svg { color: #00b67a; }
+  .proof__rating-brand--g2 { color: #ff492c; letter-spacing: 0.02em; }
+  .proof__rating-score { grid-area: score; font-family: var(--font-headline); font-weight: 700; font-size: 2.3rem; line-height: 1; }
+  .proof__rating-score small { font-size: 0.95rem; opacity: 0.55; margin-left: 2px; }
+  .proof__rating-meta { grid-area: meta; font-size: 0.82rem; color: rgba(247, 244, 239, 0.66); padding-bottom: 0.3rem; }
 
-  .proof__rating {
-    display: inline-flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
-    margin: 1rem auto 0; padding: 0.5rem 1rem; border-radius: 999px;
-    background: rgba(247, 244, 239, 0.04); border: 1px solid rgba(247, 244, 239, 0.08);
-    font-size: 0.875rem; color: rgba(247, 244, 239, 0.7);
+  .proof__stats { display: flex; justify-content: center; gap: var(--space-xl); flex-wrap: wrap; margin: 0 auto var(--space-lg); }
+  .proof__stat { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .proof__stat-value { font-family: var(--font-headline); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; }
+  .proof__stat-label { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247, 244, 239, 0.62); }
+
+  .proof__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .proof__review {
+    display: flex; flex-direction: column; gap: 0.9rem; text-align: left; cursor: pointer; font: inherit; color: inherit;
+    padding: 1.3rem 1.3rem 1.1rem; border-radius: 20px;
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    background: linear-gradient(150deg, rgba(247, 244, 239, 0.07), rgba(247, 244, 239, 0.02));
+    -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.1), 0 16px 36px -22px rgba(0, 0, 0, 0.55);
+    transition: transform 0.25s ease, border-color 0.25s ease;
   }
-  .proof__rating b { color: var(--warm-white); font-weight: 600; }
-  .proof__rating-sep { color: rgba(247, 244, 239, 0.3); }
-  .proof__stars--lg { margin: 0; gap: 1px; }
-  .proof__stars--lg .proof__star { width: 15px; height: 15px; }
+  .proof__review:hover, .proof__review:focus-visible { transform: translateY(-3px); border-color: rgba(78, 216, 194, 0.45); }
+  .proof__review-stars { display: inline-flex; gap: 3px; }
+  .proof__review-stars i { width: 18px; height: 18px; border-radius: 3px; background: rgba(247, 244, 239, 0.18); position: relative; }
+  .proof__review-stars i.on { background: #00b67a; }
+  .proof__review-stars i::after { content: ''; position: absolute; inset: 3px; background: #fff; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+  .proof__review-text { flex: 1; font-size: 0.98rem; line-height: 1.55; color: rgba(247, 244, 239, 0.88); }
+  .proof__review-foot { display: flex; align-items: center; gap: 0.7rem; }
+  .proof__review-avatar { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; font-family: var(--font-headline); font-weight: 700; font-size: 0.8rem; color: #0C0E14; background: linear-gradient(135deg, #4ED8C2, #6AAACF); }
+  .proof__review-who { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+  .proof__review-who b { font-size: 0.92rem; }
+  .proof__review-who small { font-size: 0.78rem; color: rgba(247, 244, 239, 0.58); }
+  .proof__review-read { margin-left: auto; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--reef-aqua); white-space: nowrap; }
+  .proof__foot { text-align: center; margin: var(--space-md) auto 0; font-size: 0.85rem; color: rgba(247, 244, 239, 0.55); }
 
-  .proof__num-to { font-variant-numeric: tabular-nums; }
-  .proof__bar { display: flex; flex-direction: column; gap: 4px; margin: -0.35rem 0 1rem; }
-  .proof__bar span { display: block; height: 4px; border-radius: 4px; transform-origin: left; transform: scaleX(0); }
-  .proof__bar-before { width: var(--before); background: rgba(247, 244, 239, 0.18); }
-  .proof__bar-after { width: var(--after); background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue)); box-shadow: 0 0 10px rgba(78, 216, 194, 0.35); }
-  .proof__card.is-counted .proof__bar-before { transform: scaleX(1); transition: transform 0.6s var(--ease-out); }
-  .proof__card.is-counted .proof__bar-after { transform: scaleX(1); transition: transform 1.2s var(--ease-out) 0.3s; }
-
-  .proof__badge {
-    display: inline-flex; align-items: center; gap: 0.2rem; margin-left: 0.35rem; vertical-align: 1px;
-    padding: 0.05rem 0.4rem; border-radius: 4px;
-    font-family: var(--font-headline); font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.02em; font-style: normal;
-    color: var(--warm-white); border: 1px solid rgba(247, 244, 239, 0.14); background: rgba(247, 244, 239, 0.05);
+  .proof__modal { position: fixed; inset: 0; margin: auto; height: fit-content; max-height: 90vh; padding: 0; border: 0; background: transparent; max-width: min(560px, 92vw); width: 100%; color: inherit; overflow: visible; }
+  .proof__modal :global(i) { width: 18px; height: 18px; border-radius: 3px; background: rgba(247, 244, 239, 0.18); position: relative; display: inline-block; }
+  .proof__modal :global(i.on) { background: #00b67a; }
+  .proof__modal :global(i)::after { content: ''; position: absolute; inset: 3px; background: #fff; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+  .proof__modal::backdrop { background: rgba(6, 9, 14, 0.62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .proof__modal[open] { animation: proofIn 0.28s cubic-bezier(0.2, 0.85, 0.3, 1); }
+  @keyframes proofIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+  .proof__modal-card {
+    position: relative; display: flex; flex-direction: column; gap: 0.9rem; padding: 1.8rem 1.8rem 1.6rem; border-radius: 26px;
+    color: #F7F4EF; border: 1px solid rgba(247, 244, 239, 0.16);
+    background: linear-gradient(150deg, rgba(30, 44, 62, 0.92), rgba(12, 16, 24, 0.94));
+    -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.14), 0 40px 90px -30px rgba(0, 0, 0, 0.8);
   }
-  .proof__badge i { font-style: normal; font-size: 0.6875rem; line-height: 1; }
-  .proof__badge--g2 { color: #FF6B4F; border-color: rgba(255, 73, 44, 0.35); }
-  .proof__badge--trustpilot { color: #2FD48F; border-color: rgba(0, 182, 122, 0.4); }
-  .proof__badge--trustpilot i { color: #00B67A; }
+  .proof__modal-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: inherit; border: 1px solid rgba(247, 244, 239, 0.16); background: rgba(247, 244, 239, 0.06); }
+  .proof__modal-source { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--reef-aqua); }
+  .proof__modal-text { margin: 0; font-size: 1.12rem; line-height: 1.6; }
+  .proof__modal-who { display: flex; flex-direction: column; gap: 2px; }
+  .proof__modal-who small { color: rgba(247, 244, 239, 0.6); }
+  .proof__modal-open { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.3rem; color: #0C0E14 !important; background: linear-gradient(135deg, #4ED8C2, #6AAACF) !important; border-color: transparent !important; }
 
-  .proof__stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-    max-width: 820px;
-    margin: 0 auto var(--space-lg);
-    text-align: center;
+  :global(html[data-theme="light"]) .proof__sub { color: rgba(12, 14, 20, 0.7); }
+  :global(html[data-theme="light"]) .proof__rating-card,
+  :global(html[data-theme="light"]) .proof__review { border-color: rgba(255, 255, 255, 0.95); background: linear-gradient(150deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55)); box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(26, 58, 92, 0.08), 0 18px 40px -24px rgba(26, 58, 92, 0.35); color: var(--deep-black); }
+  :global(html[data-theme="light"]) .proof__rating-meta,
+  :global(html[data-theme="light"]) .proof__review-who small,
+  :global(html[data-theme="light"]) .proof__stat-label,
+  :global(html[data-theme="light"]) .proof__foot { color: rgba(12, 14, 20, 0.6); }
+  :global(html[data-theme="light"]) .proof__review-text { color: rgba(12, 14, 20, 0.82); }
+  :global(html[data-theme="light"]) .proof__review-stars i { background: rgba(12, 14, 20, 0.14); }
+  :global(html[data-theme="light"]) .proof__review-stars i.on { background: #00b67a; }
+  :global(html[data-theme="light"]) .proof__review-read { color: var(--deep-ocean); }
+
+  @media (max-width: 960px) { .proof__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) {
+    .proof__grid { grid-template-columns: 1fr; }
+    .proof__rating-card { min-width: 0; flex: 1 1 100%; }
+    .proof__stats { gap: var(--space-md); }
+    .proof__modal-card { padding: 1.5rem 1.3rem 1.3rem; }
   }
-
-  /* ─── FEATURED STORIES ─── */
-  .proof__featured {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-  }
-  .proof__card {
-    display: flex; flex-direction: column;
-    padding: var(--space-lg);
-    background: rgba(247, 244, 239, 0.03);
-    border: 1px solid rgba(247, 244, 239, 0.07);
-    border-radius: var(--radius-md);
-    position: relative; overflow: hidden;
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    transition: border-color var(--duration-normal), transform var(--duration-normal), box-shadow var(--duration-normal);
-  }
-  .proof__card::before {
-    content: ''; position: absolute; inset: 0 0 auto 0; height: 2px;
-    background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue));
-    opacity: 0.7;
-  }
-  .proof__card:hover { border-color: rgba(78, 216, 194, 0.2); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); }
-  .proof__num {
-    font-family: var(--font-headline); font-weight: 700;
-    font-size: clamp(1.75rem, 2.6vw, 2.25rem); line-height: 1.1;
-    color: var(--reef-aqua); letter-spacing: -0.01em; white-space: nowrap;
-    text-shadow: 0 0 30px rgba(78, 216, 194, 0.15);
-  }
-  .proof__caption {
-    font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
-    color: rgba(247, 244, 239, 0.62); margin: 0.35rem 0 1rem;
-  }
-  .proof__card .proof__quote { font-size: 0.9375rem; }
-
-  .proof__trust {
-    display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap;
-    margin-bottom: var(--space-sm);
-  }
-  .proof__trust-line { font-size: 0.8125rem; color: rgba(247, 244, 239, 0.58); }
-  .proof__more-btn {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-family: var(--font-body); font-weight: 500; font-size: 0.875rem;
-    color: var(--reef-aqua); background: none; border: 1px solid rgba(78, 216, 194, 0.25);
-    border-radius: 100px; padding: 0.55rem 1rem; cursor: pointer; min-height: 40px;
-    transition: border-color var(--duration-fast), background var(--duration-fast);
-  }
-  .proof__more-btn:hover { border-color: rgba(78, 216, 194, 0.55); background: rgba(78, 216, 194, 0.06); }
-  .proof__more-btn svg { transition: transform 0.2s ease; }
-  .proof__more-btn.is-open svg { transform: rotate(180deg); }
-  .proof__more[hidden] { display: none; }
-  .proof__more { padding-top: var(--space-sm); }
-
-  .proof__stat {
-    padding: var(--space-md);
-    position: relative;
-    min-width: 0;
-  }
-
-  .proof__stat::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 25%;
-    height: 50%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(247, 244, 239, 0.08), transparent);
-  }
-
-  .proof__stat:last-child::after {
-    display: none;
-  }
-
-  .proof__stat-value {
-    display: block;
-    font-family: var(--font-headline);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: var(--reef-aqua);
-    line-height: 1.1;
-    margin-bottom: 0.25rem;
-    white-space: nowrap;
-    text-shadow: 0 0 30px rgba(78, 216, 194, 0.15);
-  }
-
-  .proof__stat-label {
-    font-size: 0.8125rem;
-    color: rgba(247, 244, 239, 0.62);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* ─── CAROUSEL ─── */
-  .proof__carousel {
-    overflow: hidden;
-    position: relative;
-    margin: 0 calc(-1 * var(--space-md));
-    padding: var(--space-xs) 0;
-    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  }
-
-  .proof__track {
-    display: flex;
-    gap: var(--space-md);
-    animation: carouselScroll 80s linear infinite;
-    width: max-content;
-  }
-
-  .proof__track:hover {
-    animation-play-state: paused;
-  }
-
-  @keyframes carouselScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .proof__testimonial {
-    background: rgba(247, 244, 239, 0.03);
-    border: 1px solid rgba(247, 244, 239, 0.06);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-    transition: all var(--duration-normal) var(--ease-out);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    position: relative;
-    overflow: hidden;
-    min-width: 340px;
-    max-width: 380px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .proof__testimonial::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(78, 216, 194, 0.15), transparent);
-    opacity: 0;
-    transition: opacity var(--duration-normal);
-  }
-
-  .proof__testimonial:hover {
-    border-color: rgba(78, 216, 194, 0.15);
-    background: rgba(247, 244, 239, 0.05);
-    transform: translateY(-3px);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.25),
-      0 0 0 1px rgba(78, 216, 194, 0.05),
-      inset 0 1px 0 rgba(247, 244, 239, 0.04);
-  }
-
-  .proof__testimonial:hover::before {
-    opacity: 1;
-  }
-
-  .proof__quote {
-    font-size: 1rem;
-    color: rgba(247, 244, 239, 0.7);
-    line-height: 1.7;
-    margin-bottom: 0;
-    font-style: italic;
-    flex: 1;
-    overflow-wrap: break-word;
-  }
-
-  .proof__bottom {
-    margin-top: auto;
-    padding-top: var(--space-md);
-  }
-
-  .proof__stars {
-    display: flex;
-    gap: 2px;
-    margin-bottom: 0.75rem;
-  }
-
-  .proof__star {
-    width: 16px;
-    height: 16px;
-    color: var(--reef-aqua);
-    flex-shrink: 0;
-  }
-
-  .proof__star--half {
-    color: var(--reef-aqua);
-  }
-
-  .proof__star--empty {
-    color: rgba(78, 216, 194, 0.3);
-  }
-
-  .proof__source {
-    color: rgba(247, 244, 239, 0.58);
-    font-size: 0.75rem;
-    font-style: italic;
-  }
-
-  .proof__author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .proof__author-photo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 2px solid rgba(78, 216, 194, 0.4);
-    box-shadow: 0 0 12px rgba(78, 216, 194, 0.15);
-  }
-
-  .proof__author-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-headline);
-    font-weight: 700;
-    font-size: 0.875rem;
-    color: var(--deep-black);
-    flex-shrink: 0;
-  }
-
-  .proof__author-name {
-    font-weight: 600;
-    font-size: 0.9375rem;
-    color: var(--warm-white);
-  }
-
-  .proof__author-role {
-    font-size: 0.8125rem;
-    color: rgba(247, 244, 239, 0.6);
-  }
-
-  @media (max-width: 1024px) {
-    .proof__stats {
-      gap: var(--space-sm);
-    }
-    .proof__featured { gap: var(--space-sm); }
-    .proof__card { padding: var(--space-md); }
-
-    .proof__testimonial {
-      min-width: 300px;
-      max-width: 340px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .proof__featured { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
-    .proof__trust { justify-content: center; text-align: center; }
-
-    .proof__testimonial {
-      min-width: 280px;
-      max-width: 320px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .proof__rating { flex-direction: column; gap: 0.25rem; border-radius: 14px; padding: 0.65rem 1rem; font-size: 0.8125rem; }
-    .proof__rating-sep { display: none; }
-    .proof__stats {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-    }
-
-    .proof__stat {
-      padding: var(--space-sm) 0.25rem;
-      min-width: 0;
-    }
-    /* three stats share 335px: keep "< 48hrs" inside its third */
-    .proof__stat-value { font-size: clamp(1.45rem, 7.4vw, 2rem); }
-
-    .proof__stat-label {
-      font-size: 0.75rem;
-    }
-
-    .proof__testimonial {
-      min-width: 260px;
-      max-width: 300px;
-      padding: var(--space-md);
-    }
-
-    .proof__quote {
-      font-size: 0.9375rem;
-    }
-
-    .proof__author-name {
-      font-size: 0.875rem;
-    }
-
-    .proof__author-role {
-      font-size: 0.75rem;
-    }
-  }
-
-  /* ─── LIGHT MODE ─── */
-  :global(html[data-theme="light"]) .proof__stat-value {
-    color: var(--deep-ocean);
-    text-shadow: none;
-  }
-
-  :global(html[data-theme="light"]) .proof__stat-label {
-    color: rgba(12, 14, 20, 0.64);
-  }
-
-  :global(html[data-theme="light"]) .proof__stat::after {
-    background: linear-gradient(to bottom, transparent, rgba(12, 14, 20, 0.08), transparent);
-  }
-
-  :global(html[data-theme="light"]) .proof__testimonial {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(12, 14, 20, 0.08);
-    box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04);
-  }
-
-  :global(html[data-theme="light"]) .proof__testimonial:hover {
-    border-color: rgba(26, 58, 92, 0.15);
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08);
-  }
-
-  :global(html[data-theme="light"]) .proof__testimonial::before {
-    background: linear-gradient(90deg, transparent, rgba(26, 58, 92, 0.15), transparent);
-  }
-
-  :global(html[data-theme="light"]) .proof__quote {
-    color: rgba(12, 14, 20, 0.65);
-  }
-
-  :global(html[data-theme="light"]) .proof__star {
-    color: var(--deep-ocean);
-  }
-
-  :global(html[data-theme="light"]) .proof__star--half {
-    color: var(--deep-ocean);
-  }
-
-  :global(html[data-theme="light"]) .proof__star--empty {
-    color: rgba(26, 58, 92, 0.25);
-  }
-
-  :global(html[data-theme="light"]) .proof__author-avatar {
-    background: linear-gradient(135deg, var(--deep-ocean), var(--mist-blue));
-    color: var(--warm-white);
-  }
-
-  :global(html[data-theme="light"]) .proof__author-name {
-    color: var(--deep-black);
-  }
-
-  :global(html[data-theme="light"]) .proof__author-role {
-    color: rgba(12, 14, 20, 0.64);
-  }
-
-  :global(html[data-theme="light"]) .proof__source {
-    color: rgba(12, 14, 20, 0.62);
-  }
-  :global(html[data-theme="light"]) .proof__card { background: rgba(255, 255, 255, 0.7); border-color: rgba(12, 14, 20, 0.08); box-shadow: 0 2px 12px rgba(12, 14, 20, 0.04); }
-  :global(html[data-theme="light"]) .proof__card:hover { border-color: rgba(26, 58, 92, 0.15); background: rgba(255, 255, 255, 0.9); box-shadow: 0 12px 40px rgba(12, 14, 20, 0.08); }
-  :global(html[data-theme="light"]) .proof__num { color: var(--deep-ocean); text-shadow: none; }
-  :global(html[data-theme="light"]) .proof__rating { background: rgba(255, 255, 255, 0.7); border-color: rgba(12, 14, 20, 0.1); color: rgba(12, 14, 20, 0.7); }
-  :global(html[data-theme="light"]) .proof__rating b { color: var(--deep-black); }
-  :global(html[data-theme="light"]) .proof__rating-sep { color: rgba(12, 14, 20, 0.3); }
-  :global(html[data-theme="light"]) .proof__bar-before { background: rgba(12, 14, 20, 0.14); }
-  :global(html[data-theme="light"]) .proof__bar-after { background: linear-gradient(90deg, var(--deep-ocean), var(--mist-blue)); box-shadow: none; }
-  :global(html[data-theme="light"]) .proof__badge { color: var(--deep-black); border-color: rgba(12, 14, 20, 0.14); background: rgba(12, 14, 20, 0.04); }
-  :global(html[data-theme="light"]) .proof__badge--g2 { color: #D6361C; }
-  :global(html[data-theme="light"]) .proof__badge--trustpilot { color: #00875A; }
-  :global(html[data-theme="light"]) .proof__caption { color: rgba(12, 14, 20, 0.62); }
-  :global(html[data-theme="light"]) .proof__trust-line { color: rgba(12, 14, 20, 0.6); }
-  :global(html[data-theme="light"]) .proof__more-btn { color: var(--deep-ocean); border-color: rgba(26, 58, 92, 0.3); }
-  :global(html[data-theme="light"]) .proof__more-btn:hover { background: rgba(26, 58, 92, 0.06); border-color: var(--deep-ocean); }
 </style>

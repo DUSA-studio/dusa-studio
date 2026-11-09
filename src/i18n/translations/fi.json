@@ -233,10 +233,10 @@
       "titleEnd": "kahdessa viikossa.",
       "sub": "Sinun ei tarvitse selvittää kaikkea yksin. Me hoidamme asennuksen, siirron ja koulutuksen, jotta voit keskittyä yrityksesi pyörittämiseen.",
       "step1Title": "Varaa esittely",
-      "step1Desc": "Nopea 15 minuutin puhelu, jossa tutustumme yritykseesi. Selvitämme tarpeesi, näytämme alustan ja vastaamme jokaiseen kysymykseen.",
-      "step1Time": "15 min",
+      "step1Desc": "30 minuutin puhelu, jossa tutustumme yritykseesi. Selvitämme tarpeesi, näytämme alustan ja vastaamme jokaiseen kysymykseen.",
+      "step1Time": "30 min",
       "step2Title": "Käyttöönotto",
-      "step2Desc": "Määritämme DUSA-työtilasi. CRM, automaatiot, sähköpostipohjat, funnelit ja integraatiot, kaikki valmiina ensimmäisen viikon aikana.",
+      "step2Desc": "Määritämme DUSA-työtilasi: CRM, automaatiot, sähköpostipohjat, funnelit ja integraatiot. Useimmat tilit ovat valmiina ensimmäisen viikkosi aikana.",
       "step2Time": "Viikko 1",
       "step3Title": "Siirto ja koulutus",
       "step3Desc": "Siirrämme kontaktisi, kampanjasi ja tietosi vanhoista työkaluista. Sitten käymme kaiken läpi tiimisi kanssa, jotta olette varmoja ensimmäisestä päivästä alkaen.",
@@ -260,7 +260,7 @@
       "sub": "Useimmat alustat antavat sinulle tunnukset ja toivottavat onnea. Me teemme päinvastoin. DUSA-työtilasi on määritetty, täytetty ja käyttövalmis ennen kuin kosket mihinkään.",
       "phase1Badge": "Päivä 1",
       "phase1Title": "Kartoitus ja esittely",
-      "phase1Desc": "Kaikki alkaa 15 minuutin puhelulla. Tutustumme yritykseesi, nykyisiin työkaluihisi, ratkaistaviin ongelmiin ja siihen, miltä onnistuminen sinusta näyttää.",
+      "phase1Desc": "Kaikki alkaa 30 minuutin puhelulla. Tutustumme yritykseesi, nykyisiin työkaluihisi, ratkaistaviin ongelmiin ja siihen, miltä onnistuminen sinusta näyttää.",
       "phase1Detail1Title": "Mitä käymme läpi",
       "phase1Detail1Desc": "Liiketoimintamallisi, nykyiset työkalusi, kipupisteesi, kasvutavoitteesi ja se, mitkä DUSAn ominaisuudet vastaavat tarpeitasi.",
       "phase1Detail2Title": "Mitä saat",
@@ -301,16 +301,16 @@
     "resultsLabel": "Tulokset puhuvat puolestaan",
     "heading": "Yritykset kasvavat nopeammin, kun",
     "headingAccent": "tekoäly ja kaikki on yhdistetty",
-    "stat1Value": "5+",
-    "stat1Label": "työkalua korvattu",
+    "stat1Value": "1 kirjautuminen",
+    "stat1Label": "8 sovelluksen sijaan",
     "stat2Value": "2x",
     "stat2Label": "nopeampi seuranta",
     "stat3Value": "100%",
     "stat3Label": "tekoälyautomatisoitu",
-    "stat4Value": "800+ AUD",
-    "stat4Label": "säästöä kuukaudessa",
-    "stat5Value": "< 48 h",
-    "stat5Label": "asennusaika",
+    "stat4Value": "841 AUD",
+    "stat4Label": "säästöä kuukaudessa verrattuna 8 erilliseen työkaluun",
+    "stat5Value": "Ensimmäinen viikko",
+    "stat5Label": "käyttöönotto yhdessä kanssasi",
     "testimonials": [
       {
         "quote": "Ennen tätä käytin jokaiselle asiakkaalle valtavasti eri työkaluja. Markkinointijärjestelmien opetteluun ja pystyttämiseen kuluva aika on vähentynyt rajusti. Automaatiotyönkulut ovat suosikkiosani.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Rehellinen hinnoittelu",
     "value3Desc": "Ei piilokuluja, ei yllätyskorotuksia, ei maksuja ominaisuuksista, joista jo maksoit. Näet, mitä maksat.",
     "value4Title": "Kasva omaan tahtiisi",
-    "value4Desc": "Aloita yhdellä työkalulla. Lisää muita, kun tarvitset. Päivitä, kun se on järkevää. Ei painostusta, ei sitoutumista, ei pakotettuja päivityksiä.",
+    "value4Desc": "Koko alusta alkaen 149 AUD kuukaudessa. Vaihda isompaan pakettiin, kun se on järkevää. Ei painostusta, ei sitoutumista, ei pakotettuja päivityksiä.",
     "teamLabel": "Maailmanlaajuisesti",
     "teamTitle": "Rakennettu yrityksille",
     "teamTitleAccent": "kaikkialla",
@@ -1132,7 +1132,7 @@
     "value2Title": "Tekoäly, joka tekee töitä ensimmäisestä päivästä",
     "value2Text": "Ask AI auttaa sinua rakentamaan ja pyörittämään alustaa. Growth-paketissa AI Employee vastaa puheluihin ja viesteihin puolestasi.",
     "value3Title": "Ohjattu käyttöönotto nopeisiin tuloksiin",
-    "value3Text": "Opastamme sinut asennuksen läpi, jotta näet hyödyn jo ensimmäisellä viikolla.",
+    "value3Text": "Opastamme sinut asennuksen läpi. Useimmat tilit ovat valmiina ensimmäisen viikkosi aikana.",
     "value4Title": "Peruuta milloin vain, ilman kysymyksiä",
     "value4Text": "Nolla sitoutumista. Jos se ei ole oikea ratkaisu, voit lähteä ilman mitään velvoitteita.",
     "t1Quote": "Ensimmäisen viikon aikana automaattiset seurantaviestit pyörivät ja saimme kolme uutta asiakasta. DUSA maksoi itsensä takaisin jo ennen kokeilujakson loppua.",
@@ -1194,7 +1194,7 @@
         "features": [
           "Kaikki Starter-paketista",
           "AI Employee hoitaa puhelut, chatit ja viestit",
-          "Ask AI -käyttö sisältyy",
+          "Ask AI, maksu käytön mukaan",
           "Prioriteettituki ja tekoälyn asennussessio"
         ]
       },
@@ -1333,7 +1333,7 @@
       },
       {
         "q": "Pitääkö minun olla tekninen?",
-        "a": "Ei lainkaan. Me teemme asennuksen puolestasi. Tiimimme määrittää CRM:n, automaatiot, funnelit ja integraatiot ensimmäisen viikon aikana. Jos osaat käyttää sähköpostia, osaat käyttää DUSAa."
+        "a": "Ei lainkaan. Me teemme asennuksen puolestasi. Tiimimme määrittää CRM:n, automaatiot, funnelit ja integraatiot, ja useimmat tilit ovat valmiina ensimmäisen viikkosi aikana. Jos osaat käyttää sähköpostia, osaat käyttää DUSAa."
       },
       {
         "q": "Mitä tapahtuu nykyisille kontakteilleni ja työkaluilleni?",
@@ -1377,5 +1377,18 @@
     ],
     "source": "HighLevel, julkaistut luvut, lokakuu 2026",
     "link": "Miksi kerromme tämän"
+  },
+  "consent": {
+    "text": "Käytämme evästeitä nähdäksemme, miten sivustoa käytetään, ja mitataksemme mainontaamme. Sinä päätät, voit muuttaa valintaa milloin vain.",
+    "accept": "Hyväksy",
+    "essential": "Vain välttämättömät",
+    "privacy": "Tietosuoja",
+    "aria": "Evästevalinta"
+  },
+  "booking": {
+    "title": "Varaa 30 minuutin puhelu",
+    "sub": "Valitse sinulle sopiva aika. Tulemme valmistautuneina yritykseesi.",
+    "close": "Sulje",
+    "frameTitle": "Varauskalenteri"
   }
 }

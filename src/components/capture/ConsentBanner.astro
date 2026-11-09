@@ -1,0 +1,110 @@
+---
+/**
+ * ConsentBanner: small glass card, bottom left, shown ONLY on the locales where
+ * analytics and ad cookies need opt-in consent (EU/EEA + UK paths:
+ * de fr es it nl fi dk se no uk). Australia and the other regions render
+ * nothing and default to granted in /js/tracking.v2.js.
+ *
+ * The choice is stored in the first-party cookie dz_consent=granted|denied
+ * (180 days) and pushed to Google Consent Mode v2 and the Meta Pixel straight
+ * away. tracking.v2.js reads the same cookie on every later page load.
+ */
+import { urlFor } from '../../i18n/routes';
+
+interface Props { t?: Record<string, any>; }
+const { t = {} } = Astro.props;
+const CONSENT_RE = /^\/(de|fr|es|it|nl|fi|dk|se|no|uk)(\/|$)/;
+const m = Astro.url.pathname.match(CONSENT_RE);
+const region = m ? m[1] : '';
+const c = t?.consent || {};
+const text = c.text || 'We use cookies to see how the site is used and to measure our ads. Your choice, change it anytime.';
+const accept = c.accept || 'Accept';
+const essential = c.essential || 'Only essential';
+const privacy = c.privacy || 'Privacy policy';
+const aria = c.aria || 'Cookie choice';
+const privacyHref = region ? (urlFor(region, '/privacy-policy') ?? '/privacy-policy') : '/privacy-policy';
+---
+
+{region && (
+  <div class="dzc" id="dz-consent" role="region" aria-label={aria} hidden>
+    <p class="dzc__text">{text} <a href={privacyHref}>{privacy}</a></p>
+    <div class="dzc__actions">
+      <button type="button" class="dzc__btn dzc__btn--ghost" data-dzc="denied">{essential}</button>
+      <button type="button" class="dzc__btn dzc__btn--primary" data-dzc="granted">{accept}</button>
+    </div>
+  </div>
+)}
+
+<!-- Kept outside the conditional on purpose (raw script text inside an
+     expression is fragile); it exits at once on pages with no banner. -->
+<script is:inline>
+    (function () {
+      try {
+        var el = document.getElementById('dz-consent');
+        if (!el) return;
+        if (/(?:^|;\s*)dz_consent=(granted|denied)/.test(document.cookie)) return; /* already chosen */
+        el.hidden = false;
+        el.addEventListener('click', function (e) {
+          var b = e.target && e.target.closest ? e.target.closest('[data-dzc]') : null;
+          if (!b) return;
+          var granted = b.getAttribute('data-dzc') === 'granted';
+          document.cookie = 'dz_consent=' + (granted ? 'granted' : 'denied') + '; Max-Age=' + (180 * 86400) +
+            '; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+          if (window.dusaConsentUpdate) {
+            window.dusaConsentUpdate(granted);
+          } else {
+            var st = granted ? 'granted' : 'denied';
+            if (window.gtag) window.gtag('consent', 'update', { ad_storage: st, analytics_storage: st, ad_user_data: st, ad_personalization: st });
+            if (window.fbq) window.fbq('consent', granted ? 'grant' : 'revoke');
+          }
+          el.hidden = true;
+        });
+      } catch (err) { /* never block the page */ }
+    })();
+</script>
+
+<style>
+  .dzc {
+    position: fixed; left: 16px; bottom: 16px; z-index: 1500;
+    width: min(380px, calc(100vw - 32px));
+    display: flex; flex-direction: column; gap: 0.8rem; padding: 1rem 1.1rem;
+    border-radius: var(--radius-lg); color: var(--warm-white);
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    background: linear-gradient(150deg, rgba(30, 44, 62, 0.78), rgba(12, 16, 24, 0.86));
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.12), 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+    animation: dzcIn 0.35s cubic-bezier(0.2, 0.85, 0.3, 1);
+  }
+  .dzc[hidden] { display: none; }
+  @keyframes dzcIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .dzc__text { margin: 0; font-size: 0.85rem; line-height: 1.5; color: rgba(247, 244, 239, 0.8); }
+  .dzc__text a { color: var(--aqua-ink); text-decoration: underline; text-underline-offset: 2px; }
+  .dzc__actions { display: flex; gap: 0.5rem; justify-content: flex-end; flex-wrap: wrap; }
+  .dzc__btn {
+    min-height: 40px; padding: 0.5rem 1rem; border-radius: var(--radius-full); cursor: pointer;
+    font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+    transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+  }
+  .dzc__btn--ghost { color: rgba(247, 244, 239, 0.85); background: rgba(247, 244, 239, 0.05); border: 1px solid rgba(247, 244, 239, 0.18); }
+  .dzc__btn--ghost:hover { border-color: rgba(78, 216, 194, 0.4); color: var(--warm-white); }
+  .dzc__btn--primary { color: var(--deep-black); background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue)); border: 1px solid transparent; }
+  .dzc__btn--primary:hover { filter: brightness(1.06); }
+  .dzc__btn:focus-visible { outline: 2px solid var(--reef-aqua); outline-offset: 2px; }
+
+  :global(html[data-theme="light"]) .dzc {
+    color: var(--deep-black); border-color: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.86), rgba(247, 244, 239, 0.74));
+    box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(26, 58, 92, 0.08), 0 24px 60px -24px rgba(26, 58, 92, 0.4);
+  }
+  :global(html[data-theme="light"]) .dzc__text { color: rgba(12, 14, 20, 0.78); }
+  :global(html[data-theme="light"]) .dzc__btn--ghost { color: rgba(12, 14, 20, 0.8); background: rgba(12, 14, 20, 0.03); border-color: rgba(12, 14, 20, 0.16); }
+  :global(html[data-theme="light"]) .dzc__btn--ghost:hover { border-color: rgba(26, 58, 92, 0.35); color: var(--deep-black); }
+  :global(html[data-theme="light"]) .dzc__btn:focus-visible { outline-color: var(--deep-ocean); }
+
+  @media (max-width: 640px) {
+    .dzc { left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); width: auto; }
+    .dzc__actions { justify-content: stretch; }
+    .dzc__btn { flex: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { .dzc { animation: none; } }
+</style>

@@ -2,12 +2,70 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import t from '../i18n/translations/en.json';
 
-const services = [
+// /services, three clear offers (Uplift P3):
+//   #setup      Platform setup (guided setup on every plan, done-for-you quoted)
+//   #marketing  Marketing services (priced to what you need)
+//   #custom     Custom builds (integrations, ERP bridges, APIs, bespoke development)
+// Copy rules: Australian English, no em dashes, no stats we cannot source.
+
+const BOOK_URL = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+
+const setupCards = [
   {
-    title: 'Custom Integrations',
-    desc: 'Connect DUSA to your existing tools, third-party APIs, and proprietary systems. We build secure, production-grade integrations that keep your data flowing between platforms without manual effort.',
+    tag: 'Included on every plan',
+    title: 'Guided setup',
+    desc: 'Every plan comes with 3 hours of guided help. We set up your workspace with you, show you around, and get your first automations working, so you are live and confident from week one.',
+    icon: 'M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    points: [
+      'Your workspace, calendars and forms configured with you',
+      'Contacts imported and your pipeline set up',
+      'Your first follow-up and reminder automations switched on',
+      'Your team shown how to use it day to day',
+    ],
+  },
+  {
+    tag: 'Quoted on a call',
+    title: 'Done-for-you setup',
+    desc: 'Rather hand it over? We build the whole thing for you and move everything across from your old tools. You get a clear scope and a fixed price before any work starts.',
+    icon: 'M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M1 4h22M10 11v6M14 11v6',
+    points: [
+      'Contacts, deals and history migrated cleanly',
+      'Email templates, campaigns and workflows recreated',
+      'Funnels, booking pages and payment links built',
+      'Custom fields and tags preserved',
+    ],
+  },
+];
+
+const marketingCards = [
+  {
+    title: 'Ads management',
+    desc: 'Google and Meta campaigns planned, built and run for you, with every lead landing straight in your DUSA pipeline so you can see what each campaign brings in.',
+    icon: 'M3 11l18-5v12L3 14v-3zM11.6 16.8a3 3 0 11-5.8-1.6',
+  },
+  {
+    title: 'Social media',
+    desc: 'A steady rhythm of posts across your channels, planned and scheduled from DUSA, with comments and messages flowing into one inbox.',
+    icon: 'M7 8h10M7 12h6M21 12a9 9 0 01-13.4 7.9L3 21l1.1-4.6A9 9 0 1121 12z',
+  },
+  {
+    title: 'Email and SMS campaigns',
+    desc: 'Newsletters, offers and nurture sequences written and sent for you, so past customers come back and new leads warm up on their own.',
+    icon: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6',
+  },
+  {
+    title: 'Content',
+    desc: 'Website copy, landing pages, blog posts and visuals that sound like you and give people a reason to book.',
+    icon: 'M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z',
+  },
+];
+
+const customCards = [
+  {
+    title: 'Custom integrations',
+    desc: 'Connect DUSA to your existing tools, third-party APIs and proprietary systems. Secure, production-grade integrations that keep your data flowing without manual effort.',
     icon: 'M8 12h8M12 8v8',
-    examples: [
+    points: [
       'REST and webhook API connections',
       'ERP and accounting system bridges',
       'POS and inventory sync',
@@ -16,10 +74,10 @@ const services = [
     ],
   },
   {
-    title: 'Complex Automations',
-    desc: 'Go beyond simple triggers. We architect multi-step, conditional automation sequences that handle the workflows unique to your business, from lead qualification to fulfilment to post-sale nurturing.',
+    title: 'Complex automations',
+    desc: 'Multi-step, conditional workflows built around the way your business actually runs, from lead qualification to fulfilment to post-sale nurture.',
     icon: 'M13 10V3L4 14h7v7l9-11h-7z',
-    examples: [
+    points: [
       'Multi-branch lead routing logic',
       'Conditional follow-up sequences',
       'Automated proposal and quote generation',
@@ -28,22 +86,10 @@ const services = [
     ],
   },
   {
-    title: 'Data Migration',
-    desc: 'Moving from another platform? We handle the heavy lifting. Your contacts, deals, campaigns, and history are transferred cleanly so nothing gets lost in transition.',
-    icon: 'M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M1 4h22M10 11v6M14 11v6',
-    examples: [
-      'CRM contact and deal migration',
-      'Email campaign and template transfer',
-      'Historical data mapping and cleanup',
-      'Automation and workflow recreation',
-      'Custom field and tag preservation',
-    ],
-  },
-  {
-    title: 'Custom Reporting and Dashboards',
-    desc: 'Get the visibility you actually need. We build tailored reporting dashboards that surface the metrics that matter to your business, connected to your live data inside DUSA.',
+    title: 'Custom reporting and dashboards',
+    desc: 'The numbers you actually need, in one view, connected to your live data inside DUSA.',
     icon: 'M18 20V10M12 20V4M6 20v-6',
-    examples: [
+    points: [
       'KPI tracking dashboards',
       'Sales pipeline and conversion analytics',
       'Marketing attribution reports',
@@ -52,11 +98,11 @@ const services = [
     ],
   },
   {
-    title: 'Bespoke Platform Development',
-    desc: 'When off-the-shelf is not enough. Our engineering team builds custom features, modules, and tools that extend the DUSA platform to fit your exact requirements.',
+    title: 'Bespoke development',
+    desc: 'When off-the-shelf is not enough, our engineering team builds custom features, modules and tools that extend DUSA to fit your exact requirements.',
     icon: 'M16 18l6-6-6-6M8 6l-6 6 6 6',
-    examples: [
-      'Custom portal and client-facing apps',
+    points: [
+      'Custom portals and client-facing apps',
       'Proprietary workflow modules',
       'Advanced form logic and calculators',
       'White-label solutions for agencies',
@@ -64,98 +110,160 @@ const services = [
     ],
   },
   {
-    title: 'Ongoing Managed Support',
-    desc: 'For businesses that want a dedicated technical partner. We provide ongoing support, optimisation, and strategic guidance to ensure your DUSA setup keeps performing as your business evolves.',
+    title: 'Ongoing managed support',
+    desc: 'A dedicated technical partner that keeps your setup performing as your business grows.',
     icon: 'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75',
-    examples: [
+    points: [
       'Dedicated account management',
       'Monthly strategy and optimisation reviews',
       'Priority issue resolution',
       'Proactive system health monitoring',
-      'Training and onboarding for your team',
+      'Training for your team',
     ],
   },
+];
+
+const steps = [
+  { n: '01', title: 'Discovery call', desc: 'We learn about your business, your current tools and where the gaps are. No jargon, no pressure.' },
+  { n: '02', title: 'Scope and quote', desc: 'A clear scope of work with fixed pricing. You know exactly what you are getting and what it costs before any work begins.' },
+  { n: '03', title: 'Build and test', desc: 'We build, test and validate everything in a staging environment. You review at every milestone.' },
+  { n: '04', title: 'Launch and support', desc: 'Once you approve, we go live and stay on hand to make sure everything runs smoothly.' },
+];
+
+const jump = [
+  { href: '#setup', label: 'Platform setup' },
+  { href: '#marketing', label: 'Marketing services' },
+  { href: '#custom', label: 'Custom builds' },
 ];
 ---
 
 <BaseLayout
   t={t}
-  title="Services | DUSA.studio"
-  description="Custom integrations, complex automations, data migration, and bespoke development. DUSA services extend your growth platform to fit your exact business needs."
+  title="Services: setup, marketing and custom builds | DUSA.studio"
+  description="Guided setup on every DUSA plan, done-for-you setup and migration, marketing services priced to what you need, and custom builds: integrations, ERP bridges, APIs and bespoke development."
 >
   <!-- ═══ Hero ═══ -->
-  <section class="services-hero section section--dark">
+  <section class="sv-hero section section--dark">
     <div class="container">
-      <div class="services-hero__content">
+      <div class="sv-hero__content">
         <span class="label">Services</span>
-        <h1>Built for your <span class="gradient-text">business</span>,<br />not a template.</h1>
-        <p class="services-hero__sub">
-          Every business runs differently. When the platform needs to go further, our engineering and automation team builds exactly what you need. Custom integrations, complex workflows, data migration, and bespoke development, all delivered under the DUSA umbrella.
+        <h1>Set up, marketed and <span class="gradient-text">built for you</span>.</h1>
+        <p class="sv-hero__sub">
+          DUSA does a lot on its own. When you want a hand, we set it up with you, run your marketing, or build exactly what your business needs.
         </p>
+        <nav class="sv-jump" aria-label="Services on this page">
+          {jump.map((j) => <a class="sv-jump__pill" href={j.href}>{j.label}</a>)}
+        </nav>
       </div>
     </div>
   </section>
 
-  <!-- ═══ Services Grid ═══ -->
-  <section class="services-grid section--dark">
+  <!-- ═══ 1. Platform setup ═══ -->
+  <section class="sv-sec section--dark" id="setup" aria-labelledby="setup-title">
     <div class="container">
-      <div class="services-grid__cards">
-        {services.map((s) => (
-          <div class="services-card">
-            <div class="services-card__icon-wrap">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d={s.icon} />
-              </svg>
+      <header class="sv-sec__head">
+        <span class="sv-sec__num">01</span>
+        <h2 class="sv-sec__title" id="setup-title">Platform setup</h2>
+        <p class="sv-sec__sub">Live in days, not months. Every plan includes guided setup, and if you would rather not lift a finger, we do it all for you.</p>
+      </header>
+      <div class="sv-grid sv-grid--2">
+        {setupCards.map((c) => (
+          <article class="sv-card">
+            <div class="sv-card__top">
+              <div class="sv-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={c.icon} /></svg>
+              </div>
+              <span class="sv-card__tag">{c.tag}</span>
             </div>
-            <h2 class="services-card__title">{s.title}</h2>
-            <p class="services-card__desc">{s.desc}</p>
-            <ul class="services-card__list">
-              {s.examples.map((ex) => (
-                <li>{ex}</li>
-              ))}
-            </ul>
-          </div>
+            <h3 class="sv-card__title">{c.title}</h3>
+            <p class="sv-card__desc">{c.desc}</p>
+            <ul class="sv-card__list">{c.points.map((p) => <li>{p}</li>)}</ul>
+          </article>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- ═══ How It Works ═══ -->
-  <section class="services-process section--dark">
-    <div class="container">
-      <h2 class="services-process__title">How it works</h2>
-      <div class="services-process__steps">
-        <div class="services-process__step">
-          <div class="services-process__num">01</div>
-          <h3 class="services-process__step-title">Discovery Call</h3>
-          <p class="services-process__step-desc">We learn about your business, your current tools, and where the gaps are. No jargon, no pressure.</p>
-        </div>
-        <div class="services-process__step">
-          <div class="services-process__num">02</div>
-          <h3 class="services-process__step-title">Scope and Quote</h3>
-          <p class="services-process__step-desc">We put together a clear scope of work with fixed pricing. You know exactly what you are getting and what it costs before any work begins.</p>
-        </div>
-        <div class="services-process__step">
-          <div class="services-process__num">03</div>
-          <h3 class="services-process__step-title">Build and Test</h3>
-          <p class="services-process__step-desc">Our team builds, tests, and validates everything in a staging environment. You review at every milestone.</p>
-        </div>
-        <div class="services-process__step">
-          <div class="services-process__num">04</div>
-          <h3 class="services-process__step-title">Deploy and Support</h3>
-          <p class="services-process__step-desc">Once approved, we deploy to production and provide ongoing support to make sure everything runs smoothly.</p>
-        </div>
+      <div class="sv-sec__cta">
+        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" class="btn btn--primary">Book a setup call</a>
+        <a href="/pricing" class="btn btn--outline">See plans</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ CTA ═══ -->
-  <section class="services-cta section--dark">
+  <!-- ═══ 2. Marketing services ═══ -->
+  <section class="sv-sec section--dark" id="marketing" aria-labelledby="marketing-title">
     <div class="container">
-      <div class="services-cta__box">
-        <h2 class="services-cta__title">Have something specific in mind?</h2>
-        <p class="services-cta__desc">Tell us what you need. We will let you know how we can help and what it will take.</p>
-        <a href="/contact" class="btn btn--primary services-cta__btn">Get in Touch</a>
+      <header class="sv-sec__head">
+        <span class="sv-sec__num">02</span>
+        <h2 class="sv-sec__title" id="marketing-title">Marketing services</h2>
+        <p class="sv-sec__sub">More of the right customers, without hiring an agency on top of your software. We run it inside DUSA, so every lead and every dollar is tracked in one place.</p>
+      </header>
+      <div class="sv-grid sv-grid--4">
+        {marketingCards.map((c) => (
+          <article class="sv-card sv-card--compact">
+            <div class="sv-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={c.icon} /></svg>
+            </div>
+            <h3 class="sv-card__title">{c.title}</h3>
+            <p class="sv-card__desc">{c.desc}</p>
+          </article>
+        ))}
+      </div>
+      <div class="sv-note">
+        <p><strong>Priced to what you need.</strong> One channel or the lot, monthly or a single campaign. Book a call and we will put together a plan and a price that fits.</p>
+        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" class="btn btn--primary">Book a marketing call</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. Custom builds ═══ -->
+  <section class="sv-sec section--dark" id="custom" aria-labelledby="custom-title">
+    <div class="container">
+      <header class="sv-sec__head">
+        <span class="sv-sec__num">03</span>
+        <h2 class="sv-sec__title" id="custom-title">Custom builds</h2>
+        <p class="sv-sec__sub">When the platform needs to go further, our engineering and automation team builds exactly what you need: ERP bridges, API integrations, complex workflows and bespoke development, all under the DUSA umbrella.</p>
+      </header>
+      <div class="sv-grid sv-grid--3">
+        {customCards.map((c) => (
+          <article class="sv-card">
+            <div class="sv-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={c.icon} /></svg>
+            </div>
+            <h3 class="sv-card__title">{c.title}</h3>
+            <p class="sv-card__desc">{c.desc}</p>
+            <ul class="sv-card__list">{c.points.map((p) => <li>{p}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+
+      <div class="sv-process">
+        <h3 class="sv-process__title">How a custom build works</h3>
+        <ol class="sv-process__steps">
+          {steps.map((s) => (
+            <li class="sv-process__step">
+              <span class="sv-process__num" aria-hidden="true">{s.n}</span>
+              <h4 class="sv-process__step-title">{s.title}</h4>
+              <p class="sv-process__step-desc">{s.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="sv-sec__cta">
+        <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" class="btn btn--primary">Book a call about your build</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Final CTA ═══ -->
+  <section class="sv-cta section--dark">
+    <div class="container">
+      <div class="sv-cta__box">
+        <h2 class="sv-cta__title">Not sure which you need?</h2>
+        <p class="sv-cta__desc">Tell us where you are stuck. In 30 minutes we will tell you what we would do, what it would take, and whether you need us at all.</p>
+        <div class="sv-cta__btns">
+          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" class="btn btn--primary">Book a 30-minute call</a>
+          <a href="/contact" class="btn btn--outline">Send us a message</a>
+        </div>
       </div>
     </div>
   </section>
@@ -163,101 +271,216 @@ const services = [
 
 <style>
   /* ─── Hero ─── */
-  .services-hero {
-    padding-top: calc(var(--nav-height) + var(--space-3xl));
-    padding-bottom: var(--space-2xl);
+  .sv-hero {
+    padding-top: calc(var(--nav-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
   }
 
-  .services-hero__content {
-    max-width: 700px;
+  .sv-hero__content {
+    max-width: 720px;
     margin: 0 auto;
     text-align: center;
   }
 
-  .services-hero__sub {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    color: rgba(247, 244, 239, 0.6);
+  .sv-hero__sub {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: rgba(247, 244, 239, 0.66);
     line-height: 1.7;
-    margin-top: var(--space-sm);
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: var(--space-sm) auto 0;
   }
 
-  /* ─── Grid ─── */
-  .services-grid {
-    padding: var(--space-xl) 0 var(--space-2xl);
+  .sv-jump {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: var(--space-md);
   }
 
-  .services-grid__cards {
+  .sv-jump__pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    font-family: var(--font-headline);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(247, 244, 239, 0.88);
+    text-decoration: none;
+    background: rgba(247, 244, 239, 0.05);
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.07);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .sv-jump__pill:hover,
+  .sv-jump__pill:focus-visible {
+    color: var(--reef-aqua);
+    border-color: rgba(78, 216, 194, 0.45);
+    background: rgba(78, 216, 194, 0.06);
+  }
+
+  .sv-jump__pill:focus-visible {
+    outline: 2px solid var(--reef-aqua);
+    outline-offset: 3px;
+  }
+
+  /* ─── Sections ─── */
+  .sv-sec {
+    padding: var(--space-2xl) 0;
+    scroll-margin-top: var(--nav-height);
+  }
+
+  .sv-sec + .sv-sec {
+    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  }
+
+  .sv-sec__head {
+    max-width: 680px;
+    margin: 0 auto var(--space-lg);
+    text-align: center;
+  }
+
+  .sv-sec__num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    color: var(--reef-aqua);
+    margin-bottom: 6px;
+  }
+
+  .sv-sec__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--warm-white);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .sv-sec__sub {
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+    line-height: 1.65;
+    color: rgba(247, 244, 239, 0.66);
+    margin: 0;
+  }
+
+  .sv-sec__cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  /* ─── Glass cards ─── */
+  .sv-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-lg);
+    gap: var(--space-md);
   }
+  .sv-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1000px; margin: 0 auto; }
+  .sv-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sv-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-  .services-card {
-    background: rgba(247, 244, 239, 0.03);
-    border: 1px solid rgba(247, 244, 239, 0.06);
-    border-radius: var(--radius-lg, 16px);
+  .sv-card {
+    position: relative;
     padding: var(--space-lg);
+    border-radius: 22px;
+    background: linear-gradient(160deg, rgba(26, 58, 92, 0.22), rgba(12, 14, 20, 0.45));
+    border: 1px solid rgba(247, 244, 239, 0.09);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(247, 244, 239, 0.07);
     transition: border-color var(--duration-fast), transform var(--duration-fast);
   }
 
-  .services-card:hover {
-    border-color: rgba(78, 216, 194, 0.25);
+  .sv-card:hover {
+    border-color: rgba(78, 216, 194, 0.28);
     transform: translateY(-2px);
   }
 
-  .services-card__icon-wrap {
+  .sv-card--compact {
+    padding: var(--space-md);
+  }
+
+  .sv-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: var(--space-md);
+  }
+
+  .sv-card__top .sv-card__icon { margin-bottom: 0; }
+
+  .sv-card__tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--reef-aqua);
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(78, 216, 194, 0.25);
+    background: rgba(78, 216, 194, 0.06);
+    white-space: nowrap;
+  }
+
+  .sv-card__icon {
     width: 48px;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(78, 216, 194, 0.08);
-    border: 1px solid rgba(78, 216, 194, 0.15);
-    border-radius: var(--radius-md, 8px);
+    border: 1px solid rgba(78, 216, 194, 0.18);
+    border-radius: 14px;
     margin-bottom: var(--space-md);
   }
 
-  .services-card__icon-wrap svg {
+  .sv-card__icon svg {
     width: 24px;
     height: 24px;
     color: var(--reef-aqua);
   }
 
-  .services-card__title {
+  .sv-card__title {
     font-family: var(--font-headline);
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--warm-white);
-    margin-bottom: var(--space-xs);
+    margin: 0 0 var(--space-xs);
   }
 
-  .services-card__desc {
+  .sv-card__desc {
     font-size: 1rem;
     line-height: 1.65;
-    color: rgba(247, 244, 239, 0.6);
-    margin-bottom: var(--space-md);
+    color: rgba(247, 244, 239, 0.66);
+    margin: 0;
   }
 
-  .services-card__list {
+  .sv-card__list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: var(--space-md) 0 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .services-card__list li {
-    font-size: 0.875rem;
-    color: rgba(247, 244, 239, 0.62);
+  .sv-card__list li {
+    font-size: 0.9rem;
+    color: rgba(247, 244, 239, 0.7);
     padding-left: 1.25rem;
     position: relative;
   }
 
-  .services-card__list li::before {
+  .sv-card__list li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -266,162 +489,238 @@ const services = [
     height: 6px;
     border-radius: 50%;
     background: var(--reef-aqua);
-    opacity: 0.5;
+    opacity: 0.6;
+  }
+
+  /* ─── Marketing pricing note ─── */
+  .sv-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 22px;
+    background: rgba(78, 216, 194, 0.05);
+    border: 1px solid rgba(78, 216, 194, 0.16);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.06);
+  }
+
+  .sv-note p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.72);
+    max-width: 620px;
+  }
+
+  .sv-note strong {
+    color: var(--warm-white);
   }
 
   /* ─── Process ─── */
-  .services-process {
-    padding: var(--space-2xl) 0;
-    border-top: 1px solid rgba(247, 244, 239, 0.06);
+  .sv-process {
+    margin-top: var(--space-xl);
   }
 
-  .services-process__title {
+  .sv-process__title {
     font-family: var(--font-headline);
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
-    font-weight: 700;
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    font-weight: 600;
     color: var(--warm-white);
     text-align: center;
-    margin-bottom: var(--space-xl);
+    margin: 0 0 var(--space-lg);
   }
 
-  .services-process__steps {
+  .sv-process__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-lg);
   }
 
-  .services-process__step {
+  .sv-process__step {
     text-align: center;
   }
 
-  .services-process__num {
+  .sv-process__num {
+    display: block;
     font-family: var(--font-mono);
     font-size: 2rem;
     font-weight: 700;
     color: var(--reef-aqua);
-    opacity: 0.3;
+    opacity: 0.35;
     margin-bottom: var(--space-xs);
   }
 
-  .services-process__step-title {
+  .sv-process__step-title {
     font-family: var(--font-headline);
-    font-size: 1.125rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--warm-white);
-    margin-bottom: var(--space-xs);
+    margin: 0 0 var(--space-xs);
   }
 
-  .services-process__step-desc {
-    font-size: 0.9375rem;
+  .sv-process__step-desc {
+    font-size: 0.95rem;
     line-height: 1.6;
-    color: rgba(247, 244, 239, 0.55);
+    color: rgba(247, 244, 239, 0.62);
+    margin: 0;
   }
 
-  /* ─── CTA ─── */
-  .services-cta {
+  /* ─── Final CTA ─── */
+  .sv-cta {
     padding: var(--space-xl) 0 var(--space-2xl);
   }
 
-  .services-cta__box {
+  .sv-cta__box {
     text-align: center;
     padding: var(--space-xl);
-    background: rgba(78, 216, 194, 0.04);
-    border: 1px solid rgba(78, 216, 194, 0.12);
-    border-radius: var(--radius-lg, 16px);
+    border-radius: 28px;
+    background: linear-gradient(160deg, rgba(26, 58, 92, 0.3), rgba(12, 14, 20, 0.5));
+    border: 1px solid rgba(78, 216, 194, 0.16);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(247, 244, 239, 0.07);
   }
 
-  .services-cta__title {
+  .sv-cta__title {
     font-family: var(--font-headline);
     font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 700;
     color: var(--warm-white);
-    margin-bottom: var(--space-xs);
+    margin: 0 0 var(--space-xs);
   }
 
-  .services-cta__desc {
-    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
-    color: rgba(247, 244, 239, 0.6);
-    margin-bottom: var(--space-lg);
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
+  .sv-cta__desc {
+    font-size: clamp(0.95rem, 2vw, 1.06rem);
+    color: rgba(247, 244, 239, 0.66);
+    max-width: 540px;
+    margin: 0 auto var(--space-lg);
   }
 
-  .services-cta__btn {
-    display: inline-block;
+  .sv-cta__btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
   }
 
   /* ─── Responsive ─── */
+  @media (max-width: 1100px) {
+    .sv-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
   @media (max-width: 1024px) {
-    .services-grid__cards {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .sv-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   @media (max-width: 768px) {
-    .services-grid__cards {
-      grid-template-columns: 1fr;
-    }
+    .sv-sec { padding: var(--space-xl) 0; }
+    .sv-grid--2,
+    .sv-grid--3 { grid-template-columns: 1fr; }
+    .sv-process__steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+    .sv-note { flex-direction: column; align-items: stretch; text-align: left; }
+    .sv-note .btn,
+    .sv-sec__cta .btn,
+    .sv-cta__btns .btn { width: 100%; white-space: normal; }
+  }
 
-    .services-process__steps {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-md);
-    }
+  @media (max-width: 560px) {
+    .sv-grid--4 { grid-template-columns: 1fr; }
   }
 
   @media (max-width: 480px) {
-    .services-process__steps {
-      grid-template-columns: 1fr;
-    }
-
-    .services-card {
-      padding: var(--space-md);
-    }
-
-    .services-cta__box {
-      padding: var(--space-md);
-    }
-
-    .services-hero {
-      padding-top: calc(var(--nav-height) + var(--space-2xl));
+    .sv-process__steps { grid-template-columns: 1fr; }
+    .sv-card { padding: var(--space-md); }
+    .sv-card__top { flex-wrap: wrap; }
+    .sv-cta__box { padding: var(--space-md); }
+    .sv-hero {
+      padding-top: calc(var(--nav-height) + var(--space-xl));
       padding-bottom: var(--space-lg);
     }
   }
 
-  /* ─── Light Mode ─── */
-  :global(html[data-theme="light"]) .services-card__title,
-  :global(html[data-theme="light"]) .services-process__title,
-  :global(html[data-theme="light"]) .services-process__step-title,
-  :global(html[data-theme="light"]) .services-cta__title {
+  @media (prefers-reduced-motion: reduce) {
+    .sv-card:hover { transform: none; }
+  }
+
+  /* ─── Light mode ─── */
+  :global(html[data-theme="light"]) .sv-sec__title,
+  :global(html[data-theme="light"]) .sv-card__title,
+  :global(html[data-theme="light"]) .sv-process__title,
+  :global(html[data-theme="light"]) .sv-process__step-title,
+  :global(html[data-theme="light"]) .sv-cta__title,
+  :global(html[data-theme="light"]) .sv-note strong {
     color: var(--deep-ocean);
   }
 
-  :global(html[data-theme="light"]) .services-hero__sub,
-  :global(html[data-theme="light"]) .services-card__desc,
-  :global(html[data-theme="light"]) .services-process__step-desc,
-  :global(html[data-theme="light"]) .services-cta__desc {
-    color: rgba(12, 14, 20, 0.65);
-  }
-
-  :global(html[data-theme="light"]) .services-card {
-    background: rgba(12, 14, 20, 0.02);
-    border-color: rgba(12, 14, 20, 0.08);
-  }
-
-  :global(html[data-theme="light"]) .services-card:hover {
-    border-color: rgba(78, 216, 194, 0.35);
-  }
-
-  :global(html[data-theme="light"]) .services-card__list li {
+  :global(html[data-theme="light"]) .sv-hero__sub,
+  :global(html[data-theme="light"]) .sv-sec__sub,
+  :global(html[data-theme="light"]) .sv-card__desc,
+  :global(html[data-theme="light"]) .sv-process__step-desc,
+  :global(html[data-theme="light"]) .sv-cta__desc,
+  :global(html[data-theme="light"]) .sv-note p {
     color: rgba(12, 14, 20, 0.66);
   }
 
-  :global(html[data-theme="light"]) .services-cta__box {
-    background: rgba(78, 216, 194, 0.06);
-    border-color: rgba(78, 216, 194, 0.15);
+  :global(html[data-theme="light"]) .sv-card__list li {
+    color: rgba(12, 14, 20, 0.7);
   }
 
-  :global(html[data-theme="light"]) .services-process {
+  :global(html[data-theme="light"]) .sv-card,
+  :global(html[data-theme="light"]) .sv-cta__box {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.72), rgba(228, 239, 244, 0.55));
+    border-color: rgba(12, 14, 20, 0.08);
+    box-shadow: 0 18px 50px rgba(12, 14, 20, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .sv-card:hover {
+    border-color: rgba(26, 58, 92, 0.3);
+  }
+
+  :global(html[data-theme="light"]) .sv-card__icon {
+    background: rgba(26, 58, 92, 0.06);
+    border-color: rgba(26, 58, 92, 0.15);
+  }
+
+  :global(html[data-theme="light"]) .sv-card__icon svg,
+  :global(html[data-theme="light"]) .sv-sec__num,
+  :global(html[data-theme="light"]) .sv-process__num,
+  :global(html[data-theme="light"]) .sv-card__tag {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .sv-card__tag {
+    border-color: rgba(26, 58, 92, 0.2);
+    background: rgba(26, 58, 92, 0.05);
+  }
+
+  :global(html[data-theme="light"]) .sv-card__list li::before {
+    background: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .sv-note {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(26, 58, 92, 0.14);
+  }
+
+  :global(html[data-theme="light"]) .sv-jump__pill {
+    color: var(--deep-black);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(12, 14, 20, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  :global(html[data-theme="light"]) .sv-jump__pill:hover,
+  :global(html[data-theme="light"]) .sv-jump__pill:focus-visible {
+    color: var(--deep-ocean);
+    border-color: rgba(26, 58, 92, 0.4);
+  }
+
+  :global(html[data-theme="light"]) .sv-sec + .sv-sec {
     border-top-color: rgba(12, 14, 20, 0.08);
   }
 </style>

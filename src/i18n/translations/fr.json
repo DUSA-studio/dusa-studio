@@ -233,10 +233,10 @@
       "titleEnd": "en deux semaines.",
       "sub": "Vous n'avez pas à tout comprendre seul. Nous gérons la configuration, la migration et la formation pour que vous puissiez vous concentrer sur la gestion de votre entreprise.",
       "step1Title": "Réservez votre démo",
-      "step1Desc": "Un rapide appel de 15 minutes pour comprendre votre entreprise. Nous apprenons ce dont vous avez besoin, vous montrons la plateforme et répondons à toutes vos questions.",
-      "step1Time": "15 min",
+      "step1Desc": "Un appel de 30 minutes pour comprendre votre entreprise. Nous apprenons ce dont vous avez besoin, vous montrons la plateforme et répondons à toutes vos questions.",
+      "step1Time": "30 min",
       "step2Title": "Configuration de l'intégration",
-      "step2Desc": "Nous configurons votre espace de travail DUSA. CRM, automatisations, modèles d'e-mails, entonnoirs et intégrations, tout prêt pour vous dans la première semaine.",
+      "step2Desc": "Nous configurons votre espace de travail DUSA : CRM, automatisations, modèles d'e-mails, entonnoirs et intégrations. La plupart des comptes sont configurés au cours de votre première semaine.",
       "step2Time": "Semaine 1",
       "step3Title": "Migration et formation",
       "step3Desc": "Nous transférons vos contacts, campagnes et données depuis vos anciens outils. Puis nous guidons votre équipe pour que vous soyez à l'aise dès le premier jour.",
@@ -260,7 +260,7 @@
       "sub": "La plupart des plateformes vous donnent un accès et vous souhaitent bonne chance. Nous faisons l'inverse. Votre espace de travail DUSA est configuré, rempli et prêt à l'emploi avant même que vous ne le touchiez.",
       "phase1Badge": "Jour 1",
       "phase1Title": "Découverte et démo",
-      "phase1Desc": "Tout commence par un appel de 15 minutes. Nous apprenons à connaître votre entreprise, les outils que vous utilisez actuellement, les problèmes que vous souhaitez résoudre et à quoi ressemble le succès pour vous.",
+      "phase1Desc": "Tout commence par un appel de 30 minutes. Nous apprenons à connaître votre entreprise, les outils que vous utilisez actuellement, les problèmes que vous souhaitez résoudre et à quoi ressemble le succès pour vous.",
       "phase1Detail1Title": "Ce que nous couvrons",
       "phase1Detail1Desc": "Votre modèle commercial, votre stack technologique actuel, vos points de douleur, vos objectifs de croissance et les fonctionnalités DUSA qui correspondent à vos besoins.",
       "phase1Detail2Title": "Ce que vous obtenez",
@@ -301,16 +301,16 @@
     "resultsLabel": "Des résultats qui parlent",
     "heading": "Les entreprises grandissent plus vite avec",
     "headingAccent": "l'IA et tout connecté",
-    "stat1Value": "5+",
-    "stat1Label": "Outils remplacés",
+    "stat1Value": "1 connexion",
+    "stat1Label": "Au lieu de 8 applis",
     "stat2Value": "2x",
     "stat2Label": "Suivi plus rapide",
     "stat3Value": "100%",
     "stat3Label": "Automatisé par l'IA",
-    "stat4Value": "800€+",
-    "stat4Label": "Économies mensuelles",
-    "stat5Value": "< 48h",
-    "stat5Label": "Temps de mise en place",
+    "stat4Value": "841 $",
+    "stat4Label": "Récupérés chaque mois face à 8 outils séparés",
+    "stat5Value": "Première semaine",
+    "stat5Label": "Mise en place avec vous",
     "testimonials": [
       {
         "quote": "Avant, j'utilisais une multitude d'outils différents pour chaque client. Le temps passé à apprendre et à configurer des systèmes marketing a été réduit de façon spectaculaire. Les flux d'automatisation sont ma partie préférée.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Des tarifs honnêtes",
     "value3Desc": "Pas de frais cachés, pas d'augmentations surprises, pas de facturation pour des fonctionnalités déjà payées. Ce que vous voyez est ce que vous payez.",
     "value4Title": "Croissez à votre rythme",
-    "value4Desc": "Commencez avec un outil. Ajoutez-en plus quand vous en avez besoin. Mettez à niveau quand cela a du sens. Sans pression, sans engagement, sans mises à niveau forcées.",
+    "value4Desc": "Toute la plateforme dès 149 $ par mois. Passez à une offre supérieure quand cela a du sens. Sans pression, sans engagement, sans mises à niveau forcées.",
     "teamLabel": "Portée mondiale",
     "teamTitle": "Conçue pour les entreprises",
     "teamTitleAccent": "partout dans le monde",
@@ -1090,7 +1090,7 @@
       },
       {
         "q": "Faut-il être technique ?",
-        "a": "Pas du tout. Nous faisons la configuration pour vous. Votre CRM, vos automatisations, vos tunnels et vos intégrations sont configurés par notre équipe dès la première semaine. Si vous savez utiliser un email, vous savez utiliser DUSA."
+        "a": "Pas du tout. Nous faisons la configuration pour vous. Notre équipe configure votre CRM, vos automatisations, vos tunnels et vos intégrations, et la plupart des comptes sont prêts au cours de votre première semaine. Si vous savez utiliser un email, vous savez utiliser DUSA."
       },
       {
         "q": "Que deviennent mes contacts et outils actuels ?",
@@ -1149,5 +1149,18 @@
     ],
     "source": "HighLevel, chiffres publiés, octobre 2026",
     "link": "Pourquoi vous le dire"
+  },
+  "consent": {
+    "text": "Nous utilisons des cookies pour comprendre l'usage du site et mesurer nos publicités. À vous de choisir, modifiable à tout moment.",
+    "accept": "Accepter",
+    "essential": "Essentiels uniquement",
+    "privacy": "Confidentialité",
+    "aria": "Choix des cookies"
+  },
+  "booking": {
+    "title": "Réservez votre appel de 30 minutes",
+    "sub": "Choisissez un créneau qui vous convient. Nous arriverons préparés pour votre entreprise.",
+    "close": "Fermer",
+    "frameTitle": "Calendrier de réservation"
   }
 }

@@ -233,10 +233,10 @@
       "titleEnd": "på to uger.",
       "sub": "Du behøver ikke finde ud af det alene. Vi klarer opsætning, migrering og oplæring, så du kan fokusere på at drive din forretning.",
       "step1Title": "Book din demo",
-      "step1Desc": "En hurtig samtale på 15 minutter, hvor vi lærer din virksomhed at kende. Vi finder ud af, hvad du har brug for, viser dig platformen og svarer på alle dine spørgsmål.",
-      "step1Time": "15 min.",
+      "step1Desc": "En samtale på 30 minutter, hvor vi lærer din virksomhed at kende. Vi finder ud af, hvad du har brug for, viser dig platformen og svarer på alle dine spørgsmål.",
+      "step1Time": "30 min.",
       "step2Title": "Onboarding og opsætning",
-      "step2Desc": "Vi konfigurerer dit DUSA-workspace. CRM, automatiseringer, e-mailskabeloner, funnels og integrationer, alt sammen sat op for dig i løbet af den første uge.",
+      "step2Desc": "Vi konfigurerer dit DUSA-workspace: CRM, automatiseringer, e-mailskabeloner, funnels og integrationer. De fleste konti er sat op inden for din første uge.",
       "step2Time": "Uge 1",
       "step3Title": "Migrering og oplæring",
       "step3Desc": "Vi flytter dine kontakter, kampagner og data fra dine gamle værktøjer. Derefter gennemgår vi det hele med dit team, så I er trygge fra dag ét.",
@@ -260,7 +260,7 @@
       "sub": "De fleste platforme giver dig et login og ønsker held og lykke. Vi gør det modsatte. Dit DUSA-workspace er konfigureret, fyldt med dine data og klar til brug, før du rører noget som helst.",
       "phase1Badge": "Dag 1",
       "phase1Title": "Afdækning og demo",
-      "phase1Desc": "Alt starter med en samtale på 15 minutter. Vi lærer om din virksomhed, de værktøjer du bruger i dag, de problemer du vil løse, og hvad succes betyder for dig.",
+      "phase1Desc": "Alt starter med en samtale på 30 minutter. Vi lærer om din virksomhed, de værktøjer du bruger i dag, de problemer du vil løse, og hvad succes betyder for dig.",
       "phase1Detail1Title": "Det gennemgår vi",
       "phase1Detail1Desc": "Din forretningsmodel, dine nuværende systemer, dine udfordringer, dine vækstmål, og hvilke DUSA-funktioner der passer til dine behov.",
       "phase1Detail2Title": "Det får du",
@@ -301,16 +301,16 @@
     "resultsLabel": "Resultater, der taler for sig selv",
     "heading": "Virksomheder vokser hurtigere med",
     "headingAccent": "AI og alt forbundet",
-    "stat1Value": "5+",
-    "stat1Label": "Værktøjer erstattet",
+    "stat1Value": "1 login",
+    "stat1Label": "I stedet for 8 apps",
     "stat2Value": "2x",
     "stat2Label": "Hurtigere opfølgning",
     "stat3Value": "100%",
     "stat3Label": "AI-automatiseret",
-    "stat4Value": "800+ AUD",
-    "stat4Label": "Sparet om måneden",
-    "stat5Value": "< 48 timer",
-    "stat5Label": "Opsætningstid",
+    "stat4Value": "841 AUD",
+    "stat4Label": "Tilbage hver måned mod 8 separate værktøjer",
+    "stat5Value": "Første uge",
+    "stat5Label": "Sat op sammen med dig",
     "testimonials": [
       {
         "quote": "Før brugte jeg et hav af forskellige værktøjer til hver kunde. Tiden, jeg bruger på at lære og opsætte marketingsystemer, er skåret drastisk ned. Automatiseringsworkflows er min favorit.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Ærlige priser",
     "value3Desc": "Ingen skjulte gebyrer, ingen pludselige prisstigninger, ingen betaling for funktioner, du allerede har betalt for. Det, du ser, er det, du betaler.",
     "value4Title": "Voks i dit eget tempo",
-    "value4Desc": "Start med ét værktøj. Tilføj flere, når du har brug for dem. Opgrader, når det giver mening. Intet pres, ingen binding, ingen tvungne opgraderinger.",
+    "value4Desc": "Hele platformen fra 149 AUD om måneden. Skift til en større plan, når det giver mening. Intet pres, ingen binding, ingen tvungne opgraderinger.",
     "teamLabel": "Global rækkevidde",
     "teamTitle": "Bygget til virksomheder",
     "teamTitleAccent": "overalt",
@@ -1132,7 +1132,7 @@
     "value2Title": "AI, der arbejder fra dag ét",
     "value2Text": "Ask AI hjælper dig med at bygge og drive platformen. På Growth besvarer din AI Employee opkald og beskeder for dig.",
     "value3Title": "Guidet onboarding, så du hurtigt får resultater",
-    "value3Text": "Vi guider dig gennem opsætningen, så du ser værdi allerede i den første uge.",
+    "value3Text": "Vi guider dig gennem opsætningen. De fleste konti er sat op inden for din første uge.",
     "value4Title": "Opsig når som helst, uden spørgsmål",
     "value4Text": "Ingen binding. Hvis det ikke er det rette for dig, kan du gå uden forpligtelser.",
     "t1Quote": "Allerede i den første uge havde vi automatiske opfølgninger kørende og bookede tre nye kunder. DUSA havde tjent sig selv hjem, før prøveperioden var slut.",
@@ -1194,7 +1194,7 @@
         "features": [
           "Alt i Starter",
           "AI Employee besvarer opkald, chats og beskeder",
-          "Ask AI-forbrug inkluderet",
+          "Ask AI, betal efter forbrug",
           "Prioriteret support og AI-opsætningssession"
         ]
       },
@@ -1333,7 +1333,7 @@
       },
       {
         "q": "Skal jeg være teknisk?",
-        "a": "Slet ikke. Vi klarer opsætningen for dig. Dit CRM, dine automatiseringer, funnels og integrationer konfigureres af vores team i løbet af den første uge. Kan du bruge e-mail, kan du bruge DUSA."
+        "a": "Slet ikke. Vi klarer opsætningen for dig. Vores team konfigurerer dit CRM, dine automatiseringer, funnels og integrationer, og de fleste konti er sat op inden for din første uge. Kan du bruge e-mail, kan du bruge DUSA."
       },
       {
         "q": "Hvad sker der med mine eksisterende kontakter og værktøjer?",
@@ -1377,5 +1377,18 @@
     ],
     "source": "HighLevel, offentliggjorte tal, oktober 2026",
     "link": "Derfor fortæller vi det"
+  },
+  "consent": {
+    "text": "Vi bruger cookies til at se, hvordan siden bruges, og til at måle vores annoncer. Dit valg, kan ændres når som helst.",
+    "accept": "Accepter",
+    "essential": "Kun nødvendige",
+    "privacy": "Privatlivspolitik",
+    "aria": "Cookievalg"
+  },
+  "booking": {
+    "title": "Book dit 30-minutters opkald",
+    "sub": "Vælg et tidspunkt, der passer dig. Vi kommer forberedt på din virksomhed.",
+    "close": "Luk",
+    "frameTitle": "Bookingkalender"
   }
 }

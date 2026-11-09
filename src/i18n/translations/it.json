@@ -233,10 +233,10 @@
       "titleEnd": "in due settimane.",
       "sub": "Non deve capire tutto da solo. Ci occupiamo noi di configurazione, migrazione e formazione, così può concentrarsi sulla Sua attività.",
       "step1Title": "Prenoti la demo",
-      "step1Desc": "Una breve chiamata di 15 minuti per conoscere la Sua attività. Capiamo di cosa ha bisogno, Le mostriamo la piattaforma e rispondiamo a ogni domanda.",
-      "step1Time": "15 min",
+      "step1Desc": "Una chiamata di 30 minuti per conoscere la Sua attività. Capiamo di cosa ha bisogno, Le mostriamo la piattaforma e rispondiamo a ogni domanda.",
+      "step1Time": "30 min",
       "step2Title": "Configurazione",
-      "step2Desc": "Configuriamo il Suo spazio di lavoro DUSA. CRM, automazioni, modelli email, funnel e integrazioni, tutto impostato per Lei entro la prima settimana.",
+      "step2Desc": "Configuriamo il Suo spazio di lavoro DUSA: CRM, automazioni, modelli email, funnel e integrazioni. La maggior parte degli account è configurata entro la Sua prima settimana.",
       "step2Time": "Settimana 1",
       "step3Title": "Migrazione e formazione",
       "step3Desc": "Trasferiamo contatti, campagne e dati dai Suoi vecchi strumenti. Poi guidiamo il Suo team attraverso ogni funzione, così è sicuro fin dal primo giorno.",
@@ -260,7 +260,7 @@
       "sub": "La maggior parte delle piattaforme Le consegna un login e Le augura buona fortuna. Noi facciamo l'opposto. Il Suo spazio di lavoro DUSA è configurato, popolato e pronto all'uso prima ancora che Lei tocchi qualcosa.",
       "phase1Badge": "Giorno 1",
       "phase1Title": "Analisi e demo",
-      "phase1Desc": "Tutto inizia con una chiamata di 15 minuti. Conosciamo la Sua attività, gli strumenti che usa oggi, i problemi che vuole risolvere e cosa significa successo per Lei.",
+      "phase1Desc": "Tutto inizia con una chiamata di 30 minuti. Conosciamo la Sua attività, gli strumenti che usa oggi, i problemi che vuole risolvere e cosa significa successo per Lei.",
       "phase1Detail1Title": "Di cosa parliamo",
       "phase1Detail1Desc": "Il Suo modello di business, gli strumenti attuali, i punti critici, gli obiettivi di crescita e quali funzionalità DUSA rispondono alle Sue esigenze.",
       "phase1Detail2Title": "Cosa ottiene",
@@ -301,16 +301,16 @@
     "resultsLabel": "Risultati che parlano da soli",
     "heading": "Le aziende crescono più in fretta con",
     "headingAccent": "l'IA e tutto connesso",
-    "stat1Value": "5+",
-    "stat1Label": "Strumenti sostituiti",
+    "stat1Value": "1 accesso",
+    "stat1Label": "Invece di 8 app",
     "stat2Value": "2x",
     "stat2Label": "Follow-up più rapidi",
     "stat3Value": "100%",
     "stat3Label": "Automatizzato con l'IA",
-    "stat4Value": "800+ AUD",
-    "stat4Label": "Risparmiati al mese",
-    "stat5Value": "< 48 ore",
-    "stat5Label": "Tempo di configurazione",
+    "stat4Value": "841 AUD",
+    "stat4Label": "Risparmiati ogni mese rispetto a 8 strumenti separati",
+    "stat5Value": "Prima settimana",
+    "stat5Label": "Configurato insieme a Lei",
     "testimonials": [
       {
         "quote": "Prima usavo tantissimi strumenti diversi per ogni cliente. Il tempo dedicato a imparare e configurare i sistemi di marketing si è ridotto drasticamente. I flussi di automazione sono la parte che preferisco.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Prezzi onesti",
     "value3Desc": "Nessun costo nascosto, nessun aumento a sorpresa, nessun addebito per funzionalità già pagate. Quello che vede è quello che paga.",
     "value4Title": "Cresca al Suo ritmo",
-    "value4Desc": "Inizi con uno strumento. Ne aggiunga altri quando Le servono. Passi a un piano superiore quando ha senso. Nessuna pressione, nessun vincolo, nessun upgrade forzato.",
+    "value4Desc": "L'intera piattaforma da 149 AUD al mese. Passi a un piano superiore quando ha senso. Nessuna pressione, nessun vincolo, nessun upgrade forzato.",
     "teamLabel": "Presenza globale",
     "teamTitle": "Pensata per le aziende",
     "teamTitleAccent": "ovunque",
@@ -1132,7 +1132,7 @@
     "value2Title": "Un'IA che lavora fin dal primo giorno",
     "value2Text": "Ask AI La aiuta a costruire e gestire la piattaforma. Su Growth, il Suo AI Employee risponde a chiamate e messaggi per Lei.",
     "value3Title": "Onboarding guidato per risultati rapidi",
-    "value3Text": "La accompagniamo nella configurazione, così vede i primi risultati già nella prima settimana.",
+    "value3Text": "La accompagniamo nella configurazione. La maggior parte degli account è configurata entro la Sua prima settimana.",
     "value4Title": "Disdetta in qualsiasi momento, senza domande",
     "value4Text": "Zero vincoli. Se non fa per Lei, può andarsene senza alcun obbligo.",
     "t1Quote": "Nella prima settimana avevamo già i follow-up automatici attivi e tre nuovi clienti prenotati. DUSA si è ripagata prima ancora che finisse la prova.",
@@ -1194,7 +1194,7 @@
         "features": [
           "Tutto ciò che è incluso in Starter",
           "L'AI Employee risponde a chiamate, chat e messaggi",
-          "Utilizzo di Ask AI incluso",
+          "Ask AI, a consumo",
           "Supporto prioritario e sessione di setup IA"
         ]
       },
@@ -1333,7 +1333,7 @@
       },
       {
         "q": "Devo avere competenze tecniche?",
-        "a": "Assolutamente no. La configurazione la facciamo noi. CRM, automazioni, funnel e integrazioni vengono impostati dal nostro team entro la prima settimana. Se sa usare l'email, sa usare DUSA."
+        "a": "Assolutamente no. La configurazione la facciamo noi. Il nostro team imposta CRM, automazioni, funnel e integrazioni, e la maggior parte degli account è configurata entro la Sua prima settimana. Se sa usare l'email, sa usare DUSA."
       },
       {
         "q": "Cosa succede ai miei contatti e strumenti attuali?",
@@ -1377,5 +1377,18 @@
     ],
     "source": "HighLevel, dati pubblicati, ottobre 2026",
     "link": "Perché lo diciamo"
+  },
+  "consent": {
+    "text": "Usiamo i cookie per capire come viene usato il sito e misurare i nostri annunci. A te la scelta, modificabile in ogni momento.",
+    "accept": "Accetta",
+    "essential": "Solo essenziali",
+    "privacy": "Privacy",
+    "aria": "Scelta dei cookie"
+  },
+  "booking": {
+    "title": "Prenota la tua chiamata di 30 minuti",
+    "sub": "Scegli l'orario che preferisci. Arriveremo preparati sulla tua attività.",
+    "close": "Chiudi",
+    "frameTitle": "Calendario prenotazioni"
   }
 }

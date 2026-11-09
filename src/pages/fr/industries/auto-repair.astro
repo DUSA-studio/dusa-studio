@@ -65,9 +65,9 @@ const pipeline = [
 ];
 
 const stats = [
-  { value: '68%', label: 'des clients oublient l\'entretien courant sans rappel' },
-  { value: '3.2x', label: 'plus de visites recurrentes avec des rappels d\'entretien automatises' },
-  { value: '85%', label: 'des consommateurs font autant confiance aux avis en ligne qu\'aux recommandations personnelles' },
+  { value: 'Chaque', label: 'échéance d\'entretien peut déclencher un rappel par SMS ou e-mail' },
+  { value: '24/7', label: 'réservation en ligne, même après la fermeture' },
+  { value: '1', label: 'lien dans chaque demande d\'avis, directement vers votre fiche Google' },
 ];
 
 const jsonLd = JSON.stringify({
@@ -162,8 +162,8 @@ const jsonLd = JSON.stringify({
   <section class="ar-stats section section--dark">
     <div class="container">
       <div class="ar-stats__header">
-        <span class="label">Impact</span>
-        <h2>Les chiffres parlent <span class="gradient-text">d'eux-memes</span></h2>
+        <span class="label">Inclus</span>
+        <h2>Ce qui tourne pour vous, <span class="gradient-text">chaque jour</span></h2>
       </div>
       <div class="ar-stats__grid">
         {stats.map((stat) => (

@@ -233,10 +233,10 @@
       "titleEnd": "en dos semanas.",
       "sub": "No tienes que resolverlo solo. Nos encargamos de la configuración, la migración y la formación para que puedas centrarte en gestionar tu negocio.",
       "step1Title": "Reserva tu demo",
-      "step1Desc": "Una llamada rápida de 15 minutos para entender tu negocio. Aprendemos lo que necesitas, te mostramos la plataforma y respondemos todas tus preguntas.",
-      "step1Time": "15 min",
+      "step1Desc": "Una llamada de 30 minutos para entender tu negocio. Aprendemos lo que necesitas, te mostramos la plataforma y respondemos todas tus preguntas.",
+      "step1Time": "30 min",
       "step2Title": "Configuración de incorporación",
-      "step2Desc": "Configuramos tu espacio de trabajo en DUSA. CRM, automatizaciones, plantillas de correo, embudos e integraciones, todo listo para ti en la primera semana.",
+      "step2Desc": "Configuramos tu espacio de trabajo en DUSA: CRM, automatizaciones, plantillas de correo, embudos e integraciones. La mayoría de las cuentas quedan configuradas durante tu primera semana.",
       "step2Time": "Semana 1",
       "step3Title": "Migración y formación",
       "step3Desc": "Trasladamos tus contactos, campañas y datos de tus herramientas anteriores. Luego guiamos a tu equipo para que estés seguro desde el primer día.",
@@ -260,7 +260,7 @@
       "sub": "La mayoría de plataformas te dan un acceso y te desean suerte. Nosotros hacemos lo contrario. Tu espacio de trabajo en DUSA está configurado, poblado y listo para usar antes de que toques nada.",
       "phase1Badge": "Día 1",
       "phase1Title": "Descubrimiento y demo",
-      "phase1Desc": "Todo comienza con una llamada de 15 minutos. Aprendemos sobre tu negocio, las herramientas que usas actualmente, los problemas que quieres resolver y cómo se ve el éxito para ti.",
+      "phase1Desc": "Todo comienza con una llamada de 30 minutos. Aprendemos sobre tu negocio, las herramientas que usas actualmente, los problemas que quieres resolver y cómo se ve el éxito para ti.",
       "phase1Detail1Title": "Lo que cubrimos",
       "phase1Detail1Desc": "Tu modelo de negocio, stack tecnológico actual, puntos de dolor, objetivos de crecimiento y qué funciones de DUSA se alinean con tus necesidades.",
       "phase1Detail2Title": "Lo que obtienes",
@@ -301,16 +301,16 @@
     "resultsLabel": "Resultados que hablan",
     "heading": "Los negocios crecen más rápido con",
     "headingAccent": "IA y todo conectado",
-    "stat1Value": "5+",
-    "stat1Label": "Herramientas reemplazadas",
+    "stat1Value": "1 acceso",
+    "stat1Label": "En lugar de 8 apps",
     "stat2Value": "2x",
     "stat2Label": "Seguimiento más rápido",
     "stat3Value": "100%",
     "stat3Label": "Automatizado con IA",
-    "stat4Value": "$800+",
-    "stat4Label": "Ahorro mensual",
-    "stat5Value": "< 48hrs",
-    "stat5Label": "Tiempo de configuración",
+    "stat4Value": "$841",
+    "stat4Label": "De vuelta cada mes frente a 8 herramientas sueltas",
+    "stat5Value": "Primera semana",
+    "stat5Label": "Configurado contigo",
     "testimonials": [
       {
         "quote": "Antes usaba un montón de herramientas distintas para cada cliente. El tiempo que dedicaba a aprender y montar sistemas de marketing se ha reducido muchísimo. Los flujos de automatización son mi parte favorita.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Precios honestos",
     "value3Desc": "Sin tarifas ocultas, sin aumentos de precios sorpresa, sin cargos por funciones que ya pagaste. Lo que ves es lo que pagas.",
     "value4Title": "Crece a tu ritmo",
-    "value4Desc": "Comienza con una herramienta. Añade más cuando las necesites. Actualiza cuando tenga sentido. Sin presión, sin compromisos, sin actualizaciones forzadas.",
+    "value4Desc": "Toda la plataforma desde $149 al mes. Cambia a un plan superior cuando tenga sentido. Sin presión, sin compromisos, sin actualizaciones forzadas.",
     "teamLabel": "Alcance global",
     "teamTitle": "Construida para negocios",
     "teamTitleAccent": "en cualquier lugar",
@@ -1090,7 +1090,7 @@
       },
       {
         "q": "¿Necesito conocimientos técnicos?",
-        "a": "Para nada. Nosotros hacemos la configuración por ti. Tu CRM, automatizaciones, embudos e integraciones quedan configurados por nuestro equipo en la primera semana. Si sabes usar el correo electrónico, puedes usar DUSA."
+        "a": "Para nada. Nosotros hacemos la configuración por ti. Nuestro equipo configura tu CRM, automatizaciones, embudos e integraciones, y la mayoría de las cuentas quedan listas durante tu primera semana. Si sabes usar el correo electrónico, puedes usar DUSA."
       },
       {
         "q": "¿Qué pasa con mis contactos y herramientas actuales?",
@@ -1149,5 +1149,18 @@
     ],
     "source": "HighLevel, cifras publicadas, octubre de 2026",
     "link": "Por qué lo contamos"
+  },
+  "consent": {
+    "text": "Usamos cookies para ver cómo se usa el sitio y medir nuestros anuncios. Tú decides, puedes cambiarlo cuando quieras.",
+    "accept": "Aceptar",
+    "essential": "Solo esenciales",
+    "privacy": "Privacidad",
+    "aria": "Elección de cookies"
+  },
+  "booking": {
+    "title": "Reserva tu llamada de 30 minutos",
+    "sub": "Elige el horario que te venga bien. Llegaremos preparados para tu negocio.",
+    "close": "Cerrar",
+    "frameTitle": "Calendario de reservas"
   }
 }

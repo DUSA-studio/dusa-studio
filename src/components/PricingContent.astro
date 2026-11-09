@@ -436,7 +436,7 @@ const faqs = [
   },
   {
     q: 'How long does it take to set up DUSA?',
-    a: 'Most businesses are up and running within 48 hours. Every plan includes guided setup with hands-on help, and from Growth up you also get an onboarding and AI setup session where we configure everything for your specific business.',
+    a: 'Most accounts are set up within your first week. Every plan includes guided setup with hands-on help, and from Growth up you also get an onboarding and AI setup session where we configure everything for your specific business.',
   },
   {
     q: 'What if I get stuck, or want someone to do it for me?',
@@ -494,9 +494,9 @@ const servicesCta = p.servicesCta || 'Book a call';
 /* Mobile plan selector reads the same (localised) tiers + feature table */
 const mpsData = {
   plans: [
-    { name: p.tierStarter, price: `${sym}${prices.starter}`, period: `${p.perMonth} ${region.currency}`, cta: `${p.startFor} ${sym}${prices.starter}`, ctaLink: `${langPrefix}/start?plan=starter` },
-    { name: p.tierGrowth, price: `${sym}${prices.growth}`, period: `${p.perMonth} ${region.currency}`, cta: p.getGrowth, ctaLink: `${langPrefix}/start?plan=growth` },
-    { name: p.tierScale, price: `${sym}${prices.scale}`, period: `${p.perMonth} ${region.currency}`, cta: p.getScale, ctaLink: `${langPrefix}/start?plan=scale` },
+    { name: p.tierStarter, price: `${sym}${prices.starter}`, period: `${p.perMonth} ${region.currency}`, cta: `${p.startFor} ${sym}${prices.starter}`, ctaLink: `${langPrefix}/start?plan=starter&billing=monthly` },
+    { name: p.tierGrowth, price: `${sym}${prices.growth}`, period: `${p.perMonth} ${region.currency}`, cta: p.getGrowth, ctaLink: `${langPrefix}/start?plan=growth&billing=monthly` },
+    { name: p.tierScale, price: `${sym}${prices.scale}`, period: `${p.perMonth} ${region.currency}`, cta: p.getScale, ctaLink: `${langPrefix}/start?plan=scale&billing=monthly` },
     { name: p.tierEngine, price: p.letsTalk, period: '', cta: p.engineCta, ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' },
   ],
   categories: featureCategories.map((cat: any) => ({
@@ -563,7 +563,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
                 </li>
               ))}
             </ul>
-            <a href={tier.ctaLink.startsWith('http') ? tier.ctaLink : `${tier.ctaLink}?plan=${tier.id}`} class={`btn ${tier.highlight ? 'btn--primary' : 'btn--outline'} pricing-card__cta`} {...(tier.ctaLink.startsWith('http') ? { target: '_blank', rel: 'noopener' } : { 'data-page': 'start' })}>
+            <a href={tier.ctaLink.startsWith('http') ? tier.ctaLink : `${langPrefix}${tier.ctaLink}?plan=${tier.id}&billing=monthly`} data-plan-id={tier.id === 'engine' ? 'custom' : tier.id} class={`btn ${tier.highlight ? 'btn--primary' : 'btn--outline'} pricing-card__cta`} {...(tier.ctaLink.startsWith('http') ? { target: '_blank', rel: 'noopener' } : { 'data-page': 'start' })}>
               {tier.cta}
             </a>
             <p class="pricing-card__delta">{tier.delta}</p>
@@ -775,10 +775,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       <!-- CTA row aligned to table columns -->
       <div class="compare__cta-row">
         <div class="compare__cta-label"></div>
-        <div class="compare__cta-cell"><a href="/start?plan=starter" data-page="start" class="btn btn--outline compare__cta-btn">{p.startFor} {sym}{prices.starter}</a></div>
-        <div class="compare__cta-cell"><a href="/start?plan=growth" data-page="start" class="btn btn--primary compare__cta-btn">{p.getGrowth}</a></div>
-        <div class="compare__cta-cell"><a href="/start?plan=scale" data-page="start" class="btn btn--outline compare__cta-btn">{p.getScale}</a></div>
-        <div class="compare__cta-cell"><a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener" class="btn btn--outline compare__cta-btn">{p.engineCta}</a></div>
+        <div class="compare__cta-cell"><a href={`${langPrefix}/start?plan=starter&billing=monthly`} data-page="start" data-plan-id="starter" class="btn btn--outline compare__cta-btn">{p.startFor} {sym}{prices.starter}</a></div>
+        <div class="compare__cta-cell"><a href={`${langPrefix}/start?plan=growth&billing=monthly`} data-page="start" data-plan-id="growth" class="btn btn--primary compare__cta-btn">{p.getGrowth}</a></div>
+        <div class="compare__cta-cell"><a href={`${langPrefix}/start?plan=scale&billing=monthly`} data-page="start" data-plan-id="scale" class="btn btn--outline compare__cta-btn">{p.getScale}</a></div>
+        <div class="compare__cta-cell"><a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener" data-plan-id="custom" class="btn btn--outline compare__cta-btn">{p.engineCta}</a></div>
       </div>
 
       <!-- MOBILE PLAN SELECTOR -->
@@ -794,7 +794,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
         </div>
         <div class="mps__features" id="mps-features"></div>
         <div class="mps__cta">
-          <a href="/start?plan=growth" data-page="start" class="btn btn--primary mps__cta-btn" id="mps-cta">{p.getGrowth}</a>
+          <a href={`${langPrefix}/start?plan=growth&billing=monthly`} data-page="start" class="btn btn--primary mps__cta-btn" id="mps-cta">{p.getGrowth}</a>
         </div>
       </div>
 
@@ -2343,6 +2343,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
         const totalSpend = stack.reduce((sum, t) => sum + Number(t.cost || 0), 0);
 
         if (this.href && this.href.includes('bookings/dusa-demo')) {
+          // The booking modal (/js/booking.v1.js) opens these in place, with
+          // attribution attached. Only fall back to a new tab without it.
+          if (window.dusaBooking && window.dusaBooking.supported) return;
           e.preventDefault();
           const url = new URL(this.href);
           if (interestStr) {
@@ -2374,6 +2377,20 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     });
   }
 
+  // Every plan CTA (cards, comparison table, mobile selector) records the
+  // plan in the visitor context, so /start, forms and the booking modal know it.
+  function initPlanContext() {
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('.pricing-card__cta, .compare__cta-btn, .mps__cta-btn') : null;
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var m = href.match(/[?&]plan=(starter|growth|scale)\b/);
+      var plan = a.getAttribute('data-plan-id') || (m ? m[1] : (/widget\/bookings\//.test(href) ? 'custom' : ''));
+      if (!plan) return;
+      try { if (window.dusaCtx) window.dusaCtx.set('plan', plan); } catch (err) { /* ignore */ }
+    }, true);
+  }
+
   function initReplaceToggle() {
     var btn = document.getElementById('replaceToggle');
     var body = document.getElementById('replaceBody');
@@ -2398,9 +2415,9 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
     var startLink = regionMatch ? '/' + regionMatch[1] + '/start' : '/start';
 
     var plans = (rd.mps && rd.mps.plans) || [
-      { name: 'Starter', price: s + rd.prices.starter, period: '/mo ' + rd.currency, cta: 'Start for ' + s + rd.prices.starter, ctaLink: startLink },
-      { name: 'Growth', price: s + rd.prices.growth, period: '/mo ' + rd.currency, cta: 'Get Growth', ctaLink: startLink },
-      { name: 'Scale', price: s + rd.prices.scale, period: '/mo ' + rd.currency, cta: 'Get Scale', ctaLink: startLink },
+      { name: 'Starter', price: s + rd.prices.starter, period: '/mo ' + rd.currency, cta: 'Start for ' + s + rd.prices.starter, ctaLink: startLink + '?plan=starter&billing=monthly' },
+      { name: 'Growth', price: s + rd.prices.growth, period: '/mo ' + rd.currency, cta: 'Get Growth', ctaLink: startLink + '?plan=growth&billing=monthly' },
+      { name: 'Scale', price: s + rd.prices.scale, period: '/mo ' + rd.currency, cta: 'Get Scale', ctaLink: startLink + '?plan=scale&billing=monthly' },
       { name: 'Custom', price: "Let's talk", period: '', custom: true, cta: 'Book a call', ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
     ];
 
@@ -2490,10 +2507,11 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { initExpandableRows(); initCtaCapture(); initMobilePlanSelector(); initReplaceToggle(); });
+    document.addEventListener('DOMContentLoaded', () => { initExpandableRows(); initCtaCapture(); initPlanContext(); initMobilePlanSelector(); initReplaceToggle(); });
   } else {
     initExpandableRows();
     initCtaCapture();
+    initPlanContext();
     initMobilePlanSelector();
     initReplaceToggle();
   }

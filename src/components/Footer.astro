@@ -85,7 +85,7 @@ const aiPrompt = encodeURIComponent(
 
       <div class="footer__col">
         <h4 class="footer__heading">{platformHeading}</h4>
-        <a href="/#features" data-page="home" data-hash="#features" class="footer__link">{featuresLabel}</a>
+        <a href="/pricing#compare" data-page="pricing" data-hash="#compare" class="footer__link">{featuresLabel}</a>
         <a href="/#how-it-works" data-page="home" data-hash="#how-it-works" class="footer__link">{howItWorksLabel}</a>
         <a href="/onboarding" data-page="onboarding" class="footer__link">{onboardingLabel}</a>
         <a href="/pricing" data-page="pricing" class="footer__link">{pricingLabel}</a>
@@ -184,6 +184,7 @@ const aiPrompt = encodeURIComponent(
 
     <div class="footer__bottom">
       <p class="footer__copy">&copy; {copyright}</p>
+      {/* TODO: add the registered ABN line here once confirmed, e.g. <p class="footer__abn">ABN 00 000 000 000</p>. Do not render a placeholder. */}
       <div class="footer__legal">
         <a href="/privacy-policy" data-page="privacy-policy">{privacyPolicyLabel}</a>
         <a href="/terms" data-page="terms">{termsLabel}</a>

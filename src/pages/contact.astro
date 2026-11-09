@@ -48,6 +48,11 @@ import t from '../i18n/translations/en.json';
               <textarea id="contact-message" name="message" class="contact__input contact__textarea" placeholder="Tell us a bit about your business and what you're looking for..." required autocomplete="off"></textarea>
             </div>
 
+            <label class="contact__consent" for="contact-consent">
+              <input type="checkbox" id="contact-consent" name="marketingConsent" value="yes" class="contact__consent-box" />
+              <span class="contact__consent-text">Keep me posted with tips and offers by email and SMS. Unsubscribe anytime.</span>
+            </label>
+
             <button type="submit" class="btn btn--primary contact__submit" id="contact-submit">Send Message</button>
 
             <div class="contact__status contact__status--success" id="form-success" style="display:none;">
@@ -190,6 +195,37 @@ import t from '../i18n/translations/en.json';
   .contact__textarea {
     resize: vertical;
     min-height: 120px;
+  }
+
+  /* Marketing consent: optional, unticked by default, never blocks sending. */
+  .contact__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+  }
+
+  .contact__consent-box {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    accent-color: var(--reef-aqua);
+    cursor: pointer;
+  }
+
+  .contact__consent-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .contact__consent-text {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .contact__consent-box {
+    accent-color: var(--deep-ocean);
   }
 
   .contact__submit {
@@ -481,23 +517,23 @@ import t from '../i18n/translations/en.json';
     errorMsg.style.display = 'none';
 
     const formData = new FormData(contactForm);
-    const data = {
+    const consentBox = document.getElementById('contact-consent');
+    const consentText = (contactForm.querySelector('.contact__consent-text') || {}).textContent || '';
+    let ctxFields = {};
+    try { ctxFields = window.dusaCtx ? window.dusaCtx.formFields() : {}; } catch (err) { ctxFields = {}; }
+
+    // Flat keys only: every key maps 1:1 to a GHL custom field.
+    const data = Object.assign({}, ctxFields, {
       name: formData.get('name'),
       email: formData.get('email'),
       phone: formData.get('phone'),
       business: formData.get('business'),
       message: formData.get('message'),
-    };
-
-    // Pull tool stack from sessionStorage (set on pricing page)
-    try {
-      const toolTags = sessionStorage.getItem('dusa_tool_tags');
-      const currentSpend = sessionStorage.getItem('dusa_current_spend');
-      const interests = sessionStorage.getItem('dusa_interests');
-      if (toolTags) data.current_tools = toolTags;
-      if (currentSpend) data.current_spend = currentSpend;
-      if (interests) data.dusa_interests = JSON.parse(interests);
-    } catch(err) { /* silent */ }
+      form: 'contact',
+      consent: !!(consentBox && consentBox.checked),
+      consent_ts: new Date().toISOString(),
+      consent_text: consentText.trim(),
+    });
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';

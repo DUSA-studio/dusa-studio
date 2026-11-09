@@ -44,7 +44,10 @@ const plans = SAAS_PLANS.map((p) => {
 });
 const perMonth = fmt(s.perMonth || '/month {cur}', { cur });
 const perYear = fmt(s.perYear || '/year {cur}', { cur });
-const testimonials = [1, 2, 3, 4, 5, 6].map((i) => ({ quote: s[`t${i}Quote`], name: s[`t${i}Name`], role: s[`t${i}Role`] })).filter((x) => x.quote);
+/* The six t1..t6 testimonials were unattributed and have been removed. The
+   trust line points at the verified HighLevel ratings on the home page. */
+const trustLine = s.trustLine || 'Rated 4.9 on Trustpilot by 15,000+ HighLevel users, the platform DUSA runs on';
+const consentLabel = s.consentLabel || 'Keep me posted with tips and offers by email and SMS. Unsubscribe anytime.';
 const features = [1, 2, 3, 4, 5, 6].map((i) => ({ title: s[`f${i}Title`], desc: s[`f${i}Desc`] }));
 const values = [1, 2, 3, 4].map((i) => ({ title: s[`value${i}Title`], text: s[`value${i}Text`] }));
 const featureIcons = [
@@ -161,6 +164,11 @@ const valueIcons = [
               <input type="tel" id="trial-phone" name="phone" class="trial__input" placeholder={s.phonePh} autocomplete="tel" />
             </div>
 
+            <label class="trial__consent" for="trial-consent">
+              <input type="checkbox" id="trial-consent" name="marketingConsent" value="yes" class="trial__consent-box" />
+              <span class="trial__consent-text">{consentLabel}</span>
+            </label>
+
             <button type="submit" class="btn btn--primary trial__submit" id="trial-submit" data-label={s.submit} data-submitting={s.submitting}>{s.submit}</button>
 
             <div class="trial__status trial__status--success" id="trial-success" style="display:none;">
@@ -188,18 +196,7 @@ const valueIcons = [
         </div>
       </div>
 
-      <div class="trial__testimonials" id="trial-testimonials" data-aria={s.testimonialAria}>
-        {testimonials.map((x, i) => (
-          <div class={`trial__testimonial${i === 0 ? ' trial__testimonial--active' : ''}`} data-index={i}>
-            <blockquote class="trial__quote">"{x.quote}"</blockquote>
-            <div class="trial__quote-author">
-              <strong>{x.name}</strong>
-              <span>{x.role}</span>
-            </div>
-          </div>
-        ))}
-        <div class="trial__testimonial-dots" id="testimonial-dots"></div>
-      </div>
+      <p class="trial__trust"><a href={`${prefix}/#proof`}>{trustLine}</a></p>
 
       <p class="trial__legal trial__legal--wide">{s.legalPrefix} <a href="/terms">{s.legalTerms}</a> {s.legalAnd} <a href="/privacy-policy">{s.legalPrivacy}</a></p>
     </div>
@@ -436,99 +433,50 @@ const valueIcons = [
     line-height: 1.6;
   }
 
-  /* ─── ROTATING TESTIMONIALS ─── */
-  .trial__testimonials {
-    position: relative;
-    margin-top: var(--space-xl);
-    min-height: 120px;
-  }
-
-  .trial__testimonial {
-    background: rgba(247, 244, 239, 0.03);
-    border: 1px solid rgba(247, 244, 239, 0.06);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
+  /* ─── TRUST LINE (replaces the old unattributed testimonials) ─── */
+  .trial__trust {
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-  }
-
-  .trial__testimonial--active {
-    opacity: 1;
-    position: relative;
-    left: auto;
-    transform: none;
-    pointer-events: auto;
-  }
-
-  .trial__quote {
-    font-size: 1.0625rem;
-    font-style: italic;
-    color: rgba(247, 244, 239, 0.7);
-    line-height: 1.7;
-    margin-bottom: var(--space-sm);
-  }
-
-  .trial__quote-author {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.125rem;
-  }
-
-  .trial__quote-author strong {
+    margin: var(--space-xl) auto 0;
+    max-width: 640px;
     font-size: 0.9375rem;
-    color: var(--warm-white);
-    font-weight: 600;
+    line-height: 1.6;
   }
 
-  .trial__quote-author span {
-    font-size: 0.8125rem;
-    color: rgba(247, 244, 239, 0.58);
+  .trial__trust a {
+    display: inline-block;
+    padding: 0.4rem 0.1rem;
+    color: rgba(247, 244, 239, 0.72);
+    text-decoration: underline;
+    text-decoration-color: rgba(78, 216, 194, 0.45);
+    text-underline-offset: 3px;
+    transition: color var(--duration-fast);
   }
 
-  .trial__testimonial-dots {
+  .trial__trust a:hover {
+    color: var(--reef-aqua);
+  }
+
+  /* ─── MARKETING CONSENT (optional, unticked by default) ─── */
+  .trial__consent {
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: var(--space-md);
-  }
-
-  .trial__dot {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: transparent;
+    align-items: flex-start;
+    gap: 0.6rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    padding: 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
-  .trial__dot::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(247, 244, 239, 0.15);
-    transition: all 0.3s ease;
+  .trial__consent-box {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    accent-color: var(--reef-aqua);
+    cursor: pointer;
   }
 
-  .trial__dot--active::before {
-    background: var(--reef-aqua);
-    box-shadow: 0 0 8px rgba(78, 216, 194, 0.3);
+  .trial__consent-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgba(247, 244, 239, 0.7);
   }
 
   /* ─── FEATURES GRID ─── */
@@ -627,10 +575,6 @@ const valueIcons = [
     .trial-hero__badges {
       gap: var(--space-xs);
     }
-
-    .trial__testimonial {
-      padding: var(--space-md);
-    }
   }
 
   @media (max-width: 480px) {
@@ -639,10 +583,6 @@ const valueIcons = [
          this to 40px, sliding the hero under the fixed nav */
       padding-top: calc(var(--nav-height) + var(--space-lg)) !important;
       padding-bottom: var(--space-lg);
-    }
-
-    .trial__testimonial {
-      padding: var(--space-sm);
     }
 
     .trial-features__card {
@@ -716,20 +656,6 @@ const valueIcons = [
     color: rgba(12, 14, 20, 0.6);
   }
 
-  :global(html[data-theme="light"]) .trial__testimonial {
-    background: rgba(12, 14, 20, 0.02);
-    border: 1px solid rgba(12, 14, 20, 0.08);
-  }
-
-  :global(html[data-theme="light"]) .trial__dot::before {
-    background: rgba(12, 14, 20, 0.15);
-  }
-
-  :global(html[data-theme="light"]) .trial__dot--active::before {
-    background: var(--deep-ocean);
-    box-shadow: 0 0 8px rgba(26, 58, 92, 0.2);
-  }
-
   :global(html[data-theme="light"]) .trial__legal--wide {
     color: rgba(12, 14, 20, 0.62);
   }
@@ -738,16 +664,20 @@ const valueIcons = [
     color: rgba(12, 14, 20, 0.66);
   }
 
-  :global(html[data-theme="light"]) .trial__quote {
+  :global(html[data-theme="light"]) .trial__trust a {
     color: rgba(12, 14, 20, 0.7);
   }
 
-  :global(html[data-theme="light"]) .trial__quote-author strong {
-    color: var(--deep-black);
+  :global(html[data-theme="light"]) .trial__trust a:hover {
+    color: var(--deep-ocean);
   }
 
-  :global(html[data-theme="light"]) .trial__quote-author span {
-    color: rgba(12, 14, 20, 0.64);
+  :global(html[data-theme="light"]) .trial__consent-text {
+    color: rgba(12, 14, 20, 0.7);
+  }
+
+  :global(html[data-theme="light"]) .trial__consent-box {
+    accent-color: var(--deep-ocean);
   }
 
   :global(html[data-theme="light"]) .trial-features__card {
@@ -1058,7 +988,16 @@ const valueIcons = [
 </style>
 
 <script>
-  // ─── Plan chooser: billing toggle + ?plan= preselect ───
+  // ─── Plan chooser: billing toggle + ?plan= / ?billing= preselect ───
+  // What the visitor picks is kept on window.__dzStartChoice (and in dusaCtx)
+  // so the set-up form sends the plan and billing actually chosen here.
+  const PLAN_RE = /^(starter|growth|scale)$/;
+  const BILLING_RE = /^(monthly|annual)$/;
+  window.__dzStartChoice = window.__dzStartChoice || { plan: '', billing: 'monthly' };
+
+  function ctxSet(key, value) { try { if (window.dusaCtx) window.dusaCtx.set(key, value); } catch (e) { /* ignore */ } }
+  function ctxGet() { try { return window.dusaCtx ? window.dusaCtx.get() : {}; } catch (e) { return {}; } }
+
   function initActivate() {
     const section = document.getElementById('activate');
     if (!section) return;
@@ -1066,7 +1005,7 @@ const valueIcons = [
     const mBtn = document.getElementById('cycle-monthly');
     const aBtn = document.getElementById('cycle-annual');
 
-    function setCycle(cycle) {
+    function setCycle(cycle, persist) {
       const monthly = cycle === 'monthly';
       mBtn.classList.toggle('is-active', monthly);
       aBtn.classList.toggle('is-active', !monthly);
@@ -1077,17 +1016,55 @@ const valueIcons = [
         if (el.tagName === 'A') el.setAttribute('href', val);
         else el.textContent = val;
       });
+      window.__dzStartChoice.billing = monthly ? 'monthly' : 'annual';
+      if (persist) ctxSet('billing', window.__dzStartChoice.billing);
     }
 
-    mBtn.addEventListener('click', function () { setCycle('monthly'); });
-    aBtn.addEventListener('click', function () { setCycle('annual'); });
+    mBtn.addEventListener('click', function () { setCycle('monthly', true); });
+    aBtn.addEventListener('click', function () { setCycle('annual', true); });
 
-    // Preselect the plan passed from pricing cards (/start?plan=starter)
-    const wanted = new URLSearchParams(window.location.search).get('plan');
-    if (wanted) {
-      const card = section.querySelector('[data-plan="' + wanted + '"]');
-      if (card) card.classList.add('is-preselected');
+    // Preselect from the URL (/start?plan=growth&billing=annual), else from
+    // what the visitor chose earlier (dusaCtx). URL params are already saved
+    // into dusaCtx by /js/ctx.v1.js.
+    const q = new URLSearchParams(window.location.search);
+    const ctx = ctxGet();
+    const qPlan = (q.get('plan') || '').toLowerCase();
+    const qBilling = (q.get('billing') || '').toLowerCase();
+    const wantedPlan = PLAN_RE.test(qPlan) ? qPlan : (PLAN_RE.test(ctx.plan || '') ? ctx.plan : '');
+    const wantedBilling = BILLING_RE.test(qBilling) ? qBilling : (BILLING_RE.test(ctx.billing || '') ? ctx.billing : '');
+    if (wantedBilling) setCycle(wantedBilling, false);
+    if (wantedPlan) {
+      const card = section.querySelector('[data-plan="' + wantedPlan + '"]');
+      if (card) {
+        card.classList.add('is-preselected');
+        window.__dzStartChoice.plan = wantedPlan;
+        if (!window.location.hash) {
+          const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          requestAnimationFrame(function () { card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); });
+        }
+      }
     }
+
+    // Plan buttons: remember the plan; a real checkout click also marks the
+    // trial as started so /thank-you may count the conversion (2 hour window).
+    section.querySelectorAll('.activate__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const card = btn.closest('[data-plan]');
+        const plan = card ? card.getAttribute('data-plan') : '';
+        if (plan) {
+          window.__dzStartChoice.plan = plan;
+          ctxSet('plan', plan);
+          section.querySelectorAll('.is-preselected').forEach(function (c) { c.classList.remove('is-preselected'); });
+          card.classList.add('is-preselected');
+        }
+        ctxSet('billing', window.__dzStartChoice.billing);
+        if (/^https?:/i.test(btn.getAttribute('href') || '')) {
+          const ts = String(Date.now());
+          try { sessionStorage.setItem('dz_trial_started', ts); } catch (e) { /* ignore */ }
+          try { localStorage.setItem('dz_trial_started', ts); } catch (e) { /* ignore */ }
+        }
+      });
+    });
   }
 
   if (document.readyState === 'loading') {
@@ -1139,6 +1116,16 @@ const valueIcons = [
   const trialSuccess = document.getElementById('trial-success');
   const trialError = document.getElementById('trial-error');
 
+  function newToken() {
+    try {
+      const a = new Uint32Array(4);
+      crypto.getRandomValues(a);
+      return Array.from(a, function (n) { return n.toString(36); }).join('');
+    } catch (e) {
+      return Math.random().toString(36).slice(2) + Date.now().toString(36);
+    }
+  }
+
   trialForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!e.target.checkValidity()) {
@@ -1149,24 +1136,25 @@ const valueIcons = [
     trialError.style.display = 'none';
 
     const formData = new FormData(trialForm);
-    const data = {
+    const consentBox = document.getElementById('trial-consent');
+    const consentText = (trialForm.querySelector('.trial__consent-text') || {}).textContent || '';
+    let ctxFields = {};
+    try { ctxFields = window.dusaCtx ? window.dusaCtx.formFields() : {}; } catch (err) { ctxFields = {}; }
+    const choice = window.__dzStartChoice || {};
+
+    // Flat keys only: every key maps 1:1 to a GHL custom field.
+    const data = Object.assign({}, ctxFields, {
       firstName: formData.get('firstName'),
       email: formData.get('email'),
       business: formData.get('business'),
       phone: formData.get('phone'),
-    };
-
-    // Pull tool stack from sessionStorage (set on pricing page)
-    try {
-      const toolTags = sessionStorage.getItem('dusa_tool_tags');
-      const toolStack = sessionStorage.getItem('dusa_tool_stack');
-      const currentSpend = sessionStorage.getItem('dusa_current_spend');
-      const interests = sessionStorage.getItem('dusa_interests');
-      if (toolTags) data.current_tools = toolTags;
-      if (toolStack) data.tool_stack = JSON.parse(toolStack);
-      if (currentSpend) data.current_spend = currentSpend;
-      if (interests) data.dusa_interests = JSON.parse(interests);
-    } catch(err) { /* silent */ }
+      form: 'trial',
+      plan: choice.plan || ctxFields.plan || '',
+      billing: choice.billing || ctxFields.billing || 'monthly',
+      consent: !!(consentBox && consentBox.checked),
+      consent_ts: new Date().toISOString(),
+      consent_text: consentText.trim(),
+    });
 
     trialSubmitBtn.disabled = true;
     trialSubmitBtn.textContent = trialSubmitBtn.dataset.submitting || 'Setting up your account...';
@@ -1179,8 +1167,12 @@ const valueIcons = [
       });
 
       if (res.ok) {
-        if (window.dusaTrack) window.dusaTrack('trial_signup', { plan: (data && (data.plan || data.selected_plan)) || '' });
-        window.location.href = trialForm.dataset.thanks || '/thank-you';
+        // Token proves to /thank-you that this visitor really finished the form.
+        const token = newToken();
+        try { sessionStorage.setItem('dz_trial_token', token); } catch (err) { /* ignore */ }
+        if (window.dusaTrack) window.dusaTrack('trial_signup', { plan: data.plan, billing: data.billing });
+        const thanks = (trialForm.dataset.thanks || '/thank-you') + '?status=ok&t=' + encodeURIComponent(token);
+        setTimeout(function () { window.location.href = thanks; }, 200); /* let the tags send */
       } else {
         trialError.style.display = 'flex';
       }
@@ -1191,44 +1183,4 @@ const valueIcons = [
       trialSubmitBtn.textContent = trialSubmitBtn.dataset.label || 'Get Started';
     }
   });
-
-  // ─── ROTATING TESTIMONIALS ───
-  (function initTestimonialCarousel() {
-    const container = document.getElementById('trial-testimonials');
-    if (!container) return;
-
-    const testimonials = container.querySelectorAll('.trial__testimonial');
-    const dotsContainer = document.getElementById('testimonial-dots');
-    let currentIndex = 0;
-    let interval;
-
-    // Build dots
-    testimonials.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'trial__dot' + (i === 0 ? ' trial__dot--active' : '');
-      dot.setAttribute('aria-label', (container.dataset.aria || 'Testimonial') + ' ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i));
-      dotsContainer.appendChild(dot);
-    });
-
-    function goTo(index) {
-      testimonials[currentIndex].classList.remove('trial__testimonial--active');
-      dotsContainer.children[currentIndex].classList.remove('trial__dot--active');
-      currentIndex = index;
-      testimonials[currentIndex].classList.add('trial__testimonial--active');
-      dotsContainer.children[currentIndex].classList.add('trial__dot--active');
-      resetInterval();
-    }
-
-    function next() {
-      goTo((currentIndex + 1) % testimonials.length);
-    }
-
-    function resetInterval() {
-      clearInterval(interval);
-      interval = setInterval(next, 5000);
-    }
-
-    resetInterval();
-  })();
 </script>

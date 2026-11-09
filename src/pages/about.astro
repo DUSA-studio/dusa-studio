@@ -20,7 +20,7 @@ const values = [
   },
   {
     title: 'Grow at your pace',
-    desc: 'Start with one tool for $47/mo. Add more when you need them. Upgrade when it makes sense. No pressure, no lock-ins, no forced upgrades.',
+    desc: 'The whole platform from A$149 a month. Move up a plan when it makes sense. No pressure, no lock-ins, no forced upgrades.',
     icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
   },
 ];
@@ -260,7 +260,7 @@ const geoJson = JSON.stringify(geoContents);
             <span class="origin__tile-number">03</span>
             <span class="label">DUSA . studio</span>
             <h3>Built to grow<br/><span class="gradient-text">with you</span></h3>
-            <p class="origin__desc">Built in Sydney for Australian businesses. Start with one tool for $47/mo. Add more when you need them. No lock-ins, no forced upgrades, no enterprise complexity. Just clarity.</p>
+            <p class="origin__desc">Built in Sydney for Australian businesses. The whole platform from A$149 a month. No lock-ins, no forced upgrades, no enterprise complexity. Just clarity.</p>
           </div>
         </div>
       </div>
@@ -310,9 +310,13 @@ const geoJson = JSON.stringify(geoContents);
           <p class="sydney__desc">
             We work with sole operators, freelancers, trades, wellness practitioners, property managers, and growing teams across the country. If you run a business and want to grow without drowning in software, we built this for you.
           </p>
+          <div class="sydney__founder">
+            <p class="sydney__founder-line">Founded by Eliah Lade in Sydney.</p>
+            <p class="sydney__founder-role">Eliah Lade, Founder</p>
+          </div>
           <div class="sydney__actions">
-            <a href="/pricing" class="btn btn--primary">See Plans</a>
-            <a href="mailto:contact@dusa.studio" class="btn btn--outline">Get in Touch</a>
+            <a href="/pricing" class="btn btn--primary">See plans</a>
+            <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener" class="btn btn--outline">Book a 30-minute call</a>
           </div>
         </div>
         <div class="sydney__globe" id="sydneyGlobe">
@@ -568,6 +572,28 @@ const geoJson = JSON.stringify(geoContents);
     margin-top: var(--space-sm);
   }
 
+  .sydney__founder {
+    margin-top: var(--space-md);
+    padding-left: var(--space-sm);
+    border-left: 2px solid rgba(78, 216, 194, 0.5);
+  }
+
+  .sydney__founder-line {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--warm-white);
+  }
+
+  .sydney__founder-role {
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.62);
+  }
+
   .sydney__actions {
     display: flex;
     gap: var(--space-sm);
@@ -607,6 +633,12 @@ const geoJson = JSON.stringify(geoContents);
   /* Sydney section */
   :global(html[data-theme="light"]) .sydney__desc {
     color: rgba(12, 14, 20, 0.6);
+  }
+  :global(html[data-theme="light"]) .sydney__founder-line {
+    color: var(--deep-black);
+  }
+  :global(html[data-theme="light"]) .sydney__founder-role {
+    color: rgba(12, 14, 20, 0.62);
   }
 
   /* Globe canvas gets light-mode colors via JS (reads data-theme) */

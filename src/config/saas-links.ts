@@ -48,7 +48,7 @@ export const SAAS_PLANS: SaasPlan[] = [
     features: [
       'Everything in Starter',
       'AI Employee answers calls, chats and messages',
-      'Ask AI usage included',
+      'Ask AI, pay as you go',
       'Priority support and AI setup session',
     ],
     // New price: needs a new Growth A$249 / A$2,490 plan + sale links from the SaaS Configurator.

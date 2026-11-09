@@ -8,6 +8,7 @@ import BrandCarousel from '../components/BrandCarousel.astro';
 import SocialProof from '../components/SocialProof.astro';
 import FAQ from '../components/FAQ.astro';
 import CTA from '../components/CTA.astro';
+import PlanQuiz from '../components/quiz/PlanQuiz.astro';
 import t from '../i18n/translations/en.json';
 ---
 
@@ -36,6 +37,8 @@ import t from '../i18n/translations/en.json';
   <BrandCarousel t={t} compact />
   <ConnectedPlatform t={t} />
   <FunnelGlass t={t} />
+  {/* Straight after the cost film: "so which plan is mine?" */}
+  <PlanQuiz t={t} />
   <SocialProof t={t} />
   <SetupSteps t={t} />
   <FAQ t={t} limit={6} />

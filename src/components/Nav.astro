@@ -1449,7 +1449,8 @@ const viewAllLabel = n.viewAll || 'View all';
       const available = REGION_ROUTES[region] || [];
       const blogPost = /^\/blog\/.+/.test(basePath);
       const lookup = blogPost ? '/blog' : basePath;
-      link.href = available.includes(lookup) ? (prefix + basePath) : basePath;
+      const keepHash = link.getAttribute('data-hash') || '';
+      link.href = (available.includes(lookup) ? (prefix + basePath) : basePath) + keepHash;
     });
 
     applyRegionPreference(region);

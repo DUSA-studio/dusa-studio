@@ -40,15 +40,72 @@ const introStat1n = s.introStat1n || '12+ apps';
 const introStat1l = s.introStat1l || 'too many apps to run a business';
 const introStat2n = s.introStat2n || '1 login';
 const introStat2l = s.introStat2l || 'what it takes with DUSA';
-const introStat3n = s.introStat3n || '10+ hrs';
-const introStat3l = s.introStat3l || 'of busywork handed to AI, every week';
-const introStat4n = s.introStat4n || '+32%';
-const introStat4l = s.introStat4l || 'more revenue in your first year';
 const introNote = s.introNote || "Less chaos. More customers. That's the whole idea.";
 const introSee = s.introSee || "See what's inside";
 const introFreeDemo = s.introFreeDemo || 'Book a Free Demo';
 const introFreeDemoShort = s.introFreeDemoShort || 'Free Demo';
 const introSetupNote = s.introSetupNote || 'Setup done for you &middot; Powered by AI &middot; Cancel anytime';
+
+// ─── Persona picker (Uplift P3) ───
+// "What kind of business do you run?" chips swap the intro copy in place.
+// English renders it by default; a locale gets it once its dictionary has a
+// hero.persona block (until then it keeps the translated 12+ apps / 1 login pair).
+const BOOK_URL = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+const pz = s.persona || {};
+const personaOn = lang === 'en' || !!s.persona;
+const pv = (id: string, key: string, fallback: string) => (pz[id] && pz[id][key]) || fallback;
+const personaDefs = [
+  { id: 'default', chip: '', noun: 'business',
+    h1: introH1, accent: introH1Accent,
+    sub: 'DUSA brings your leads, bookings, messages, reviews and payments into one place, then puts AI to work on them. More customers, fewer apps, and your evenings back.',
+    p1n: '1 login', p1l: 'for your whole business', p2n: 'AI built in', p2l: 'answers, follows up and books' },
+  { id: 'tradies', chip: 'Trades & services', noun: 'trade business',
+    h1: 'Never miss another', accent: 'job',
+    sub: "While you're on the tools, DUSA's AI answers the call, captures the job, sends the quote and books it in. Then it chases the invoice so you get paid.",
+    p1n: 'Answered', p1l: "calls caught while you're on the tools", p2n: 'Paid', p2l: 'quotes and invoices chased for you' },
+  { id: 'salons', chip: 'Salons & beauty', noun: 'salon',
+    h1: 'Fill every', accent: 'chair',
+    sub: 'Reminders go out before every appointment, clients get nudged to rebook before they drift, and every happy visit turns into a review. Your chairs stay full without you chasing anyone.',
+    p1n: 'Rebooked', p1l: 'clients prompted to book their next visit', p2n: 'Reviewed', p2l: 'happy clients asked for a review' },
+  { id: 'clinics', chip: 'Clinics & health', noun: 'clinic',
+    h1: 'Fewer no-shows.', accent: 'Fuller books',
+    sub: "Patients get reminders before every visit, fill in intake forms before they arrive, and get recalled when they're due. Your front desk stops chasing and your books stay full.",
+    p1n: 'Reminded', p1l: 'before every appointment', p2n: 'Recalled', p2l: "patients brought back when they're due" },
+  { id: 'hospitality', chip: 'Hospitality', noun: 'venue',
+    h1: 'More bookings,', accent: 'fewer empty tables',
+    sub: 'Every booking enquiry and function request gets a fast reply, guests are reminded before they arrive, and every review gets answered. More covers, less time on the phone.',
+    p1n: 'Replied', p1l: 'enquiries and functions answered fast', p2n: 'Rated', p2l: 'every review gets a reply' },
+  { id: 'real-estate', chip: 'Real estate', noun: 'agency',
+    h1: 'Every lead', accent: 'followed up',
+    sub: "Every enquiry gets an instant reply, day or night, appraisals book straight into your calendar, and every contact is nurtured until they're ready to list or buy.",
+    p1n: 'Answered', p1l: 'every enquiry, day or night', p2n: 'Nurtured', p2l: "buyers and sellers kept warm until they're ready" },
+  { id: 'fitness', chip: 'Fitness & wellness', noun: 'gym or studio',
+    h1: 'Keep members', accent: 'coming back',
+    sub: 'Trial passes get followed up until they join, members get check-in reminders, and lapsed members get a reason to come back. Retention that runs itself.',
+    p1n: 'Joined', p1l: 'trials followed up into memberships', p2n: 'Won back', p2l: 'lapsed members invited back for you' },
+  { id: 'other', chip: 'Something else', noun: 'business',
+    h1: introH1, accent: introH1Accent,
+    sub: 'DUSA brings your leads, bookings, messages, reviews and payments into one place, then puts AI to work on them. More customers, fewer apps, and your evenings back.',
+    p1n: '1 login', p1l: 'for your whole business', p2n: 'AI built in', p2l: 'answers, follows up and books' },
+];
+const personas = personaDefs.map((d) => ({
+  id: d.id,
+  chip: pv(d.id, 'chip', d.chip),
+  noun: pv(d.id, 'noun', d.noun),
+  // default/other keep the translated intro headline unless a persona override exists
+  h1: pv(d.id, 'h1', d.h1),
+  accent: pv(d.id, 'accent', d.accent),
+  sub: pv(d.id, 'sub', d.sub),
+  p1n: pv(d.id, 'p1n', d.p1n), p1l: pv(d.id, 'p1l', d.p1l),
+  p2n: pv(d.id, 'p2n', d.p2n), p2l: pv(d.id, 'p2l', d.p2l),
+}));
+const pDefault = personas[0];
+const personaChips = personas.filter((p) => p.id !== 'default');
+const personaAsk = pz.ask || 'What kind of business do you run?';
+const personaCtaTpl = pz.ctaTpl || 'Book a call for your {noun}';
+const personaFindPlan = pz.findPlan || 'Find your plan';
+const personaStatusTpl = pz.statusTpl || 'Showing how DUSA helps your {noun}';
+const personaJson = JSON.stringify({ book: BOOK_URL, cta: personaCtaTpl, status: personaStatusTpl, list: personas });
 
 // Pick notification translations for the current language
 const notifLang = (lang in allNotifications) ? lang : 'en';
@@ -72,36 +129,188 @@ const notifJson = JSON.stringify(notifTranslations);
     <div class="hero__intro-content">
       <span class="hero__intro-label">{introLabel}</span>
 
-      <h2 class="hero__intro-headline">
-        {introH1} <span class="gradient-text">{introH1Accent}</span>.
-      </h2>
+      {personaOn ? (
+        <h2 class="hero__intro-headline hz-swap" id="hz-headline">
+          <span data-hz="h1">{pDefault.h1}</span> <span class="gradient-text" data-hz="accent">{pDefault.accent}</span>.
+        </h2>
+      ) : (
+        <h2 class="hero__intro-headline">
+          {introH1} <span class="gradient-text">{introH1Accent}</span>.
+        </h2>
+      )}
 
-      <p class="hero__intro-sub">{introSub}</p>
+      {personaOn ? (
+        <p class="hero__intro-sub hz-swap" data-hz="sub">{pDefault.sub}</p>
+      ) : (
+        <p class="hero__intro-sub">{introSub}</p>
+      )}
 
-      <div class="hero__intro-stats">
-        <div class="hero__intro-stat hero__intro-stat--dim">
-          <span class="hero__intro-stat-num">{introStat1n}</span>
-          <span class="hero__intro-stat-label">{introStat1l}</span>
-        </div>
-        <div class="hero__intro-stat">
-          <span class="hero__intro-stat-num">{introStat2n}</span>
-          <span class="hero__intro-stat-label">{introStat2l}</span>
-        </div>
-        <div class="hero__intro-stat">
-          <span class="hero__intro-stat-num">{introStat3n}</span>
-          <span class="hero__intro-stat-label">{introStat3l}</span>
-        </div>
-        <div class="hero__intro-stat">
-          <span class="hero__intro-stat-num">{introStat4n}</span>
-          <span class="hero__intro-stat-label">{introStat4l}</span>
-        </div>
-      </div>
-      <p class="hero__intro-statnote">{introNote}</p>
+      {personaOn && (
+        <>
+          <div class="hero__intro-stats hero__intro-stats--proof hz-swap">
+            <div class="hero__intro-stat">
+              <span class="hero__intro-stat-num" data-hz="p1n">{pDefault.p1n}</span>
+              <span class="hero__intro-stat-label" data-hz="p1l">{pDefault.p1l}</span>
+            </div>
+            <div class="hero__intro-stat">
+              <span class="hero__intro-stat-num" data-hz="p2n">{pDefault.p2n}</span>
+              <span class="hero__intro-stat-label" data-hz="p2l">{pDefault.p2l}</span>
+            </div>
+          </div>
 
-      <div class="hero__intro-ctas">
-        <a href="/start" data-page="start" class="btn btn--primary">{heroGetStarted}</a>
-        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener noreferrer" class="btn btn--outline">{introFreeDemo}</a>
-      </div>
+          <div class="hz-picker" role="group" aria-labelledby="hz-ask">
+            <p class="hz-picker__ask" id="hz-ask">{personaAsk}</p>
+            <div class="hz-picker__chips">
+              {personaChips.map((p) => (
+                <button type="button" class={`hz-chip${p.id === 'other' ? ' hz-chip--quiet' : ''}`} data-industry={p.id} aria-pressed="false">{p.chip}</button>
+              ))}
+            </div>
+          </div>
+          <p class="hz-sr" id="hz-status" aria-live="polite"></p>
+
+          <div class="hero__intro-ctas">
+            <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" class="btn btn--primary hz-swap" id="hz-cta" data-hz="cta">{personaCtaTpl.replace('{noun}', pDefault.noun)}</a>
+            <a href="/#find-your-plan" class="btn btn--outline" id="hz-findplan">{personaFindPlan}</a>
+          </div>
+
+          <script type="application/json" id="hz-persona-data" set:html={personaJson}></script>
+          <script is:inline>
+            /* Persona picker. Inline on purpose: it runs during parse, so a known
+               industry (cookie, localStorage or ?industry=) is painted on the first
+               frame with no flash of the default copy. */
+            (function () {
+              var dataEl = document.getElementById('hz-persona-data');
+              if (!dataEl) return;
+              var cfg; try { cfg = JSON.parse(dataEl.textContent); } catch (e) { return; }
+              var root = dataEl.closest('.hero__intro-content');
+              if (!root) return;
+              var byId = {};
+              cfg.list.forEach(function (p) { byId[p.id] = p; });
+              var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+              var current = 'default';
+              var ctx = function () { return window.dusaCtx; };
+
+              function known() {
+                try {
+                  var q = new URLSearchParams(location.search).get('industry');
+                  if (q && byId[q]) return { id: q, fromUrl: true };
+                } catch (e) {}
+                try {
+                  var c = ctx();
+                  var v = c && c.get && c.get().industry;
+                  if (v && byId[v]) return { id: v };
+                } catch (e) {}
+                try {
+                  var ls = localStorage.getItem('dz_industry');
+                  if (ls && byId[ls]) return { id: ls };
+                } catch (e) {}
+                try {
+                  var m = document.cookie.match(/(?:^|;\s*)dz_ctx=([^;]*)/);
+                  var o = m && JSON.parse(decodeURIComponent(m[1]));
+                  if (o && o.industry && byId[o.industry]) return { id: o.industry };
+                } catch (e) {}
+                return null;
+              }
+
+              function persist(id) {
+                try { var c = ctx(); if (c && c.set) c.set('industry', id); } catch (e) {}
+                try { localStorage.setItem('dz_industry', id); } catch (e) {}
+              }
+
+              function bookHref(id) {
+                if (id === 'default') return cfg.book;
+                return cfg.book + (cfg.book.indexOf('?') === -1 ? '?' : '&') + 'industry=' + encodeURIComponent(id);
+              }
+
+              function write(p) {
+                root.querySelectorAll('[data-hz]').forEach(function (el) {
+                  var k = el.getAttribute('data-hz');
+                  if (k === 'cta') {
+                    el.textContent = cfg.cta.replace('{noun}', p.noun);
+                    el.setAttribute('href', bookHref(p.id));
+                  } else if (p[k] != null) {
+                    el.textContent = p[k];
+                  }
+                });
+                root.querySelectorAll('.hz-chip').forEach(function (b) {
+                  b.setAttribute('aria-pressed', b.getAttribute('data-industry') === p.id ? 'true' : 'false');
+                });
+                root.setAttribute('data-industry', p.id);
+              }
+
+              function apply(id, animate) {
+                var p = byId[id] || byId['default'];
+                if (p.id === current && animate) return;
+                current = p.id;
+                if (!animate || reduce) { write(p); return; }
+                root.classList.add('hz-is-swapping');
+                setTimeout(function () {
+                  write(p);
+                  root.classList.remove('hz-is-swapping');
+                }, 200);
+              }
+
+              var start = known();
+              if (start) {
+                apply(start.id, false);
+                if (start.fromUrl) persist(start.id);
+              } else {
+                write(byId['default']);
+              }
+
+              root.querySelectorAll('.hz-chip').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                  var id = btn.getAttribute('data-industry');
+                  apply(id, true);
+                  persist(id);
+                  var st = document.getElementById('hz-status');
+                  if (st) st.textContent = cfg.status.replace('{noun}', byId[id].noun);
+                  try { if (window.dusaTrack) window.dusaTrack('persona_set', { industry: id, location: 'hero' }); } catch (e) {}
+                });
+              });
+
+              /* Another component (the plan quiz) set the industry: follow it quietly. */
+              window.addEventListener('dz:ctx', function (e) {
+                var d = e && e.detail;
+                var id = d && (d.key === 'industry' ? d.value : (d.industry || (d.ctx && d.ctx.industry)));
+                if (id && byId[id] && id !== current) apply(id, true);
+              });
+
+              var fp = document.getElementById('hz-findplan');
+              if (fp) fp.addEventListener('click', function (e) {
+                var target = document.getElementById('find-your-plan');
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+                try { history.replaceState(null, '', '#find-your-plan'); } catch (err) {}
+              });
+            })();
+          </script>
+        </>
+      )}
+
+      {/* Locales without a persona block: the before/after pair only. The
+          "10+ hrs" and "+32%" stats were unsourced and are no longer shown. */}
+      {!personaOn && (
+        <>
+          <div class="hero__intro-stats">
+            <div class="hero__intro-stat hero__intro-stat--dim">
+              <span class="hero__intro-stat-num">{introStat1n}</span>
+              <span class="hero__intro-stat-label">{introStat1l}</span>
+            </div>
+            <div class="hero__intro-stat">
+              <span class="hero__intro-stat-num">{introStat2n}</span>
+              <span class="hero__intro-stat-label">{introStat2l}</span>
+            </div>
+          </div>
+          <p class="hero__intro-statnote">{introNote}</p>
+
+          <div class="hero__intro-ctas">
+            <a href="/start" data-page="start" class="btn btn--primary">{heroGetStarted}</a>
+            <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" class="btn btn--outline">{introFreeDemo}</a>
+          </div>
+        </>
+      )}
 
       <p class="hero__intro-note" set:html={introSetupNote}></p>
     </div>
@@ -1758,6 +1967,187 @@ const notifJson = JSON.stringify(notifTranslations);
     text-transform: uppercase;
     color: rgba(247, 244, 239, 0.6);
     margin: 0;
+  }
+
+  /* ─── Persona picker: "What kind of business do you run?" ─── */
+  .hero__intro-stats--proof {
+    margin-bottom: var(--space-sm);
+  }
+  .hero__intro-stats--proof .hero__intro-stat-num {
+    font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+  }
+
+  .hz-picker {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 0 var(--space-md);
+  }
+
+  .hz-picker__ask {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.66);
+    margin: 0 0 10px;
+  }
+
+  .hz-picker__chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .hz-chip {
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-family: var(--font-headline);
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: rgba(247, 244, 239, 0.86);
+    background: rgba(247, 244, 239, 0.05);
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.07);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .hz-chip:hover {
+    color: var(--warm-white);
+    border-color: rgba(78, 216, 194, 0.45);
+    background: rgba(78, 216, 194, 0.07);
+    transform: translateY(-1px);
+  }
+
+  .hz-chip:focus-visible {
+    outline: 2px solid var(--reef-aqua);
+    outline-offset: 3px;
+  }
+
+  .hz-chip[aria-pressed="true"] {
+    color: var(--deep-black);
+    background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue));
+    border-color: transparent;
+    box-shadow: 0 6px 22px rgba(78, 216, 194, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .hz-chip--quiet {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: rgba(247, 244, 239, 0.62);
+    text-decoration: underline;
+    text-decoration-color: rgba(247, 244, 239, 0.25);
+    text-underline-offset: 4px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hz-chip--quiet:hover {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .hz-chip--quiet[aria-pressed="true"] {
+    color: var(--reef-aqua);
+    background: transparent;
+    box-shadow: none;
+    text-decoration-color: currentColor;
+  }
+
+  .hz-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Crossfade when the visitor picks an industry */
+  .hz-swap {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .hz-is-swapping .hz-swap {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hz-swap { transition: none; }
+    .hz-is-swapping .hz-swap { transform: none; }
+    .hz-chip:hover { transform: none; }
+  }
+
+  @media (max-width: 768px) {
+    .hz-picker { margin-bottom: 14px; }
+    .hz-picker__chips {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .hz-chip {
+      padding: 6px 10px;
+      font-size: 0.86rem;
+    }
+    .hz-chip--quiet { grid-column: 1 / -1; min-height: 44px; }
+    .hero__intro-stats--proof { margin-bottom: 12px; }
+    /* "Book a call for your gym or studio" must wrap, not overflow */
+    .hero__intro-ctas #hz-cta {
+      white-space: normal;
+      line-height: 1.25;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  @media (max-height: 740px) {
+    .hz-picker { margin-bottom: 10px; }
+    .hz-picker__ask { margin-bottom: 6px; }
+    .hero__intro-stats--proof { margin-bottom: 8px; }
+  }
+
+  :global(html[data-theme="light"]) .hz-picker__ask {
+    color: rgba(12, 14, 20, 0.64);
+  }
+  :global(html[data-theme="light"]) .hz-chip {
+    color: var(--deep-black);
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(12, 14, 20, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  :global(html[data-theme="light"]) .hz-chip:hover {
+    border-color: rgba(26, 58, 92, 0.4);
+    background: rgba(255, 255, 255, 0.8);
+  }
+  :global(html[data-theme="light"]) .hz-chip:focus-visible {
+    outline-color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .hz-chip[aria-pressed="true"] {
+    color: var(--warm-white);
+    background: linear-gradient(135deg, var(--deep-ocean), #24557f);
+    border-color: transparent;
+    box-shadow: 0 6px 20px rgba(26, 58, 92, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  :global(html[data-theme="light"]) .hz-chip--quiet,
+  :global(html[data-theme="light"]) .hz-chip--quiet:hover {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: rgba(12, 14, 20, 0.62);
+    text-decoration-color: rgba(12, 14, 20, 0.25);
+  }
+  :global(html[data-theme="light"]) .hz-chip--quiet[aria-pressed="true"] {
+    color: var(--deep-ocean);
+    background: transparent;
   }
 
   .hero__intro-scroll {

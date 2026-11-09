@@ -233,10 +233,10 @@
       "titleEnd": "in zwei Wochen.",
       "sub": "Sie müssen es nicht alleine herausfinden. Wir übernehmen die Einrichtung, Migration und Schulung, damit Sie sich auf Ihr Unternehmen konzentrieren können.",
       "step1Title": "Demo buchen",
-      "step1Desc": "Ein kurzes 15-minütiges Gespräch, um Ihr Unternehmen zu verstehen. Wir lernen, was Sie brauchen, zeigen Ihnen die Plattform und beantworten alle Fragen.",
-      "step1Time": "15 Min.",
+      "step1Desc": "Ein 30-minütiges Gespräch, um Ihr Unternehmen zu verstehen. Wir lernen, was Sie brauchen, zeigen Ihnen die Plattform und beantworten alle Fragen.",
+      "step1Time": "30 Min.",
       "step2Title": "Onboarding-Einrichtung",
-      "step2Desc": "Wir konfigurieren Ihren DUSA-Arbeitsbereich. CRM, Automatisierungen, E-Mail-Vorlagen, Funnels und Integrationen, alles in der ersten Woche für Sie eingerichtet.",
+      "step2Desc": "Wir konfigurieren Ihren DUSA-Arbeitsbereich: CRM, Automatisierungen, E-Mail-Vorlagen, Funnels und Integrationen. Die meisten Konten sind innerhalb Ihrer ersten Woche eingerichtet.",
       "step2Time": "Woche 1",
       "step3Title": "Migration und Schulung",
       "step3Desc": "Wir übertragen Ihre Kontakte, Kampagnen und Daten aus Ihren alten Tools. Dann führen wir Ihr Team durch alles, damit Sie vom ersten Tag an sicher sind.",
@@ -260,7 +260,7 @@
       "sub": "Die meisten Plattformen geben Ihnen einen Login und sagen viel Erfolg. Wir machen das Gegenteil. Ihr DUSA-Arbeitsbereich wird konfiguriert, befüllt und ist einsatzbereit, bevor Sie ihn berühren.",
       "phase1Badge": "Tag 1",
       "phase1Title": "Entdeckung und Demo",
-      "phase1Desc": "Alles beginnt mit einem 15-minütigen Gespräch. Wir erfahren mehr über Ihr Unternehmen, die Tools, die Sie derzeit verwenden, die Probleme, die Sie lösen möchten, und wie Erfolg für Sie aussieht.",
+      "phase1Desc": "Alles beginnt mit einem 30-minütigen Gespräch. Wir erfahren mehr über Ihr Unternehmen, die Tools, die Sie derzeit verwenden, die Probleme, die Sie lösen möchten, und wie Erfolg für Sie aussieht.",
       "phase1Detail1Title": "Was wir besprechen",
       "phase1Detail1Desc": "Ihr Geschäftsmodell, aktueller Tech-Stack, Schwachstellen, Wachstumsziele und welche DUSA-Funktionen zu Ihren Bedürfnissen passen.",
       "phase1Detail2Title": "Was Sie erhalten",
@@ -301,16 +301,16 @@
     "resultsLabel": "Ergebnisse, die sprechen",
     "heading": "Unternehmen wachsen schneller mit",
     "headingAccent": "KI und allem verbunden",
-    "stat1Value": "5+",
-    "stat1Label": "Tools ersetzt",
+    "stat1Value": "1 Login",
+    "stat1Label": "Statt 8 Apps",
     "stat2Value": "2x",
     "stat2Label": "Schnellere Nachverfolgung",
     "stat3Value": "100%",
     "stat3Label": "KI-automatisiert",
-    "stat4Value": "800€+",
-    "stat4Label": "Monatlich gespart",
-    "stat5Value": "< 48 Std.",
-    "stat5Label": "Einrichtungszeit",
+    "stat4Value": "841 $",
+    "stat4Label": "Monatlich zurück gegenüber 8 einzelnen Tools",
+    "stat5Value": "Erste Woche",
+    "stat5Label": "Gemeinsam mit Ihnen eingerichtet",
     "testimonials": [
       {
         "quote": "Vorher habe ich für jeden Kunden so viele verschiedene Tools genutzt. Die Zeit, die ich mit dem Erlernen und Einrichten von Marketingsystemen verbracht habe, ist drastisch gesunken. Die Automatisierungs-Workflows sind mein Lieblingsfeature.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Ehrliche Preisgestaltung",
     "value3Desc": "Keine versteckten Gebühren, keine überraschenden Preiserhöhungen, keine Gebühren für Funktionen, für die Sie bereits bezahlt haben. Was Sie sehen, ist was Sie zahlen.",
     "value4Title": "In Ihrem eigenen Tempo wachsen",
-    "value4Desc": "Starten Sie mit einem Tool. Fügen Sie mehr hinzu, wenn Sie sie benötigen. Upgraden Sie, wenn es Sinn ergibt. Kein Druck, keine Bindung, keine erzwungenen Upgrades.",
+    "value4Desc": "Die komplette Plattform ab 149 $ pro Monat. Wechseln Sie in einen höheren Plan, wenn es Sinn ergibt. Kein Druck, keine Bindung, keine erzwungenen Upgrades.",
     "teamLabel": "Globale Reichweite",
     "teamTitle": "Entwickelt für Unternehmen",
     "teamTitleAccent": "überall auf der Welt",
@@ -1090,7 +1090,7 @@
       },
       {
         "q": "Muss ich technisch versiert sein?",
-        "a": "Überhaupt nicht. Wir übernehmen die Einrichtung für Sie. Ihr CRM, Ihre Automatisierungen, Funnels und Integrationen werden in der ersten Woche von unserem Team konfiguriert. Wer E-Mails schreiben kann, kann DUSA bedienen."
+        "a": "Überhaupt nicht. Wir übernehmen die Einrichtung für Sie. Unser Team konfiguriert Ihr CRM, Ihre Automatisierungen, Funnels und Integrationen, und die meisten Konten sind innerhalb Ihrer ersten Woche eingerichtet. Wer E-Mails schreiben kann, kann DUSA bedienen."
       },
       {
         "q": "Was passiert mit meinen bestehenden Kontakten und Tools?",
@@ -1149,5 +1149,18 @@
     ],
     "source": "HighLevel, veröffentlichte Zahlen, Oktober 2026",
     "link": "Warum wir es sagen"
+  },
+  "consent": {
+    "text": "Wir nutzen Cookies, um zu sehen, wie die Website genutzt wird, und um unsere Anzeigen zu messen. Ihre Wahl, jederzeit änderbar.",
+    "accept": "Akzeptieren",
+    "essential": "Nur notwendige",
+    "privacy": "Datenschutz",
+    "aria": "Cookie-Auswahl"
+  },
+  "booking": {
+    "title": "Buchen Sie Ihr 30-Minuten-Gespräch",
+    "sub": "Wählen Sie einen passenden Termin. Wir kommen vorbereitet auf Ihr Unternehmen.",
+    "close": "Schließen",
+    "frameTitle": "Buchungskalender"
   }
 }

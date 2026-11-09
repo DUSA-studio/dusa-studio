@@ -6,7 +6,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       // /preview/* holds unreleased sections for review only — never index them.
-      filter: (page) => !page.includes('/404') && !page.includes('/preview/'),
+      // /thank-you (every locale) is a post-conversion page and is noindex.
+      filter: (page) => !page.includes('/404') && !page.includes('/preview/') && !/\/thank-you\/?$/.test(page),
     }),
   ],
 });

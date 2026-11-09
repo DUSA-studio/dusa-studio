@@ -207,13 +207,13 @@
     "step3Label": "GROWTH",
     "bookFreeDemo": "Book Your Free Demo",
     "setup1Title": "Pick a time",
-    "setup1Desc": "Choose a 20-minute slot that suits you. On the call we look at how your business runs today and show you exactly what DUSA will do with it.",
-    "setup1You": "You: 20 minutes",
+    "setup1Desc": "Choose a 30-minute slot that suits you. On the call we look at how your business runs today and show you exactly what DUSA will do with it.",
+    "setup1You": "You: 30 minutes",
     "setup2Title": "Connect your accounts",
     "setup2Desc": "Google, Meta, your calendar and your payments. One click each. We migrate your contacts and build your automations while you carry on working.",
     "setup2You": "You: a few clicks",
     "setup3Title": "Log in and go",
-    "setup3Desc": "Open DUSA on your phone or laptop. Your first leads, bookings and reviews start landing the same day, and AI handles the follow-up.",
+    "setup3Desc": "Open DUSA on your phone or laptop. Most accounts are set up within your first week, and your first leads, bookings and reviews can start landing that same week, with AI handling the follow-up.",
     "setup3You": "You: one login",
     "orTrial": "or start a 14-day free trial"
   },
@@ -225,10 +225,10 @@
       "titleEnd": "in two weeks.",
       "sub": "You do not need to figure it out alone. We handle the setup, migration, and training so you can focus on running your business.",
       "step1Title": "Book Your Demo",
-      "step1Desc": "A quick 15-minute call to understand your business. We learn what you need, show you the platform, and answer every question.",
-      "step1Time": "15 min",
+      "step1Desc": "A 30-minute call to understand your business. We learn what you need, show you the platform, and answer every question.",
+      "step1Time": "30 min",
       "step2Title": "Onboarding Setup",
-      "step2Desc": "We configure your DUSA workspace. CRM, automations, email templates, funnels, and integrations, all set up for you within the first week.",
+      "step2Desc": "We configure your DUSA workspace: CRM, automations, email templates, funnels and integrations. Most accounts are set up within your first week.",
       "step2Time": "Week 1",
       "step3Title": "Migration and Training",
       "step3Desc": "We move your contacts, campaigns, and data from your old tools. Then walk your team through everything so you are confident from day one.",
@@ -252,7 +252,7 @@
       "sub": "Most platforms hand you a login and say good luck. We do the opposite. Your DUSA workspace is configured, populated, and ready to use before you touch a thing.",
       "phase1Badge": "Day 1",
       "phase1Title": "Discovery and Demo",
-      "phase1Desc": "Everything starts with a 15-minute call. We learn about your business, the tools you currently use, the problems you want to solve, and what success looks like for you.",
+      "phase1Desc": "Everything starts with a 30-minute call. We learn about your business, the tools you currently use, the problems you want to solve, and what success looks like for you.",
       "phase1Detail1Title": "What we cover",
       "phase1Detail1Desc": "Your business model, current tech stack, pain points, growth goals, and which DUSA features align with your needs.",
       "phase1Detail2Title": "What you get",
@@ -293,16 +293,16 @@
     "resultsLabel": "Results that speak",
     "heading": "Businesses grow faster with",
     "headingAccent": "AI and everything connected",
-    "stat1Value": "5+",
-    "stat1Label": "Tools replaced",
+    "stat1Value": "1 login",
+    "stat1Label": "Instead of 8 apps",
     "stat2Value": "2x",
     "stat2Label": "Faster follow-up",
     "stat3Value": "100%",
     "stat3Label": "AI-Automated",
-    "stat4Value": "$800+",
-    "stat4Label": "Saved monthly",
-    "stat5Value": "< 48hrs",
-    "stat5Label": "Setup time",
+    "stat4Value": "$841",
+    "stat4Label": "Back each month vs 8 separate tools",
+    "stat5Value": "First week",
+    "stat5Label": "Set up with you",
     "testimonials": [
       {
         "quote": "Before this, I was using so many different tools for each client. Time spent learning and setting up marketing systems has been drastically reduced. The automation workflows are my favourite part.",
@@ -637,7 +637,7 @@
     "value3Title": "Honest pricing",
     "value3Desc": "No hidden fees, no surprise rate hikes, no charges for features you already paid for. What you see is what you pay.",
     "value4Title": "Grow at your pace",
-    "value4Desc": "Start with one tool. Add more when you need them. Upgrade when it makes sense. No pressure, no lock-ins, no forced upgrades.",
+    "value4Desc": "The whole platform from A$149 a month. Move up a plan when it makes sense. No pressure, no lock-ins, no forced upgrades.",
     "teamLabel": "Global reach",
     "teamTitle": "Built for businesses",
     "teamTitleAccent": "everywhere",
@@ -750,7 +750,7 @@
     "value2Title": "AI that works from day one",
     "value2Text": "Ask AI helps you build and run the platform. On Growth, your AI Employee answers calls and messages for you.",
     "value3Title": "Guided onboarding to get you results fast",
-    "value3Text": "We walk you through setup so you see value within your first week.",
+    "value3Text": "We walk you through setup. Most accounts are set up within your first week.",
     "value4Title": "Cancel anytime, no questions asked",
     "value4Text": "Zero lock-in. If it's not the right fit, walk away with no strings attached.",
     "t1Quote": "Within the first week, we had automated follow-ups running and booked three new clients. DUSA paid for itself before the trial was even over.",
@@ -812,7 +812,7 @@
         "features": [
           "Everything in Starter",
           "AI Employee answers calls, chats and messages",
-          "Ask AI usage included",
+          "Ask AI, pay as you go",
           "Priority support and AI setup session"
         ]
       },
@@ -952,7 +952,7 @@
       },
       {
         "q": "Do I need to be technical?",
-        "a": "Not at all. We do the setup for you. Your CRM, automations, funnels, and integrations are configured by our team within the first week. If you can use email, you can run DUSA."
+        "a": "Not at all. We do the setup for you. Our team configures your CRM, automations, funnels and integrations, and most accounts are set up within your first week. If you can use email, you can run DUSA."
       },
       {
         "q": "What happens to my existing contacts and tools?",
@@ -996,5 +996,18 @@
     ],
     "source": "HighLevel, published figures, October 2026",
     "link": "Why we tell you"
+  },
+  "consent": {
+    "text": "We use cookies to see how the site is used and to measure our ads. Your choice, change it anytime.",
+    "accept": "Accept",
+    "essential": "Only essential",
+    "privacy": "Privacy policy",
+    "aria": "Cookie choice"
+  },
+  "booking": {
+    "title": "Book your 30-minute call",
+    "sub": "Pick a time that suits. We'll come prepared for your business.",
+    "close": "Close",
+    "frameTitle": "Booking calendar"
   }
 }

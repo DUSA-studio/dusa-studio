@@ -233,10 +233,10 @@
       "titleEnd": "in twee weken.",
       "sub": "Je hoeft het niet alleen uit te zoeken. Wij regelen de inrichting, migratie en training, zodat jij je op je bedrijf kunt richten.",
       "step1Title": "Boek je demo",
-      "step1Desc": "Een kort gesprek van 15 minuten om je bedrijf te leren kennen. We horen wat je nodig hebt, laten het platform zien en beantwoorden al je vragen.",
-      "step1Time": "15 min",
+      "step1Desc": "Een gesprek van 30 minuten om je bedrijf te leren kennen. We horen wat je nodig hebt, laten het platform zien en beantwoorden al je vragen.",
+      "step1Time": "30 min",
       "step2Title": "Inrichting",
-      "step2Desc": "Wij configureren je DUSA-werkruimte. CRM, automatiseringen, e-mailtemplates, funnels en integraties, allemaal binnen de eerste week voor je ingericht.",
+      "step2Desc": "Wij configureren je DUSA-werkruimte: CRM, automatiseringen, e-mailtemplates, funnels en integraties. De meeste accounts zijn binnen je eerste week ingericht.",
       "step2Time": "Week 1",
       "step3Title": "Migratie en training",
       "step3Desc": "We verhuizen je contacten, campagnes en data uit je oude tools. Daarna nemen we alles met je team door, zodat je vanaf dag één zeker van je zaak bent.",
@@ -260,7 +260,7 @@
       "sub": "De meeste platforms geven je een login en wensen je succes. Wij doen het omgekeerde. Je DUSA-werkruimte is geconfigureerd, gevuld en klaar voor gebruik voordat jij iets hoeft aan te raken.",
       "phase1Badge": "Dag 1",
       "phase1Title": "Kennismaking en demo",
-      "phase1Desc": "Alles begint met een gesprek van 15 minuten. We leren je bedrijf kennen, de tools die je nu gebruikt, de problemen die je wilt oplossen en hoe succes er voor jou uitziet.",
+      "phase1Desc": "Alles begint met een gesprek van 30 minuten. We leren je bedrijf kennen, de tools die je nu gebruikt, de problemen die je wilt oplossen en hoe succes er voor jou uitziet.",
       "phase1Detail1Title": "Wat we bespreken",
       "phase1Detail1Desc": "Je businessmodel, huidige software, knelpunten, groeidoelen en welke DUSA-functies bij je behoeften passen.",
       "phase1Detail2Title": "Wat je krijgt",
@@ -301,16 +301,16 @@
     "resultsLabel": "Resultaten die spreken",
     "heading": "Bedrijven groeien sneller met",
     "headingAccent": "AI en alles verbonden",
-    "stat1Value": "5+",
-    "stat1Label": "Tools vervangen",
+    "stat1Value": "1 login",
+    "stat1Label": "In plaats van 8 apps",
     "stat2Value": "2x",
     "stat2Label": "Snellere opvolging",
     "stat3Value": "100%",
     "stat3Label": "AI-geautomatiseerd",
-    "stat4Value": "800+ AUD",
-    "stat4Label": "Bespaard per maand",
-    "stat5Value": "< 48 uur",
-    "stat5Label": "Inrichtingstijd",
+    "stat4Value": "841 AUD",
+    "stat4Label": "Per maand terug tegenover 8 losse tools",
+    "stat5Value": "Eerste week",
+    "stat5Label": "Samen met jou ingericht",
     "testimonials": [
       {
         "quote": "Hiervoor gebruikte ik voor elke klant een hele reeks verschillende tools. De tijd die ik kwijt was aan het leren en opzetten van marketingsystemen is drastisch afgenomen. De automatiseringsworkflows zijn mijn favoriete onderdeel.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Eerlijke prijzen",
     "value3Desc": "Geen verborgen kosten, geen onverwachte prijsverhogingen, geen extra kosten voor functies waar je al voor betaalt. Wat je ziet, is wat je betaalt.",
     "value4Title": "Groei in je eigen tempo",
-    "value4Desc": "Begin met één tool. Voeg er meer toe wanneer je ze nodig hebt. Upgrade wanneer het logisch is. Geen druk, geen vaste contracten, geen gedwongen upgrades.",
+    "value4Desc": "Het volledige platform vanaf 149 AUD per maand. Stap over op een groter plan wanneer het logisch is. Geen druk, geen vaste contracten, geen gedwongen upgrades.",
     "teamLabel": "Wereldwijd bereik",
     "teamTitle": "Gebouwd voor bedrijven",
     "teamTitleAccent": "overal",
@@ -1132,7 +1132,7 @@
     "value2Title": "AI die vanaf dag één voor je werkt",
     "value2Text": "Ask AI helpt je het platform te bouwen en te runnen. Op Growth beantwoordt je AI Employee oproepen en berichten voor je.",
     "value3Title": "Begeleide onboarding voor snel resultaat",
-    "value3Text": "We leiden je door de inrichting, zodat je binnen je eerste week al waarde ziet.",
+    "value3Text": "We begeleiden je bij de inrichting. De meeste accounts zijn binnen je eerste week ingericht.",
     "value4Title": "Altijd opzegbaar, zonder gedoe",
     "value4Text": "Nul binding. Past het niet, dan stap je zonder verplichtingen weer uit.",
     "t1Quote": "Binnen de eerste week draaiden onze automatische opvolgingen en hadden we drie nieuwe klanten geboekt. DUSA had zichzelf terugverdiend voordat de proefperiode voorbij was.",
@@ -1194,7 +1194,7 @@
         "features": [
           "Alles uit Starter",
           "AI Employee beantwoordt oproepen, chats en berichten",
-          "Ask AI-verbruik inbegrepen",
+          "Ask AI, betalen naar gebruik",
           "Prioriteitssupport en AI-inrichtingssessie"
         ]
       },
@@ -1333,7 +1333,7 @@
       },
       {
         "q": "Moet ik technisch zijn?",
-        "a": "Helemaal niet. Wij doen de inrichting voor je. Je CRM, automatiseringen, funnels en integraties worden binnen de eerste week door ons team geconfigureerd. Kun je e-mailen, dan kun je DUSA gebruiken."
+        "a": "Helemaal niet. Wij doen de inrichting voor je. Ons team configureert je CRM, automatiseringen, funnels en integraties, en de meeste accounts zijn binnen je eerste week ingericht. Kun je e-mailen, dan kun je DUSA gebruiken."
       },
       {
         "q": "Wat gebeurt er met mijn bestaande contacten en tools?",
@@ -1377,5 +1377,18 @@
     ],
     "source": "HighLevel, gepubliceerde cijfers, oktober 2026",
     "link": "Waarom we dit vertellen"
+  },
+  "consent": {
+    "text": "We gebruiken cookies om te zien hoe de site wordt gebruikt en om onze advertenties te meten. Jouw keuze, altijd aan te passen.",
+    "accept": "Accepteren",
+    "essential": "Alleen noodzakelijk",
+    "privacy": "Privacybeleid",
+    "aria": "Cookiekeuze"
+  },
+  "booking": {
+    "title": "Plan je gesprek van 30 minuten",
+    "sub": "Kies een moment dat jou uitkomt. We komen voorbereid op jouw bedrijf.",
+    "close": "Sluiten",
+    "frameTitle": "Boekingsagenda"
   }
 }

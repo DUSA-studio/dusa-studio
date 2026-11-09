@@ -1,0 +1,763 @@
+---
+// PlanQuiz.astro — "Find your plan": five quick questions, a recommended plan
+// with the reason, then an optional capture step that posts to the same GHL
+// inbound webhook as the /start trial form.
+// Copy rules: Australian English, no em dashes, no numbers we cannot prove.
+// Strings read from t.planQuiz with English fallbacks (keys listed in the
+// uplift report for translation).
+
+interface Props {
+  t?: Record<string, any>;
+}
+const { t = {} } = Astro.props;
+const q = t?.planQuiz || {};
+const g = (k: string, fallback: string) => (q[k] as string) || fallback;
+const sub = (group: string, k: string, fallback: string) => (q[group] && q[group][k]) || fallback;
+
+const BOOK_URL = 'https://link.dusa.studio/widget/bookings/dusa-demo';
+const WEBHOOK = 'https://services.leadconnectorhq.com/hooks/rUKGht903K7MlneMT1NF/webhook-trigger/2f41fe3b-9c02-4958-acb1-2637525558de';
+
+const industries = [
+  { id: 'tradies', label: sub('industries', 'tradies', 'Trades & services') },
+  { id: 'salons', label: sub('industries', 'salons', 'Salons & beauty') },
+  { id: 'clinics', label: sub('industries', 'clinics', 'Clinics & health') },
+  { id: 'hospitality', label: sub('industries', 'hospitality', 'Hospitality') },
+  { id: 'real-estate', label: sub('industries', 'real-estate', 'Real estate') },
+  { id: 'fitness', label: sub('industries', 'fitness', 'Fitness & wellness') },
+  { id: 'other', label: sub('industries', 'other', 'Something else') },
+];
+const teams = [
+  { id: 'solo', label: sub('teams', 'solo', 'Just me') },
+  { id: '2-5', label: sub('teams', '2-5', '2 to 5') },
+  { id: '6-20', label: sub('teams', '6-20', '6 to 20') },
+  { id: '20plus', label: sub('teams', '20plus', '20+ or multiple locations') },
+];
+const pains = [
+  { id: 'calls', label: sub('pains', 'calls', 'Missed calls & enquiries') },
+  { id: 'noshows', label: sub('pains', 'noshows', 'No-shows & rebooking') },
+  { id: 'reviews', label: sub('pains', 'reviews', 'Getting reviews') },
+  { id: 'admin', label: sub('pains', 'admin', 'Admin & invoicing') },
+  { id: 'leads', label: sub('pains', 'leads', 'Not enough leads') },
+  { id: 'apps', label: sub('pains', 'apps', 'Too many apps') },
+];
+const toolIds = ['calendly', 'mailchimp', 'hubspot', 'square', 'xero', 'canva', 'shopify', 'other', 'none'];
+const toolLabels = ['Calendly', 'Mailchimp', 'HubSpot', 'Square', 'Xero', 'Canva', 'Shopify', sub('tools', 'other', 'Other'), sub('tools', 'none', 'None')];
+const timelines = [
+  { id: 'week', label: sub('timelines', 'week', 'This week') },
+  { id: 'month', label: sub('timelines', 'month', 'This month') },
+  { id: 'exploring', label: sub('timelines', 'exploring', 'Just exploring') },
+];
+
+const steps = [
+  { key: 'industry', q: g('q1', 'What kind of business do you run?'), opts: industries, multi: false, hint: '' },
+  { key: 'team', q: g('q2', 'How big is your team?'), opts: teams, multi: false, hint: '' },
+  { key: 'pain', q: g('q3', "What's your biggest headache right now?"), opts: pains, multi: false, hint: '' },
+  { key: 'tools', q: g('q4', 'Which tools do you use today?'), opts: toolIds.map((id, i) => ({ id, label: toolLabels[i] })), multi: true, hint: g('q4Hint', 'Pick as many as you like.') },
+  { key: 'timeline', q: g('q5', 'How soon do you want to get started?'), opts: timelines, multi: false, hint: '' },
+];
+
+const plans = {
+  starter: {
+    id: 'starter', name: sub('plans', 'starterName', 'Starter'), price: sub('plans', 'starterPrice', 'A$149/mo'),
+    incl: [
+      sub('plans', 'starterIncl1', 'The whole platform: CRM, bookings, email, SMS, payments and reviews'),
+      sub('plans', 'starterIncl2', 'Unlimited users and contacts'),
+      sub('plans', 'starterIncl3', 'AI pay as you go, only when you use it'),
+    ],
+  },
+  growth: {
+    id: 'growth', name: sub('plans', 'growthName', 'Growth'), price: sub('plans', 'growthPrice', 'A$249/mo'),
+    incl: [
+      sub('plans', 'growthIncl1', 'Everything in Starter, plus your AI Employee'),
+      sub('plans', 'growthIncl2', 'AI answers your calls, 100 minutes a month'),
+      sub('plans', 'growthIncl3', '1,000 AI replies a month that book jobs and reply to reviews'),
+    ],
+  },
+  scale: {
+    id: 'scale', name: sub('plans', 'scaleName', 'Scale'), price: sub('plans', 'scalePrice', 'A$497/mo'),
+    incl: [
+      sub('plans', 'scaleIncl1', 'Everything in Growth, with unlimited AI (fair use)'),
+      sub('plans', 'scaleIncl2', '2 hours of hands-on help every month'),
+      sub('plans', 'scaleIncl3', 'A named Growth Lead who knows your business'),
+    ],
+  },
+  custom: {
+    id: 'custom', name: sub('plans', 'customName', 'Custom'), price: sub('plans', 'customPrice', "Let's talk"),
+    incl: [
+      sub('plans', 'customIncl1', 'Multiple locations under one roof'),
+      sub('plans', 'customIncl2', 'Set up around how your business actually runs'),
+      sub('plans', 'customIncl3', 'Scope and pricing agreed with you on a call'),
+    ],
+  },
+};
+
+const reasons = {
+  custom: g('reasonCustom', 'With multiple locations or a bigger team, you need a setup shaped around how you run. We scope it with you on a call.'),
+  scaleWeek: g('reasonScaleWeek', 'A team your size, ready to move this week, gets there fastest with unlimited AI and hands-on help every month.'),
+  scaleTeam: g('reasonScaleTeam', 'A team your size gets the most from unlimited AI, monthly hands-on help and a named Growth Lead.'),
+  calls: g('reasonCalls', 'Your AI Employee answers calls and messages for you, so missed enquiries turn into booked work.'),
+  noshows: g('reasonNoshows', 'Your AI Employee confirms, reminds and rebooks for you, so fewer appointments go missing.'),
+  leads: g('reasonLeads', 'Your AI Employee replies to every enquiry straight away and books it in, so more leads become customers.'),
+  reviews: g('reasonReviews', 'Your AI Employee asks happy customers for reviews and replies to every one, so your reputation keeps working for you.'),
+  admin: g('reasonAdmin', 'One login runs your bookings, invoices, payments and follow-ups, and you only pay for AI when you use it.'),
+  apps: g('reasonApps', 'Swap your stack of apps for one login with everything included, and only pay for AI when you use it.'),
+};
+const alsoLines = {
+  starter: g('alsoStarter', 'If you just want the platform, with AI pay as you go.'),
+  growth: g('alsoGrowth', 'If you want AI answering calls and messages for you.'),
+  scale: g('alsoScale', 'If you want unlimited AI and hands-on help every month.'),
+  custom: g('alsoCustom', 'If you run more than one location.'),
+};
+
+const txt = {
+  stepOf: g('stepOf', 'Question {n} of {total}'),
+  resultStep: g('resultStep', 'Your plan'),
+  startWith: g('startWith', 'Start with {plan}'),
+  talkCustom: g('talkCustom', 'Talk to us about Custom'),
+  sending: g('sending', 'Sending...'),
+  send: g('send', 'Send me my plan'),
+  sent: g('sent', 'Done. Your plan is on its way to your inbox.'),
+  error: g('error', "We couldn't send that just now. Your plan is still here, so try again or book a call."),
+  needName: g('needName', 'Please add your first name.'),
+  needEmail: g('needEmail', 'Please add a valid email address.'),
+};
+
+const cfgJson = JSON.stringify({ webhook: WEBHOOK, book: BOOK_URL, plans, reasons, also: alsoLines, total: steps.length, txt });
+---
+
+<section class="pq section--dark" id="find-your-plan" aria-labelledby="pq-title">
+  <div class="container">
+    <header class="pq__head reveal">
+      <span class="label">{g('eyebrow', 'Find your plan')}</span>
+      <h2 class="pq__title" id="pq-title">{g('title', 'Five quick questions.')} <span class="gradient-text">{g('titleAccent', 'One clear answer.')}</span></h2>
+      <p class="pq__lede">{g('lede', "Tell us about your business and we'll recommend the plan that fits, and tell you why.")}</p>
+    </header>
+
+    <div class="pq__card" id="pq-card">
+      <div class="pq__top">
+        <p class="pq__count" id="pq-count">{txt.stepOf.replace('{n}', '1').replace('{total}', String(steps.length))}</p>
+        <div class="pq__progress" role="progressbar" aria-labelledby="pq-count" aria-valuemin="0" aria-valuemax={String(steps.length)} aria-valuenow="1" id="pq-progress">
+          <span class="pq__bar" id="pq-bar" style={`width:${100 / steps.length}%`}></span>
+        </div>
+      </div>
+
+      {steps.map((st, i) => (
+        <div class="pq__step" data-step={String(i + 1)} data-key={st.key} data-multi={st.multi ? 'true' : 'false'} hidden={i !== 0}>
+          <h3 class="pq__q" tabindex="-1" id={`pq-q${i + 1}`}>{st.q}</h3>
+          {st.hint && <p class="pq__hint">{st.hint}</p>}
+          <div class={`pq__opts${st.multi ? ' pq__opts--chips' : ''}`} role="group" aria-labelledby={`pq-q${i + 1}`}>
+            {st.opts.map((o) => (
+              <button type="button" class={`pq__opt${st.multi ? ' pq__opt--chip' : ''}`} data-value={o.id} aria-pressed="false">{o.label}</button>
+            ))}
+          </div>
+          <div class="pq__nav">
+            {i > 0 ? <button type="button" class="pq__back" data-back>{g('back', 'Back')}</button> : <span></span>}
+            <button type="button" class="btn btn--primary pq__next" data-next disabled>{i === steps.length - 1 ? g('seePlan', 'See my plan') : g('next', 'Next')}</button>
+          </div>
+        </div>
+      ))}
+
+      <div class="pq__step pq__result" data-step="result" hidden>
+        <p class="pq__eyebrow">{g('weRecommend', 'We recommend')}</p>
+        <h3 class="pq__plan" tabindex="-1" id="pq-plan-name"></h3>
+        <p class="pq__price" id="pq-plan-price"></p>
+        <p class="pq__reason" id="pq-plan-reason"></p>
+        <ul class="pq__incl" id="pq-plan-incl"></ul>
+        <p class="pq__also" id="pq-also">
+          <span class="pq__also-k">{g('alsoConsider', 'Also consider')}</span>
+          <strong id="pq-also-name"></strong>
+          <span class="pq__also-price" id="pq-also-price"></span>
+          <span class="pq__also-line" id="pq-also-line"></span>
+        </p>
+
+        <form class="pq__form" id="pq-form" novalidate>
+          <p class="pq__form-title">{g('formTitle', 'Want your plan and next steps by email?')}</p>
+          <div class="pq__fields">
+            <label class="pq__field">
+              <span>{g('firstName', 'First name')}</span>
+              <input type="text" name="first_name" autocomplete="given-name" required />
+            </label>
+            <label class="pq__field">
+              <span>{g('email', 'Email')}</span>
+              <input type="email" name="email" autocomplete="email" inputmode="email" required />
+            </label>
+            <label class="pq__field">
+              <span>{g('mobile', 'Mobile')} <em>{g('optional', '(optional)')}</em></span>
+              <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
+            </label>
+          </div>
+          <label class="pq__consent">
+            <input type="checkbox" name="consent" value="yes" />
+            <span>{g('consent', 'Keep me posted with tips and offers by email and SMS. Unsubscribe anytime.')}</span>
+          </label>
+          <p class="pq__msg" id="pq-msg" role="status" aria-live="polite"></p>
+          <div class="pq__form-actions">
+            <button type="submit" class="btn btn--primary" id="pq-submit">{txt.send}</button>
+            <button type="button" class="pq__skip" id="pq-skip">{g('skip', 'Skip, just show me next steps')}</button>
+          </div>
+        </form>
+
+        <div class="pq__next-steps" id="pq-next-steps" hidden>
+          <a class="btn btn--primary" id="pq-start" href="/start">{txt.startWith.replace('{plan}', plans.growth.name)}</a>
+          <a class="btn btn--outline" id="pq-book" href={BOOK_URL} target="_blank" rel="noopener noreferrer">{g('bookCall', 'Book a 30-minute call')}</a>
+        </div>
+
+        <div class="pq__nav pq__nav--result">
+          <button type="button" class="pq__back" id="pq-restart">{g('restart', 'Start again')}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="pq-data" set:html={cfgJson}></script>
+</section>
+
+<script src="/js/plan-quiz.v1.js" defer></script>
+
+<style>
+  .pq {
+    padding: var(--space-2xl) 0;
+  }
+
+  .pq__head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  .pq__title {
+    font-family: var(--font-headline);
+    font-size: clamp(1.9rem, 4vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--warm-white);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .pq__lede {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.68);
+    margin: 0;
+  }
+
+  /* Glass card */
+  .pq__card {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    border-radius: 28px;
+    background: linear-gradient(160deg, rgba(26, 58, 92, 0.32), rgba(12, 14, 20, 0.55));
+    border: 1px solid rgba(247, 244, 239, 0.1);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.35),
+      0 0 60px rgba(78, 216, 194, 0.05),
+      inset 0 1px 0 rgba(247, 244, 239, 0.08);
+    scroll-margin-top: calc(var(--nav-height, 72px) + 16px);
+  }
+
+  .pq__top {
+    margin-bottom: var(--space-md);
+  }
+
+  .pq__count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.62);
+    margin: 0 0 10px;
+  }
+
+  .pq__progress {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(247, 244, 239, 0.08);
+    overflow: hidden;
+  }
+
+  .pq__bar {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--reef-aqua), var(--mist-blue));
+    box-shadow: 0 0 14px rgba(78, 216, 194, 0.45);
+    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .pq__step[hidden],
+  .pq__next-steps[hidden],
+  .pq__skip[hidden] {
+    display: none !important;
+  }
+
+  .pq__step {
+    animation: pqIn 0.35s ease both;
+  }
+
+  @keyframes pqIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .pq__q {
+    font-family: var(--font-headline);
+    font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--warm-white);
+    margin: 0 0 var(--space-sm);
+    outline: none;
+  }
+
+  .pq__hint {
+    font-size: 0.92rem;
+    color: rgba(247, 244, 239, 0.62);
+    margin: -8px 0 var(--space-sm);
+  }
+
+  .pq__opts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pq__opts--chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pq__opt {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 12px 18px;
+    border-radius: 16px;
+    text-align: left;
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: rgba(247, 244, 239, 0.88);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.06);
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .pq__opt::before {
+    content: '';
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(247, 244, 239, 0.3);
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pq__opt--chip {
+    min-height: 44px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+  }
+
+  .pq__opt--chip::before {
+    flex-basis: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border-radius: 4px;
+  }
+
+  .pq__opt:hover {
+    color: var(--warm-white);
+    border-color: rgba(78, 216, 194, 0.45);
+    background: rgba(78, 216, 194, 0.06);
+    transform: translateY(-1px);
+  }
+
+  .pq__opt:focus-visible,
+  .pq__back:focus-visible,
+  .pq__skip:focus-visible {
+    outline: 2px solid var(--reef-aqua);
+    outline-offset: 3px;
+  }
+
+  .pq__opt[aria-pressed="true"] {
+    color: var(--warm-white);
+    border-color: rgba(78, 216, 194, 0.7);
+    background: rgba(78, 216, 194, 0.12);
+    box-shadow: 0 0 0 1px rgba(78, 216, 194, 0.35), 0 8px 24px rgba(78, 216, 194, 0.12), inset 0 1px 0 rgba(247, 244, 239, 0.1);
+  }
+
+  .pq__opt[aria-pressed="true"]::before {
+    border-color: var(--reef-aqua);
+    background: var(--reef-aqua);
+    box-shadow: inset 0 0 0 3px rgba(12, 14, 20, 0.85);
+  }
+
+  .pq__opt--chip[aria-pressed="true"]::before {
+    box-shadow: inset 0 0 0 2px rgba(12, 14, 20, 0.85);
+  }
+
+  .pq__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  .pq__nav--result {
+    justify-content: center;
+    margin-top: var(--space-sm);
+  }
+
+  .pq__back,
+  .pq__skip {
+    min-height: 44px;
+    padding: 0 6px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 239, 0.62);
+    text-decoration: underline;
+    text-decoration-color: rgba(247, 244, 239, 0.25);
+    text-underline-offset: 4px;
+  }
+
+  .pq__back:hover,
+  .pq__skip:hover {
+    color: var(--reef-aqua);
+  }
+
+  .pq__next {
+    padding: 0.8rem 1.8rem;
+  }
+
+  .pq__next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    animation: none;
+    box-shadow: none;
+  }
+
+  /* ─── Result ─── */
+  .pq__result {
+    text-align: center;
+  }
+
+  .pq__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--reef-aqua);
+    margin: 0 0 6px;
+  }
+
+  .pq__plan {
+    font-family: var(--font-headline);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--warm-white);
+    margin: 0;
+    outline: none;
+  }
+
+  .pq__price {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--reef-aqua);
+    margin: 6px 0 var(--space-sm);
+  }
+
+  .pq__reason {
+    font-size: clamp(1rem, 1.6vw, 1.12rem);
+    line-height: 1.6;
+    color: rgba(247, 244, 239, 0.78);
+    max-width: 560px;
+    margin: 0 auto var(--space-sm);
+  }
+
+  .pq__incl {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto var(--space-sm);
+    max-width: 520px;
+    display: grid;
+    gap: 8px;
+    text-align: left;
+  }
+
+  .pq__incl :global(li) {
+    position: relative;
+    padding: 10px 14px 10px 40px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: rgba(247, 244, 239, 0.84);
+    background: rgba(247, 244, 239, 0.04);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+  }
+
+  .pq__incl :global(li)::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid var(--reef-aqua);
+    border-bottom: 2px solid var(--reef-aqua);
+    transform: translateY(-70%) rotate(-45deg);
+  }
+
+  .pq__also {
+    font-size: 0.9rem;
+    color: rgba(247, 244, 239, 0.64);
+    margin: 0 auto var(--space-md);
+    max-width: 560px;
+  }
+
+  .pq__also-k {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .pq__also strong {
+    color: var(--warm-white);
+    font-weight: 600;
+  }
+
+  .pq__also-price::before { content: '\00b7'; margin: 0 6px; }
+  .pq__also-line { display: block; margin-top: 2px; }
+
+  /* ─── Capture ─── */
+  .pq__form {
+    text-align: left;
+    padding: var(--space-md);
+    border-radius: 20px;
+    background: rgba(12, 14, 20, 0.4);
+    border: 1px solid rgba(247, 244, 239, 0.08);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.05);
+  }
+
+  .pq__form-title {
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--warm-white);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .pq__fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .pq__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: rgba(247, 244, 239, 0.7);
+  }
+
+  .pq__field em {
+    font-style: normal;
+    color: rgba(247, 244, 239, 0.5);
+  }
+
+  .pq__field input {
+    min-height: 48px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--warm-white);
+    background: rgba(247, 244, 239, 0.05);
+    border: 1px solid rgba(247, 244, 239, 0.16);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pq__field input:focus {
+    outline: none;
+    border-color: var(--reef-aqua);
+    box-shadow: 0 0 0 3px rgba(78, 216, 194, 0.2);
+  }
+
+  .pq__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: var(--space-sm) 0 0;
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: rgba(247, 244, 239, 0.7);
+    cursor: pointer;
+  }
+
+  .pq__consent input {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    margin: 1px 0 0;
+    accent-color: var(--reef-aqua);
+  }
+
+  .pq__msg {
+    min-height: 1.2em;
+    margin: 10px 0 0;
+    font-size: 0.9rem;
+  }
+  .pq__msg--ok { color: var(--reef-aqua); }
+  .pq__msg--error { color: #ffb4a8; }
+
+  .pq__form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px var(--space-sm);
+    margin-top: 10px;
+  }
+
+  .pq__next-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+
+  @media (max-width: 768px) {
+    .pq { padding: var(--space-xl) 0; }
+    .pq__card { padding: var(--space-md) 16px; border-radius: 22px; }
+    .pq__opts { grid-template-columns: 1fr; gap: 8px; }
+    .pq__opt { min-height: 52px; }
+    .pq__fields { grid-template-columns: 1fr; }
+    .pq__form { padding: 16px; }
+    .pq__form-actions .btn,
+    .pq__next-steps .btn { width: 100%; white-space: normal; }
+    .pq__form-actions { flex-direction: column; align-items: stretch; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pq__step { animation: none; }
+    .pq__bar { transition: none; }
+    .pq__opt:hover { transform: none; }
+  }
+
+  /* ─── Light mode ─── */
+  :global(html[data-theme="light"]) .pq__title,
+  :global(html[data-theme="light"]) .pq__q,
+  :global(html[data-theme="light"]) .pq__plan,
+  :global(html[data-theme="light"]) .pq__form-title,
+  :global(html[data-theme="light"]) .pq__also strong {
+    color: var(--deep-black);
+  }
+  :global(html[data-theme="light"]) .pq__lede,
+  :global(html[data-theme="light"]) .pq__reason,
+  :global(html[data-theme="light"]) .pq__hint,
+  :global(html[data-theme="light"]) .pq__also,
+  :global(html[data-theme="light"]) .pq__field,
+  :global(html[data-theme="light"]) .pq__consent {
+    color: rgba(12, 14, 20, 0.68);
+  }
+  :global(html[data-theme="light"]) .pq__count,
+  :global(html[data-theme="light"]) .pq__back,
+  :global(html[data-theme="light"]) .pq__skip {
+    color: rgba(12, 14, 20, 0.62);
+    text-decoration-color: rgba(12, 14, 20, 0.25);
+  }
+  :global(html[data-theme="light"]) .pq__card {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.72), rgba(228, 239, 244, 0.6));
+    border-color: rgba(12, 14, 20, 0.1);
+    box-shadow: 0 24px 60px rgba(12, 14, 20, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  :global(html[data-theme="light"]) .pq__progress {
+    background: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .pq__opt {
+    color: var(--deep-black);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(12, 14, 20, 0.12);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  :global(html[data-theme="light"]) .pq__opt::before {
+    border-color: rgba(12, 14, 20, 0.3);
+  }
+  :global(html[data-theme="light"]) .pq__opt:hover {
+    border-color: rgba(26, 58, 92, 0.4);
+    background: rgba(255, 255, 255, 0.85);
+  }
+  :global(html[data-theme="light"]) .pq__opt[aria-pressed="true"] {
+    border-color: var(--deep-ocean);
+    background: rgba(26, 58, 92, 0.08);
+    box-shadow: 0 0 0 1px rgba(26, 58, 92, 0.3), 0 8px 20px rgba(26, 58, 92, 0.1);
+  }
+  :global(html[data-theme="light"]) .pq__opt[aria-pressed="true"]::before {
+    border-color: var(--deep-ocean);
+    background: var(--deep-ocean);
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+  :global(html[data-theme="light"]) .pq__opt:focus-visible,
+  :global(html[data-theme="light"]) .pq__back:focus-visible,
+  :global(html[data-theme="light"]) .pq__skip:focus-visible {
+    outline-color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .pq__eyebrow,
+  :global(html[data-theme="light"]) .pq__price,
+  :global(html[data-theme="light"]) .pq__msg--ok {
+    color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .pq__msg--error {
+    color: #a3341f;
+  }
+  :global(html[data-theme="light"]) .pq__incl :global(li) {
+    color: rgba(12, 14, 20, 0.8);
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .pq__incl :global(li)::before {
+    border-color: var(--deep-ocean);
+  }
+  :global(html[data-theme="light"]) .pq__form {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(12, 14, 20, 0.08);
+  }
+  :global(html[data-theme="light"]) .pq__field em {
+    color: rgba(12, 14, 20, 0.5);
+  }
+  :global(html[data-theme="light"]) .pq__field input {
+    color: var(--deep-black);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(12, 14, 20, 0.16);
+  }
+  :global(html[data-theme="light"]) .pq__field input:focus {
+    border-color: var(--deep-ocean);
+    box-shadow: 0 0 0 3px rgba(26, 58, 92, 0.15);
+  }
+  :global(html[data-theme="light"]) .pq__consent input {
+    accent-color: var(--deep-ocean);
+  }
+</style>

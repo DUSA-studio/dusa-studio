@@ -233,10 +233,10 @@
       "titleEnd": "på to uker.",
       "sub": "Du trenger ikke finne ut av alt alene. Vi tar oss av oppsett, migrering og opplæring, så du kan fokusere på å drive bedriften.",
       "step1Title": "Book en demo",
-      "step1Desc": "En rask 15-minutters samtale for å forstå bedriften din. Vi kartlegger hva du trenger, viser deg plattformen og svarer på alle spørsmål.",
-      "step1Time": "15 min",
+      "step1Desc": "En 30-minutters samtale for å forstå bedriften din. Vi kartlegger hva du trenger, viser deg plattformen og svarer på alle spørsmål.",
+      "step1Time": "30 min",
       "step2Title": "Onboarding og oppsett",
-      "step2Desc": "Vi konfigurerer DUSA-arbeidsområdet ditt. CRM, automatiseringer, e-postmaler, funnels og integrasjoner, alt satt opp for deg i løpet av den første uken.",
+      "step2Desc": "Vi konfigurerer DUSA-arbeidsområdet ditt: CRM, automatiseringer, e-postmaler, funnels og integrasjoner. De fleste kontoer er satt opp i løpet av din første uke.",
       "step2Time": "Uke 1",
       "step3Title": "Migrering og opplæring",
       "step3Desc": "Vi flytter kontakter, kampanjer og data fra de gamle verktøyene dine. Deretter går vi gjennom alt med teamet ditt, så dere er trygge fra dag én.",
@@ -260,7 +260,7 @@
       "sub": "De fleste plattformer gir deg en innlogging og ønsker lykke til. Vi gjør det motsatte. DUSA-arbeidsområdet ditt er konfigurert, fylt med data og klart til bruk før du rører noe som helst.",
       "phase1Badge": "Dag 1",
       "phase1Title": "Kartlegging og demo",
-      "phase1Desc": "Alt starter med en 15-minutters samtale. Vi blir kjent med bedriften din, verktøyene du bruker i dag, problemene du vil løse, og hva suksess betyr for deg.",
+      "phase1Desc": "Alt starter med en 30-minutters samtale. Vi blir kjent med bedriften din, verktøyene du bruker i dag, problemene du vil løse, og hva suksess betyr for deg.",
       "phase1Detail1Title": "Hva vi går gjennom",
       "phase1Detail1Desc": "Forretningsmodellen din, dagens verktøy, utfordringer, vekstmål og hvilke DUSA-funksjoner som passer behovene dine.",
       "phase1Detail2Title": "Hva du får",
@@ -301,16 +301,16 @@
     "resultsLabel": "Resultater som taler for seg",
     "heading": "Bedrifter vokser raskere med",
     "headingAccent": "AI og alt koblet sammen",
-    "stat1Value": "5+",
-    "stat1Label": "Verktøy erstattet",
+    "stat1Value": "1 innlogging",
+    "stat1Label": "I stedet for 8 apper",
     "stat2Value": "2x",
     "stat2Label": "Raskere oppfølging",
     "stat3Value": "100%",
     "stat3Label": "AI-automatisert",
-    "stat4Value": "800+ AUD",
-    "stat4Label": "Spart hver måned",
-    "stat5Value": "< 48 t",
-    "stat5Label": "Oppsettstid",
+    "stat4Value": "841 AUD",
+    "stat4Label": "Tilbake hver måned mot 8 separate verktøy",
+    "stat5Value": "Første uke",
+    "stat5Label": "Satt opp sammen med deg",
     "testimonials": [
       {
         "quote": "Før dette brukte jeg utrolig mange forskjellige verktøy for hver kunde. Tiden jeg bruker på å lære og sette opp markedsføringssystemer er kraftig redusert. De automatiserte arbeidsflytene er favoritten min.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Ærlige priser",
     "value3Desc": "Ingen skjulte gebyrer, ingen overraskende prisøkninger, ingen ekstra kostnad for funksjoner du allerede har betalt for. Det du ser, er det du betaler.",
     "value4Title": "Voks i ditt eget tempo",
-    "value4Desc": "Start med ett verktøy. Legg til flere når du trenger dem. Oppgrader når det gir mening. Ingen press, ingen binding, ingen tvungne oppgraderinger.",
+    "value4Desc": "Hele plattformen fra 149 AUD i måneden. Bytt til en større plan når det gir mening. Ingen press, ingen binding, ingen tvungne oppgraderinger.",
     "teamLabel": "Global rekkevidde",
     "teamTitle": "Laget for bedrifter",
     "teamTitleAccent": "overalt",
@@ -1132,7 +1132,7 @@
     "value2Title": "AI som jobber for deg fra dag én",
     "value2Text": "Ask AI hjelper deg å bygge og drive plattformen. På Growth svarer din AI Employee på anrop og meldinger for deg.",
     "value3Title": "Guidet onboarding som gir resultater raskt",
-    "value3Text": "Vi tar deg gjennom oppsettet, så du ser verdi allerede den første uken.",
+    "value3Text": "Vi tar deg gjennom oppsettet. De fleste kontoer er satt opp i løpet av din første uke.",
     "value4Title": "Avslutt når som helst, uten spørsmål",
     "value4Text": "Null binding. Passer det ikke, går du videre uten forpliktelser.",
     "t1Quote": "I løpet av den første uken hadde vi automatiske oppfølginger i gang og booket tre nye kunder. DUSA betalte for seg selv før prøveperioden var over.",
@@ -1194,7 +1194,7 @@
         "features": [
           "Alt i Starter",
           "AI Employee svarer på anrop, chat og meldinger",
-          "Ask AI-bruk inkludert",
+          "Ask AI, betal etter bruk",
           "Prioritert support og AI-oppsettsøkt"
         ]
       },
@@ -1333,7 +1333,7 @@
       },
       {
         "q": "Må jeg være teknisk?",
-        "a": "Ikke i det hele tatt. Vi gjør oppsettet for deg. CRM, automatiseringer, funnels og integrasjoner konfigureres av teamet vårt i løpet av den første uken. Kan du bruke e-post, kan du bruke DUSA."
+        "a": "Ikke i det hele tatt. Vi gjør oppsettet for deg. Teamet vårt konfigurerer CRM, automatiseringer, funnels og integrasjoner, og de fleste kontoer er satt opp i løpet av din første uke. Kan du bruke e-post, kan du bruke DUSA."
       },
       {
         "q": "Hva skjer med kontaktene og verktøyene jeg har i dag?",
@@ -1377,5 +1377,18 @@
     ],
     "source": "HighLevel, publiserte tall, oktober 2026",
     "link": "Derfor forteller vi det"
+  },
+  "consent": {
+    "text": "Vi bruker informasjonskapsler for å se hvordan nettstedet brukes og for å måle annonsene våre. Ditt valg, kan endres når som helst.",
+    "accept": "Godta",
+    "essential": "Kun nødvendige",
+    "privacy": "Personvern",
+    "aria": "Valg av informasjonskapsler"
+  },
+  "booking": {
+    "title": "Book en 30-minutters samtale",
+    "sub": "Velg et tidspunkt som passer. Vi kommer forberedt på bedriften din.",
+    "close": "Lukk",
+    "frameTitle": "Bookingkalender"
   }
 }

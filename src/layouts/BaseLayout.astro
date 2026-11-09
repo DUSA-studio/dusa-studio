@@ -1,6 +1,8 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import ConsentBanner from '../components/capture/ConsentBanner.astro';
+import BookingModal from '../components/capture/BookingModal.astro';
 import { stripRegion, urlFor, navRoutesByRegion, REGION_PREFIXES } from '../i18n/routes';
 import enDict from '../i18n/translations/en.json';
 import esDict from '../i18n/translations/es.json';
@@ -28,12 +30,15 @@ interface Props {
 const {
   title = 'DUSA . studio | Growth Platform for Small Business',
   description = 'Marketing, sales and customer engagement from one login. DUSA is the all-in-one growth platform for small businesses that want to scale without the complexity.',
-  noindex = false,
+  noindex: noindexProp = false,
   lang = 'en-AU',
   ogLocale = 'en_AU',
   region,
   t: tProp = {},
 } = Astro.props;
+
+// Thank-you pages (every locale) are post-conversion pages: never index them.
+const noindex = noindexProp || /\/thank-you\/?$/.test(Astro.url.pathname);
 
 // Nav and Footer read their labels from `t`. 119 locale pages (contact,
 // terms, privacy, thank-you, industries, blog) never passed it and so rendered
@@ -157,6 +162,11 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
       })();
     </script>
 
+    <!-- Visitor context (first/last touch UTMs, click IDs, industry, plan) as
+         window.dusaCtx. Synchronous and tiny on purpose: tracking, forms and
+         the booking modal all read it. -->
+    <script is:inline src="/js/ctx.v1.js"></script>
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={seoDescription} />
@@ -207,12 +217,14 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
       <slot />
     </main>
     <Footer t={t} />
+    <ConsentBanner t={t} />
+    <BookingModal t={t} />
 
     <!-- Vercel Web Analytics (privacy-friendly, no cookies) -->
     <script defer src="/_vercel/insights/script.js"></script>
 
-    <!-- Analytics: GA4 + Meta Pixel + conversion events (IDs live in the file) -->
-    <script src="/js/tracking.v1.js" defer></script>
+    <!-- Analytics: GA4 + Meta Pixel + Consent Mode v2 + conversion events (IDs live in the file) -->
+    <script is:inline src="/js/tracking.v2.js" defer></script>
     <!-- DUSA (GHL) External Tracking: page views + form fills into the DUSA dashboard -->
     <script src="https://link.dusa.studio/js/external-tracking.js" data-tracking-id="tk_5247d5a164e240a49f5c69e043fac41e" defer></script>
 

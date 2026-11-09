@@ -889,6 +889,8 @@ const region = 'mx';
       business: formData.get('business'),
       phone: formData.get('phone'),
     };
+    try { if (window.dusaCtx) Object.assign(data, window.dusaCtx.formFields()); } catch(err) { /* silent */ }
+    data.form = 'trial';
 
     try {
       const toolTags = sessionStorage.getItem('dusa_tool_tags');
@@ -913,7 +915,9 @@ const region = 'mx';
 
       if (res.ok) {
         if (window.dusaTrack) window.dusaTrack('trial_signup', { plan: (data && (data.plan || data.selected_plan)) || '' });
-        window.location.href = '/mx/thank-you';
+        const tok = Math.random().toString(36).slice(2) + Date.now().toString(36);
+        try { sessionStorage.setItem('dz_trial_token', tok); } catch (err) { /* ignore */ }
+        window.location.href = '/mx/thank-you?status=ok&t=' + encodeURIComponent(tok);
       } else {
         trialError.style.display = 'flex';
       }

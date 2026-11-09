@@ -233,10 +233,10 @@
       "titleEnd": "på två veckor.",
       "sub": "Du behöver inte lista ut allt själv. Vi sköter uppsättning, migrering och utbildning så att du kan fokusera på att driva ditt företag.",
       "step1Title": "Boka din demo",
-      "step1Desc": "Ett snabbt 15-minuterssamtal för att förstå ditt företag. Vi tar reda på vad du behöver, visar plattformen och svarar på alla frågor.",
-      "step1Time": "15 min",
+      "step1Desc": "Ett 30-minuterssamtal för att förstå ditt företag. Vi tar reda på vad du behöver, visar plattformen och svarar på alla frågor.",
+      "step1Time": "30 min",
       "step2Title": "Uppsättning",
-      "step2Desc": "Vi konfigurerar din DUSA-arbetsyta. CRM, automationer, e-postmallar, funnels och integrationer, allt uppsatt åt dig under den första veckan.",
+      "step2Desc": "Vi konfigurerar din DUSA-arbetsyta: CRM, automationer, e-postmallar, funnels och integrationer. De flesta konton är uppsatta inom din första vecka.",
       "step2Time": "Vecka 1",
       "step3Title": "Migrering och utbildning",
       "step3Desc": "Vi flyttar dina kontakter, kampanjer och data från dina gamla verktyg. Sedan går vi igenom allt med ditt team så att ni känner er trygga från dag ett.",
@@ -260,7 +260,7 @@
       "sub": "De flesta plattformar ger dig en inloggning och önskar lycka till. Vi gör tvärtom. Din DUSA-arbetsyta är konfigurerad, ifylld och redo att användas innan du rör ett finger.",
       "phase1Badge": "Dag 1",
       "phase1Title": "Behovsanalys och demo",
-      "phase1Desc": "Allt börjar med ett 15-minuterssamtal. Vi lär oss om ditt företag, verktygen du använder i dag, problemen du vill lösa och hur framgång ser ut för dig.",
+      "phase1Desc": "Allt börjar med ett 30-minuterssamtal. Vi lär oss om ditt företag, verktygen du använder i dag, problemen du vill lösa och hur framgång ser ut för dig.",
       "phase1Detail1Title": "Vad vi går igenom",
       "phase1Detail1Desc": "Din affärsmodell, nuvarande verktyg, utmaningar, tillväxtmål och vilka DUSA-funktioner som passar dina behov.",
       "phase1Detail2Title": "Vad du får",
@@ -301,16 +301,16 @@
     "resultsLabel": "Resultat som talar för sig själva",
     "heading": "Företag växer snabbare med",
     "headingAccent": "AI och allt sammankopplat",
-    "stat1Value": "5+",
-    "stat1Label": "Verktyg ersatta",
+    "stat1Value": "1 inloggning",
+    "stat1Label": "I stället för 8 appar",
     "stat2Value": "2x",
     "stat2Label": "Snabbare uppföljning",
     "stat3Value": "100%",
     "stat3Label": "AI-automatiserat",
-    "stat4Value": "800+ AUD",
-    "stat4Label": "Sparat per månad",
-    "stat5Value": "< 48 tim",
-    "stat5Label": "Uppsättningstid",
+    "stat4Value": "841 AUD",
+    "stat4Label": "Tillbaka varje månad jämfört med 8 separata verktyg",
+    "stat5Value": "Första veckan",
+    "stat5Label": "Uppsatt tillsammans med dig",
     "testimonials": [
       {
         "quote": "Innan det här använde jag så många olika verktyg för varje kund. Tiden jag lägger på att lära mig och sätta upp marknadsföringssystem har minskat drastiskt. De automatiserade arbetsflödena är min favoritdel.",
@@ -1019,7 +1019,7 @@
     "value3Title": "Ärliga priser",
     "value3Desc": "Inga dolda avgifter, inga oväntade prishöjningar, inga kostnader för funktioner du redan betalat för. Det du ser är det du betalar.",
     "value4Title": "Väx i din takt",
-    "value4Desc": "Börja med ett verktyg. Lägg till fler när du behöver dem. Uppgradera när det känns rätt. Ingen press, ingen bindningstid, inga påtvingade uppgraderingar.",
+    "value4Desc": "Hela plattformen från 149 AUD per månad. Byt till en större plan när det känns rätt. Ingen press, ingen bindningstid, inga påtvingade uppgraderingar.",
     "teamLabel": "Global räckvidd",
     "teamTitle": "Byggd för företag",
     "teamTitleAccent": "överallt",
@@ -1132,7 +1132,7 @@
     "value2Title": "AI som jobbar från dag ett",
     "value2Text": "Ask AI hjälper dig att bygga och driva plattformen. På Growth svarar din AI Employee på samtal och meddelanden åt dig.",
     "value3Title": "Guidad onboarding för snabba resultat",
-    "value3Text": "Vi guidar dig genom uppsättningen så att du ser värdet redan första veckan.",
+    "value3Text": "Vi guidar dig genom uppsättningen. De flesta konton är uppsatta inom din första vecka.",
     "value4Title": "Avsluta när du vill, inga frågor",
     "value4Text": "Noll bindningstid. Passar det inte kan du gå vidare utan förpliktelser.",
     "t1Quote": "Redan första veckan hade vi automatiska uppföljningar igång och bokade tre nya kunder. DUSA betalade sig självt innan provperioden ens var över.",
@@ -1333,7 +1333,7 @@
       },
       {
         "q": "Behöver jag vara tekniskt kunnig?",
-        "a": "Inte alls. Vi sköter uppsättningen åt dig. Ditt CRM, dina automationer, funnels och integrationer konfigureras av vårt team under den första veckan. Kan du använda e-post kan du använda DUSA."
+        "a": "Inte alls. Vi sköter uppsättningen åt dig. Vårt team konfigurerar ditt CRM, dina automationer, funnels och integrationer, och de flesta konton är uppsatta inom din första vecka. Kan du använda e-post kan du använda DUSA."
       },
       {
         "q": "Vad händer med mina befintliga kontakter och verktyg?",
@@ -1377,5 +1377,18 @@
     ],
     "source": "HighLevel, publicerade siffror, oktober 2026",
     "link": "Därför berättar vi detta"
+  },
+  "consent": {
+    "text": "Vi använder cookies för att se hur sajten används och för att mäta våra annonser. Ditt val, ändra när du vill.",
+    "accept": "Acceptera",
+    "essential": "Endast nödvändiga",
+    "privacy": "Integritetspolicy",
+    "aria": "Cookieval"
+  },
+  "booking": {
+    "title": "Boka ditt 30-minuterssamtal",
+    "sub": "Välj en tid som passar. Vi kommer förberedda på ditt företag.",
+    "close": "Stäng",
+    "frameTitle": "Bokningskalender"
   }
 }

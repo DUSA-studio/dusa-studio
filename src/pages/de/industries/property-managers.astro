@@ -64,9 +64,9 @@ const pipeline = [
 ];
 
 const stats = [
-  { value: '73%', label: 'der Mieter bevorzugen digitale Kommunikation gegenüber Telefonaten' },
-  { value: '2.5x', label: 'schnellere Wartungslösung mit automatisierter Triage' },
-  { value: '40%', label: 'weniger verspätete Mietzahlungen durch automatische Erinnerungen' },
+  { value: 'Jede', label: 'fällige Miete kann eine automatische Erinnerung auslösen' },
+  { value: '24/7', label: 'Wartungsanfragen per Formular oder SMS erfasst' },
+  { value: '1', label: 'Posteingang für Mieter, Eigentümer und Handwerker' },
 ];
 
 const jsonLd = JSON.stringify({
@@ -161,8 +161,8 @@ const jsonLd = JSON.stringify({
   <section class="pm-stats section section--dark">
     <div class="container">
       <div class="pm-stats__header">
-        <span class="label">Wirkung</span>
-        <h2>Die Zahlen sprechen <span class="gradient-text">für sich</span></h2>
+        <span class="label">Inklusive</span>
+        <h2>Was für Sie läuft, <span class="gradient-text">jeden Tag</span></h2>
       </div>
       <div class="pm-stats__grid">
         {stats.map((stat) => (

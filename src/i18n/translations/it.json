@@ -888,7 +888,42 @@
     "getScale": "Scelga Scale",
     "growthAndUp": "Growth e superiori",
     "servicesLine": "Vuole aiuto anche con il marketing? Aggiunga a qualsiasi piano servizi come ads, social media e campagne email.",
-    "servicesCta": "Prenoti una chiamata"
+    "servicesCta": "Prenoti una chiamata",
+    "aiLadder": {
+      "label": "Cosa cambia tra i piani",
+      "title": "Stessa piattaforma.",
+      "titleAccent": "La differenza è quanto l'IA lavora per Lei.",
+      "sub": "Ogni piano include l'intera piattaforma. Salendo di piano, l'IA Le toglie sempre più lavoro quotidiano: chiamate gestite, risposte ai messaggi e lavori prenotati, anche quando è impegnato o dorme.",
+      "starter": {
+        "level": "IA a richiesta",
+        "head": "Lei guida. L'IA aiuta quando glielo chiede.",
+        "points": [
+          "Ask AI scrive una campagna o crea un workflow in pochi secondi",
+          "Attivi le risposte o le chiamate IA quando vuole",
+          "Paghi solo il consumo effettivo, di solito pochi centesimi"
+        ]
+      },
+      "growth": {
+        "level": "IA nel Suo team",
+        "head": "Il Suo AI Employee risponde per Lei.",
+        "points": [
+          "Risponde alle Sue chiamate, 100 minuti al mese",
+          "Risponde a SMS, chat web, email, Instagram e Facebook, 1.000 risposte al mese",
+          "Prenota il lavoro direttamente nel Suo calendario",
+          "Risponde a ogni recensione Google e scrive i Suoi post"
+        ]
+      },
+      "scale": {
+        "level": "IA su tutto",
+        "head": "Nessun contatore. L'IA pensa a tutto.",
+        "points": [
+          "Chiamate e conversazioni IA illimitate, con fair use",
+          "Una persona reale che La aiuta 2 ore ogni mese",
+          "Un Growth Lead dedicato e supporto telefonico"
+        ]
+      },
+      "note": "Ask AI e i costi standard di chiamate e SMS vengono fatturati a consumo su ogni piano."
+    }
   },
   "services": {
     "metaTitle": "Servizi | DUSA.studio",

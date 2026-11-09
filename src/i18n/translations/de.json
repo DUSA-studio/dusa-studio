@@ -888,7 +888,42 @@
     "getScale": "Scale wählen",
     "growthAndUp": "Growth und höher",
     "servicesLine": "Sie möchten auch beim Marketing Unterstützung? Ergänzen Sie jeden Plan um Services wie Anzeigen, Social Media und E-Mail-Kampagnen.",
-    "servicesCta": "Gespräch buchen"
+    "servicesCta": "Gespräch buchen",
+    "aiLadder": {
+      "label": "Was sich zwischen den Plänen ändert",
+      "title": "Gleiche Plattform.",
+      "titleAccent": "Der Unterschied: wie viel KI für Sie arbeitet.",
+      "sub": "Jeder Plan enthält die gesamte Plattform. Mit jedem Upgrade nimmt Ihnen KI mehr vom Tagesgeschäft ab: Anrufe angenommen, Nachrichten beantwortet und Aufträge gebucht, auch wenn Sie beschäftigt sind oder schlafen.",
+      "starter": {
+        "level": "KI auf Abruf",
+        "head": "Sie steuern. KI hilft, wenn Sie fragen.",
+        "points": [
+          "Ask AI schreibt eine Kampagne oder baut einen Workflow in Sekunden",
+          "Schalten Sie KI-Antworten oder KI-Anrufe ein, wann immer Sie wollen",
+          "Sie zahlen nur, was tatsächlich genutzt wird, meist ein paar Cent"
+        ]
+      },
+      "growth": {
+        "level": "KI in Ihrem Team",
+        "head": "Ihr AI Employee antwortet für Sie.",
+        "points": [
+          "Nimmt Ihre Anrufe entgegen, 100 Minuten pro Monat",
+          "Antwortet auf SMS, Webchat, E-Mail, Instagram und Facebook, 1.000 Antworten pro Monat",
+          "Bucht den Auftrag direkt in Ihren Kalender",
+          "Beantwortet jede Google-Bewertung und schreibt Ihre Beiträge"
+        ]
+      },
+      "scale": {
+        "level": "KI für alles",
+        "head": "Kein Zähler. KI erledigt den Rest.",
+        "points": [
+          "Unbegrenzte KI-Anrufe und -Unterhaltungen im Rahmen der Fair-Use-Regeln",
+          "Ein echter Mensch unterstützt Sie jeden Monat 2 Stunden",
+          "Ein persönlicher Growth Lead und telefonischer Support"
+        ]
+      },
+      "note": "Ask AI sowie die üblichen Anruf- und SMS-Gebühren werden in jedem Plan nach Verbrauch abgerechnet."
+    }
   },
   "services": {
     "metaTitle": "Leistungen | DUSA.studio",

@@ -888,7 +888,42 @@
     "getScale": "Kies Scale",
     "growthAndUp": "Growth en hoger",
     "servicesLine": "Ook hulp nodig met je marketing? Voeg diensten zoals ads, social media en e-mailcampagnes toe aan elk plan.",
-    "servicesCta": "Plan een gesprek"
+    "servicesCta": "Plan een gesprek",
+    "aiLadder": {
+      "label": "Wat er per plan verandert",
+      "title": "Hetzelfde platform.",
+      "titleAccent": "Het verschil: hoeveel AI voor je werkt.",
+      "sub": "Elk plan bevat het volledige platform. Een plan hoger betekent dat AI je meer dagelijks werk uit handen neemt: telefoontjes opgenomen, berichten beantwoord en klussen ingepland, ook als je druk bent of slaapt.",
+      "starter": {
+        "level": "AI op afroep",
+        "head": "Jij houdt het stuur. AI helpt als je erom vraagt.",
+        "points": [
+          "Ask AI schrijft een campagne of bouwt een workflow in een paar seconden",
+          "Zet AI-antwoorden of AI-gesprekken aan wanneer je wilt",
+          "Betaal alleen voor wat het verbruikt, meestal een paar cent"
+        ]
+      },
+      "growth": {
+        "level": "AI in je team",
+        "head": "Je AI Employee antwoordt voor je.",
+        "points": [
+          "Neemt je telefoontjes aan, 100 minuten per maand",
+          "Beantwoordt SMS, webchat, e-mail, Instagram en Facebook, 1.000 antwoorden per maand",
+          "Plant de klus direct in je agenda",
+          "Reageert op elke Google-review en schrijft je posts"
+        ]
+      },
+      "scale": {
+        "level": "AI op alles",
+        "head": "Geen meter. AI regelt het allemaal.",
+        "points": [
+          "Onbeperkt AI-telefoontjes en -gesprekken, binnen fair use",
+          "Een echt persoon die je elke maand 2 uur helpt",
+          "Een vaste Growth Lead en telefonische support"
+        ]
+      },
+      "note": "Ask AI en de standaardkosten voor gesprekken en SMS worden op elk plan op basis van gebruik gefactureerd."
+    }
   },
   "services": {
     "metaTitle": "Diensten | DUSA.studio",

@@ -888,7 +888,42 @@
     "getScale": "Välj Scale",
     "growthAndUp": "Growth och uppåt",
     "servicesLine": "Vill du ha hjälp med marknadsföringen också? Lägg till tjänster som annonser, sociala medier och e-postkampanjer i vilken plan som helst.",
-    "servicesCta": "Boka ett samtal"
+    "servicesCta": "Boka ett samtal",
+    "aiLadder": {
+      "label": "Det här skiljer planerna åt",
+      "title": "Samma plattform.",
+      "titleAccent": "Skillnaden är hur mycket AI jobbar åt dig.",
+      "sub": "Alla planer har hela plattformen. Går du upp en nivå tar AI över mer av vardagen: samtal som besvaras, meddelanden som får svar och jobb som bokas, även när du är upptagen eller sover.",
+      "starter": {
+        "level": "AI vid behov",
+        "head": "Du styr. AI hjälper när du ber om det.",
+        "points": [
+          "Ask AI skriver en kampanj eller bygger ett arbetsflöde på några sekunder",
+          "Slå på AI-svar eller AI-samtal när du vill",
+          "Betala bara för det den använder, oftast några cent"
+        ]
+      },
+      "growth": {
+        "level": "AI i ditt team",
+        "head": "Din AI Employee svarar åt dig.",
+        "points": [
+          "Tar dina samtal, 100 minuter i månaden",
+          "Svarar på SMS, webbchatt, e-post, Instagram och Facebook, 1 000 svar i månaden",
+          "Bokar jobbet direkt i din kalender",
+          "Svarar på varje Google-recension och skriver dina inlägg"
+        ]
+      },
+      "scale": {
+        "level": "AI på allt",
+        "head": "Ingen mätare. AI tar hand om allt.",
+        "points": [
+          "Obegränsade AI-samtal och konversationer inom fair use",
+          "En riktig människa som hjälper dig 2 timmar varje månad",
+          "En namngiven Growth Lead och telefonsupport"
+        ]
+      },
+      "note": "Ask AI samt vanliga samtals- och SMS-avgifter faktureras efter användning i alla planer."
+    }
   },
   "services": {
     "metaTitle": "Tjänster | DUSA . studio",

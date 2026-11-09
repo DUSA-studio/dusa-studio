@@ -487,6 +487,7 @@ featureCategories.forEach((cat) => cat.features.forEach((row: any) => { row.desc
 faqs.forEach((f) => { f.q = fill(f.q); f.a = fill(f.a); });
 const supportHoursLine = fill(p.supportHoursLine || 'Starter and Growth include 3 hours of hands-on help: one hour with each of your first three monthly payments, or all three upfront on yearly billing. Scale includes 2 hours every month. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.');
 const addonsLine = fill(p.addonsLine || 'Unlimited users and contacts on every plan. No per-seat fees, no lock-in contracts.');
+const ai: any = { ...{"label": "What changes between plans", "title": "Same platform.", "titleAccent": "The difference is how much AI works for you.", "sub": "Every plan has the whole platform. Moving up means AI takes more of the day-to-day off your plate: calls answered, messages replied to and jobs booked, even when you are busy or asleep.", "starter": {"level": "AI on tap", "head": "You run it. AI helps when you ask.", "points": ["Ask AI writes a campaign or builds a workflow in seconds", "Switch on AI replies or calls whenever you want", "Pay only for what it uses, usually cents"]}, "growth": {"level": "AI on your team", "head": "Your AI Employee answers for you.", "points": ["Picks up your calls, 100 minutes a month", "Replies to SMS, web chat, email, Instagram and Facebook, 1,000 replies a month", "Books the job straight into your calendar", "Replies to every Google review and writes your posts"]}, "scale": {"level": "AI on everything", "head": "No meter. AI handles the lot.", "points": ["Unlimited AI calls and conversations, fair use", "A real person helping you 2 hours every month", "A named Growth Lead and phone support"]}, "note": "Ask AI, and standard call and SMS charges, are billed as you use them on every plan."}, ...((p as any).aiLadder || {}) };
 const servicesLine = p.servicesLine || 'Want help with the marketing too? Add services like ads, social media and email campaigns to any plan.';
 const servicesCta = p.servicesCta || 'Book a call';
 
@@ -568,6 +569,31 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
             <p class="pricing-card__delta">{tier.delta}</p>
           </div>
         ))}
+      </div>
+
+      <!-- AI ladder: the real difference between plans -->
+      <div class="ai-ladder">
+        <div class="ai-ladder__head">
+          <span class="label">{ai.label}</span>
+          <h2>{ai.title} <span class="gradient-text">{ai.titleAccent}</span></h2>
+          <p class="ai-ladder__sub">{ai.sub}</p>
+        </div>
+        <div class="ai-ladder__grid">
+          {[['starter', p.tierStarter, 1], ['growth', p.tierGrowth, 2], ['scale', p.tierScale, 3]].map(([key, name, lvl]) => (
+            <div class={`ai-ladder__card ai-ladder__card--${key}`}>
+              <div class="ai-ladder__top">
+                <span class="ai-ladder__plan">{name}</span>
+                <span class="ai-ladder__meter" aria-hidden="true">{[1, 2, 3].map((n) => <i class={n <= (lvl as number) ? 'on' : ''}></i>)}</span>
+              </div>
+              <span class="ai-ladder__level">{ai[key as string].level}</span>
+              <h3 class="ai-ladder__title">{ai[key as string].head}</h3>
+              <ul class="ai-ladder__points">
+                {ai[key as string].points.map((pt: string) => <li>{pt}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p class="ai-ladder__note">{ai.note}</p>
       </div>
       <div class="services-line">
         <p>{servicesLine}</p>
@@ -831,6 +857,44 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   <div id="regionData" data-region={regionData} style="display:none;"></div>
 
 <style is:global>
+  /* ── AI ladder ── */
+  .ai-ladder { margin: var(--space-2xl) auto var(--space-lg); max-width: 1100px; }
+  .ai-ladder__head { text-align: center; max-width: 760px; margin: 0 auto var(--space-lg); }
+  .ai-ladder__head h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0.8rem; }
+  .ai-ladder__head h2 .gradient-text { display: block; }
+  .ai-ladder__sub { color: rgba(247, 244, 239, 0.7); font-size: 1.05rem; line-height: 1.6; margin: 0; }
+  .ai-ladder__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .ai-ladder__card {
+    position: relative; padding: 1.4rem 1.4rem 1.5rem; border-radius: 22px;
+    border: 1px solid rgba(247, 244, 239, 0.12);
+    background: linear-gradient(150deg, rgba(247, 244, 239, 0.07), rgba(247, 244, 239, 0.02));
+    -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 239, 0.1), 0 18px 40px -20px rgba(0, 0, 0, 0.6);
+  }
+  .ai-ladder__card--growth { border-color: rgba(78, 216, 194, 0.45); background: linear-gradient(150deg, rgba(78, 216, 194, 0.14), rgba(106, 170, 207, 0.05)); }
+  .ai-ladder__card--scale { border-color: rgba(106, 170, 207, 0.4); background: linear-gradient(150deg, rgba(106, 170, 207, 0.14), rgba(78, 216, 194, 0.05)); }
+  .ai-ladder__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
+  .ai-ladder__plan { font-family: var(--font-headline); font-weight: 700; font-size: 1.05rem; }
+  .ai-ladder__meter { display: inline-flex; gap: 4px; }
+  .ai-ladder__meter i { width: 18px; height: 6px; border-radius: 3px; background: rgba(247, 244, 239, 0.14); }
+  .ai-ladder__meter i.on { background: linear-gradient(90deg, #4ED8C2, #6AAACF); box-shadow: 0 0 10px rgba(78, 216, 194, 0.5); }
+  .ai-ladder__level { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--reef-aqua); }
+  .ai-ladder__title { font-size: 1.25rem; line-height: 1.25; margin: 0.35rem 0 0.9rem; }
+  .ai-ladder__points { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .ai-ladder__points li { position: relative; padding-left: 1.4rem; font-size: 0.93rem; line-height: 1.45; color: rgba(247, 244, 239, 0.82); }
+  .ai-ladder__points li::before { content: ''; position: absolute; left: 0; top: 0.42em; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #bff5ec, #4ED8C2 60%, #2B8C7F); box-shadow: 0 0 8px rgba(78, 216, 194, 0.55); }
+  .ai-ladder__note { text-align: center; margin: 1rem auto 0; font-size: 0.85rem; color: rgba(247, 244, 239, 0.55); }
+  html[data-theme="light"] .ai-ladder__sub { color: rgba(12, 14, 20, 0.7); }
+  html[data-theme="light"] .ai-ladder__card { border-color: rgba(255, 255, 255, 0.9); background: linear-gradient(150deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.5)); box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(26, 58, 92, 0.08), 0 18px 40px -22px rgba(26, 58, 92, 0.35); }
+  html[data-theme="light"] .ai-ladder__card--growth { background: linear-gradient(150deg, rgba(255, 255, 255, 0.85), rgba(78, 216, 194, 0.18)); box-shadow: inset 0 1px 0 #fff, 0 0 0 1.5px rgba(78, 216, 194, 0.55), 0 18px 40px -22px rgba(26, 58, 92, 0.35); }
+  html[data-theme="light"] .ai-ladder__card--scale { background: linear-gradient(150deg, rgba(255, 255, 255, 0.85), rgba(106, 170, 207, 0.2)); box-shadow: inset 0 1px 0 #fff, 0 0 0 1.5px rgba(106, 170, 207, 0.5), 0 18px 40px -22px rgba(26, 58, 92, 0.35); }
+  html[data-theme="light"] .ai-ladder__plan, html[data-theme="light"] .ai-ladder__title { color: var(--deep-black); }
+  html[data-theme="light"] .ai-ladder__level { color: var(--deep-ocean); }
+  html[data-theme="light"] .ai-ladder__meter i { background: rgba(26, 58, 92, 0.12); }
+  html[data-theme="light"] .ai-ladder__points li { color: rgba(12, 14, 20, 0.78); }
+  html[data-theme="light"] .ai-ladder__note { color: rgba(12, 14, 20, 0.55); }
+  @media (max-width: 900px) { .ai-ladder__grid { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; } }
+
   .services-line {
     display: flex;
     align-items: center;

@@ -888,7 +888,42 @@
     "getScale": "Obtener Scale",
     "growthAndUp": "Growth y superiores",
     "servicesLine": "¿También quieres ayuda con el marketing? Añade servicios como anuncios, redes sociales y campañas de correo a cualquier plan.",
-    "servicesCta": "Reservar una llamada"
+    "servicesCta": "Reservar una llamada",
+    "aiLadder": {
+      "label": "Qué cambia entre planes",
+      "title": "La misma plataforma.",
+      "titleAccent": "La diferencia es cuánto trabaja la IA por ti.",
+      "sub": "Todos los planes incluyen la plataforma completa. Al subir de plan, la IA te quita más trabajo del día a día: llamadas atendidas, mensajes respondidos y trabajos agendados, incluso cuando estás ocupado o durmiendo.",
+      "starter": {
+        "level": "IA a demanda",
+        "head": "Tú tienes el control. La IA te ayuda cuando se lo pides.",
+        "points": [
+          "Ask AI escribe una campaña o crea un flujo de trabajo en segundos",
+          "Activa las respuestas o las llamadas con IA cuando quieras",
+          "Paga solo por lo que usa, normalmente unos centavos"
+        ]
+      },
+      "growth": {
+        "level": "IA en tu equipo",
+        "head": "Tu AI Employee responde por ti.",
+        "points": [
+          "Atiende tus llamadas, 100 minutos al mes",
+          "Responde SMS, chat web, correo, Instagram y Facebook, 1000 respuestas al mes",
+          "Agenda el trabajo directamente en tu calendario",
+          "Responde a cada reseña de Google y escribe tus publicaciones"
+        ]
+      },
+      "scale": {
+        "level": "IA en todo",
+        "head": "Sin contador. La IA se encarga de todo.",
+        "points": [
+          "Llamadas y conversaciones con IA ilimitadas, con uso razonable",
+          "Una persona real que te ayuda 2 horas cada mes",
+          "Un Growth Lead asignado y soporte telefónico"
+        ]
+      },
+      "note": "Ask AI y los cargos estándar de llamadas y SMS se facturan según el uso en todos los planes."
+    }
   },
   "services": {
     "metaTitle": "Servicios | DUSA.studio",

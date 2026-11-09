@@ -515,7 +515,42 @@
     "getScale": "Get Scale",
     "growthAndUp": "Growth and above",
     "servicesLine": "Want help with the marketing too? Add services like ads, social media and email campaigns to any plan.",
-    "servicesCta": "Book a call"
+    "servicesCta": "Book a call",
+    "aiLadder": {
+      "label": "What changes between plans",
+      "title": "Same platform.",
+      "titleAccent": "The difference is how much AI works for you.",
+      "sub": "Every plan has the whole platform. Moving up means AI takes more of the day-to-day off your plate: calls answered, messages replied to and jobs booked, even when you are busy or asleep.",
+      "starter": {
+        "level": "AI on tap",
+        "head": "You run it. AI helps when you ask.",
+        "points": [
+          "Ask AI writes a campaign or builds a workflow in seconds",
+          "Switch on AI replies or calls whenever you want",
+          "Pay only for what it uses, usually cents"
+        ]
+      },
+      "growth": {
+        "level": "AI on your team",
+        "head": "Your AI Employee answers for you.",
+        "points": [
+          "Picks up your calls, 100 minutes a month",
+          "Replies to SMS, web chat, email, Instagram and Facebook, 1,000 replies a month",
+          "Books the job straight into your calendar",
+          "Replies to every Google review and writes your posts"
+        ]
+      },
+      "scale": {
+        "level": "AI on everything",
+        "head": "No meter. AI handles the lot.",
+        "points": [
+          "Unlimited AI calls and conversations, fair use",
+          "A real person helping you 2 hours every month",
+          "A named Growth Lead and phone support"
+        ]
+      },
+      "note": "Ask AI, and standard call and SMS charges, are billed as you use them on every plan."
+    }
   },
   "services": {
     "metaTitle": "Services | DUSA.studio",

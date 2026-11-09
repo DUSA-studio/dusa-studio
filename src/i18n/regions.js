@@ -40,8 +40,20 @@ export function getRegion(regionKey) {
  */
 const priceOverrides = {
   'us-149': 99,
-  'us-297': 199,
 };
+
+/*
+ * Plan prices (AUD, ex GST), pricing v3, Oct 2026.
+ * HighLevel's terms (section 2, June 2026) say no advertised price for Core Platform
+ * access may sit under HighLevel's own standard price for a substantially similar
+ * package. Floors used here, in USD: Starter 97, Starter + AI Employee 147,
+ * Starter + Unlimited AI 194. Run `node scripts/check-map.mjs` after changing a price
+ * or a rate, and recheck whenever exchange rates move.
+ */
+export const PLAN_AUD = { starter: 149, growth: 249, scale: 449 };
+export const MAP_FLOOR_USD = { starter: 97, growth: 147, scale: 194 };
+/* Smallest Growth Engine bundle on the catalogue workbook (Growth Engine tab). */
+export const ENGINE_FROM_AUD = 1057;
 
 /**
  * Convert an AUD base price to the target region's currency.
@@ -118,14 +130,15 @@ export function formatPrice(price, regionKey) {
 }
 
 /**
- * Get all three tier prices for a region, pre-converted.
+ * Get the plan prices for a region, pre-converted.
  * @param {string} regionKey
- * @returns {{ launchpad: number, starter: number, growth: number }}
+ * @returns {{ starter: number, growth: number, scale: number, engine: number }}
  */
 export function getRegionPrices(regionKey) {
   return {
-    launchpad: convertPrice(47, regionKey),
-    starter: convertPrice(149, regionKey),
-    growth: convertPrice(297, regionKey),
+    starter: convertPrice(PLAN_AUD.starter, regionKey),
+    growth: convertPrice(PLAN_AUD.growth, regionKey),
+    scale: convertPrice(PLAN_AUD.scale, regionKey),
+    engine: convertPrice(ENGINE_FROM_AUD, regionKey),
   };
 }

@@ -7,15 +7,15 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PricingContent from '../components/PricingContent.astro';
-import { getRegion } from '../i18n/regions.js';
+import { getRegion, getRegionPrices } from '../i18n/regions.js';
 import t from '../i18n/translations/en.json';
 
 const region = getRegion('au');
-const prices = { launchpad: 47, starter: 149, growth: 297 };
+const prices = getRegionPrices('au');
 ---
 <BaseLayout
-  title="Pricing | DUSA . studio - Plans from $47/mo AUD"
-  description="Simple, transparent pricing for every stage of growth. Start from $47/mo AUD. CRM, email, SMS, funnels, booking and reputation management in one platform, with Ask AI on every plan and your AI Employee on Growth."
+  title="Pricing | DUSA . studio - Plans from $149/mo AUD"
+  description="Simple, transparent pricing. The whole platform from $149/mo AUD with unlimited users and contacts. CRM, email, SMS, funnels, booking and reputation in one place, with Ask AI on every plan and your AI Employee on Growth."
   t={t}
 >
   <PricingContent region={region} t={t} prices={prices} regionKey="au" />

@@ -1,15 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PricingContent from '../../components/PricingContent.astro';
-import { getRegion, convertPrice } from '../../i18n/regions.js';
+import { getRegion, getRegionPrices } from '../../i18n/regions.js';
 import t from '../../i18n/translations/en.json';
 
 const region = getRegion('uk');
-const prices = {
-  launchpad: convertPrice(47, 'uk'),
-  starter: convertPrice(149, 'uk'),
-  growth: convertPrice(297, 'uk'),
-};
+const prices = getRegionPrices('uk');
 ---
 <BaseLayout
   title={t.pricing.metaTitle}

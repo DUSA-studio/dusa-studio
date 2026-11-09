@@ -126,7 +126,7 @@
     "introSee": "Se hva som er inni",
     "introFreeDemo": "Book en gratis demo",
     "introFreeDemoShort": "Gratis demo",
-    "introSetupNote": "Oppsett gjort for deg &middot; Drevet av AI &middot; Avslutt når som helst",
+    "introSetupNote": "Veiledet oppsett inkludert &middot; Drevet av AI &middot; Avslutt når som helst",
     "platformPhone": "Mobil",
     "platformTablet": "Nettbrett",
     "platformDesktop": "Datamaskin",
@@ -247,7 +247,7 @@
       "supportAiTitle": "AI-support",
       "supportAiDesc": "Tilgjengelig på alle planer, døgnet rundt.",
       "supportManagerTitle": "En fast Growth Lead",
-      "supportManagerDesc": "På Scale og Growth Engine. Growth-kunder får prioritert support.",
+      "supportManagerDesc": "På Scale- og Custom-planer. Growth-kunder får prioritert support.",
       "ctaBookDemo": "Book en gratis demo",
       "ctaLearnMore": "Les mer om onboarding"
     },
@@ -285,11 +285,11 @@
       "phase3Detail2Desc": "En praktisk gjennomgang for deg og teamet ditt. Ikke et webinar-opptak. Direkte veiledning tilpasset oppsettet ditt.",
       "phase4Badge": "Løpende",
       "phase4Title": "Lansering og support",
-      "phase4Desc": "Du er i gang. Herfra er AI-supportassistenten vår tilgjengelig døgnet rundt. Growth-kunder får prioritert support og en oppfølgingssamtale med onboarding-rådgiveren sin. Scale- og Growth Engine-kunder har en fast Growth Lead som følger opp jevnlig for å optimalisere oppsettet og hjelpe deg å vokse.",
+      "phase4Desc": "Du er i gang. Herfra er AI-supportassistenten vår tilgjengelig døgnet rundt. Growth-kunder får prioritert support og en oppfølgingssamtale med onboarding-rådgiveren sin. Scale- og Custom-kunder har en fast Growth Lead som følger opp jevnlig for å optimalisere oppsettet og hjelpe deg å vokse.",
       "phase4Detail1Title": "AI-support, døgnet rundt",
       "phase4Detail1Desc": "Få svar med én gang. AI-assistenten vår er trent på hele DUSA-plattformen og kan hjelpe med oppsett, feilsøking og beste praksis.",
       "phase4Detail2Title": "En fast Growth Lead",
-      "phase4Detail2Desc": "På Scale og Growth Engine. Jevnlige oppfølginger, proaktiv optimalisering og en direktelinje til noen som kjenner bedriften din. Growth-kunder får prioritert support.",
+      "phase4Detail2Desc": "På Scale- og Custom-planer. Jevnlige oppfølginger, proaktiv optimalisering og en direktelinje til noen som kjenner bedriften din. Growth-kunder får prioritert support.",
       "ctaTitle": "Klar til å komme i gang?",
       "ctaDesc": "Book en gratis demo og se nøyaktig hvordan DUSA passer bedriften din.",
       "ctaBookDemo": "Book en gratis demo",
@@ -424,7 +424,7 @@
   "pricing": {
     "metaTitle": "Priser | DUSA . studio",
     "metaDesc": "Enkle, transparente priser for hvert steg av veksten. CRM, e-post, SMS, funnels, booking og omdømmehåndtering i én plattform, med Ask AI på alle planer.",
-    "metaDescription": "Enkle, transparente priser. Hele DUSA-plattformen med ubegrenset antall brukere og kontakter, Ask AI på alle planer, din egen AI Employee på Growth og en Growth Engine hvis du vil at vi skal drive det for deg. Ingen bindingstid.",
+    "metaDescription": "Enkle, transparente priser. Hele DUSA-plattformen med ubegrenset antall brukere og kontakter, Ask AI på alle planer, din egen AI Employee på Growth og Custom-planer bygget for større team.",
     "heroLabel": "Priser",
     "heroTitle": "Én plattform.",
     "heroTitleAccent": "Din pris.",
@@ -470,8 +470,8 @@
     "supportPortalTitle": "Medlemsportal",
     "supportPortalDesc": "Ditt private knutepunkt for guider, veiledninger, maler og support. Alt du trenger for å få mest mulig ut av DUSA-plattformen, samlet på ett sted.",
     "supportPriorityTitle": "Prioritert og dedikert",
-    "supportPriorityDesc": "Growth-planer og oppover går foran i køen med prioritert support. Scale legger til en fast Growth Lead og telefonsupport i arbeidstiden. Growth Engine-kunder får månedlige strategigjennomganger.",
-    "supportHoursLine": "Starter og Growth inkluderer 3 timer praktisk hjelp i dine første 3 måneder, fra og med din første betaling. Scale inkluderer 2 timer hver måned. Etter det koster det {assist} per time for generell hjelp og {expert} per time for strategi og rådgivning, alltid godkjent av deg først.",
+    "supportPriorityDesc": "Growth-planer og oppover går foran i køen med prioritert support. Scale legger til en fast Growth Lead og telefonsupport i arbeidstiden. Custom-planer legger til en dedikert kundeansvarlig og månedlige strategigjennomganger.",
+    "supportHoursLine": "Starter og Growth inkluderer 3 timer praktisk hjelp: én time med hver av de tre første månedlige betalingene dine, eller alle tre med en gang ved årlig fakturering. Scale inkluderer 2 timer hver måned. Etter det koster det {assist} per time for generell hjelp og {expert} per time for strategi og rådgivning, alltid godkjent av deg først.",
     "allPlans": "Alle planer",
     "compareLabel": "Full sammenligning",
     "compareTitle": "Alt inkludert,",
@@ -499,35 +499,35 @@
           "Booking, sosiale medier og omdømme",
           "Ubegrenset antall arbeidsflyter",
           "Ask AI og AI Employee, betal etter forbruk",
-          "3 timer praktisk hjelp for å komme i gang"
+          "Veiledet oppsett: 3 timer praktisk hjelp"
         ],
         "growth": [
           "Alt i Starter",
           "AI Employee inkludert",
           "AI svarer på anrop, chat og meldinger",
           "100 AI-telefonminutter og 1 000 AI-svar/mnd",
-          "Ask AI-bruk inkludert",
-          "Premium-automatiseringer, egne dashbord, API",
+          "Premium-automatiseringer og API-tilgang",
+          "Attribusjon og planlagte rapporter",
           "Prioritert support og AI-oppsettsøkt",
-          "Gratis oppsett gjort for deg på årsplaner"
+          "Veiledet oppsett: 3 timer praktisk hjelp"
         ],
         "scale": [
           "Alt i Growth",
           "Ubegrensede AI-anrop og AI-samtaler, rimelig bruk",
           "2 timer praktisk hjelp hver måned",
-          "Gratis oppsett gjort for deg",
           "En fast Growth Lead",
+          "Flere lokasjoner etter avtale",
           "Telefonsupport i arbeidstiden",
           "Først i supportkøen"
         ],
         "engine": [
-          "Alt i Growth",
-          "Vi driver markedsføringen du velger",
-          "Anrop besvart, tilbud fulgt opp, anmeldelser i boks",
-          "Annonser, sosiale medier og Google, etter behov",
-          "Månedlig rapport og kvartalsplan",
-          "En fast Growth Lead",
-          "Rabattert oppsett på alle pakker"
+          "Alt i Scale",
+          "Mer enn én lokasjon, ett merke eller ett team",
+          "Tilpassede integrasjoner og automatiseringer",
+          "Markedsføringstjenester etter behov",
+          "En dedikert kundeansvarlig",
+          "Månedlige strategigjennomganger",
+          "Tilpasses og prises sammen med deg"
         ]
       },
       "cells": {
@@ -538,7 +538,7 @@
         "aiMinutes": "100 min/mnd",
         "unlimitedFair": "Ubegrenset, rimelig bruk",
         "fairUse": "Rimelig bruk",
-        "helpHours": "3 timer, første 3 mnd",
+        "helpHours": "3 timer: 1/mnd eller alle 3 årlig",
         "helpMonthly": "2 timer hver måned",
         "extraHelp": "{assist}/t, {expert}/t ekspert",
         "byArrangement": "Etter avtale"
@@ -615,7 +615,7 @@
           "rows": [
             [
               "Ask AI-assistent",
-              "Assistenten din inne i plattformen. Be den skrive en kampanje, bygge en arbeidsflyt, tagge og segmentere kontaktene dine eller forklare tallene dine, så gjør den jobben i kontoen din. Lett bruk faktureres med noen få cent på Starter, og er inkludert fra Growth og oppover."
+              "Assistenten din inne i plattformen. Be den skrive en kampanje, bygge en arbeidsflyt, tagge og segmentere kontaktene dine eller forklare tallene dine, så gjør den jobben i kontoen din. På alle planer betaler du bare for det du bruker, vanligvis noen få cent per oppgave, fra saldoen din."
             ],
             [
               "Conversation AI",
@@ -635,7 +635,7 @@
             ],
             [
               "Ekstra AI-bruk",
-              "På Starter går alle AI-funksjoner til vanlig forbrukspris fra saldoen din. På Growth fortsetter bruk utover det som er inkludert per måned til de samme prisene, eller du kan gå over til Scale for ubegrenset AI innenfor rimelig bruk. Vanlige kostnader for samtaler og SMS gjelder på alle planer."
+              "På Starter går alle AI Employee-funksjoner til forbrukspris fra saldoen din. På Growth fortsetter bruk utover det som er inkludert per måned til de samme prisene, eller du kan gå over til Scale for ubegrensede AI-anrop og AI-samtaler innenfor rimelig bruk. Ask AI og vanlige kostnader for samtaler og SMS faktureres etter forbruk på alle planer."
             ]
           ]
         },
@@ -722,7 +722,7 @@
             ],
             [
               "Praktisk hjelp inkludert",
-              "Et ekte menneske som hjelper deg med å sette opp, fikse eller bygge ting i kontoen din. Starter og Growth inkluderer tre timer i dine første tre måneder, som åpnes med din første betaling etter den gratis prøveperioden. Scale inkluderer to timer hver måned. Book en tid eller svar på en hvilken som helst e-post fra oss."
+              "Et ekte menneske som hjelper deg med å sette opp, fikse eller bygge ting i kontoen din. Starter og Growth inkluderer tre timer: ved månedlig fakturering åpnes én time med hver av de tre første betalingene dine, og ved årlig fakturering er alle tre klare fra første dag. Scale inkluderer to timer hver måned. Book en tid eller svar på en hvilken som helst e-post fra oss."
             ],
             [
               "Ekstra hjelp når du vil",
@@ -783,15 +783,15 @@
         },
         {
           "q": "Hvor mye koster DUSA-plattformen per måned?",
-          "a": "Starter koster {starter} {currency} per måned for hele plattformen, med ubegrenset antall brukere og kontakter. Growth legger til din AI Employee, prioritert support og en AI-oppsettsøkt for {growth}/mnd. Scale legger til ubegrenset AI innenfor rimelig bruk, 2 timer praktisk hjelp hver måned og en fast Growth Lead for {scale}/mnd. Vil du at vi skal drive markedsføringen for deg, starter en Growth Engine fra {engine}/mnd. Alle priser er i {currency}."
+          "a": "Starter koster {starter} {currency} per måned for hele plattformen, med ubegrenset antall brukere og kontakter. Growth legger til din AI Employee, prioritert support og en AI-oppsettsøkt for {growth}/mnd. Scale legger til ubegrenset AI innenfor rimelig bruk, 2 timer praktisk hjelp hver måned og en fast Growth Lead for {scale}/mnd. Har du mer enn én lokasjon, eller vil du ha en plan bygget rundt bedriften din, tilpasses og prises Custom sammen med deg i en samtale. Alle priser er i {currency}."
         },
         {
           "q": "Hva er inkludert i Starter-planen?",
-          "a": "Starter er hele DUSA-plattformen til å drive selv: alle 9 kjernesystemer (CRM og pipeline, funnels og nettside, e-postmarkedsføring, SMS-markedsføring, booking og kalender, planlegger for sosiale medier, omdømmehåndtering, fakturering og betalinger, og skjemaer og undersøkelser), ubegrenset antall arbeidsflyter, ubegrenset antall brukere og kontakter, og Ask AI og AI Employee etter forbruk. Planen inkluderer også 3 timer praktisk hjelp i dine første 3 måneder."
+          "a": "Starter er hele DUSA-plattformen til å drive selv: alle 9 kjernesystemer (CRM og pipeline, funnels og nettside, e-postmarkedsføring, SMS-markedsføring, booking og kalender, planlegger for sosiale medier, omdømmehåndtering, fakturering og betalinger, og skjemaer og undersøkelser), ubegrenset antall arbeidsflyter, ubegrenset antall brukere og kontakter, og Ask AI og AI Employee etter forbruk. Planen inkluderer også veiledet oppsett med 3 timer praktisk hjelp: én time med hver av de tre første månedlige betalingene dine, eller alle tre med en gang hvis du betaler årlig."
         },
         {
           "q": "Hva er Ask AI, og hvilke planer inkluderer det?",
-          "a": "Ask AI er assistenten som er innebygd i alle DUSA-planer. Be den skrive en e-postkampanje, bygge en arbeidsflyt, tagge og segmentere kontaktene dine eller forklare en rapport, så gjør den jobben inne i kontoen din. På Starter trekkes den lille AI-bruken den forbruker fra saldoen din, vanligvis noen få cent per oppgave. På Growth, Scale og Growth Engine er Ask AI-bruk inkludert."
+          "a": "Ask AI er assistenten som er innebygd i alle DUSA-planer. Be den skrive en e-postkampanje, bygge en arbeidsflyt, tagge og segmentere kontaktene dine eller forklare en rapport, så gjør den jobben inne i kontoen din. På alle planer trekkes den lille AI-bruken den forbruker fortløpende fra saldoen din, vanligvis noen få cent per oppgave, så du betaler bare for det du bruker."
         },
         {
           "q": "Hva er AI Employee?",
@@ -799,7 +799,7 @@
         },
         {
           "q": "Hva er forskjellen på Starter, Growth og Scale?",
-          "a": "Starter gir deg hele plattformen til å drive selv, med AI etter forbruk. Growth er for bedrifter som vil at plattformen skal drive seg selv: den legger til en AI Employee-kvote som svarer på anropene og meldingene dine og booker avtaler, inkludert Ask AI-bruk, premium-trinn i automatiseringene, egne dashbord, attribusjon, API-tilgang, prioritert support og en onboarding-økt med AI-oppsett, for {deltaGrowth}/mnd mer. Scale er for travle team: ubegrenset AI innenfor rimelig bruk, 2 timer praktisk hjelp hver måned, gratis oppsett gjort for deg, telefonsupport og en fast Growth Lead."
+          "a": "Starter gir deg hele plattformen til å drive selv, med AI etter forbruk. Growth er for bedrifter som vil at plattformen skal drive seg selv: den legger til en AI Employee-kvote som svarer på anropene og meldingene dine og booker avtaler, premium-trinn i automatiseringene, attribusjon, API-tilgang, prioritert support og en onboarding-økt med AI-oppsett, for {deltaGrowth}/mnd mer. Scale er for travle team: ubegrensede AI-anrop og AI-samtaler innenfor rimelig bruk, 2 timer praktisk hjelp hver måned, telefonsupport og en fast Growth Lead. Custom er for team med flere lokasjoner og bedrifter som vil ha mer bygget for seg, tilpasset sammen med deg i en samtale."
         },
         {
           "q": "Hvor mange brukere og kontakter kan jeg ha?",
@@ -811,11 +811,11 @@
         },
         {
           "q": "Er det noen etableringsgebyr eller skjulte kostnader?",
-          "a": "Det er ingen obligatoriske etableringsgebyr. Oppsett gjort for deg er valgfritt, og gratis på Scale og på årlige Growth-planer. Planprisen dekker tilgangen til plattformen. Forbruk av meldinger, samtaler og e-post, og AI-bruk utover det planen din inkluderer, faktureres separat etter hvert som du bruker det, og trekkes fra en forhåndsbetalt saldo på kontoen din. Kortet ditt belastes med en liten påfylling første gang du skrur på disse funksjonene, og deretter automatisk hver gang saldoen blir lav. Du bestemmer selv beløpet for påfyllingen og kan legge til saldo når som helst. Forbruket faktureres i USD fordi leverandørene av telefoni, e-post og AI bak plattformen er amerikanske. De fleste kundene ligger på rundt 15 til 25 USD per måned, avhengig av volum. Utover dette finnes det ingen skjulte gebyrer."
+          "a": "Det er ingen etableringsgebyr. Alle planer inkluderer veiledet oppsett med 3 timer praktisk hjelp. Vil du heller at vi bygger alt for deg, kan oppsett gjort for deg bestilles som en tjeneste, med fast pris på forhånd. Planprisen dekker tilgangen til plattformen. Forbruk av meldinger, samtaler og e-post, og AI-bruk utover det planen din inkluderer, faktureres separat etter hvert som du bruker det, og trekkes fra en forhåndsbetalt saldo på kontoen din. Kortet ditt belastes med en liten påfylling første gang du skrur på disse funksjonene, og deretter automatisk hver gang saldoen blir lav. Du bestemmer selv beløpet for påfyllingen og kan legge til saldo når som helst. Forbruket faktureres i USD fordi leverandørene av telefoni, e-post og AI bak plattformen er amerikanske. De fleste kundene ligger på rundt 15 til 25 USD per måned, avhengig av volum. Utover dette finnes det ingen skjulte gebyrer."
         },
         {
           "q": "Hva slags support tilbyr DUSA?",
-          "a": "Alle planer inkluderer AI-chatsupport døgnet rundt via medlemsportalen, i tillegg til tilgang til DUSA-fellesskapet og e-postsupport. Growth legger til prioritert support og en onboarding-økt med AI-oppsett. Scale legger til 2 timer praktisk hjelp hver måned, telefonsupport i arbeidstiden og en fast Growth Lead. Growth Engine-kunder får i tillegg en månedlig rapport, strategigjennomganger og en kvartalsplan."
+          "a": "Alle planer inkluderer AI-chatsupport døgnet rundt via medlemsportalen, i tillegg til tilgang til DUSA-fellesskapet og e-postsupport. Growth legger til prioritert support og en onboarding-økt med AI-oppsett. Scale legger til 2 timer praktisk hjelp hver måned, telefonsupport i arbeidstiden og en fast Growth Lead. Custom-planer legger til en dedikert kundeansvarlig og månedlige strategigjennomganger."
         },
         {
           "q": "Passer DUSA for enkeltpersonforetak og frilansere?",
@@ -831,15 +831,19 @@
         },
         {
           "q": "Hvor lang tid tar det å sette opp DUSA?",
-          "a": "De fleste bedrifter er i gang innen 48 timer. Growth-, Scale- og Growth Engine-planene inkluderer en onboarding-økt med AI-oppsett, der vi hjelper deg med å sette opp alt for akkurat din bedrift, og Scale inkluderer oppsett gjort for deg."
+          "a": "De fleste bedrifter er i gang innen 48 timer. Alle planer inkluderer veiledet oppsett med praktisk hjelp, og fra Growth og oppover får du også en onboarding-økt med AI-oppsett, der vi setter opp alt for akkurat din bedrift."
         },
         {
           "q": "Hva om jeg står fast, eller vil at noen gjør det for meg?",
-          "a": "Svar på en hvilken som helst e-post fra oss, så leser et menneske den, eller spør AI-assistenten som er tilgjengelig 24/7 i kontoen din. Starter og Growth inkluderer 3 timer praktisk hjelp i dine første 3 måneder, som åpnes med din første betaling etter den gratis prøveperioden, og Scale inkluderer 2 timer hver måned: et ekte menneske som setter opp, fikser eller bygger ting sammen med deg via skjermdeling. Etter det koster hjelp {assist} per time for generell hjelp og utførelse, og {expert} per time for ekspertarbeid som strategi, rådgivning og alt utenfor plattformen. Du godkjenner tiden før den brukes. Vil du at alt skal gjøres for deg, er det Growth Engine du trenger."
+          "a": "Svar på en hvilken som helst e-post fra oss, så leser et menneske den, eller spør AI-assistenten som er tilgjengelig 24/7 i kontoen din. Starter og Growth inkluderer 3 timer praktisk hjelp, én time med hver av de tre første månedlige betalingene dine eller alle tre med en gang ved årlig fakturering, og Scale inkluderer 2 timer hver måned: et ekte menneske som setter opp, fikser eller bygger ting sammen med deg via skjermdeling. Etter det koster hjelp {assist} per time for generell hjelp og utførelse, og {expert} per time for ekspertarbeid som strategi, rådgivning og alt utenfor plattformen. Du godkjenner tiden før den brukes. Vil du at alt skal gjøres for deg, book en samtale, så gir vi deg et tilbud på oppsett gjort for deg eller løpende tjenester."
         },
         {
-          "q": "Hva er Growth Engine?",
-          "a": "Growth Engine betyr at teamet vårt driver veksten din for deg, på Growth-planen. Du velger resultatene du vil ha, som at alle anrop blir besvart, alle tilbud blir fulgt opp, flere 5-stjerners anmeldelser eller annonser som gir oppdrag, og vi bygger og driver det. Du får en månedlig rapport og en kvartalsplan, med en fast Growth Lead. Pakkene starter fra {engine}/mnd, oppsettet er rabattert på alle pakker, og annonsebudsjettet faktureres separat."
+          "q": "Hva er Custom-planen?",
+          "a": "Custom er for bedrifter som har vokst ut av en standardplan: mer enn én lokasjon eller ett merke, tilpassede integrasjoner, eller at teamet vårt driver mer av det for deg. Den inkluderer alt i Scale, pluss en dedikert kundeansvarlig og månedlige strategigjennomganger. Book en samtale, fortell oss hva du trenger, så tilpasser og priser vi det sammen med deg."
+        },
+        {
+          "q": "Kan DUSA drive markedsføringen min for meg?",
+          "a": "Ja. Annonser, sosiale medier, e-postkampanjer og mer kan legges til som tjenester på hvilken som helst plan. Book en samtale, fortell oss hva du vil ha gjort, så setter vi det sammen og priser det på forhånd. Annonsebudsjett faktureres alltid separat."
         },
         {
           "q": "Hva er DUSA bygget på?",
@@ -870,19 +874,21 @@
     "selectToolsHint": "Velg verktøy for å se besparelsen din.",
     "getEverythingAbove": "Få alt ovenfor",
     "tierScale": "Scale",
-    "tierEngine": "Growth Engine",
+    "tierEngine": "Custom",
     "scaleTagline": "Mer AI. Mer hjelp.",
     "scaleDesc": "Ubegrenset AI innenfor rimelig bruk, 2 timer praktisk hjelp hver måned og en fast Growth Lead. Laget for travle team.",
-    "engineTagline": "Vi driver veksten din for deg.",
-    "engineDesc": "Velg resultatene du vil ha. Teamet vårt bygger og driver markedsføringen på DUSA, og du leser én rapport i måneden.",
+    "engineTagline": "Bygget rundt bedriften din.",
+    "engineDesc": "For team med flere lokasjoner, franchiser og bedrifter som vil at mer skal gjøres for dem. Fortell oss hva du trenger, så planlegger vi det sammen med deg.",
     "deltaScale": "Ingen bindingstid på noen av planene",
-    "deltaEngine": "Prises etter resultatene du velger",
-    "engineCta": "Bygg min Growth Engine",
-    "badgeEngine": "Vi gjør det for deg",
+    "deltaEngine": "Prises sammen med deg i en samtale",
+    "engineCta": "Book en samtale",
+    "badgeEngine": "Skreddersydd",
     "fromLabel": "Fra",
     "getGrowth": "Velg Growth",
     "getScale": "Velg Scale",
-    "growthAndUp": "Growth og oppover"
+    "growthAndUp": "Growth og oppover",
+    "servicesLine": "Vil du ha hjelp med markedsføringen også? Legg til tjenester som annonser, sosiale medier og e-postkampanjer på hvilken som helst plan.",
+    "servicesCta": "Book en samtale"
   },
   "services": {
     "metaTitle": "Tjenester | DUSA.studio",
@@ -1155,7 +1161,7 @@
           "Alt i Growth",
           "Ubegrenset AI, rimelig bruk",
           "2 timer praktisk hjelp hver måned",
-          "Gratis oppsett, gjort for deg"
+          "En navngitt Growth Lead"
         ]
       }
     },

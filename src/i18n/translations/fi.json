@@ -126,7 +126,7 @@
     "introSee": "Katso, mitä sisältä löytyy",
     "introFreeDemo": "Varaa ilmainen esittely",
     "introFreeDemoShort": "Ilmainen esittely",
-    "introSetupNote": "Käyttöönotto tehdään puolestasi &middot; Tekoälyn voimalla &middot; Peruuta milloin vain",
+    "introSetupNote": "Ohjattu käyttöönotto mukana &middot; Tekoälyn voimalla &middot; Peruuta milloin vain",
     "platformPhone": "Puhelin",
     "platformTablet": "Tabletti",
     "platformDesktop": "Tietokone",
@@ -247,7 +247,7 @@
       "supportAiTitle": "Tekoälytuki",
       "supportAiDesc": "Kaikissa paketeissa, 24/7.",
       "supportManagerTitle": "Oma Growth Lead",
-      "supportManagerDesc": "Scale- ja Growth Engine -asiakkaille. Growth-asiakkaat saavat prioriteettituen.",
+      "supportManagerDesc": "Scale- ja Custom-asiakkaille. Growth-asiakkaat saavat prioriteettituen.",
       "ctaBookDemo": "Varaa ilmainen esittely",
       "ctaLearnMore": "Lue lisää käyttöönotosta"
     },
@@ -285,11 +285,11 @@
       "phase3Detail2Desc": "Käytännönläheinen läpikäynti sinulle ja tiimillesi. Ei nauhoitettua webinaaria, vaan live-opastusta juuri sinun asennuksellesi.",
       "phase4Badge": "Jatkuva",
       "phase4Title": "Käynnistys ja tuki",
-      "phase4Desc": "Olet livenä. Tästä eteenpäin tekoälytukemme on käytettävissä ympäri vuorokauden. Growth-asiakkaat saavat prioriteettituen ja seurantatapaamisen käyttöönottokonsulttinsa kanssa. Scale- ja Growth Engine -asiakkailla on nimetty Growth Lead, joka ottaa säännöllisesti yhteyttä, optimoi asetuksiasi ja auttaa sinua kasvamaan.",
+      "phase4Desc": "Olet livenä. Tästä eteenpäin tekoälytukemme on käytettävissä ympäri vuorokauden. Growth-asiakkaat saavat prioriteettituen ja seurantatapaamisen käyttöönottokonsulttinsa kanssa. Scale- ja Custom-asiakkailla on nimetty Growth Lead, joka ottaa säännöllisesti yhteyttä, optimoi asetuksiasi ja auttaa sinua kasvamaan.",
       "phase4Detail1Title": "Tekoälytuki 24/7",
       "phase4Detail1Desc": "Saat vastaukset heti. Tekoälyavustajamme tuntee koko DUSA-alustan ja auttaa asennuksessa, ongelmatilanteissa ja parhaissa käytännöissä.",
       "phase4Detail2Title": "Nimetty Growth Lead",
-      "phase4Detail2Desc": "Scale- ja Growth Engine -asiakkaille. Säännölliset tapaamiset, ennakoiva optimointi ja suora linja henkilöön, joka tuntee yrityksesi. Growth-asiakkaat saavat prioriteettituen.",
+      "phase4Detail2Desc": "Scale- ja Custom-asiakkaille. Säännölliset tapaamiset, ennakoiva optimointi ja suora linja henkilöön, joka tuntee yrityksesi. Growth-asiakkaat saavat prioriteettituen.",
       "ctaTitle": "Valmis aloittamaan?",
       "ctaDesc": "Varaa ilmainen esittely ja näe tarkalleen, miten DUSA sopii yrityksellesi.",
       "ctaBookDemo": "Varaa ilmainen esittely",
@@ -424,7 +424,7 @@
   "pricing": {
     "metaTitle": "Hinnat | DUSA . studio",
     "metaDesc": "Selkeä ja läpinäkyvä hinnoittelu kasvun jokaiseen vaiheeseen. CRM, sähköposti, SMS, funnelit, ajanvaraus ja maineenhallinta yhdellä alustalla, Ask AI mukana jokaisessa paketissa.",
-    "metaDescription": "Selkeä ja läpinäkyvä hinnoittelu. Koko DUSA-alusta rajattomilla käyttäjillä ja kontakteilla, Ask AI jokaisessa paketissa, AI Employee Growth-paketissa ja Growth Engine, jos haluat meidän hoitavan kaiken puolestasi. Ei sitovia sopimuksia.",
+    "metaDescription": "Selkeä ja läpinäkyvä hinnoittelu. Koko DUSA-alusta rajattomilla käyttäjillä ja kontakteilla, Ask AI jokaisessa paketissa, AI Employee Growth-paketissa ja Custom-paketit suuremmille tiimeille.",
     "heroLabel": "Hinnat",
     "heroTitle": "Yksi alusta.",
     "heroTitleAccent": "Sinun hintasi.",
@@ -470,8 +470,8 @@
     "supportPortalTitle": "Jäsenportaali",
     "supportPortalDesc": "Yksityinen keskuksesi oppaille, tutoriaaleille, pohjille ja tuelle. Kaikki, mitä tarvitset saadaksesi DUSA-alustasta kaiken irti, yhdessä paikassa.",
     "supportPriorityTitle": "Prioriteetti ja oma vastaava",
-    "supportPriorityDesc": "Growth-paketista ylöspäin ohitat jonon prioriteettituella. Scale tuo lisäksi nimetyn Growth Leadin ja puhelintuen toimistoaikaan. Growth Engine -asiakkaat saavat kuukausittaiset strategiakatsaukset.",
-    "supportHoursLine": "Starter ja Growth sisältävät 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana, ensimmäisestä maksustasi alkaen. Scale sisältää 2 tuntia joka kuukausi. Sen jälkeen yleinen apu maksaa {assist} tunnilta ja strategia ja konsultointi {expert} tunnilta, aina sinun ennakkohyväksynnälläsi.",
+    "supportPriorityDesc": "Growth-paketista ylöspäin ohitat jonon prioriteettituella. Scale tuo lisäksi nimetyn Growth Leadin ja puhelintuen toimistoaikaan. Custom-paketit tuovat oman asiakkuuspäällikön ja kuukausittaiset strategiakatsaukset.",
+    "supportHoursLine": "Starter ja Growth sisältävät 3 tuntia henkilökohtaista apua: tunnin kunkin kolmen ensimmäisen kuukausimaksusi yhteydessä, tai kaikki kolme heti vuosilaskutuksessa. Scale sisältää 2 tuntia joka kuukausi. Sen jälkeen yleinen apu maksaa {assist} tunnilta ja strategia ja konsultointi {expert} tunnilta, aina sinun ennakkohyväksynnälläsi.",
     "allPlans": "Kaikki paketit",
     "compareLabel": "Täysi vertailu",
     "compareTitle": "Kaikki mukana,",
@@ -499,35 +499,35 @@
           "Ajanvaraus, some ja maineenhallinta",
           "Rajattomat työnkulkuautomaatiot",
           "Ask AI ja AI Employee, maksu käytön mukaan",
-          "3 tuntia henkilökohtaista apua alkuun"
+          "Ohjattu käyttöönotto: 3 tuntia henkilökohtaista apua"
         ],
         "growth": [
           "Kaikki Starter-paketin ominaisuudet",
           "AI Employee sisältyy hintaan",
           "Tekoäly hoitaa puhelut, chatit ja viestit",
           "100 puheluminuuttia ja 1 000 vastausta/kk",
-          "Ask AI -käyttö sisältyy",
-          "Premium-automaatiot, mukautetut näkymät, API",
+          "Premium-automaatiot ja API-käyttö",
+          "Attribuutio ja ajastetut raportit",
           "Prioriteettituki ja tekoälyn asennussessio",
-          "Ilmainen käyttöönotto puolestasi vuosipaketeissa"
+          "Ohjattu käyttöönotto: 3 tuntia henkilökohtaista apua"
         ],
         "scale": [
           "Kaikki Growth-paketin ominaisuudet",
           "Rajattomat tekoälypuhelut ja -keskustelut, kohtuukäyttö",
           "2 tuntia henkilökohtaista apua joka kuukausi",
-          "Ilmainen käyttöönotto puolestasi",
           "Nimetty Growth Lead",
+          "Useampi toimipiste sopimuksen mukaan",
           "Puhelintuki toimistoaikaan",
           "Tukijonon kärjessä"
         ],
         "engine": [
-          "Kaikki Growth-paketin ominaisuudet",
-          "Hoidamme valitsemasi markkinoinnin",
-          "Puheluihin vastataan, tarjoukset seurataan, arvosteluja kertyy",
-          "Mainokset, some ja Google tarpeen mukaan",
-          "Kuukausiraportti ja neljännesvuosisuunnitelma",
-          "Nimetty Growth Lead",
-          "Alennettu käyttöönotto jokaisessa kokonaisuudessa"
+          "Kaikki Scale-paketin ominaisuudet",
+          "Useampi toimipiste, brändi tai tiimi",
+          "Räätälöidyt integraatiot ja automaatiot",
+          "Markkinointipalvelut tarpeen mukaan",
+          "Oma asiakkuuspäällikkö",
+          "Kuukausittaiset strategiakatsaukset",
+          "Suunnitellaan ja hinnoitellaan kanssasi"
         ]
       },
       "cells": {
@@ -538,7 +538,7 @@
         "aiMinutes": "100 min/kk",
         "unlimitedFair": "Rajaton, kohtuukäyttö",
         "fairUse": "Kohtuukäyttö",
-        "helpHours": "3 h, ensimmäiset 3 kk",
+        "helpHours": "3 h: 1/kk, tai 3 vuosipaketissa",
         "helpMonthly": "2 h joka kuukausi",
         "extraHelp": "{assist}/h, {expert}/h asiantuntija",
         "byArrangement": "Sopimuksen mukaan"
@@ -615,7 +615,7 @@
           "rows": [
             [
               "Ask AI -avustaja",
-              "Avustajasi alustan sisällä. Pyydä sitä kirjoittamaan kampanja, rakentamaan työnkulku, tägäämään ja segmentoimaan kontaktisi tai selittämään lukusi, ja se tekee työn tililläsi. Kevyt käyttö laskutetaan sentteinä Starter-paketissa, Growth-paketista ylöspäin se sisältyy hintaan."
+              "Avustajasi alustan sisällä. Pyydä sitä kirjoittamaan kampanja, rakentamaan työnkulku, tägäämään ja segmentoimaan kontaktisi tai selittämään lukusi, ja se tekee työn tililläsi. Jokaisessa paketissa maksat saldostasi vain siitä, mitä käytät, yleensä muutaman sentin tehtävää kohden."
             ],
             [
               "Conversation AI",
@@ -635,7 +635,7 @@
             ],
             [
               "Tekoälyn lisäkäyttö",
-              "Starter-paketissa jokainen tekoälyominaisuus laskutetaan käytön mukaan saldostasi. Growth-paketissa kuukausikiintiön ylittävä käyttö jatkuu samoilla hinnoilla, tai voit siirtyä Scale-pakettiin, jossa tekoäly on rajaton kohtuullisen käytön rajoissa. Normaalit puhelu- ja tekstiviestimaksut veloitetaan kaikissa paketeissa."
+              "Starter-paketissa jokainen AI Employee -ominaisuus laskutetaan käytön mukaan saldostasi. Growth-paketissa kuukausikiintiön ylittävä käyttö jatkuu samoilla hinnoilla, tai voit siirtyä Scale-pakettiin, jossa tekoälypuhelut ja -keskustelut ovat rajattomat kohtuullisen käytön rajoissa. Ask AI sekä normaalit puhelu- ja tekstiviestimaksut laskutetaan käytön mukaan kaikissa paketeissa."
             ]
           ]
         },
@@ -722,7 +722,7 @@
             ],
             [
               "Henkilökohtainen apu mukana",
-              "Oikea ihminen auttaa sinua ottamaan käyttöön, korjaamaan tai rakentamaan asioita tililläsi. Starter ja Growth sisältävät kolme tuntia ensimmäisten kolmen kuukauden aikana, ja tunnit avautuvat ensimmäisen maksusi yhteydessä ilmaisen kokeilujakson jälkeen. Scale sisältää kaksi tuntia joka kuukausi. Varaa aika tai vastaa mihin tahansa meiltä tulleeseen sähköpostiin."
+              "Oikea ihminen auttaa sinua ottamaan käyttöön, korjaamaan tai rakentamaan asioita tililläsi. Starter ja Growth sisältävät kolme tuntia: kuukausilaskutuksessa yksi tunti avautuu kunkin kolmen ensimmäisen maksusi yhteydessä, ja vuosilaskutuksessa kaikki kolme ovat käytettävissä ensimmäisestä päivästä alkaen. Scale sisältää kaksi tuntia joka kuukausi. Varaa aika tai vastaa mihin tahansa meiltä tulleeseen sähköpostiin."
             ],
             [
               "Lisäapua, kun haluat",
@@ -783,15 +783,15 @@
         },
         {
           "q": "Paljonko DUSA-alusta maksaa kuukaudessa?",
-          "a": "Starter maksaa {starter} {currency} kuukaudessa koko alustasta, rajattomilla käyttäjillä ja kontakteilla. Growth tuo mukanaan AI Employee -tekoälytyöntekijän, prioriteettituen ja tekoälyn asennussession hintaan {growth}/kk. Scale lisää rajattoman tekoälyn kohtuullisen käytön rajoissa, 2 tuntia henkilökohtaista apua joka kuukausi ja nimetyn Growth Leadin hintaan {scale}/kk. Jos haluat meidän hoitavan markkinointisi puolestasi, Growth Engine maksaa alkaen {engine}/kk. Kaikki hinnat ovat valuutassa {currency}."
+          "a": "Starter maksaa {starter} {currency} kuukaudessa koko alustasta, rajattomilla käyttäjillä ja kontakteilla. Growth tuo mukanaan AI Employee -tekoälytyöntekijän, prioriteettituen ja tekoälyn asennussession hintaan {growth}/kk. Scale lisää rajattoman tekoälyn kohtuullisen käytön rajoissa, 2 tuntia henkilökohtaista apua joka kuukausi ja nimetyn Growth Leadin hintaan {scale}/kk. Jos sinulla on useampi toimipiste tai haluat yrityksesi ympärille rakennetun paketin, Custom suunnitellaan ja hinnoitellaan kanssasi puhelussa. Kaikki hinnat ovat valuutassa {currency}."
         },
         {
           "q": "Mitä Starter-pakettiin sisältyy?",
-          "a": "Starter on koko DUSA-alusta itse pyöritettäväksi: kaikki 9 ydinjärjestelmää (CRM ja myyntiputki, myyntisuppilot ja verkkosivut, sähköpostimarkkinointi, SMS-markkinointi, ajanvaraus ja kalenteri, some-suunnittelutyökalu, maineenhallinta, laskutus ja maksut sekä lomakkeet ja kyselyt), rajattomat työnkulkuautomaatiot, rajattomat käyttäjät ja kontaktit sekä Ask AI ja AI Employee käytön mukaan laskutettuna. Mukana on myös 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana."
+          "a": "Starter on koko DUSA-alusta itse pyöritettäväksi: kaikki 9 ydinjärjestelmää (CRM ja myyntiputki, myyntisuppilot ja verkkosivut, sähköpostimarkkinointi, SMS-markkinointi, ajanvaraus ja kalenteri, some-suunnittelutyökalu, maineenhallinta, laskutus ja maksut sekä lomakkeet ja kyselyt), rajattomat työnkulkuautomaatiot, rajattomat käyttäjät ja kontaktit sekä Ask AI ja AI Employee käytön mukaan laskutettuna. Mukana on myös ohjattu käyttöönotto ja 3 tuntia henkilökohtaista apua: tunti kunkin kolmen ensimmäisen kuukausimaksusi yhteydessä, tai kaikki kolme heti, jos maksat vuosittain."
         },
         {
           "q": "Mikä Ask AI on ja mihin paketteihin se sisältyy?",
-          "a": "Ask AI on jokaiseen DUSA-pakettiin sisäänrakennettu avustaja. Pyydä sitä kirjoittamaan sähköpostikampanja, rakentamaan työnkulku, tägäämään ja segmentoimaan kontaktisi tai selittämään raportti, ja se tekee työn tilisi sisällä. Starter-paketissa sen kuluttama pieni tekoälykäyttö laskutetaan saldostasi, yleensä muutama sentti tehtävää kohden. Growth- ja Scale-paketeissa sekä Growth Engine -palvelussa Ask AI -käyttö sisältyy hintaan."
+          "a": "Ask AI on jokaiseen DUSA-pakettiin sisäänrakennettu avustaja. Pyydä sitä kirjoittamaan sähköpostikampanja, rakentamaan työnkulku, tägäämään ja segmentoimaan kontaktisi tai selittämään raportti, ja se tekee työn tilisi sisällä. Jokaisessa paketissa sen kuluttama pieni tekoälykäyttö laskutetaan saldostasi käytön mukaan, yleensä muutama sentti tehtävää kohden, joten maksat vain siitä, mitä käytät."
         },
         {
           "q": "Mikä on AI Employee?",
@@ -799,7 +799,7 @@
         },
         {
           "q": "Mitä eroa on Starter-, Growth- ja Scale-paketeilla?",
-          "a": "Starter antaa sinulle koko alustan itse pyöritettäväksi, ja tekoäly laskutetaan käytön mukaan. Growth on yrityksille, jotka haluavat alustan pyörittävän itse itseään: se tuo mukanaan AI Employee -kiintiön, joka vastaa puheluihisi ja viesteihisi ja varaa ajat, sekä sisältyvän Ask AI -käytön, premium-automaatiovaiheet, mukautetut näkymät, attribuutioseurannan, API-käyttöoikeuden, prioriteettituen ja käyttöönoton ja tekoälyn asennussession, {deltaGrowth}/kk lisähintaan. Scale on kiireisille tiimeille: rajaton tekoäly kohtuullisen käytön rajoissa, 2 tuntia henkilökohtaista apua joka kuukausi, ilmainen käyttöönotto puolestasi, puhelintuki ja nimetty Growth Lead."
+          "a": "Starter antaa sinulle koko alustan itse pyöritettäväksi, ja tekoäly laskutetaan käytön mukaan. Growth on yrityksille, jotka haluavat alustan pyörittävän itse itseään: se tuo mukanaan AI Employee -kiintiön, joka vastaa puheluihisi ja viesteihisi ja varaa ajat, sekä premium-automaatiovaiheet, attribuutioseurannan, API-käyttöoikeuden, prioriteettituen ja käyttöönoton ja tekoälyn asennussession, {deltaGrowth}/kk lisähintaan. Scale on kiireisille tiimeille: rajattomat tekoälypuhelut ja -keskustelut kohtuullisen käytön rajoissa, 2 tuntia henkilökohtaista apua joka kuukausi, puhelintuki ja nimetty Growth Lead. Custom on usean toimipisteen tiimeille ja yrityksille, jotka haluavat meidän rakentavan heille enemmän, ja se suunnitellaan kanssasi puhelussa."
         },
         {
           "q": "Kuinka monta käyttäjää ja kontaktia minulla voi olla?",
@@ -811,11 +811,11 @@
         },
         {
           "q": "Onko käyttöönottomaksuja tai piilokuluja?",
-          "a": "Pakollisia käyttöönottomaksuja ei ole. Puolestasi tehty käyttöönotto on vapaaehtoinen, ja se on ilmainen Scale-paketissa ja vuosilaskutteisissa Growth-paketeissa. Paketin hinta kattaa alustan käytön. Viestien, puheluiden ja sähköpostien käyttö sekä pakettiisi sisältyvän määrän ylittävä tekoälyn käyttö laskutetaan erikseen käytön mukaan tilisi ennakkosaldosta. Kortiltasi veloitetaan pieni lataus, kun otat nämä ominaisuudet ensimmäisen kerran käyttöön, ja sen jälkeen automaattisesti aina, kun saldo käy vähiin. Määrität lataussumman itse ja voit lisätä saldoa milloin tahansa. Käyttö laskutetaan Yhdysvaltain dollareissa, koska alustan taustalla olevat puhelin-, sähköposti- ja tekoälypalvelut ovat yhdysvaltalaisia. Useimmilla asiakkailla kulut ovat noin 15-25 US-dollaria kuukaudessa käyttömäärästä riippuen. Muita piilokuluja ei ole."
+          "a": "Käyttöönottomaksuja ei ole. Jokaiseen pakettiin sisältyy ohjattu käyttöönotto ja 3 tuntia henkilökohtaista apua. Jos haluat mieluummin, että rakennamme kaiken puolestasi, puolestasi tehty käyttöönotto on saatavilla palveluna, ja hinta kerrotaan etukäteen. Paketin hinta kattaa alustan käytön. Viestien, puheluiden ja sähköpostien käyttö sekä pakettiisi sisältyvän määrän ylittävä tekoälyn käyttö laskutetaan erikseen käytön mukaan tilisi ennakkosaldosta. Kortiltasi veloitetaan pieni lataus, kun otat nämä ominaisuudet ensimmäisen kerran käyttöön, ja sen jälkeen automaattisesti aina, kun saldo käy vähiin. Määrität lataussumman itse ja voit lisätä saldoa milloin tahansa. Käyttö laskutetaan Yhdysvaltain dollareissa, koska alustan taustalla olevat puhelin-, sähköposti- ja tekoälypalvelut ovat yhdysvaltalaisia. Useimmilla asiakkailla kulut ovat noin 15-25 US-dollaria kuukaudessa käyttömäärästä riippuen. Muita piilokuluja ei ole."
         },
         {
           "q": "Millaista tukea DUSA tarjoaa?",
-          "a": "Jokaiseen pakettiin sisältyy tekoälychat-tuki 24/7 jäsenportaalisi kautta sekä pääsy DUSA-yhteisöön ja sähköpostituki. Growth tuo lisäksi prioriteettituen ja käyttöönoton ja tekoälyn asennussession. Scale tuo 2 tuntia henkilökohtaista apua joka kuukausi, puhelintuen toimistoaikaan ja nimetyn Growth Leadin. Growth Engine -asiakkaat saavat lisäksi kuukausiraportin, strategiakatsaukset ja neljännesvuosisuunnitelman."
+          "a": "Jokaiseen pakettiin sisältyy tekoälychat-tuki 24/7 jäsenportaalisi kautta sekä pääsy DUSA-yhteisöön ja sähköpostituki. Growth tuo lisäksi prioriteettituen ja käyttöönoton ja tekoälyn asennussession. Scale tuo 2 tuntia henkilökohtaista apua joka kuukausi, puhelintuen toimistoaikaan ja nimetyn Growth Leadin. Custom-paketit tuovat lisäksi oman asiakkuuspäällikön ja kuukausittaiset strategiakatsaukset."
         },
         {
           "q": "Sopiiko DUSA yksinyrittäjille ja freelancereille?",
@@ -831,15 +831,19 @@
         },
         {
           "q": "Kauanko DUSAn käyttöönotto kestää?",
-          "a": "Useimmat yritykset ovat käynnissä 48 tunnin sisällä. Growth-, Scale- ja Growth Engine -paketteihin sisältyy käyttöönoton ja tekoälyn asennussessio, jossa autamme sinua määrittämään kaiken juuri sinun yrityksellesi, ja Scale-pakettiin sisältyy käyttöönotto puolestasi."
+          "a": "Useimmat yritykset ovat käynnissä 48 tunnin sisällä. Jokaiseen pakettiin sisältyy ohjattu käyttöönotto ja henkilökohtaista apua, ja Growth-paketista ylöspäin saat lisäksi käyttöönoton ja tekoälyn asennussession, jossa määritämme kaiken juuri sinun yrityksellesi."
         },
         {
           "q": "Mitä jos jään jumiin tai haluan, että joku tekee sen puolestani?",
-          "a": "Vastaa mihin tahansa meiltä tulleeseen sähköpostiin, niin ihminen lukee sen, tai kysy tilisi 24/7-tekoälyavustajalta. Starter ja Growth sisältävät 3 tuntia henkilökohtaista apua ensimmäisten 3 kuukauden aikana, ja tunnit avautuvat ensimmäisen maksusi yhteydessä ilmaisen kokeilujakson jälkeen. Scale sisältää 2 tuntia joka kuukausi: oikea ihminen ottaa käyttöön, korjaa tai rakentaa asioita kanssasi ruudunjaon kautta. Sen jälkeen apu maksaa {assist} tunnilta yleisestä avusta ja toteutuksesta ja {expert} tunnilta asiantuntijatyöstä, kuten strategiasta, konsultoinnista ja kaikesta alustan ulkopuolisesta. Hyväksyt ajan ennen kuin sitä käytetään. Jos haluat, että kaikki tehdään puolestasi, valitse Growth Engine."
+          "a": "Vastaa mihin tahansa meiltä tulleeseen sähköpostiin, niin ihminen lukee sen, tai kysy tilisi 24/7-tekoälyavustajalta. Starter ja Growth sisältävät 3 tuntia henkilökohtaista apua, tunnin kunkin kolmen ensimmäisen kuukausimaksusi yhteydessä tai kaikki kolme heti vuosilaskutuksessa, ja Scale sisältää 2 tuntia joka kuukausi: oikea ihminen ottaa käyttöön, korjaa tai rakentaa asioita kanssasi ruudunjaon kautta. Sen jälkeen apu maksaa {assist} tunnilta yleisestä avusta ja toteutuksesta ja {expert} tunnilta asiantuntijatyöstä, kuten strategiasta, konsultoinnista ja kaikesta alustan ulkopuolisesta. Hyväksyt ajan ennen kuin sitä käytetään. Jos haluat, että kaikki tehdään puolestasi, varaa puhelu, niin teemme tarjouksen puolestasi tehdystä käyttöönotosta tai jatkuvista palveluista."
         },
         {
-          "q": "Mikä on Growth Engine?",
-          "a": "Growth Engine tarkoittaa, että tiimimme hoitaa kasvusi puolestasi Growth-paketin pohjalta. Valitset haluamasi tulokset, kuten että jokaiseen puheluun vastataan, jokainen tarjous seurataan, saat lisää 5 tähden arvosteluja tai mainoksia, jotka tuovat töitä, ja me rakennamme ja pyöritämme ne. Saat kuukausiraportin ja neljännesvuosisuunnitelman sekä nimetyn Growth Leadin. Kokonaisuudet alkavat hinnasta {engine}/kk, käyttöönotto on alennettu jokaisessa kokonaisuudessa, ja mainosbudjetti laskutetaan erikseen."
+          "q": "Mikä on Custom-paketti?",
+          "a": "Custom on yrityksille, jotka ovat kasvaneet vakiopakettia suuremmiksi: useampi toimipiste tai brändi, räätälöidyt integraatiot tai tiimimme hoitamassa enemmän puolestasi. Se sisältää kaiken Scale-paketista sekä oman asiakkuuspäällikön ja kuukausittaiset strategiakatsaukset. Varaa puhelu, kerro mitä tarvitset, niin suunnittelemme ja hinnoittelemme sen kanssasi."
+        },
+        {
+          "q": "Voiko DUSA hoitaa markkinointini puolestani?",
+          "a": "Kyllä. Mainonta, some, sähköpostikampanjat ja paljon muuta voidaan lisätä palveluina mihin tahansa pakettiin. Varaa puhelu, kerro mitä haluat tehtävän, niin kokoamme kokonaisuuden ja kerromme hinnan etukäteen. Mainosbudjetti laskutetaan aina erikseen."
         },
         {
           "q": "Minkä päälle DUSA on rakennettu?",
@@ -870,19 +874,21 @@
     "selectToolsHint": "Valitse työkalut nähdäksesi säästösi.",
     "getEverythingAbove": "Saat kaiken yllä olevan",
     "tierScale": "Scale",
-    "tierEngine": "Growth Engine",
+    "tierEngine": "Custom",
     "scaleTagline": "Enemmän tekoälyä. Enemmän apua.",
     "scaleDesc": "Rajaton tekoäly kohtuullisen käytön rajoissa, 2 tuntia henkilökohtaista apua joka kuukausi ja nimetty Growth Lead. Tehty kiireisille tiimeille.",
-    "engineTagline": "Me hoidamme kasvusi puolestasi.",
-    "engineDesc": "Valitse haluamasi tulokset. Tiimimme rakentaa ja pyörittää markkinoinnin DUSAssa, ja sinä luet yhden raportin kuukaudessa.",
+    "engineTagline": "Rakennettu yrityksesi ympärille.",
+    "engineDesc": "Usean toimipisteen tiimeille, franchise-yrityksille ja yrityksille, jotka haluavat meidän hoitavan enemmän puolestaan. Kerro, mitä tarvitset, niin suunnittelemme sen kanssasi.",
     "deltaScale": "Ei sitovia sopimuksia missään paketissa",
-    "deltaEngine": "Hinta määräytyy valitsemiesi tulosten mukaan",
-    "engineCta": "Rakenna oma Growth Engine",
-    "badgeEngine": "Hoidamme puolestasi",
+    "deltaEngine": "Hinnoitellaan kanssasi puhelussa",
+    "engineCta": "Varaa puhelu",
+    "badgeEngine": "Räätälöity",
     "fromLabel": "Alkaen",
     "getGrowth": "Valitse Growth",
     "getScale": "Valitse Scale",
-    "growthAndUp": "Growth-paketista ylöspäin"
+    "growthAndUp": "Growth-paketista ylöspäin",
+    "servicesLine": "Haluatko apua myös markkinointiin? Lisää mihin tahansa pakettiin palveluja, kuten mainontaa, somea ja sähköpostikampanjoita.",
+    "servicesCta": "Varaa puhelu"
   },
   "services": {
     "metaTitle": "Palvelut | DUSA.studio",
@@ -1155,7 +1161,7 @@
           "Kaikki Growth-paketista",
           "Rajaton tekoäly, kohtuukäyttö",
           "2 tuntia henkilökohtaista apua joka kuukausi",
-          "Ilmainen käyttöönotto puolestasi"
+          "Nimetty Growth Lead"
         ]
       }
     },

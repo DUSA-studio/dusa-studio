@@ -83,7 +83,7 @@ const cells = {
   aiMinutes: (L && L.cells && L.cells.aiMinutes) || '100 min/mo',
   unlimitedFair: (L && L.cells && L.cells.unlimitedFair) || 'Unlimited, fair use',
   fairUse: (L && L.cells && L.cells.fairUse) || 'Fair use',
-  helpHours: (L && L.cells && L.cells.helpHours) || '3 hrs, first 3 months',
+  helpHours: (L && L.cells && L.cells.helpHours) || '3 hrs: 1 a month, or all 3 yearly',
   helpMonthly: (L && L.cells && L.cells.helpMonthly) || '2 hrs every month',
   extraHelp: fill((L && L.cells && L.cells.extraHelp) || '{assist}/hr, {expert}/hr expert'),
   byArrangement: (L && L.cells && L.cells.byArrangement) || 'By arrangement',
@@ -106,7 +106,7 @@ const tiers = [
       'Booking, social and reputation',
       'Unlimited workflow automations',
       'Ask AI and the AI Employee, pay as you go',
-      '3 hours of hands-on help to get started',
+      'Guided setup: 3 hours of hands-on help',
     ],
     delta: p.deltaStarter || '{deltaGrowth}/mo more gets you the AI Employee on Growth',
     cta: p.getStarted,
@@ -128,10 +128,10 @@ const tiers = [
       'AI Employee included',
       'AI answers your calls, chats and messages',
       '100 AI call minutes and 1,000 AI replies a month',
-      'Ask AI usage included',
-      'Premium automations, custom dashboards, API',
+      'Premium automations and API access',
+      'Attribution and scheduled reports',
       'Priority support and AI setup session',
-      'Free done-for-you set-up on annual plans',
+      'Guided setup: 3 hours of hands-on help',
     ],
     delta: p.deltaGrowth || 'Want unlimited AI and monthly help? See Scale',
     cta: p.getStarted,
@@ -152,8 +152,8 @@ const tiers = [
       'Everything in Growth',
       'Unlimited AI calls and conversations, fair use',
       '2 hours of hands-on help every month',
-      'Free done-for-you set-up',
       'A named Growth Lead',
+      'Multi-location by arrangement',
       'Phone support in business hours',
       'Top of the support queue',
     ],
@@ -167,21 +167,21 @@ const tiers = [
   {
     id: 'engine',
     name: p.tierEngine,
-    price: String(prices.engine),
-    from: true,
+    price: null,
+    from: false,
     period: p.perMonth,
     tagline: p.engineTagline,
     description: p.engineDesc,
     highlights: [
-      'Everything in Growth',
-      'We run the marketing you pick',
-      'Calls answered, quotes followed up, reviews in',
-      'Ads, socials and Google, as you need them',
-      'Monthly report and quarterly plan',
-      'A named Growth Lead',
-      'Set-up discounted on every bundle',
+      'Everything in Scale',
+      'More than one location, brand or team',
+      'Custom integrations and automation builds',
+      'Marketing services added to suit',
+      'A dedicated account manager',
+      'Monthly strategy reviews',
+      'Scoped and priced with you',
     ],
-    delta: p.deltaEngine || 'Priced on the outcomes you pick',
+    delta: p.deltaEngine || 'Priced with you on a call',
     cta: p.engineCta,
     ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo',
     highlight: false,
@@ -321,12 +321,12 @@ const featureCategories = [
   {
     name: 'AI Employee',
     features: [
-      { label: 'Ask AI assistant', desc: 'Your assistant inside the platform. Ask it to write a campaign, build a workflow, tag and segment your contacts, or explain your numbers, and it does the work in your account. Light usage billed in cents on Starter, included from Growth up.', starter: cells.payg, growth: cells.included, scale: cells.included, engine: cells.included },
-      { label: 'Conversation AI', desc: 'AI replies to leads on SMS, web chat, email, Instagram and Facebook Messenger, answers questions from your knowledge base and books appointments straight into your calendar.', starter: cells.payg, growth: cells.aiReplies, scale: cells.unlimitedFair, engine: cells.aiReplies },
-      { label: 'Voice AI phone agent', desc: 'An AI receptionist answers your calls 24/7, qualifies the caller, books the appointment and sends you the summary. Never miss a call again.', starter: cells.payg, growth: cells.aiMinutes, scale: cells.unlimitedFair, engine: cells.aiMinutes },
+      { label: 'Ask AI assistant', desc: 'Your assistant inside the platform. Ask it to write a campaign, build a workflow, tag and segment your contacts, or explain your numbers, and it does the work in your account. On every plan you pay only for what you use, usually cents per task, from your balance.', starter: cells.payg, growth: cells.payg, scale: cells.payg, engine: cells.payg },
+      { label: 'Conversation AI', desc: 'AI replies to leads on SMS, web chat, email, Instagram and Facebook Messenger, answers questions from your knowledge base and books appointments straight into your calendar.', starter: cells.payg, growth: cells.aiReplies, scale: cells.unlimitedFair, engine: cells.unlimitedFair },
+      { label: 'Voice AI phone agent', desc: 'An AI receptionist answers your calls 24/7, qualifies the caller, books the appointment and sends you the summary. Never miss a call again.', starter: cells.payg, growth: cells.aiMinutes, scale: cells.unlimitedFair, engine: cells.unlimitedFair },
       { label: 'Reviews AI', desc: 'Replies to your Google and Facebook reviews automatically, in your tone, so every review gets a response.', starter: cells.payg, growth: true, scale: true, engine: true },
       { label: 'Content AI', desc: 'Writes emails, social posts and landing page copy, and generates images on demand from inside the builder.', starter: cells.payg, growth: true, scale: true, engine: true },
-      { label: 'Extra AI usage', desc: 'On Starter, every AI feature runs on pay as you go rates from your balance. On Growth, usage past the monthly allowance continues at those rates, or move to Scale for unlimited AI under fair use. Standard call and SMS charges apply on every plan.', starter: cells.payg, growth: cells.payg, scale: cells.fairUse, engine: cells.payg },
+      { label: 'Extra AI usage', desc: 'On Starter, every AI Employee feature runs on pay as you go rates from your balance. On Growth, usage past the monthly allowance continues at those rates, or move to Scale for unlimited AI calls and conversations under fair use. Ask AI, and standard call and SMS charges, are billed as you use them on every plan.', starter: cells.payg, growth: cells.payg, scale: cells.fairUse, engine: cells.fairUse },
     ],
   },
   {
@@ -345,7 +345,7 @@ const featureCategories = [
       { label: 'Basic dashboard', desc: 'See your key metrics at a glance including new leads, active deals, appointments, and revenue in a clean overview dashboard.', ...ALL },
       { label: 'Campaign performance reports', desc: 'Track email open rates, click rates, SMS delivery, and conversion rates across all your marketing campaigns.', ...ALL },
       { label: 'Pipeline & revenue reporting', desc: 'Visualise your sales pipeline value, conversion rates by stage, and revenue forecasts to make data-driven decisions.', ...ALL },
-      { label: 'Custom reporting dashboards', desc: 'Build your own dashboards with the exact metrics and visualisations you need. Drag and drop widgets to create your perfect view.', ...FROM_GROWTH },
+      { label: 'Custom reporting dashboards', desc: 'Build your own dashboards with the exact metrics and visualisations you need. Drag and drop widgets to create your perfect view.', ...ALL },
       { label: 'Attribution tracking', desc: 'See exactly which channels and campaigns are driving leads and revenue. Know where to invest your marketing budget.', ...FROM_GROWTH },
       { label: 'Scheduled report emails', desc: 'Automatically receive your key reports by email on a daily, weekly, or monthly schedule. Stay informed without logging in.', ...FROM_GROWTH },
     ],
@@ -359,7 +359,7 @@ const featureCategories = [
       { label: 'Email support', desc: 'Reach our support team by email for technical questions, troubleshooting, and account help during business hours.', ...ALL },
       { label: 'Priority support queue', desc: 'Skip the queue and get faster responses from our support team. Your tickets are handled first with dedicated attention.', ...FROM_GROWTH },
       { label: 'Onboarding and AI setup session', desc: 'A one-on-one session with a growth consultant to map out your setup, migrate your data, build your first automations and train your AI Employee on your business.', ...FROM_GROWTH },
-      { label: 'Hands-on help included', desc: 'A real person helping you set up, fix or build things in your account. Starter and Growth include three hours in your first three months, opening up with your first payment after the free trial. Scale includes two hours every month. Book a time or reply to any email from us.', starter: cells.helpHours, growth: cells.helpHours, scale: cells.helpMonthly, engine: cells.included },
+      { label: 'Hands-on help included', desc: 'A real person helping you set up, fix or build things in your account. Starter and Growth include three hours: on monthly billing, one hour opens with each of your first three payments, and on yearly billing all three are ready from day one. Scale includes two hours every month. Book a time or reply to any email from us.', starter: cells.helpHours, growth: cells.helpHours, scale: cells.helpMonthly, engine: cells.byArrangement },
       { label: 'Extra help, when you want it', desc: 'After your included hours, help is charged by the hour: {assist} for general assistance and execution, {expert} for expert work such as strategy, consulting and anything outside the platform. You always approve the time first.', starter: cells.extraHelp, growth: cells.extraHelp, scale: cells.extraHelp, engine: cells.byArrangement },
       { label: 'Named Growth Lead', desc: 'A named person at DUSA who knows your business inside and out. Your single point of contact for everything DUSA.', ...FROM_SCALE },
       { label: 'Phone support', desc: 'Direct phone access to our support team in business hours for urgent issues or complex questions that need a real conversation.', ...FROM_SCALE },
@@ -388,15 +388,15 @@ const faqs = [
   },
   {
     q: 'How much does the DUSA platform cost per month?',
-    a: 'Starter is {starter} {currency} per month for the whole platform, with unlimited users and contacts. Growth adds your AI Employee, priority support and an AI setup session for {growth}/mo. Scale adds unlimited AI under fair use, 2 hours of hands-on help every month and a named Growth Lead for {scale}/mo. If you want us to run your marketing for you, a Growth Engine starts from {engine}/mo. All prices are in {currency}.',
+    a: 'Starter is {starter} {currency} per month for the whole platform, with unlimited users and contacts. Growth adds your AI Employee, priority support and an AI setup session for {growth}/mo. Scale adds unlimited AI under fair use, 2 hours of hands-on help every month and a named Growth Lead for {scale}/mo. For more than one location, or a plan built around your business, Custom is scoped and priced with you on a call. All prices are in {currency}.',
   },
   {
     q: 'What is included in the Starter plan?',
-    a: 'Starter is the whole DUSA platform to run yourself: all 9 core systems (CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, and forms and surveys), unlimited workflow automations, unlimited users and contacts, and Ask AI and the AI Employee on pay as you go. It also includes 3 hours of hands-on help in your first 3 months.',
+    a: 'Starter is the whole DUSA platform to run yourself: all 9 core systems (CRM and pipeline, funnels and website, email marketing, SMS marketing, booking and calendar, social media planner, reputation management, invoicing and payments, and forms and surveys), unlimited workflow automations, unlimited users and contacts, and Ask AI and the AI Employee on pay as you go. It also includes guided setup with 3 hours of hands-on help: one hour with each of your first three monthly payments, or all three upfront if you pay yearly.',
   },
   {
     q: 'What is Ask AI and which plans include it?',
-    a: 'Ask AI is the assistant built into every DUSA plan. Ask it to write an email campaign, build a workflow, tag and segment your contacts, or explain a report, and it does the work inside your account. On Starter the small amount of AI usage it consumes is billed from your balance, usually cents per task. On Growth, Scale and the Growth Engine, Ask AI usage is included.',
+    a: 'Ask AI is the assistant built into every DUSA plan. Ask it to write an email campaign, build a workflow, tag and segment your contacts, or explain a report, and it does the work inside your account. On every plan, the small amount of AI usage it consumes is billed from your balance as you go, usually cents per task, so you only pay for what you use.',
   },
   {
     q: 'What is the AI Employee?',
@@ -404,7 +404,7 @@ const faqs = [
   },
   {
     q: 'What is the difference between Starter, Growth and Scale?',
-    a: 'Starter gives you the whole platform to run yourself, with AI on pay as you go. Growth is for businesses that want the platform to run itself: it adds an AI Employee allowance that answers your calls and messages and books appointments, included Ask AI usage, premium automation steps, custom dashboards, attribution, API access, priority support and an onboarding and AI setup session, for {deltaGrowth}/mo more. Scale is for busy teams: unlimited AI under fair use, 2 hours of hands-on help every month, free done-for-you set-up, phone support and a named Growth Lead.',
+    a: 'Starter gives you the whole platform to run yourself, with AI on pay as you go. Growth is for businesses that want the platform to run itself: it adds an AI Employee allowance that answers your calls and messages and books appointments, premium automation steps, attribution, API access, priority support and an onboarding and AI setup session, for {deltaGrowth}/mo more. Scale is for busy teams: unlimited AI calls and conversations under fair use, 2 hours of hands-on help every month, phone support and a named Growth Lead. Custom is for multi-location teams and businesses that want more built for them, scoped with you on a call.',
   },
   {
     q: 'How many users and contacts can I have?',
@@ -416,11 +416,11 @@ const faqs = [
   },
   {
     q: 'Are there any setup fees or hidden costs?',
-    a: 'There are no compulsory setup fees. Done-for-you set-up is optional, and free on Scale and on annual Growth plans. Your plan price covers platform access. Message, call and email usage, and any AI usage beyond what your plan includes, is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees.',
+    a: 'There are no setup fees. Every plan includes guided setup with 3 hours of hands-on help. If you would rather we build it all for you, done-for-you set-up is available as a service, quoted up front. Your plan price covers platform access. Message, call and email usage, and any AI usage beyond what your plan includes, is billed separately as you use it, drawn from a prepaid balance in your account. Your card is charged a small top-up when you first switch those features on, and again automatically whenever the balance runs low. You set the top-up amount and can add balance yourself at any time. Usage is billed in USD because the telephony, email and AI providers behind the platform are US based. Most clients see around US$15-25 per month depending on volume. There are no other hidden fees.',
   },
   {
     q: 'What kind of support does DUSA offer?',
-    a: 'Every plan includes AI chat support available 24/7 through your members portal, plus access to the DUSA community and email support. Growth adds priority support and an onboarding and AI setup session. Scale adds 2 hours of hands-on help every month, phone support in business hours and a named Growth Lead. Growth Engine clients also get a monthly report, strategy reviews and a quarterly plan.',
+    a: 'Every plan includes AI chat support available 24/7 through your members portal, plus access to the DUSA community and email support. Growth adds priority support and an onboarding and AI setup session. Scale adds 2 hours of hands-on help every month, phone support in business hours and a named Growth Lead. Custom plans add a dedicated account manager and monthly strategy reviews.',
   },
   {
     q: 'Is DUSA suitable for sole operators and freelancers?',
@@ -436,15 +436,19 @@ const faqs = [
   },
   {
     q: 'How long does it take to set up DUSA?',
-    a: 'Most businesses are up and running within 48 hours. Growth, Scale and Growth Engine plans include an onboarding and AI setup session where we help you configure everything for your specific business, and Scale includes done-for-you set-up.',
+    a: 'Most businesses are up and running within 48 hours. Every plan includes guided setup with hands-on help, and from Growth up you also get an onboarding and AI setup session where we configure everything for your specific business.',
   },
   {
     q: 'What if I get stuck, or want someone to do it for me?',
-    a: 'Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Starter and Growth include 3 hours of hands-on help in your first 3 months, opening up with your first payment after the free trial, and Scale includes 2 hours every month: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used. If you want it all done for you, that is the Growth Engine.',
+    a: 'Reply to any email from us and a person reads it, or ask the 24/7 AI assistant inside your account. Starter and Growth include 3 hours of hands-on help, one hour with each of your first three monthly payments or all three upfront on yearly billing, and Scale includes 2 hours every month: a real person setting up, fixing or building things with you on a screen-share. After that, help is {assist} an hour for general assistance and execution, and {expert} an hour for expert work such as strategy, consulting and anything outside the platform. You approve the time before it is used. If you want it all done for you, book a call and we will quote done-for-you set-up or ongoing services.',
   },
   {
-    q: 'What is the Growth Engine?',
-    a: 'The Growth Engine is our team running your growth for you, on the Growth plan. You pick the outcomes you want, like every call answered, every quote followed up, more 5-star reviews or ads that bring in work, and we build and run them. You get a monthly report and a quarterly plan, with a named Growth Lead. Bundles start from {engine}/mo, set-up is discounted on every bundle, and ad spend is billed separately.',
+    q: 'What is the Custom plan?',
+    a: 'Custom is for businesses that have outgrown a standard plan: more than one location or brand, custom integrations, or our team running more of it for you. It includes everything in Scale, plus a dedicated account manager and monthly strategy reviews. Book a call, tell us what you need, and we will scope and price it with you.',
+  },
+  {
+    q: 'Can DUSA run my marketing for me?',
+    a: 'Yes. Ads, social media, email campaigns and more can be added as services to any plan. Book a call, tell us what you want done, and we will put it together and price it up front. Ad spend is always billed separately.',
   },
   {
     q: 'What is DUSA built on?',
@@ -481,8 +485,10 @@ if (L) {
 tiers.forEach((tier) => { tier.highlights = tier.highlights.map(fill); tier.delta = fill(tier.delta); });
 featureCategories.forEach((cat) => cat.features.forEach((row: any) => { row.desc = fill(row.desc); }));
 faqs.forEach((f) => { f.q = fill(f.q); f.a = fill(f.a); });
-const supportHoursLine = fill(p.supportHoursLine || 'Starter and Growth include 3 hours of hands-on help in your first 3 months, from your first payment. Scale includes 2 hours every month. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.');
+const supportHoursLine = fill(p.supportHoursLine || 'Starter and Growth include 3 hours of hands-on help: one hour with each of your first three monthly payments, or all three upfront on yearly billing. Scale includes 2 hours every month. After that, {assist} an hour for general help and {expert} an hour for strategy and consulting, always approved by you first.');
 const addonsLine = fill(p.addonsLine || 'Unlimited users and contacts on every plan. No per-seat fees, no lock-in contracts.');
+const servicesLine = p.servicesLine || 'Want help with the marketing too? Add services like ads, social media and email campaigns to any plan.';
+const servicesCta = p.servicesCta || 'Book a call';
 
 /* Mobile plan selector reads the same (localised) tiers + feature table */
 const mpsData = {
@@ -490,7 +496,7 @@ const mpsData = {
     { name: p.tierStarter, price: `${sym}${prices.starter}`, period: `${p.perMonth} ${region.currency}`, cta: `${p.startFor} ${sym}${prices.starter}`, ctaLink: `${langPrefix}/start?plan=starter` },
     { name: p.tierGrowth, price: `${sym}${prices.growth}`, period: `${p.perMonth} ${region.currency}`, cta: p.getGrowth, ctaLink: `${langPrefix}/start?plan=growth` },
     { name: p.tierScale, price: `${sym}${prices.scale}`, period: `${p.perMonth} ${region.currency}`, cta: p.getScale, ctaLink: `${langPrefix}/start?plan=scale` },
-    { name: p.tierEngine, price: `${p.fromLabel} ${sym}${num(prices.engine)}`, period: `${p.perMonth} ${region.currency}`, cta: p.engineCta, ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' },
+    { name: p.tierEngine, price: p.letsTalk, period: '', cta: p.engineCta, ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' },
   ],
   categories: featureCategories.map((cat: any) => ({
     name: cat.name,
@@ -542,7 +548,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
                   <sup class="pricing-card__ast" aria-hidden="true">*</sup>
                 </>
               ) : (
-                <span class="pricing-card__custom">{p.custom}</span>
+                <span class="pricing-card__custom">{p.letsTalk}</span>
               )}
             </div>
             <p class="pricing-card__desc">{tier.description}</p>
@@ -562,6 +568,10 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
             <p class="pricing-card__delta">{tier.delta}</p>
           </div>
         ))}
+      </div>
+      <div class="services-line">
+        <p>{servicesLine}</p>
+        <a href="https://link.dusa.studio/widget/bookings/dusa-demo" target="_blank" rel="noopener" class="btn btn--outline services-line__cta">{servicesCta}</a>
       </div>
       <p class="usage-note usage-note--addons">{addonsLine}</p>
       <p class="usage-note usage-note--reassure">{p.trialReassure || 'Free for 14 days with a card on file, and you will hear from us four days and one day before anything is charged, each time with a one-click cancel. No surprises.'}</p>
@@ -689,7 +699,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
               <td class="compare__plan-price compare__cell--starter">{sym}{prices.starter}{p.perMonth}<sup aria-hidden="true">*</sup></td>
               <td class="compare__plan-price compare__cell--growth">{sym}{prices.growth}{p.perMonth}<sup aria-hidden="true">*</sup></td>
               <td class="compare__plan-price compare__cell--scale">{sym}{prices.scale}{p.perMonth}<sup aria-hidden="true">*</sup></td>
-              <td class="compare__plan-price compare__cell--engine"><small class="compare__from">{p.fromLabel}</small> {sym}{num(prices.engine)}{p.perMonth}</td>
+              <td class="compare__plan-price compare__cell--engine">{p.letsTalk}</td>
             </tr>
           </thead>
           <tbody>
@@ -821,6 +831,26 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
   <div id="regionData" data-region={regionData} style="display:none;"></div>
 
 <style is:global>
+  .services-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.5rem;
+    flex-wrap: wrap;
+    max-width: 760px;
+    margin: var(--space-lg) auto var(--space-sm);
+    padding: 1.1rem 1.5rem;
+    border-radius: 18px;
+    border: 1px solid rgba(78, 216, 194, 0.22);
+    background: linear-gradient(145deg, rgba(78, 216, 194, 0.07), rgba(106, 170, 207, 0.05));
+    text-align: center;
+  }
+  .services-line p { margin: 0; font-size: 1rem; color: rgba(247, 244, 239, 0.85); }
+  .services-line__cta { flex-shrink: 0; }
+  html[data-theme="light"] .services-line { border-color: rgba(26, 58, 92, 0.18); background: linear-gradient(145deg, rgba(78, 216, 194, 0.1), rgba(26, 58, 92, 0.04)); }
+  html[data-theme="light"] .services-line p { color: rgba(12, 14, 20, 0.8); }
+  @media (max-width: 600px) { .services-line { padding: 1rem; } .services-line__cta { width: 100%; } }
+
   /* ─── PRICING HERO ─── */
   .pricing-hero {
     padding-top: calc(var(--nav-height) + var(--space-3xl));
@@ -2307,7 +2337,7 @@ const regionData = JSON.stringify({ sym, currency: region.currency, rate: region
       { name: 'Starter', price: s + rd.prices.starter, period: '/mo ' + rd.currency, cta: 'Start for ' + s + rd.prices.starter, ctaLink: startLink },
       { name: 'Growth', price: s + rd.prices.growth, period: '/mo ' + rd.currency, cta: 'Get Growth', ctaLink: startLink },
       { name: 'Scale', price: s + rd.prices.scale, period: '/mo ' + rd.currency, cta: 'Get Scale', ctaLink: startLink },
-      { name: 'Growth Engine', price: 'Custom', period: '', custom: true, cta: 'Build my Growth Engine', ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
+      { name: 'Custom', price: "Let's talk", period: '', custom: true, cta: 'Book a call', ctaLink: 'https://link.dusa.studio/widget/bookings/dusa-demo' }
     ];
 
     var categories = (rd.mps && rd.mps.categories) || [];

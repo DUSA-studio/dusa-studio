@@ -126,7 +126,7 @@
     "introSee": "Kijk wat erin zit",
     "introFreeDemo": "Boek een gratis demo",
     "introFreeDemoShort": "Gratis demo",
-    "introSetupNote": "Inrichting voor je geregeld &middot; Aangedreven door AI &middot; Altijd opzegbaar",
+    "introSetupNote": "Begeleide inrichting inbegrepen &middot; Aangedreven door AI &middot; Altijd opzegbaar",
     "platformPhone": "Telefoon",
     "platformTablet": "Tablet",
     "platformDesktop": "Desktop",
@@ -247,7 +247,7 @@
       "supportAiTitle": "AI-support",
       "supportAiDesc": "Beschikbaar op alle plannen, 24/7.",
       "supportManagerTitle": "Een vaste Growth Lead",
-      "supportManagerDesc": "Op Scale en de Growth Engine. Growth-leden krijgen prioriteitssupport.",
+      "supportManagerDesc": "Op Scale- en Custom-plannen. Growth-leden krijgen prioriteitssupport.",
       "ctaBookDemo": "Boek je gratis demo",
       "ctaLearnMore": "Meer over onboarding"
     },
@@ -285,11 +285,11 @@
       "phase3Detail2Desc": "Een praktische rondleiding voor jou en je team. Geen opgenomen webinar. Live begeleiding, afgestemd op jouw inrichting.",
       "phase4Badge": "Doorlopend",
       "phase4Title": "Lancering en support",
-      "phase4Desc": "Je bent live. Vanaf nu staat onze AI-supportassistent dag en nacht voor je klaar. Growth-leden krijgen prioriteitssupport en een vervolggesprek met hun onboardingconsultant. Scale- en Growth Engine-klanten hebben een vaste Growth Lead die regelmatig contact opneemt om je inrichting te optimaliseren en je te helpen groeien.",
+      "phase4Desc": "Je bent live. Vanaf nu staat onze AI-supportassistent dag en nacht voor je klaar. Growth-leden krijgen prioriteitssupport en een vervolggesprek met hun onboardingconsultant. Scale- en Custom-klanten hebben een vaste Growth Lead die regelmatig contact opneemt om je inrichting te optimaliseren en je te helpen groeien.",
       "phase4Detail1Title": "AI-support, 24/7",
       "phase4Detail1Desc": "Direct antwoord. Onze AI-assistent is getraind op het volledige DUSA-platform en helpt je met inrichting, problemen oplossen en best practices.",
       "phase4Detail2Title": "Een vaste Growth Lead",
-      "phase4Detail2Desc": "Op Scale en de Growth Engine. Regelmatige check-ins, proactieve optimalisatie en een directe lijn naar iemand die je bedrijf kent. Growth-leden krijgen prioriteitssupport.",
+      "phase4Detail2Desc": "Op Scale- en Custom-plannen. Regelmatige check-ins, proactieve optimalisatie en een directe lijn naar iemand die je bedrijf kent. Growth-leden krijgen prioriteitssupport.",
       "ctaTitle": "Klaar om te beginnen?",
       "ctaDesc": "Boek een gratis demo en zie precies hoe DUSA bij je bedrijf past.",
       "ctaBookDemo": "Boek je gratis demo",
@@ -424,7 +424,7 @@
   "pricing": {
     "metaTitle": "Prijzen | DUSA . studio",
     "metaDesc": "Eenvoudige, transparante prijzen voor elke groeifase. CRM, e-mail, SMS, funnels, boekingen en reviewbeheer in één platform, met Ask AI op elk plan.",
-    "metaDescription": "Eenvoudige, transparante prijzen. Het volledige DUSA-platform met onbeperkt gebruikers en contacten, Ask AI op elk plan, je AI Employee op Growth en een Growth Engine als je wilt dat wij het voor je runnen. Geen vaste contracten.",
+    "metaDescription": "Eenvoudige, transparante prijzen. Het volledige DUSA-platform met onbeperkt gebruikers en contacten, Ask AI op elk plan, je AI Employee op Growth en Custom-plannen op maat voor grotere teams.",
     "heroLabel": "Prijzen",
     "heroTitle": "Eén platform.",
     "heroTitleAccent": "Jouw prijs.",
@@ -470,8 +470,8 @@
     "supportPortalTitle": "Ledenportaal",
     "supportPortalDesc": "Je eigen plek voor handleidingen, tutorials, templates en support. Alles wat je nodig hebt om het maximale uit je DUSA-platform te halen, op één plek.",
     "supportPriorityTitle": "Prioriteit en vaste begeleiding",
-    "supportPriorityDesc": "Growth-plannen en hoger gaan voor in de rij met prioriteitssupport. Scale voegt een vaste Growth Lead en telefonische support tijdens kantooruren toe. Growth Engine-klanten krijgen maandelijkse strategiesessies.",
-    "supportHoursLine": "Starter en Growth bevatten 3 uur persoonlijke hulp in je eerste 3 maanden, vanaf je eerste betaling. Scale bevat elke maand 2 uur. Daarna betaal je {assist} per uur voor algemene hulp en {expert} per uur voor strategie en consultancy, altijd eerst door jou goedgekeurd.",
+    "supportPriorityDesc": "Growth-plannen en hoger gaan voor in de rij met prioriteitssupport. Scale voegt een vaste Growth Lead en telefonische support tijdens kantooruren toe. Custom-plannen voegen een vaste accountmanager en maandelijkse strategiesessies toe.",
+    "supportHoursLine": "Starter en Growth bevatten 3 uur persoonlijke hulp: één uur bij elk van je eerste drie maandbetalingen, of alle drie direct bij jaarlijkse facturatie. Scale bevat elke maand 2 uur. Daarna betaal je {assist} per uur voor algemene hulp en {expert} per uur voor strategie en consultancy, altijd eerst door jou goedgekeurd.",
     "allPlans": "Alle plannen",
     "compareLabel": "Volledige vergelijking",
     "compareTitle": "Alles inbegrepen,",
@@ -499,35 +499,35 @@
           "Boekingen, social en reviews",
           "Onbeperkte workflow-automatiseringen",
           "Ask AI en de AI Employee, betalen naar gebruik",
-          "3 uur persoonlijke hulp om te starten"
+          "Begeleide inrichting: 3 uur persoonlijke hulp"
         ],
         "growth": [
           "Alles uit Starter",
           "AI Employee inbegrepen",
           "AI beantwoordt je oproepen, chats en berichten",
           "100 AI-belminuten en 1.000 AI-antwoorden/mnd",
-          "Ask AI-verbruik inbegrepen",
-          "Premium automatisering, eigen dashboards, API",
+          "Premium automatisering en API-toegang",
+          "Attributie en geplande rapporten",
           "Prioriteitssupport en AI-inrichtingssessie",
-          "Gratis inrichting door ons bij jaarplannen"
+          "Begeleide inrichting: 3 uur persoonlijke hulp"
         ],
         "scale": [
           "Alles uit Growth",
           "Onbeperkt AI-oproepen en -gesprekken, fair use",
           "Elke maand 2 uur persoonlijke hulp",
-          "Gratis inrichting door ons",
           "Een vaste Growth Lead",
+          "Meerdere locaties op afspraak",
           "Telefonische support tijdens kantooruren",
           "Bovenaan in de supportwachtrij"
         ],
         "engine": [
-          "Alles uit Growth",
-          "Wij runnen de marketing die jij kiest",
-          "Oproepen beantwoord, offertes opgevolgd, reviews binnen",
-          "Ads, socials en Google, wanneer je ze nodig hebt",
-          "Maandrapport en kwartaalplan",
-          "Een vaste Growth Lead",
-          "Korting op de inrichting bij elke bundel"
+          "Alles uit Scale",
+          "Meer dan één locatie, merk of team",
+          "Integraties en automatiseringen op maat",
+          "Marketingdiensten naar wens erbij",
+          "Een vaste accountmanager",
+          "Maandelijkse strategiesessies",
+          "Samen met jou afgestemd en geprijsd"
         ]
       },
       "cells": {
@@ -538,7 +538,7 @@
         "aiMinutes": "100 min/mnd",
         "unlimitedFair": "Onbeperkt, fair use",
         "fairUse": "Fair use",
-        "helpHours": "3 uur, eerste 3 mnd",
+        "helpHours": "3 uur: 1 per mnd, of 3 bij jaarplan",
         "helpMonthly": "2 uur per maand",
         "extraHelp": "{assist}/uur, {expert}/uur expert",
         "byArrangement": "Op afspraak"
@@ -615,7 +615,7 @@
           "rows": [
             [
               "Ask AI-assistent",
-              "Je assistent binnen het platform. Vraag om een campagne te schrijven, een workflow te bouwen, je contacten te taggen en te segmenteren of je cijfers uit te leggen, en het werk wordt in je account gedaan. Licht verbruik wordt op Starter in centen afgerekend, vanaf Growth is het inbegrepen."
+              "Je assistent binnen het platform. Vraag om een campagne te schrijven, een workflow te bouwen, je contacten te taggen en te segmenteren of je cijfers uit te leggen, en het werk wordt in je account gedaan. Op elk plan betaal je alleen voor wat je gebruikt, meestal een paar cent per taak, vanuit je saldo."
             ],
             [
               "Conversation AI",
@@ -635,7 +635,7 @@
             ],
             [
               "Extra AI-verbruik",
-              "Op Starter draait elke AI-functie tegen tarieven naar gebruik vanuit je saldo. Op Growth loopt verbruik boven de maandelijkse bundel door tegen die tarieven, of je stapt over op Scale voor onbeperkt AI binnen fair use. De normale gespreks- en SMS-kosten gelden op elk plan."
+              "Op Starter draait elke AI Employee-functie tegen tarieven naar gebruik vanuit je saldo. Op Growth loopt verbruik boven de maandelijkse bundel door tegen die tarieven, of je stapt over op Scale voor onbeperkt AI-oproepen en -gesprekken binnen fair use. Ask AI en de normale gespreks- en SMS-kosten worden op elk plan naar gebruik gefactureerd."
             ]
           ]
         },
@@ -722,7 +722,7 @@
             ],
             [
               "Persoonlijke hulp inbegrepen",
-              "Een echt persoon die je helpt met inrichten, oplossen of bouwen in je account. Starter en Growth bevatten drie uur in je eerste drie maanden, die vrijkomen bij je eerste betaling na de gratis proefperiode. Scale bevat elke maand twee uur. Boek een moment of reageer op een e-mail van ons."
+              "Een echt persoon die je helpt met inrichten, oplossen of bouwen in je account. Starter en Growth bevatten drie uur: bij maandelijkse facturatie komt er bij elk van je eerste drie betalingen één uur vrij, en bij jaarlijkse facturatie staan ze alle drie vanaf dag één klaar. Scale bevat elke maand twee uur. Boek een moment of reageer op een e-mail van ons."
             ],
             [
               "Extra hulp, wanneer je wilt",
@@ -783,15 +783,15 @@
         },
         {
           "q": "Wat kost het DUSA-platform per maand?",
-          "a": "Starter kost {starter} {currency} per maand voor het volledige platform, met onbeperkt gebruikers en contacten. Growth voegt je AI Employee, prioriteitssupport en een AI-inrichtingssessie toe voor {growth}/mnd. Scale voegt onbeperkt AI binnen fair use, elke maand 2 uur persoonlijke hulp en een vaste Growth Lead toe voor {scale}/mnd. Wil je dat wij je marketing voor je runnen, dan begint een Growth Engine vanaf {engine}/mnd. Alle prijzen zijn in {currency}."
+          "a": "Starter kost {starter} {currency} per maand voor het volledige platform, met onbeperkt gebruikers en contacten. Growth voegt je AI Employee, prioriteitssupport en een AI-inrichtingssessie toe voor {growth}/mnd. Scale voegt onbeperkt AI binnen fair use, elke maand 2 uur persoonlijke hulp en een vaste Growth Lead toe voor {scale}/mnd. Heb je meer dan één locatie, of wil je een plan dat rond je bedrijf is gebouwd, dan stemmen we Custom samen met je af in een gesprek en bepalen we samen de prijs. Alle prijzen zijn in {currency}."
         },
         {
           "q": "Wat zit er in het Starter-plan?",
-          "a": "Starter is het volledige DUSA-platform om zelf te runnen: alle 9 kernsystemen (CRM en pipeline, funnels en website, e-mailmarketing, SMS-marketing, boekingen en agenda, socialmediaplanner, reviewbeheer, facturatie en betalingen, en formulieren en enquêtes), onbeperkte workflow-automatiseringen, onbeperkt gebruikers en contacten, en Ask AI en de AI Employee naar gebruik. Je krijgt ook 3 uur persoonlijke hulp in je eerste 3 maanden."
+          "a": "Starter is het volledige DUSA-platform om zelf te runnen: alle 9 kernsystemen (CRM en pipeline, funnels en website, e-mailmarketing, SMS-marketing, boekingen en agenda, socialmediaplanner, reviewbeheer, facturatie en betalingen, en formulieren en enquêtes), onbeperkte workflow-automatiseringen, onbeperkt gebruikers en contacten, en Ask AI en de AI Employee naar gebruik. Je krijgt ook begeleide inrichting met 3 uur persoonlijke hulp: één uur bij elk van je eerste drie maandbetalingen, of alle drie direct als je per jaar betaalt."
         },
         {
           "q": "Wat is Ask AI en op welke plannen zit het?",
-          "a": "Ask AI is de assistent die in elk DUSA-plan is ingebouwd. Vraag om een e-mailcampagne te schrijven, een workflow te bouwen, je contacten te taggen en te segmenteren of een rapport uit te leggen, en Ask AI doet het werk in je account. Op Starter wordt het kleine beetje AI-verbruik dat het gebruikt van je saldo afgeschreven, meestal een paar cent per taak. Op Growth, Scale en de Growth Engine is het Ask AI-verbruik inbegrepen."
+          "a": "Ask AI is de assistent die in elk DUSA-plan is ingebouwd. Vraag om een e-mailcampagne te schrijven, een workflow te bouwen, je contacten te taggen en te segmenteren of een rapport uit te leggen, en Ask AI doet het werk in je account. Op elk plan wordt het kleine beetje AI-verbruik dat het gebruikt gaandeweg van je saldo afgeschreven, meestal een paar cent per taak, dus je betaalt alleen voor wat je gebruikt."
         },
         {
           "q": "Wat is de AI Employee?",
@@ -799,7 +799,7 @@
         },
         {
           "q": "Wat is het verschil tussen Starter, Growth en Scale?",
-          "a": "Met Starter krijg je het hele platform om zelf te runnen, met AI naar gebruik. Growth is voor bedrijven die willen dat het platform zichzelf runt: het voegt een AI Employee-bundel toe die je oproepen en berichten beantwoordt en afspraken inplant, plus inbegrepen Ask AI-verbruik, premium automatiseringsstappen, eigen dashboards, attributie, API-toegang, prioriteitssupport en een onboarding- en AI-inrichtingssessie, voor {deltaGrowth}/mnd extra. Scale is voor drukke teams: onbeperkt AI binnen fair use, elke maand 2 uur persoonlijke hulp, gratis inrichting door ons, telefonische support en een vaste Growth Lead."
+          "a": "Met Starter krijg je het hele platform om zelf te runnen, met AI naar gebruik. Growth is voor bedrijven die willen dat het platform zichzelf runt: het voegt een AI Employee-bundel toe die je oproepen en berichten beantwoordt en afspraken inplant, plus premium automatiseringsstappen, attributie, API-toegang, prioriteitssupport en een onboarding- en AI-inrichtingssessie, voor {deltaGrowth}/mnd extra. Scale is voor drukke teams: onbeperkt AI-oproepen en -gesprekken binnen fair use, elke maand 2 uur persoonlijke hulp, telefonische support en een vaste Growth Lead. Custom is voor teams met meerdere locaties en bedrijven die willen dat wij meer voor ze bouwen, samen met je afgestemd in een gesprek."
         },
         {
           "q": "Hoeveel gebruikers en contacten kan ik hebben?",
@@ -811,11 +811,11 @@
         },
         {
           "q": "Zijn er installatiekosten of verborgen kosten?",
-          "a": "Er zijn geen verplichte installatiekosten. Inrichting door ons is optioneel, en gratis op Scale en op jaarlijkse Growth-plannen. De prijs van je plan dekt de toegang tot het platform. Het verbruik van berichten, gesprekken en e-mail, en AI-verbruik boven wat in je plan zit, wordt apart gefactureerd op basis van gebruik, vanuit een vooruitbetaald saldo in je account. Bij het inschakelen van die functies wordt een klein opwaardeerbedrag van je kaart afgeschreven, en daarna automatisch opnieuw zodra het saldo laag wordt. Je bepaalt zelf het opwaardeerbedrag en kunt op elk moment zelf saldo toevoegen. Het verbruik wordt in USD gefactureerd, omdat de telefonie-, e-mail- en AI-providers achter het platform in de VS gevestigd zijn. De meeste klanten zitten rond de US$ 15 tot 25 per maand, afhankelijk van het volume. Verder zijn er geen verborgen kosten."
+          "a": "Er zijn geen installatiekosten. Elk plan bevat begeleide inrichting met 3 uur persoonlijke hulp. Wil je liever dat wij alles voor je bouwen, dan is inrichting door ons beschikbaar als dienst, met een offerte vooraf. De prijs van je plan dekt de toegang tot het platform. Het verbruik van berichten, gesprekken en e-mail, en AI-verbruik boven wat in je plan zit, wordt apart gefactureerd op basis van gebruik, vanuit een vooruitbetaald saldo in je account. Bij het inschakelen van die functies wordt een klein opwaardeerbedrag van je kaart afgeschreven, en daarna automatisch opnieuw zodra het saldo laag wordt. Je bepaalt zelf het opwaardeerbedrag en kunt op elk moment zelf saldo toevoegen. Het verbruik wordt in USD gefactureerd, omdat de telefonie-, e-mail- en AI-providers achter het platform in de VS gevestigd zijn. De meeste klanten zitten rond de US$ 15 tot 25 per maand, afhankelijk van het volume. Verder zijn er geen verborgen kosten."
         },
         {
           "q": "Wat voor support biedt DUSA?",
-          "a": "Elk plan bevat AI-chatsupport, 24/7 beschikbaar via je ledenportaal, plus toegang tot de DUSA-community en e-mailsupport. Growth voegt prioriteitssupport en een onboarding- en AI-inrichtingssessie toe. Scale voegt elke maand 2 uur persoonlijke hulp, telefonische support tijdens kantooruren en een vaste Growth Lead toe. Growth Engine-klanten krijgen ook een maandrapport, strategiesessies en een kwartaalplan."
+          "a": "Elk plan bevat AI-chatsupport, 24/7 beschikbaar via je ledenportaal, plus toegang tot de DUSA-community en e-mailsupport. Growth voegt prioriteitssupport en een onboarding- en AI-inrichtingssessie toe. Scale voegt elke maand 2 uur persoonlijke hulp, telefonische support tijdens kantooruren en een vaste Growth Lead toe. Custom-plannen voegen een vaste accountmanager en maandelijkse strategiesessies toe."
         },
         {
           "q": "Is DUSA geschikt voor zelfstandigen en freelancers?",
@@ -831,15 +831,19 @@
         },
         {
           "q": "Hoe lang duurt het om DUSA in te richten?",
-          "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Growth-, Scale- en Growth Engine-plannen bevatten een onboarding- en AI-inrichtingssessie, waarin we alles samen met jou configureren voor jouw specifieke bedrijf, en bij Scale is inrichting door ons inbegrepen."
+          "a": "De meeste bedrijven zijn binnen 48 uur operationeel. Elk plan bevat begeleide inrichting met persoonlijke hulp, en vanaf Growth krijg je ook een onboarding- en AI-inrichtingssessie waarin we alles configureren voor jouw specifieke bedrijf."
         },
         {
           "q": "Wat als ik vastloop, of wil dat iemand het voor me doet?",
-          "a": "Reageer op een e-mail van ons en een echt persoon leest hem, of stel je vraag aan de 24/7 AI-assistent in je account. Starter en Growth bevatten 3 uur persoonlijke hulp in je eerste 3 maanden, die vrijkomen bij je eerste betaling na de gratis proefperiode, en Scale bevat elke maand 2 uur: een echt persoon die samen met jou via schermdelen dingen inricht, oplost of bouwt. Daarna kost hulp {assist} per uur voor algemene hulp en uitvoering, en {expert} per uur voor expertwerk zoals strategie, consultancy en alles buiten het platform. Jij keurt de tijd goed voordat die wordt gebruikt. Wil je dat alles voor je wordt gedaan, dan is dat de Growth Engine."
+          "a": "Reageer op een e-mail van ons en een echt persoon leest hem, of stel je vraag aan de 24/7 AI-assistent in je account. Starter en Growth bevatten 3 uur persoonlijke hulp, één uur bij elk van je eerste drie maandbetalingen of alle drie direct bij jaarlijkse facturatie, en Scale bevat elke maand 2 uur: een echt persoon die samen met jou via schermdelen dingen inricht, oplost of bouwt. Daarna kost hulp {assist} per uur voor algemene hulp en uitvoering, en {expert} per uur voor expertwerk zoals strategie, consultancy en alles buiten het platform. Jij keurt de tijd goed voordat die wordt gebruikt. Wil je dat alles voor je wordt gedaan, plan dan een gesprek en we maken een offerte voor inrichting door ons of doorlopende diensten."
         },
         {
-          "q": "Wat is de Growth Engine?",
-          "a": "De Growth Engine is ons team dat je groei voor je runt, op het Growth-plan. Jij kiest de resultaten die je wilt, zoals elke oproep beantwoord, elke offerte opgevolgd, meer 5-sterrenreviews of advertenties die werk opleveren, en wij bouwen en runnen ze. Je krijgt een maandrapport en een kwartaalplan, met een vaste Growth Lead. Bundels beginnen vanaf {engine}/mnd, je krijgt korting op de inrichting bij elke bundel, en advertentiebudget wordt apart gefactureerd."
+          "q": "Wat is het Custom-plan?",
+          "a": "Custom is voor bedrijven die een standaardplan zijn ontgroeid: meer dan één locatie of merk, integraties op maat, of ons team dat meer voor je runt. Het bevat alles uit Scale, plus een vaste accountmanager en maandelijkse strategiesessies. Plan een gesprek, vertel ons wat je nodig hebt, en we stemmen het samen met je af en bepalen samen de prijs."
+        },
+        {
+          "q": "Kan DUSA mijn marketing voor me doen?",
+          "a": "Ja. Ads, social media, e-mailcampagnes en meer kun je als dienst aan elk plan toevoegen. Plan een gesprek, vertel ons wat je gedaan wilt hebben, en we stellen het samen en geven vooraf een prijs. Advertentiebudget wordt altijd apart gefactureerd."
         },
         {
           "q": "Waarop is DUSA gebouwd?",
@@ -870,19 +874,21 @@
     "selectToolsHint": "Selecteer tools om je besparing te zien.",
     "getEverythingAbove": "Krijg alles hierboven",
     "tierScale": "Scale",
-    "tierEngine": "Growth Engine",
+    "tierEngine": "Custom",
     "scaleTagline": "Meer AI. Meer hulp.",
     "scaleDesc": "Onbeperkt AI binnen fair use, elke maand 2 uur persoonlijke hulp en een vaste Growth Lead. Gemaakt voor drukke teams.",
-    "engineTagline": "Wij runnen je groei voor je.",
-    "engineDesc": "Kies de resultaten die je wilt. Ons team bouwt en runt de marketing op DUSA, en jij leest één rapport per maand.",
+    "engineTagline": "Gebouwd rond jouw bedrijf.",
+    "engineDesc": "Voor teams met meerdere locaties, franchises en bedrijven die meer voor zich willen laten doen. Vertel ons wat je nodig hebt en we stemmen het samen met je af.",
     "deltaScale": "Geen vaste contracten, op geen enkel plan",
-    "deltaEngine": "Prijs op basis van de resultaten die je kiest",
-    "engineCta": "Bouw mijn Growth Engine",
-    "badgeEngine": "Wij doen het voor je",
+    "deltaEngine": "Prijs samen bepaald in een gesprek",
+    "engineCta": "Plan een gesprek",
+    "badgeEngine": "Op maat",
     "fromLabel": "Vanaf",
     "getGrowth": "Kies Growth",
     "getScale": "Kies Scale",
-    "growthAndUp": "Growth en hoger"
+    "growthAndUp": "Growth en hoger",
+    "servicesLine": "Ook hulp nodig met je marketing? Voeg diensten zoals ads, social media en e-mailcampagnes toe aan elk plan.",
+    "servicesCta": "Plan een gesprek"
   },
   "services": {
     "metaTitle": "Diensten | DUSA.studio",
@@ -1155,7 +1161,7 @@
           "Alles uit Growth",
           "Onbeperkt AI, fair use",
           "Elke maand 2 uur persoonlijke hulp",
-          "Gratis inrichting door ons"
+          "Een vaste Growth Lead"
         ]
       }
     },

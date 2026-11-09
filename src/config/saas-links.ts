@@ -65,7 +65,7 @@ export const SAAS_PLANS: SaasPlan[] = [
       'Everything in Growth',
       'Unlimited AI, fair use',
       '2 hours of hands-on help every month',
-      'Free done-for-you set-up',
+      'A named Growth Lead',
     ],
     // New plan: needs a Scale A$449 / A$4,490 plan + sale links from the SaaS Configurator.
     links: { monthly: '#pending', annual: '#pending' },

@@ -20,6 +20,7 @@ const heroPhoneApp = s.phoneApp || 'DUSA . studio';
 const heroStatLeads = s.statLeads || 'leads';
 const heroStatTracked = s.statTracked || 'tracked';
 const heroStatRating = s.statRating || 'rating';
+const heroPhoneLive = s.phoneLive || 'Live';
 const heroCapCrmTitle = s.capCrmTitle || 'CRM & Contacts';
 const heroCapCrmSub = s.capCrmSub || 'Track every lead';
 const heroCapEmailTitle = s.capEmailTitle || 'Email & SMS';
@@ -136,12 +137,21 @@ const notifJson = JSON.stringify(notifTranslations);
       </div>
 
       <div class="hero__phone-wrap reveal-right">
-        <div class="hero__phone">
-          <div class="hero__phone-notch"></div>
+        <div class="hero__phone" data-lang={lang}>
+          <div class="hero__phone-notch" aria-hidden="true"></div>
+          <div class="hero__phone-statusbar" aria-hidden="true">
+            <span>DUSA</span>
+            <span class="hero__sb-icons">
+              <svg viewBox="0 0 18 12" width="17" height="11"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+              <svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 2.3c2.3 0 4.4.9 6 2.4l1.3-1.3A10.6 10.6 0 0 0 8 .4 10.6 10.6 0 0 0 .7 3.4L2 4.7a8.7 8.7 0 0 1 6-2.4Zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.3-1.3A6.6 6.6 0 0 0 8 4.1a6.6 6.6 0 0 0-4.7 1.8l1.3 1.3c.9-.8 2.1-1.3 3.4-1.3Zm0 3.5c-.5 0-1 .2-1.3.5L8 11.3l1.3-1.4c-.3-.3-.8-.5-1.3-.5Z"/></svg>
+              <span class="hero__sb-batt"><i></i></span>
+            </span>
+          </div>
           <div class="hero__phone-browserbar" aria-hidden="true">
             <span></span><span></span><span></span>
             <em>app.dusa.studio</em>
           </div>
+          <div class="hero__phone-date" id="hero-phone-date" aria-hidden="true"></div>
           <div class="hero__phone-time" id="hero-phone-clock">9:41</div>
           <div class="hero__phone-header">
             <!-- Static lotus: this renders at 22x22, where a 91-frame animation is
@@ -149,18 +159,20 @@ const notifJson = JSON.stringify(notifTranslations);
                  version still runs in the Features chip, at 52px. -->
             <img class="hero__phone-logo" id="hero-phone-lotus" src="/dusa-logo.webp" alt="DUSA" width="22" height="22" decoding="async" />
             <span class="hero__phone-app">{heroPhoneApp}</span>
+            <span class="hero__phone-live">{heroPhoneLive}</span>
           </div>
 
           <div class="hero__stats-ticker" id="hero-stats-ticker">
-            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-leads">8</span> {heroStatLeads}</div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-leads">8</span><span class="hero__stat-lbl">{heroStatLeads}</span></div>
             <div class="hero__stat-divider"></div>
-            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-revenue">$2.4k</span> {heroStatTracked}</div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-revenue">$2.4k</span><span class="hero__stat-lbl">{heroStatTracked}</span></div>
             <div class="hero__stat-divider"></div>
-            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-rating">4.8</span>&#9733;</div>
+            <div class="hero__stat-item"><span class="hero__stat-val" id="stat-rating">4.8</span><span class="hero__stat-lbl">&#9733; {heroStatRating}</span></div>
           </div>
 
           <div class="hero__notifs" id="hero-notif-feed"></div>
           <script type="application/json" id="hero-notif-data" set:html={notifJson}></script>
+          <div class="hero__phone-home" aria-hidden="true"></div>
         </div>
 
         <!-- Monitor stand — only visible in Desktop mode -->
@@ -2288,10 +2300,680 @@ const notifJson = JSON.stringify(notifTranslations);
     color: var(--deep-ocean);
     border-color: rgba(26, 58, 92, 0.35);
   }
+
+  /* ════════════════════════════════════════════════════════════════
+     DEVICE v2 (Nov 2026): a real phone. Black bezel inside a titanium
+     rim, dynamic island, lock-screen clock, glass widget and glass
+     notification banners on a DUSA wallpaper. Declared last so it wins
+     over the older device rules above; sizes still come from them.
+     --ifield-charge (0..1) is set by integration-field.v4.js as the apps
+     pour in: the island and the wallpaper light up as everything connects.
+     ════════════════════════════════════════════════════════════════ */
+  .hero__phone {
+    --bezel: 11px;
+    border: var(--bezel) solid #04060a;
+    border-radius: 56px;
+    padding: 0 12px 24px;
+    isolation: isolate;
+    container-type: inline-size;
+    text-align: left;
+    color: #F7F4EF;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background:
+      radial-gradient(130% 52% at 50% -6%, rgba(78, 216, 194, 0.28), transparent 62%),
+      radial-gradient(95% 55% at 108% 104%, rgba(106, 170, 207, 0.26), transparent 62%),
+      radial-gradient(70% 42% at -12% 68%, rgba(43, 92, 134, 0.5), transparent 70%),
+      linear-gradient(180deg, #10263b 0%, #0b1826 55%, #070c14 100%);
+    box-shadow:
+      0 0 0 1px #6f7a8a,
+      0 0 0 3px #262d37,
+      0 0 0 4px rgba(255, 255, 255, 0.16),
+      0 44px 90px -24px rgba(0, 0, 0, 0.8),
+      0 0 150px rgba(78, 216, 194, calc(0.05 + var(--ifield-charge, 0) * 0.16));
+    transition:
+      width 0.55s var(--ease-out),
+      height 0.55s var(--ease-out),
+      border-radius 0.55s var(--ease-out),
+      border-width 0.55s var(--ease-out),
+      padding 0.55s var(--ease-out),
+      box-shadow 0.5s ease;
+  }
+
+  /* Wallpaper bloom that charges up as the apps arrive */
+  .hero__phone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask: none;
+    mask: none;
+    background: radial-gradient(85% 40% at 50% 0%, rgba(78, 216, 194, 0.5), transparent 70%);
+    opacity: calc(0.12 + var(--ifield-charge, 0) * 0.88);
+    transition: opacity 0.4s ease;
+  }
+
+  /* Dynamic island, with the front camera lens on the right */
+  .hero__phone-notch {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96px;
+    height: 28px;
+    margin: 0;
+    border-radius: 20px;
+    z-index: 3;
+    background:
+      radial-gradient(circle at 81% 50%, #2a3d52 0 2.6px, #0e151e 3.6px 5px, transparent 5.6px),
+      #000;
+    box-shadow: 0 0 calc(2px + var(--ifield-charge, 0) * 22px) rgba(78, 216, 194, calc(var(--ifield-charge, 0) * 0.65));
+    transition: box-shadow 0.4s ease, width 0.4s ease, height 0.4s ease, border-radius 0.4s ease;
+  }
+
+  .hero__phone-statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    height: 46px;
+    padding: 1px 12px 0 16px;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
+  }
+
+  .hero__sb-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .hero__sb-icons svg {
+    display: block;
+    fill: currentColor;
+  }
+
+  .hero__sb-batt {
+    position: relative;
+    display: block;
+    width: 23px;
+    height: 11.5px;
+    padding: 1.5px;
+    border: 1px solid rgba(247, 244, 239, 0.5);
+    border-radius: 3.5px;
+    box-sizing: border-box;
+  }
+
+  .hero__sb-batt::after {
+    content: '';
+    position: absolute;
+    right: -3.5px;
+    top: 3px;
+    width: 1.5px;
+    height: 3.5px;
+    border-radius: 0 1px 1px 0;
+    background: rgba(247, 244, 239, 0.5);
+  }
+
+  .hero__sb-batt i {
+    display: block;
+    height: 100%;
+    width: 80%;
+    border-radius: 1.5px;
+    background: currentColor;
+  }
+
+  .hero__phone-date {
+    flex-shrink: 0;
+    text-align: center;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.82rem;
+    font-size: 4.7cqw;
+    letter-spacing: 0.01em;
+    color: rgba(247, 244, 239, 0.85);
+    margin-top: 4px;
+  }
+
+  .hero__phone-time {
+    flex-shrink: 0;
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 4rem;
+    font-size: 24cqw;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    margin: 2px 0 14px;
+    color: transparent;
+    background: linear-gradient(180deg, #ffffff 15%, #b9ece3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .hero__phone-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 6px 7px;
+    margin: 0;
+    border: 0;
+  }
+
+  .hero__phone-logo {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hero__phone-app {
+    font-size: 0.74rem;
+    color: rgba(247, 244, 239, 0.8);
+    letter-spacing: 0.01em;
+  }
+
+  .hero__phone-live {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--reef-aqua);
+  }
+
+  .hero__phone-live::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--reef-aqua);
+    box-shadow: 0 0 8px var(--reef-aqua);
+    animation: dzLivePulse 2s ease-in-out infinite;
+  }
+
+  @keyframes dzLivePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Lock-screen widget: today's numbers */
+  .hero__stats-ticker {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: space-between;
+    margin: 0 0 10px;
+    padding: 9px 4px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+    font-family: var(--font-body, inherit);
+    letter-spacing: 0;
+    color: inherit;
+  }
+
+  .hero__stat-item {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .hero__stat-val {
+    display: inline-block;
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.15;
+    color: #ffffff;
+  }
+
+  .hero__stat-val--bump {
+    transform: scale(1.18);
+    color: var(--reef-aqua);
+  }
+
+  .hero__stat-lbl {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: rgba(247, 244, 239, 0.62);
+  }
+
+  .hero__stat-divider {
+    flex-shrink: 0;
+    width: 1px;
+    height: auto;
+    margin: 3px 0;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .hero__notifs {
+    gap: 7px;
+    padding: 2px 0 6px;
+    scrollbar-width: none;
+  }
+
+  .hero__notifs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero__phone-home {
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    transform: translateX(-50%);
+    width: 36%;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(247, 244, 239, 0.62);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* ── Modes ── */
+  .hero__phone--android {
+    border-radius: 40px;
+  }
+
+  .hero__phone--android .hero__phone-notch {
+    width: 13px;
+    height: 13px;
+    top: 13px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #2a3d52 0 2.6px, #000 3.6px);
+  }
+
+  .hero__phone--android .hero__phone-home {
+    width: 30%;
+    height: 4px;
+  }
+
+  .hero__phone--tablet {
+    --bezel: 14px;
+    border-radius: 34px;
+  }
+
+  .hero__phone--tablet .hero__phone-notch {
+    width: 8px;
+    height: 8px;
+    top: 7px;
+    border-radius: 50%;
+    background: #1b2633;
+  }
+
+  .hero__phone--tablet .hero__phone-time {
+    font-size: 15cqw;
+  }
+
+  .hero__phone--tablet .hero__phone-date {
+    font-size: 3.4cqw;
+  }
+
+  .hero__phone--laptop {
+    --bezel: 9px;
+    border-bottom: 24px solid #1c222b;
+    border-radius: 16px;
+    padding: 12px 14px 14px;
+  }
+
+  .hero__phone--web {
+    --bezel: 1px;
+    border-color: rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    padding: 48px 14px 14px;
+  }
+
+  .hero__phone--laptop .hero__phone-statusbar,
+  .hero__phone--web .hero__phone-statusbar,
+  .hero__phone--laptop .hero__phone-date,
+  .hero__phone--web .hero__phone-date,
+  .hero__phone--laptop .hero__phone-home,
+  .hero__phone--web .hero__phone-home {
+    display: none;
+  }
+
+  .hero__phone--laptop .hero__phone-time {
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero__phone--laptop .hero__notifs,
+  .hero__phone--laptop::after {
+    top: 104px;
+  }
+
+  .hero__phone--web .hero__notifs,
+  .hero__phone--web::after {
+    top: 134px;
+  }
+
+  @media (max-width: 768px) {
+    .hero__phone { --bezel: 9px; border-radius: 46px; padding: 0 10px 20px; }
+    .hero__phone-notch { width: 82px; height: 24px; top: 8px; }
+    .hero__phone-statusbar { height: 40px; font-size: 0.7rem; padding: 0 8px 0 13px; }
+    .hero__sb-icons svg { transform: scale(0.88); }
+    .hero__phone--laptop .hero__notifs { top: 96px; }
+    .hero__phone--web .hero__notifs { top: 124px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero__phone { --bezel: 8px; border-radius: 40px; padding: 0 8px 18px; }
+    .hero__phone-notch { width: 70px; height: 21px; top: 7px; }
+    .hero__phone-statusbar { height: 34px; font-size: 0.62rem; padding: 0 6px 0 11px; }
+    .hero__sb-icons { gap: 3px; }
+    .hero__sb-icons svg { transform: scale(0.76); }
+    .hero__sb-batt { width: 19px; height: 10px; }
+    .hero__phone-time { margin-bottom: 10px; }
+    .hero__stats-ticker { padding: 7px 2px; border-radius: 14px; margin-bottom: 8px; }
+    .hero__stat-val { font-size: 0.82rem; }
+    .hero__stat-lbl { font-size: 0.5rem; letter-spacing: 0.04em; }
+    .hero__stat-divider { margin: 3px 0; }
+    .hero__phone-header { padding: 0 4px 5px; }
+    .hero__phone-app { font-size: 0.66rem; }
+    .hero__phone-live { font-size: 0.52rem; }
+    .hero__phone-home { bottom: 6px; height: 4px; }
+  }
+
+  @media (max-width: 360px) {
+    .hero__phone { --bezel: 7px; border-radius: 36px; }
+  }
+
+  /* ── Light theme: same black device, daylight wallpaper ── */
+  :global(html[data-theme="light"]) .hero__phone {
+    color: #10141d;
+    border-color: #04060a;
+    background:
+      radial-gradient(130% 52% at 50% -6%, rgba(78, 216, 194, 0.42), transparent 62%),
+      radial-gradient(95% 55% at 108% 104%, rgba(106, 170, 207, 0.4), transparent 62%),
+      radial-gradient(70% 42% at -12% 68%, rgba(26, 58, 92, 0.12), transparent 70%),
+      linear-gradient(180deg, #e8f3f6 0%, #f3f1ec 60%, #efe9e0 100%);
+    box-shadow:
+      0 0 0 1px #9aa4b1,
+      0 0 0 3px #3a424d,
+      0 0 0 4px rgba(12, 14, 20, 0.12),
+      0 40px 80px -24px rgba(12, 14, 20, 0.35),
+      0 0 140px rgba(78, 216, 194, calc(0.06 + var(--ifield-charge, 0) * 0.14));
+  }
+
+  :global(html[data-theme="light"]) .hero__phone--web {
+    border-color: rgba(12, 14, 20, 0.14);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-notch {
+    background:
+      radial-gradient(circle at 81% 50%, #2a3d52 0 2.6px, #0e151e 3.6px 5px, transparent 5.6px),
+      #000;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone--android .hero__phone-notch {
+    background: radial-gradient(circle at 50% 50%, #2a3d52 0 2.6px, #000 3.6px);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-time {
+    color: transparent;
+    background: linear-gradient(180deg, #1A3A5C 10%, #2B5C86 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-date,
+  :global(html[data-theme="light"]) .hero__phone-app {
+    color: rgba(12, 14, 20, 0.72);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-live {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .hero__sb-batt,
+  :global(html[data-theme="light"]) .hero__sb-batt::after {
+    border-color: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .hero__sb-batt::after {
+    background: rgba(12, 14, 20, 0.45);
+  }
+
+  :global(html[data-theme="light"]) .hero__stats-ticker {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(12, 14, 20, 0.06);
+    color: #10141d;
+  }
+
+  :global(html[data-theme="light"]) .hero__stat-val {
+    color: var(--deep-ocean);
+  }
+
+  :global(html[data-theme="light"]) .hero__stat-lbl {
+    color: rgba(12, 14, 20, 0.55);
+  }
+
+  :global(html[data-theme="light"]) .hero__stat-divider {
+    background: rgba(12, 14, 20, 0.08);
+  }
+
+  :global(html[data-theme="light"]) .hero__phone-home {
+    background: rgba(12, 14, 20, 0.5);
+  }
+</style>
+
+
+<style is:global>
+  /* Hero device feed. These cards are built by the script below, so they
+     carry no Astro scope attribute: styled here, under #hero. */
+  #hero .hero__notif,
+  #hero .hero__typing {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+    padding: 10px 11px 10px 10px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.085);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.6);
+    transition: background 1.2s ease, border-color 1.2s ease, box-shadow 1.2s ease;
+  }
+
+  #hero .hero__typing { align-items: center; }
+
+  #hero .hero__notif.is-flash {
+    background: rgba(78, 216, 194, 0.2);
+    border-color: rgba(78, 216, 194, 0.5);
+    box-shadow: 0 0 18px 2px rgba(78, 216, 194, 0.28);
+    transition: none;
+  }
+
+  @keyframes dzBannerIn {
+    from { opacity: 0; transform: translateY(-14px) scale(0.96); }
+    to { opacity: 1; transform: none; }
+  }
+
+  #hero .hero__phone:not(.hero__phone--laptop):not(.hero__phone--web) .hero__notif.is-new,
+  #hero .hero__phone:not(.hero__phone--laptop):not(.hero__phone--web) .hero__typing {
+    animation: dzBannerIn 0.5s cubic-bezier(0.2, 0.85, 0.3, 1) both;
+  }
+
+  #hero .hero__notif-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 9px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--tile, linear-gradient(150deg, #2B5C86 0%, #1A3A5C 60%, #10283F 100%));
+    color: var(--glyph, #4ED8C2);
+    box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  #hero .hero__notif-icon svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  #hero .hero__notif-body { flex: 1; min-width: 0; }
+
+  #hero .hero__notif-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 1px;
+  }
+
+  #hero .hero__notif-title {
+    font-family: var(--font-headline);
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #F7F4EF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #hero .hero__notif-time {
+    flex-shrink: 0;
+    font-size: 0.66rem;
+    white-space: nowrap;
+    color: rgba(247, 244, 239, 0.55);
+  }
+
+  #hero .hero__notif-text {
+    margin: 0;
+    font-size: 0.74rem;
+    line-height: 1.34;
+    color: rgba(247, 244, 239, 0.8);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #hero .hero__notif--quiet {
+    background: rgba(78, 216, 194, 0.14);
+    border-color: rgba(78, 216, 194, 0.32);
+  }
+
+  #hero .hero__notif--quiet .hero__notif-title { color: #4ED8C2; }
+
+  #hero .hero__typing-dots { display: flex; gap: 4px; align-items: center; }
+
+  #hero .hero__typing-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ED8C2;
+    animation: dzTyping 1.2s ease-in-out infinite;
+  }
+
+  #hero .hero__typing-dot:nth-child(2) { animation-delay: 0.15s; }
+  #hero .hero__typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes dzTyping {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-4px); opacity: 1; }
+  }
+
+  #hero .hero__typing-label {
+    font-size: 0.72rem;
+    color: rgba(78, 216, 194, 0.85);
+  }
+
+  /* Desktop and Web: macOS-style banners */
+  #hero .hero__phone--laptop .hero__notif,
+  #hero .hero__phone--web .hero__notif,
+  #hero .hero__phone--laptop .hero__typing,
+  #hero .hero__phone--web .hero__typing {
+    border-radius: 13px;
+    padding: 10px 12px;
+    background: rgba(40, 48, 62, 0.82);
+    border-color: rgba(247, 244, 239, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  #hero .hero__phone--laptop .hero__notif-icon,
+  #hero .hero__phone--web .hero__notif-icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 8px;
+  }
+
+  #hero .hero__phone--laptop .hero__notif-icon svg,
+  #hero .hero__phone--web .hero__notif-icon svg { width: 16px; height: 16px; }
+
+  /* Light theme */
+  html[data-theme="light"] #hero .hero__notif,
+  html[data-theme="light"] #hero .hero__typing {
+    background: rgba(255, 255, 255, 0.74);
+    border-color: rgba(12, 14, 20, 0.06);
+    box-shadow: 0 8px 20px -12px rgba(12, 14, 20, 0.3);
+  }
+
+  html[data-theme="light"] #hero .hero__notif.is-flash {
+    background: rgba(78, 216, 194, 0.3);
+    border-color: rgba(26, 58, 92, 0.25);
+  }
+
+  html[data-theme="light"] #hero .hero__notif-title { color: #10141d; }
+  html[data-theme="light"] #hero .hero__notif-time { color: rgba(12, 14, 20, 0.55); }
+  html[data-theme="light"] #hero .hero__notif-text { color: rgba(12, 14, 20, 0.74); }
+  html[data-theme="light"] #hero .hero__notif--quiet { background: rgba(78, 216, 194, 0.22); border-color: rgba(26, 58, 92, 0.16); }
+  html[data-theme="light"] #hero .hero__notif--quiet .hero__notif-title { color: #1A3A5C; }
+  html[data-theme="light"] #hero .hero__typing-label { color: #1A3A5C; }
+
+  html[data-theme="light"] #hero .hero__phone--laptop .hero__notif,
+  html[data-theme="light"] #hero .hero__phone--web .hero__notif,
+  html[data-theme="light"] #hero .hero__phone--laptop .hero__typing,
+  html[data-theme="light"] #hero .hero__phone--web .hero__typing {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(12, 14, 20, 0.1);
+    box-shadow: 0 10px 30px rgba(12, 14, 20, 0.16);
+  }
+
+  @media (max-width: 480px) {
+    #hero .hero__notif,
+    #hero .hero__typing { padding: 8px 9px 8px 8px; gap: 8px; border-radius: 15px; }
+    #hero .hero__notif-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 7px; }
+    #hero .hero__notif-icon svg { width: 15px; height: 15px; }
+    #hero .hero__notif-title { font-size: 0.7rem; }
+    #hero .hero__notif-time { font-size: 0.58rem; }
+    #hero .hero__notif-text { font-size: 0.66rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hero .hero__notif.is-new,
+    #hero .hero__typing { animation: none !important; }
+  }
 </style>
 
 <script src="/js/water-ripple.v3.js" defer></script>
-<script src="/js/integration-field.v3.js" defer></script>
+<script src="/js/integration-field.v4.js" defer></script>
 
 <script>
   // Live clock for phone mockup
@@ -2303,6 +2985,17 @@ const notifJson = JSON.stringify(notifTranslations);
     const m = now.getMinutes().toString().padStart(2, '0');
     const hour12 = h % 12 || 12;
     el.textContent = `${hour12}:${m}`;
+    const dateEl = document.getElementById('hero-phone-date');
+    if (dateEl) {
+      const phone = document.querySelector('.hero__phone');
+      const lang = (phone && phone.dataset.lang) || 'en';
+      const loc = lang === 'en' ? 'en-AU' : lang;
+      try {
+        dateEl.textContent = now.toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long' });
+      } catch (e) {
+        dateEl.textContent = now.toDateString().slice(0, 10);
+      }
+    }
   }
   updatePhoneClock();
   setInterval(updatePhoneClock, 10000);
@@ -2500,7 +3193,7 @@ const notifJson = JSON.stringify(notifTranslations);
     const visibleNotifs = [];
 
     function formatTime(mins) {
-      if (mins <= 0) return 'Now';
+      if (mins <= 0) return 'now';
       if (mins < 60) return `${mins}m ago`;
       const h = Math.floor(mins / 60);
       return `${h}h ago`;
@@ -2514,59 +3207,41 @@ const notifJson = JSON.stringify(notifTranslations);
       });
     }
 
+    // Third-party apps show their own icon tile; everything else is a DUSA
+    // notification (ocean tile, accent glyph), like a real lock screen.
+    const brandTiles = {
+      instagram: ['linear-gradient(45deg,#F58529 0%,#DD2A7B 50%,#8134AF 100%)', '#fff'],
+      whatsapp: ['#25D366', '#fff'],
+      facebook: ['#1877F2', '#fff'],
+      google: ['#ffffff', '#4285F4'],
+      stripe: ['#635BFF', '#fff'],
+      tiktok: ['#111111', '#fff'],
+      linkedin: ['#0A66C2', '#fff'],
+    };
+    function tileStyle(icon) {
+      const b = brandTiles[icon];
+      if (b) return `--tile:${b[0]};--glyph:${b[1]};`;
+      return `--glyph:${iconColors[icon] || '#4ED8C2'};`;
+    }
+
     function createNotifEl(notif, animate, displayTime) {
       const el = document.createElement('div');
-      el.className = 'hero__notif';
-      const color = barColors[notif.icon] || '#4ED8C2';
+      el.className = 'hero__notif' + (animate ? ' is-new is-flash' : '');
       const iconSvg = icons[notif.icon] || icons.automation;
-      const iconColor = iconColors[notif.icon] || '#4ED8C2';
 
       el.innerHTML = `
-        <div class="hero__notif-icon" style="background:${iconColor}22;color:${iconColor};width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-          ${iconSvg}
-        </div>
-        <div class="hero__notif-body" style="flex:1;min-width:0;">
-          <div class="hero__notif-row" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;">
-            <span class="hero__notif-title" style="font-weight:600;font-size:0.8125rem;color:#F7F4EF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${notif.title}</span>
-            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(247,244,239,0.55);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">${displayTime}</span>
+        <div class="hero__notif-icon" style="${tileStyle(notif.icon)}">${iconSvg}</div>
+        <div class="hero__notif-body">
+          <div class="hero__notif-row">
+            <span class="hero__notif-title">${notif.title}</span>
+            <span class="hero__notif-time">${displayTime}</span>
           </div>
-          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(247,244,239,0.62);line-height:1.4;margin:0;">${notif.text}</p>
+          <p class="hero__notif-text">${notif.text}</p>
         </div>
       `;
-      // Force SVG sizing (scoped styles don't apply to dynamic elements)
-      const svg = el.querySelector('svg');
-      if (svg) {
-        svg.style.width = '14px';
-        svg.style.height = '14px';
-        svg.style.minWidth = '14px';
-        svg.style.minHeight = '14px';
-        svg.style.flexShrink = '0';
-      }
-      // Set the left bar color via inline
-      const bar = document.createElement('span');
-      bar.style.cssText = `position:absolute;top:0;left:0;width:2px;height:100%;background:${color};opacity:0.6;`;
-      el.appendChild(bar);
-
       if (animate) {
-        // Apply glow immediately via inline styles
-        el.style.borderColor = 'rgba(78, 216, 194, 0.6)';
-        el.style.boxShadow = '0 0 16px 3px rgba(78, 216, 194, 0.35), inset 0 0 8px rgba(78, 216, 194, 0.1)';
-        el.style.background = 'rgba(78, 216, 194, 0.1)';
-        el.style.transition = 'none'; // prevent instant transition away
-
-        // After a brief moment, switch to long transition and remove glow
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            el.style.transition = 'border-color 1.6s ease-out, box-shadow 1.6s ease-out, background 1.6s ease-out';
-            el.style.borderColor = '';
-            el.style.boxShadow = '';
-            el.style.background = '';
-            // Clean up inline styles after transition
-            setTimeout(() => {
-              el.style.transition = '';
-            }, 1700);
-          });
-        });
+        // Lands lit, then settles into the glass
+        setTimeout(() => el.classList.remove('is-flash'), 700);
       }
       return el;
     }
@@ -2585,9 +3260,7 @@ const notifJson = JSON.stringify(notifTranslations);
       const el = document.createElement('div');
       el.className = 'hero__typing';
       el.innerHTML = `
-        <div class="hero__notif-icon" style="background:rgba(78,216,194,0.12);color:#4ED8C2;width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-2 3-2 5h-4c0-2-2-3.05-2-5a4 4 0 0 1 4-4z"/><line x1="10" y1="17" x2="14" y2="17"/><line x1="10" y1="20" x2="14" y2="20"/></svg>
-        </div>
+        <div class="hero__notif-icon">${icons.ai}</div>
         <div style="display:flex;align-items:center;gap:8px;">
           <div class="hero__typing-dots">
             <div class="hero__typing-dot"></div>
@@ -2604,23 +3277,17 @@ const notifJson = JSON.stringify(notifTranslations);
       const msg = quietMessages[quietIndex % quietMessages.length];
       quietIndex++;
       const el = document.createElement('div');
-      el.className = 'hero__notif hero__notif--quiet';
+      el.className = 'hero__notif hero__notif--quiet is-new';
       el.innerHTML = `
-        <div class="hero__notif-icon" style="background:rgba(78,216,194,0.12);color:#4ED8C2;width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </div>
-        <div class="hero__notif-body" style="flex:1;min-width:0;">
-          <div class="hero__notif-row" style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;">
-            <span class="hero__notif-title" style="font-weight:600;font-size:0.8125rem;color:var(--reef-aqua);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Quiet Hours Summary</span>
-            <span class="hero__notif-time" style="font-family:var(--font-mono);font-size:0.625rem;color:rgba(78,216,194,0.7);white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;">6am</span>
+        <div class="hero__notif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+        <div class="hero__notif-body">
+          <div class="hero__notif-row">
+            <span class="hero__notif-title">Overnight summary</span>
+            <span class="hero__notif-time">6:00 am</span>
           </div>
-          <p class="hero__notif-text" style="font-size:0.75rem;color:rgba(78,216,194,0.8);line-height:1.4;margin:0;">${msg.text}</p>
+          <p class="hero__notif-text">${msg.text}</p>
         </div>
       `;
-      // Mint left bar
-      const bar = document.createElement('span');
-      bar.style.cssText = 'position:absolute;top:0;left:0;width:2px;height:100%;background:#4ED8C2;opacity:0.4;';
-      el.appendChild(bar);
       return el;
     }
 
@@ -2654,7 +3321,7 @@ const notifJson = JSON.stringify(notifTranslations);
         setTimeout(() => {
           if (typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
           updateAllTimes(notif.delta);
-          const el = createNotifEl(notif, true, 'Now');
+          const el = createNotifEl(notif, true, 'now');
           insertNotif(el);
           updateStats(notif);
           pulseLotus();
@@ -2664,7 +3331,7 @@ const notifJson = JSON.stringify(notifTranslations);
 
       // Regular notification flow
       updateAllTimes(notif.delta);
-      const el = createNotifEl(notif, true, 'Now');
+      const el = createNotifEl(notif, true, 'now');
       insertNotif(el);
       updateStats(notif);
 

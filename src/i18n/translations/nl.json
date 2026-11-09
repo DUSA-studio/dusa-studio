@@ -386,7 +386,16 @@
     "fewerStories": "Minder verhalen tonen",
     "trustLine": "Echte reviews, verzameld op G2 en Trustpilot",
     "ratingLine": "{avg} gemiddeld over {n} reviews",
-    "businessesLine": "20+ bedrijven op DUSA"
+    "businessesLine": "20+ bedrijven op DUSA",
+    "trustLabel": "Gebouwd op HighLevel",
+    "trustHeading": "Beoordeeld met een 4,9 door meer dan 15.000 bedrijven.",
+    "trustHeadingAccent": "DUSA draait op hetzelfde platform.",
+    "trustSub": "HighLevel ondersteunt meer dan 2 miljoen bedrijven wereldwijd. DUSA richt het voor je in, voegt AI toe die voor jouw bedrijf werkt en ondersteunt je vanuit Australië. Dit zeggen HighLevel-gebruikers, woord voor woord.",
+    "readReview": "Review lezen",
+    "openOriginal": "Openen op Trustpilot",
+    "verifiedOn": "Review van HighLevel op Trustpilot",
+    "trustFoot": "Reviews van HighLevel, het platform waarop DUSA is gebouwd. Woord voor woord geciteerd, elk met een link naar het origineel.",
+    "close": "Sluiten"
   },
   "brandCarousel": {
     "label": "Groeimotor voor",

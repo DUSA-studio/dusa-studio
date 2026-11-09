@@ -386,7 +386,16 @@
     "fewerStories": "Vis færre historier",
     "trustLine": "Ægte anmeldelser, indsamlet på G2 og Trustpilot",
     "ratingLine": "{avg} i gennemsnit over {n} anmeldelser",
-    "businessesLine": "20+ virksomheder på DUSA"
+    "businessesLine": "20+ virksomheder på DUSA",
+    "trustLabel": "Bygget på HighLevel",
+    "trustHeading": "Bedømt 4,9 af over 15.000 virksomheder.",
+    "trustHeadingAccent": "DUSA kører på den samme platform.",
+    "trustSub": "HighLevel driver mere end 2 millioner virksomheder verden over. DUSA sætter det op for dig, tilføjer AI, der arbejder for din virksomhed, og hjælper dig fra Australien. Her er, hvad HighLevel-brugere siger, ord for ord.",
+    "readReview": "Læs anmeldelse",
+    "openOriginal": "Åbn på Trustpilot",
+    "verifiedOn": "Anmeldelse af HighLevel på Trustpilot",
+    "trustFoot": "Anmeldelser af HighLevel, platformen DUSA er bygget på. Citeret ord for ord, hver med link til originalen.",
+    "close": "Luk"
   },
   "brandCarousel": {
     "label": "Vi driver væksten hos",

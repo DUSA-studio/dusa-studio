@@ -58,8 +58,8 @@ export const SAAS_PLANS: SaasPlan[] = [
     id: 'scale',
     name: 'Scale',
     blurb: 'More AI, more help, for busy teams.',
-    monthlyPrice: 449,
-    annualPrice: 4490,
+    monthlyPrice: 497,
+    annualPrice: 4970,
     highlight: false,
     features: [
       'Everything in Growth',
@@ -67,7 +67,7 @@ export const SAAS_PLANS: SaasPlan[] = [
       '2 hours of hands-on help every month',
       'A named Growth Lead',
     ],
-    // New plan: needs a Scale A$449 / A$4,490 plan + sale links from the SaaS Configurator.
+    // New plan: needs a Scale A$497 / A$4,970 plan + sale links from the SaaS Configurator.
     links: { monthly: '#pending', annual: '#pending' },
   },
 ];

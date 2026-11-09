@@ -50,7 +50,7 @@ const priceOverrides = {
  * Starter + Unlimited AI 194. Run `node scripts/check-map.mjs` after changing a price
  * or a rate, and recheck whenever exchange rates move.
  */
-export const PLAN_AUD = { starter: 149, growth: 249, scale: 449 };
+export const PLAN_AUD = { starter: 149, growth: 249, scale: 497 };
 export const MAP_FLOOR_USD = { starter: 97, growth: 147, scale: 194 };
 /* Smallest Growth Engine bundle on the catalogue workbook (Growth Engine tab). */
 export const ENGINE_FROM_AUD = 1057;

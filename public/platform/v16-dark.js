@@ -273,7 +273,7 @@
   var RC_ATTRS = RC_BASE.map(function (a) { return a + '-lt'; }).concat(RC_BASE.map(function (a) { return a + '-dk'; }));
   function rcName(a) { return a + (isDark() ? '-dk' : '-lt'); }
   var RC_SKIP = 'img, video, canvas, iframe, picture, [contenteditable="true"], [data-dz-skip], .fc-event, [class*="color-picker"], [class*="swatch"],' +
-    ' [class*="chart"], [id*="chart"], [_echarts_instance_], [class*="highcharts"], .gjs-frame-wrapper, [class*="email-preview"], [class*="template-preview"], [class*="logo"], .sr-only';
+    ' [class*="chart"], [id*="chart"], [_echarts_instance_], [class*="highcharts"], .gjs-frame-wrapper, [class*="email-preview"], [class*="template-preview"], [class*="logo"], .sr-only, .hl_location_icon, [class*="country"], [class*="flag"]';
   var bgCache = typeof WeakMap === 'function' ? new WeakMap() : null;
   function mixC(top, bot) { var a = top.a; return { r: top.r * a + bot.r * (1 - a), g: top.g * a + bot.g * (1 - a), b: top.b * a + bot.b * (1 - a), a: 1 }; }
   function gradAvg(s) {

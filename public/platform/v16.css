@@ -877,6 +877,39 @@ body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-orbital svg g[stroke]:not([
 body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-stats-icon svg,
 body[data-theme*="dark"]:not(#dz-a):not(#dz-b) .hero-stats-icon svg * { stroke: #4ED8C2 !important; }
 
+/* Text-type buttons are labels and links, not CTAs. The old base rule
+   button[style*="--primary"] painted the animated mint gradient onto them
+   (HighRise writes --primary-* vars inline on every primary-themed button),
+   leaving a tight mint slab behind words like the Dashboard "Quick filters" label. */
+body:not(#dz-a):not(#dz-b) :is(button, a):is(.hr-button--text, .n-button--text, .hr-button--quaternary, .n-button--quaternary, .hr-button--tertiary, .n-button--tertiary)[style*="--primary"] {
+  background: transparent !important; background-image: none !important; background-color: transparent !important;
+  animation: none !important; box-shadow: none !important; border: 0 !important;
+  color: var(--dz-m-text) !important;
+}
+body:not([data-theme*="dark"]):not(#dz-a):not(#dz-b) :is(button, a):is(.hr-button--text, .n-button--text):is(.hr-button--disabled, .n-button--disabled, [disabled])[style*="--primary"] { color: #1A3A5C !important; opacity: 1 !important; }
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) :is(button, a):is(.hr-button--text, .n-button--text):is(.hr-button--disabled, .n-button--disabled, [disabled])[style*="--primary"] { color: rgba(247, 244, 239, .9) !important; opacity: 1 !important; }
+body:not(#dz-a):not(#dz-b) :is(button, a):is(.hr-button--text, .n-button--text)[style*="--primary"] :is(p, span) { color: inherit !important; }
+
+/* Dark mode: the old [class*="switch"] wildcard (meant for toggle switches) also
+   caught the account switcher's name/city spans and other "switcher" wrappers,
+   drawing a grey box behind the text. Real toggles keep their track. */
+body[data-theme*="dark"]:not(#dz-a):not(#dz-b) :is([class*="switcher"], [class*="switchyard"]):not([role="switch"]):not(.n-switch):not(.hr-switch):not(button) { background-color: transparent !important; }
+
+/* Small count badges (Tailwind bg-blue-600: unread tab count, opportunity card
+   counters) are not buttons: solid mint, no animated gradient, readable ink. */
+body:not(#dz-a):not(#dz-b) :is(span, div).bg-blue-600:is([class*="text-[10px]"], [class*="text-[11px]"], .text-xs):not(button) {
+  background: #4ED8C2 !important; background-image: none !important; animation: none !important;
+  color: #0B1E30 !important; box-shadow: none !important; font-weight: 600 !important;
+}
+body:not(#dz-a):not(#dz-b) span.bg-blue-600[class*="text-[10px]"]:not(button) { border-radius: 999px !important; padding: 0 5px !important; }
+
+/* Sidebar account switcher: GHL's location glyph is white line art on a 15% white
+   tile. The contrast rescue misread the switcher's gradient and painted the glyph
+   ocean, so it vanished into an empty circle. Keep it white in both themes. */
+body:not(#dz-a):not(#dz-b) #sidebar-v2 .hl_location_icon rect { fill: #fff !important; fill-opacity: .18 !important; }
+body:not(#dz-a):not(#dz-b) #sidebar-v2 .hl_location_icon path[stroke] { stroke: #fff !important; }
+body:not(#dz-a):not(#dz-b) #sidebar-v2 .hl_location_icon path[fill="#fff"] { fill: #fff !important; }
+
 /* Ask AI Computer avatar: the DUSA visor bot (animated SVG: float, blink, antenna
    pulse) replaces the stock robot at every size; GHL's status pip stays on top.
    While it works (any state but idle) the bot gets a soft mint glow. */

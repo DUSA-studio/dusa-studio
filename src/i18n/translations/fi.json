@@ -888,7 +888,42 @@
     "getScale": "Valitse Scale",
     "growthAndUp": "Growth-paketista ylöspäin",
     "servicesLine": "Haluatko apua myös markkinointiin? Lisää mihin tahansa pakettiin palveluja, kuten mainontaa, somea ja sähköpostikampanjoita.",
-    "servicesCta": "Varaa puhelu"
+    "servicesCta": "Varaa puhelu",
+    "aiLadder": {
+      "label": "Mikä muuttuu pakettien välillä",
+      "title": "Sama alusta.",
+      "titleAccent": "Ero on siinä, kuinka paljon tekoäly tekee puolestasi.",
+      "sub": "Jokainen paketti sisältää koko alustan. Isompi paketti tarkoittaa, että tekoäly ottaa hoitaakseen yhä enemmän arjen töistä: puhelut, viestit ja ajanvaraukset hoituvat silloinkin, kun olet kiireinen tai nukut.",
+      "starter": {
+        "level": "Tekoäly tarvittaessa",
+        "head": "Sinä ohjaat. Tekoäly auttaa, kun pyydät.",
+        "points": [
+          "Ask AI kirjoittaa kampanjan tai rakentaa työnkulun sekunneissa",
+          "Ota tekoälyvastaukset tai -puhelut käyttöön milloin haluat",
+          "Maksat vain käytöstä, yleensä muutamia senttejä"
+        ]
+      },
+      "growth": {
+        "level": "Tekoäly tiimissäsi",
+        "head": "AI Employee vastaa puolestasi.",
+        "points": [
+          "Vastaa puheluihisi, 100 minuuttia kuukaudessa",
+          "Vastaa SMS-viesteihin, verkkochattiin, sähköposteihin sekä Instagramissa ja Facebookissa, 1 000 vastausta kuukaudessa",
+          "Varaa työn suoraan kalenteriisi",
+          "Vastaa jokaiseen Google-arvosteluun ja kirjoittaa julkaisusi"
+        ]
+      },
+      "scale": {
+        "level": "Tekoäly kaikessa",
+        "head": "Ei mittaria. Tekoäly hoitaa kaiken.",
+        "points": [
+          "Rajattomat tekoälypuhelut ja -keskustelut kohtuullisen käytön rajoissa",
+          "Oikea ihminen auttaa sinua 2 tuntia joka kuukausi",
+          "Nimetty Growth Lead ja puhelintuki"
+        ]
+      },
+      "note": "Ask AI sekä tavalliset puhelu- ja SMS-maksut laskutetaan käytön mukaan kaikissa paketeissa."
+    }
   },
   "services": {
     "metaTitle": "Palvelut | DUSA.studio",

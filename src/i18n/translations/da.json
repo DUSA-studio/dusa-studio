@@ -888,7 +888,42 @@
     "getScale": "Vælg Scale",
     "growthAndUp": "Growth og opefter",
     "servicesLine": "Vil du også have hjælp til markedsføringen? Tilføj ydelser som annoncer, sociale medier og e-mailkampagner til enhver plan.",
-    "servicesCta": "Book et opkald"
+    "servicesCta": "Book et opkald",
+    "aiLadder": {
+      "label": "Hvad der ændrer sig mellem planerne",
+      "title": "Samme platform.",
+      "titleAccent": "Forskellen er, hvor meget AI arbejder for dig.",
+      "sub": "Alle planer har hele platformen. Når du går et trin op, tager AI mere af det daglige arbejde fra dig: opkald bliver taget, beskeder besvaret og opgaver booket, også når du har travlt eller sover.",
+      "starter": {
+        "level": "AI efter behov",
+        "head": "Du styrer. AI hjælper, når du spørger.",
+        "points": [
+          "Ask AI skriver en kampagne eller bygger et workflow på få sekunder",
+          "Slå AI-svar eller AI-opkald til, når du vil",
+          "Betal kun for det, den bruger, typisk få cent"
+        ]
+      },
+      "growth": {
+        "level": "AI på dit team",
+        "head": "Din AI Employee svarer for dig.",
+        "points": [
+          "Tager dine opkald, 100 minutter om måneden",
+          "Svarer på SMS, webchat, e-mail, Instagram og Facebook, 1.000 svar om måneden",
+          "Booker opgaven direkte i din kalender",
+          "Svarer på hver Google-anmeldelse og skriver dine opslag"
+        ]
+      },
+      "scale": {
+        "level": "AI på det hele",
+        "head": "Ingen måler. AI klarer det hele.",
+        "points": [
+          "Ubegrænsede AI-opkald og -samtaler under fair use",
+          "Et rigtigt menneske, der hjælper dig 2 timer hver måned",
+          "En fast Growth Lead og telefonsupport"
+        ]
+      },
+      "note": "Ask AI samt almindelige opkalds- og SMS-takster faktureres efter forbrug på alle planer."
+    }
   },
   "services": {
     "metaTitle": "Ydelser | DUSA . studio",

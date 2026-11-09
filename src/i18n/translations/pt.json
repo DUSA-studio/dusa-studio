@@ -888,7 +888,42 @@
     "getScale": "Assinar Scale",
     "growthAndUp": "Growth e superiores",
     "servicesLine": "Quer ajuda com o marketing também? Adicione serviços como anúncios, redes sociais e campanhas de e-mail a qualquer plano.",
-    "servicesCta": "Agendar uma chamada"
+    "servicesCta": "Agendar uma chamada",
+    "aiLadder": {
+      "label": "O que muda entre os planos",
+      "title": "A mesma plataforma.",
+      "titleAccent": "A diferença é quanto a IA trabalha por você.",
+      "sub": "Todo plano inclui a plataforma completa. Subir de plano significa que a IA tira mais do dia a dia das suas mãos: chamadas atendidas, mensagens respondidas e serviços agendados, mesmo quando você está ocupado ou dormindo.",
+      "starter": {
+        "level": "IA sob demanda",
+        "head": "Você no comando. A IA ajuda quando você pede.",
+        "points": [
+          "O Ask AI escreve uma campanha ou monta um workflow em segundos",
+          "Ative respostas ou chamadas com IA quando quiser",
+          "Pague só pelo que ela usar, geralmente centavos"
+        ]
+      },
+      "growth": {
+        "level": "IA no seu time",
+        "head": "Seu AI Employee responde por você.",
+        "points": [
+          "Atende suas chamadas, 100 minutos por mês",
+          "Responde SMS, chat do site, e-mail, Instagram e Facebook, 1.000 respostas por mês",
+          "Marca o serviço direto no seu calendário",
+          "Responde a cada avaliação no Google e escreve seus posts"
+        ]
+      },
+      "scale": {
+        "level": "IA em tudo",
+        "head": "Sem medidor. A IA cuida de tudo.",
+        "points": [
+          "Chamadas e conversas com IA ilimitadas, com uso justo",
+          "Uma pessoa de verdade ajudando você 2 horas todo mês",
+          "Um Growth Lead dedicado e suporte por telefone"
+        ]
+      },
+      "note": "O Ask AI e as tarifas padrão de chamadas e SMS são cobrados conforme o uso em todos os planos."
+    }
   },
   "services": {
     "metaTitle": "Serviços | DUSA.studio",

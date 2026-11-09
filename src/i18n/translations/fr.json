@@ -888,7 +888,42 @@
     "getScale": "Obtenir Scale",
     "growthAndUp": "Growth et supérieurs",
     "servicesLine": "Besoin d'aide pour le marketing aussi ? Ajoutez des services comme les publicités, les réseaux sociaux et les campagnes e-mail à n'importe quel plan.",
-    "servicesCta": "Réserver un appel"
+    "servicesCta": "Réserver un appel",
+    "aiLadder": {
+      "label": "Ce qui change d'un plan à l'autre",
+      "title": "Même plateforme.",
+      "titleAccent": "La différence, c'est tout ce que l'IA fait pour vous.",
+      "sub": "Chaque plan inclut toute la plateforme. En montant en gamme, l'IA vous décharge d'une plus grande part du quotidien : appels pris, messages traités et rendez-vous réservés, même quand vous êtes débordé ou que vous dormez.",
+      "starter": {
+        "level": "L'IA à la demande",
+        "head": "Vous pilotez. L'IA aide quand vous le demandez.",
+        "points": [
+          "Ask AI rédige une campagne ou crée un workflow en quelques secondes",
+          "Activez les réponses ou les appels IA quand vous le souhaitez",
+          "Vous ne payez que ce qu'elle consomme, souvent quelques centimes"
+        ]
+      },
+      "growth": {
+        "level": "L'IA dans votre équipe",
+        "head": "Votre AI Employee répond à votre place.",
+        "points": [
+          "Prend vos appels, 100 minutes par mois",
+          "Répond aux SMS, au chat web, aux e-mails, sur Instagram et Facebook, 1 000 réponses par mois",
+          "Inscrit le rendez-vous directement dans votre agenda",
+          "Répond à chaque avis Google et rédige vos publications"
+        ]
+      },
+      "scale": {
+        "level": "L'IA partout",
+        "head": "Sans compteur. L'IA s'occupe de tout.",
+        "points": [
+          "Appels et conversations IA illimités, en usage raisonnable",
+          "Une vraie personne à vos côtés 2 heures chaque mois",
+          "Un Growth Lead attitré et le support téléphonique"
+        ]
+      },
+      "note": "Ask AI, ainsi que les frais standard d'appels et de SMS, sont facturés selon votre consommation sur chaque plan."
+    }
   },
   "services": {
     "metaTitle": "Services | DUSA.studio",

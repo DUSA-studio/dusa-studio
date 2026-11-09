@@ -386,7 +386,16 @@
     "fewerStories": "Mostrar menos histórias",
     "trustLine": "Avaliações reais, coletadas no G2 e no Trustpilot",
     "ratingLine": "{avg} de média em {n} avaliações",
-    "businessesLine": "Mais de 20 negócios na DUSA"
+    "businessesLine": "Mais de 20 negócios na DUSA",
+    "trustLabel": "Construído sobre o HighLevel",
+    "trustHeading": "Nota 4,9 dada por mais de 15.000 empresas.",
+    "trustHeadingAccent": "A DUSA roda na mesma plataforma.",
+    "trustSub": "O HighLevel impulsiona mais de 2 milhões de empresas no mundo todo. A DUSA configura tudo para você, adiciona IA que trabalha para o seu negócio e oferece suporte a partir da Austrália. Veja o que os usuários do HighLevel dizem, palavra por palavra.",
+    "readReview": "Ler avaliação",
+    "openOriginal": "Abrir no Trustpilot",
+    "verifiedOn": "Avaliação do HighLevel no Trustpilot",
+    "trustFoot": "Avaliações do HighLevel, a plataforma sobre a qual a DUSA é construída. Citadas palavra por palavra, cada uma com link para o original.",
+    "close": "Fechar"
   },
   "brandCarousel": {
     "label": "Impulsionando o crescimento de",

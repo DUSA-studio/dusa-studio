@@ -386,7 +386,16 @@
     "fewerStories": "Näytä vähemmän tarinoita",
     "trustLine": "Aitoja arvosteluja, kerätty G2:sta ja Trustpilotista",
     "ratingLine": "{avg} keskiarvo {n} arvostelusta",
-    "businessesLine": "Yli 20 yritystä DUSAlla"
+    "businessesLine": "Yli 20 yritystä DUSAlla",
+    "trustLabel": "Rakennettu HighLevelin varaan",
+    "trustHeading": "Arvosana 4,9 yli 15 000 yritykseltä.",
+    "trustHeadingAccent": "DUSA toimii samalla alustalla.",
+    "trustSub": "HighLevel on yli 2 miljoonan yrityksen käytössä ympäri maailmaa. DUSA ottaa sen käyttöön puolestasi, lisää tekoälyn, joka työskentelee yrityksesi hyväksi, ja tukee sinua Australiasta käsin. Näin HighLevelin käyttäjät sanovat, sanasta sanaan.",
+    "readReview": "Lue arvostelu",
+    "openOriginal": "Avaa Trustpilotissa",
+    "verifiedOn": "Arvostelu HighLevelistä Trustpilotissa",
+    "trustFoot": "Arvosteluja HighLevelistä, alustasta, jonka varaan DUSA on rakennettu. Lainattu sanasta sanaan, ja jokaisesta on linkki alkuperäiseen.",
+    "close": "Sulje"
   },
   "brandCarousel": {
     "label": "Kasvun moottorina",

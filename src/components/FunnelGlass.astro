@@ -37,11 +37,11 @@ const perMonth = s.perMonth || '/mo';
     <figure class="cf reveal" data-cost-film>
       <div class="cf__frame">
         <video class="cf__video" muted playsinline loop preload="none"
-          poster="/media/cost-film-start.webp" aria-hidden="true">
-          <source src="/media/cost-film-sm.mp4" type="video/mp4" media="(max-width: 640px)" />
-          <source src="/media/cost-film.mp4" type="video/mp4" />
+          poster="/media/cost-film-v2-start.webp" aria-hidden="true">
+          <source src="/media/cost-film-v2-sm.mp4" type="video/mp4" media="(max-width: 640px)" />
+          <source src="/media/cost-film-v2.mp4" type="video/mp4" />
         </video>
-        <img class="cf__still" src="/media/cost-film-end.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img class="cf__still" src="/media/cost-film-v2-end.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="cf__shade" aria-hidden="true"></div>
 
         <figcaption class="cf__caption" aria-live="polite">
@@ -82,7 +82,7 @@ const perMonth = s.perMonth || '/mo';
     const dusa = root.querySelectorAll('.cf__verdict--dusa, .cf__pill--dusa');
     const bar = root.querySelector('.cf__progress span') as HTMLElement;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const SWITCH = 0.48; // share of the film where the tools start fusing
+    const SWITCH = 0.56; // share of the film where the tools start fusing
 
     const show = (isDusa: boolean) => {
       tools.forEach((el) => el.classList.toggle('is-on', !isDusa));
@@ -136,12 +136,12 @@ const perMonth = s.perMonth || '/mo';
   .cf.is-still .cf__video { display: none; }
   .cf__shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(7, 12, 20, 0) 45%, rgba(7, 12, 20, 0.55) 72%, rgba(7, 12, 20, 0.88) 100%); }
 
-  .cf__caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 6% 5.5%; display: grid; text-align: center; }
+  .cf__caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 14% 6% 5.5%; display: grid; text-align: center; background: linear-gradient(to top, rgba(5, 12, 22, 0.82) 0%, rgba(5, 12, 22, 0.55) 45%, rgba(5, 12, 22, 0) 100%); }
   .cf__verdict { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; opacity: 0; transform: translateY(10px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .cf__verdict.is-on { opacity: 1; transform: none; }
   .cf__verdict strong { font-family: var(--font-mono); font-weight: 700; font-size: clamp(1.15rem, 2.6vw, 2rem); letter-spacing: 0.02em; }
   .cf__verdict span { max-width: 560px; font-size: clamp(0.85rem, 1.4vw, 1.02rem); line-height: 1.5; color: rgba(247, 244, 239, 0.78); }
-  .cf__verdict--tools strong { color: #ff9b73; text-shadow: 0 0 24px rgba(255, 120, 80, 0.35); }
+  .cf__verdict--tools strong { color: #c9dcea; text-shadow: 0 0 24px rgba(143, 184, 216, 0.35); }
   .cf__verdict--dusa strong { color: #4ED8C2; text-shadow: 0 0 24px rgba(78, 216, 194, 0.45); }
 
   .cf__compare { display: flex; align-items: center; justify-content: center; gap: 0.9rem; margin-top: 1.1rem; flex-wrap: wrap; }
@@ -154,15 +154,15 @@ const perMonth = s.perMonth || '/mo';
   }
   .cf__pill.is-on { opacity: 1; }
   .cf__pill i { width: 8px; height: 8px; border-radius: 50%; }
-  .cf__pill--tools i { background: #ff9b73; }
+  .cf__pill--tools i { background: #8FB8D8; }
   .cf__pill--dusa i { background: #4ED8C2; box-shadow: 0 0 10px #4ED8C2; }
-  .cf__pill--tools.is-on { border-color: rgba(255, 155, 115, 0.5); }
+  .cf__pill--tools.is-on { border-color: rgba(143, 184, 216, 0.55); }
   .cf__pill--dusa.is-on { border-color: rgba(78, 216, 194, 0.55); box-shadow: 0 0 24px -6px rgba(78, 216, 194, 0.5); }
   .cf__pill-name { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247, 244, 239, 0.75); }
   .cf__pill b { font-family: var(--font-headline); font-size: 1.05rem; }
   .cf__pill b small { font-size: 0.72rem; opacity: 0.6; margin-left: 1px; }
   .cf__progress { width: 90px; height: 2px; border-radius: 2px; background: rgba(247, 244, 239, 0.15); overflow: hidden; }
-  .cf__progress span { display: block; height: 100%; background: linear-gradient(90deg, #ff9b73, #4ED8C2); transform-origin: left; transform: scaleX(0); }
+  .cf__progress span { display: block; height: 100%; background: linear-gradient(90deg, #8FB8D8, #4ED8C2); transform-origin: left; transform: scaleX(0); }
 
   :global(html[data-theme="light"]) .cf__frame { border-color: rgba(255, 255, 255, 0.9); box-shadow: 0 0 0 1px rgba(26, 58, 92, 0.1), 0 50px 110px -40px rgba(26, 58, 92, 0.45); }
   :global(html[data-theme="light"]) .cf__pill { border-color: rgba(255, 255, 255, 0.95); background: linear-gradient(140deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5)); box-shadow: 0 0 0 1px rgba(26, 58, 92, 0.08); }

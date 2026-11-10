@@ -18,10 +18,10 @@ const fcHeading = s.heading || 'Where does your';
 const fcHeadingAccent = s.headingAccent || 'money actually go?';
 const fill = (str: string) => String(str)
   .replace('{total}', money(STACK_TOTAL)).replace('{dusa}', money(DUSA_COST)).replace('{saving}', money(SAVING));
-const v1Title = fill(s.verdict1Title || '{total} in. A trickle out.');
-const v1Sub = fill(s.verdict1Sub || 'Eight tools, eight logins, none of them connected. The work jams before it reaches you.');
-const v2Title = fill(s.verdict2Title || '{dusa} in. All of it out.');
-const v2Sub = fill(s.verdict2Sub || 'One connected platform, and the other {saving} a month stays yours.');
+const v1Title = fill(s.verdict1Title || '{total} a month. Nothing flows.');
+const v1Sub = fill(s.verdict1Sub || 'Eight tools, eight logins, none of them connected. Work stalls between every one.');
+const v2Title = fill(s.verdict2Title || '{dusa} a month. Everything flows.');
+const v2Sub = fill(s.verdict2Sub || 'One connected platform runs the whole business, and the other {saving} a month stays yours.');
 const tabTools = s.tabTools || 'Eight tools';
 const tabPlatform = s.tabPlatform || 'One platform';
 const perMonth = s.perMonth || '/mo';
@@ -37,11 +37,11 @@ const perMonth = s.perMonth || '/mo';
     <figure class="cf reveal" data-cost-film>
       <div class="cf__frame">
         <video class="cf__video" muted playsinline loop preload="none"
-          poster="/media/cost-film-v2-start.webp" aria-hidden="true">
-          <source src="/media/cost-film-v2-sm.mp4" type="video/mp4" media="(max-width: 640px)" />
-          <source src="/media/cost-film-v2.mp4" type="video/mp4" />
+          poster="/media/cost-film-v3-start.webp" aria-hidden="true">
+          <source src="/media/cost-film-v3-sm.mp4" type="video/mp4" media="(max-width: 640px)" />
+          <source src="/media/cost-film-v3.mp4" type="video/mp4" />
         </video>
-        <img class="cf__still" src="/media/cost-film-v2-end.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img class="cf__still" src="/media/cost-film-v3-end.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <div class="cf__shade" aria-hidden="true"></div>
 
         <figcaption class="cf__caption" aria-live="polite">

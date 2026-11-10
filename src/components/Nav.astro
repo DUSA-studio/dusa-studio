@@ -1,6 +1,7 @@
 ---
 // Nav.astro — Sticky navigation with logo + CTA
 import { INDUSTRY_ICONS } from '../config/industry-icons';
+import Icon from './Icon.astro';
 
 interface Props {
   t?: Record<string, any>;
@@ -145,11 +146,11 @@ const viewAllLabel = n.viewAll || 'View all';
 
   <!-- Mobile Menu -->
   <div class="nav__mobile" id="nav-mobile">
-    <a href="/pricing" data-page="pricing" class={`nav__mobile-link ${currentPath === '/pricing' ? 'nav__mobile-link--active' : ''}`}>{pricingLabel}</a>
-    <a href="/services" data-page="services" class={`nav__mobile-link ${currentPath === '/services' ? 'nav__mobile-link--active' : ''}`}>{servicesLabel}</a>
+    <a href="/pricing" data-page="pricing" class={`nav__mobile-link ${currentPath === '/pricing' ? 'nav__mobile-link--active' : ''}`}><Icon name="tag" class="nav__mi" />{pricingLabel}</a>
+    <a href="/services" data-page="services" class={`nav__mobile-link ${currentPath === '/services' ? 'nav__mobile-link--active' : ''}`}><Icon name="wrench" class="nav__mi" />{servicesLabel}</a>
     <div class="nav__mobile-accordion" id="mobile-industries">
       <button class={`nav__mobile-link nav__mobile-link--accordion ${currentPath.startsWith('/industries') ? 'nav__mobile-link--active' : ''}`} id="mobile-industries-toggle">
-        {industriesLabel}
+        <span class="nav__mi-wrap"><Icon name="grid" class="nav__mi" />{industriesLabel}</span>
         <svg class="nav__mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="nav__mobile-sub" id="mobile-industries-sub">
@@ -162,10 +163,10 @@ const viewAllLabel = n.viewAll || 'View all';
         <a href="/industries" data-page="industries" class="nav__mobile-sub-link nav__mobile-sub-link--all">{viewAllLabel} &rarr;</a>
       </div>
     </div>
-    <a href="/contact" data-page="contact" class={`nav__mobile-link ${currentPath === '/contact' ? 'nav__mobile-link--active' : ''}`}>{contactLabel}</a>
-    <a href="https://app.dusa.studio" class="nav__mobile-link" target="_blank" rel="noopener noreferrer">{loginLabel}</a>
+    <a href="/contact" data-page="contact" class={`nav__mobile-link ${currentPath === '/contact' ? 'nav__mobile-link--active' : ''}`}><Icon name="message" class="nav__mi" />{contactLabel}</a>
+    <a href="https://app.dusa.studio" class="nav__mobile-link" target="_blank" rel="noopener noreferrer"><Icon name="login" class="nav__mi" />{loginLabel}</a>
     <div class="nav__mobile-region" id="mobile-region">
-      <span class="nav__mobile-theme-label">{regionLabel}</span>
+      <span class="nav__mobile-theme-label nav__mi-wrap"><Icon name="globe" class="nav__mi" />{regionLabel}</span>
       <select class="nav__region-select" id="mobile-region-select" aria-label={regionLabel}>
         <option value="au">🇦🇺 Australia (AUD)</option>
         <option value="us">🇺🇸 USA (USD)</option>
@@ -588,7 +589,7 @@ const viewAllLabel = n.viewAll || 'View all';
     flex-direction: column;
     padding: var(--space-md);
     padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
-    background: rgba(12, 14, 20, 0.98);
+    background: rgb(12, 14, 20);
     border-top: 1px solid rgba(247, 244, 239, 0.06);
     max-height: calc(100vh - var(--nav-height));
     max-height: calc(100dvh - var(--nav-height));
@@ -613,6 +614,23 @@ const viewAllLabel = n.viewAll || 'View all';
     border-bottom: 1px solid rgba(247, 244, 239, 0.06);
     transition: color var(--duration-fast);
   }
+
+
+  /* Mobile menu icons: one quiet glyph per row, tinted aqua on the active page */
+  .nav__mobile-link :global(.nav__mi),
+  .nav__mi-wrap :global(.nav__mi) {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.875rem;
+    color: rgba(247, 244, 239, 0.45);
+    transition: color var(--duration-fast);
+  }
+  .nav__mi-wrap { display: inline-flex; align-items: center; }
+  .nav__mobile-link:hover :global(.nav__mi),
+  .nav__mobile-link--active :global(.nav__mi) { color: var(--reef-aqua); }
+  :global(html[data-theme="light"]) .nav__mobile-link :global(.nav__mi),
+  :global(html[data-theme="light"]) .nav__mi-wrap :global(.nav__mi) { color: rgba(12, 14, 20, 0.42); }
+  :global(html[data-theme="light"]) .nav__mobile-link--active :global(.nav__mi) { color: var(--deep-ocean); }
 
   .nav__mobile-link:hover {
     color: var(--reef-aqua);
@@ -1089,7 +1107,7 @@ const viewAllLabel = n.viewAll || 'View all';
   }
 
   :global(html[data-theme="light"]) .nav__mobile {
-    background: rgba(247, 244, 239, 0.98);
+    background: rgb(247, 244, 239);
     border-top: 1px solid rgba(12, 14, 20, 0.06);
   }
 

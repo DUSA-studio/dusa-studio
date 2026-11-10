@@ -17,6 +17,7 @@ import daDict from '../i18n/translations/da.json';
 import fiDict from '../i18n/translations/fi.json';
 import nbDict from '../i18n/translations/nb.json';
 import '../styles/global.css';
+import { labelIconCss } from '../config/ui-icons';
 
 interface Props {
   title: string;
@@ -264,6 +265,7 @@ const jsonLd = JSON.stringify({
         }
       </style>
     </noscript>
+    <style is:global set:html={labelIconCss()}></style>
   </head>
   <body>
     <a class="skip-link" href="#main">{t?.common?.skipToContent || 'Skip to content'}</a>

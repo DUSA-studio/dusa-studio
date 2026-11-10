@@ -1,5 +1,7 @@
 ---
 // Footer.astro
+import Icon from './Icon.astro';
+import { INDUSTRY_ICONS } from '../config/industry-icons';
 
 interface Props {
   t?: Record<string, any>;
@@ -33,9 +35,18 @@ const salonsLabel = f.salons || 'Salons';
 const tradiesLabel = f.tradies || 'Trades';
 const dentistsLabel = f.dentists || 'Dentists';
 const coachesLabel = f.coaches || 'Coaches';
+const footerIndustries = [
+  { href: '/industries/real-estate', icon: 'real-estate', label: realEstateLabel },
+  { href: '/industries/gyms', icon: 'gyms', label: gymsLabel },
+  { href: '/industries/restaurants', icon: 'restaurants', label: restaurantsLabel },
+  { href: '/industries/salons', icon: 'salons', label: salonsLabel },
+  { href: '/industries/tradies', icon: 'tradies', label: tradiesLabel },
+  { href: '/industries/dentists', icon: 'dentists', label: dentistsLabel },
+  { href: '/industries/coaches', icon: 'coaches', label: coachesLabel },
+];
 const locationLabel = f.location || 'Sydney, Australia';
 const soc2Title = f.soc2Title || 'SOC 2 Type II';
-const soc2Sub = f.soc2Sub || 'Compliant';
+const soc2Sub = f.soc2Sub || 'Audited platform';
 const hipaaTitle = f.hipaaTitle || 'HIPAA';
 const hipaaSubCompliant = f.hipaaSubCompliant || 'Compliant*';
 const hipaaNote = f.hipaaNote || '*HIPAA compliance available as an add-on for healthcare businesses.';
@@ -56,75 +67,80 @@ const aiPrompt = encodeURIComponent(
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <a href="/" data-page="home" class="footer__logo">
-          <span class="footer__logo-text">
-            <span class="footer__logo-shimmer">DUSA</span>
-            <span class="footer__logo-dot" aria-hidden="true">.</span>
-            <span class="footer__logo-shimmer">studio</span>
-          </span>
-        </a>
+        <div class="footer__brand-row">
+          <a href="/" data-page="home" class="footer__logo">
+            <span class="footer__logo-text">
+              <span class="footer__logo-shimmer">DUSA</span>
+              <span class="footer__logo-dot" aria-hidden="true">.</span>
+              <span class="footer__logo-shimmer">studio</span>
+            </span>
+          </a>
+          <div class="footer__social">
+            <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Follow DUSA on Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/company/dusa-studio" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Follow DUSA on LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+        </div>
         <p class="footer__tagline">{tagline}</p>
         <p class="footer__desc">{desc}</p>
-        <div class="footer__social">
-          <a href="https://www.instagram.com/the.dusa.studio" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Follow DUSA on Instagram">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/company/dusa-studio" target="_blank" rel="noopener noreferrer" class="footer__social-link" aria-label="Follow DUSA on LinkedIn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-              <rect x="2" y="9" width="4" height="12"/>
-              <circle cx="4" cy="4" r="2"/>
-            </svg>
-          </a>
+        <div class="footer__contact">
+          <a href="mailto:contact@dusa.studio" class="footer__contact-row"><Icon name="mail" class="footer__ci" /><span>contact@dusa.studio</span></a>
+          <a href="tel:+61488825686" class="footer__contact-row"><Icon name="phone" class="footer__ci" /><span>+61 488 825 686</span></a>
+          <span class="footer__contact-row footer__contact-row--static"><Icon name="pin" class="footer__ci" /><span>{locationLabel}</span></span>
         </div>
       </div>
 
-      <div class="footer__col">
-        <h4 class="footer__heading">{platformHeading}</h4>
-        <a href="/pricing#compare" data-page="pricing" data-hash="#compare" class="footer__link">{featuresLabel}</a>
-        <a href="/#how-it-works" data-page="home" data-hash="#how-it-works" class="footer__link">{howItWorksLabel}</a>
-        <a href="/onboarding" data-page="onboarding" class="footer__link">{onboardingLabel}</a>
-        <a href="/pricing" data-page="pricing" class="footer__link">{pricingLabel}</a>
-        <a href="/start" data-page="start" class="footer__link">{getStartedLabel}</a>
-      </div>
+      <details class="footer__col" open>
+        <summary class="footer__heading"><span class="footer__heading-in"><Icon name="layers" class="footer__hi" />{platformHeading}</span><Icon name="chevronDown" class="footer__chev" /></summary>
+        <div class="footer__links">
+          <a href="/pricing#compare" data-page="pricing" data-hash="#compare" class="footer__link">{featuresLabel}</a>
+          <a href="/#how-it-works" data-page="home" data-hash="#how-it-works" class="footer__link">{howItWorksLabel}</a>
+          <a href="/onboarding" data-page="onboarding" class="footer__link">{onboardingLabel}</a>
+          <a href="/pricing" data-page="pricing" class="footer__link">{pricingLabel}</a>
+          <a href="/start" data-page="start" class="footer__link">{getStartedLabel}</a>
+        </div>
+      </details>
 
-      <div class="footer__col">
-        <h4 class="footer__heading">{industriesHeading}</h4>
-        <a href="/industries" data-page="industries" class="footer__link">{industriesLabel}</a>
-        <a href="/industries/real-estate" data-page="industries/real-estate" class="footer__link">{realEstateLabel}</a>
-        <a href="/industries/gyms" data-page="industries/gyms" class="footer__link">{gymsLabel}</a>
-        <a href="/industries/restaurants" data-page="industries/restaurants" class="footer__link">{restaurantsLabel}</a>
-        <a href="/industries/salons" data-page="industries/salons" class="footer__link">{salonsLabel}</a>
-        <a href="/industries/tradies" data-page="industries/tradies" class="footer__link">{tradiesLabel}</a>
-        <a href="/industries/dentists" data-page="industries/dentists" class="footer__link">{dentistsLabel}</a>
-        <a href="/industries/coaches" data-page="industries/coaches" class="footer__link">{coachesLabel}</a>
-      </div>
+      <details class="footer__col" open>
+        <summary class="footer__heading"><span class="footer__heading-in"><Icon name="grid" class="footer__hi" />{industriesHeading}</span><Icon name="chevronDown" class="footer__chev" /></summary>
+        <div class="footer__links footer__links--industries">
+          {footerIndustries.map((ind) => (
+            <a href={ind.href} data-page={ind.href.replace(/^\//, '')} class="footer__link footer__link--ind">
+              <svg class="footer__ii" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={INDUSTRY_ICONS[ind.icon] || ''} /></svg>
+              <span>{ind.label}</span>
+            </a>
+          ))}
+          <a href="/industries" data-page="industries" class="footer__link footer__link--all">{industriesLabel} <Icon name="arrowRight" size={14} /></a>
+        </div>
+      </details>
 
-      <div class="footer__col">
-        <h4 class="footer__heading">{companyHeading}</h4>
-        <a href="/about" data-page="about" class="footer__link">{aboutLabel}</a>
-        <a href="/services" data-page="services" class="footer__link">{servicesLabel}</a>
-        <a href="/contact" data-page="contact" class="footer__link">{contactLabel}</a>
-        <a href="/blog" data-page="blog" class="footer__link">{newsLabel}</a>
-        <a href="/careers" data-page="careers" class="footer__link">{careersLabel}</a>
-      </div>
-
-      <div class="footer__col footer__col--right">
-        <h4 class="footer__heading">{getInTouchHeading}</h4>
-        <a href="mailto:contact@dusa.studio" class="footer__link footer__link--highlight">contact@dusa.studio</a>
-        <a href="tel:+61488825686" class="footer__link">+61 488 825 686</a>
-        <p class="footer__link" style="opacity:0.85">{locationLabel}</p>
-      </div>
+      <details class="footer__col" open>
+        <summary class="footer__heading"><span class="footer__heading-in"><Icon name="info" class="footer__hi" />{companyHeading}</span><Icon name="chevronDown" class="footer__chev" /></summary>
+        <div class="footer__links">
+          <a href="/about" data-page="about" class="footer__link">{aboutLabel}</a>
+          <a href="/services" data-page="services" class="footer__link">{servicesLabel}</a>
+          <a href="/contact" data-page="contact" class="footer__link">{contactLabel}</a>
+          <a href="/blog" data-page="blog" class="footer__link">{newsLabel}</a>
+          <a href="/careers" data-page="careers" class="footer__link">{careersLabel}</a>
+        </div>
+      </details>
     </div>
 
     <div class="footer__trust">
       <div class="footer__badge">
         <svg class="footer__badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/>
         </svg>
         <div class="footer__badge-text">
           <span class="footer__badge-title">{soc2Title}</span>
@@ -214,7 +230,7 @@ const aiPrompt = encodeURIComponent(
 
   .footer__grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+    grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
     gap: var(--space-xl);
     margin-bottom: var(--space-xl);
   }
@@ -415,95 +431,88 @@ const aiPrompt = encodeURIComponent(
     color: var(--reef-aqua);
   }
 
+  /* ─── Structure: brand + contact, then three link groups ─── */
+  .footer__brand-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .footer__brand-row .footer__logo { margin-bottom: 0; }
+  .footer__brand-row .footer__social { margin-top: 0; }
+  .footer__tagline { margin-top: var(--space-sm); }
+
+  .footer__contact { display: flex; flex-direction: column; gap: 0.25rem; margin-top: var(--space-md); }
+  .footer__contact-row {
+    display: inline-flex; align-items: center; gap: 0.625rem;
+    min-height: 40px; font-size: 0.9375rem;
+    color: rgba(247, 244, 239, 0.72);
+    transition: color var(--duration-fast);
+    overflow-wrap: anywhere;
+  }
+  a.footer__contact-row:hover { color: var(--reef-aqua); }
+  .footer__contact-row :global(.footer__ci) { width: 18px; height: 18px; color: var(--reef-aqua); opacity: 0.85; }
+
+  /* Link groups are <details>: always open on desktop, accordions on phones */
+  details.footer__col > summary { list-style: none; cursor: default; }
+  details.footer__col > summary::-webkit-details-marker { display: none; }
+  .footer__heading { display: flex; align-items: center; justify-content: space-between; }
+  .footer__heading-in { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .footer__heading :global(.footer__hi) { width: 15px; height: 15px; color: var(--reef-aqua); opacity: 0.8; }
+  .footer__heading :global(.footer__chev) { display: none; width: 16px; height: 16px; transition: transform var(--duration-fast); }
+  .footer__links { display: flex; flex-direction: column; gap: 0.125rem; }
+  .footer__link { min-height: 36px; padding: 0.125rem 0; font-size: 0.9375rem; }
+  .footer__link--ind { gap: 0.5rem; }
+  .footer__ii { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.6; }
+  .footer__link--all { gap: 0.35rem; color: var(--reef-aqua); }
+
   @media (max-width: 1024px) {
     .footer__grid {
-      /* last column sizes to the email address so it never breaks mid-word */
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) max-content;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr);
       gap: var(--space-md);
     }
-
-    .footer__logo {
-      font-size: 1.35rem;
-    }
-
+    .footer__logo { font-size: 1.35rem; }
   }
 
   @media (max-width: 768px) {
-    .footer__grid {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-lg);
-    }
-
-    .footer__brand {
-      grid-column: 1 / -1;
-    }
-
-    .footer__trust {
-      justify-content: center;
-    }
-
-    .footer__bottom {
-      flex-direction: column;
-      gap: var(--space-sm);
-      text-align: center;
-    }
-
-    .footer__col--right {
-      text-align: left;
-      align-items: flex-start;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .footer {
-      padding: var(--space-xl) 0 var(--space-md);
-    }
-
+    .footer { padding: var(--space-xl) 0 calc(var(--space-md) + 72px); }
     .footer__grid {
       grid-template-columns: 1fr;
-      gap: var(--space-md);
+      gap: 0;
+      margin-bottom: var(--space-md);
     }
+    .footer__brand { padding-bottom: var(--space-md); }
+    .footer__desc { max-width: none; font-size: 0.9375rem; }
 
-    .footer__logo {
-      font-size: 1.125rem;
-    }
-
-    .footer__desc {
-      font-size: 0.9375rem;
-      max-width: none;
-    }
-
-    .footer__col {
+    /* Contact becomes three tappable glass rows */
+    .footer__contact {
       margin-top: var(--space-md);
+      border: 1px solid rgba(247, 244, 239, 0.08);
+      border-radius: 16px;
+      background: rgba(247, 244, 239, 0.03);
+      overflow: hidden;
+      gap: 0;
     }
+    .footer__contact-row { min-height: 52px; padding: 0 1rem; font-size: 1rem; }
+    .footer__contact-row + .footer__contact-row { border-top: 1px solid rgba(247, 244, 239, 0.06); }
 
-    .footer__link {
-      font-size: 0.9375rem;
-      padding: 0.5rem 0;
-    }
+    /* Accordions */
+    details.footer__col { border-top: 1px solid rgba(247, 244, 239, 0.08); }
+    details.footer__col:last-of-type { border-bottom: 1px solid rgba(247, 244, 239, 0.08); }
+    details.footer__col > summary { cursor: pointer; min-height: 56px; margin: 0; font-size: 0.8125rem; color: rgba(247, 244, 239, 0.8); }
+    .footer__heading :global(.footer__chev) { display: block; color: rgba(247, 244, 239, 0.5); }
+    details[open].footer__col .footer__heading :global(.footer__chev) { transform: rotate(180deg); }
+    .footer__links { padding-bottom: var(--space-sm); }
+    .footer__link { min-height: 44px; font-size: 1rem; }
+    .footer__links--industries { display: grid; grid-template-columns: 1fr 1fr; column-gap: 0.75rem; }
+    .footer__links--industries .footer__link--all { grid-column: 1 / -1; }
 
-    .footer__trust {
-      flex-direction: column;
-      align-items: center;
-    }
+    /* Trust badges side by side, compact */
+    .footer__trust { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+    .footer__badge { flex: 1 1 140px; max-width: 220px; }
+    .footer__badge-note { flex-basis: 100%; text-align: center; }
 
-    .footer__badge {
-      max-width: 100%;
-    }
+    .footer__bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .footer__legal { flex-direction: row; gap: 1.25rem; justify-content: center; }
+  }
 
-    .footer__badge-note {
-      text-align: center;
-    }
-
-    .footer__copy {
-      text-align: center;
-    }
-
-    .footer__legal {
-      flex-direction: column;
-      gap: 0.5rem;
-      align-items: center;
-    }
+  @media (max-width: 380px) {
+    .footer__links--industries { grid-template-columns: 1fr; }
   }
 
   /* ─── Social Links ─── */
@@ -651,6 +660,17 @@ const aiPrompt = encodeURIComponent(
       });
     }
   }
+
+  // Footer link groups: open columns on desktop, tidy accordions on phones.
+  function initFooterGroups() {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const groups = document.querySelectorAll('details.footer__col');
+    const apply = () => groups.forEach((d) => { if (mq.matches) d.removeAttribute('open'); else d.setAttribute('open', ''); });
+    apply();
+    mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
+    groups.forEach((d) => d.querySelector('summary')?.addEventListener('click', (e) => { if (!mq.matches) e.preventDefault(); }));
+  }
+  initFooterGroups();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initFooterShare);

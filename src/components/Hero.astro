@@ -29,7 +29,7 @@ const heroCapFunnelsTitle = s.capFunnelsTitle || 'Funnels & Automations';
 const heroCapFunnelsSub = s.capFunnelsSub || 'Convert while you sleep';
 const heroCapAiTitle = s.capAiTitle || 'AI Built In';
 const heroCapAiSub = s.capAiSub || 'Smarter conversations, faster growth';
-const heroScrollExplore = s.scrollExplore || 'Explore';
+const heroScrollExplore = s.scrollExplore || 'See how it works';
 
 // Intro (opening panel) strings
 const introLabel = s.introLabel || 'Growth, done for you';
@@ -330,7 +330,7 @@ const notifJson = JSON.stringify(notifTranslations);
   <div class="container hero__inner">
     <div class="hero__layout">
       <div class="hero__content">
-        <span class="label reveal">{heroLabel}</span>
+        <span class="label reveal" data-icon="sparkles">{heroLabel}</span>
 
         <h1 class="hero__title reveal">
           {heroTitle}<br />
@@ -472,7 +472,7 @@ const notifJson = JSON.stringify(notifTranslations);
       <div class="hero__cap">
         <div class="hero__cap-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            <path d="M5 3h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM7 11v4a2 2 0 0 0 2 2h4M15 13h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/>
           </svg>
         </div>
         <div class="hero__cap-text">
@@ -483,7 +483,7 @@ const notifJson = JSON.stringify(notifTranslations);
       <div class="hero__cap">
         <div class="hero__cap-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-            <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M9 12h6l2 10H7l2-10z"/><circle cx="12" cy="5" r="1" fill="currentColor"/>
+            <path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0zM20 3v4M22 5h-4"/>
           </svg>
         </div>
         <div class="hero__cap-text">
@@ -496,13 +496,29 @@ const notifJson = JSON.stringify(notifTranslations);
     <!-- The foundation under the four pillars: runs on HighLevel, their numbers. -->
     <div class="hero__foundation reveal"><TrustStrip t={t} tight /></div>
 
-    <div class="hero__scroll-indicator">
+    <a class="hero__scroll-indicator" href="#connected-platform" id="hero-scroll-cue">
       <span class="hero__scroll-text">{heroScrollExplore}</span>
       <div class="hero__scroll-line"></div>
       <svg class="hero__scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
         <polyline points="6 9 12 15 18 9"/>
       </svg>
-    </div>
+    </a>
+    <script is:inline>
+      (function () {
+        var cue = document.getElementById('hero-scroll-cue');
+        if (!cue) return;
+        cue.addEventListener('click', function (e) {
+          var hero = cue.closest('section');
+          var target = document.getElementById('connected-platform') || (hero && hero.nextElementSibling);
+          if (!target) return;
+          e.preventDefault();
+          var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var y = target.getBoundingClientRect().top + window.pageYOffset - 72;
+          window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+          if (window.dusaTrack) window.dusaTrack('scroll_cue_click', { target: target.id || target.className.split(' ')[0] || 'next' });
+        });
+      })();
+    </script>
   </div>
 </section>
 
@@ -1354,10 +1370,18 @@ const notifJson = JSON.stringify(notifTranslations);
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: rgba(247, 244, 239, 0.55);
-    transition: color var(--duration-fast);
+    letter-spacing: 0.16em;
+    color: rgba(247, 244, 239, 0.72);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(247, 244, 239, 0.14);
+    border-radius: 999px;
+    background: rgba(247, 244, 239, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: color var(--duration-fast), border-color var(--duration-fast);
   }
+  .hero__scroll-indicator:hover .hero__scroll-text { border-color: rgba(78, 216, 194, 0.45); }
+  :global(html[data-theme="light"]) .hero__scroll-text { border-color: rgba(12, 14, 20, 0.14); background: rgba(255, 255, 255, 0.45); }
 
   .hero__scroll-indicator:hover .hero__scroll-text {
     color: var(--reef-aqua);

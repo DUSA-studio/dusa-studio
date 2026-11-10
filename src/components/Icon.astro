@@ -1,0 +1,8 @@
+---
+/** Inline UI icon from the shared set (src/config/ui-icons.ts). Decorative by default. */
+import { UI_ICONS } from '../config/ui-icons';
+interface Props { name: string; size?: number; class?: string; label?: string; }
+const { name, size = 18, class: cls = '', label } = Astro.props;
+const d = UI_ICONS[name] || '';
+---
+<svg class={`dz-icon ${cls}`} viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden={label ? undefined : 'true'} role={label ? 'img' : undefined} aria-label={label}><path d={d} /></svg>

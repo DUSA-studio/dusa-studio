@@ -18,3 +18,4 @@ node_modules/
 .astro/
 .vercel
 node_modules.nosync
+node_modules

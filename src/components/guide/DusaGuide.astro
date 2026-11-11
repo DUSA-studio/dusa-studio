@@ -1,14 +1,15 @@
 ---
 /**
  * DusaGuide: the floating glass guide (DUSA's face for its AI).
- * It rests bottom-left, waves hello, and when the visitor goes quiet it
- * floats to the most useful thing in view, points at it and says one short,
- * industry-aware line. Behaviour lives in /js/guide.v1.js. English pages only
- * until a locale's dictionary carries a `guide` block.
+ * It lives on the chat button, looks around, and when the visitor goes quiet it
+ * flies to the most useful thing in view, points at it and says one short,
+ * industry-aware line. Click it and it asks what you want to fix, then shows
+ * you where that lives on the platform. Behaviour: /js/guide.v2.js.
+ * English pages only until a locale's dictionary carries a `guide` block.
  *
- * Art: Higgsfield renders in media-src/guide (four poses, transparent).
+ * Art: Higgsfield renders (Apple-style glass, seven 3D poses) with the real
+ * DUSA lotus composited on the chest. Sources in media-src/guide.
  */
-import { PERSONA_ICONS } from '../../config/industry-icons';
 interface Props { t?: Record<string, any>; lang?: string; }
 const { t = {}, lang = 'en' } = Astro.props;
 const g = t?.guide || null;
@@ -25,12 +26,20 @@ const copy = {
   show: 'Show the DUSA guide',
   ai: 'AI guide',
   intro: "Hi, I'm your DUSA guide. Tell me what kind of business you run and I'll show you what DUSA does for it.",
-  introKnown: "Welcome back. I've kept everything set up for your {biz}.",
-  menu: 'How can I help?',
-  aShow: 'Show me what it does for my business',
+  askOutcome: 'What would you like to fix first?',
+  askOutcomeBiz: 'What should we fix first for your {biz}?',
+  outcomes: { calls: 'Missed calls', noshows: 'No-shows', reviews: 'More reviews', admin: 'Less admin' },
+  outcomeLines: {
+    calls: 'Missed calls get an instant text back, and on Growth the AI answers and books the job for you. It all lives here, under Conversations.',
+    noshows: 'Reminders go out before every booking and people get nudged to rebook. Your calendar sits here, with bookings and payments together.',
+    reviews: 'After every job DUSA asks happy customers for a review and helps you reply to each one. That is Reputation.',
+    admin: 'Quotes, invoices, follow-ups and reminders run on workflows you set up once. That is Automation doing the admin for you.',
+  },
   aPlan: 'Find my plan',
-  aBook: 'Book a 30-minute call',
+  aBook: 'Book a call',
+  aChat: 'Chat with us',
   aPricing: 'See pricing',
+  aSeePlatform: 'Show me on the platform',
   picked: {
     tradies: "For trades, a missed call is a missed job. DUSA's AI answers while you're on the tools, books the job in and chases the invoice.",
     salons: 'For salons, it comes down to full chairs. DUSA sends the reminders, prompts the rebooking and asks happy clients for a review.',
@@ -53,105 +62,138 @@ const copy = {
   },
   ...(g || {}),
 };
-const data = JSON.stringify({ book: BOOK_URL, copy, icons: PERSONA_ICONS });
+const data = JSON.stringify({ book: BOOK_URL, copy });
+const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
 ---
 
 {on && !quiet && (
   <>
-    <aside class="dzg" id="dz-guide" aria-label={copy.name} hidden>
-      <div class="dzg__bubble" id="dzg-bubble" hidden>
-        <button type="button" class="dzg__x" id="dzg-x" aria-label={copy.close}>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-        <p class="dzg__tag"><img src="/media/guide/glass-lotus-sm.webp" width="16" height="16" alt="" />{copy.ai}</p>
-        <p class="dzg__msg" id="dzg-msg" role="status" aria-live="polite"></p>
-        <div class="dzg__actions" id="dzg-actions"></div>
-        <button type="button" class="dzg__hide" id="dzg-hide" hidden>{copy.hide}</button>
-      </div>
+    <aside class="dzg" id="dz-guide" aria-label={copy.name} data-pose="idle" hidden>
       <button type="button" class="dzg__bot" id="dzg-bot" aria-label={copy.open} aria-expanded="false" aria-controls="dzg-bubble">
         <span class="dzg__float">
-          <img class="dzg__pose is-on" data-pose="idle" src="/media/guide/guide-idle.webp" width="200" height="200" alt="" decoding="async" />
-          <img class="dzg__pose" data-pose="wave" data-src="/media/guide/guide-wave.webp" width="200" height="200" alt="" decoding="async" />
-          <img class="dzg__pose" data-pose="point" data-src="/media/guide/guide-point.webp" width="200" height="200" alt="" decoding="async" />
-          <img class="dzg__pose" data-pose="down" data-src="/media/guide/guide-down.webp" width="200" height="200" alt="" decoding="async" />
+          <span class="dzg__aura" aria-hidden="true"></span>
+          <img class="dzg__pose is-on" data-pose="idle" src="/media/guide/guide-idle.webp" width="220" height="220" alt="" decoding="async" />
+          {POSES.map((p) => (
+            <img class="dzg__pose" data-pose={p} data-src={`/media/guide/guide-${p}.webp`} width="220" height="220" alt="" decoding="async" />
+          ))}
+          <span class="dzg__tint" aria-hidden="true"></span>
         </span>
       </button>
     </aside>
+    <div class="dzg__bubble" id="dzg-bubble" role="dialog" aria-label={copy.name} hidden>
+      <button type="button" class="dzg__x" id="dzg-x" aria-label={copy.close}>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <p class="dzg__tag"><img src="/media/guide/glass-lotus-sm.webp" width="16" height="16" alt="" />{copy.ai}</p>
+      <p class="dzg__msg" id="dzg-msg" role="status" aria-live="polite"></p>
+      <div class="dzg__actions" id="dzg-actions"></div>
+      <div class="dzg__links" id="dzg-links"></div>
+      <button type="button" class="dzg__hide" id="dzg-hide" hidden>{copy.hide}</button>
+    </div>
     <button type="button" class="dzg-launch" id="dzg-launch" aria-label={copy.show} title={copy.show} hidden>
-      <img src="/media/guide/glass-lotus-sm.webp" width="34" height="34" alt="" />
+      <img src="/media/guide/glass-lotus-sm.webp" width="30" height="30" alt="" />
     </button>
     <script type="application/json" id="dz-guide-data" set:html={data}></script>
-    <script is:inline src="/js/guide.v1.js" defer></script>
+    <script is:inline src="/js/guide.v2.js" defer></script>
   </>
 )}
 
 <style is:global>
   .dzg {
     position: fixed; left: 0; top: 0; z-index: 900;
-    width: var(--dzg-size, 150px); height: var(--dzg-size, 150px);
-    transform: translate3d(var(--dzg-x, 16px), var(--dzg-y, 100vh), 0);
-    transition: transform 1.1s cubic-bezier(0.22, 0.9, 0.24, 1);
+    width: 150px; height: 150px;
+    transform: translate3d(var(--dzg-x, 110vw), var(--dzg-y, 60vh), 0);
+    transition: transform var(--dzg-dur, 900ms) cubic-bezier(0.3, 0.05, 0.2, 1), opacity 0.3s ease;
     pointer-events: none;
     will-change: transform;
   }
   .dzg[hidden], .dzg-launch[hidden], .dzg__bubble[hidden], .dzg__hide[hidden] { display: none !important; }
-  .dzg.is-instant { transition: none; }
+  .dzg.is-instant { transition: opacity 0.3s ease; }
+  .dzg.is-tucked { opacity: 0; visibility: hidden; }
   .dzg__bot {
-    position: absolute; inset: 0; padding: 0; border: 0; background: none; cursor: pointer;
-    pointer-events: auto; border-radius: 40%;
+    position: absolute; inset: 4% 16% 8%; padding: 0; border: 0; background: none; cursor: pointer;
+    pointer-events: auto; border-radius: 45%;
     -webkit-tap-highlight-color: transparent;
   }
+  .dzg.is-tucked .dzg__bot { pointer-events: none; }
   .dzg__bot:focus-visible { outline: 2px solid var(--reef-aqua); outline-offset: 4px; }
-  .dzg__float { position: absolute; inset: 0; display: block; animation: dzgBob 4.2s ease-in-out infinite; transform-origin: 50% 80%; }
-  .dzg.is-flying .dzg__float { animation: dzgFly 1.1s ease-in-out; }
+  .dzg__float { position: absolute; inset: -4.55% -23.53% -9.09%; display: block; animation: dzgBob 4.4s ease-in-out infinite; transform-origin: 50% 80%; }
+  .dzg.is-flying .dzg__float { animation: dzgArc var(--dzg-dur, 900ms) ease-in-out; }
   .dzg__pose {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
-    opacity: 0; transition: opacity 0.28s ease;
-    filter: drop-shadow(0 10px 18px rgba(8, 30, 44, 0.35));
+    opacity: 0; transition: opacity 0.22s ease;
+    filter: drop-shadow(0 12px 18px rgba(8, 30, 44, 0.32));
     user-select: none; -webkit-user-drag: none;
   }
   .dzg__pose.is-on { opacity: 1; }
-  .dzg[data-mirror="true"] .dzg__pose { transform: scaleX(-1); }
-  .dzg__bot:hover .dzg__float { animation-duration: 2.2s; }
-  @keyframes dzgBob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-9px) rotate(1.5deg); } }
-  @keyframes dzgFly { 0% { transform: translateY(0) rotate(0); } 35% { transform: translateY(-14px) rotate(var(--dzg-lean, 8deg)); } 100% { transform: translateY(0) rotate(0); } }
+  .dzg[data-mirror="true"] .dzg__pose, .dzg[data-mirror="true"] .dzg__tint { transform: scaleX(-1); }
+  @keyframes dzgBob { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-8px) rotate(1.2deg); } }
+  @keyframes dzgArc { 0% { transform: translateY(0) scale(1); } 45% { transform: translateY(-26px) scale(1.06); } 100% { transform: translateY(0) scale(1); } }
 
-  /* Speech bubble: bold glass card */
+  /* Resting, the guide is clear glass. When it is doing something (pointing,
+     talking, hovered) it warms up in mint: a soft aura behind it and a mint
+     wash inside its own silhouette. */
+  .dzg__aura {
+    position: absolute; inset: 6% 12% 4%; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(78, 216, 194, 0.55), rgba(78, 216, 194, 0.16) 55%, rgba(78, 216, 194, 0) 78%);
+    filter: blur(12px); opacity: 0; transform: scale(0.8);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .dzg__tint {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(78, 216, 194, 0.05) 25%, rgba(78, 216, 194, 0.75) 80%, rgba(143, 184, 216, 0.55));
+    -webkit-mask: var(--dzg-mask, url("/media/guide/guide-idle.webp")) center / contain no-repeat;
+    mask: var(--dzg-mask, url("/media/guide/guide-idle.webp")) center / contain no-repeat;
+    mix-blend-mode: multiply; opacity: 0; transition: opacity 0.6s ease;
+  }
+  .dzg.is-active .dzg__aura { opacity: 1; transform: scale(1); animation: dzgAura 2.6s ease-in-out infinite; }
+  .dzg.is-active .dzg__tint { opacity: 0.3; }
+  .dzg__bot:hover .dzg__aura, .dzg__bot:focus-visible .dzg__aura { opacity: 0.6; transform: scale(0.95); }
+  .dzg__bot:hover .dzg__tint { opacity: 0.18; }
+  @keyframes dzgAura { 0%, 100% { opacity: 0.72; } 50% { opacity: 1; } }
+
+  /* Speech bubble: bold glass card, placed by the script */
   .dzg__bubble {
-    position: absolute; bottom: calc(100% - 6px); left: 22%;
-    width: min(300px, calc(100vw - 28px));
-    padding: 14px 16px 14px;
-    border-radius: 20px 20px 20px 6px;
+    position: fixed; z-index: 901; left: 0; top: 0;
+    width: min(320px, calc(100vw - 24px));
+    padding: 14px 16px;
+    border-radius: 20px;
     color: var(--warm-white);
     background: linear-gradient(150deg, rgba(30, 44, 62, 0.9), rgba(12, 16, 24, 0.92));
     border: 1px solid rgba(247, 244, 239, 0.16);
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4);
-    pointer-events: auto;
-    animation: dzgPop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2);
-    transform-origin: 10% 100%;
+    animation: dzgPop 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
   }
-  .dzg[data-side="tr"] .dzg__bubble { left: auto; right: 22%; border-radius: 20px 20px 6px 20px; transform-origin: 90% 100%; }
-  .dzg[data-side="bl"] .dzg__bubble { bottom: auto; top: calc(100% - 6px); border-radius: 6px 20px 20px 20px; transform-origin: 10% 0; }
-  .dzg[data-side="br"] .dzg__bubble { bottom: auto; top: calc(100% - 6px); left: auto; right: 22%; border-radius: 20px 6px 20px 20px; transform-origin: 90% 0; }
-  @keyframes dzgPop { from { opacity: 0; transform: scale(0.86) translateY(8px); } to { opacity: 1; transform: none; } }
+  .dzg__bubble[data-tail="br"] { border-bottom-right-radius: 6px; transform-origin: 90% 100%; }
+  .dzg__bubble[data-tail="bl"] { border-bottom-left-radius: 6px; transform-origin: 10% 100%; }
+  .dzg__bubble[data-tail="tr"] { border-top-right-radius: 6px; transform-origin: 90% 0; }
+  .dzg__bubble[data-tail="tl"] { border-top-left-radius: 6px; transform-origin: 10% 0; }
+  @keyframes dzgPop { from { opacity: 0; transform: scale(0.88) translateY(8px); } to { opacity: 1; transform: none; } }
   .dzg__tag { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--reef-aqua); max-width: none; }
-  .dzg__msg { margin: 0; padding-right: 14px; font-size: 0.95rem; line-height: 1.45; max-width: none; color: inherit; }
+  .dzg__msg { margin: 0; padding-right: 16px; font-size: 0.95rem; line-height: 1.45; max-width: none; color: inherit; }
   .dzg__x { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(247, 244, 239, 0.08); color: inherit; cursor: pointer; }
   .dzg__x:hover { background: rgba(247, 244, 239, 0.16); }
   .dzg__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .dzg__actions:empty { display: none; }
+  .dzg__actions--grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .dzg__actions:empty, .dzg__links:empty { display: none; }
   .dzg__act {
-    display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 0 14px;
-    border-radius: 999px; font-family: var(--font-headline); font-size: 0.86rem; font-weight: 500; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 14px;
+    border-radius: 999px; font-family: var(--font-headline); font-size: 0.86rem; font-weight: 500; cursor: pointer; text-align: left;
     color: var(--warm-white); background: rgba(247, 244, 239, 0.07); border: 1px solid rgba(247, 244, 239, 0.18);
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
-  .dzg__act:hover { border-color: rgba(78, 216, 194, 0.6); background: rgba(78, 216, 194, 0.12); }
+  .dzg__actions--grid .dzg__act { border-radius: 14px; padding: 0 12px; }
+  .dzg__act:hover { border-color: rgba(78, 216, 194, 0.6); background: rgba(78, 216, 194, 0.12); transform: translateY(-1px); }
   .dzg__act--primary { color: var(--deep-black); background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue)); border-color: transparent; }
   .dzg__act--primary:hover { color: var(--deep-black); filter: brightness(1.06); }
-  .dzg__act svg { width: 15px; height: 15px; }
-  .dzg__hide { margin-top: 10px; padding: 0; border: 0; background: none; cursor: pointer; font-size: 0.78rem; color: rgba(247, 244, 239, 0.6); text-decoration: underline; text-underline-offset: 3px; }
+  .dzg__act svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--reef-aqua); }
+  .dzg__act--primary svg { color: currentColor; }
+  .dzg__links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(247, 244, 239, 0.1); }
+  .dzg__link { display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 0; border: 0; background: none; cursor: pointer; font-size: 0.82rem; color: rgba(247, 244, 239, 0.82); }
+  .dzg__link svg { width: 14px; height: 14px; color: var(--reef-aqua); }
+  .dzg__link:hover { color: var(--reef-aqua); }
+  .dzg__hide { display: block; margin-top: 8px; padding: 0; border: 0; background: none; cursor: pointer; font-size: 0.76rem; color: rgba(247, 244, 239, 0.55); text-decoration: underline; text-underline-offset: 3px; }
   .dzg__hide:hover { color: var(--warm-white); }
 
   html[data-theme="light"] .dzg__bubble {
@@ -162,17 +204,22 @@ const data = JSON.stringify({ book: BOOK_URL, copy, icons: PERSONA_ICONS });
   }
   html[data-theme="light"] .dzg__tag { color: var(--deep-ocean); }
   html[data-theme="light"] .dzg__x { background: rgba(12, 14, 20, 0.06); }
-  html[data-theme="light"] .dzg__act { color: var(--deep-black); background: rgba(12, 14, 20, 0.04); border-color: rgba(12, 14, 20, 0.16); }
+  html[data-theme="light"] .dzg__act { color: var(--deep-black); background: rgba(12, 14, 20, 0.04); border-color: rgba(12, 14, 20, 0.14); }
+  html[data-theme="light"] .dzg__act svg { color: var(--deep-ocean); }
   html[data-theme="light"] .dzg__act--primary { color: var(--deep-black); background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue)); border-color: transparent; }
-  html[data-theme="light"] .dzg__hide { color: rgba(12, 14, 20, 0.6); }
+  html[data-theme="light"] .dzg__links { border-top-color: rgba(12, 14, 20, 0.1); }
+  html[data-theme="light"] .dzg__link { color: rgba(12, 14, 20, 0.78); }
+  html[data-theme="light"] .dzg__link svg { color: var(--deep-ocean); }
+  html[data-theme="light"] .dzg__link:hover { color: var(--deep-ocean); }
+  html[data-theme="light"] .dzg__hide { color: rgba(12, 14, 20, 0.55); }
 
   /* What the guide is pointing at */
   .dzg-target { outline: 2px solid rgba(78, 216, 194, 0.85); outline-offset: 8px; border-radius: 18px; animation: dzgRing 1.6s ease-in-out 3; }
   @keyframes dzgRing { 0%, 100% { outline-color: rgba(78, 216, 194, 0.15); } 50% { outline-color: rgba(78, 216, 194, 0.95); } }
 
-  /* Launcher left behind when the guide is hidden */
+  /* Left behind when the guide is hidden: a small glass lotus above the chat button */
   .dzg-launch {
-    position: fixed; left: 14px; bottom: 18px; z-index: 899; width: 48px; height: 48px; padding: 0;
+    position: fixed; right: 26px; bottom: 92px; z-index: 899; width: 44px; height: 44px; padding: 0;
     display: grid; place-items: center; cursor: pointer; border-radius: 50%;
     background: rgba(18, 26, 38, 0.7); border: 1px solid rgba(247, 244, 239, 0.16);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.14);
@@ -180,16 +227,16 @@ const data = JSON.stringify({ book: BOOK_URL, copy, icons: PERSONA_ICONS });
   }
   html[data-theme="light"] .dzg-launch { background: rgba(255, 255, 255, 0.75); border-color: rgba(12, 14, 20, 0.1); }
 
-  @media (max-width: 760px) {
-    .dzg { --dzg-size: 92px; }
-    .dzg__bubble { left: 10%; }
-    .dzg-launch { bottom: 84px; }
+  @media (max-width: 759px) {
+    .dzg { width: 96px; height: 96px; }
+    .dzg__bubble { width: auto; }
   }
   @media (prefers-reduced-motion: reduce) {
     .dzg { transition: none; }
     .dzg__float, .dzg.is-flying .dzg__float { animation: none; }
+    .dzg.is-active .dzg__aura { animation: none; }
     .dzg__bubble { animation: none; }
     .dzg-target { animation: none; }
   }
-  @media print { .dzg, .dzg-launch { display: none !important; } }
+  @media print { .dzg, .dzg-launch, .dzg__bubble { display: none !important; } }
 </style>

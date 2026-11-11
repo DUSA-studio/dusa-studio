@@ -196,6 +196,7 @@
       out.visit_count = String(ctx.visits || 1);
       out.pages_viewed = pages().join(' > ');
       out.industry = ctx.industry || '';
+      out.pain = ctx.pain || '';
       out.plan = ctx.plan || '';
       out.billing = ctx.billing || '';
       out.region = ctx.region || region();

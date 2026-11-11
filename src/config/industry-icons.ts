@@ -53,3 +53,16 @@ export const INDUSTRY_ICONS: Record<string, string> = {
   'ecommerce':
     'M5.8 8h12.4l1.1 12a1.2 1.2 0 01-1.2 1.3H5.9A1.2 1.2 0 014.7 20zM9 11V6.5a3 3 0 016 0V11',
 };
+
+// Icons for the seven "what kind of business do you run?" choices (hero picker, plan quiz, guide).
+export const PERSONA_ICONS: Record<string, string> = {
+  'tradies': INDUSTRY_ICONS['tradies'],
+  'salons': INDUSTRY_ICONS['salons'],
+  // Medical cross
+  'clinics': 'M9.5 3.5h5v6h6v5h-6v6h-5v-6h-6v-5h6z',
+  'hospitality': INDUSTRY_ICONS['restaurants'],
+  'real-estate': INDUSTRY_ICONS['real-estate'],
+  'fitness': INDUSTRY_ICONS['gyms'],
+  // Sparkle: something else
+  'other': 'M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2zM19 3v3M20.5 4.5h-3',
+};

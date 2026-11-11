@@ -2,6 +2,7 @@
 // Hero.astro — Full-viewport editorial hero with notification phone mockup
 import allNotifications from '../i18n/notifications.json';
 import TrustStrip from './TrustStrip.astro';
+import { PERSONA_ICONS } from '../config/industry-icons';
 
 interface Props {
   t?: Record<string, any>;
@@ -162,7 +163,7 @@ const notifJson = JSON.stringify(notifTranslations);
             <p class="hz-picker__ask" id="hz-ask">{personaAsk}</p>
             <div class="hz-picker__chips">
               {personaChips.map((p) => (
-                <button type="button" class={`hz-chip${p.id === 'other' ? ' hz-chip--quiet' : ''}`} data-industry={p.id} aria-pressed="false">{p.chip}</button>
+                <button type="button" class={`hz-chip${p.id === 'other' ? ' hz-chip--quiet' : ''}`} data-industry={p.id} aria-pressed="false"><svg class="hz-chip__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={PERSONA_ICONS[p.id] || ''} /></svg><span>{p.chip}</span></button>
               ))}
             </div>
           </div>
@@ -2040,6 +2041,22 @@ const notifJson = JSON.stringify(notifTranslations);
     cursor: pointer;
     transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
+
+  .hz-chip { display: inline-flex; align-items: center; gap: 8px; }
+  .hz-chip__icon { width: 17px; height: 17px; flex-shrink: 0; color: var(--reef-aqua); transition: color 0.2s ease; }
+  .hz-chip[aria-pressed="true"] .hz-chip__icon { color: currentColor; }
+  :global(html[data-theme="light"]) .hz-chip__icon { color: var(--deep-ocean); }
+  :global(html[data-theme="light"]) .hz-chip[aria-pressed="true"] .hz-chip__icon { color: currentColor; }
+  /* Nobody has picked yet: the chips take turns to glow, so the eye lands on them */
+  @keyframes hzInvite { 0%, 100% { box-shadow: inset 0 1px 0 rgba(247,244,239,0.07); border-color: rgba(247,244,239,0.14); } 50% { box-shadow: 0 0 0 3px rgba(78,216,194,0.16), 0 6px 20px rgba(78,216,194,0.18); border-color: rgba(78,216,194,0.6); } }
+  .hero__intro-content:not([data-industry]) .hz-chip:not(.hz-chip--quiet),
+  .hero__intro-content[data-industry="default"] .hz-chip:not(.hz-chip--quiet) { animation: hzInvite 4.2s ease-in-out infinite; }
+  .hz-chip:nth-child(2) { animation-delay: 0.6s !important; }
+  .hz-chip:nth-child(3) { animation-delay: 1.2s !important; }
+  .hz-chip:nth-child(4) { animation-delay: 1.8s !important; }
+  .hz-chip:nth-child(5) { animation-delay: 2.4s !important; }
+  .hz-chip:nth-child(6) { animation-delay: 3s !important; }
+  @media (prefers-reduced-motion: reduce) { .hz-chip { animation: none !important; } }
 
   .hz-chip:hover {
     color: var(--warm-white);

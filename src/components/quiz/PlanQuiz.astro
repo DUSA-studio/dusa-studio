@@ -1,4 +1,5 @@
 ---
+import { PERSONA_ICONS } from '../../config/industry-icons';
 // PlanQuiz.astro — "Find your plan": five quick questions, a recommended plan
 // with the reason, then an optional capture step that posts to the same GHL
 // inbound webhook as the /start trial form.
@@ -147,7 +148,7 @@ const cfgJson = JSON.stringify({ webhook: WEBHOOK, book: BOOK_URL, plans, reason
           {st.hint && <p class="pq__hint">{st.hint}</p>}
           <div class={`pq__opts${st.multi ? ' pq__opts--chips' : ''}`} role="group" aria-labelledby={`pq-q${i + 1}`}>
             {st.opts.map((o) => (
-              <button type="button" class={`pq__opt${st.multi ? ' pq__opt--chip' : ''}`} data-value={o.id} aria-pressed="false">{o.label}</button>
+              <button type="button" class={`pq__opt${st.multi ? ' pq__opt--chip' : ''}`} data-value={o.id} aria-pressed="false">{st.key === 'industry' && <svg class="pq__opt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={PERSONA_ICONS[o.id] || ''} /></svg>}<span>{o.label}</span></button>
             ))}
           </div>
           <div class="pq__nav">
@@ -350,6 +351,10 @@ const cfgJson = JSON.stringify({ webhook: WEBHOOK, book: BOOK_URL, plans, reason
     cursor: pointer;
     transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
+
+  .pq__opt-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--reef-aqua); margin-right: 2px; }
+  :global(html[data-theme="light"]) .pq__opt-icon { color: var(--deep-ocean); }
+  .pq__step[data-key="industry"] .pq__opt::before { display: none; }
 
   .pq__opt::before {
     content: '';

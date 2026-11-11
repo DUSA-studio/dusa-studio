@@ -3,6 +3,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import ConsentBanner from '../components/capture/ConsentBanner.astro';
 import BookingModal from '../components/capture/BookingModal.astro';
+import DusaGuide from '../components/guide/DusaGuide.astro';
 import { stripRegion, urlFor, navRoutesByRegion, REGION_PREFIXES } from '../i18n/routes';
 import enDict from '../i18n/translations/en.json';
 import esDict from '../i18n/translations/es.json';
@@ -219,6 +220,7 @@ if (!isHomepage && breadcrumbSegments.length > 0) {
       <slot />
     </main>
     <Footer t={t} />
+    <DusaGuide t={t} lang={String(lang).toLowerCase().startsWith('en') ? 'en' : String(lang)} />
     <ConsentBanner t={t} />
     <BookingModal t={t} />
 

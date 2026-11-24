@@ -1,0 +1,372 @@
+/* ============================================================
+   DUSA . studio glass v2
+   One frosted-glass system for the whole site, modelled on the
+   HELM keycaps and HELM's frosted notifications:
+     surface = frosted fill (lighter top-left, clearer bottom-right)
+     light   = a bright top edge, a soft side edge, a corner sheen
+     depth   = a soft drop shadow; on keys, a skirt you can press into
+   Tokens are set per SURFACE (dark or light), not per theme, so a card
+   always matches the section it sits on. Everything is properties only
+   (no pseudo-elements), so it layers onto existing components safely.
+   ============================================================ */
+
+/* ---------- tokens: dark surface (default) ---------- */
+:root {
+  --gl-tint: 222, 238, 246;
+  --gl-top: 0.11;  --gl-bot: 0.035;
+  --gl-top-strong: 0.15;  --gl-bot-strong: 0.07;
+  --gl-blur: 22px;  --gl-sat: 165%;
+  --gl-edge: rgba(222, 238, 246, 0.12);
+  --gl-edge-hi: rgba(255, 255, 255, 0.34);
+  --gl-edge-side: rgba(255, 255, 255, 0.10);
+  --gl-edge-bot: rgba(255, 255, 255, 0.05);
+  --gl-sheen: rgba(255, 255, 255, 0.09);
+  --gl-shadow: 0 28px 56px -30px rgba(0, 6, 14, 0.9), 0 2px 10px rgba(0, 6, 14, 0.28);
+  --gl-shadow-lift: 0 36px 70px -30px rgba(0, 6, 14, 0.95), 0 6px 18px rgba(0, 6, 14, 0.32);
+  /* keys */
+  --gl-key-top: 0.16;  --gl-key-bot: 0.06;
+  --gl-skirt: rgba(2, 8, 16, 0.72);
+  --gl-skirt-hi: rgba(255, 255, 255, 0.10);
+  --gl-key-shadow: rgba(0, 6, 14, 0.7);
+  --gl-ink: #F7F4EF;
+  --gl-ink-soft: rgba(247, 244, 239, 0.78);
+  --gl-lit: 78, 216, 194;               /* the mint backlight */
+  --gl-lit-ink: #EAFBF7;
+  /* canvas glows behind the glass */
+  --gl-glow-a: rgba(78, 216, 194, 0.11);
+  --gl-glow-b: rgba(106, 170, 207, 0.14);
+  --gl-glow-c: rgba(26, 58, 92, 0.55);
+  /* shape */
+  --gl-r-hero: clamp(22px, 2.4vw, 32px);
+  --gl-r-card: clamp(18px, 1.8vw, 24px);
+  --gl-r-tile: clamp(14px, 1.3vw, 18px);
+}
+
+/* ---------- tokens: light surface ---------- */
+html[data-theme="light"],
+.section--light,
+.section--sand,
+html[data-theme="light"] .section--dark {
+  --gl-tint: 255, 255, 255;
+  --gl-top: 0.66;  --gl-bot: 0.30;
+  --gl-top-strong: 0.84;  --gl-bot-strong: 0.56;
+  --gl-edge: rgba(26, 58, 92, 0.10);
+  --gl-edge-hi: rgba(255, 255, 255, 0.98);
+  --gl-edge-side: rgba(255, 255, 255, 0.70);
+  --gl-edge-bot: rgba(255, 255, 255, 0.30);
+  --gl-sheen: rgba(255, 255, 255, 0.55);
+  --gl-shadow: 0 28px 56px -32px rgba(26, 58, 92, 0.40), 0 2px 10px rgba(26, 58, 92, 0.08);
+  --gl-shadow-lift: 0 36px 70px -30px rgba(26, 58, 92, 0.48), 0 6px 18px rgba(26, 58, 92, 0.12);
+  --gl-key-top: 0.86;  --gl-key-bot: 0.52;
+  --gl-skirt: rgba(26, 58, 92, 0.26);
+  --gl-skirt-hi: rgba(255, 255, 255, 0.55);
+  --gl-key-shadow: rgba(26, 58, 92, 0.36);
+  --gl-ink: #0C0E14;
+  --gl-ink-soft: rgba(12, 14, 20, 0.72);
+  --gl-lit-ink: #06443C;
+  --gl-glow-a: rgba(78, 216, 194, 0.20);
+  --gl-glow-b: rgba(106, 170, 207, 0.26);
+  --gl-glow-c: rgba(255, 255, 255, 0.75);
+}
+
+/* the footer stays dark in both themes */
+.footer,
+html[data-theme="light"] .footer {
+  --gl-tint: 222, 238, 246;
+  --gl-top: 0.11;  --gl-bot: 0.035;
+  --gl-top-strong: 0.15;  --gl-bot-strong: 0.07;
+  --gl-edge: rgba(222, 238, 246, 0.12);
+  --gl-edge-hi: rgba(255, 255, 255, 0.34);
+  --gl-edge-side: rgba(255, 255, 255, 0.10);
+  --gl-edge-bot: rgba(255, 255, 255, 0.05);
+  --gl-sheen: rgba(255, 255, 255, 0.09);
+  --gl-shadow: 0 28px 56px -30px rgba(0, 6, 14, 0.9), 0 2px 10px rgba(0, 6, 14, 0.28);
+  --gl-key-top: 0.16;  --gl-key-bot: 0.06;
+  --gl-skirt: rgba(2, 8, 16, 0.72);
+  --gl-skirt-hi: rgba(255, 255, 255, 0.10);
+  --gl-key-shadow: rgba(0, 6, 14, 0.7);
+  --gl-ink: #F7F4EF;
+  --gl-ink-soft: rgba(247, 244, 239, 0.78);
+  --gl-lit-ink: #EAFBF7;
+  --gl-glow-a: rgba(78, 216, 194, 0.11);
+  --gl-glow-b: rgba(106, 170, 207, 0.14);
+  --gl-glow-c: rgba(26, 58, 92, 0.55);
+}
+
+/* ---------- canvas: soft colour for the glass to catch ---------- */
+.section--dark, .section--light, .section--sand {
+  background-image:
+    radial-gradient(52vmax 38vmax at 4% 0%, var(--gl-glow-a), transparent 62%),
+    radial-gradient(48vmax 36vmax at 100% 34%, var(--gl-glow-b), transparent 60%),
+    radial-gradient(44vmax 30vmax at 38% 112%, var(--gl-glow-c), transparent 64%);
+}
+.section--dark:nth-of-type(even), .section--light:nth-of-type(even), .section--sand:nth-of-type(even) {
+  background-image:
+    radial-gradient(52vmax 38vmax at 96% 0%, var(--gl-glow-a), transparent 62%),
+    radial-gradient(48vmax 36vmax at 0% 46%, var(--gl-glow-b), transparent 60%),
+    radial-gradient(44vmax 30vmax at 64% 112%, var(--gl-glow-c), transparent 64%);
+}
+
+/* ============================================================
+   PANELS
+   ============================================================ */
+.gl,
+.hero__intro-content, .hero__cap, .cp__stats,
+.pq__card, .proof__rating-card, .proof__review, .proof__modal-card,
+.ss__step, .ss__card, .faq__item,
+.pricing-card, .ai-ladder__card, .services-line, .support__card,
+.sv-card, .sv-note, .sv-cta__box,
+.ind-card, .ind-cta__box, .ind-pain__card, .ind-solution__card, .ind-stats__card,
+.origin__tile, .vcard, .contact__info-card,
+.activate__card, .trial-features__card,
+.blog-card, .ig-carousel__card, .blog-podcast__coming, .blog-cta, .related-posts__card,
+.grow__inputs, .grow__out, .cr__way,
+.footer__contact, .footer__badge,
+.hero__notif, .ss__notif, .ss__toast,
+.dzg__bubble, .dzc, .dzb__card {
+  background:
+    radial-gradient(120% 80% at 0% 0%, var(--gl-sheen), transparent 55%),
+    linear-gradient(150deg, rgba(var(--gl-tint), var(--gl-top)), rgba(var(--gl-tint), var(--gl-bot)) 72%) !important;
+  border: 1px solid var(--gl-edge) !important;
+  box-shadow:
+    inset 0 1px 0 var(--gl-edge-hi),
+    inset 1px 0 0 var(--gl-edge-side),
+    inset 0 -1px 0 var(--gl-edge-bot),
+    var(--gl-shadow) !important;
+}
+
+/* live blur only where there is something moving or pictured behind the panel */
+.gl,
+.hero__intro-content, .hero__cap, .cp__stats, .pq__card,
+.proof__modal-card, .hero__notif, .ss__notif, .ss__toast,
+.dzg__bubble, .dzc, .dzb__card, .sv-cta__box, .ind-cta__box, .blog-cta {
+  -webkit-backdrop-filter: blur(var(--gl-blur)) saturate(var(--gl-sat)) !important;
+  backdrop-filter: blur(var(--gl-blur)) saturate(var(--gl-sat)) !important;
+}
+
+/* text-heavy panels: a stronger fill so copy always clears contrast */
+.gl--strong,
+.pq__card, .proof__review, .proof__modal-card, .faq__item,
+.pricing-card, .ai-ladder__card, .support__card, .sv-card,
+.ind-card, .ind-pain__card, .ind-solution__card, .ind-stats__card,
+.origin__tile, .vcard, .contact__info-card, .activate__card, .trial-features__card,
+.blog-card, .ig-carousel__card, .related-posts__card,
+.grow__inputs, .grow__out, .cr__way, .hero__intro-content,
+.dzg__bubble, .dzc, .dzb__card, .hero__notif, .ss__notif, .ss__toast {
+  --gl-top: var(--gl-top-strong);
+  --gl-bot: var(--gl-bot-strong);
+}
+
+/* shape: one radius scale */
+.hero__intro-content, .pq__card, .sv-cta__box, .ind-cta__box, .blog-cta, .blog-podcast__coming, .dzb__card {
+  border-radius: var(--gl-r-hero) !important;
+}
+.proof__review, .ss__step, .ss__card, .faq__item, .pricing-card, .ai-ladder__card, .services-line,
+.support__card, .sv-card, .sv-note, .ind-card, .ind-pain__card, .ind-solution__card, .ind-stats__card,
+.origin__tile, .vcard, .contact__info-card, .activate__card, .trial-features__card, .blog-card,
+.ig-carousel__card, .related-posts__card, .grow__inputs, .grow__out, .cr__way, .proof__modal-card, .cp__stats {
+  border-radius: var(--gl-r-card) !important;
+}
+.hero__cap, .proof__rating-card, .footer__contact, .footer__badge, .hero__notif, .ss__notif, .dzc {
+  border-radius: var(--gl-r-tile) !important;
+}
+
+/* cards you can open lift a touch (transform and shadow only, never blur or size) */
+@media (hover: hover) {
+  .ind-card, .blog-card, .sv-card, .related-posts__card, .ig-carousel__card, .proof__review, .cr__way, .support__card {
+    transition: transform 0.28s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.28s ease;
+  }
+  .ind-card:hover, .blog-card:hover, .sv-card:hover, .related-posts__card:hover,
+  .ig-carousel__card:hover, .proof__review:hover, .cr__way:hover, .support__card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 var(--gl-edge-hi),
+      inset 1px 0 0 var(--gl-edge-side),
+      inset 0 -1px 0 var(--gl-edge-bot),
+      var(--gl-shadow-lift) !important;
+  }
+}
+
+/* the plan we point people to: lit from behind in mint, like a lit key */
+.pricing-card--pop {
+  border-color: rgba(var(--gl-lit), 0.55) !important;
+  box-shadow:
+    inset 0 1px 0 var(--gl-edge-hi),
+    inset 1px 0 0 var(--gl-edge-side),
+    inset 0 -40px 60px -40px rgba(var(--gl-lit), 0.22),
+    0 0 0 1px rgba(var(--gl-lit), 0.28),
+    0 30px 70px -30px rgba(var(--gl-lit), 0.42),
+    var(--gl-shadow) !important;
+}
+
+/* ---------- bars and pills that are not pressed ---------- */
+.trust__bar, .trust__pill, .trust__stat, .cp__hint, .cf__pill, .hero__stats-ticker,
+.hero__scroll-text, .hero__intro-scroll, .label, .faq__eyebrow, .sv-card__tag, .trial-badge,
+.pricing-card__badge, .footer__ai-bar {
+  background:
+    linear-gradient(150deg, rgba(var(--gl-tint), var(--gl-top)), rgba(var(--gl-tint), var(--gl-bot)) 80%) !important;
+  border: 1px solid var(--gl-edge) !important;
+  box-shadow: inset 0 1px 0 var(--gl-edge-hi), inset 0 -1px 0 var(--gl-edge-bot), 0 8px 20px -14px var(--gl-key-shadow) !important;
+}
+.trust__bar, .hero__stats-ticker, .hero__scroll-text, .hero__intro-scroll, .cf__pill, .cp__hint {
+  -webkit-backdrop-filter: blur(16px) saturate(var(--gl-sat)) !important;
+  backdrop-filter: blur(16px) saturate(var(--gl-sat)) !important;
+}
+.footer__ai-bar { border-left: 0 !important; border-right: 0 !important; border-bottom: 0 !important; box-shadow: none !important; background: none !important; }
+.pricing-card__badge--pop {
+  background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue)) !important;
+  border-color: transparent !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 8px 18px -8px rgba(var(--gl-lit), 0.7) !important;
+}
+
+/* ---------- the nav: one sheet of frosted glass once you scroll ---------- */
+.nav.nav--scrolled {
+  background: linear-gradient(180deg, rgba(var(--gl-tint), calc(var(--gl-top) + 0.02)), rgba(var(--gl-tint), calc(var(--gl-bot) + 0.03))) , rgba(9, 13, 20, 0.84) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(170%) !important;
+  backdrop-filter: blur(26px) saturate(170%) !important;
+  border-bottom: 1px solid var(--gl-edge) !important;
+  box-shadow: inset 0 -1px 0 var(--gl-edge-bot), 0 18px 40px -28px var(--gl-key-shadow) !important;
+}
+html[data-theme="light"] .nav.nav--scrolled {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(247, 244, 239, 0.62)) !important;
+}
+
+/* ============================================================
+   KEYS: anything you press
+   A frosted top on a skirt. Hover settles it a touch, a press sinks
+   it, and the chosen one stays down with the mint backlight on.
+   ============================================================ */
+.gl-key,
+.hz-chip, .pq__opt, .sv-jump__pill, .hero__platform-btn, .nav__login,
+.dzg__act, .cp__lg, .activate__toggle-btn,
+.btn--outline, .hero__sticky-btn--ghost, .pq__back, .footer__social-link {
+  background:
+    radial-gradient(120% 90% at 0% 0%, var(--gl-sheen), transparent 60%),
+    linear-gradient(160deg, rgba(var(--gl-tint), var(--gl-key-top)), rgba(var(--gl-tint), var(--gl-key-bot)) 78%) !important;
+  border: 1px solid var(--gl-edge) !important;
+  color: var(--gl-ink);
+  box-shadow:
+    inset 0 1px 0 var(--gl-edge-hi),
+    inset 0 -1px 0 var(--gl-skirt-hi),
+    0 3px 0 -0.5px var(--gl-skirt),
+    0 12px 18px -12px var(--gl-key-shadow) !important;
+  transform: translateY(0);
+  transition: transform 0.18s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.18s cubic-bezier(0.2, 0.75, 0.2, 1),
+    border-color 0.2s ease, color 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent;
+}
+.hz-chip, .pq__opt, .sv-jump__pill, .hero__platform-btn, .nav__login, .btn--outline, .hero__sticky-btn--ghost, .dzg__act {
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  backdrop-filter: blur(14px) saturate(150%) !important;
+}
+@media (hover: hover) {
+  .gl-key:hover,
+  .hz-chip:hover, .pq__opt:hover, .sv-jump__pill:hover, .hero__platform-btn:hover, .nav__login:hover,
+  .dzg__act:hover, .cp__lg:hover, .activate__toggle-btn:hover,
+  .btn--outline:hover, .hero__sticky-btn--ghost:hover, .pq__back:hover, .footer__social-link:hover {
+    transform: translateY(1px) !important;
+    border-color: rgba(var(--gl-lit), 0.5) !important;
+    box-shadow:
+      inset 0 1px 0 var(--gl-edge-hi),
+      inset 0 -1px 0 var(--gl-skirt-hi),
+      0 2px 0 -0.5px var(--gl-skirt),
+      0 10px 16px -12px var(--gl-key-shadow) !important;
+  }
+}
+.gl-key:active,
+.hz-chip:active, .pq__opt:active, .sv-jump__pill:active, .hero__platform-btn:active, .nav__login:active,
+.dzg__act:active, .cp__lg:active, .activate__toggle-btn:active,
+.btn--outline:active, .hero__sticky-btn--ghost:active, .pq__back:active, .footer__social-link:active {
+  transform: translateY(3px) !important;
+  box-shadow:
+    inset 0 1px 0 var(--gl-edge-bot),
+    inset 0 2px 6px rgba(0, 0, 0, 0.18),
+    0 0 0 0 var(--gl-skirt),
+    0 4px 8px -8px var(--gl-key-shadow) !important;
+}
+
+/* chosen: pressed in, backlight on */
+.gl-key.is-on,
+.hz-chip[aria-pressed="true"], .pq__opt[aria-pressed="true"], .hero__platform-btn--active,
+.cp__lg.is-locked, .activate__toggle-btn.is-active {
+  transform: translateY(2px) !important;
+  color: var(--gl-lit-ink) !important;
+  border-color: rgba(var(--gl-lit), 0.7) !important;
+  background:
+    radial-gradient(90% 70% at 50% 118%, rgba(var(--gl-lit), 0.55), transparent 72%),
+    linear-gradient(160deg, rgba(var(--gl-lit), 0.30), rgba(var(--gl-lit), 0.16)) !important;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.16),
+    inset 0 0 0 1px rgba(var(--gl-lit), 0.25),
+    0 1px 0 -0.5px var(--gl-skirt),
+    0 0 22px -2px rgba(var(--gl-lit), 0.5) !important;
+}
+.hz-chip[aria-pressed="true"] .hz-chip__icon, .pq__opt[aria-pressed="true"] .pq__opt-icon { color: currentColor !important; }
+
+/* ---------- the main button: a solid mint key ---------- */
+.btn { position: relative; }
+.btn--primary, .hero__sticky-btn:not(.hero__sticky-btn--ghost), .nav__cta, .dzg__act--primary, .pq__next {
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.62),
+    inset 0 -2px 0 rgba(6, 68, 60, 0.20),
+    0 4px 0 -0.5px #2A9C8C,
+    0 16px 26px -14px rgba(var(--gl-lit), 0.75) !important;
+  transform: translateY(0);
+  transition: transform 0.18s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.18s cubic-bezier(0.2, 0.75, 0.2, 1), filter 0.2s ease !important;
+}
+.dzg__act--primary {
+  background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue)) !important;
+  color: var(--deep-black) !important;
+}
+@media (hover: hover) {
+  .btn--primary:hover, .hero__sticky-btn:not(.hero__sticky-btn--ghost):hover, .nav__cta:hover, .dzg__act--primary:hover, .pq__next:not(:disabled):hover {
+    transform: translateY(1px) !important;
+    filter: brightness(1.05);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      inset 0 -2px 0 rgba(6, 68, 60, 0.20),
+      0 3px 0 -0.5px #2A9C8C,
+      0 18px 30px -14px rgba(var(--gl-lit), 0.9) !important;
+  }
+}
+.btn--primary:active, .hero__sticky-btn:not(.hero__sticky-btn--ghost):active, .nav__cta:active, .dzg__act--primary:active, .pq__next:not(:disabled):active {
+  transform: translateY(4px) !important;
+  box-shadow:
+    inset 0 2px 6px rgba(6, 68, 60, 0.35),
+    0 0 0 0 #2A9C8C,
+    0 6px 12px -10px rgba(var(--gl-lit), 0.7) !important;
+}
+.pq__next:disabled { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 -0.5px rgba(42, 156, 140, 0.5) !important; }
+
+/* keyboard focus: the same ring everywhere */
+.gl-key:focus-visible, .hz-chip:focus-visible, .pq__opt:focus-visible, .btn:focus-visible,
+.sv-jump__pill:focus-visible, .hero__platform-btn:focus-visible, .nav__login:focus-visible, .dzg__act:focus-visible {
+  outline: 2px solid var(--reef-aqua) !important;
+  outline-offset: 3px !important;
+}
+
+/* ---------- fallbacks ---------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero__intro-content, .pq__card, .dzg__bubble, .dzc, .dzb__card, .proof__modal-card, .nav.nav--scrolled {
+    --gl-top: 0.92; --gl-bot: 0.86;
+  }
+  :root .hero__intro-content, :root .dzg__bubble { --gl-tint: 18, 26, 38; }
+  html[data-theme="light"] .hero__intro-content, html[data-theme="light"] .dzg__bubble { --gl-tint: 255, 255, 255; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --gl-tint: 20, 28, 40; --gl-top: 0.94; --gl-bot: 0.9; --gl-top-strong: 0.96; --gl-bot-strong: 0.94; --gl-key-top: 0.96; --gl-key-bot: 0.92; }
+  html[data-theme="light"], .section--light, .section--sand, html[data-theme="light"] .section--dark {
+    --gl-tint: 255, 255, 255; --gl-top: 0.96; --gl-bot: 0.92; --gl-top-strong: 0.98; --gl-bot-strong: 0.96;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gl-key, .hz-chip, .pq__opt, .btn, .dzg__act, .sv-jump__pill, .hero__platform-btn, .nav__login,
+  .ind-card, .blog-card, .sv-card, .related-posts__card { transition: none !important; }
+}
+@media print {
+  .gl, .pricing-card, .faq__item, .sv-card, .ind-card, .blog-card {
+    background: #fff !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    border: 1px solid #d9d5cd !important;
+  }
+}

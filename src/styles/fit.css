@@ -1,0 +1,86 @@
+/* ============================================================
+   FIT: one sizing layer for every screen, 320 to 2560.
+   Loaded after glass.css. Fixes found by the width audit live here
+   so they are easy to find and easy to remove.
+   ============================================================ */
+
+/* ---------- big screens: grow the type and the column together ----------
+   Below 1680 nothing changes. Above it the whole page scales in steps,
+   so a 27 inch or ultra-wide monitor gets a full page, not a small
+   island in the middle. Everything sized in rem follows. */
+@media (min-width: 1680px) {
+  html { font-size: 106.25%; }
+  :root { --max-width: 1320px; --nav-height: 94px; }
+  body { font-size: 1.125rem; }
+}
+@media (min-width: 1920px) {
+  html { font-size: 112.5%; }
+  :root { --max-width: 1440px; --nav-height: 98px; }
+}
+@media (min-width: 2400px) {
+  html { font-size: 125%; }
+  :root { --max-width: 1640px; --nav-height: 108px; }
+}
+
+/* Blocks that carry their own pixel width grow by the same factor (--fit),
+   so line lengths and proportions stay exactly as designed. */
+:root { --fit: 1; }
+@media (min-width: 1680px) { :root { --fit: 1.0625; } }
+@media (min-width: 1920px) { :root { --fit: 1.125; } }
+@media (min-width: 2400px) { :root { --fit: 1.25; } }
+@media (min-width: 1680px) {
+  .cta__expand-text { max-width: calc(480px * var(--fit)) !important; }
+  .sv-cta__desc { max-width: calc(540px * var(--fit)) !important; }
+  .hero__subtitle, .ind-solution__sub { max-width: calc(560px * var(--fit)) !important; }
+  .support__header, .compare__header, .faq__header, .ind-cta__box, .trial-cta__content, .blog-cta__body { max-width: calc(600px * var(--fit)) !important; }
+  .pq__head, .usage-note, .activate__reassure { max-width: calc(640px * var(--fit)) !important; }
+  .cta__content, .pricing-cta__content { max-width: calc(650px * var(--fit)) !important; }
+  .cp__head, .sv-sec__head, .blog-post__body, .blog-post__footer, .related-posts { max-width: calc(680px * var(--fit)) !important; }
+  .pricing-hero__content, .faq__list, .ind-hero__content, .about-hero__content, .contact-hero__content, .trial-hero__content, .blog-hero__content { max-width: calc(700px * var(--fit)) !important; }
+  .ss__header, .sv-hero__content, .blog-post__header, .cr__head, .cr__fit { max-width: calc(720px * var(--fit)) !important; }
+  .pq__card, .faq__inner, .services-line { max-width: calc(760px * var(--fit)) !important; }
+  .cp__stage { max-width: calc(780px * var(--fit)) !important; }
+  .ind-stats__grid { max-width: calc(800px * var(--fit)) !important; }
+  .hero__intro-content, .proof__header { max-width: calc(820px * var(--fit)) !important; }
+  .cr__reqs, .cr__reqs-note { max-width: calc(860px * var(--fit)) !important; }
+  .sv-grid { max-width: calc(1000px * var(--fit)) !important; }
+  .cf, .ss__grid, .activate__grid { max-width: calc(1080px * var(--fit)) !important; }
+  .ai-ladder { max-width: calc(1100px * var(--fit)) !important; }
+  .trust { max-width: var(--max-width) !important; }
+  .nav__dropdown { width: calc(480px * var(--fit)) !important; }
+}
+
+/* ---------- small phones: nothing wider than the screen ---------- */
+@media (max-width: 900px) { .calc, .grow, .cr__ways { grid-template-columns: minmax(0, 1fr) !important; } }
+@media (max-width: 640px) { .cr__pillars, .cr__grid, .cr__terms { grid-template-columns: minmax(0, 1fr) !important; } }
+.grow > *, .calc > *, .grow__inputs > *, .calc__row, .calc__row-name { min-width: 0; }
+.grow__out { grid-template-columns: minmax(0, 1fr) !important; }
+.grow__chart { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+.grow__totals { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.grow__col, .grow__totals div { min-width: 0; }
+@media (max-width: 400px) {
+  .grow__chart { gap: 4px !important; }
+  .grow__col b, .grow__col.is-hero b { font-size: 0.62rem !important; letter-spacing: -0.02em; }
+  .grow__totals { gap: 8px !important; }
+  .grow__totals b { font-size: 1.15rem !important; }
+  .grow__totals div:first-child b { font-size: 1.35rem !important; }
+}
+
+@media (max-width: 480px) {
+  .mps__row { gap: 0.6rem; }
+  .mps__row-badge { white-space: normal !important; text-align: right; max-width: 62%; line-height: 1.35; border-radius: 12px !important; }
+  .calc__row { flex-wrap: wrap; gap: 0.5rem 0.75rem !important; }
+  .calc__row-ctrl { margin-left: auto; }
+}
+
+/* ---------- touch: every control at least 40px tall ---------- */
+@media (max-width: 768px), (pointer: coarse) {
+  .mps__tab, .nav__mobile-login, .cp__lg, .footer__ai-link, .calc__row-ctrl button, .grow__plans button {
+    min-height: 40px !important;
+  }
+  .footer__ai-link, .calc__row-ctrl button { min-width: 40px !important; }
+  .ss__cta-alt { display: inline-flex !important; align-items: center; min-height: 40px; }
+}
+
+/* ---------- type floors: nothing readable drops under 11px ---------- */
+.sv-card__tag, .cp__readout-sub, .ss__book-meta, .ss__connect-head { font-size: max(11px, 0.6875rem) !important; }

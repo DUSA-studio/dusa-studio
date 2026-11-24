@@ -910,18 +910,6 @@ main:focus { outline: none; }
   }
 }
 
-/* ── Chat widget: hold it back for the first 12s so it never covers
-   the hero CTAs on first load ── */
-chat-widget {
-  visibility: hidden;
-  opacity: 0;
-  animation: chat-widget-appear 0.5s ease 12s forwards;
-  /* The animation creates a stacking context, which dropped the widget
-     BEHIND page elements (pricing badges etc). Pin it above everything. */
-  position: relative;
-  z-index: 2147483000;
-}
-
 /* ─── Uniform hero clearance under the fixed nav ───────────────────────
    Every page's opening section must clear the 88px fixed nav by the same
    margin. Individual pages had drifted (some at 40px = clipped under the
@@ -941,12 +929,6 @@ chat-widget {
   }
 }
 
-@keyframes chat-widget-appear {
-  to {
-    visibility: visible;
-    opacity: 1;
-  }
-}
 
 /* ─── Card grids: a short last row centres instead of hugging the left ───
    Industry pages (108 files share these class names) list five or so

@@ -1,7 +1,7 @@
 ---
 /**
  * DusaGuide: the floating glass guide (DUSA's face for its AI).
- * It lives on the chat button, looks around, and when the visitor goes quiet it
+ * It lives in the bottom-right corner, looks around, and when the visitor goes quiet it
  * flies to the most useful thing in view, points at it and says one short,
  * industry-aware line. Click it and it asks what you want to fix, then shows
  * you where that lives on the platform. Behaviour: /js/guide.v2.js.
@@ -219,7 +219,7 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
 
   /* Left behind when the guide is hidden: a small glass lotus above the chat button */
   .dzg-launch {
-    position: fixed; right: 26px; bottom: 92px; z-index: 899; width: 44px; height: 44px; padding: 0;
+    position: fixed; right: 18px; bottom: 18px; z-index: 899; width: 48px; height: 48px; padding: 0;
     display: grid; place-items: center; cursor: pointer; border-radius: 50%;
     background: rgba(18, 26, 38, 0.7); border: 1px solid rgba(247, 244, 239, 0.16);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.14);
@@ -227,8 +227,10 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
   }
   html[data-theme="light"] .dzg-launch { background: rgba(255, 255, 255, 0.75); border-color: rgba(12, 14, 20, 0.1); }
 
+  @media (min-width: 760px) and (max-width: 1099px) { .dzg { width: 112px; height: 112px; } }
   @media (max-width: 759px) {
-    .dzg { width: 96px; height: 96px; }
+    .dzg { width: 76px; height: 76px; }
+    .dzg-launch { bottom: 86px; right: 12px; }
     .dzg__bubble { width: auto; }
   }
   @media (prefers-reduced-motion: reduce) {

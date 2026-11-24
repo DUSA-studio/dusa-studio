@@ -28,7 +28,7 @@
 
   function track(name, p) { try { if (window.dusaTrack) window.dusaTrack(name, p || {}); } catch (e) {} }
   function isMobile() { return window.innerWidth < 760; }
-  function size() { return isMobile() ? 96 : 150; }
+  function size() { var w = window.innerWidth; return w < 760 ? 76 : w < 1100 ? 112 : 150; }
   function ctxGet(k) {
     try { var c = window.dusaCtx && window.dusaCtx.get && window.dusaCtx.get(); if (c && c[k]) return c[k]; } catch (e) {}
     return '';
@@ -63,7 +63,20 @@
   function home() {
     var S = size(), r = launcherRect(), vw = window.innerWidth, vh = window.innerHeight;
     if (r) return { x: clamp(r.left + r.width / 2 - S / 2, 4, vw - S - 2), y: r.top - S * 0.95 + 6 };
-    return { x: vw - S - (isMobile() ? 2 : 4), y: vh - S - (isMobile() ? 150 : 84) };
+    /* on phones the guide sits in the gap the sticky bar leaves on the right, level with it */
+    if (!isMobile()) return { x: vw - S - 10, y: vh - S - 14 };
+    var x = vw - S - 2, y = vh - S - 8;
+    /* never sit on a button: if one is underneath and the guide is not talking, peek in from the edge */
+    if (bubble && bubble.hidden && document.elementsFromPoint) {
+      var under = document.elementsFromPoint(x + S * 0.28, y + S * 0.5);
+      for (var i = 0; i < under.length; i++) {
+        var e = under[i];
+        if (root.contains(e) || !e.closest) continue;
+        if (e.closest('#sticky-cta')) break;
+        if (e.closest('a.btn, button.btn, .hz-chip, .pq__opt, .pq__next, .pq__back, input, select, textarea, .mps__tab')) { x = vw - S * 0.52; break; }
+      }
+    }
+    return { x: x, y: y };
   }
 
   /* ---------- pose + movement ---------- */
@@ -202,6 +215,7 @@
     (o.links || []).forEach(function (a) { linksEl.appendChild(button(a, 'dzg__link')); });
     hideBtn.hidden = !o.menu;
     bubble.hidden = true; void bubble.offsetWidth; bubble.hidden = false;
+    if (state === 'home') { var h = home(); if (Math.abs(h.x - cur.x) > 1) place(h.x, h.y, reduce, 280); }   /* step fully in to talk */
     placeBubble();
     bot.setAttribute('aria-expanded', 'true');
     root.classList.add('is-active');
@@ -298,7 +312,7 @@
   function askOutcome(lead) {
     menuOpen = true;
     var q = industry() ? fill(C.askOutcomeBiz) : C.askOutcome;
-    say(lead ? lead + ' ' + q : q, { actions: outcomeActions(), grid: true, links: [A.plan, A.book, A.chat], menu: true, linger: 60000 });
+    say(lead ? lead + ' ' + q : q, { actions: outcomeActions(), grid: true, links: chatApi() ? [A.plan, A.book, A.chat] : [A.plan, A.book], menu: true, linger: 60000 });
   }
   function openMenu() {
     if (state !== 'home') { attach = null; unring(); }
@@ -371,7 +385,7 @@
   var raf = 0;
   function follow() {
     raf = 0;
-    if (state === 'home') { var h = home(); if (Math.abs(h.x - cur.x) > 1 || Math.abs(h.y - cur.y) > 1) place(h.x, h.y, true); placeBubble(); return; }
+    if (state === 'home') { var h = home(); if (Math.abs(h.y - cur.y) > 1) place(h.x, h.y, true); else if (Math.abs(h.x - cur.x) > 1) place(h.x, h.y, reduce, 280); placeBubble(); return; }
     if (state !== 'tip' || !attach) { placeBubble(); return; }
     var p = spot(attach.el, attach.side) || spot(attach.el);
     if (!p) { closeBubble(); goHome(); return; }

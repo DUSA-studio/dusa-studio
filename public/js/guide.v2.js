@@ -36,6 +36,13 @@
   function industry() { var v = ctxGet('industry'); if (v) return v; try { return localStorage.getItem('dz_industry') || ''; } catch (e) { return ''; } }
   function biz() { return C.biz[industry()] || C.biz['default']; }
   function fill(s) { return String(s || '').replace('{biz}', biz()); }
+  function pain() { return ctxGet('pain') || ''; }
+  /* a line for this visitor: their problem first, then their industry, then the general one */
+  function lineFor(id) { var by = (C.outcomeBy || {})[industry()] || {}; return by[id] || C.outcomeLines[id] || ''; }
+  function tipText(id) {
+    var T = (C.tipsBy || {})[id] || {}, p = pain(), ind = industry();
+    return fill((p && T['pain:' + p]) || (ind && T[ind]) || C.tips[id]);
+  }
   function markSeen(id) { seen[id] = 1; try { sessionStorage.setItem('dz_guide_seen', JSON.stringify(seen)); } catch (e) {} }
   function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
 
@@ -114,6 +121,8 @@
     setTimeout(function () {
       if (id !== flightId) return;
       root.classList.remove('is-flying');
+      root.classList.add('is-landing');
+      setTimeout(function () { root.classList.remove('is-landing'); }, 640);
       pose(endPose, endMirror);
       if (cb) cb();
     }, dur + 40);
@@ -265,10 +274,10 @@
   function showOutcome(id) {
     try { if (window.dusaCtx) window.dusaCtx.set('pain', id); } catch (e) {}
     track('guide_outcome', { outcome: id, industry: industry() });
-    var line = C.outcomeLines[id] || '';
+    var line = lineFor(id);
     var cp = document.getElementById('connected-platform');
     var wheel = cp && biggest('#connected-platform svg');
-    var follow = { actions: [A.plan, A.book], linger: 20000 };
+    var follow = { actions: [A.plan], links: [A.book], linger: 20000 };
     if (!wheel) {
       try { sessionStorage.setItem('dz_guide_go', id); } catch (e) {}
       closeBubble();
@@ -314,6 +323,28 @@
     var q = industry() ? fill(C.askOutcomeBiz) : C.askOutcome;
     say(lead ? lead + ' ' + q : q, { actions: outcomeActions(), grid: true, links: chatApi() ? [A.plan, A.book, A.chat] : [A.plan, A.book], menu: true, linger: 60000 });
   }
+  var BIZ = ['tradies', 'salons', 'clinics', 'hospitality', 'real-estate', 'fitness', 'other'];
+  function pastTop() {
+    var h = document.getElementById('hero-intro');
+    return h ? h.getBoundingClientRect().bottom < 60 : window.scrollY > 700;
+  }
+  function pickIndustry(id) {
+    track('guide_industry', { industry: id });
+    menuOpen = false;
+    try { localStorage.setItem('dz_industry', id); } catch (e) {}
+    var chip = document.querySelector('.hz-chip[data-industry="' + id + '"]');
+    if (chip) chip.click();                                   /* the hero personalises itself too */
+    else { try { window.dusaCtx.set('industry', id); } catch (e) {} }
+    setTimeout(function () { if (lastIndustry !== id) onIndustry(); }, 500);
+  }
+  function askBiz() {
+    markSeen('askbiz'); tipsShown++; lastTip = Date.now(); menuOpen = true;
+    pose('wave', false);
+    say(C.askBiz, { actions: BIZ.map(function (id) {
+      return { id: 'biz_' + id, label: (C.bizChips || {})[id] || id, icon: (C.bizIcons || {})[id] || ICON.arrow, run: function () { pickIndustry(id); } };
+    }), grid: true, linger: 30000 });
+    track('guide_tip', { tip: 'askbiz' });
+  }
   function openMenu() {
     if (state !== 'home') { attach = null; unring(); }
     pose('wave', false);
@@ -324,14 +355,14 @@
   /* ---------- tips it offers on its own when you go quiet ---------- */
   var TIPS = [
     { id: 'hero', sel: '#hero-intro', target: '.hz-picker__chips', anchor: '.hero__intro-content', when: function () { return !industry() && !!document.querySelector('.hz-picker'); }, text: function () { return C.intro; }, linger: 16000 },
-    { id: 'platform', sel: '#connected-platform', target: '#connected-platform svg', text: function () { return fill(C.tips.platform); } },
-    { id: 'funnel', sel: '#funnel', target: '[data-cost-film]', text: function () { return fill(C.tips.funnel); }, actions: ['plan'] },
-    { id: 'quiz', sel: '#find-your-plan', target: '#pq-card', text: function () { return fill(C.tips.quiz); } },
-    { id: 'proof', sel: '#proof', target: '.proof__grid', text: function () { return fill(C.tips.proof); } },
-    { id: 'steps', sel: '#how-it-works', target: '#how-it-works h2', text: function () { return fill(C.tips.steps); }, actions: ['book'] },
-    { id: 'pricing', sel: '.pricing-cards', target: '.pricing-cards', text: function () { return fill(C.tips.pricing); }, actions: ['plan', 'book'] },
-    { id: 'services', sel: '#setup', target: '#setup h2', text: function () { return fill(C.tips.services); }, actions: ['book'] },
-    { id: 'cta', sel: '.cta', target: '.cta__actions', text: function () { return fill(C.tips.cta); }, actions: ['book'] }
+    { id: 'platform', sel: '#connected-platform', target: '#connected-platform svg', text: function () { return tipText('platform'); }, actions: ['plan'] },
+    { id: 'funnel', sel: '#funnel', target: '[data-cost-film]', text: function () { return tipText('funnel'); }, actions: ['plan'] },
+    { id: 'quiz', sel: '#find-your-plan', target: '#pq-card', text: function () { return tipText('quiz'); } },
+    { id: 'proof', sel: '#proof', target: '.proof__grid', text: function () { return tipText('proof'); }, actions: ['book'] },
+    { id: 'steps', sel: '#how-it-works', target: '#how-it-works h2', text: function () { return tipText('steps'); }, actions: ['book'] },
+    { id: 'pricing', sel: '.pricing-cards', target: '.pricing-cards', text: function () { return tipText('pricing'); }, actions: ['plan'] },
+    { id: 'services', sel: '#setup', target: '#setup h2', text: function () { return tipText('services'); }, actions: ['book'] },
+    { id: 'cta', sel: '.cta', target: '.cta__actions', text: function () { return tipText('cta'); }, actions: ['book'] }
   ];
   function visibleShare(el) {
     var r = el.getBoundingClientRect(), vh = window.innerHeight;
@@ -465,6 +496,8 @@
       setTimeout(function () { if (state === 'home' && bubble.hidden) pose('look', false); }, 1700);
     }
     if (busy() || state !== 'home' || !bubble.hidden) return;
+    /* scrolled past the top without telling us what they do: ask, once, as soon as they pause */
+    if (!seen.askbiz && !industry() && C.askBiz && pastTop() && now - lastAct > 900 && now - lastTip > 3000) { askBiz(); return; }
     if (now - lastAct < (tipsShown === 0 ? FIRST_IDLE : IDLE) || now - lastTip < GAP) return;
     var t = pickTip();
     if (t) tip(t);

@@ -213,10 +213,8 @@ const jsonLd = JSON.stringify({
            Runs inline in <head>, before paint, so there is no flash — moving
            it any later reintroduces one. */
         var saved = localStorage.getItem('dusa-theme');
-        var wantsLight = saved === 'light' ||
-          (saved !== 'dark' &&
-           window.matchMedia &&
-           window.matchMedia('(prefers-color-scheme: light)').matches);
+        /* Light is the default (Nov 2026). Dark only when the visitor picks it with the toggle. */
+        var wantsLight = saved !== 'dark';
         var mc = document.querySelector('meta[name="theme-color"]');
         if (wantsLight) {
           document.documentElement.setAttribute('data-theme', 'light');

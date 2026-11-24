@@ -10,6 +10,7 @@
  * Art: Higgsfield renders (Apple-style glass, seven 3D poses) with the real
  * plain chest (the lotus badge is parked: versions with it are in media-src/guide/web-v3).
  */
+import { PERSONA_ICONS } from '../../config/industry-icons';
 interface Props { t?: Record<string, any>; lang?: string; }
 const { t = {}, lang = 'en' } = Astro.props;
 const g = t?.guide || null;
@@ -35,6 +36,48 @@ const copy = {
     reviews: 'After every job DUSA asks happy customers for a review and helps you reply to each one. That is Reputation.',
     admin: 'Quotes, invoices, follow-ups and reminders run on workflows you set up once. That is Automation doing the admin for you.',
   },
+  /* the same four problems, said the way each kind of business lives them */
+  outcomeBy: {
+    tradies: {
+      calls: 'On the tools when the phone rings? The caller gets a text back straight away, and on Growth the AI answers, takes the details and books the job. It lives here, under Conversations.',
+      noshows: 'Customers get a reminder before every job, so you are not driving out to an empty house. Bookings sit here in your calendar.',
+      reviews: 'When a job is done, DUSA texts the customer a review link while they are still happy. More Google reviews, more local jobs. That is Reputation.',
+      admin: 'Quotes followed up, invoices chased and reminders sent, without you on the phone at night. Set it up once and Automation runs it.',
+    },
+    salons: {
+      calls: "Mid-colour and can't pick up? The client gets a text back with your booking link, and on Growth the AI answers and books them in. It lives here, under Conversations.",
+      noshows: 'Every appointment gets a reminder and an easy way to reschedule instead of not turning up. Your book sits here, with payments alongside.',
+      reviews: 'After each visit DUSA asks the client for a review and helps you reply to every one. Fresh reviews are what fill the chairs. That is Reputation.',
+      admin: 'Rebooking nudges, birthday offers and follow-ups go out on their own. Set them up once and Automation keeps the chairs full.',
+    },
+    clinics: {
+      calls: 'Front desk flat out? The caller gets a text back straight away, and on Growth the AI answers, takes the details and books the appointment. It lives here, under Conversations.',
+      noshows: 'Patients get a reminder before every appointment and can confirm or reschedule from the message. Your calendar sits here, with intake forms sent ahead.',
+      reviews: 'After an appointment DUSA asks patients for a review and helps you reply with care. That is Reputation.',
+      admin: 'Intake forms, recalls and follow-ups run on workflows you set up once. That is Automation taking the load off the front desk.',
+    },
+    hospitality: {
+      calls: 'Busy service and the phone rings out? The caller gets a text back with a booking link, and on Growth the AI answers and takes the booking. It lives here, under Conversations.',
+      noshows: 'Every booking gets a reminder and a quick way to confirm, so tables are not held for people who are not coming. Bookings sit here in your calendar.',
+      reviews: 'After a visit DUSA asks guests for a review and helps you reply to every one, good or bad. That is Reputation.',
+      admin: 'Function enquiries, follow-ups and offers go out on their own. Set it up once and Automation runs it.',
+    },
+    'real-estate': {
+      calls: 'At an open home when a buyer calls? They get a text back straight away, and on Growth the AI answers, takes their details and books the inspection. It lives here, under Conversations.',
+      noshows: 'Inspections and appraisals get a reminder with a quick way to confirm or reschedule. Your calendar sits here.',
+      reviews: 'After settlement DUSA asks your vendors and buyers for a review and helps you reply. Reviews help win the next listing. That is Reputation.',
+      admin: 'New enquiries get followed up for weeks, not days, without you chasing. Set it up once and Automation keeps your contacts warm.',
+    },
+    fitness: {
+      calls: 'Coaching a class when someone calls about a trial? They get a text back straight away, and on Growth the AI answers and books the trial. It lives here, under Conversations.',
+      noshows: 'Trials and sessions get a reminder, and anyone who misses one gets a nudge to rebook. Your calendar sits here.',
+      reviews: 'DUSA asks happy members for a review at the right moment and helps you reply. That is Reputation.',
+      admin: 'Trial follow-ups, check-in nudges and win-back messages go out on their own. Set them up once and Automation runs it.',
+    },
+  },
+  askBiz: "Hold on, before you scroll on: what kind of work do you do? I'll show you the parts that matter for you.",
+  bizChips: { tradies: 'Trades', salons: 'Salon or beauty', clinics: 'Clinic', hospitality: 'Hospitality', 'real-estate': 'Real estate', fitness: 'Fitness', other: 'Something else' },
+  bizIcons: PERSONA_ICONS,
   aPlan: 'Find my plan',
   aBook: 'Book a call',
   aChat: 'Chat with us',
@@ -60,6 +103,29 @@ const copy = {
     pricing: 'The plans differ mostly by how much the AI does for you. Growth is where it starts answering your calls and chats.',
     services: 'Rather not do it yourself? These are the things our team can set up, run or build for your {biz}.',
   },
+  /* a tip changes with what the visitor told us: their problem first, then their industry */
+  tipsBy: {
+    platform: {
+      tradies: 'For a trade business, start with Conversations and Calendar: that is where a missed call turns into a booked job. Tap a slice to look inside.',
+      salons: 'For a salon, Calendar and Reputation do the heavy lifting: full chairs and fresh reviews. Tap a slice to look inside.',
+      clinics: 'For a clinic, Calendar and Automation matter most: reminders, intake forms and recalls. Tap a slice to look inside.',
+      hospitality: 'For a venue, Conversations and Reputation matter most: fast replies and answered reviews. Tap a slice to look inside.',
+      'real-estate': 'For an agency, Conversations and Automation matter most: every enquiry answered and every contact kept warm. Tap a slice to look inside.',
+      fitness: 'For a gym or studio, Automation and Conversations matter most: trial follow-ups and win-back messages. Tap a slice to look inside.',
+    },
+    pricing: {
+      'pain:calls': 'For missed calls, Growth is the one: the AI answers and books for you. Starter still texts every missed caller back.',
+      'pain:noshows': 'Good news for no-shows: reminders and rebooking are on every plan, Starter included.',
+      'pain:reviews': 'Review requests are on every plan. Growth adds AI that helps reply to each review.',
+      'pain:admin': 'Workflows are unlimited on every plan, so the admin runs itself from Starter up. Growth adds AI to handle the replies.',
+    },
+    cta: {
+      'pain:calls': 'Want missed calls sorted for your {biz}? Book a 30-minute call and we will set it up with you.',
+      'pain:noshows': 'Want no-shows sorted for your {biz}? Book a 30-minute call and we will set it up with you.',
+      'pain:reviews': 'Want more reviews for your {biz}? Book a 30-minute call and we will set it up with you.',
+      'pain:admin': 'Want the admin off your plate? Book a 30-minute call and we will set it up with you.',
+    },
+  },
   ...(g || {}),
 };
 const data = JSON.stringify({ book: BOOK_URL, copy });
@@ -84,14 +150,14 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
       <button type="button" class="dzg__x" id="dzg-x" aria-label={copy.close}>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
-      <p class="dzg__tag"><img src="/media/guide/glass-lotus-sm.webp" width="16" height="16" alt="" />{copy.ai}</p>
+      <p class="dzg__tag"><span class="dzg__mark" aria-hidden="true"></span>{copy.ai}</p>
       <p class="dzg__msg" id="dzg-msg" role="status" aria-live="polite"></p>
       <div class="dzg__actions" id="dzg-actions"></div>
       <div class="dzg__links" id="dzg-links"></div>
       <button type="button" class="dzg__hide" id="dzg-hide" hidden>{copy.hide}</button>
     </div>
     <button type="button" class="dzg-launch" id="dzg-launch" aria-label={copy.show} title={copy.show} hidden>
-      <img src="/media/guide/glass-lotus-sm.webp" width="30" height="30" alt="" />
+      <span class="dzg__mark dzg__mark--lg" aria-hidden="true"></span>
     </button>
     <script type="application/json" id="dz-guide-data" set:html={data}></script>
     <script is:inline src="/js/guide.v2.js" defer></script>
@@ -103,7 +169,7 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
     position: fixed; left: 0; top: 0; z-index: 900;
     width: 150px; height: 150px;
     transform: translate3d(var(--dzg-x, 110vw), var(--dzg-y, 60vh), 0);
-    transition: transform var(--dzg-dur, 900ms) cubic-bezier(0.3, 0.05, 0.2, 1), opacity 0.3s ease;
+    transition: transform var(--dzg-dur, 900ms) cubic-bezier(0.45, 0, 0.15, 1), opacity 0.3s ease;
     pointer-events: none;
     will-change: transform;
   }
@@ -121,14 +187,18 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
   .dzg.is-flying .dzg__float { animation: dzgArc var(--dzg-dur, 900ms) ease-in-out; }
   .dzg__pose {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
-    opacity: 0; transition: opacity 0.22s ease;
+    opacity: 0; transition: opacity 0.34s ease 0.1s;   /* the old pose lingers a beat, so there is no see-through dip */
     filter: drop-shadow(0 12px 18px rgba(8, 30, 44, 0.32));
     user-select: none; -webkit-user-drag: none;
   }
-  .dzg__pose.is-on { opacity: 1; }
+  .dzg__pose.is-on { opacity: 1; transition: opacity 0.3s ease; }
+  .dzg.is-landing .dzg__float { animation: dzgLand 0.62s cubic-bezier(0.3, 0.7, 0.3, 1); }
+  .dzg__mark { display: inline-block; flex: none; width: 14px; height: 14px; background: currentColor; -webkit-mask: url('/lotus.svg') center / contain no-repeat; mask: url('/lotus.svg') center / contain no-repeat; }
+  .dzg__mark--lg { width: 26px; height: 26px; }
   .dzg[data-mirror="true"] .dzg__pose, .dzg[data-mirror="true"] .dzg__tint { transform: scaleX(-1); }
   @keyframes dzgBob { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-8px) rotate(1.2deg); } }
-  @keyframes dzgArc { 0% { transform: translateY(0) scale(1); } 45% { transform: translateY(-26px) scale(1.06); } 100% { transform: translateY(0) scale(1); } }
+  @keyframes dzgArc { 0% { transform: translateY(0) scale(1) rotate(0deg); } 30% { transform: translateY(-18px) scale(1.04) rotate(-3deg); } 60% { transform: translateY(-24px) scale(1.05) rotate(2deg); } 100% { transform: translateY(0) scale(1) rotate(0deg); } }
+  @keyframes dzgLand { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(5px) scale(1.03, 0.97); } 70% { transform: translateY(-3px) scale(0.99, 1.01); } 100% { transform: translateY(0) scale(1); } }
 
   /* Resting, the guide is clear glass. When it is doing something (pointing,
      talking, hovered) it warms up in mint: a soft aura behind it and a mint

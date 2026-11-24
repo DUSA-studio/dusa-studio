@@ -69,7 +69,7 @@ const aiPrompt = encodeURIComponent(
       <div class="footer__brand">
         <div class="footer__brand-row">
           <a href="/" data-page="home" class="footer__logo">
-            <img class="footer__lotus" src="/media/guide/glass-lotus-sm.webp" width="34" height="34" alt="" loading="lazy" decoding="async" />
+            <span class="footer__lotus" aria-hidden="true"></span>
             <span class="footer__logo-text">
               <span class="footer__logo-shimmer">DUSA</span>
               <span class="footer__logo-dot" aria-hidden="true">.</span>
@@ -247,7 +247,13 @@ const aiPrompt = encodeURIComponent(
     margin-bottom: var(--space-sm);
   }
 
-  .footer__lotus { width: 34px; height: 34px; margin-right: 0.5rem; filter: drop-shadow(0 4px 10px rgba(78, 216, 194, 0.25)); }
+  .footer__lotus {
+    /* the real DUSA lotus, as drawn. Clear white, no tint. */
+    flex: none; width: 30px; height: 30px; margin-right: 0.5rem;
+    background: linear-gradient(160deg, #ffffff, rgba(247, 244, 239, 0.74));
+    -webkit-mask: url('/lotus.svg') center / contain no-repeat;
+    mask: url('/lotus.svg') center / contain no-repeat;
+  }
 
   .footer__logo-text {
     display: flex;

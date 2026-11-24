@@ -33,9 +33,12 @@
   --gl-lit: 78, 216, 194;               /* the mint backlight */
   --gl-lit-ink: #EAFBF7;
   /* canvas glows behind the glass */
-  --gl-glow-a: rgba(78, 216, 194, 0.11);
-  --gl-glow-b: rgba(106, 170, 207, 0.14);
-  --gl-glow-c: rgba(26, 58, 92, 0.55);
+  --gl-glow-a: rgba(106, 170, 207, 0.035);
+  --gl-glow-b: rgba(106, 170, 207, 0.05);
+  --gl-glow-c: rgba(26, 58, 92, 0.26);
+  --gl-flat: 0.045;
+  --gl-shadow-flat: none;
+  --gl-primary-skirt: #2A9C8C;
   /* shape */
   --gl-r-hero: clamp(22px, 2.4vw, 32px);
   --gl-r-card: clamp(18px, 1.8vw, 24px);
@@ -64,9 +67,12 @@ html[data-theme="light"] .section--dark {
   --gl-ink: #0C0E14;
   --gl-ink-soft: rgba(12, 14, 20, 0.72);
   --gl-lit-ink: #06443C;
-  --gl-glow-a: rgba(78, 216, 194, 0.20);
-  --gl-glow-b: rgba(106, 170, 207, 0.26);
-  --gl-glow-c: rgba(255, 255, 255, 0.75);
+  --gl-glow-a: rgba(106, 170, 207, 0.07);
+  --gl-glow-b: rgba(106, 170, 207, 0.10);
+  --gl-glow-c: rgba(255, 255, 255, 0.60);
+  --gl-flat: 0.78;
+  --gl-shadow-flat: 0 1px 2px rgba(26, 58, 92, 0.05), 0 12px 26px -20px rgba(26, 58, 92, 0.22);
+  --gl-primary-skirt: #3DB9A8;
 }
 
 /* the footer stays dark in both themes */
@@ -88,9 +94,12 @@ html[data-theme="light"] .footer {
   --gl-ink: #F7F4EF;
   --gl-ink-soft: rgba(247, 244, 239, 0.78);
   --gl-lit-ink: #EAFBF7;
-  --gl-glow-a: rgba(78, 216, 194, 0.11);
-  --gl-glow-b: rgba(106, 170, 207, 0.14);
-  --gl-glow-c: rgba(26, 58, 92, 0.55);
+  --gl-glow-a: rgba(106, 170, 207, 0.035);
+  --gl-glow-b: rgba(106, 170, 207, 0.05);
+  --gl-glow-c: rgba(26, 58, 92, 0.26);
+  --gl-flat: 0.045;
+  --gl-shadow-flat: none;
+  --gl-primary-skirt: #2A9C8C;
 }
 
 /* ---------- canvas: soft colour for the glass to catch ---------- */
@@ -133,6 +142,24 @@ html[data-theme="light"] .footer {
     inset 1px 0 0 var(--gl-edge-side),
     inset 0 -1px 0 var(--gl-edge-bot),
     var(--gl-shadow) !important;
+}
+
+/* ---------- QUIET: most cards are not glass ----------
+   Glass is kept for the things you act on or that float over the page:
+   the hero card, the quiz, pricing cards, pop-ups, the guide's bubble,
+   call-to-action boxes, the nav and every button. Everything else is a
+   plain card: flat fill, hairline edge, next to no shadow. */
+.proof__rating-card, .proof__review, .ss__step, .ss__card, .faq__item,
+.ai-ladder__card, .services-line, .support__card, .sv-card, .sv-note,
+.ind-card, .ind-pain__card, .ind-solution__card, .ind-stats__card,
+.origin__tile, .vcard, .contact__info-card, .activate__card, .trial-features__card,
+.blog-card, .ig-carousel__card, .blog-podcast__coming, .related-posts__card,
+.grow__inputs, .grow__out, .cr__way, .footer__contact, .footer__badge, .cp__stats, .hero__cap {
+  background: rgba(var(--gl-tint), var(--gl-flat)) !important;
+  border: 1px solid var(--gl-edge) !important;
+  box-shadow: var(--gl-shadow-flat) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
 /* live blur only where there is something moving or pictured behind the panel */
@@ -179,23 +206,16 @@ html[data-theme="light"] .footer {
   .ind-card:hover, .blog-card:hover, .sv-card:hover, .related-posts__card:hover,
   .ig-carousel__card:hover, .proof__review:hover, .cr__way:hover, .support__card:hover {
     transform: translateY(-3px);
-    box-shadow:
-      inset 0 1px 0 var(--gl-edge-hi),
-      inset 1px 0 0 var(--gl-edge-side),
-      inset 0 -1px 0 var(--gl-edge-bot),
-      var(--gl-shadow-lift) !important;
+    box-shadow: 0 18px 34px -22px var(--gl-key-shadow) !important;
   }
 }
 
 /* the plan we point people to: lit from behind in mint, like a lit key */
 .pricing-card--pop {
-  border-color: rgba(var(--gl-lit), 0.55) !important;
+  border-color: rgba(var(--gl-lit), 0.6) !important;
   box-shadow:
     inset 0 1px 0 var(--gl-edge-hi),
-    inset 1px 0 0 var(--gl-edge-side),
-    inset 0 -40px 60px -40px rgba(var(--gl-lit), 0.22),
-    0 0 0 1px rgba(var(--gl-lit), 0.28),
-    0 30px 70px -30px rgba(var(--gl-lit), 0.42),
+    0 0 0 1px rgba(var(--gl-lit), 0.22),
     var(--gl-shadow) !important;
 }
 
@@ -203,10 +223,9 @@ html[data-theme="light"] .footer {
 .trust__bar, .trust__pill, .trust__stat, .cp__hint, .cf__pill, .hero__stats-ticker,
 .hero__scroll-text, .hero__intro-scroll, .label, .faq__eyebrow, .sv-card__tag, .trial-badge,
 .pricing-card__badge, .footer__ai-bar {
-  background:
-    linear-gradient(150deg, rgba(var(--gl-tint), var(--gl-top)), rgba(var(--gl-tint), var(--gl-bot)) 80%) !important;
+  background: rgba(var(--gl-tint), var(--gl-flat)) !important;
   border: 1px solid var(--gl-edge) !important;
-  box-shadow: inset 0 1px 0 var(--gl-edge-hi), inset 0 -1px 0 var(--gl-edge-bot), 0 8px 20px -14px var(--gl-key-shadow) !important;
+  box-shadow: none !important;
 }
 .trust__bar, .hero__stats-ticker, .hero__scroll-text, .hero__intro-scroll, .cf__pill, .cp__hint {
   -webkit-backdrop-filter: blur(16px) saturate(var(--gl-sat)) !important;
@@ -216,7 +235,7 @@ html[data-theme="light"] .footer {
 .pricing-card__badge--pop {
   background: linear-gradient(135deg, var(--reef-aqua), var(--mist-blue)) !important;
   border-color: transparent !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 8px 18px -8px rgba(var(--gl-lit), 0.7) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
 }
 
 /* ---------- the nav: one sheet of frosted glass once you scroll ---------- */
@@ -293,13 +312,13 @@ html[data-theme="light"] .nav.nav--scrolled {
   color: var(--gl-lit-ink) !important;
   border-color: rgba(var(--gl-lit), 0.7) !important;
   background:
-    radial-gradient(90% 70% at 50% 118%, rgba(var(--gl-lit), 0.55), transparent 72%),
+    radial-gradient(90% 70% at 50% 118%, rgba(var(--gl-lit), 0.28), transparent 72%),
     linear-gradient(160deg, rgba(var(--gl-lit), 0.30), rgba(var(--gl-lit), 0.16)) !important;
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.16),
     inset 0 0 0 1px rgba(var(--gl-lit), 0.25),
     0 1px 0 -0.5px var(--gl-skirt),
-    0 0 22px -2px rgba(var(--gl-lit), 0.5) !important;
+    0 0 14px -4px rgba(var(--gl-lit), 0.22) !important;
 }
 .hz-chip[aria-pressed="true"] .hz-chip__icon, .pq__opt[aria-pressed="true"] .pq__opt-icon { color: currentColor !important; }
 
@@ -310,8 +329,8 @@ html[data-theme="light"] .nav.nav--scrolled {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.62),
     inset 0 -2px 0 rgba(6, 68, 60, 0.20),
-    0 4px 0 -0.5px #2A9C8C,
-    0 16px 26px -14px rgba(var(--gl-lit), 0.75) !important;
+    0 4px 0 -0.5px var(--gl-primary-skirt),
+    0 14px 22px -16px rgba(var(--gl-lit), 0.38) !important;
   transform: translateY(0);
   transition: transform 0.18s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.18s cubic-bezier(0.2, 0.75, 0.2, 1), filter 0.2s ease !important;
 }
@@ -326,15 +345,15 @@ html[data-theme="light"] .nav.nav--scrolled {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.7),
       inset 0 -2px 0 rgba(6, 68, 60, 0.20),
-      0 3px 0 -0.5px #2A9C8C,
-      0 18px 30px -14px rgba(var(--gl-lit), 0.9) !important;
+      0 3px 0 -0.5px var(--gl-primary-skirt),
+      0 14px 24px -16px rgba(var(--gl-lit), 0.5) !important;
   }
 }
 .btn--primary:active, .hero__sticky-btn:not(.hero__sticky-btn--ghost):active, .nav__cta:active, .dzg__act--primary:active, .pq__next:not(:disabled):active {
   transform: translateY(4px) !important;
   box-shadow:
     inset 0 2px 6px rgba(6, 68, 60, 0.35),
-    0 0 0 0 #2A9C8C,
+    0 0 0 0 var(--gl-primary-skirt),
     0 6px 12px -10px rgba(var(--gl-lit), 0.7) !important;
 }
 .pq__next:disabled { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 -0.5px rgba(42, 156, 140, 0.5) !important; }

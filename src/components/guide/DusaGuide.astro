@@ -98,7 +98,7 @@ const copy = {
     funnel: 'Most owners pay for around eight tools that never talk to each other. Watch what one platform changes.',
     quiz: 'Not sure which plan fits? Five quick questions and I will match one to your {biz}.',
     proof: 'These are real reviews of HighLevel, the platform DUSA is built on. Tap any one to read the original.',
-    steps: 'Getting started is three steps, and we set it up with you on a 30-minute call.',
+    steps: 'It starts with key 1: a 30-minute call, and we set it up with you.',
     cta: 'Want to see it running for your {biz}? Book a 30-minute call and we will walk you through it.',
     pricing: 'The plans differ mostly by how much the AI does for you. Growth is where it starts answering your calls and chats.',
     services: 'Rather not do it yourself? These are the things our team can set up, run or build for your {biz}.',
@@ -155,6 +155,11 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
       <div class="dzg__actions" id="dzg-actions"></div>
       <div class="dzg__links" id="dzg-links"></div>
       <button type="button" class="dzg__hide" id="dzg-hide" hidden>{copy.hide}</button>
+    </div>
+    <div class="dzs" id="dzg-spark" aria-hidden="true" hidden>
+      <span class="dzs__p dzs__p--3"><span><i></i></span></span>
+      <span class="dzs__p dzs__p--2"><span><i></i></span></span>
+      <span class="dzs__p dzs__p--1"><span><i></i></span></span>
     </div>
     <button type="button" class="dzg-launch" id="dzg-launch" aria-label={copy.show} title={copy.show} hidden>
       <span class="dzg__mark dzg__mark--lg" aria-hidden="true"></span>
@@ -221,6 +226,48 @@ const POSES = ['look', 'fly', 'point', 'down', 'up', 'wave'];
   .dzg__bot:hover .dzg__aura, .dzg__bot:focus-visible .dzg__aura { opacity: 0.6; transform: scale(0.95); }
   .dzg__bot:hover .dzg__tint { opacity: 0.18; }
   @keyframes dzgAura { 0%, 100% { opacity: 0.72; } 50% { opacity: 1; } }
+
+  /* The beacon: a small light the guide sends to the thing worth looking at.
+     X and Y ease differently, so it travels on an arc; two fainter copies lag
+     behind it as a tail. Landed, it rings like a ripple where the mouse should go. */
+  .dzs { position: fixed; left: 0; top: 0; z-index: 902; width: 0; height: 0; pointer-events: none; }
+  .dzs[hidden] { display: none !important; }
+  .dzs__p, .dzs__p > span { position: absolute; left: 0; top: 0; display: block; will-change: transform; }
+  .dzs__p { transform: translate3d(var(--dzs-x, 0px), 0, 0); transition: transform var(--dzs-dur, 900ms) cubic-bezier(0.5, 0, 0.2, 1); }
+  .dzs__p > span { transform: translate3d(0, var(--dzs-y, 0px), 0); transition: transform var(--dzs-dur, 900ms) cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .dzs__p--2, .dzs__p--2 > span { transition-delay: 70ms; }
+  .dzs__p--3, .dzs__p--3 > span { transition-delay: 140ms; }
+  .dzs.is-instant .dzs__p, .dzs.is-instant .dzs__p > span { transition: none; }
+  .dzs i {
+    position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 50%;
+    background: radial-gradient(circle, #fff 0 38%, rgba(255, 255, 255, 0.75) 58%, rgba(255, 255, 255, 0) 74%);
+    box-shadow: 0 0 12px 3px rgba(255, 255, 255, 0.95), 0 0 30px 10px rgba(143, 200, 232, 0.6), 0 0 54px 18px rgba(78, 216, 194, 0.28);
+    animation: dzsTwinkle 1.5s ease-in-out infinite;
+  }
+  .dzs__p--1 i::before, .dzs__p--1 i::after {
+    content: ''; position: absolute; left: 50%; top: 50%; width: 30px; height: 2px; margin: -1px 0 0 -15px; border-radius: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff 50%, rgba(255, 255, 255, 0));
+  }
+  .dzs__p--1 i::after { transform: rotate(90deg); }
+  .dzs__p--2 i { transform: scale(0.6); opacity: 0.55; animation: none; }
+  .dzs__p--3 i { transform: scale(0.36); opacity: 0.32; animation: none; }
+  .dzs.is-landed .dzs__p--2 i, .dzs.is-landed .dzs__p--3 i { opacity: 0; transition: opacity 0.3s ease; }
+  .dzs.is-landed .dzs__p--1 > span::before, .dzs.is-landed .dzs__p--1 > span::after {
+    content: ''; position: absolute; left: -26px; top: -26px; width: 52px; height: 52px; border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.95); box-shadow: 0 0 14px rgba(143, 200, 232, 0.7);
+    animation: dzsPing 1.7s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+  }
+  .dzs.is-landed .dzs__p--1 > span::after { animation-delay: 0.55s; }
+  @keyframes dzsTwinkle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); } }
+  @keyframes dzsPing { 0% { transform: scale(0.35); opacity: 1; } 100% { transform: scale(1.9); opacity: 0; } }
+  /* on a light page a white light needs an edge to be seen */
+  html[data-theme="light"] .dzs i {
+    box-shadow: 0 0 0 1.5px rgba(26, 58, 92, 0.30), 0 0 12px 3px rgba(255, 255, 255, 0.95), 0 0 26px 9px rgba(106, 170, 207, 0.85), 0 0 50px 18px rgba(78, 216, 194, 0.4);
+  }
+  html[data-theme="light"] .dzs.is-landed .dzs__p--1 > span::before, html[data-theme="light"] .dzs.is-landed .dzs__p--1 > span::after {
+    border-color: rgba(26, 58, 92, 0.42); border-width: 1.5px; box-shadow: 0 0 14px rgba(106, 170, 207, 0.8);
+  }
+  @media (prefers-reduced-motion: reduce) { .dzs i, .dzs span::before, .dzs span::after { animation: none !important; } }
 
   /* Speech bubble: bold glass card, placed by the script */
   .dzg__bubble {

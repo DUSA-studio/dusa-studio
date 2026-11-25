@@ -128,6 +128,52 @@
     }, dur + 40);
   }
   function unring() { if (ringEl) { ringEl.classList.remove('dzg-target'); ringEl = null; } }
+
+  /* ---------- the beacon ----------
+     A small light the guide sends out from its hand. It arcs across to the thing
+     worth looking at, lands on it and pulses there, like showing where to put
+     the mouse. The guide stays on its dock and points. */
+  var spark = document.getElementById('dzg-spark'), sparkOn = null, sparkId = 0, bubbleY = 0, autoBubble = false;
+  function sparkPoint(el) {
+    if (!el) return null;
+    var r = el.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight;
+    if (r.width === 0 || r.bottom < 96 || r.top > vh - 60) return null;
+    var top = Math.max(r.top, 96), bot = Math.min(r.bottom, vh - 40);
+    /* small things (a button, a key): rest on the lower-right corner, the way a cursor would, so the label stays readable */
+    if (r.width < 200 && r.height < 120) return { x: clamp(r.right - Math.min(r.width * 0.16, 16), 24, vw - 24), y: clamp(r.bottom - Math.min(r.height * 0.16, 14), 96, vh - 24) };
+    return { x: clamp(r.left + r.width / 2, 24, vw - 24), y: clamp(top + Math.min((bot - top) / 2, 150), 96, vh - 40) };
+  }
+  function sparkFrom() { var S = size(); return { x: cur.x + S * 0.34, y: cur.y + S * 0.5 }; }
+  function sparkPlace(x, y, instant, dur) {
+    if (instant) spark.classList.add('is-instant');
+    if (dur) spark.style.setProperty('--dzs-dur', dur + 'ms');
+    spark.style.setProperty('--dzs-x', Math.round(x) + 'px');
+    spark.style.setProperty('--dzs-y', Math.round(y) + 'px');
+    if (instant) { void spark.offsetWidth; spark.classList.remove('is-instant'); }
+  }
+  function sparkSend(el, cb) {
+    var p = spark && sparkPoint(el);
+    if (!p) { if (cb) cb(false); return; }
+    var f = sparkFrom(), id = ++sparkId;
+    spark.hidden = false; spark.classList.remove('is-landed');
+    sparkPlace(f.x, f.y, true);
+    var d = Math.sqrt((p.x - f.x) * (p.x - f.x) + (p.y - f.y) * (p.y - f.y));
+    var dur = reduce ? 0 : clamp(Math.round(520 + d * 0.9), 750, 1700);
+    sparkOn = { el: el };
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      if (id !== sparkId) return;
+      var q = sparkPoint(el) || p;
+      sparkPlace(q.x, q.y, reduce, dur);
+    }); });
+    setTimeout(function () { if (id !== sparkId) return; spark.classList.add('is-landed'); if (cb) cb(true); }, dur + 60);
+  }
+  function sparkHome() {
+    if (!spark || spark.hidden) { sparkOn = null; return; }
+    var id = ++sparkId, f = sparkFrom();
+    sparkOn = null; spark.classList.remove('is-landed');
+    sparkPlace(f.x, f.y, reduce, 480);
+    setTimeout(function () { if (id === sparkId) spark.hidden = true; }, 520);
+  }
   function goHome(instant) {
     attach = null; unring(); state = instant ? 'home' : 'flying';
     var h = home();
@@ -224,6 +270,7 @@
     (o.links || []).forEach(function (a) { linksEl.appendChild(button(a, 'dzg__link')); });
     hideBtn.hidden = !o.menu;
     bubble.hidden = true; void bubble.offsetWidth; bubble.hidden = false;
+    bubbleY = window.pageYOffset; autoBubble = !!o.auto;
     if (state === 'home') { var h = home(); if (Math.abs(h.x - cur.x) > 1) place(h.x, h.y, reduce, 280); }   /* step fully in to talk */
     placeBubble();
     bot.setAttribute('aria-expanded', 'true');
@@ -231,8 +278,9 @@
     lingerUntil = Date.now() + (o.linger || LINGER);
   }
   function closeBubble() {
-    bubble.hidden = true; menuOpen = false; bot.setAttribute('aria-expanded', 'false');
+    bubble.hidden = true; menuOpen = false; autoBubble = false; bot.setAttribute('aria-expanded', 'false');
     root.classList.remove('is-active');
+    sparkHome();
   }
   function dismiss() { closeBubble(); if (state !== 'home') goHome(); else pose('look', false); }
 
@@ -268,6 +316,21 @@
     };
     if (p) { attach = { el: el, side: p.side }; flyTo(p.x, p.y, p.pose, p.mirror, speak); }
     else { attach = null; var h = home(); flyTo(h.x, h.y, 'look', false, speak); }
+  }
+
+  /* An unprompted tip: the guide stays put, points, and sends the beacon to the thing. */
+  function beam(el, ring, text, o) {
+    closeBubble(); unring();
+    o = o || {}; o.auto = true;
+    lastTip = Date.now();
+    var p = sparkPoint(el);
+    pose('point', !!(p && p.x > cur.x + size() / 2));
+    say(text, o);
+    sparkSend(el, function (ok) {
+      if (!ok || !ring) return;
+      ringEl = ring; ring.classList.add('dzg-target');
+      setTimeout(function () { if (ringEl === ring) unring(); }, 5200);
+    });
   }
 
   var WHEEL = { calls: 2, noshows: 1, reviews: 5, admin: 4 };   /* outcome -> wheel domain */
@@ -342,7 +405,7 @@
     pose('wave', false);
     say(C.askBiz, { actions: BIZ.map(function (id) {
       return { id: 'biz_' + id, label: (C.bizChips || {})[id] || id, icon: (C.bizIcons || {})[id] || ICON.arrow, run: function () { pickIndustry(id); } };
-    }), grid: true, linger: 30000 });
+    }), grid: true, linger: 16000, auto: true });
     track('guide_tip', { tip: 'askbiz' });
   }
   function openMenu() {
@@ -359,7 +422,7 @@
     { id: 'funnel', sel: '#funnel', target: '[data-cost-film]', text: function () { return tipText('funnel'); }, actions: ['plan'] },
     { id: 'quiz', sel: '#find-your-plan', target: '#pq-card', text: function () { return tipText('quiz'); } },
     { id: 'proof', sel: '#proof', target: '.proof__grid', text: function () { return tipText('proof'); }, actions: ['book'] },
-    { id: 'steps', sel: '#how-it-works', target: '#how-it-works h2', text: function () { return tipText('steps'); }, actions: ['book'] },
+    { id: 'steps', sel: '#how-it-works', target: '#how-it-works .ss__key--lit', text: function () { return tipText('steps'); }, actions: ['book'] },
     { id: 'pricing', sel: '.pricing-cards', target: '.pricing-cards', text: function () { return tipText('pricing'); }, actions: ['plan'] },
     { id: 'services', sel: '#setup', target: '#setup h2', text: function () { return tipText('services'); }, actions: ['book'] },
     { id: 'cta', sel: '.cta', target: '.cta__actions', text: function () { return tipText('cta'); }, actions: ['book'] }
@@ -385,7 +448,8 @@
     markSeen(t.id); tipsShown++;
     var ring = biggest(t.target) || document.querySelector(t.sel);
     var el = (!isMobile() && t.anchor && document.querySelector(t.anchor)) || ring;
-    present(el, ring, t.text(), { actions: (t.actions || []).map(function (k) { return A[k]; }), linger: t.linger });
+    var opts = { actions: (t.actions || []).map(function (k) { return A[k]; }), linger: t.linger };
+    if (spark && sparkPoint(ring || el)) beam(ring || el, ring, t.text(), opts); else present(el, ring, t.text(), opts);
     track('guide_tip', { tip: t.id, industry: industry() });
   }
 
@@ -416,7 +480,14 @@
   var raf = 0;
   function follow() {
     raf = 0;
-    if (state === 'home') { var h = home(); if (Math.abs(h.y - cur.y) > 1) place(h.x, h.y, true); else if (Math.abs(h.x - cur.x) > 1) place(h.x, h.y, reduce, 280); placeBubble(); return; }
+    if (state === 'home') {
+      var h = home(); if (Math.abs(h.y - cur.y) > 1) place(h.x, h.y, true); else if (Math.abs(h.x - cur.x) > 1) place(h.x, h.y, reduce, 280);
+      if (sparkOn && spark.classList.contains('is-landed')) {
+        var sp = sparkPoint(sparkOn.el);
+        if (sp) sparkPlace(sp.x, sp.y, true); else { closeBubble(); pose('look', false); return; }
+      } else if (!bubble.hidden && autoBubble && !hoverBubble && Math.abs(window.pageYOffset - bubbleY) > 320) { closeBubble(); pose('look', false); return; }
+      placeBubble(); return;
+    }
     if (state !== 'tip' || !attach) { placeBubble(); return; }
     var p = spot(attach.el, attach.side) || spot(attach.el);
     if (!p) { closeBubble(); goHome(); return; }
